@@ -3,5 +3,6 @@
 var $plugins =
 [
 {"name":"Hai_TestHooks","status":true,"description":"テスト用の窓口。URL に ?hai_test があるときだけ window.__game を公開する。","parameters":{}},
-{"name":"Hai_SymbolEnemy","status":true,"description":"シンボル敵：マップ上を動く敵。色で強さが分かり、近づくと弱く追い、接触で戦闘。","parameters":{"chaseRange":"4","chaseSpeed":"3","fleeFrames":"180","greenColor":"48,224,64,144","yellowColor":"255,208,0,144","redColor":"255,32,32,176"}}
+{"name":"Hai_SymbolEnemy","status":true,"description":"シンボル敵：マップ上を動く敵。色で強さが分かり、近づくと弱く追い、接触で戦闘。","parameters":{"chaseRange":"4","chaseSpeed":"3","fleeFrames":"180","greenColor":"48,224,64,144","yellowColor":"255,208,0,144","redColor":"255,32,32,176"}},
+{"name":"Hai_Battle","status":true,"description":"戦闘の戦術性：SP（TP の読み替え）、ボスからの逃走、敵の狙いの癖、おまかせ、属性の色。","parameters":{"maxSp":"50","chargeByDamage":"false","chargeByAction":"false","bossEscape":"true","autoCommand":"おまかせ","autoHelp":"おまかせ中　決定／キャンセルで止める","elementColors":"2:#ff5a3c,3:#7fdcff,4:#ffe23c,8:#ffffff,9:#c07cff"}}
 ];
