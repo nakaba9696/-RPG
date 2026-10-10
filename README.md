@@ -21,7 +21,6 @@
 ## 開発
 
 ```bash
-npm ci --ignore-scripts
-node tests/run.mjs
+npm ci --ignore-scripts --prefix tests && node tests/run.mjs
 ```
 レーン・ID の帯・約束は [docs/ROADMAP.md](docs/ROADMAP.md)、データの形は [docs/mz-data.md](docs/mz-data.md)、決まりは [CLAUDE.md](CLAUDE.md)。
