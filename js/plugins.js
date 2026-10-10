@@ -3,5 +3,6 @@
 var $plugins =
 [
 {"name":"Hai_TestHooks","status":true,"description":"テスト用の窓口。URL に ?hai_test があるときだけ window.__game を公開する。","parameters":{}},
-{"name":"Hai_SymbolEnemy","status":true,"description":"シンボル敵：マップ上を動く敵。色で強さが分かり、近づくと弱く追い、接触で戦闘。","parameters":{"chaseRange":"4","chaseSpeed":"3","fleeFrames":"180","greenColor":"48,224,64,144","yellowColor":"255,208,0,144","redColor":"255,32,32,176"}}
+{"name":"Hai_SymbolEnemy","status":true,"description":"シンボル敵：マップ上を動く敵。色で強さが分かり、近づくと弱く追い、接触で戦闘。","parameters":{"chaseRange":"4","chaseSpeed":"3","fleeFrames":"180","greenColor":"48,224,64,144","yellowColor":"255,208,0,144","redColor":"255,32,32,176"}},
+{"name":"Hai_HiddenPassage","status":true,"description":"隠し通路（見えない通路・隠し扉・片側扉・隠し階段）をリージョンで表す。","parameters":{"openDoorTile":"183","stairsTile":"26","doorMessage":"隠し扉を見つけた！","stairsMessage":"隠し階段を見つけた！","flash":"true"}}
 ];
