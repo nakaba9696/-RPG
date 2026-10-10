@@ -3,5 +3,6 @@
 var $plugins =
 [
 {"name":"Hai_TestHooks","status":true,"description":"テスト用の窓口。URL に ?hai_test があるときだけ window.__game を公開する。","parameters":{}},
-{"name":"Hai_SymbolEnemy","status":true,"description":"シンボル敵：マップ上を動く敵。色で強さが分かり、近づくと弱く追い、接触で戦闘。","parameters":{"chaseRange":"4","chaseSpeed":"3","fleeFrames":"180","greenColor":"48,224,64,144","yellowColor":"255,208,0,144","redColor":"255,32,32,176"}}
+{"name":"Hai_SymbolEnemy","status":true,"description":"シンボル敵：マップ上を動く敵。色で強さが分かり、近づくと弱く追い、接触で戦闘。","parameters":{"chaseRange":"4","chaseSpeed":"3","fleeFrames":"180","greenColor":"48,224,64,144","yellowColor":"255,208,0,144","redColor":"255,32,32,176"}},
+{"name":"Hai_MapTone","status":true,"description":"マップごとの色調・遠景・暗がりを、マップのメモ欄で指定する。","parameters":{"darkOpacity":"230","darkSoftness":"45"}}
 ];
