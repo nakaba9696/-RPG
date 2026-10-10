@@ -175,6 +175,7 @@ await runTest(async () => {
     check((await drop()) === null && (await markers()).length === 0, "取り戻したのに残っている");
     await game.frames(5);
     check((await markerSprites()).length === 0, "印の絵が消えていない");
+    await game.waitFor(() => SceneManager._scene._messageWindow.pause); // 文章が出きるまで
     await game.shot("recovered");
     await closeMessage();
 
