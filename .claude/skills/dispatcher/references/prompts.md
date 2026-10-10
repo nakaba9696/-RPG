@@ -25,7 +25,8 @@
 **決まり**（CLAUDE.md も必ず読むこと）
 - PR を出す前に CLAUDE.md の検証をすべて通す（`node tests/run.mjs` を通す）。
 - `docs/ROADMAP.md` のチェックは編集しない。測った数字は PR の説明に書く。
-- `changelog.d/<added|changed|fixed|removed|internal>/<名前>.md` にメモを置く（CI・ツールは internal）。
+- `changelog.d/<added|changed|fixed|removed|internal>/<名前>.md` にメモを置く（CI・ツールは internal）。（`changelog.d/` の無いゲームでは省く）
+- MZ のゲームでは、PR の説明に「エディタでの確認（持ち主の PC 側）」の章を付け、エディタで見てほしい所（マップ ID と座標、データベースの ID）を書く。
 - 共有ファイル（<このゲームの共有ファイル>）は追記だけにする。
 - `.github/workflows/` は CI の issue でなければ触らない（触るなら Actions を full SHA で固定し、`bash tools/ci/check-workflows.sh` を通す）。
 - PR は main に向けて出し、本文に `Closes #<N>` を書く。見た目が変わるなら前後のスクリーンショットを載せる。
