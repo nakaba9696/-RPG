@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: npm
+      - name: ワークフローの決まりの検査
+        run: bash tools/ci/check-workflows.sh
+      - name: 依存を入れる
+        run: npm ci --ignore-scripts
+      - name: Chromium を入れる
+        run: node node_modules/playwright/cli.js install --with-deps chromium
+      - name: テスト
+        run: node tests/run.mjs
+      - name: スクリーンショットを残す
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: screenshots
+          path: tests/out/
+          if-no-files-found: ignore
+          retention-days: 14
+
+  # ルールセットの必須チェック。この名前（CI result）は変えない。
+  ci-result:
+    name: CI result
+    needs: [test]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: needs の結果をまとめる
+        env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          echo "needs の結果: $RESULTS"
+          for r in $RESULTS; do
+            if [ "$r" = "failure" ] || [ "$r" = "cancelled" ]; then
+              exit 1
+            fi
+          done
