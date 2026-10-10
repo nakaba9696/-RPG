@@ -5,5 +5,6 @@ var $plugins =
 {"name":"Hai_TestHooks","status":true,"description":"テスト用の窓口。URL に ?hai_test があるときだけ window.__game を公開する。","parameters":{}},
 {"name":"Hai_SymbolEnemy","status":true,"description":"シンボル敵：マップ上を動く敵。色で強さが分かり、近づくと弱く追い、接触で戦闘。","parameters":{"chaseRange":"4","chaseSpeed":"3","fleeFrames":"180","greenColor":"48,224,64,144","yellowColor":"255,208,0,144","redColor":"255,32,32,176"}},
 {"name":"Hai_HiddenPassage","status":true,"description":"隠し通路（見えない通路・隠し扉・片側扉・隠し階段）をリージョンで表す。","parameters":{"openDoorTile":"183","stairsTile":"26","doorMessage":"隠し扉を見つけた！","stairsMessage":"隠し階段を見つけた！","flash":"true"}},
-{"name":"Hai_MapTone","status":true,"description":"マップごとの色調・遠景・暗がりを、マップのメモ欄で指定する。","parameters":{"darkOpacity":"230","darkSoftness":"45"}}
+{"name":"Hai_MapTone","status":true,"description":"マップごとの色調・遠景・暗がりを、マップのメモ欄で指定する。","parameters":{"darkOpacity":"230","darkSoftness":"45"}},
+{"name":"Hai_Thoughts","status":true,"description":"残留思念（既読）と、手がかり・施錠扉の自動メモ。","parameters":{"readMark":"\\C[8]（読んだ）\\C[0]","clueMessage":"\\C[6]メモ：\\C[0]%1","noteSe":"Book1","lockedMessage":"鍵がかかっている。","unlockMessage":"%1で扉を開けた。","unlockSe":"Open1","doorNote":"%1が要る扉（%2 %3,%4）"}}
 ];
