@@ -6,5 +6,7 @@ var $plugins =
 {"name":"Hai_SymbolEnemy","status":true,"description":"シンボル敵：マップ上を動く敵。色で強さが分かり、近づくと弱く追い、接触で戦闘。","parameters":{"chaseRange":"4","chaseSpeed":"3","fleeFrames":"180","greenColor":"48,224,64,144","yellowColor":"255,208,0,144","redColor":"255,32,32,176"}},
 {"name":"Hai_HiddenPassage","status":true,"description":"隠し通路（見えない通路・隠し扉・片側扉・隠し階段）をリージョンで表す。","parameters":{"openDoorTile":"183","stairsTile":"26","doorMessage":"隠し扉を見つけた！","stairsMessage":"隠し階段を見つけた！","flash":"true"}},
 {"name":"Hai_MapTone","status":true,"description":"マップごとの色調・遠景・暗がりを、マップのメモ欄で指定する。","parameters":{"darkOpacity":"230","darkSoftness":"45"}},
-{"name":"Hai_Thoughts","status":true,"description":"残留思念（既読）と、手がかり・施錠扉の自動メモ。","parameters":{"readMark":"\\C[8]（読んだ）\\C[0]","clueMessage":"\\C[6]メモ：\\C[0]%1","noteSe":"Book1","lockedMessage":"鍵がかかっている。","unlockMessage":"%1で扉を開けた。","unlockSe":"Open1","doorNote":"%1が要る扉（%2 %3,%4）"}}
+{"name":"Hai_Thoughts","status":true,"description":"残留思念（既読）と、手がかり・施錠扉の自動メモ。","parameters":{"readMark":"\\C[8]（読んだ）\\C[0]","clueMessage":"\\C[6]メモ：\\C[0]%1","noteSe":"Book1","lockedMessage":"鍵がかかっている。","unlockMessage":"%1で扉を開けた。","unlockSe":"Open1","doorNote":"%1が要る扉（%2 %3,%4）"}},
+{"name":"Hai_AutoMap","status":true,"description":"オートマップ：通った所と見つけた隠し通路・思念・施錠扉・落とした魔石を地図に描く。","parameters":{"mapKey":"77","mapButton":"8","menuText":"地図","maxTile":"24","floorColor":"#cfc6ad","wallColor":"#4d4840","hiddenColor":"#4fc3f7"}},
+{"name":"Hai_Notes","status":true,"description":"メモの画面（手がかり・扉・入手）と、手に入れたものの自動の記録。","parameters":{"menuText":"メモ","maxItemLog":"50","itemFormat":"%1を手に入れた（%2）","itemsFormat":"%1×%2を手に入れた（%3）","goldFormat":"魔石 %1%2を手に入れた（%3）"}}
 ];
