@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>星の記憶 - 探索RPG</title>
+<style>
+  html,body{margin:0;background:#07070f;color:#eee;font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic","Meiryo",sans-serif;}
+  body{display:flex;flex-direction:column;align-items:center;min-height:100vh;}
+  #wrap{position:relative;width:min(100vw,640px);}
+  canvas{display:block;width:100%;height:auto;background:#000;image-rendering:pixelated;touch-action:none;}
+  #touch{display:none;width:100%;max-width:640px;justify-content:space-between;align-items:center;padding:8px 10px;box-sizing:border-box;user-select:none;}
+  #pad{display:grid;grid-template-columns:repeat(3,52px);grid-template-rows:repeat(3,52px);gap:3px;}
+  .b{background:#2a2a44;border:1px solid #556;border-radius:8px;color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;}
+  .b:active{background:#55a;}
+  #btns{display:grid;grid-template-columns:repeat(2,64px);gap:8px;}
+  #btns .b{height:52px;font-size:15px;}
+  #help{font-size:12px;color:#889;margin:6px;text-align:center;line-height:1.6}
+  @media (pointer:coarse){#touch{display:flex}}
+</style>
+</head>
+<body>
+<div id="wrap"><canvas id="g" width="640" height="480"></canvas></div>
+<div id="touch">
+  <div id="pad">
+    <div></div><div class="b" data-k="up">▲</div><div></div>
+    <div class="b" data-k="left">◀</div><div></div><div class="b" data-k="right">▶</div>
+    <div></div><div class="b" data-k="down">▼</div><div></div>
+  </div>
+  <div id="btns">
+    <div class="b" data-k="ok">決定(Z)</div><div class="b" data-k="cancel">メニュー(X)</div>
+    <div class="b" data-k="dm">装置(D)</div><div class="b" data-k="dmfight">DM戦闘(F)</div>
+  </div>
+</div>
+<div id="help">移動: 矢印/WASD　決定: Z/Enter/Space　キャンセル・メニュー: X/Esc　ディメンジョン切替: D　溜めた敵と戦う: F</div>
+<script>
+'use strict';
+// =====================================================================
+//  星の記憶 (Hoshi no Kioku)  —  Fantasian 風 探索RPG (単一HTML)
+// =====================================================================
+const C=document.getElementById('g'),X=C.getContext('2d');
+const T=32,VW=20,VH=15,W=640,H=480;
+const FONT='15px "Noto Sans JP","Hiragino Sans","Yu Gothic","Meiryo",sans-serif';
+const FONT_B='bold 17px "Noto Sans JP","Hiragino Sans","Yu Gothic","Meiryo",sans-serif';
+const SAVE_KEY='hoshi_no_kioku_save_v1';
+const DM_CAP=20;
+const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const hash=(x,y)=>{let h=(x*374761393+y*668265263)|0;h=(h^(h>>13))*1274126177|0;return ((h^(h>>16))>>>0)/4294967296;};
+
+// ---------------------------------------------------------------- DATA
+const ITEMS={
+  potion:{name:'ポーション',type:'heal',hp:60,price:30,desc:'HPを60回復する'},
+  hipotion:{name:'ハイポーション',type:'heal',hp:220,price:130,desc:'HPを220回復する'},
+  ether:{name:'エーテル',type:'mp',mp:40,price:90,desc:'MPを40回復する'},
+  elixir:{name:'エリクサー',type:'full',price:600,desc:'HPとMPを全回復する'},
+  revive:{name:'フェニックスの羽',type:'revive',price:220,desc:'戦闘不能の仲間を復活させる'},
+  bomb:{name:'爆裂玉',type:'bomb',pow:90,price:110,desc:'敵全体に約90ダメージ'},
+  starshard:{name:'星のかけら',type:'key',desc:'ディメンジョンの中で生まれる不思議な結晶。売ると高い'},
+  memory:{name:'記憶の欠片',type:'key',desc:'ヒロの失われた記憶が封じられている'},
+  w_bronze:{name:'ブロンズソード',type:'weapon',atk:6,price:160,who:'hero',desc:'攻撃+6 (ヒロ用)'},
+  w_steel:{name:'スチールソード',type:'weapon',atk:14,price:520,who:'hero',desc:'攻撃+14 (ヒロ用)'},
+  w_star:{name:'星鋼の剣',type:'weapon',atk:26,price:0,who:'hero',desc:'攻撃+26 (ヒロ用)'},
+  w_rod:{name:'樫のロッド',type:'weapon',atk:3,mag:6,price:150,who:'mina',desc:'攻撃+3 魔力+6 (ミナ用)'},
+  w_crystal:{name:'水晶のロッド',type:'weapon',atk:5,mag:16,price:560,who:'mina',desc:'攻撃+5 魔力+16 (ミナ用)'},
+  w_axe:{name:'バトルアックス',type:'weapon',atk:10,price:300,who:'gald',desc:'攻撃+10 (ガルド用)'},
+  w_gaxe:{name:'巨人の斧',type:'weapon',atk:22,price:700,who:'gald',desc:'攻撃+22 (ガルド用)'},
+  a_leather:{name:'皮の鎧',type:'armor',def:4,price:120,desc:'防御+4'},
+  a_chain:{name:'鎖かたびら',type:'armor',def:9,price:380,desc:'防御+9'},
+  a_plate:{name:'騎士の鎧',type:'armor',def:16,price:900,desc:'防御+16'},
+  a_robe:{name:'星織りのローブ',type:'armor',def:12,mag:8,price:0,desc:'防御+12 魔力+8'},
+};
+const SKILLS={
+  slash:{name:'強斬り',mp:4,type:'phys',pow:1.7,target:'one',desc:'敵1体に強力な斬撃'},
+  whirl:{name:'旋風斬',mp:9,type:'phys',pow:1.0,target:'all',desc:'敵全体を薙ぎ払う'},
+  focus:{name:'気合',mp:5,type:'buff',stat:'atk',amount:1.5,target:'self',desc:'3ターン攻撃力アップ'},
+  starblade:{name:'星剣',mp:18,type:'phys',pow:2.8,target:'one',desc:'星の力を込めた一撃'},
+  heal:{name:'ヒール',mp:5,type:'heal',pow:70,target:'ally',desc:'味方1人のHPを回復'},
+  fire:{name:'ファイア',mp:6,type:'mag',pow:1.9,target:'one',desc:'敵1体に炎のダメージ'},
+  firestorm:{name:'ファイアストーム',mp:15,type:'mag',pow:1.25,target:'all',desc:'敵全体に炎のダメージ'},
+  revive:{name:'リバイブ',mp:16,type:'revive',target:'ally',desc:'戦闘不能の味方を復活'},
+  bless:{name:'ブレス',mp:12,type:'buff',stat:'def',amount:1.4,target:'allies',desc:'味方全員の防御アップ'},
+  taunt:{name:'挑発',mp:3,type:'taunt',target:'self',desc:'2ターン敵の攻撃を引きつける'},
+  bash:{name:'シールドバッシュ',mp:6,type:'phys',pow:1.3,target:'one',stun:true,desc:'敵1体を攻撃し行動不能に'},
+  quake:{name:'大地割り',mp:13,type:'phys',pow:1.1,target:'all',desc:'敵全体に地震ダメージ'},
+  ironwall:{name:'鉄壁',mp:8,type:'buff',stat:'def',amount:1.7,target:'self',desc:'3ターン防御力大アップ'},
+};
+const CHARS={
+  hero:{name:'ヒロ',color:'#4f9bff',hair:'#333',base:{hp:95,mp:22,atk:17,def:11,mag:8,spd:11},grow:{hp:15,mp:3,atk:3.2,def:2.2,mag:1.2,spd:1.1},
+    skills:[['slash',1],['whirl',3],['focus',6],['starblade',10]]},
+  mina:{name:'ミナ',color:'#ff7fb0',hair:'#f3d26b',base:{hp:70,mp:48,atk:9,def:8,mag:18,spd:12},grow:{hp:10,mp:6,atk:1.4,def:1.6,mag:3.4,spd:1.2},
+    skills:[['heal',1],['fire',1],['firestorm',4],['revive',7],['bless',9]]},
+  gald:{name:'ガルド',color:'#d98a3b',hair:'#8a4b1f',base:{hp:140,mp:18,atk:21,def:17,mag:4,spd:7},grow:{hp:22,mp:2.5,atk:3.6,def:3,mag:0.6,spd:0.7},
+    skills:[['taunt',1],['bash',1],['quake',5],['ironwall',8]]},
+};
+const ENEMIES={
+  slime:{name:'スライム',hp:34,atk:10,def:4,mag:4,spd:5,exp:8,gold:6,color:'#5fd36a',shape:'blob',drop:'potion',rate:.2,acts:[['attack',4]]},
+  wolf:{name:'草原ウルフ',hp:52,atk:15,def:6,mag:4,spd:13,exp:14,gold:10,color:'#9aa0b8',shape:'beast',drop:'potion',rate:.15,acts:[['attack',3],['strong',1]]},
+  bat:{name:'洞窟コウモリ',hp:40,atk:14,def:5,mag:6,spd:16,exp:13,gold:9,color:'#8458c8',shape:'bat',drop:'ether',rate:.1,acts:[['attack',3],['drain',1]]},
+  goblin:{name:'ゴブリン',hp:85,atk:20,def:11,mag:5,spd:9,exp:24,gold:18,color:'#6b9c3a',shape:'humanoid',drop:'potion',rate:.25,acts:[['attack',3],['strong',2]]},
+  golem:{name:'石のゴーレム',hp:190,atk:28,def:26,mag:4,spd:4,exp:60,gold:40,color:'#9c9586',shape:'golem',drop:'hipotion',rate:.3,acts:[['attack',2],['sweep',1]]},
+  ghost:{name:'さまよう亡霊',hp:100,atk:24,def:8,mag:22,spd:15,exp:48,gold:32,color:'#b8d8ff',shape:'ghost',drop:'ether',rate:.3,acts:[['attack',2],['drain',2],['sweep',1]]},
+  knight:{name:'亡国の騎士',hp:230,atk:34,def:20,mag:8,spd:11,exp:90,gold:60,color:'#c0c8d8',shape:'humanoid',drop:'revive',rate:.2,acts:[['attack',2],['strong',2],['sweep',1]]},
+  boss_crab:{name:'洞窟の主ガザル',boss:true,hp:520,atk:30,def:17,mag:8,spd:9,exp:260,gold:300,color:'#d2543b',shape:'crab',drop:'elixir',rate:1,acts:[['attack',2],['strong',2],['sweep',2],['guard',1]]},
+  boss_void:{name:'虚無の王',boss:true,hp:1500,atk:44,def:24,mag:36,spd:14,exp:1500,gold:2000,color:'#5a2d8a',shape:'void',drop:'elixir',rate:1,acts:[['attack',2],['strong',2],['sweep',3],['drain',2]]},
+};
+const ENEMY_ACTS={
+  attack:{name:null,pow:1.0,target:'one'},
+  strong:{name:'渾身の一撃',pow:1.6,target:'one'},
+  sweep:{name:'なぎ払い',pow:0.75,target:'all'},
+  drain:{name:'生命吸収',pow:0.9,target:'one',drain:true},
+  guard:{name:'硬化',buffdef:1.5},
+};
+
+// ---------------------------------------------------------------- MAPS
+const MAPS={
+village:{name:'ハルの村',bgm:'town',rows:[
+'####################',
+'#.......##.........#',
+'#..HHH..##...HHH...#',
+'#..HDH.......HDH...#',
+'#...=.........=....#',
+'#...============...#',
+'#........=.........#',
+'#~~~.....=.HHHH....#',
+'#~~~.....=.HDHH....#',
+'#~~~.....===.......#',
+'#........=...~~~...#',
+'#..HHH...=...~~~...#',
+'#..HDH...=...~~~...#',
+'#...=====..........#',
+'#########=##########'],
+ warps:[{x:9,y:14,map:'plains',tx:14,ty:1}],
+ doors:[{x:4,y:3,ev:'elder'},{x:14,y:3,ev:'shop'},{x:12,y:8,ev:'inn'},{x:4,y:12,ev:'minahome'}],
+ labels:[{x:4,y:2,t:'長老の家'},{x:14,y:2,t:'道具屋'},{x:12,y:7,t:'宿屋'},{x:4,y:11,t:'ミナの家'}],
+ npcs:[
+  {id:'elder',x:6,y:4,name:'長老',color:'#dcd',hair:'#eee',talk:'elder'},
+  {id:'mina',x:6,y:11,name:'ミナ',color:'#ff7fb0',hair:'#f3d26b',talk:'mina',hideFlag:'mina_joined'},
+  {id:'v1',x:16,y:10,name:'村人',color:'#8c6',hair:'#532',talk:'v1'},
+  {id:'v2',x:2,y:6,name:'子ども',color:'#fc6',hair:'#a52',talk:'v2',small:true},
+  {id:'v3',x:17,y:13,name:'旅商人',color:'#c9c',hair:'#333',talk:'v3'},
+ ],
+ chests:[{x:17,y:1,item:'potion',n:2},{x:1,y:13,item:'w_bronze'}],
+},
+plains:{name:'ミストの草原',bgm:'field',rows:[
+'##############==##############',
+'#.............==.............#',
+'#..####.......==......~~~....#',
+'#..####.......==.....~~~~~...#',
+'#.............==......~~~....#',
+'#......~~~....==.............#',
+'#.....~~~~~...==.........%%%%#',
+'#......~~~....==.........%..%#',
+'#.............==...##....%..%#',
+'#.............==...##....%..%#',
+'#.............==========....%#',
+'#.......####..........==.%%%%#',
+'#.......####..........==.....#',
+'#.....................==.....#',
+'#..~~~................==.....#',
+'#.~~~~~...............==.....#',
+'#..~~~.........####...==.....#',
+'#..............####...==.....#',
+'#.....................==.....#',
+'##############################'],
+ warps:[{x:14,y:0,map:'village',tx:9,ty:13},{x:15,y:0,map:'village',tx:9,ty:13},{x:26,y:7,map:'cave',tx:2,ty:1,kind:'cave'}],
+ npcs:[{id:'trav',x:17,y:3,name:'旅人',color:'#7a9',hair:'#444',talk:'trav'},{id:'girl',x:5,y:13,name:'花売り',color:'#fa8',hair:'#733',talk:'girl'}],
+ chests:[{x:27,y:18,item:'a_leather'},{x:2,y:18,item:'ether',n:2},{x:4,y:1,item:'bomb'}],
+ enc:{tiles:'.',rate:.085,groups:[[['slime',1,3]],[['slime',1,2],['wolf',1,1]],[['wolf',1,2]]]},
+},
+cave:{name:'ひびき洞窟',bgm:'cave',rows:[
+'%%%%%%%%%%%%%%%%%%%%%%%%%%',
+'%,,,,%%%%%%%%%%%%%%%%%%%%%',
+'%,,,,,,,,%%%%%,,,,,%%%%%%%',
+'%%%%,,,,,,,,%%,,,,,,,%%%%%',
+'%%%%%%%,,,,,,,,,,,,,,,,%%%',
+'%%%,,,,,,%%%%%%%,,,,,,,,%%',
+'%%,,,,%%%%%%%%%%%%%,,,,,%%',
+'%%,,,,%%%%,,,,,%%%%%,,,,%%',
+'%%,,,,,,,,,,,,,,%%%%%,,,%%',
+'%%%%%%,,,,%%%,,,,%%%%,,,%%',
+'%%%%%%%%%%%%%,,,,,,,,,,,%%',
+'%%%,,,,,,,%%%%%,,,,%%%%%%%',
+'%%,,,,,,,,,,,%%,,,,%%%%%%%',
+'%%,,,,,,,,,,,,,,,,,,%%%%%%',
+'%%,,,,,,,,,,,,%%%%%%%%%%%%',
+'%%%%,,,,,,,,,,%%%%%%%%%%%%',
+'%%%%%%,,,,,%%%%%%%%%%%%%%%',
+'%%%%%%%%%%%%%%%%%%%%%%%%%%'],
+ warps:[{x:1,y:1,map:'plains',tx:26,ty:8},{x:8,y:16,map:'ruins',tx:2,ty:1,kind:'gate',needFlag:'boss1'}],
+ npcs:[{id:'gald',x:3,y:2,name:'ガルド',color:'#d98a3b',hair:'#8a4b1f',talk:'gald',hideFlag:'gald_joined'},
+       {id:'miner',x:16,y:2,name:'鉱夫',color:'#a97',hair:'#222',talk:'miner'}],
+ chests:[{x:12,y:7,item:'hipotion',n:2},{x:7,y:9,item:'w_rod'},{x:17,y:12,item:'a_chain'},{x:3,y:15,item:'revive'}],
+ bosses:[{id:'boss1',enemy:'boss_crab',x:9,y:13,trigger:[[11,12],[11,13],[11,14],[11,15]]}],
+ objects:[{kind:'crystal',x:3,y:12,ev:'crystal'}],
+ enc:{tiles:',',rate:.09,groups:[[['bat',2,3]],[['goblin',1,2]],[['bat',1,2],['goblin',1,1]],[['slime',2,3],['goblin',1,1]]]},
+},
+ruins:{name:'星見の遺跡',bgm:'ruins',rows:[
+'WWWWWWWWWWWWWWWWWWWWWWWWWW',
+'WSSSSSSSSWWWWWWWWSSSSSSSSW',
+'WSPSSSSPSWWWWWWWSPSSSSSPSW',
+'WSSSSSSSSSSSSSSSSSSSSSSSSW',
+'WSPSSSSPSWWWWWWWSPSSSSSPSW',
+'WSSSSSSSSWWWWWWWWSSSSSSSSW',
+'WWWWSSWWWWWWWWWWWWWWSSWWWW',
+'WWWWSSSSSSSSWWSSSSSSSSWWWW',
+'WWWWSSSSSSSSWWSSSSSSSSWWWW',
+'WWWWWWWWWSSSSSSSSWWWWWWWWW',
+'WWWWWWWWWSSSSSSSSWWWWWWWWW',
+'WWWWWWWWWWWSSSSWWWWWWWWWWW',
+'WWWSSSSSSSSSSSSSSSSSSSSWWW',
+'WWWSPSSSSSSSSSSSSSSSSPSWWW',
+'WWWSSSSSSSSSSSSSSSSSSSSWWW',
+'WWWSSSSSSSSSSSSSSSSSSSSWWW',
+'WWWSPSSSSSSSSSSSSSSSSPSWWW',
+'WWWSSSSSSSSSSSSSSSSSSSSWWW',
+'WWWWWWWWWWWWWWWWWWWWWWWWWW',
+'WWWWWWWWWWWWWWWWWWWWWWWWWW'],
+ warps:[{x:1,y:1,map:'cave',tx:8,ty:15}],
+ npcs:[{id:'sage',x:20,y:3,name:'遺跡の賢者',color:'#ccf',hair:'#fff',talk:'sage'}],
+ chests:[{x:23,y:1,item:'w_star'},{x:20,y:8,item:'a_robe'},{x:5,y:8,item:'elixir'},{x:1,y:5,item:'w_gaxe'}],
+ bosses:[{id:'boss2',enemy:'boss_void',x:13,y:16,trigger:[[11,13],[12,13],[13,13],[14,13]]}],
+ enc:{tiles:'S',rate:.085,groups:[[['ghost',1,2]],[['golem',1,1]],[['knight',1,1]],[['ghost',1,1],['knight',1,1]],[['golem',1,1],['ghost',1,1]]]},
+},
+};
+const WALK='.=,BSD';
+const isWalk=(m,x,y)=>{const r=MAPS[m].rows;if(y<0||y>=r.length||x<0||x>=r[0].length)return false;return WALK.includes(r[y][x]);};
+
+// ---------------------------------------------------------------- STATE
+let S=null;           // save-able game state
+let mode='title';     // title|field|dialog|menu|shop|battle|gameover|ending
+let dlg=null,menu=null,shop=null,B=null;
+let titleSel=0,gameoverT=0,endingT=0,toast=null,flashT=0,shake=0;
+let lastT=performance.now();
+
+function mkChar(id,lv){const c={id,lv,exp:0,hp:1,mp:1,weapon:null,armor:null};const s=stats(c);c.hp=s.maxhp;c.mp=s.maxmp;return c;}
+function stats(ch){
+  const d=CHARS[ch.id],s={};
+  for(const k of ['hp','mp','atk','def','mag','spd'])s[k]=Math.floor(d.base[k]+d.grow[k]*(ch.lv-1));
+  s.maxhp=s.hp;s.maxmp=s.mp;delete s.hp;delete s.mp;
+  for(const slot of ['weapon','armor']){const it=ch[slot]&&ITEMS[ch[slot]];if(it){s.atk+=it.atk||0;s.def+=it.def||0;s.mag+=it.mag||0;}}
+  return s;
+}
+const expNext=lv=>Math.floor(18*Math.pow(lv,1.7));
+const charSkills=ch=>CHARS[ch.id].skills.filter(([,lv])=>ch.lv>=lv).map(([id])=>id);
+function newGame(){
+  S={map:'village',x:9,y:6,dir:'down',party:['hero'],chars:{hero:mkChar('hero',1),mina:mkChar('mina',1),gald:mkChar('gald',3)},
+     inv:{potion:3},gold:150,flags:{},dm:{on:false,list:[]},steps:0,time:0,moveT:0,mx:0,my:0,frame:0};
+  mode='field';
+  setTimeout(()=>say([
+    '【ヒロ】……ここは？',
+    '【ヒロ】頭がぼんやりする。自分の名前以外、何も思い出せない……。',
+    '【長老】目が覚めたか、ヒロ。お前は三日前、村はずれの草原で倒れておったのじゃ。',
+    '【長老】わしの家に来なさい。話しておきたいことがある。'
+  ],()=>{addItem('potion',0);}),50);
+}
+function addItem(id,n=1){S.inv[id]=(S.inv[id]||0)+n;if(S.inv[id]<=0)delete S.inv[id];}
+function partyChars(){return S.party.map(id=>S.chars[id]);}
+function alive(ch){return ch.hp>0;}
+
+// ---------------------------------------------------------------- INPUT
+const KEY={};const pressed=[];
+function normKey(e){
+  const k=e.key;
+  if(k==='ArrowUp'||k==='w'||k==='W')return 'up';
+  if(k==='ArrowDown'||k==='s'||k==='S')return 'down';
+  if(k==='ArrowLeft'||k==='a'||k==='A')return 'left';
+  if(k==='ArrowRight'||k==='d'&&false)return 'right';
+  if(k==='ArrowRight')return 'right';
+  if(k==='z'||k==='Z'||k==='Enter'||k===' ')return 'ok';
+  if(k==='x'||k==='X'||k==='Escape'||k==='Backspace')return 'cancel';
+  if(k==='d'||k==='D')return 'dm';
+  if(k==='f'||k==='F')return 'dmfight';
+  return null;
+}
+window.addEventListener('keydown',e=>{const k=normKey(e);if(!k)return;e.preventDefault();if(!KEY[k])pressed.push(k);KEY[k]=true;});
+window.addEventListener('keyup',e=>{const k=normKey(e);if(k)KEY[k]=false;});
+window.addEventListener('blur',()=>{for(const k in KEY)KEY[k]=false;});
+document.querySelectorAll('#touch .b').forEach(b=>{
+  const k=b.dataset.k;
+  const dn=e=>{e.preventDefault();if(!KEY[k])pressed.push(k);KEY[k]=true;};
+  const up=e=>{e.preventDefault();KEY[k]=false;};
+  b.addEventListener('pointerdown',dn);b.addEventListener('pointerup',up);b.addEventListener('pointercancel',up);b.addEventListener('pointerleave',up);
+});
+// canvas tap = ok (for message advancing on touch)
+C.addEventListener('pointerdown',e=>{if(mode==='dialog'||mode==='battle'||mode==='title'||mode==='gameover'||mode==='ending'){pressed.push('ok');}});
+
+// ---------------------------------------------------------------- DIALOG
+function say(pages,cb,ret){dlg={pages:Array.isArray(pages)?pages:[pages],i:0,cb,ret:ret||(mode==='dialog'?dlg.ret:mode),choice:null,shown:0};mode='dialog';}
+function ask(text,opts,cb,ret){say([text],null,ret);dlg.choice={opts,i:0,cb};}
+function dialogInput(k){
+  const d=dlg;
+  if(d.choice&&d.i===d.pages.length-1&&d.shown>=d.pages[d.i].length){
+    if(k==='up'){d.choice.i=(d.choice.i+d.choice.opts.length-1)%d.choice.opts.length;return;}
+    if(k==='down'){d.choice.i=(d.choice.i+1)%d.choice.opts.length;return;}
+    if(k==='cancel'){d.choice.i=d.choice.opts.length-1;}
+    if(k==='ok'||k==='cancel'){const c=d.choice,ret=d.ret;dlg=null;mode=ret;c.cb(c.i);return;}
+    return;
+  }
+  if(k==='ok'||k==='cancel'){
+    if(d.shown<d.pages[d.i].length){d.shown=d.pages[d.i].length;return;}
+    if(d.i<d.pages.length-1){d.i++;d.shown=0;return;}
+    if(d.choice)return;
+    const cb=d.cb,ret=d.ret;dlg=null;mode=ret;if(cb)cb();
+  }
+}
+
+// ---------------------------------------------------------------- EVENTS / STORY
+const TALK={
+  elder(){say(['【長老】ふむ、まだ思い出せぬか。','【長老】家に入りなさい。お前に渡したい物がある。']);},
+  mina(){
+    if(!S.flags.elder_done){say(['【ミナ】あら、目が覚めたのね。長老が心配してたわよ。','【ミナ】まずは長老の家に行ってあげて。']);return;}
+    say(['【ミナ】ヒロ、洞窟に行くんでしょ？ひとりじゃ危ないわ。','【ミナ】あたしも一緒に行く。回復魔法なら任せて！','ミナが仲間に加わった！'],()=>{S.flags.mina_joined=true;if(!S.party.includes('mina'))S.party.push('mina');});
+  },
+  v1(){say(['【村人】東の洞窟は「ひびき洞窟」って呼ばれててな。奥には光る結晶があるらしい。','【村人】記憶を無くした人が結晶に触れると、記憶が戻るって話だぜ。']);},
+  v2(){say(['【子ども】ねえねえ、Dキーでディメンジョン装置をオンにすると、敵がどこかに吸い込まれるんだって！','【子ども】いっぱい溜めてからFキーで一気に倒すと、ボーナスがもらえるんだよ！']);},
+  v3(){
+    const n=S.inv.starshard||0;
+    if(n>0){ask(`【旅商人】おや、星のかけらを${n}個お持ちで。1個350Gで買い取りますよ。全部売りますか？`,['売る','やめる'],i=>{if(i===0){S.gold+=350*n;delete S.inv.starshard;say([`${350*n}G を手に入れた！`]);}});}
+    else say(['【旅商人】星のかけらがあれば高値で買い取りますよ。','【旅商人】ディメンジョンで敵をたくさん倒すと、たまに手に入るとか。']);
+  },
+  trav(){say(['【旅人】この草原は霧が出ると魔物が増える。','【旅人】東の岩場に洞窟の入り口がある。装備を整えてから行くといい。']);},
+  girl(){say(['【花売り】宿屋で休むとHPとMPが全部回復するのよ。','【花売り】それと、Xキーのメニューからいつでもセーブできるわ。']);},
+  gald(){
+    if(S.flags.gald_joined)return;
+    say(['【ガルド】おう、お前たちも洞窟に用か？','【ガルド】俺は洞窟の主を退治しに来たんだが、ひとりじゃ分が悪くてな。','【ガルド】どうだ、一緒に行かねえか？','ガルドが仲間に加わった！'],()=>{S.flags.gald_joined=true;if(!S.party.includes('gald'))S.party.push('gald');});
+  },
+  miner(){say(['【鉱夫】奥の方は化け物だらけだ。装置で敵を溜めすぎると、20体で強制的に戦闘になるから気をつけな。','【鉱夫】溜めた敵はHPを回復してから相手にするのが賢いやり方だ。']);},
+  sage(){
+    if(S.flags.boss2)say(['【賢者】……静かになった。虚無はもう、この世界を蝕まぬ。']);
+    else say(['【賢者】ここは星を見るために建てられた古の遺跡。','【賢者】奥の大広間には「虚無の王」が巣食っておる。ヒロよ、お前の記憶を奪ったのもあやつじゃ。','【賢者】この遺跡の宝を集め、力を蓄えてから挑むがよい。']);
+  },
+};
+const DOORS={
+  elder(){
+    if(S.flags.elder_done){say(['【長老】ひびき洞窟の結晶を目指すのじゃ。ミナを連れていきなさい。']);return;}
+    say(['【長老】ヒロよ、これを持っていきなさい。「ディメンジョン装置」じゃ。',
+         '【長老】Dキーで起動すると、襲ってきた魔物を異空間に閉じ込め、すぐには戦わずに済む。',
+         '【長古】閉じ込めた魔物はFキーでまとめて戦える。20体で満杯になると強制的に戦闘じゃ。気をつけなさい。'.replace('長古','長老'),
+         '【長老】東の「ひびき洞窟」の奥に光る結晶がある。それに触れれば、お前の記憶も戻るじゃろう。',
+         '【長老】村の南の門から草原に出られる。ミナも一緒に行きたがっておったぞ。',
+         'ディメンジョン装置を手に入れた！'],()=>{S.flags.elder_done=true;});
+  },
+  shop(){openShop();},
+  inn(){ask('【宿屋】いらっしゃい。一泊 20G ですが、泊まっていきますか？',['泊まる','やめる'],i=>{
+    if(i===0){if(S.gold<20){say(['【宿屋】お金が足りないようですね……。']);return;}S.gold-=20;for(const id in S.chars){const c=S.chars[id],s=stats(c);c.hp=s.maxhp;c.mp=s.maxmp;}flashT=.6;say(['ぐっすり眠って、HPとMPが全回復した！']);}
+  });},
+  minahome(){say(S.flags.mina_joined?['【ミナの母】ミナをよろしくね。']:['【ミナの母】ミナなら外にいるわよ。']);},
+};
+const OBJ_EV={
+  crystal(){
+    if(S.flags.crystal_done){say(['結晶は静かに光っている。']);return;}
+    say(['ヒロは光る結晶に手を触れた……。','【ヒロ】……思い出した。俺は「星見の遺跡」で、虚無の王と戦っていたんだ。',
+         '【ヒロ】王の力で記憶を奪われ、草原に吹き飛ばされた……。','【ミナ】じゃあ、その虚無の王を倒さないと……！',
+         '【ガルド】面白え。洞窟の奥の扉が開いたぞ。遺跡へ続いているに違いねえ。','記憶の欠片を手に入れた！'],()=>{S.flags.crystal_done=true;addItem('memory');});
+  },
+};
+const BOSS_TALK={
+  boss1:()=>['巨大な影が動いた……洞窟の主ガザルが立ちはだかる！','【ガルド】こいつだ！気をつけろ、甲羅が硬いぞ！'],
+  boss2:()=>['【虚無の王】……戻ってきたか、星の剣士よ。','【虚無の王】記憶を取り戻したところで、何も変わらぬ。この世界は虚無に還る。','【ヒロ】いいや。俺は仲間と一緒に、ここで終わらせる！'],
+};
+
+// ---------------------------------------------------------------- FIELD
+function tryMove(dx,dy){
+  const nx=S.x+dx,ny=S.y+dy;
+  S.dir=dx>0?'right':dx<0?'left':dy>0?'down':'up';
+  if(!isWalk(S.map,nx,ny))return;
+  if(npcAt(nx,ny)||chestAt(nx,ny)||objAt(nx,ny)||bossAt(nx,ny))return;
+  const m=MAPS[S.map];
+  const w=m.warps.find(w=>w.x===nx&&w.y===ny);
+  if(w&&w.needFlag&&!S.flags[w.needFlag]){say(['扉は固く閉ざされている……。']);return;}
+  S.mx=S.x;S.my=S.y;S.x=nx;S.y=ny;S.moveT=1;S.steps++;
+}
+function npcAt(x,y){return MAPS[S.map].npcs.find(n=>n.x===x&&n.y===y&&!(n.hideFlag&&S.flags[n.hideFlag]));}
+function chestAt(x,y){return (MAPS[S.map].chests||[]).find(c=>c.x===x&&c.y===y);}
+function objAt(x,y){return (MAPS[S.map].objects||[]).find(o=>o.x===x&&o.y===y);}
+function bossAt(x,y){return (MAPS[S.map].bosses||[]).find(b=>!S.flags[b.id]&&b.x===x&&b.y===y);}
+function chestKey(c){return `chest_${S.map}_${c.x}_${c.y}`;}
+function onArrive(){
+  const m=MAPS[S.map];
+  const w=m.warps.find(w=>w.x===S.x&&w.y===S.y);
+  if(w){S.map=w.map;S.x=w.tx;S.y=w.ty;S.moveT=0;toast={t:MAPS[w.map].name,T:2};return;}
+  const d=(m.doors||[]).find(d=>d.x===S.x&&d.y===S.y);
+  if(d){DOORS[d.ev]();return;}
+  const b=(m.bosses||[]).find(b=>!S.flags[b.id]&&b.trigger.some(([x,y])=>x===S.x&&y===S.y));
+  if(b){say(BOSS_TALK[b.id](),()=>startBattle([b.enemy],{boss:b.id}));return;}
+  if(m.enc&&m.enc.tiles.includes(m.rows[S.y][S.x])&&Math.random()<m.enc.rate){
+    const g=pick(m.enc.groups),ids=[];
+    for(const [id,a,b2] of g){const n=rnd(a,b2);for(let i=0;i<n;i++)ids.push(id);}
+    if(S.dm.on){
+      S.dm.list.push(...ids);
+      if(S.dm.list.length>=DM_CAP){
+        const list=S.dm.list.splice(0);
+        say(['ディメンジョンが満杯になった！閉じ込めた魔物が一斉に襲いかかってくる！'],()=>startDMBattle(list));
+      }else toast={t:`魔物をディメンジョンに送った (${S.dm.list.length}/${DM_CAP})`,T:1.8};
+    }else startBattle(ids,{});
+  }
+}
+function interact(){
+  const dx=S.dir==='left'?-1:S.dir==='right'?1:0,dy=S.dir==='up'?-1:S.dir==='down'?1:0;
+  const x=S.x+dx,y=S.y+dy;
+  const n=npcAt(x,y);if(n){TALK[n.talk]();return;}
+  const c=chestAt(x,y);
+  if(c){const k=chestKey(c);if(S.flags[k]){say(['宝箱は空っぽだ。']);return;}S.flags[k]=true;const n2=c.n||1;addItem(c.item,n2);say([`宝箱を開けた！ ${ITEMS[c.item].name}${n2>1?' ×'+n2:''} を手に入れた！`]);return;}
+  const o=objAt(x,y);if(o){OBJ_EV[o.ev]();return;}
+}
+function fieldInput(k){
+  if(k==='ok')interact();
+  else if(k==='cancel')openMenu();
+  else if(k==='dm'){if(!S.flags.elder_done){toast={t:'まだ装置を持っていない',T:1.2};return;}S.dm.on=!S.dm.on;toast={t:S.dm.on?'ディメンジョン装置 ON':'ディメンジョン装置 OFF',T:1.2};}
+  else if(k==='dmfight'){if(S.dm.list.length===0){toast={t:'ディメンジョンは空だ',T:1.2};return;}ask(`ディメンジョンの魔物 ${S.dm.list.length}体 と戦いますか？`,['戦う','やめる'],i=>{if(i===0){const l=S.dm.list.splice(0);startDMBattle(l);}});}
+}
+function fieldUpdate(dt){
+  S.time+=dt;
+  if(S.moveT>0){S.moveT-=dt*7;S.frame+=dt*8;if(S.moveT<=0){S.moveT=0;onArrive();}}
+  else if(mode==='field'){
+    if(KEY.up)tryMove(0,-1);else if(KEY.down)tryMove(0,1);else if(KEY.left)tryMove(-1,0);else if(KEY.right)tryMove(1,0);
+  }
+}
+
+// ---------------------------------------------------------------- MENU
+function openMenu(){menu={sel:0,sub:null,cur:0,who:0,slot:0,list:[]};mode='menu';}
+const MENU_ITEMS=['アイテム','ステータス','装備','ディメンジョン','セーブ','タイトルへ','閉じる'];
+function usableItems(){return Object.keys(S.inv).filter(id=>['heal','mp','full','revive'].includes(ITEMS[id].type));}
+function useItemOn(id,ch){
+  const it=ITEMS[id],s=stats(ch);
+  if(it.type==='revive'){if(ch.hp>0)return false;ch.hp=Math.floor(s.maxhp/2);}
+  else if(ch.hp<=0)return false;
+  else if(it.type==='heal'){if(ch.hp>=s.maxhp)return false;ch.hp=Math.min(s.maxhp,ch.hp+it.hp);}
+  else if(it.type==='mp'){if(ch.mp>=s.maxmp)return false;ch.mp=Math.min(s.maxmp,ch.mp+it.mp);}
+  else if(it.type==='full'){ch.hp=s.maxhp;ch.mp=s.maxmp;}
+  addItem(id,-1);return true;
+}
+function menuInput(k){
+  const m=menu;
+  if(m.sub===null){
+    if(k==='up')m.sel=(m.sel+MENU_ITEMS.length-1)%MENU_ITEMS.length;
+    else if(k==='down')m.sel=(m.sel+1)%MENU_ITEMS.length;
+    else if(k==='cancel'){mode='field';menu=null;}
+    else if(k==='ok'){
+      switch(m.sel){
+        case 0:m.list=usableItems();if(!m.list.length){toast={t:'使えるアイテムがない',T:1};return;}m.sub='item';m.cur=0;break;
+        case 1:m.sub='status';m.cur=0;break;
+        case 2:m.sub='equipWho';m.cur=0;break;
+        case 3:mode='field';menu=null;ask(`ディメンジョン装置: ${S.dm.on?'ON':'OFF'}　閉じ込めた魔物: ${S.dm.list.length}体`,['ON/OFF 切替','魔物と戦う','戻る'],i=>{
+          if(i===0){if(!S.flags.elder_done){toast={t:'まだ装置を持っていない',T:1.2};return;}S.dm.on=!S.dm.on;toast={t:S.dm.on?'ディメンジョン装置 ON':'ディメンジョン装置 OFF',T:1.2};}
+          else if(i===1){if(!S.dm.list.length){toast={t:'ディメンジョンは空だ',T:1.2};return;}const l=S.dm.list.splice(0);startDMBattle(l);}
+        });break;
+        case 4:saveGame();toast={t:'セーブしました',T:1.5};break;
+        case 5:mode='field';menu=null;ask('タイトルに戻りますか？(セーブしていない進行は失われます)',['戻る','やめる'],i=>{if(i===0){mode='title';S=null;}});break;
+        case 6:mode='field';menu=null;break;
+      }
+    }
+  }else if(m.sub==='item'){
+    if(k==='up')m.cur=(m.cur+m.list.length-1)%m.list.length;
+    else if(k==='down')m.cur=(m.cur+1)%m.list.length;
+    else if(k==='cancel')m.sub=null;
+    else if(k==='ok'){m.sub='itemWho';m.who=0;}
+  }else if(m.sub==='itemWho'){
+    const n=S.party.length;
+    if(k==='up'||k==='left')m.who=(m.who+n-1)%n;
+    else if(k==='down'||k==='right')m.who=(m.who+1)%n;
+    else if(k==='cancel')m.sub='item';
+    else if(k==='ok'){const id=m.list[m.cur];const ch=S.chars[S.party[m.who]];
+      if(useItemOn(id,ch)){toast={t:`${CHARS[ch.id].name}に ${ITEMS[id].name} を使った`,T:1.2};m.list=usableItems();if(!m.list.length){m.sub=null;}else{m.cur=Math.min(m.cur,m.list.length-1);m.sub='item';}}
+      else toast={t:'効果がない',T:1};}
+  }else if(m.sub==='status'){
+    const n=S.party.length;
+    if(k==='left'||k==='up')m.cur=(m.cur+n-1)%n;else if(k==='right'||k==='down')m.cur=(m.cur+1)%n;
+    else if(k==='cancel'||k==='ok')m.sub=null;
+  }else if(m.sub==='equipWho'){
+    const n=S.party.length;
+    if(k==='up'||k==='left')m.who=(m.who+n-1)%n;else if(k==='down'||k==='right')m.who=(m.who+1)%n;
+    else if(k==='cancel')m.sub=null;else if(k==='ok'){m.sub='equipSlot';m.slot=0;}
+  }else if(m.sub==='equipSlot'){
+    if(k==='up'||k==='down')m.slot=1-m.slot;
+    else if(k==='cancel')m.sub='equipWho';
+    else if(k==='ok'){const ch=S.chars[S.party[m.who]];const type=m.slot===0?'weapon':'armor';
+      m.list=Object.keys(S.inv).filter(id=>ITEMS[id].type===type&&(!ITEMS[id].who||ITEMS[id].who===ch.id));
+      m.list.unshift(null); // null = はずす
+      m.sub='equipList';m.cur=0;}
+  }else if(m.sub==='equipList'){
+    if(k==='up')m.cur=(m.cur+m.list.length-1)%m.list.length;
+    else if(k==='down')m.cur=(m.cur+1)%m.list.length;
+    else if(k==='cancel')m.sub='equipSlot';
+    else if(k==='ok'){const ch=S.chars[S.party[m.who]];const slot=m.slot===0?'weapon':'armor';const id=m.list[m.cur];
+      if(ch[slot])addItem(ch[slot],1);
+      if(id){addItem(id,-1);ch[slot]=id;}else ch[slot]=null;
+      const s=stats(ch);ch.hp=Math.min(ch.hp,s.maxhp);ch.mp=Math.min(ch.mp,s.maxmp);
+      m.sub='equipSlot';}
+  }
+}
+
+// ---------------------------------------------------------------- SHOP
+function openShop(){
+  const stock=['potion','hipotion','ether','revive','bomb','w_bronze','w_rod','w_axe','a_leather','a_chain'];
+  if(S.flags.boss1)stock.push('w_steel','w_crystal','a_plate','elixir');
+  shop={stock,cur:0,phase:'list'};
+  mode='shop';
+}
+function shopInput(k){
+  const s=shop;
+  if(s.phase==='list'){
+    if(k==='up')s.cur=(s.cur+s.stock.length-1)%s.stock.length;
+    else if(k==='down')s.cur=(s.cur+1)%s.stock.length;
+    else if(k==='cancel'){mode='field';shop=null;}
+    else if(k==='ok'){const id=s.stock[s.cur],it=ITEMS[id];
+      if(S.gold<it.price){toast={t:'お金が足りない！',T:1.2};return;}
+      S.gold-=it.price;addItem(id,1);toast={t:`${it.name} を買った`,T:1.2};}
+  }
+}
+
+// ---------------------------------------------------------------- SAVE
+function saveGame(){try{localStorage.setItem(SAVE_KEY,JSON.stringify(S));}catch(e){}}
+function loadGame(){try{const j=localStorage.getItem(SAVE_KEY);if(!j)return false;S=JSON.parse(j);S.moveT=0;mode='field';return true;}catch(e){return false;}}
+function hasSave(){try{return !!localStorage.getItem(SAVE_KEY);}catch(e){return false;}}
+
+// ---------------------------------------------------------------- BATTLE
+function mkEnemy(id,i){const e=ENEMIES[id];return {e:true,id,name:e.name,hp:e.hp,maxhp:e.hp,atk:e.atk,def:e.def,mag:e.mag,spd:e.spd,buff:{atk:1,def:1,t:0},stun:0,shake:0,flash:0,dead:false,idx:i,boss:!!e.boss};}
+function startBattle(ids,opts){
+  const waves=opts.waves||[ids];
+  B={waves,wave:0,enemies:[],actors:partyChars().map(ch=>({p:true,ch,buff:{atk:1,def:1,t:0},guard:false,taunt:0,stun:0,shake:0,flash:0})),
+     queue:[],cur:null,phase:'msg',msgs:[],text:'',msgT:0,exp:0,gold:0,drops:[],dm:!!opts.dm,boss:opts.boss||null,cmd:{sub:'cmd',i:0,sk:0,it:0,tg:0,skill:null,item:null},t:0,round:0,killed:0};
+  mode='battle';
+  spawnWave();
+}
+function startDMBattle(list){
+  const waves=[];for(let i=0;i<list.length;i+=5)waves.push(list.slice(i,i+5));
+  startBattle(null,{waves,dm:true});
+}
+function spawnWave(){
+  const ids=B.waves[B.wave];
+  B.enemies=ids.map((id,i)=>mkEnemy(id,i));
+  const names=[...new Set(ids)].map(id=>ENEMIES[id].name).join('、');
+  const pre=B.waves.length>1?`【第${B.wave+1}波 / ${B.waves.length}波】 `:'';
+  pushMsg(`${pre}${names}が現れた！`);
+  pushMsg(null,()=>{B.queue=[];nextTurn();});
+}
+function pushMsg(t,f,wait){B.msgs.push({t,f,wait:wait==null?(t?0.75:0):wait});}
+function liveE(){return B.enemies.filter(e=>!e.dead);}
+function liveP(){return B.actors.filter(a=>a.ch.hp>0);}
+function aname(a){return a.p?CHARS[a.ch.id].name:a.name;}
+function atkOf(a){return (a.p?stats(a.ch).atk:a.atk)*a.buff.atk;}
+function defOf(a){return (a.p?stats(a.ch).def:a.def)*a.buff.def*(a.guard?2:1);}
+function magOf(a){return (a.p?stats(a.ch).mag:a.mag);}
+function spdOf(a){return a.p?stats(a.ch).spd:a.spd;}
+function hpOf(a){return a.p?a.ch.hp:a.hp;}
+function maxhpOf(a){return a.p?stats(a.ch).maxhp:a.maxhp;}
+function setHp(a,v){if(a.p)a.ch.hp=v;else a.hp=v;}
+function damage(src,dst,pow,kind){
+  let base=kind==='mag'?magOf(src)*2.6-defOf(dst)*0.5:atkOf(src)*2.2-defOf(dst);
+  base=Math.max(1,base)*pow*(0.9+Math.random()*0.2);
+  let crit=false;
+  if(kind!=='mag'&&Math.random()<0.06){base*=1.6;crit=true;}
+  const d=Math.max(1,Math.floor(base));
+  return {d,crit};
+}
+function applyDamage(a,d){const hp=Math.max(0,hpOf(a)-d);setHp(a,hp);a.shake=0.35;a.flash=0.25;shake=Math.max(shake,0.18);if(hp<=0){if(a.e){a.dead=true;B.killed++;}}}
+function nextTurn(){
+  if(liveE().length===0){
+    if(B.wave<B.waves.length-1){B.wave++;B.round=0;for(const a of B.actors){a.guard=false;}pushMsg('敵を殲滅した！……次の波が迫ってくる！',null,0.9);pushMsg(null,()=>spawnWave());return;}
+    victory();return;
+  }
+  if(liveP().length===0){defeat();return;}
+  if(B.queue.length===0){
+    B.round++;
+    B.queue=[...B.actors.filter(a=>a.ch.hp>0),...liveE()].sort((a,b)=>(spdOf(b)+Math.random()*4)-(spdOf(a)+Math.random()*4));
+  }
+  const a=B.queue.shift();
+  if(a.p?a.ch.hp<=0:a.dead){nextTurn();return;}
+  B.cur=a;a.guard=false;
+  if(a.buff.t>0){a.buff.t--;if(a.buff.t===0){a.buff.atk=1;a.buff.def=1;}}
+  if(a.taunt>0)a.taunt--;
+  if(a.stun>0){a.stun--;pushMsg(`${aname(a)}は動けない！`);pushMsg(null,()=>nextTurn());return;}
+  if(a.p){B.phase='input';B.cmd={sub:'cmd',i:0,sk:0,it:0,tg:0,skill:null,item:null};}
+  else enemyAct(a);
+}
+function enemyAct(a){
+  const e=ENEMIES[a.id];
+  const tot=e.acts.reduce((s,[,w])=>s+w,0);let r=Math.random()*tot,act='attack';
+  for(const [id,w] of e.acts){r-=w;if(r<=0){act=id;break;}}
+  const A=ENEMY_ACTS[act];
+  const taunter=B.actors.find(p=>p.ch.hp>0&&p.taunt>0);
+  const targets=A.target==='all'?liveP():[taunter||pick(liveP())];
+  if(A.buffdef){pushMsg(`${a.name}の${A.name}！体が硬くなった！`,()=>{a.buff.def=A.buffdef;a.buff.t=3;});pushMsg(null,()=>nextTurn());return;}
+  pushMsg(A.name?`${a.name}の${A.name}！`:`${a.name}の攻撃！`);
+  for(const t of targets){
+    if(t.ch.hp<=0)continue;
+    pushMsg(null,()=>{
+      if(t.ch.hp<=0)return;
+      if(Math.random()<0.05){B.text=`${aname(t)}は攻撃をかわした！`;return;}
+      const {d,crit}=damage(a,t,A.pow,'phys');applyDamage(t,d);
+      let s=`${aname(t)}に ${d} のダメージ！${crit?' 痛恨の一撃！':''}`;
+      if(A.drain){const h=Math.floor(d*0.6);a.hp=Math.min(a.maxhp,a.hp+h);s+=` ${a.name}はHPを${h}吸収した！`;}
+      if(t.ch.hp<=0)s+=` ${aname(t)}は倒れた……`;
+      B.text=s;
+    },0.7);
+  }
+  pushMsg(null,()=>nextTurn());
+}
+function playerAct(a,act){
+  B.phase='msg';
+  const n=aname(a);
+  if(act.type==='attack'){
+    const t=act.target;
+    pushMsg(`${n}の攻撃！`);
+    pushMsg(null,()=>{if(t.dead){B.text=`${n}の攻撃！しかし敵はもういない……`;return;}
+      if(Math.random()<0.04){B.text=`${t.name}はかわした！`;return;}
+      const {d,crit}=damage(a,t,1,'phys');applyDamage(t,d);B.text=`${t.name}に ${d} のダメージ！${crit?' 会心の一撃！':''}${t.dead?` ${t.name}を倒した！`:''}`;},0.7);
+  }else if(act.type==='guard'){a.guard=true;pushMsg(`${n}は身を守っている。`,null,0.5);}
+  else if(act.type==='skill'){
+    const sk=SKILLS[act.id];a.ch.mp-=sk.mp;
+    pushMsg(`${n}の${sk.name}！`);
+    if(sk.type==='phys'||sk.type==='mag'){
+      const ts=sk.target==='all'?liveE():[act.target];
+      for(const t of ts)pushMsg(null,()=>{if(t.dead)return;const {d,crit}=damage(a,t,sk.pow,sk.type);applyDamage(t,d);
+        let s=`${t.name}に ${d} のダメージ！${crit?' 会心！':''}`;
+        if(sk.stun&&!t.dead&&!t.boss&&Math.random()<0.7){t.stun=1;s+=` ${t.name}は怯んだ！`;}
+        if(t.dead)s+=` ${t.name}を倒した！`;B.text=s;},0.6);
+    }else if(sk.type==='heal'){
+      const t=act.target;pushMsg(null,()=>{const s=stats(t.ch);const h=Math.floor(sk.pow+magOf(a)*2.2);t.ch.hp=Math.min(s.maxhp,t.ch.hp+h);t.flash=-0.3;B.text=`${aname(t)}のHPが ${h} 回復した！`;},0.7);
+    }else if(sk.type==='revive'){
+      const t=act.target;pushMsg(null,()=>{t.ch.hp=Math.floor(stats(t.ch).maxhp*0.5);t.flash=-0.3;B.text=`${aname(t)}が立ち上がった！`;},0.7);
+    }else if(sk.type==='buff'){
+      const ts=sk.target==='allies'?liveP():[a];
+      pushMsg(null,()=>{for(const t of ts){t.buff[sk.stat]=sk.amount;t.buff.t=3;t.flash=-0.3;}B.text=sk.target==='allies'?`味方全員の${sk.stat==='atk'?'攻撃力':'防御力'}が上がった！`:`${n}の${sk.stat==='atk'?'攻撃力':'防御力'}が上がった！`;},0.7);
+    }else if(sk.type==='taunt'){
+      pushMsg(null,()=>{a.taunt=3;B.text=`${n}は敵の注意を引きつけた！`;},0.6);
+    }
+  }else if(act.type==='item'){
+    const it=ITEMS[act.id];
+    pushMsg(`${n}は${it.name}を使った！`);
+    if(it.type==='bomb'){addItem(act.id,-1);for(const t of liveE())pushMsg(null,()=>{if(t.dead)return;const d=Math.floor(it.pow*(0.9+Math.random()*0.2));applyDamage(t,d);B.text=`${t.name}に ${d} のダメージ！${t.dead?` ${t.name}を倒した！`:''}`;},0.6);}
+    else{const t=act.target;pushMsg(null,()=>{const before=t.ch.hp;useItemOn(act.id,t.ch);t.flash=-0.3;
+      B.text=it.type==='mp'?`${aname(t)}のMPが回復した！`:it.type==='revive'?`${aname(t)}が立ち上がった！`:`${aname(t)}のHPが ${t.ch.hp-before} 回復した！`;},0.7);}
+  }else if(act.type==='escape'){
+    if(B.boss){pushMsg('逃げられない！');}
+    else{
+      const ps=liveP().reduce((s,p)=>s+spdOf(p),0)/liveP().length,es=liveE().reduce((s,e)=>s+spdOf(e),0)/liveE().length;
+      if(Math.random()<clamp(0.5+(ps-es)*0.05,0.25,0.9)){
+        pushMsg(`${n}たちは逃げ出した！`);
+        pushMsg(null,()=>{
+          if(B.dm){const rest=[];for(let w=B.wave;w<B.waves.length;w++)for(const [i,id] of B.waves[w].entries()){if(w===B.wave&&B.enemies[i].dead)continue;rest.push(id);}S.dm.list.push(...rest);S.dm.list=S.dm.list.slice(0,DM_CAP-1);}
+          endBattle();});
+        return;
+      }else pushMsg('しかし回り込まれてしまった！');
+    }
+  }
+  pushMsg(null,()=>nextTurn());
+}
+function victory(){
+  B.phase='msg';
+  let exp=0,gold=0;const drops=[];
+  for(const w of B.waves)for(const id of w){const e=ENEMIES[id];exp+=e.exp;gold+=e.gold;if(e.drop&&Math.random()<e.rate)drops.push(e.drop);}
+  if(B.dm){exp=Math.floor(exp*1.3);gold=Math.floor(gold*1.3);}
+  pushMsg(B.boss?'強敵を打ち破った！':'戦いに勝利した！',null,0.9);
+  if(B.dm){pushMsg(`ディメンジョンボーナス！ 経験値とゴールドが 1.3倍！`,null,0.9);const n=B.waves.flat().length;if(n>=10||Math.random()<0.4)drops.push('starshard');if(n>=20)drops.push('elixir');}
+  pushMsg(`${exp} の経験値と ${gold}G を手に入れた！`,()=>{S.gold+=gold;},0.9);
+  for(const d of drops)pushMsg(`${ITEMS[d].name} を手に入れた！`,()=>addItem(d,1),0.7);
+  for(const a of B.actors){
+    pushMsg(null,()=>{
+      const ch=a.ch;ch.exp+=exp;let ups=0;
+      while(ch.exp>=expNext(ch.lv)){ch.exp-=expNext(ch.lv);ch.lv++;ups++;}
+      if(ups){const s=stats(ch);ch.hp=Math.min(s.maxhp,ch.hp+Math.floor(s.maxhp*0.3*ups));ch.mp=Math.min(s.maxmp,ch.mp+Math.floor(s.maxmp*0.3*ups));
+        const learned=CHARS[ch.id].skills.filter(([,lv])=>lv>ch.lv-ups&&lv<=ch.lv).map(([id])=>SKILLS[id].name);
+        B.msgs.unshift({t:`${CHARS[ch.id].name}はレベル ${ch.lv} に上がった！${learned.length?' '+learned.join('、')+'を覚えた！':''}`,wait:0.9});}
+    },0);
+  }
+  pushMsg(null,()=>{
+    if(B.boss){S.flags[B.boss]=true;const bid=B.boss;endBattle();
+      if(bid==='boss1')say(['【ガルド】やったぜ！これで洞窟の奥に進める。','【ミナ】見て、あそこに光る結晶が……！']);
+      if(bid==='boss2')say(['【虚無の王】……星の光が……眩しい……。','虚無の王は霧となって消えていった。'],()=>{mode='ending';endingT=0;try{localStorage.removeItem(SAVE_KEY+'_x');}catch(e){}});
+    }else endBattle();
+  });
+}
+function defeat(){B.phase='msg';pushMsg('全員倒れてしまった……',null,1.2);pushMsg(null,()=>{mode='gameover';gameoverT=0;B=null;});}
+function endBattle(){
+  for(const a of B.actors){a.buff={atk:1,def:1,t:0};}
+  B=null;if(mode==='battle')mode='field';
+}
+function battleUpdate(dt){
+  B.t+=dt;
+  for(const a of [...B.actors,...B.enemies]){if(a.shake>0)a.shake-=dt;if(a.flash>0)a.flash-=dt;else if(a.flash<0)a.flash=Math.min(0,a.flash+dt);}
+  if(B.phase==='msg'){
+    B.msgT-=dt;
+    if(B.msgT<=0&&B.msgs.length){const m=B.msgs.shift();if(m.t!=null)B.text=m.t;if(m.f)m.f();if(!B)return;B.msgT=m.wait;}
+  }
+}
+function battleInput(k){
+  if(B.phase==='msg'){if(k==='ok'&&B.msgT>0.15)B.msgT=0.15;return;}
+  const c=B.cmd,a=B.cur;
+  const cmds=['たたかう','スキル','アイテム','ぼうぎょ','にげる'];
+  if(c.sub==='cmd'){
+    if(k==='up')c.i=(c.i+4)%5;else if(k==='down')c.i=(c.i+1)%5;
+    else if(k==='ok'){
+      if(c.i===0){c.sub='target';c.tg=0;c.pend={type:'attack'};}
+      else if(c.i===1){c.list=charSkills(a.ch);c.sub='skill';c.sk=0;}
+      else if(c.i===2){c.list=Object.keys(S.inv).filter(id=>['heal','mp','full','revive','bomb'].includes(ITEMS[id].type));if(!c.list.length){toast={t:'使えるアイテムがない',T:1};return;}c.sub='item';c.it=0;}
+      else if(c.i===3)playerAct(a,{type:'guard'});
+      else if(c.i===4)playerAct(a,{type:'escape'});
+    }
+  }else if(c.sub==='skill'){
+    const n=c.list.length;
+    if(k==='up')c.sk=(c.sk+n-1)%n;else if(k==='down')c.sk=(c.sk+1)%n;
+    else if(k==='cancel')c.sub='cmd';
+    else if(k==='ok'){const id=c.list[c.sk],sk=SKILLS[id];
+      if(a.ch.mp<sk.mp){toast={t:'MPが足りない！',T:1};return;}
+      if(sk.target==='one'){c.sub='target';c.tg=0;c.pend={type:'skill',id};}
+      else if(sk.target==='ally'){c.sub='atarget';c.tg=0;c.pend={type:'skill',id};}
+      else playerAct(a,{type:'skill',id});}
+  }else if(c.sub==='item'){
+    const n=c.list.length;
+    if(k==='up')c.it=(c.it+n-1)%n;else if(k==='down')c.it=(c.it+1)%n;
+    else if(k==='cancel')c.sub='cmd';
+    else if(k==='ok'){const id=c.list[c.it];if(ITEMS[id].type==='bomb')playerAct(a,{type:'item',id});else{c.sub='atarget';c.tg=0;c.pend={type:'item',id};}}
+  }else if(c.sub==='target'){
+    const es=liveE();
+    if(k==='left'||k==='up')c.tg=(c.tg+es.length-1)%es.length;else if(k==='right'||k==='down')c.tg=(c.tg+1)%es.length;
+    else if(k==='cancel')c.sub=c.pend.type==='attack'?'cmd':'skill';
+    else if(k==='ok'){playerAct(a,{...c.pend,target:es[c.tg]});}
+  }else if(c.sub==='atarget'){
+    const n=B.actors.length;
+    if(k==='left'||k==='up')c.tg=(c.tg+n-1)%n;else if(k==='right'||k==='down')c.tg=(c.tg+1)%n;
+    else if(k==='cancel')c.sub=c.pend.type==='skill'?'skill':'item';
+    else if(k==='ok'){const t=B.actors[c.tg];
+      const isRev=c.pend.type==='skill'?SKILLS[c.pend.id].type==='revive':ITEMS[c.pend.id].type==='revive';
+      if(isRev&&t.ch.hp>0){toast={t:'倒れていない',T:1};return;}
+      if(!isRev&&t.ch.hp<=0){toast={t:'倒れている仲間には使えない',T:1};return;}
+      playerAct(a,{...c.pend,target:t});}
+  }
+}
+
+// ---------------------------------------------------------------- DRAWING HELPERS
+function box(x,y,w,h,alpha=0.85){
+  X.fillStyle=`rgba(10,12,40,${alpha})`;X.fillRect(x,y,w,h);
+  X.strokeStyle='#c9d1ff';X.lineWidth=2;X.strokeRect(x+2,y+2,w-4,h-4);
+  X.strokeStyle='#4a5590';X.lineWidth=1;X.strokeRect(x+5,y+5,w-10,h-10);
+}
+function txt(s,x,y,col='#fff',font=FONT,align='left'){X.font=font;X.textAlign=align;X.textBaseline='top';X.fillStyle='#000';X.fillText(s,x+1,y+1);X.fillStyle=col;X.fillText(s,x,y);}
+function wrap(s,maxW,font=FONT){X.font=font;const out=[];let line='';for(const ch of s){if(X.measureText(line+ch).width>maxW){out.push(line);line=ch;}else line+=ch;}out.push(line);return out;}
+function bar(x,y,w,h,r,c1,c2='#222'){X.fillStyle=c2;X.fillRect(x,y,w,h);X.fillStyle=c1;X.fillRect(x,y,Math.max(0,Math.floor(w*clamp(r,0,1))),h);X.strokeStyle='#000';X.lineWidth=1;X.strokeRect(x+.5,y+.5,w-1,h-1);}
+function cursor(x,y){X.fillStyle='#ffe066';X.beginPath();X.moveTo(x,y);X.lineTo(x+10,y+6);X.lineTo(x,y+12);X.closePath();X.fill();}
+
+function drawTile(ch,x,y,px,py,t){
+  const h=hash(x,y);
+  switch(ch){
+    case '.':X.fillStyle=h<.5?'#4f9a3c':'#539f40';X.fillRect(px,py,T,T);if(h>.8){X.fillStyle='#3f8230';X.fillRect(px+8,py+10,3,6);X.fillRect(px+20,py+18,3,6);}if(h<.08){X.fillStyle='#ffd';X.fillRect(px+14,py+14,3,3);}break;
+    case '=':X.fillStyle='#c9b27a';X.fillRect(px,py,T,T);X.fillStyle='#b89f68';if(h>.5)X.fillRect(px+6,py+8,5,3);X.fillRect(px+18,py+20,6,3);break;
+    case '#':X.fillStyle='#3f7d31';X.fillRect(px,py,T,T);X.fillStyle='#285a1f';X.beginPath();X.arc(px+16,py+14,13,0,7);X.fill();X.fillStyle='#3b8a2e';X.beginPath();X.arc(px+13,py+11,8,0,7);X.fill();X.fillStyle='#5a3a1c';X.fillRect(px+13,py+22,6,9);break;
+    case '~':{const w=Math.sin(t*2+x+y)*2;X.fillStyle='#2f6fd1';X.fillRect(px,py,T,T);X.fillStyle='#4a8ae8';X.fillRect(px+4,py+8+w,12,2);X.fillRect(px+16,py+20-w,10,2);break;}
+    case 'H':X.fillStyle='#b58a5a';X.fillRect(px,py,T,T);X.fillStyle='#8a6440';X.fillRect(px,py,T,10);X.fillStyle='#d9c3a3';X.fillRect(px+4,py+14,10,8);X.strokeStyle='#5a3d22';X.strokeRect(px+4.5,py+14.5,10,8);break;
+    case 'D':X.fillStyle='#b58a5a';X.fillRect(px,py,T,T);X.fillStyle='#5a3418';X.fillRect(px+8,py+6,16,26);X.fillStyle='#e8c84a';X.fillRect(px+19,py+19,3,3);break;
+    case ',':X.fillStyle=h<.5?'#5e5a6a':'#64606f';X.fillRect(px,py,T,T);if(h>.85){X.fillStyle='#4e4a5a';X.fillRect(px+10,py+12,6,4);}break;
+    case '%':X.fillStyle='#2a2733';X.fillRect(px,py,T,T);X.fillStyle='#3d3948';X.beginPath();X.moveTo(px+2,py+30);X.lineTo(px+10,py+6);X.lineTo(px+22,py+12);X.lineTo(px+30,py+30);X.closePath();X.fill();X.fillStyle='#4a4656';X.fillRect(px+8,py+14,6,4);break;
+    case 'S':X.fillStyle=h<.5?'#7c7f9a':'#8386a3';X.fillRect(px,py,T,T);X.strokeStyle='#5f6280';X.strokeRect(px+.5,py+.5,T-1,T-1);if(h>.9){X.fillStyle='#8fd0ff';X.fillRect(px+14,py+14,4,4);}break;
+    case 'W':X.fillStyle='#3d3f5c';X.fillRect(px,py,T,T);X.fillStyle='#4c4f70';X.fillRect(px+2,py+2,13,13);X.fillRect(px+17,py+17,13,13);X.fillStyle='#34365a';X.fillRect(px+17,py+2,13,13);X.fillRect(px+2,py+17,13,13);break;
+    case 'P':X.fillStyle='#7c7f9a';X.fillRect(px,py,T,T);X.fillStyle='#b9bcd8';X.fillRect(px+10,py+2,12,28);X.fillStyle='#d7daf0';X.fillRect(px+8,py+0,16,5);X.fillRect(px+8,py+27,16,5);break;
+    default:X.fillStyle='#000';X.fillRect(px,py,T,T);
+  }
+}
+function drawPerson(px,py,c,dir,frame,hair='#333',small=false){
+  const bob=Math.floor(frame)%2===0?0:1;const s=small?0.8:1;
+  X.save();X.translate(px+16,py+16+bob);X.scale(s,s);
+  X.fillStyle='rgba(0,0,0,.3)';X.beginPath();X.ellipse(0,14,11,4,0,0,7);X.fill();
+  // legs
+  X.fillStyle='#333';X.fillRect(-6,4,5,10);X.fillRect(1,4,5,10);
+  // body
+  X.fillStyle=c;X.fillRect(-8,-4,16,10);
+  // head
+  X.fillStyle='#f6d7b0';X.fillRect(-7,-16,14,13);
+  X.fillStyle=hair;X.fillRect(-8,-17,16,6);if(dir==='up')X.fillRect(-8,-17,16,13);
+  // eyes
+  if(dir!=='up'){X.fillStyle='#222';if(dir!=='right')X.fillRect(-5,-9,2,3);if(dir!=='left')X.fillRect(3,-9,2,3);}
+  X.restore();
+}
+function drawChest(px,py,open){X.fillStyle='#8a5a2a';X.fillRect(px+5,py+10,22,18);X.fillStyle=open?'#5a3418':'#a8702f';X.fillRect(px+5,py+6,22,8);X.fillStyle='#e8c84a';X.fillRect(px+14,py+14,4,5);if(open){X.fillStyle='#ffe';X.fillRect(px+8,py+16,16,8);}}
+function drawCrystal(px,py,t){const g=0.6+0.4*Math.sin(t*3);X.fillStyle=`rgba(120,220,255,${g})`;X.beginPath();X.moveTo(px+16,py+2);X.lineTo(px+26,py+16);X.lineTo(px+16,py+30);X.lineTo(px+6,py+16);X.closePath();X.fill();X.fillStyle='#fff';X.fillRect(px+14,py+10,3,8);}
+function drawEnemySprite(e,cx,cy,t){
+  const d=ENEMIES[e.id],sc=d.boss?1.9:1.1;
+  X.save();X.translate(cx+(e.shake>0?Math.sin(e.shake*60)*5:0),cy);X.scale(sc,sc);
+  X.fillStyle='rgba(0,0,0,.35)';X.beginPath();X.ellipse(0,26,24,6,0,0,7);X.fill();
+  X.fillStyle=e.flash>0?'#fff':d.color;X.strokeStyle='#111';X.lineWidth=2;
+  const bob=Math.sin(t*3+e.idx)*2;
+  switch(d.shape){
+    case 'blob':X.beginPath();X.ellipse(0,8+bob,24,18,0,0,7);X.fill();X.stroke();eye(-8,4+bob);eye(8,4+bob);break;
+    case 'beast':X.beginPath();X.ellipse(0,10+bob,26,15,0,0,7);X.fill();X.stroke();X.beginPath();X.ellipse(16,-2+bob,12,10,0,0,7);X.fill();X.stroke();X.beginPath();X.moveTo(8,-10+bob);X.lineTo(12,-20+bob);X.lineTo(16,-10+bob);X.moveTo(18,-10+bob);X.lineTo(22,-20+bob);X.lineTo(26,-10+bob);X.fill();eye(14,-4+bob);eye(22,-4+bob,'#f44');break;
+    case 'bat':X.beginPath();X.ellipse(0,0+bob*2,12,14,0,0,7);X.fill();X.stroke();const f=Math.sin(t*12)*8;X.beginPath();X.moveTo(-10,0+bob*2);X.lineTo(-34,-12+f);X.lineTo(-30,8+bob*2);X.closePath();X.moveTo(10,0+bob*2);X.lineTo(34,-12+f);X.lineTo(30,8+bob*2);X.closePath();X.fill();X.stroke();eye(-5,-4+bob*2,'#f44');eye(5,-4+bob*2,'#f44');break;
+    case 'humanoid':X.fillRect(-12,-4+bob,24,28);X.strokeRect(-12,-4+bob,24,28);X.beginPath();X.arc(0,-14+bob,12,0,7);X.fill();X.stroke();X.fillRect(-22,0+bob,8,20);X.fillRect(14,0+bob,8,20);eye(-5,-16+bob);eye(5,-16+bob);X.fillStyle='#999';X.fillRect(20,-22+bob,4,34);break;
+    case 'golem':X.fillRect(-26,-6+bob,52,34);X.strokeRect(-26,-6+bob,52,34);X.fillRect(-18,-26+bob,36,22);X.strokeRect(-18,-26+bob,36,22);X.fillRect(-38,-2+bob,12,30);X.fillRect(26,-2+bob,12,30);eye(-8,-16+bob,'#fc4');eye(8,-16+bob,'#fc4');break;
+    case 'ghost':X.globalAlpha=0.85;X.beginPath();X.arc(0,-6+bob*2,20,Math.PI,0);X.lineTo(20,20+bob*2);for(let i=20;i>=-20;i-=10)X.lineTo(i-5,(i/10%2===0?12:20)+bob*2);X.closePath();X.fill();X.stroke();eye(-7,-8+bob*2,'#237');eye(7,-8+bob*2,'#237');X.globalAlpha=1;break;
+    case 'crab':X.beginPath();X.ellipse(0,8+bob,34,20,0,0,7);X.fill();X.stroke();X.beginPath();X.ellipse(-40,-6+bob,12,9,0.5,0,7);X.ellipse(40,-6+bob,12,9,-0.5,0,7);X.fill();X.stroke();for(const s of [-1,1]){X.beginPath();X.moveTo(s*20,20+bob);X.lineTo(s*34,34+bob);X.moveTo(s*28,14+bob);X.lineTo(s*46,24+bob);X.stroke();}eye(-10,-2+bob,'#ff0');eye(10,-2+bob,'#ff0');break;
+    case 'void':{const g=X.createRadialGradient(0,0,4,0,0,46);g.addColorStop(0,e.flash>0?'#fff':'#c9a0ff');g.addColorStop(0.5,d.color);g.addColorStop(1,'rgba(20,0,40,0)');X.fillStyle=g;X.beginPath();X.arc(0,0+bob,46,0,7);X.fill();X.fillStyle='#120820';X.beginPath();X.ellipse(0,0+bob,20,30,0,0,7);X.fill();for(let i=0;i<6;i++){const a2=t*1.5+i;X.fillStyle='#e0c0ff';X.beginPath();X.arc(Math.cos(a2)*36,Math.sin(a2)*18+bob,4,0,7);X.fill();}eye(-7,-6+bob,'#f3c');eye(7,-6+bob,'#f3c');break;}
+  }
+  X.restore();
+  function eye(x,y,col='#fff'){X.fillStyle=col;X.beginPath();X.arc(x,y,3,0,7);X.fill();X.fillStyle='#000';X.beginPath();X.arc(x+1,y,1.5,0,7);X.fill();}
+}
+
+// ---------------------------------------------------------------- RENDER: FIELD
+function drawField(t){
+  const m=MAPS[S.map],rows=m.rows,mw=rows[0].length,mh=rows.length;
+  // interpolated player pos
+  const ix=S.x+(S.mx-S.x)*S.moveT,iy=S.y+(S.my-S.y)*S.moveT;
+  let camx=ix*T+T/2-W/2,camy=iy*T+T/2-H/2;
+  camx=clamp(camx,0,Math.max(0,mw*T-W));camy=clamp(camy,0,Math.max(0,mh*T-H));
+  camx=Math.round(camx);camy=Math.round(camy);
+  X.fillStyle='#000';X.fillRect(0,0,W,H);
+  const x0=Math.floor(camx/T),y0=Math.floor(camy/T);
+  for(let y=y0;y<=y0+VH&&y<mh;y++)for(let x=x0;x<=x0+VW&&x<mw;x++)drawTile(rows[y][x],x,y,x*T-camx,y*T-camy,t);
+  // lighting for cave
+  if(S.map==='cave'){X.fillStyle='rgba(0,0,20,.25)';X.fillRect(0,0,W,H);}
+  // labels
+  for(const l of m.labels||[])txt(l.t,l.x*T-camx+16,l.y*T-camy+8,'#ffe9b0','bold 12px sans-serif','center');
+  // warps markers
+  for(const w of m.warps){const px=w.x*T-camx,py=w.y*T-camy;
+    if(w.kind==='cave'){X.fillStyle='#111';X.beginPath();X.arc(px+16,py+20,14,Math.PI,0);X.fill();X.fillRect(px+2,py+20,28,12);}
+    else if(w.kind==='gate'){const open=S.flags[w.needFlag];X.fillStyle=open?'#8fd0ff':'#3a3a55';X.fillRect(px+4,py+2,24,30);X.fillStyle=open?'#dff':'#222';X.fillRect(px+10,py+8,12,22);}
+    else{X.fillStyle='rgba(255,255,255,.25)';X.fillRect(px+8,py+8,16,16);}}
+  // objects
+  for(const o of m.objects||[])if(o.kind==='crystal')drawCrystal(o.x*T-camx,o.y*T-camy,t);
+  // chests
+  for(const c of m.chests||[])drawChest(c.x*T-camx,c.y*T-camy,S.flags[chestKey(c)]);
+  // bosses on map
+  for(const b of m.bosses||[])if(!S.flags[b.id]){const e={id:b.enemy,idx:0,shake:0,flash:0};drawEnemySprite(e,b.x*T-camx+16,b.y*T-camy+4,t);}
+  // npcs
+  for(const n of m.npcs)if(!(n.hideFlag&&S.flags[n.hideFlag]))drawPerson(n.x*T-camx,n.y*T-camy,n.color,'down',Math.floor(t*2+n.x)%2,n.hair,n.small);
+  // player & followers
+  drawPerson(ix*T-camx,iy*T-camy,CHARS.hero.color,S.dir,S.moveT>0?S.frame:0,CHARS.hero.hair);
+  // HUD
+  box(6,6,200,30,0.7);txt(m.name,16,13,'#ffe9b0',FONT_B);
+  box(W-166,6,160,30,0.7);txt(`${S.gold} G`,W-16,13,'#ffe066',FONT_B,'right');
+  if(S.flags.elder_done){
+    const n=S.dm.list.length;
+    box(W-166,40,160,40,0.7);
+    txt(`DM ${S.dm.on?'ON':'OFF'}  ${n}/${DM_CAP}`,W-156,45,S.dm.on?'#8ff':'#aaa','bold 14px sans-serif');
+    bar(W-156,64,140,8,n/DM_CAP,n>=DM_CAP*0.75?'#f66':'#6cf');
+  }
+  // party mini status
+  const pc=partyChars();
+  for(let i=0;i<pc.length;i++){const ch=pc[i],s=stats(ch);const bx=6+i*150,by=H-54;box(bx,by,146,48,0.7);
+    txt(`${CHARS[ch.id].name} Lv${ch.lv}`,bx+10,by+6,CHARS[ch.id].color,'bold 13px sans-serif');
+    bar(bx+10,by+24,126,7,ch.hp/s.maxhp,ch.hp/s.maxhp<0.25?'#f55':'#5f5');bar(bx+10,by+34,126,5,ch.mp/s.maxmp,'#59f');
+    txt(`${ch.hp}/${s.maxhp}`,bx+136,by+4,'#fff','11px sans-serif','right');}
+}
+
+// ---------------------------------------------------------------- RENDER: DIALOG
+function drawDialog(dt){
+  const d=dlg;const page=d.pages[d.i];
+  d.shown=Math.min(page.length,d.shown+dt*40);
+  box(20,H-130,W-40,120);
+  const lines=wrap(page.slice(0,Math.floor(d.shown)),W-90);
+  lines.forEach((l,i)=>txt(l,40,H-114+i*26,'#fff','17px sans-serif'));
+  if(d.shown>=page.length){
+    if(d.choice&&d.i===d.pages.length-1){
+      const o=d.choice.opts;const bw=180,bh=o.length*28+20;box(W-40-bw,H-130-bh,bw,bh);
+      o.forEach((s,i)=>{txt(s,W-40-bw+34,H-130-bh+12+i*28,i===d.choice.i?'#ffe066':'#fff');if(i===d.choice.i)cursor(W-40-bw+16,H-130-bh+16+i*28);});
+    }else if(Math.floor(performance.now()/400)%2===0){X.fillStyle='#fff';X.beginPath();X.moveTo(W-50,H-32);X.lineTo(W-38,H-32);X.lineTo(W-44,H-24);X.fill();}
+  }
+}
+
+// ---------------------------------------------------------------- RENDER: MENU
+function drawMenu(){
+  const m=menu;
+  X.fillStyle='rgba(0,0,0,.45)';X.fillRect(0,0,W,H);
+  box(20,20,170,MENU_ITEMS.length*30+24);
+  MENU_ITEMS.forEach((s,i)=>{txt(s,54,34+i*30,i===m.sel?'#ffe066':'#fff');if(i===m.sel&&m.sub===null)cursor(36,38+i*30);});
+  box(20,H-60,170,44);txt(`${S.gold} G`,100,H-46,'#ffe066',FONT_B,'center');
+  // party panel
+  const pc=partyChars();
+  pc.forEach((ch,i)=>{const s=stats(ch),y=20+i*96;box(200,y,420,92);
+    const hl=(m.sub==='itemWho'||m.sub==='equipWho')&&m.who===i||m.sub==='status'&&m.cur===i||(m.sub==='equipSlot'||m.sub==='equipList')&&m.who===i;
+    if(hl)cursor(212,y+36);
+    drawPerson(222,y+22,CHARS[ch.id].color,'down',0,CHARS[ch.id].hair);
+    txt(`${CHARS[ch.id].name}  Lv ${ch.lv}`,262,y+10,CHARS[ch.id].color,FONT_B);
+    txt(`HP ${ch.hp}/${s.maxhp}`,262,y+36,'#fff');bar(262,y+56,150,8,ch.hp/s.maxhp,'#5f5');
+    txt(`MP ${ch.mp}/${s.maxmp}`,430,y+36,'#fff');bar(430,y+56,150,8,ch.mp/s.maxmp,'#59f');
+    txt(`次のLvまで ${expNext(ch.lv)-ch.exp}`,430,y+10,'#aab','12px sans-serif');
+    txt(`攻 ${s.atk}  防 ${s.def}  魔 ${s.mag}  速 ${s.spd}`,262,y+70,'#ddd','12px sans-serif');
+  });
+  if(m.sub==='item'||m.sub==='itemWho'){
+    box(200,310,420,160);
+    m.list.forEach((id,i)=>{if(i>=5)return;const it=ITEMS[id];txt(`${it.name}  ×${S.inv[id]}`,234,322+i*24,i===m.cur?'#ffe066':'#fff');if(i===m.cur)cursor(216,326+i*24);});
+    if(m.list.length)txt(ITEMS[m.list[m.cur]].desc,234,446,'#aab','12px sans-serif');
+    if(m.sub==='itemWho')txt('誰に使う？ (↑↓で選択)',480,322,'#8ff','13px sans-serif');
+  }
+  if(m.sub==='status'){const ch=pc[m.cur];box(200,310,420,160);txt(`${CHARS[ch.id].name} のスキル`,216,320,'#ffe9b0',FONT_B);
+    charSkills(ch).forEach((id,i)=>{const sk=SKILLS[id];txt(`${sk.name} (MP${sk.mp})  ${sk.desc}`,216,346+i*22,'#fff','13px sans-serif');});
+    txt(`武器: ${ch.weapon?ITEMS[ch.weapon].name:'なし'}  防具: ${ch.armor?ITEMS[ch.armor].name:'なし'}`,216,450,'#aab','12px sans-serif');}
+  if(m.sub==='equipWho')txt('装備を変えるキャラを選択 (↑↓)',200,H-30,'#8ff');
+  if(m.sub==='equipSlot'||m.sub==='equipList'){const ch=pc[m.who];box(200,310,420,160);
+    const names=[`武器: ${ch.weapon?ITEMS[ch.weapon].name:'なし'}`,`防具: ${ch.armor?ITEMS[ch.armor].name:'なし'}`];
+    names.forEach((s,i)=>{txt(s,234,322+i*26,i===m.slot?'#ffe066':'#fff');if(i===m.slot&&m.sub==='equipSlot')cursor(216,326+i*26);});
+    if(m.sub==='equipList'){box(400,300,220,180);m.list.forEach((id,i)=>{if(i>=6)return;txt(id?`${ITEMS[id].name} ×${S.inv[id]}`:'（はずす）',430,312+i*24,i===m.cur?'#ffe066':'#fff');if(i===m.cur)cursor(412,316+i*24);});
+      const id=m.list[m.cur];if(id)txt(ITEMS[id].desc,234,440,'#aab','12px sans-serif');}
+  }
+}
+
+// ---------------------------------------------------------------- RENDER: SHOP
+function drawShop(){
+  const s=shop;X.fillStyle='rgba(0,0,0,.45)';X.fillRect(0,0,W,H);
+  box(40,30,560,60);txt('【道具屋】いらっしゃい！何を買うんだい？',60,46,'#fff','17px sans-serif');txt(`所持金 ${S.gold} G`,580,46,'#ffe066',FONT_B,'right');
+  box(40,100,560,330);
+  const top=Math.max(0,Math.min(s.cur-5,s.stock.length-10));
+  s.stock.slice(top,top+10).forEach((id,i)=>{const it=ITEMS[id],k=i+top;const y=112+i*26;
+    txt(it.name,80,y,k===s.cur?'#ffe066':'#fff');txt(`${it.price} G`,420,y,k===s.cur?'#ffe066':'#fff',FONT,'right');txt(`所持 ${S.inv[id]||0}`,560,y,'#aab','13px sans-serif','right');
+    if(k===s.cur)cursor(60,y+4);});
+  txt(ITEMS[s.stock[s.cur]].desc,60,400,'#8ff','14px sans-serif');
+  box(40,440,560,34,0.7);txt('Z:買う  X:店を出る',320,448,'#ccc','13px sans-serif','center');
+}
+
+// ---------------------------------------------------------------- RENDER: BATTLE
+function enemyPos(i,n){const gap=Math.min(130,520/n);const x=W/2-(n-1)*gap/2+i*gap;return {x,y:150};}
+function drawBattle(t){
+  // background by map
+  const g=X.createLinearGradient(0,0,0,H);
+  const bg={village:['#2b4a7a','#5a8a5a'],plains:['#4a7ad0','#4f9a3c'],cave:['#1a1830','#3c3848'],ruins:['#201a40','#5a5a80']}[S.map]||['#223','#446'];
+  g.addColorStop(0,bg[0]);g.addColorStop(1,bg[1]);X.fillStyle=g;X.fillRect(0,0,W,H);
+  X.fillStyle='rgba(0,0,0,.25)';X.fillRect(0,240,W,40);
+  X.save();if(shake>0)X.translate(Math.sin(shake*80)*6,0);
+  const es=B.enemies,n=es.length;
+  es.forEach((e,i)=>{if(e.dead)return;const p=enemyPos(i,n);drawEnemySprite(e,p.x,p.y,t);
+    bar(p.x-30,p.y+52,60,5,e.hp/e.maxhp,'#f55');
+    if(e.boss)txt(e.name,p.x,p.y-80,'#ffb',FONT_B,'center');
+    if(e.buff.def>1||e.stun>0)txt(e.stun>0?'怯み':'硬化',p.x,p.y+60,'#ff8','12px sans-serif','center');});
+  X.restore();
+  // DM wave indicator
+  if(B.waves.length>1){box(W-200,6,194,30,0.7);txt(`ディメンジョン  第${B.wave+1}波 / ${B.waves.length}波`,W-104,13,'#8ff','bold 13px sans-serif','center');}
+  if(B.boss){box(6,6,120,30,0.7);txt('BOSS',66,12,'#f88',FONT_B,'center');}
+  // target cursor
+  const c=B.cmd;
+  if(B.phase==='input'&&c.sub==='target'){const live=liveE();const tgt=live[c.tg];const i=es.indexOf(tgt);const p=enemyPos(i,n);
+    X.fillStyle='#ffe066';X.beginPath();X.moveTo(p.x,p.y-56);X.lineTo(p.x-8,p.y-70);X.lineTo(p.x+8,p.y-70);X.fill();txt(`${tgt.name}  HP ${tgt.hp}/${tgt.maxhp}`,p.x,p.y-92,'#fff','13px sans-serif','center');}
+  // message
+  box(20,282,W-40,46);txt(B.text,36,296,'#fff','16px sans-serif');
+  // party status
+  const na=B.actors.length;
+  B.actors.forEach((a,i)=>{const ch=a.ch,s=stats(ch);const bx=W-40-(na-i)*150+150-146,by=338;
+    const cur=B.cur===a&&B.phase==='input';
+    box(bx,by,146,132,cur?0.95:0.8);
+    if(cur){X.strokeStyle='#ffe066';X.lineWidth=2;X.strokeRect(bx+2,by+2,142,128);}
+    const col=ch.hp<=0?'#777':CHARS[ch.id].color;
+    X.save();if(a.shake>0)X.translate(Math.sin(a.shake*60)*4,0);if(a.flash>0){X.globalAlpha=.5;}
+    drawPerson(bx+10,by+8,ch.hp<=0?'#555':CHARS[ch.id].color,'down',0,CHARS[ch.id].hair);X.restore();
+    if(a.flash<0){X.fillStyle='rgba(120,255,160,.25)';X.fillRect(bx+4,by+4,138,124);}
+    txt(`${CHARS[ch.id].name}`,bx+50,by+10,col,FONT_B);txt(`Lv${ch.lv}`,bx+136,by+12,'#aab','12px sans-serif','right');
+    txt(`HP ${ch.hp}/${s.maxhp}`,bx+10,by+50,'#fff','13px sans-serif');bar(bx+10,by+68,126,8,ch.hp/s.maxhp,ch.hp/s.maxhp<.25?'#f55':'#5f5');
+    txt(`MP ${ch.mp}/${s.maxmp}`,bx+10,by+80,'#fff','13px sans-serif');bar(bx+10,by+98,126,6,ch.mp/s.maxmp,'#59f');
+    const tags=[];if(a.buff.atk>1)tags.push('攻↑');if(a.buff.def>1)tags.push('防↑');if(a.taunt>0)tags.push('挑発');if(a.guard)tags.push('防御');if(a.stun>0)tags.push('怯み');
+    txt(tags.join(' '),bx+10,by+110,'#ff8','12px sans-serif');
+    if(B.phase==='input'&&c.sub==='atarget'&&c.tg===i)cursor(bx+126,by+30);
+  });
+  // command window
+  if(B.phase==='input'){
+    const cmds=['たたかう','スキル','アイテム','ぼうぎょ','にげる'];
+    box(20,338,150,132);
+    cmds.forEach((s,i)=>{txt(s,54,348+i*24,i===c.i?'#ffe066':'#fff');if(i===c.i&&c.sub==='cmd')cursor(36,352+i*24);});
+    if(c.sub==='skill'){box(170,338,260,132);const a=B.cur;
+      c.list.forEach((id,i)=>{const sk=SKILLS[id];const ok=a.ch.mp>=sk.mp;txt(`${sk.name}`,204,348+i*24,i===c.sk?'#ffe066':ok?'#fff':'#777','14px sans-serif');txt(`MP${sk.mp}`,418,348+i*24,ok?'#8cf':'#777','13px sans-serif','right');if(i===c.sk)cursor(186,352+i*24);});
+      box(20,250,W-40,30,0.85);txt(SKILLS[c.list[c.sk]].desc,36,257,'#8ff','14px sans-serif');}
+    if(c.sub==='item'){box(170,338,260,132);
+      c.list.slice(0,5).forEach((id,i)=>{txt(`${ITEMS[id].name} ×${S.inv[id]}`,204,348+i*24,i===c.it?'#ffe066':'#fff','14px sans-serif');if(i===c.it)cursor(186,352+i*24);});
+      box(20,250,W-40,30,0.85);txt(ITEMS[c.list[c.it]].desc,36,257,'#8ff','14px sans-serif');}
+    if(c.sub==='target'){box(20,250,W-40,30,0.85);txt('対象を選択 (←→)',36,257,'#8ff','14px sans-serif');}
+    if(c.sub==='atarget'){box(20,250,W-40,30,0.85);txt('味方を選択 (←→)',36,257,'#8ff','14px sans-serif');}
+  }
+}
+
+// ---------------------------------------------------------------- RENDER: TITLE / GAMEOVER / ENDING
+function drawTitle(t){
+  const g=X.createLinearGradient(0,0,0,H);g.addColorStop(0,'#05061a');g.addColorStop(1,'#1a2a5a');X.fillStyle=g;X.fillRect(0,0,W,H);
+  for(let i=0;i<80;i++){const x=hash(i,7)*W,y=hash(i,13)*H*0.7;const a=0.4+0.6*Math.abs(Math.sin(t*2+i));X.fillStyle=`rgba(255,255,255,${a})`;X.fillRect(x,y,2,2);}
+  X.fillStyle='#2b3a2a';X.beginPath();X.moveTo(0,H);X.lineTo(0,360);X.quadraticCurveTo(160,300,320,340);X.quadraticCurveTo(480,380,640,330);X.lineTo(W,H);X.fill();
+  txt('星の記憶',W/2,120,'#ffe9b0','bold 56px "Noto Sans JP","Hiragino Sans",sans-serif','center');
+  txt('— ディメンジョン探索RPG —',W/2,190,'#aab','18px sans-serif','center');
+  const opts=['はじめから','つづきから'];
+  opts.forEach((s,i)=>{const dis=i===1&&!hasSave();txt(s,W/2,290+i*36,dis?'#666':i===titleSel?'#ffe066':'#fff','bold 22px sans-serif','center');if(i===titleSel)cursor(W/2-90,298+i*36);});
+  txt('Z / Enter で決定',W/2,420,'#889','14px sans-serif','center');
+}
+function titleInput(k){
+  if(k==='up'||k==='down')titleSel=1-titleSel;
+  else if(k==='ok'){if(titleSel===0)newGame();else if(hasSave()){loadGame();toast={t:'ロードしました',T:1.5};}}
+}
+function drawGameover(dt){
+  gameoverT+=dt;X.fillStyle='#000';X.fillRect(0,0,W,H);
+  txt('全滅した……',W/2,180,'#f66','bold 40px sans-serif','center');
+  if(gameoverT>1.5)txt('Z で ' + (hasSave()?'セーブデータから再開':'タイトルへ'),W/2,280,'#ccc','16px sans-serif','center');
+}
+function gameoverInput(k){if(gameoverT>1.5&&k==='ok'){if(hasSave())loadGame();else{mode='title';S=null;}}}
+function drawEnding(dt){
+  endingT+=dt;const g=X.createLinearGradient(0,0,0,H);g.addColorStop(0,'#05061a');g.addColorStop(1,'#3a2a5a');X.fillStyle=g;X.fillRect(0,0,W,H);
+  for(let i=0;i<120;i++){const x=hash(i,3)*W,y=(hash(i,5)*H+endingT*10*(1+hash(i,9)))%H;X.fillStyle=`rgba(255,255,255,${0.3+0.7*hash(i,11)})`;X.fillRect(x,y,2,2);}
+  const lines=['虚無の王は消え、星の光が世界に戻った。','','ヒロは取り戻した記憶と、新しい仲間とともに','また旅に出る——。','','','おしまい','','','',`プレイ時間: ${Math.floor(S.time/60)}分   到達レベル: ${partyChars().map(c=>CHARS[c.id].name+' Lv'+c.lv).join(' / ')}`,'','Z でタイトルへ'];
+  lines.forEach((l,i)=>{const y=H-endingT*28+i*30;if(y>-30&&y<H)txt(l,W/2,y,i===6?'#ffe9b0':'#fff',i===6?'bold 32px sans-serif':'17px sans-serif','center');});
+}
+function endingInput(k){if(k==='ok'&&endingT>12){mode='title';S=null;}}
+
+// ---------------------------------------------------------------- MAIN LOOP
+function loop(now){
+  const dt=Math.min(0.05,(now-lastT)/1000);lastT=now;const t=now/1000;
+  // input
+  while(pressed.length){const k=pressed.shift();
+    switch(mode){
+      case 'title':titleInput(k);break;
+      case 'field':fieldInput(k);break;
+      case 'dialog':dialogInput(k);break;
+      case 'menu':menuInput(k);break;
+      case 'shop':shopInput(k);break;
+      case 'battle':battleInput(k);break;
+      case 'gameover':gameoverInput(k);break;
+      case 'ending':endingInput(k);break;
+    }
+  }
+  // update
+  if(mode==='field'||mode==='dialog'||mode==='menu'||mode==='shop'){if(S)fieldUpdate(dt);}
+  if(mode==='battle'&&B)battleUpdate(dt);
+  if(shake>0)shake-=dt;if(flashT>0)flashT-=dt;
+  if(toast){toast.T-=dt;if(toast.T<=0)toast=null;}
+  // draw
+  X.setTransform(1,0,0,1,0,0);
+  switch(mode){
+    case 'title':drawTitle(t);break;
+    case 'field':drawField(t);break;
+    case 'dialog':if(B)drawBattle(t);else if(S)drawField(t);drawDialog(dt);break;
+    case 'menu':drawField(t);drawMenu();break;
+    case 'shop':drawField(t);drawShop();break;
+    case 'battle':drawBattle(t);break;
+    case 'gameover':drawGameover(dt);break;
+    case 'ending':drawEnding(dt);break;
+  }
+  if(flashT>0){X.fillStyle=`rgba(255,255,255,${flashT})`;X.fillRect(0,0,W,H);}
+  if(toast){const w=X.measureText(toast.t).width+60;box(W/2-w/2,90,w,36,0.85);txt(toast.t,W/2,99,'#fff','15px sans-serif','center');}
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
