@@ -1,0 +1,78 @@
+{
+  "_説明": "P5（全滅と魔石）の試験場（T の帯 900–909 のうち 905 を P5 が使う）。製品のマップからは行けない。西の小部屋が拠点役（灯を調べると拠点になる）、東の広間に確実に全滅させる敵（追わない）と、敗北可の戦闘を仕掛ける人。",
+  "mapId": 905,
+  "name": "T_全滅と魔石",
+  "displayName": "全滅の試験場",
+  "legend": "dungeon",
+  "bgm": "Dungeon1",
+  "chars": {
+    "S": { "name": "拠点の戻り先（灯で設定する座標）", "as": "." },
+    "L": { "name": "帰還の灯", "as": "." },
+    "E": { "name": "全滅役の敵", "as": "." },
+    "B": { "name": "敗北可の戦闘を仕掛ける人", "as": "." }
+  },
+  "events": [
+    {
+      "at": "L",
+      "name": "帰還の灯",
+      "type": "raw",
+      "pages": [
+        {
+          "image": { "characterName": "!Flame", "characterIndex": 0, "direction": 2 },
+          "priorityType": 1,
+          "stepAnime": true,
+          "trigger": 0,
+          "list": [
+            { "code": 357, "indent": 0, "parameters": ["Hai_Defeat", "setHome", "拠点を設定", { "mapId": "0", "x": "4", "y": "5", "direction": "2" }] },
+            { "code": 657, "indent": 0, "parameters": ["マップ ID = 0"] },
+            { "code": 657, "indent": 0, "parameters": ["X = 4"] },
+            { "code": 657, "indent": 0, "parameters": ["Y = 5"] },
+            { "code": 657, "indent": 0, "parameters": ["向き = 下"] },
+            { "code": 101, "indent": 0, "parameters": ["", 0, 0, 2, ""] },
+            { "code": 401, "indent": 0, "parameters": ["灰色の灯がともっている。"] },
+            { "code": 401, "indent": 0, "parameters": ["倒れたときは、ここへ戻される。"] },
+            { "code": 0, "indent": 0, "parameters": [] }
+          ]
+        }
+      ]
+    },
+    {
+      "at": "E",
+      "name": "全滅役の敵（追わない）",
+      "type": "raw",
+      "note": "<hai_enemy:181,red>\n<hai_enemy_chase:0>",
+      "pages": [
+        {
+          "image": { "characterName": "Monster", "characterIndex": 5, "direction": 2 },
+          "priorityType": 1,
+          "moveType": 0,
+          "trigger": 2
+        }
+      ]
+    },
+    {
+      "at": "B",
+      "name": "敗北可の戦い",
+      "type": "raw",
+      "pages": [
+        {
+          "image": { "characterName": "Evil", "characterIndex": 0, "direction": 2 },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            { "code": 301, "indent": 0, "parameters": [0, 181, false, true] },
+            { "code": 601, "indent": 0, "parameters": [] },
+            { "code": 0, "indent": 1, "parameters": [] },
+            { "code": 603, "indent": 0, "parameters": [] },
+            { "code": 123, "indent": 1, "parameters": ["A", 0] },
+            { "code": 101, "indent": 1, "parameters": ["", 0, 0, 2, ""] },
+            { "code": 401, "indent": 1, "parameters": ["負けても、ここでは何も落とさない。"] },
+            { "code": 0, "indent": 1, "parameters": [] },
+            { "code": 604, "indent": 0, "parameters": [] },
+            { "code": 0, "indent": 0, "parameters": [] }
+          ]
+        }
+      ]
+    }
+  ]
+}
