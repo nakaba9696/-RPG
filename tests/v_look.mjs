@@ -197,6 +197,15 @@ await runTest(async () => {
     if (has902) {
       await enter(902, 5, 11);
       await game.shot("map902-clues");
+      // ダンジョンの雰囲気（Map903 と同じ色調＋暗がり半径 6）の下で、手がかりがどう見えるか
+      await enter(902, 7, 11);
+      await game.eval(tone => {
+        $gameScreen.startTint(tone, 0);
+        PluginManager.callCommand($gameMap._interpreter, "Hai_MapTone", "dark", { radius: "6" });
+      }, TONE);
+      await game.frames(3);
+      await game.shot("map902-clues-dark");
+      await game.eval(() => $gameScreen.startTint([0, 0, 0, 0], 0));
       console.log("  Map902（手がかり）を撮った");
     }
 
