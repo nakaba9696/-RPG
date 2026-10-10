@@ -5,12 +5,35 @@ import fs from "node:fs";
 import path from "node:path";
 import vm from "node:vm";
 import { fileURLToPath } from "node:url";
-import { ROOT, DATA_DIR, readData, mapFileName } from "./io.mjs";
+import { ROOT, DATA_DIR, readData as readDataFile, mapFileName } from "./io.mjs";
 
 export const TABLES = [
   "Actors.json", "Animations.json", "Armors.json", "Classes.json", "CommonEvents.json", "Enemies.json",
   "Items.json", "Skills.json", "States.json", "Tilesets.json", "Troops.json", "Weapons.json",
 ];
+
+/**
+ * エディタの状態：MZ のエディタが「保存」のたびに書き換える欄。ゲームの中身ではないので、検査で値を問わない。
+ *   System.json の editMapId（最後に開いたマップ）・versionId（保存のたびに変わる版番号）
+ *   MapInfos.json の各要素の scrollX・scrollY（エディタのスクロール位置。小数もある）
+ * 持ち主がエディタで保存して commit しても、これらの差分では何も落ちない。
+ */
+export const EDITOR_STATE = {
+  "System.json": ["editMapId", "versionId"],
+  "MapInfos.json": ["scrollX", "scrollY"],
+};
+
+/** エディタの状態の欄を除いた写しを返す（比べるとき用）。name は "System.json" か "MapInfos.json"。 */
+export function withoutEditorState(name, json) {
+  const keys = EDITOR_STATE[name] || [];
+  const strip = obj => {
+    if (!obj || typeof obj !== "object") return obj;
+    const copy = { ...obj };
+    for (const k of keys) delete copy[k];
+    return copy;
+  };
+  return Array.isArray(json) ? json.map(strip) : strip(json);
+}
 
 /** イベントの list（命令の並び）を検査する。 */
 export function checkList(list, where, problems) {
@@ -38,7 +61,8 @@ function readPlugins() {
   return sandbox.$plugins;
 }
 
-export function checkAll() {
+/** readData を差し替えられる（テストでエディタの保存を真似るため）。既定は data/ から読む。 */
+export function checkAll({ readData = readDataFile } = {}) {
   const problems = [];
   const tables = {};
   for (const name of TABLES) {
@@ -73,6 +97,11 @@ export function checkAll() {
     if (!Array.isArray(system[key]) || system[key][0] !== "") problems.push(`System.json: ${key} の 0 番目は ""`);
   }
 
+  // エディタの状態（EDITOR_STATE）は値を問わない。数であることだけ見る（エディタは数しか書かない）
+  for (const k of EDITOR_STATE["System.json"]) {
+    if (k in system && typeof system[k] !== "number") problems.push(`System.json: ${k} が数でない`);
+  }
+
   // MapInfos.json と MapNNN.json
   const infos = readData("MapInfos.json");
   if (!Array.isArray(infos) || infos[0] !== null) problems.push("MapInfos.json: 配列で、0 番目が null であること");
@@ -83,6 +112,9 @@ export function checkAll() {
     if (info.id !== i) problems.push(`MapInfos.json[${i}]: id が ${info.id}`);
     if (info.parentId && !infos[info.parentId]) problems.push(`MapInfos.json[${i}]: 親 ${info.parentId} がない`);
     if (!mapFiles.includes(mapFileName(i))) problems.push(`MapInfos.json[${i}]: data/${mapFileName(i)} がない`);
+    for (const k of EDITOR_STATE["MapInfos.json"]) {
+      if (k in info && typeof info[k] !== "number") problems.push(`MapInfos.json[${i}]: ${k} が数でない`);
+    }
   });
   const tilesets = tables["Tilesets.json"] || [];
   for (const file of mapFiles) {
