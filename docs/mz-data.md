@@ -15,7 +15,7 @@
 | ファイル | 中身 |
 |---|---|
 | `Actors.json` `Classes.json` `Skills.json` `Items.json` `Weapons.json` `Armors.json` `Enemies.json` `Troops.json` `States.json` `Animations.json` `Tilesets.json` `CommonEvents.json` | 配列。**0 番目は `null`**、`i` 番目の要素の `id` は `i`。 |
-| `System.json` | 1 つのオブジェクト。`switches`・`variables` は名前の配列で、**0 番目は `""`**（空文字）。長さ − 1 が最大数。 |
+| `System.json` | 1 つのオブジェクト。`switches`・`variables` は名前の配列で、**0 番目は `""`**（空文字）。長さ − 1 が最大数。画面の大きさは `advanced` の `screenWidth`・`screenHeight`・`uiAreaWidth`・`uiAreaHeight`（今は 816×624）。 |
 | `MapInfos.json` | 配列。0 番目は `null`。`i` 番目は `{id, expanded, name, order, parentId, scrollX, scrollY}`。**消したマップの番号は `null`** のまま残る。 |
 | `Map001.json` … | 1 マップ 1 ファイル。番号は 3 桁のゼロ埋め（`Map010.json`）。 |
 
@@ -25,8 +25,8 @@
 - 新しく足す要素は、同じファイルの既存の要素から欄の一覧を写す（欄が欠けるとエディタで開いたときに壊れることがある。**要確認**）。
 - `note` 欄のタグは `<hai_名前:値>` の形（コアが `meta` に読み込む：`$dataItems[5].meta.hai_名前`）。
 - 文字列は日本語でよい。改行は `\n`。
-- 書式（改行と空白）はエディタの書き方に合わせる。エディタは配列の要素を 1 行に 1 つずつ書く（**要確認**）。
-  ツールで書くときは `tools/data/` の整形を通す（T1 で作る）。
+- 書式（改行と空白）はエディタの書き方に合わせる。エディタは配列の要素を 1 行に 1 つずつ書く（`[\nnull,\n{…},\n{…}\n]`、末尾に改行なし。`System.json` は 1 行）。
+  ツールで書くときは `tools/data/io.mjs` の `formatTable`・`formatMap` を通す（エディタの書いた 15 ファイルと 1 バイトも違わないことを `tests/t_data.mjs` で確かめている）。
 
 ### コアが番号で使うもの（動かさない）
 - `Skills.json` の 1 番＝通常攻撃、2 番＝防御（`Game_BattlerBase.prototype.attackSkillId` / `guardSkillId`）。
@@ -48,7 +48,8 @@
   "events": [ null, { /* id 1 のイベント */ }, null, … ]
 }
 ```
-（欄の並びと過不足は **要確認**。新しいマップは既存のマップ JSON を写して作る。）
+（欄の過不足と並びは、エディタの書いた `Map001.json` で確かめた：`data`・`events` 以外の欄は名前順に 1 行目へ、続けて `"data":[…]` を 1 行、`"events":[` の後にイベントを 1 行に 1 つ。
+イベントのあるマップをエディタがどう書くかは、まだ実物がない。`tools/maps/` と `tools/data/io.mjs` は `[\nnull,\n{…}\n]` と書く。）
 
 - **シンボルエンカウントにするので `encounterList` は `[]` のまま**にする（ランダムエンカウントを使わない）。
 
@@ -129,15 +130,18 @@ kind の種類（コアの判定）：
 | 47 | 見本の 1 マス（画像の左上の絵そのまま） | — |
 
 この表は `Tilemap.FLOOR_AUTOTILE_TABLE`（1/4 マスの切り出し位置の表）を読み解いて作った。
-- **要確認**：マップの端の外を「同じ」と見るか「違う」と見るか（エディタは同じと見る、と思われる）。
-- **要確認**：A4 の壁の上面と側面が隣り合うとき、エディタがどちらを「同じ」と数えるか。
+- マップの端の外は「同じ」と見る（エディタの書いた Map001 は全マスが shape 0 で、端に縁がない。T1 で確かめた）。
+- 表と同じ結果になることを T1 で確かめた：`tools/maps/autotile.mjs` はコアの表を読み込んで逆に引き、
+  エディタが A4 の壁の上面に形ごとに立てている通行のビット（左が開いた形は 0x02、上は 0x08、右は 0x04）と、全タイルセットの 120 種で一致する（`tests/t_maps.mjs`）。
+- A4 の壁の上面と側面が隣り合うとき、`tools/maps/` は「別」と数える（上面の下の縁を描き、側面の上の縁を描く）。
+  エディタの通行のビットとも、画面の見た目とも合うが、エディタの描き方と同じかは持ち主がエディタで確かめる（**要確認**）。
 
 **壁型（16 通り）**：`shape = 左 1 + 上 2 + 右 4 + 下 8`（開いている辺の値を足す）。
-（`Tilemap.WALL_AUTOTILE_TABLE` から。**要確認**：壁の側面の上下のつながりは、上が壁の上面か屋根かでエディタの決め方が変わる。）
+（`Tilemap.WALL_AUTOTILE_TABLE` から。T1 で確かめた。**要確認**：壁の側面の上下のつながりを、上が壁の上面か屋根かでエディタが変えるか。）
 
 **滝型（4 通り）**：`shape = 左 1 + 右 2`（開いている辺）。
 
-検算の仕方（T1 の子）：エディタで作られたマップ（持ち主の push したもの）を変換ツールで読み戻し、shape を計算し直して一致するかを見るテストを `tests/` に置く。
+検算：`tests/t_maps.mjs` が、エディタで作られたマップ（文字マップから作っていないもの）を読み戻して shape を計算し直し、一致したマスの数を出す（Map001 は全マス一致）。
 
 ### 2.4 通行の設定（`Tilesets.json`）
 `Tilesets.json` の要素：`{id, flags, mode, name, note, tilesetNames}`。
@@ -161,7 +165,7 @@ kind の種類（コアの判定）：
 | `flags >> 12` | 地形タグ（0〜7） |
 
 通行の判定は上の層から見て、☆でない最初のタイルのビットで決まる（`Game_Map.checkPassage`）。
-`mode`：0＝フィールド型、1＝エリア型（**要確認**）。
+`mode`：0＝フィールド型、1＝エリア型（`Game_Map.isOverworld` が `mode === 0` を見る。同梱の Tilesets.json でも 1 番「フィールド」だけが 0）。
 
 **隠し通路の作り方の約束（P2 で確定させる）**：見た目は壁、実は通れる通路は「通れる壁タイル」をタイルセットに作らず、
 リージョン ID か通行のイベントで表す（P2 の子が決め、このファイルに追記する）。
@@ -208,10 +212,11 @@ var $plugins =
 
 - 1 行 1 プラグイン。上から順に読み込まれる（後ろのものが前のものを上書きできる）。
 - `parameters` の値は**すべて文字列**（数値も真偽も文字列。構造体は JSON の文字列）。
-- エディタのプラグイン管理で保存するとこのファイルが書き直される。先頭のコメント行と書式は **要確認**。
+- エディタのプラグイン管理で保存するとこのファイルが書き直される。先頭の 2 行のコメントと `var $plugins =`、`[`、`];` の形は、エディタが書いた空の一覧で確かめた。
+  要素の行の書き方（1 行に 1 つ）は **要確認**（エディタで保存したものがまだない）。
 
 ## 5. セーブ
-- ブラウザで動かしたときのセーブは localforage（IndexedDB）に入る。PC 版（NW.js）では `save/` のファイル（**要確認**：MZ は `save/*.rmmzsave`）。
+- ブラウザで動かしたときのセーブは localforage（IndexedDB）に入る。PC 版（NW.js）では `save/file1.rmmzsave` など（`StorageManager.filePath`）。ブラウザでの鍵は `rmmzsave.<gameId>.file1`。
 - セーブには `$gameSystem`・`$gameSwitches`・`$gameVariables`・`$gameSelfSwitches`・`$gameActors`・`$gameParty`・`$gameMap`・`$gamePlayer` などが
   `JsonEx` でまるごと入る。プラグインが自分の状態を `$gameSystem` の自分の名前空間（例 `this._hai.symbolEnemy`）に置けば、自動でセーブされる。
 - 古いセーブにはその欄が無い。**読むときに無ければ初期値を入れる**（`??=`）。版の番号は要らない。

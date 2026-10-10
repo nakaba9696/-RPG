@@ -126,8 +126,8 @@
 | 8 | アイテム | `[8, アイテム ID]` |
 | 12 | スクリプト | `[12, "式"]` |
 
-確かさ：MV と共通のコアスクリプトで確かめた。MZ で変わった所（101 の 5 つ目の名前、357 の形）と、表に無い命令は、
-MZ プロジェクトが main に入ったあとに T1 の子が `js/rmmz_objects.js` の `Game_Interpreter` で確かめる（違えばこの表を直す）。
+確かさ：T1 で `js/rmmz_objects.js` の `Game_Interpreter` と突き合わせた。101 の 5 つ目は名前（`setSpeakerName`）、
+357 は `[プラグイン名, コマンド名, 表示名（実行には使わない）, 引数]`。表に無い命令は `Game_Interpreter.prototype.command<番号>` を読む。
 
 ## 検証（PR を出す前に必ず通す）
 ```bash
@@ -139,7 +139,9 @@ node tests/run.mjs          # 静的サーバー＋Playwright（ヘッドレス 
 - `pageerror` と console の error はゼロにする。
 - 見た目が変わる PR はスクリーンショット（`tests/out/`）を PR に載せる。
 - 必須チェックは CI（`.github/workflows/ci.yml`）の **`CI result`**。テストを飛ばす・弱める変更で緑にしない。
-- （T1 が入るまでは `tests/` が無い。T1 の PR でこの節を実態に合わせる。）
+- 走らせ方・テストの足し方・窓口（`window.__game`）は [tests/README.md](tests/README.md)、文字マップの変換は [tools/maps/README.md](tools/maps/README.md)。
+- ヘッドレス Chromium では `--use-angle=swiftshader --enable-unsafe-swiftshader`（ソフトウェアの WebGL）で MZ を動かす（`tests/lib.mjs` が付ける）。
+- `.github/workflows/` を触ったら `bash tools/ci/check-workflows.sh` を通す。
 
 ## 決まり
 - `docs/ROADMAP.md` のチェックは編集しない（配り役が D レーンでまとめる）。
