@@ -22,12 +22,14 @@ jobs:
         with:
           node-version: 22
           cache: npm
+          cache-dependency-path: tests/package-lock.json
       - name: ワークフローの決まりの検査
         run: bash tools/ci/check-workflows.sh
+      # テストの npm 設定は tests/ に置く（直下の package.json は MZ のエディタが書き戻すため）
       - name: 依存を入れる
-        run: npm ci --ignore-scripts
+        run: npm ci --ignore-scripts --prefix tests
       - name: Chromium を入れる
-        run: node node_modules/playwright/cli.js install --with-deps chromium
+        run: node tests/node_modules/playwright/cli.js install --with-deps chromium
       - name: テスト
         run: node tests/run.mjs
       - name: スクリーンショットを残す

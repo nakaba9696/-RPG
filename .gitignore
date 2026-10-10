@@ -3,3 +3,4 @@ tests/out/
 *.log
 .DS_Store
 save/
+tests/node_modules/

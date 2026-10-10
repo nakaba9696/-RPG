@@ -1,0 +1,19 @@
+# 改行コードは LF に固定する（Windows の MZ エディタで保存しても、リポジトリには LF で入る）。
+* text=auto eol=lf
+
+# 画像・音声・フォント・エフェクトなどは変換しない
+*.png binary
+*.jpg binary
+*.ogg binary
+*.m4a binary
+*.wav binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.ico binary
+*.icns binary
+*.wasm binary
+*.efkefc binary
+*.efkmodel binary
+*.efkmat binary
