@@ -1,0 +1,169 @@
+{
+  "_説明": "P1（シンボル敵）の試験場（T の帯 900–909 のうち 901 を P1 が使う）。製品のマップからは行けない。緑は巡回、黄はランダム、赤は止まっていて近づくと追う（一度きり）。",
+  "mapId": 901,
+  "name": "T_シンボル敵",
+  "displayName": "シンボル敵の試験場",
+  "legend": "dungeon",
+  "bgm": "Dungeon1",
+  "chars": {
+    "S": {
+      "name": "テストの開始地点",
+      "as": "."
+    }
+  },
+  "events": [
+    {
+      "name": "緑の敵（巡回）",
+      "type": "raw",
+      "x": 3,
+      "y": 7,
+      "note": "<hai_enemy:101,green>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "moveType": 3,
+          "moveFrequency": 5,
+          "trigger": 2,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "黄の敵（ランダム）",
+      "type": "raw",
+      "x": 14,
+      "y": 10,
+      "note": "<hai_enemy:102,yellow>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "moveType": 1,
+          "moveFrequency": 3,
+          "trigger": 1
+        }
+      ]
+    },
+    {
+      "name": "赤の敵（追う・一度きり）",
+      "type": "raw",
+      "x": 14,
+      "y": 15,
+      "note": "<hai_enemy:103,red>\n<hai_enemy_once>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "moveType": 0,
+          "trigger": 2
+        }
+      ]
+    }
+  ]
+}

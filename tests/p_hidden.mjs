@@ -77,6 +77,8 @@ await runTest(async () => {
     // ---- 見えない通路：壁に見えて通れる。歩くと found() に入る
     await go(8, 11, 6);
     check(await canPass(8, 11, 6), "見えない通路に入れない");
+    // イベント（シンボル敵など）はタイルどおりで、見えない通路に入れない（#17 の推し A）
+    check(!(await game.eval(() => window.__game.ref("$gameMap").event(1).canPass(8, 11, 6))), "イベントが見えない通路に入れた");
     for (let i = 0; i < 5; i++) check(await step(6), `見えない通路を ${i + 1} 歩目で進めない`);
     let p = await pos();
     check(p.x === 13 && p.y === 11, `通路を抜けて部屋 B に出ていない (${p.x},${p.y})`);
