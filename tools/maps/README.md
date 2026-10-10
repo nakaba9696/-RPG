@@ -72,10 +72,11 @@ node tools/maps/build.mjs --check          # 書き出さずに、data/ が今�
 | `as` | 別の文字を下敷きにする。`tiles` の `null` の所は下敷きのまま（`"as": ".", "tiles": [null, null, "B:41"]` で床の上に岩） |
 | `region` | リージョン ID（層 5） |
 | `block` | `true` なら見えないイベントを置いて通れなくする（タイルの通行を地図ごとに上書きしたいとき） |
+| `shadow` | `false` なら、この壁は右のマスに影を落とさない（隠し通路の手がかり「影の無い壁」。`docs/plugins/Hai_HiddenPassage.md`） |
 | `name` | 説明（変換には使わない） |
 
 通行はタイルセット（`data/Tilesets.json` の `flags`）で決まる。タイルセットで通れるタイルを地図の一部だけ通れなくするには `block`、
-通れないタイルを通れるようにする（隠し通路など）は P2 の決まり（リージョンかイベント）に従う。
+通れないタイルを通れるようにする（隠し通路など）は P2 の決まり（リージョン 251–254。[docs/plugins/Hai_HiddenPassage.md](../../docs/plugins/Hai_HiddenPassage.md)）に従う。
 
 ## タイルの書き方
 | 書き方 | 意味 |

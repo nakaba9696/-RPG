@@ -1,0 +1,38 @@
+{
+  "_説明": "P2 の隠し通路の見本とテスト用（T の帯のうち 902 を P2 が使う）。製品のマップからは行けない。4 種類を 1 つずつと、隠し部屋に赤い宝箱。",
+  "mapId": 902,
+  "name": "T_隠し通路の見本",
+  "displayName": "隠し通路の見本",
+  "legend": "dungeon",
+  "bgm": "Dungeon1",
+  "chars": {
+    "S": { "name": "テストの開始地点", "as": "." },
+    "R": { "name": "赤い宝箱", "as": "." }
+  },
+  "events": [
+    { "at": "O", "name": "片側扉", "type": "raw", "note": "<hai_oneway:up>", "pages": [{ "priorityType": 0 }] },
+    { "at": "v", "name": "隠し階段", "type": "raw", "note": "<hai_stairs:902,23,14>", "pages": [{ "priorityType": 0 }] },
+    { "at": "<", "name": "上り階段", "type": "transfer", "to": [902, 4, 10, "down"] },
+    {
+      "at": "R", "name": "赤い宝箱", "type": "raw",
+      "pages": [
+        {
+          "image": { "characterName": "!Chest", "characterIndex": 0, "direction": 2, "pattern": 0 },
+          "priorityType": 1, "trigger": 0, "walkAnime": false,
+          "list": [
+            { "code": 126, "indent": 0, "parameters": [7, 0, 0, 1] },
+            { "code": 123, "indent": 0, "parameters": ["A", 0] },
+            { "code": 101, "indent": 0, "parameters": ["", 0, 0, 2, ""] },
+            { "code": 401, "indent": 0, "parameters": ["ポーションを手に入れた！"] },
+            { "code": 0, "indent": 0, "parameters": [] }
+          ]
+        },
+        {
+          "conditions": { "selfSwitchCh": "A", "selfSwitchValid": true },
+          "image": { "characterName": "!Chest", "characterIndex": 0, "direction": 8, "pattern": 0 },
+          "priorityType": 1, "trigger": 0, "walkAnime": false
+        }
+      ]
+    }
+  ]
+}

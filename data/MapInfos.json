@@ -899,5 +899,7 @@ null,
 null,
 null,
 null,
-{"id":900,"expanded":false,"name":"T_見本の迷宮","order":2,"parentId":0,"scrollX":0,"scrollY":0}
+{"id":900,"expanded":false,"name":"T_見本の迷宮","order":2,"parentId":0,"scrollX":0,"scrollY":0},
+null,
+{"id":902,"expanded":false,"name":"T_隠し通路の見本","order":3,"parentId":0,"scrollX":0,"scrollY":0}
 ]
