@@ -4,14 +4,13 @@ MZ の Web 実行（`index.html`）を、Playwright のヘッドレス Chromium 
 
 ## 走らせ方
 ```bash
-npm ci --ignore-scripts
-node tests/run.mjs                 # 全部（失敗が 1 本でもあれば終了コード 1）
+npm ci --ignore-scripts --prefix tests && node tests/run.mjs   # 全部（失敗が 1 本でもあれば終了コード 1）
 node tests/run.mjs t_smoke         # 名前で選ぶ（拡張子なし、いくつでも）
 node tests/t_maps.mjs              # 1 本だけを直接
 node tests/serve.mjs 8000          # 手元のブラウザで遊ぶ：http://127.0.0.1:8000/index.html （?hai_test を付けると window.__game が出る）
 ```
 - クラウドのセッションでは Chromium が `/opt/pw-browsers` にある（`PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers`）。`playwright install` はしない。
-- CI では `node node_modules/playwright/cli.js install --with-deps chromium` で入れる（`npx` は使わない）。
+- CI では `node tests/node_modules/playwright/cli.js install --with-deps chromium` で入れる（`npx` は使わない）。
 - スクリーンショットは `tests/out/<テスト名>-<番号>-<名前>.png` に出る（コミットしない）。CI では失敗しても成功しても artifact「screenshots」に残る。
 
 ## 今あるテスト
