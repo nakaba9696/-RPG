@@ -901,6 +901,6 @@ null,
 null,
 {"id":900,"expanded":false,"name":"T_見本の迷宮","order":2,"parentId":0,"scrollX":0,"scrollY":0},
 {"id":901,"expanded":false,"name":"T_シンボル敵","order":3,"parentId":0,"scrollX":0,"scrollY":0},
-null,
-{"id":903,"expanded":false,"name":"T_見た目の試験場","order":4,"parentId":0,"scrollX":0,"scrollY":0}
+{"id":902,"expanded":false,"name":"T_隠し通路の見本","order":4,"parentId":0,"scrollX":0,"scrollY":0},
+{"id":903,"expanded":false,"name":"T_見た目の試験場","order":5,"parentId":0,"scrollX":0,"scrollY":0}
 ]
