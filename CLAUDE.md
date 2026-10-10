@@ -131,8 +131,7 @@
 
 ## 検証（PR を出す前に必ず通す）
 ```bash
-npm ci --ignore-scripts
-node tests/run.mjs          # 静的サーバー＋Playwright（ヘッドレス Chromium）でスモーク一式とデータの検査
+npm ci --ignore-scripts --prefix tests && node tests/run.mjs   # 静的サーバー＋Playwright（ヘッドレス Chromium）でスモーク一式とデータの検査
 ```
 - クラウドのセッションでは Chromium が `/opt/pw-browsers/chromium` にある（`PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers`）。`playwright install` は実行しない。
 - MZ は `file://` では動かない。テストは `tests/serve.mjs` の静的サーバーで `index.html?hai_test` を開く。
