@@ -1,0 +1,283 @@
+{
+  "_説明": "P3 の残留思念と施錠扉の見本とテスト用（T の帯のうち 904 を P3 が使う）。製品のマップからは行けない。思念 3 つ（a・b は docs/world.md 4.6 の R13・R10 を借りた。b と c は手がかり付き、c は隠し扉の示唆）、隠し扉の奥に鍵、鍵で開く扉の奥に宝箱。",
+  "mapId": 904,
+  "name": "T_残留思念",
+  "displayName": "残留思念の試験場",
+  "legend": "dungeon",
+  "bgm": "Dungeon1",
+  "chars": {
+    "S": {
+      "name": "テストの開始地点",
+      "as": "."
+    },
+    "a": {
+      "name": "残留思念（壁の爪痕。R13）",
+      "as": "."
+    },
+    "b": {
+      "name": "残留思念（壁の落書き。R10。手がかり 2 つ）",
+      "as": "."
+    },
+    "c": {
+      "name": "残留思念（遺体。隠し扉の示唆）",
+      "as": "."
+    },
+    "K": {
+      "name": "鍵の宝箱（試験場の鍵 = Items 121）",
+      "as": "."
+    },
+    "L": {
+      "name": "施錠扉（試験場の鍵）",
+      "as": "."
+    },
+    "R": {
+      "name": "宝箱",
+      "as": "."
+    }
+  },
+  "events": [
+    {
+      "at": "a",
+      "name": "思念 R13 獣人の囚人",
+      "type": "text",
+      "note": "<hai_thought:R13>",
+      "image": {
+        "characterName": "!Other1",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "耳が獣だから牢に入れられた。灰の病を連れてきたのは、お前たちだと。",
+        "わたしたちの村は灰になっていない。だから怪しいのだと。",
+        "灰にならないことが罪なら、わたしはいったい何になればよかった。"
+      ]
+    },
+    {
+      "at": "b",
+      "name": "思念 R10 脱走を企てた捕虜",
+      "type": "text",
+      "note": "<hai_thought:R10><hai_clue:地下牢の看守の箱の番号は 4・1・3><hai_clue:捕虜の寝床の下の壁が柔らかい（廃坑・下層）>",
+      "image": {
+        "characterName": "!Other1",
+        "characterIndex": 5,
+        "direction": 4,
+        "pattern": 1
+      },
+      "lines": [
+        [
+          "看守の箱の番号を盗み見た。四、一、三。",
+          "地下牢の看守どもは、鍵を番号の箱にしまう。帝国の兵より几帳面だ。",
+          "この穴が向こうへ抜けたら、俺たちは箱を開けて、あの廊下を抜ける。"
+        ],
+        [
+          "寝床の下の壁は、ほかより柔らかい。道具はそこに隠してある。",
+          "もし俺が戻らなかったら、次の誰かが使え。"
+        ]
+      ]
+    },
+    {
+      "at": "c",
+      "name": "思念 P3c 鍵を隠した看守",
+      "type": "text",
+      "note": "<hai_thought:P3c><hai_clue:北の壁の色の違う石は、扉になっているらしい（残留思念の試験場）>",
+      "image": {
+        "characterName": "Damage1",
+        "characterIndex": 1,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "北の壁を見ろ。石が一つだけ、まわりと色が違う。",
+        "あの奥に、扉の鍵をしまっておいた。囚人に見つからないように。",
+        "叩けば開く。……俺の腕は、もう上がらない。"
+      ]
+    },
+    {
+      "at": "K",
+      "name": "鍵の宝箱",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                121,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[195]試験場の鍵を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "at": "L",
+      "name": "施錠扉",
+      "type": "raw",
+      "note": "<hai_locked:試験場の鍵><hai_key:121>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 0,
+          "trigger": 0,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "at": "R",
+      "name": "宝箱",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                7,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "ポーションを手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false
+        }
+      ]
+    }
+  ]
+}

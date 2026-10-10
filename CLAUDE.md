@@ -20,6 +20,9 @@
 | `js/rmmz_*.js` | コアスクリプト（触らない。変えたい所はプラグインで alias） |
 | `js/plugins.js` | 読み込むプラグインの一覧（追記だけ） |
 | `js/plugins/Hai_<名前>.js` | 自作のプラグイン |
+| `docs/plugins/Hai_*.md` | 各プラグインの説明（使い方・メモ欄のタグ・窓口） |
+| `docs/look.md` | 見た目の決まり（タイルセット・色調・数値。V レーン） |
+| `docs/world.md` | 世界設計書（D1） |
 | `data/*.json` | データベースとマップ（形は [docs/mz-data.md](docs/mz-data.md)） |
 | `tools/maps/` | 文字マップ → `data/MapNNN.json` の変換（T1 で作る） |
 | `tools/data/` | データの JSON を読む・書く・検査する小さな関数（T1 で作る） |
