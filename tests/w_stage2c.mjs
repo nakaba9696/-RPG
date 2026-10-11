@@ -461,9 +461,9 @@ await runTest(async () => {
     check(won.sw && won.defeated, "沼主を倒したのに旗が立たない " + JSON.stringify(won));
     check(won.msgs.some(m => m.includes("石組みの口が見えた")), "勝ったときの文章が無い");
     check((await items("a", ARMOR.mirror)) === 1 && (await items("i", ITEM.beard)) === 1, "沼主の固定ドロップ（水鏡の護符・沼主の髭）が無い");
-    // 水が引いて、淵の底の排水口まで歩ける
+    // 水が引いて、淵の底の排水口まで歩ける（排水口の上に立って調べる）
     await go(POOL, LORD.x, LORD.y - 1, 2);
-    for (let i = 0; i < 3; i++) check(await step(2), `引いた淵の底を歩けない ${JSON.stringify(await pos())}`);
+    for (let i = 0; i < 4; i++) check(await step(2), `引いた淵の底を歩けない ${JSON.stringify(await pos())}`);
     await game.shot("pool-drain");
     check((await talk()).join("").includes("淵の底の排水口"), "排水口の文章");
     console.log("  沼主：逃走・呑み込み（主を叩くと吐き出す）・雷のヒント・眠り・HP 30% で潜る／大波・撃破（スイッチ 157）・水鏡の護符と髭・排水口");
