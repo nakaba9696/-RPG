@@ -4,7 +4,8 @@
 //   import { launchGame, check } from "./lib.mjs";
 //   const game = await launchGame();          // タイトル画面まで起動して返す
 //   try {
-//     await game.call("newGame");             // window.__game.newGame()
+//     await game.call("newGame");             // window.__game.newGame()（目覚めの場面を飛ばし、スイッチ 111 を ON にして拠点から始める）
+//     await game.call("newGame", { opening: true });  // 目覚めの場面を見るとき
 //     await game.waitScene("Scene_Map");
 //     await game.shot("map");                 // tests/out/<テスト名>-map.png
 //     game.assertNoErrors();

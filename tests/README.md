@@ -67,9 +67,11 @@ await runTest(async () => {
 
 ## テスト用の窓口 `window.__game`（`js/plugins/Hai_TestHooks.js`）
 URL に `?hai_test` があるときだけ作られる（ふつうに遊ぶときと PC 版では何もしない）。
-`scene()`・`isBusy()`・`ref(name)`・`newGame()`・`mapId()`・`pos()`・`transfer(mapId, x, y, d)`・`step(d)`・`canPass(x, y, d)`・`tileId(x, y, z)`・
+`scene()`・`isBusy()`・`ref(name)`・`newGame({ opening })`・`mapId()`・`pos()`・`transfer(mapId, x, y, d)`・`step(d)`・`canPass(x, y, d)`・`tileId(x, y, z)`・
 `startBattle(troopId, canEscape, canLose)`・`strengthenParty()`・`save(slot)`・`load(slot)`・`goToTitle()`・`setSpeed(n)`。
 中身はプラグインの冒頭の説明を見る。
+- `newGame()`（とタイトルの「ニューゲーム」）は、Map010 の目覚めの場面を飛ばす（スイッチ 111 を ON にし、拠点 `Hai.Defeat.home()` に置く）。
+  目覚めの場面を見るテストだけ `newGame({ opening: true })` にする。製品のマップにテスト用の分岐は置かない。
 
 ## ヘッドレスで MZ を動かすための設定
 - MZ（PIXI）は WebGL が無いと「Failed to initialize graphics.」で止まる。ヘッドレス Chromium には GPU が無いので、

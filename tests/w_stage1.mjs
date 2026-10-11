@@ -138,8 +138,7 @@ await runTest(async () => {
 
     // ---- 1. ニューゲーム：拠点の独房の寝台で目覚め、セレスの台詞（2.2）が流れる
     // 目覚めの場面はテスト（?hai_test）ではふつう飛ばす（ほかのテストのため）。ここでは見る
-    await game.eval(() => { window.__game.playOpening = true; });
-    await game.call("newGame");
+    await game.call("newGame", { opening: true });
     await game.waitScene("Scene_Map");
     check((await mapId()) === HALL, `開始マップが ${await mapId()}`);
     const p0 = await pos();
