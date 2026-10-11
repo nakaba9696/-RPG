@@ -2,6 +2,8 @@
 //   見えない通路を通れる／ふつうの壁は通れない／隠し扉は調べる前は通れず、調べると開いて通れる／
 //   片側扉は表から通れず裏から開く／隠し階段を調べると現れて踏むと移動する／found() に記録される／
 //   セーブ・ロード（ページの読み直しをはさむ）の後も開いたまま。手がかり 3 種のスクリーンショットを撮る。
+// P10：タイルセット 12（B が Outside_B）の Map911（tools/maps/src/p10_hidden_tiles）で、開いた扉と現れた階段が
+//   タイルセットのメモ欄 <hai_hidden_tiles:…> の D のタイルで描かれ、現れた階段に 4 方向から入れる（梯子の絵でも）。
 import { launchGame, check, runTest } from "./lib.mjs";
 
 const MAP = 902;
@@ -173,6 +175,71 @@ await runTest(async () => {
     await go(ONEWAY.x, ONEWAY.y + 1, 8);
     check(await step(8), "ロード後に開いた片側扉を表から通れない");
     await game.shot("after-load");
+
+    // ---- P10：タイルセット 12（B が Outside_B）の Map911。タイルセットのメモ欄 <hai_hidden_tiles:D:183,D:26> で描く
+    const OUT = 911;
+    const OUT_DOOR = { x: 6, y: 5 }; // 隠し扉（D）。奥は見えない通路（6,4）と隠し部屋
+    const OUT_STAIRS = { x: 10, y: 7 }; // 隠し階段（v）。行き先は (3,9)
+    const goOut = async (x, y, d) => {
+      await game.call("transfer", OUT, x, y, d);
+      await game.waitFor(([m, x2, y2]) => {
+        const g = window.__game;
+        const q = g.pos();
+        return g.mapId() === m && q.x === x2 && q.y === y2 && !g.isBusy();
+      }, [OUT, x, y]);
+    };
+    await goOut(OUT_DOOR.x, OUT_DOOR.y + 1, 8);
+    check((await game.eval(() => window.__game.ref("$gameMap").tilesetId())) === 12, "Map911 のタイルセットが 12 でない");
+    let tiles2 = await hp("overlayTiles");
+    check(tiles2.door === 512 + 183 && tiles2.stairs === 512 + 26, `タイルセット 12 の重ねるタイル ${JSON.stringify(tiles2)}`);
+    check(!(await step(8)), "調べる前の外の隠し扉に入れた");
+    const outDoorText = await investigate();
+    check(outDoorText.includes("隠し扉を見つけた"), `外の隠し扉の文章: ${outDoorText}`);
+    check((await game.call("tileId", OUT_DOOR.x, OUT_DOOR.y, 3)) === 512 + 183, "外の開いた扉が D の暗いアーチ（695）で描かれていない");
+    await game.shot("outside-door-open");
+    for (let i = 0; i < 3; i++) check(await step(8), `外の開いた隠し扉の先へ ${i + 1} 歩目で進めない`);
+    p = await pos();
+    check(p.x === OUT_DOOR.x && p.y === OUT_DOOR.y - 2, `外の隠し部屋に着いていない (${p.x},${p.y})`);
+
+    await goOut(OUT_STAIRS.x - 1, OUT_STAIRS.y, 6);
+    const outStairsText = await investigate();
+    check(outStairsText.includes("隠し階段を見つけた"), `外の隠し階段の文章: ${outStairsText}`);
+    check((await game.call("tileId", OUT_STAIRS.x, OUT_STAIRS.y, 3)) === 512 + 26, "外の現れた階段が D の下り階段（538）で描かれていない");
+    await game.shot("outside-stairs-found");
+    // 4 方向から入れる
+    check(await canPass(OUT_STAIRS.x - 1, OUT_STAIRS.y, 6), "現れた階段に左から入れない");
+    check(await canPass(OUT_STAIRS.x + 1, OUT_STAIRS.y, 4), "現れた階段に右から入れない");
+    check(await canPass(OUT_STAIRS.x, OUT_STAIRS.y - 1, 2), "現れた階段に上から入れない");
+    check(await canPass(OUT_STAIRS.x, OUT_STAIRS.y + 1, 8), "現れた階段に下から入れない");
+
+    // マップのメモ欄が優先（マップ ＞ タイルセット ＞ パラメータ）。片方だけ書けば、もう片方はタイルセットの値
+    const withMapNote = note => game.eval(([v]) => {
+      const dm = window.__game.ref("$dataMap");
+      const before = dm.meta.hai_hidden_tiles;
+      if (v === null) delete dm.meta.hai_hidden_tiles; else dm.meta.hai_hidden_tiles = v;
+      const t = window.Hai.HiddenPassage.overlayTiles();
+      if (before === undefined) delete dm.meta.hai_hidden_tiles; else dm.meta.hai_hidden_tiles = before;
+      return t;
+    }, [note]);
+    tiles2 = await withMapNote("B:183,B:26");
+    check(tiles2.door === 183 && tiles2.stairs === 26, `マップのメモ欄が優先されない ${JSON.stringify(tiles2)}`);
+    tiles2 = await withMapNote("700");
+    check(tiles2.door === 700 && tiles2.stairs === 512 + 26, `マップのメモ欄が片方だけのとき ${JSON.stringify(tiles2)}`);
+
+    // 描いたタイルが梯子（Outside_B の B:26。タイルの通行は左右が×）でも、現れた階段には横から入れる（イベントはタイルどおり）
+    await game.eval(([x, y]) => {
+      const dm = window.__game.ref("$dataMap");
+      dm.data[(3 * dm.height + y) * dm.width + x] = 26;
+    }, [OUT_STAIRS.x, OUT_STAIRS.y]);
+    check(!(await game.eval(([x, y]) => window.__game.ref("$gameMap").isPassable(x, y, 4), [OUT_STAIRS.x, OUT_STAIRS.y])), "梯子のタイルが左から通れる（試験の前提）");
+    check(await canPass(OUT_STAIRS.x - 1, OUT_STAIRS.y, 6), "梯子の絵の現れた階段に左から入れない");
+    check(await canPass(OUT_STAIRS.x + 1, OUT_STAIRS.y, 4), "梯子の絵の現れた階段に右から入れない");
+    check(await step(6), "梯子の絵の現れた階段に左から乗れない");
+    await game.waitFor(() => {
+      const g = window.__game;
+      const q = g.pos();
+      return q.x === 3 && q.y === 9 && !g.isBusy();
+    });
 
     game.assertNoErrors();
   } finally {

@@ -27,7 +27,8 @@
     "W1": { "switches": [[201, 300]], "maps": [[10, 19], [20, 49]], "database": [[201, 300]], "commonEvents": [[201, 240]] },
     "U2": { "switches": [[921, 930]], "maps": [[908, 908]], "database": [], "commonEvents": [] },
     "V2": { "switches": [], "maps": [], "database": [], "commonEvents": [], "tilesets": [[15, 20]] },
-    "U1": { "switches": [[911, 920]], "maps": [[906, 906]], "database": [[901, 950]], "commonEvents": [[901, 950]] }
+    "U1": { "switches": [[911, 920]], "maps": [[906, 906]], "database": [[901, 950]], "commonEvents": [[901, 950]] },
+    "P10": { "switches": [], "maps": [[911, 911]], "database": [], "commonEvents": [] }
   },
   "testMaps": [900, 949]
 }

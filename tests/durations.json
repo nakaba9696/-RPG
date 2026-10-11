@@ -8,6 +8,7 @@
   "t_maps": 78,
   "t_reach": 1,
   "t_smoke": 147,
+  "u_automap": 150,
   "u_touch": 106,
   "v_look": 129,
   "v_tilesets2": 1,
