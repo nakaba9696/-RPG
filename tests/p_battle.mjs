@@ -48,7 +48,14 @@ await runTest(async () => {
       const setup = Sprite_Damage.prototype.setup;
       Sprite_Damage.prototype.setup = function() {
         setup.apply(this, arguments);
-        if (this._haiColor) window.__log.colors.push(this._haiColor);
+        if (this._haiColor) {
+          window.__log.colors.push(this._haiColor);
+          // 色つきの数字が出たら早送りをやめる（スクリーンショットで数字を撮るため）
+          if (window.__slowOnColor) {
+            window.__slowOnColor = false;
+            window.__game.setSpeed(1);
+          }
+        }
       };
       const regen = Game_Battler.prototype.regenerateHp;
       Game_Battler.prototype.regenerateHp = function() {
@@ -329,7 +336,9 @@ await runTest(async () => {
       return plan;
     };
     // 1〜3 ターン目：ユエルが灰火（炎 200%）。3 ターン目に更生の号令で沈黙（首輪のユエルは平気）
-    await game.call("setSpeed", 1);
+    // 早送りで進め、炎の数字が出たところで普通の速さに戻して撮る
+    await game.eval(() => { window.__slowOnColor = true; });
+    await game.call("setSpeed", FAST);
     await game.eval(([m]) => {
       $gameParty.members().forEach((a, i) => (i === m ? a.action(0).setSkill(161) : a.action(0).setGuard()));
       $gameParty.members()[m].action(0).setTarget(0);
@@ -339,7 +348,9 @@ await runTest(async () => {
     await game.waitFor(() => SceneManager._scene._spriteset._enemySprites.some(s => s._damages.some(d => d._haiColor)), null, 120_000);
     await game.frames(20); // 被弾の点滅が終わってから
     await game.shot("fire-damage");
+    await game.call("setSpeed", FAST);
     await waitInput();
+    await game.call("setSpeed", 1);
     for (let t = 2; t <= 3; t++) await turn(await healOrGuard());
     const fire = (await log()).acts.filter(a => a.turn <= 3 && a.id === SKILL.ashFire);
     check(fire.length === 3 && fire.every(a => a.elementRate === 2 && a.hpDamage > 0), "灰火が炎 200% で当たっていない " + JSON.stringify(fire));
