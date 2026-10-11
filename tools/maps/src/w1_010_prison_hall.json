@@ -1116,21 +1116,68 @@
               ]
             },
             {
-              "code": 101,
+              "code": 357,
               "indent": 0,
               "parameters": [
-                "",
-                0,
-                0,
-                2,
-                ""
+                "Hai_Facilities",
+                "pedestal",
+                "台座",
+                {
+                  "door": "soul"
+                }
               ]
             },
             {
-              "code": 401,
+              "code": 657,
               "indent": 0,
               "parameters": [
-                "台座には珠をはめるくぼみがある。叡智のオーブが要るようだ。"
+                "どの扉の台座か = soul"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 121,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 6,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                11,
+                8,
+                11,
+                8,
+                0
               ]
             },
             {
@@ -1184,21 +1231,68 @@
               ]
             },
             {
-              "code": 101,
+              "code": 357,
               "indent": 0,
               "parameters": [
-                "",
-                0,
-                0,
-                2,
-                ""
+                "Hai_Facilities",
+                "pedestal",
+                "台座",
+                {
+                  "door": "kitchen"
+                }
               ]
             },
             {
-              "code": 401,
+              "code": 657,
               "indent": 0,
               "parameters": [
-                "台座には珠をはめるくぼみがある。叡智のオーブが要るようだ。"
+                "どの扉の台座か = kitchen"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 122,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 6,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                12,
+                8,
+                11,
+                8,
+                0
               ]
             },
             {
@@ -1252,21 +1346,68 @@
               ]
             },
             {
-              "code": 101,
+              "code": 357,
               "indent": 0,
               "parameters": [
-                "",
-                0,
-                0,
-                2,
-                ""
+                "Hai_Facilities",
+                "pedestal",
+                "台座",
+                {
+                  "door": "gate"
+                }
               ]
             },
             {
-              "code": 401,
+              "code": 657,
               "indent": 0,
               "parameters": [
-                "台座には珠をはめるくぼみがある。叡智のオーブが要るようだ。"
+                "どの扉の台座か = gate"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 123,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 6,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                13,
+                8,
+                3,
+                2,
+                0
               ]
             },
             {
@@ -1320,21 +1461,68 @@
               ]
             },
             {
-              "code": 101,
+              "code": 357,
               "indent": 0,
               "parameters": [
-                "",
-                0,
-                0,
-                2,
-                ""
+                "Hai_Facilities",
+                "pedestal",
+                "台座",
+                {
+                  "door": "lore"
+                }
               ]
             },
             {
-              "code": 401,
+              "code": 657,
               "indent": 0,
               "parameters": [
-                "台座には珠をはめるくぼみがある。叡智のオーブが要るようだ。"
+                "どの扉の台座か = lore"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 124,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 6,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                14,
+                8,
+                3,
+                2,
+                0
               ]
             },
             {

@@ -1,0 +1,172 @@
+{
+  "_説明": "P8：魂の間（docs/world.md 3.1・3.3。北西の扉から入る）。中央の魔法陣と、魂の器（魂で仲間を育てる。Hai_Facilities の use soul）。出口は南の (8,12) → Map010 の北西の扉の前。",
+  "mapId": 11,
+  "name": "魂の間",
+  "parentId": 10,
+  "displayName": "魂の間",
+  "legend": "dungeon",
+  "tilesetId": 11,
+  "note": "<hai_tone:-34,-34,-17,51>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Stone2",
+    "battleback2Name": "Room1"
+  },
+  "chars": {
+    "u": {
+      "name": "石像の上（壁に重ねる）",
+      "as": "=",
+      "tiles": [
+        null,
+        null,
+        "E:171"
+      ]
+    },
+    "U": {
+      "name": "石像の下（通れない）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "E:179"
+      ]
+    },
+    "a": {
+      "name": "魔法陣",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "C:80"
+      ]
+    },
+    "b": {
+      "name": "魔法陣",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "C:81"
+      ]
+    },
+    "c": {
+      "name": "魔法陣",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "C:82"
+      ]
+    },
+    "d": {
+      "name": "魔法陣",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "C:88"
+      ]
+    },
+    "e": {
+      "name": "魔法陣",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "C:89"
+      ]
+    },
+    "f": {
+      "name": "魔法陣",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "C:90"
+      ]
+    },
+    "g": {
+      "name": "魔法陣",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "C:96"
+      ]
+    },
+    "h": {
+      "name": "魔法陣",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "C:97"
+      ]
+    },
+    "i": {
+      "name": "魔法陣",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "C:98"
+      ]
+    }
+  },
+  "events": [
+    {
+      "x": 8,
+      "y": 12,
+      "name": "出口（牢獄の間へ）",
+      "type": "transfer",
+      "to": [
+        10,
+        5,
+        9,
+        "down"
+      ]
+    },
+    {
+      "x": 8,
+      "y": 4,
+      "name": "魂の器",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "tileId": "E:173"
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Facilities",
+                "use",
+                "施設を使う",
+                {
+                  "facility": "soul"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "施設 = soul"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
