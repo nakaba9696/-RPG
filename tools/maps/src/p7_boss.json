@@ -1,0 +1,53 @@
+{
+  "_説明": "P7（ボスの作り）の試験場（T の帯 900–949 のうち 912 を P7 が使う）。製品のマップからは行けない。話しかけて始める型のボス（Hai_Boss の「ボス戦」コマンド）。逃げると S の位置へ戻される。",
+  "mapId": 912,
+  "name": "T_ボスの試験場",
+  "displayName": "ボスの試験場",
+  "legend": "dungeon",
+  "bgm": "Dungeon1",
+  "chars": {
+    "S": { "name": "開始地点・逃げたときの戻り先", "as": "." },
+    "B": { "name": "試しの番人（話しかけて始めるボス）", "as": "." }
+  },
+  "events": [
+    {
+      "at": "B",
+      "name": "試しの番人",
+      "type": "raw",
+      "pages": [
+        {
+          "image": { "characterName": "Evil", "characterIndex": 4, "direction": 2 },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            { "code": 101, "indent": 0, "parameters": ["", 0, 0, 2, "試しの番人"] },
+            { "code": 401, "indent": 0, "parameters": ["ここより先は、試しを越えた者だけが行ける。"] },
+            { "code": 357, "indent": 0, "parameters": ["Hai_Boss", "bossBattle", "ボス戦", { "troopId": "196", "escapeMapId": "912", "escapeX": "4", "escapeY": "3", "escapeDirection": "6" }] },
+            { "code": 657, "indent": 0, "parameters": ["敵グループ = 0196:P7_試しの番人"] },
+            { "code": 657, "indent": 0, "parameters": ["逃げたときのマップ = 912"] },
+            { "code": 657, "indent": 0, "parameters": ["逃げたときの X = 4"] },
+            { "code": 657, "indent": 0, "parameters": ["逃げたときの Y = 3"] },
+            { "code": 657, "indent": 0, "parameters": ["逃げたときの向き = 右"] },
+            { "code": 111, "indent": 0, "parameters": [12, "Hai.Boss.lastResult() === 0"] },
+            { "code": 123, "indent": 1, "parameters": ["A", 0] },
+            { "code": 101, "indent": 1, "parameters": ["", 0, 0, 2, ""] },
+            { "code": 401, "indent": 1, "parameters": ["番人は崩れ落ちた。"] },
+            { "code": 0, "indent": 1, "parameters": [] },
+            { "code": 411, "indent": 0, "parameters": [] },
+            { "code": 101, "indent": 1, "parameters": ["", 0, 0, 2, ""] },
+            { "code": 401, "indent": 1, "parameters": ["……逃げ出した。"] },
+            { "code": 0, "indent": 1, "parameters": [] },
+            { "code": 412, "indent": 0, "parameters": [] },
+            { "code": 0, "indent": 0, "parameters": [] }
+          ]
+        },
+        {
+          "conditions": { "selfSwitchValid": true, "selfSwitchCh": "A" },
+          "priorityType": 0,
+          "trigger": 0,
+          "list": [{ "code": 0, "indent": 0, "parameters": [] }]
+        }
+      ]
+    }
+  ]
+}
