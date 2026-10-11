@@ -184,7 +184,7 @@ export function readBands() {
 
 /** プラグインの並び（在るものだけ、この順）。#35 で持ち主が決めた順。 */
 export const PLUGIN_ORDER = [
-  "Hai_TestHooks", "Hai_SymbolEnemy", "Hai_HiddenPassage", "Hai_MapTone", "Hai_Battle", "Hai_Thoughts", "Hai_Defeat", "Hai_AutoMap", "Hai_Notes", "Hai_Companions",
+  "Hai_TestHooks", "Hai_SymbolEnemy", "Hai_HiddenPassage", "Hai_MapTone", "Hai_Battle", "Hai_Thoughts", "Hai_Defeat", "Hai_AutoMap", "Hai_Notes", "Hai_Companions", "Hai_TouchUI",
 ];
 
 const mapLabel = id => `data/${mapFileName(Number(id))}`;

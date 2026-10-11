@@ -22,7 +22,7 @@
  *   $gameSystem._hai.notes    = [{ id, text, mapId, x, y, kind: "clue"|"door"|"item"|"memory", time, done? }]
  *
  * 窓口 window.Hai.Thoughts：
- *   isRead(id)  markRead(id)  notes(kind)  addNote(note)  hasNote(id)  clearNotes()
+ *   isRead(id)  markRead(id)  notes(kind)  addNote(note)  hasNote(id)  removeNote(id)  clearNotes()
  *   unreadCount(mapId)  thoughts(mapId)
  * 詳しくは docs/plugins/Hai_Thoughts.md。
  *
@@ -401,6 +401,14 @@
     },
     hasNote(id) {
       return !!findNote(id);
+    },
+    /** その ID のメモを消す。消したら true（U1 の入手ログが古いものを消す用）。 */
+    removeNote(id) {
+      const list = noteList();
+      const i = list.findIndex(n => n.id === String(id));
+      if (i < 0) return false;
+      list.splice(i, 1);
+      return true;
     },
     clearNotes() {
       hai().notes = [];

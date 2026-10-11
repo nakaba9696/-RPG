@@ -17,10 +17,13 @@
  * 開いた・見つけたものは $gameSystem._hai.hidden に入る（セーブに入る）。
  * 開いた扉と現れた階段は、そのマスの第 4 層（z=3）にタイルを重ねて描く。
  * その座標にイベントがあれば、開いたときにセルフスイッチ A を ON にする。
+ * 重ねるタイルはタイルセットごとに変えられる（B が Outside_B だと 183 は木箱、26 は梯子になるため）：
+ *   タイルセットかマップのメモ欄に <hai_hidden_tiles:開いた扉,階段>（タイル ID か D:183 のような書き方）
+ *   優先はマップ ＞ タイルセット ＞ パラメータ。現れた階段は、描いたタイルの通行に関係なく 4 方向から入れる。
  *
  * 窓口 window.Hai.HiddenPassage：
  *   found(mapId)  isFound(x, y, mapId)  isHiddenAt(x, y)  regionKind(x, y)
- *   revealAt(x, y, mapId, region)  REGION
+ *   revealAt(x, y, mapId, region)  overlayTiles()  REGION
  * 詳しくは docs/plugins/Hai_HiddenPassage.md。
  *
  * @param openDoorTile
@@ -115,9 +118,43 @@
   // ---------------------------------------------------------------------------
   // 見た目：開いた扉・現れた階段のマスの z=3 にタイルを重ねる（$dataMap を書き換える。読み直すたびに当て直す）
   // ---------------------------------------------------------------------------
+  const TILE_BASE = { B: 0, C: 256, D: 512, E: 768 };
+
+  /** 「695」「D:183」のような書き方をタイル ID に。読めなければ 0。 */
+  function parseTile(text) {
+    const s = String(text || "").trim();
+    const m = /^([BCDE])\s*:\s*(\d+)$/i.exec(s);
+    if (m) {
+      const n = Number(m[2]);
+      return n < 256 ? TILE_BASE[m[1].toUpperCase()] + n : 0;
+    }
+    const n = Number(s);
+    return s !== "" && Number.isInteger(n) && n > 0 && n < 1024 ? n : 0;
+  }
+
+  /** メモ欄の <hai_hidden_tiles:扉,階段> を [扉, 階段] に（読めない方は 0）。 */
+  function parseHiddenTiles(meta) {
+    const v = meta && meta.hai_hidden_tiles;
+    if (v === undefined || v === true) return [0, 0];
+    const parts = String(v).split(",");
+    return [parseTile(parts[0]), parseTile(parts[1])];
+  }
+
+  /** 今の $dataMap に重ねるタイル { door, stairs }。マップのメモ欄 ＞ タイルセットのメモ欄 ＞ パラメータ。 */
+  function overlayTiles() {
+    const map = $dataMap || {};
+    const tileset = (window.$dataTilesets && $dataTilesets[map.tilesetId]) || {};
+    const fromMap = parseHiddenTiles(map.meta);
+    const fromTileset = parseHiddenTiles(tileset.meta);
+    return {
+      door: fromMap[0] || fromTileset[0] || openDoorTile,
+      stairs: fromMap[1] || fromTileset[1] || stairsTile,
+    };
+  }
+
   function overlayTileFor(region) {
-    if (region === REGION.DOOR || region === REGION.ONEWAY) return openDoorTile;
-    if (region === REGION.STAIRS) return stairsTile;
+    if (region === REGION.DOOR || region === REGION.ONEWAY) return overlayTiles().door;
+    if (region === REGION.STAIRS) return overlayTiles().stairs;
     return 0;
   }
 
@@ -202,6 +239,9 @@
         if (isFound(x, y)) return true;
         // 裏の側から踏み込む：裏が上（8）なら下向き（2）に動いて入る
         return !searching && onewayBack(x, y) === 10 - d;
+      case REGION.STAIRS:
+        // 現れた階段は、描いたタイル（梯子など）の通行に関係なく 4 方向から入れる。現れる前は床のまま（タイルどおり）
+        return isFound(x, y) ? true : null;
       default:
         return null;
     }
@@ -212,7 +252,8 @@
     if (this.isInVehicle()) return _Game_Player_isMapPassable.apply(this, arguments);
     const x2 = $gameMap.roundXWithDirection(x, d);
     const y2 = $gameMap.roundYWithDirection(y, d);
-    const leaveHidden = regionKind(x, y) !== 0 && regionKind(x, y) !== REGION.STAIRS;
+    const here = regionKind(x, y);
+    const leaveHidden = here !== 0 && (here !== REGION.STAIRS || isFound(x, y));
     const enter = canEnter(x2, y2, d);
     if (!leaveHidden && enter === null) return _Game_Player_isMapPassable.apply(this, arguments);
     // 隠し通路のマスの上にいるなら、出る向きはタイルに関係なく出られる。
@@ -296,6 +337,8 @@
       return regionKind(x, y) !== 0 && !isFound(x, y);
     },
     regionKind,
+    /** 今のマップで開いた扉・現れた階段に重ねるタイル { door, stairs }（マップ ＞ タイルセット ＞ パラメータ）。 */
+    overlayTiles,
     /** 見つけたことにする（演出なし）。新しく見つけたら true。ほかのマップなら region（251–254）も渡す。 */
     revealAt(x, y, mapId, region) {
       return record(x, y, mapId === undefined ? $gameMap.mapId() : mapId, region || 0);
