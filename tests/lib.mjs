@@ -52,6 +52,7 @@ function testName() {
  * @param {object} [opts]
  * @param {string} [opts.query]  URL の ? 以降（既定 "hai_test"）
  * @param {string} [opts.name]   スクリーンショットの頭に付ける名前（既定はテストのファイル名）
+ * @param {object} [opts.context] browser.newContext に足す設定（タッチ端末なら { hasTouch: true, isMobile: true }、縦画面なら viewport も）
  */
 export async function launchGame(opts = {}) {
   const query = opts.query ?? "hai_test";
@@ -60,7 +61,7 @@ export async function launchGame(opts = {}) {
 
   const server = await startServer();
   const browser = await chromium.launch({ args: CHROMIUM_ARGS });
-  const context = await browser.newContext({ viewport: screenSize() });
+  const context = await browser.newContext({ viewport: screenSize(), ...(opts.context ?? {}) });
   const page = await context.newPage();
   const errors = [];
   page.on("pageerror", e => errors.push("pageerror: " + (e.stack || e.message)));
