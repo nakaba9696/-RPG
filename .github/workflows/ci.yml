@@ -2,7 +2,8 @@ name: CI
 
 # 分数を減らす（T8）：
 #   - main への push：ブラウザなしのテストだけ（中身は PR の CI で確かめ済み。ルールセットが「CI result 緑」と「枝が main に最新」を求める）
-#   - PR：文書（docs/ の下か *.md）だけならブラウザなしのテストだけ。それ以外は 4 シャードで全部（判定は tools/ci/changes.mjs）
+#   - PR：文書（docs/ の下か *.md）だけならブラウザなしのテストだけ。それ以外は 4 シャードで全部（判定は changes ジョブの tools/ci/changes.mjs）
+#   - changes の後、quick（ブラウザなし）と test（4 シャード）は並列に走る（全部の道の待ち時間を延ばさない）
 #   - 手で走らせる（workflow_dispatch）：全部
 on:
   pull_request:
@@ -18,11 +19,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # ブラウザなしのテスト（どの道でも走る）と、全部を走らせるかの判定。ここで落ちたらブラウザのシャードは走らせない。
-  quick:
-    name: quick（ブラウザなし）
+  # 全部を走らせるかの判定だけ（npm ci なし。quick と test はこれを待って並列に走る）
+  changes:
+    name: changes（判定）
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     outputs:
       mode: ${{ steps.mode.outputs.mode }}
     steps:
@@ -30,13 +31,6 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 2
-      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-        with:
-          node-version: 22
-          cache: npm
-          cache-dependency-path: tests/package-lock.json
-      - name: ワークフローの決まりの検査
-        run: bash tools/ci/check-workflows.sh
       - name: 全部を走らせるかの判定
         id: mode
         env:
@@ -54,6 +48,22 @@ jobs:
           fi
           echo "判定: $mode（$EVENT）"
           echo "mode=$mode" >> "$GITHUB_OUTPUT"
+
+  # ブラウザなしのテスト（どの道でも走る。全部の道では test と並列）
+  quick:
+    name: quick（ブラウザなし）
+    needs: [changes]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: tests/package-lock.json
+      - name: ワークフローの決まりの検査
+        run: bash tools/ci/check-workflows.sh
       # テストの npm 設定は tests/ に置く（直下の package.json は MZ のエディタが書き戻すため）
       - name: 依存を入れる
         run: npm ci --ignore-scripts --prefix tests
@@ -82,8 +92,8 @@ jobs:
   # テストを 4 つに分けて並列に走らせる（tests/run.mjs --shard i/n。tests/durations.json の所要時間で均す）
   test:
     name: test (${{ matrix.shard }}/4)
-    needs: [quick]
-    if: needs.quick.outputs.mode == 'full'
+    needs: [changes]
+    if: needs.changes.outputs.mode == 'full'
     runs-on: ubuntu-latest
     timeout-minutes: 25
     strategy:
@@ -120,18 +130,19 @@ jobs:
           retention-days: 14
 
   # ルールセットの必須チェック。この名前（CI result）は変えない。
-  # 速い道では test が skipped になる（skipped は緑に数える）。quick が落ちたら test も skipped になるが、quick の failure で赤になる。
+  # 速い道では test が skipped になる（skipped は緑に数える）。changes が落ちたら quick・test も skipped になるが、changes の failure で赤になる。
   ci-result:
     name: CI result
-    needs: [quick, test]
+    needs: [changes, quick, test]
     if: always()
     runs-on: ubuntu-latest
     steps:
       - name: needs の結果をまとめる
         env:
           RESULTS: ${{ join(needs.*.result, ' ') }}
+          CHANGES: ${{ needs.changes.result }}
           QUICK: ${{ needs.quick.result }}
-          MODE: ${{ needs.quick.outputs.mode }}
+          MODE: ${{ needs.changes.outputs.mode }}
           TEST: ${{ needs.test.result }}
         run: |
           echo "needs の結果: $RESULTS（判定: ${MODE:-なし}）"
@@ -140,7 +151,11 @@ jobs:
               exit 1
             fi
           done
-          # quick は必ず成功していること。全部の道なら test も成功していること（skipped で緑にしない）
+          # changes と quick は必ず成功していること。全部の道なら test も成功していること（skipped で緑にしない）
+          if [ "$CHANGES" != "success" ]; then
+            echo "changes が成功していない: $CHANGES"
+            exit 1
+          fi
           if [ "$QUICK" != "success" ]; then
             echo "quick が成功していない: $QUICK"
             exit 1

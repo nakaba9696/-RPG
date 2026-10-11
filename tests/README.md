@@ -16,7 +16,7 @@ node tests/serve.mjs 8000          # 手元のブラウザで遊ぶ：http://127
 - CI では `node tests/node_modules/playwright/cli.js install --with-deps --only-shell chromium` で入れる（`npx` は使わない。headless shell だけ。`~/.cache/ms-playwright` は actions/cache で残す）。
 - シャードの配り分けは `tests/durations.json`（テスト名 → CI での秒数）で決まる。所要時間の大きい順に、いま最も軽いシャードへ配る（表が同じなら結果も同じ）。表に無いテストは 180 秒とみなす。
   テストを足したり重くしたりしたら、CI のログの「OK（N 秒）」を写して表を直す（CI のログの頭に配り分けと見込みが出る）。
-- CI の道（T8、`.github/workflows/ci.yml`）：まず `quick` ジョブがブラウザなしのテスト（`--no-browser`）を走らせ、全部を走らせるかを決める。
+- CI の道（T8、`.github/workflows/ci.yml`）：まず `changes` ジョブが全部を走らせるかを決め、そのあと `quick`（ブラウザなしのテスト、`--no-browser`）と `test`（4 シャード、全部の道だけ）が並列に走る。
   PR で変わったファイルが文書（`docs/` の下か `*.md`）だけなら、ブラウザのシャードは走らせない（判定は `tools/ci/changes.mjs`。
   `data/`・`js/`・`tests/`・`tools/`・`.github/`・`img/`・`audio/` などが 1 つでも混ざれば、`*.md` でも全部）。main への push はブラウザなしのテストだけ、手で走らせる（workflow_dispatch）と全部。
   ブラウザなしのテストを足すときは `launchGame(` を本文に書かない（書くとブラウザありに数えられ、速い道で走らない）。
