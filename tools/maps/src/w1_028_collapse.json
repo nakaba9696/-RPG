@@ -1,0 +1,168 @@
+{
+  "_説明": "W1：崩落の間（隠し。docs/world.md 4.3）。027 の落盤の脇の見えない通路 H09 から来る。オルドの遺骸（スイッチ 131、R12 オルドの記憶 1「臨終」）。召喚は P6。",
+  "mapId": 28,
+  "name": "崩落の間",
+  "displayName": "崩落の間",
+  "legend": "dungeon",
+  "tilesetId": 13,
+  "note": "<hai_tone:-85,-85,-102,68>\n<hai_dark:3>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "DirtCave",
+    "battleback2Name": "DirtCave"
+  },
+  "chars": {
+    "e": {
+      "name": "崩れた坑道の口（場所移動のマス）",
+      "as": ","
+    }
+  },
+  "events": [
+    {
+      "at": "e",
+      "name": "崩れた坑道（下層へ）",
+      "type": "transfer",
+      "to": [
+        27,
+        26,
+        22,
+        "left"
+      ]
+    },
+    {
+      "name": "オルドの遺骸",
+      "type": "raw",
+      "x": 11,
+      "y": 6,
+      "note": "<hai_thought:R12>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "天井が鳴った。支柱が割れる音だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "「伏せろ！」と怒鳴って、俺は一番近い梁の下に肩を入れた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "重い。だが、まだ持つ。後ろで若いのが這い出ていく足音がする。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "三人。四人。……よし。全員だ。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "俺の国は俺を忘れたが、この梁は俺を覚えているだろう。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                131,
+                1
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                131,
+                131,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "まだ温かい魂が残っている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "拠点の召喚陣で呼べそうだ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
