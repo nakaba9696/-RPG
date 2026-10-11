@@ -1,7 +1,9 @@
 {
   "p_battle": 618,
+  "p_boss": 186,
   "p_companions": 300,
   "p_defeat": 202,
+  "p_facilities": 230,
   "p_hidden": 95,
   "p_items": 120,
   "p_symbols": 292,
