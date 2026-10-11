@@ -1,0 +1,269 @@
+{
+  "_説明": "W3：看取りの小屋（docs/world2.md 4 章）。西の白樺の林（← 021 の東の白樺の列の H23）→ 小屋の前の薬草の畑の跡と灰の泉の小さな湧き水 → 小屋の中：寝台 4 つ、薬棚にシオンの記憶 3、奥の寝台の横にシオンの遺骸（記憶 4「臨終」を同じイベントに）。敵はいない。",
+  "mapId": 23,
+  "name": "看取りの小屋",
+  "displayName": "看取りの小屋",
+  "legend": "forest",
+  "tilesetId": 12,
+  "note": "<hai_tone:34,34,51,153>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Grassland",
+    "battleback2Name": "Forest"
+  },
+  "chars": {
+    "e": {
+      "name": "西の林（場所移動のマス）",
+      "as": "."
+    },
+    "W": {
+      "name": "小屋の壁（建物E（土壁））",
+      "wall": {
+        "top": "A4:20",
+        "side": "A4:28",
+        "height": 1
+      }
+    },
+    "h": {
+      "name": "枯れた薬草（通れる）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "B:239"
+      ]
+    },
+    "s": {
+      "name": "灰の泉の小さな湧き水（イベント）",
+      "as": "."
+    },
+    "B": {
+      "name": "粗末な寝台（通れない）",
+      "as": "#",
+      "tiles": [
+        null,
+        null,
+        "E:150"
+      ]
+    }
+  },
+  "events": [
+    {
+      "at": "e",
+      "name": "西の林（巡礼の森・奥へ）",
+      "type": "transfer",
+      "to": [
+        21,
+        36,
+        4,
+        "left"
+      ]
+    },
+    {
+      "at": "s",
+      "name": "灰の泉の小さな湧き水",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "tileId": "B:139"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "石で囲った小さな湧き水。灰の泉と同じ、白く濁った水だ。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Recovery",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 314,
+              "indent": 0,
+              "parameters": [
+                0,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "水を飲むと、傷と疲れが癒えた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "x": 18,
+      "y": 4,
+      "name": "シオンの記憶 3「罪か誇り」",
+      "type": "text",
+      "note": "<hai_memory:9,3>",
+      "image": {
+        "tileId": "B:144"
+      },
+      "lines": [
+        "聖灰は効かない。司祭さまも僕も、本当は知っていた。",
+        "それでも「これで楽になります」と言って、一匙ずつ飲ませた。",
+        "飲んだ人は、笑って眠った。",
+        "あれが嘘だったのかどうか、僕はまだ決められない。"
+      ]
+    },
+    {
+      "x": 21,
+      "y": 5,
+      "name": "遺骸 シオン",
+      "type": "raw",
+      "note": "<hai_remains:9><hai_memory:9,4>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 2,
+            "direction": 6,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "奥の寝台の脇に、修道服の少年の亡骸が膝をついている。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "最後の患者は、獣人のおばあさんだった。灰にはならない人だった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "「あんたの方が先に灰になるね」と、おばあさんは笑った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "本当だった。指の先から、白くなっていく。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "手は放さない。……兄さん。兄さんは、間に合った？"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "まだ温かい魂が残っている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "拠点の召喚陣で呼べそうだ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    }
+  ]
+}

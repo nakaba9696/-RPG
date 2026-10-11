@@ -1,0 +1,1150 @@
+{
+  "_説明": "W3：廃集落・広場（docs/world2.md 3 章）。東の入口（← 060）→ 中央の広場（焚刑の柱 R25、井戸の跡の結界）。焼けた家が 6 軒（2 軒目 R24、5 軒目がザザの父の家：記憶 1 と H19 の隠し階段 → 北東の隅の床下の隠れ部屋）。北の坂の上の教会の大扉（施錠扉：異端狩りの紋章）→ 063。西の丘への道（赤「火刑の亡者」。北の焼けた生け垣の中の H20 で迂回）→ 062。南の水路の柵（押し広げる）→ 小道の先 (38..39,32) は W4 が 070 へつなぐ。",
+  "mapId": 61,
+  "name": "廃集落・広場",
+  "displayName": "異端者の廃集落",
+  "legend": "village",
+  "tilesetId": 19,
+  "note": "<hai_tone:-34,-34,-34,136>\n<hai_parallax:DarkClouds,1,0>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "DirtField",
+    "battleback2Name": "Ruins1"
+  },
+  "chars": {
+    "e": {
+      "name": "東の入口（場所移動のマス）",
+      "as": "."
+    },
+    "w": {
+      "name": "西の出口（場所移動のマス）",
+      "as": "."
+    },
+    "c": {
+      "name": "教会の大扉の先（場所移動のマス）",
+      "as": ":"
+    },
+    "L": {
+      "name": "教会の大扉（施錠扉）",
+      "as": ":"
+    },
+    "P": {
+      "name": "焚刑の柱（石の柱A。通れない）",
+      "as": ":",
+      "tiles": [
+        null,
+        null,
+        "C:9"
+      ]
+    },
+    "U": {
+      "name": "井戸の跡（通れない）",
+      "as": ":",
+      "tiles": [
+        null,
+        null,
+        "B:139"
+      ]
+    }
+  },
+  "events": [
+    {
+      "at": "e",
+      "name": "東の入口（焼け野の入口へ）",
+      "type": "transfer",
+      "to": [
+        60,
+        1,
+        13,
+        "right"
+      ]
+    },
+    {
+      "at": "w",
+      "name": "西の出口（焼けた見張り台へ）",
+      "type": "transfer",
+      "to": [
+        62,
+        25,
+        8,
+        "left"
+      ]
+    },
+    {
+      "at": "c",
+      "name": "教会の大扉の先（焚刑の教会へ）",
+      "type": "transfer",
+      "to": [
+        63,
+        12,
+        17,
+        "up"
+      ]
+    },
+    {
+      "at": "L",
+      "name": "焚刑の教会の大扉",
+      "type": "raw",
+      "note": "<hai_locked:異端狩りの紋章><hai_key:222>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 2,
+            "direction": 2
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 2,
+            "direction": 8
+          },
+          "priorityType": 0,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "x": 21,
+      "y": 15,
+      "name": "思念 R25 焼かれた獣人の長老",
+      "type": "text",
+      "note": "<hai_thought:R25>",
+      "lines": [
+        "灰の病は、わしらには移らぬ。四十年見てきたが、一人もかからなんだ。",
+        "そう言うたら、それが呪いの証だと言われた。",
+        "……王都の方角の空が、夜でも赤い。あれは火ではない。",
+        "何かが、人の魂を数えておる。"
+      ]
+    },
+    {
+      "x": 12,
+      "y": 5,
+      "name": "思念 R24 獣人の母",
+      "type": "text",
+      "note": "<hai_thought:R24>",
+      "image": {
+        "tileId": "D:223"
+      },
+      "lines": [
+        "子どもたちは南の水路から湿地へ逃がした。魚人たちが匿ってくれる。",
+        "あの人たちも追われているのに、黙って舟を出してくれた。",
+        "わたしは残る。家に火がつくまで、ここで鍋をかき混ぜている。",
+        "煙が上がっていれば、追っ手は家の中に誰かいると思うから。"
+      ]
+    },
+    {
+      "x": 18,
+      "y": 14,
+      "name": "廃集落の井戸の跡の結界",
+      "type": "raw",
+      "note": "<hai_warp:廃集落の井戸>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Crystal",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "directionFix": true,
+          "trigger": 0
+        }
+      ]
+    },
+    {
+      "x": 14,
+      "y": 25,
+      "name": "ザザの記憶 1「生い立ち」（ザザの父の家）",
+      "type": "raw",
+      "note": "<hai_memory:6,1>",
+      "pages": [
+        {
+          "image": {
+            "tileId": "D:243"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "父さんの剣は重かった。持ち上げられるようになるまで、三年かかった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "「剣は守るためにある。斬った数を数えるな。守った数を数えろ」"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "父さんはそう言って、自分の剣を床下にしまった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "わたしの剣は、まだ家の外の木の枝だった。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Thoughts",
+                "addNote",
+                "メモに足す",
+                {
+                  "text": "ザザの父の家の床下に、剣がしまってある（廃集落）",
+                  "id": "clue:zaza-sword",
+                  "kind": "clue"
+                }
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "x": 12,
+      "y": 26,
+      "name": "隠し階段（床下の隠れ部屋へ）",
+      "type": "raw",
+      "note": "<hai_stairs:61,39,2,2>",
+      "pages": [
+        {
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 38,
+      "y": 1,
+      "name": "上り梯子（ザザの父の家へ）",
+      "type": "transfer",
+      "image": {
+        "tileId": "B:26"
+      },
+      "to": [
+        61,
+        12,
+        25,
+        "down"
+      ]
+    },
+    {
+      "name": "赤い宝箱（ザザの父の剣）",
+      "type": "raw",
+      "note": "",
+      "x": 41,
+      "y": 2,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 127,
+              "indent": 0,
+              "parameters": [
+                301,
+                0,
+                0,
+                1,
+                false
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[97]ザザの父の剣を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "宝箱（口封じの灰）",
+      "type": "raw",
+      "note": "",
+      "x": 4,
+      "y": 5,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                304,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[4]口封じの灰を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 6,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "宝箱（灰の苔）",
+      "type": "raw",
+      "note": "",
+      "x": 32,
+      "y": 5,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                200,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[192]灰の苔を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 6,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "宝箱（苦い根）",
+      "type": "raw",
+      "note": "",
+      "x": 4,
+      "y": 26,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                199,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[193]苦い根を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 6,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "宝箱（凍て石）",
+      "type": "raw",
+      "note": "",
+      "x": 34,
+      "y": 26,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                302,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[65]凍て石を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 6,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "x": 38,
+      "y": 23,
+      "name": "水路の口の柵",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "tileId": "D:126"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "水路の口の柵。子どもが通れるほどの穴が開いている。"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "押し広げる",
+                  "やめる"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "押し広げる"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Open2",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 1,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "柵を押し広げた。水路沿いの小道へ出られる。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 38,
+      "y": 32,
+      "name": "水路沿いの小道の先（W4 が湿地 070 へつなぐ）",
+      "type": "text",
+      "lines": [
+        "水路沿いの小道は南へ続いている。",
+        "倒れた葦が積み重なって、今は先へ進めない。"
+      ]
+    },
+    {
+      "x": 39,
+      "y": 32,
+      "name": "水路沿いの小道の先（W4 が湿地 070 へつなぐ）",
+      "type": "text",
+      "lines": [
+        "水路沿いの小道は南へ続いている。",
+        "倒れた葦が積み重なって、今は先へ進めない。"
+      ]
+    },
+    {
+      "name": "火の粉（緑）",
+      "type": "raw",
+      "x": 34,
+      "y": 13,
+      "note": "<hai_enemy:306,green>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "!Flame",
+            "characterIndex": 0
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3,
+          "stepAnime": true
+        }
+      ]
+    },
+    {
+      "name": "火の粉（緑）",
+      "type": "raw",
+      "x": 9,
+      "y": 9,
+      "note": "<hai_enemy:306,green>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "!Flame",
+            "characterIndex": 0
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3,
+          "stepAnime": true
+        }
+      ]
+    },
+    {
+      "name": "異端狩りの兵（黄・巡回）",
+      "type": "raw",
+      "x": 19,
+      "y": 18,
+      "note": "<hai_enemy:308,yellow>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Evil",
+            "characterIndex": 4
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 5,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "異端狩りの兵（黄）",
+      "type": "raw",
+      "x": 25,
+      "y": 10,
+      "note": "<hai_enemy:308,yellow>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Evil",
+            "characterIndex": 4
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "焦げた影（黄・巡回）",
+      "type": "raw",
+      "x": 16,
+      "y": 21,
+      "note": "<hai_enemy:309,yellow>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Monster",
+            "characterIndex": 5
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 5,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "火刑の亡者（赤）",
+      "type": "raw",
+      "x": 8,
+      "y": 15,
+      "note": "<hai_enemy:310,red>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Monster",
+            "characterIndex": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 0
+        }
+      ]
+    }
+  ]
+}
