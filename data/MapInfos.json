@@ -908,7 +908,7 @@ null,
 {"id":906,"expanded":false,"name":"T_オートマップ","order":20,"parentId":0,"scrollX":0,"scrollY":0},
 {"id":907,"expanded":false,"name":"T_仲間と召喚","order":21,"parentId":0,"scrollX":0,"scrollY":0},
 null,
-null,
+{"id":909,"expanded":false,"name":"T_結界と転送","order":22,"parentId":0,"scrollX":0,"scrollY":0},
 null,
 {"id":911,"expanded":false,"name":"T_外の隠し扉と階段","order":19,"parentId":0,"scrollX":0,"scrollY":0}
 ]
