@@ -231,9 +231,9 @@
       this.visible = false;
     }
     show(text) {
-      const w = Math.min(Graphics.boxWidth - 24, this.textSizeEx(text).width + this.padding * 2 + 16);
+      const w = Math.min(Graphics.boxWidth - 84, this.textSizeEx(text).width + this.padding * 2 + 16);
       const h = this.fittingHeight(1);
-      this.move(Graphics.boxWidth - w - 12, 12, w, h);
+      this.move(Graphics.boxWidth - w - 72, 12, w, h); // 右上のメニューボタンを避ける
       this.createContents();
       this.drawTextEx(text, 0, 0, w - this.padding * 2);
       this._frames = P.toastFrames;
