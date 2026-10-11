@@ -1,9 +1,14 @@
 name: CI
 
+# 分数を減らす（T8）：
+#   - main への push：ブラウザなしのテストだけ（中身は PR の CI で確かめ済み。ルールセットが「CI result 緑」と「枝が main に最新」を求める）
+#   - PR：文書（docs/ の下か *.md）だけならブラウザなしのテストだけ。それ以外は 4 シャードで全部（判定は tools/ci/changes.mjs）
+#   - 手で走らせる（workflow_dispatch）：全部
 on:
   pull_request:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -13,9 +18,72 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # ブラウザなしのテスト（どの道でも走る）と、全部を走らせるかの判定。ここで落ちたらブラウザのシャードは走らせない。
+  quick:
+    name: quick（ブラウザなし）
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      mode: ${{ steps.mode.outputs.mode }}
+    steps:
+      # PR では refs/pull/N/merge（親 1 が main の先端）を取るので、2 世代あれば PR の差分が出る
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: tests/package-lock.json
+      - name: ワークフローの決まりの検査
+        run: bash tools/ci/check-workflows.sh
+      - name: 全部を走らせるかの判定
+        id: mode
+        env:
+          EVENT: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT" = "pull_request" ]; then
+            git diff --name-only --no-renames HEAD^1 HEAD > "$RUNNER_TEMP/changed.txt"
+            echo "変わったファイル:"
+            cat "$RUNNER_TEMP/changed.txt"
+            mode="$(node tools/ci/changes.mjs < "$RUNNER_TEMP/changed.txt")"
+          elif [ "$EVENT" = "push" ]; then
+            mode=light
+          else
+            mode=full
+          fi
+          echo "判定: $mode（$EVENT）"
+          echo "mode=$mode" >> "$GITHUB_OUTPUT"
+      # テストの npm 設定は tests/ に置く（直下の package.json は MZ のエディタが書き戻すため）
+      - name: 依存を入れる
+        run: npm ci --ignore-scripts --prefix tests
+      - name: ブラウザなしのテスト
+        run: node tests/run.mjs --no-browser
+      # PR の枝のキャッシュは main のものしか読めないので、main への push で Chromium のキャッシュを作っておく（有れば何もしない）
+      - name: Chromium のキャッシュ（main）
+        id: pw
+        if: github.event_name == 'push'
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('tests/package-lock.json') }}
+      - name: Chromium を落とす（main、キャッシュが無いときだけ）
+        if: github.event_name == 'push' && steps.pw.outputs.cache-hit != 'true'
+        run: node tests/node_modules/playwright/cli.js install --only-shell chromium
+      - name: 出力を残す
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: screenshots-quick
+          path: tests/out/
+          if-no-files-found: ignore
+          retention-days: 14
+
   # テストを 4 つに分けて並列に走らせる（tests/run.mjs --shard i/n。tests/durations.json の所要時間で均す）
   test:
     name: test (${{ matrix.shard }}/4)
+    needs: [quick]
+    if: needs.quick.outputs.mode == 'full'
     runs-on: ubuntu-latest
     timeout-minutes: 25
     strategy:
@@ -29,13 +97,17 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: tests/package-lock.json
-      - name: ワークフローの決まりの検査
-        run: bash tools/ci/check-workflows.sh
-      # テストの npm 設定は tests/ に置く（直下の package.json は MZ のエディタが書き戻すため）
       - name: 依存を入れる
         run: npm ci --ignore-scripts --prefix tests
+      # ブラウザは playwright の版（tests/package-lock.json）ごとに残す。apt の依存は毎回入れる（ランナーは使い捨て）
+      - name: Chromium を残す
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('tests/package-lock.json') }}
+      # launch の既定（headless）は headless shell を使うので、普通の Chromium は入れない（--only-shell）
       - name: Chromium を入れる
-        run: node tests/node_modules/playwright/cli.js install --with-deps chromium
+        run: node tests/node_modules/playwright/cli.js install --with-deps --only-shell chromium
       - name: テスト
         run: node tests/run.mjs --shard ${{ matrix.shard }}/4
       - name: スクリーンショットを残す
@@ -48,19 +120,32 @@ jobs:
           retention-days: 14
 
   # ルールセットの必須チェック。この名前（CI result）は変えない。
+  # 速い道では test が skipped になる（skipped は緑に数える）。quick が落ちたら test も skipped になるが、quick の failure で赤になる。
   ci-result:
     name: CI result
-    needs: [test]
+    needs: [quick, test]
     if: always()
     runs-on: ubuntu-latest
     steps:
       - name: needs の結果をまとめる
         env:
           RESULTS: ${{ join(needs.*.result, ' ') }}
+          QUICK: ${{ needs.quick.result }}
+          MODE: ${{ needs.quick.outputs.mode }}
+          TEST: ${{ needs.test.result }}
         run: |
-          echo "needs の結果: $RESULTS"
+          echo "needs の結果: $RESULTS（判定: ${MODE:-なし}）"
           for r in $RESULTS; do
             if [ "$r" = "failure" ] || [ "$r" = "cancelled" ]; then
               exit 1
             fi
           done
+          # quick は必ず成功していること。全部の道なら test も成功していること（skipped で緑にしない）
+          if [ "$QUICK" != "success" ]; then
+            echo "quick が成功していない: $QUICK"
+            exit 1
+          fi
+          if [ "$MODE" != "light" ] && [ "$TEST" != "success" ]; then
+            echo "全部の道なのに test が成功していない: $TEST"
+            exit 1
+          fi

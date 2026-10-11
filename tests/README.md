@@ -8,13 +8,18 @@ npm ci --ignore-scripts --prefix tests && node tests/run.mjs   # 全部（失敗
 node tests/run.mjs t_smoke         # 名前で選ぶ（拡張子なし、いくつでも）
 node tests/run.mjs --shard 2/4     # 所要時間で 4 つに均して配った 2 番目だけ（CI は 4 シャードを並列に走らせる）
 node tests/run.mjs --plan 4        # 4 シャードへの配り分けと見込み時間を表示するだけ
+node tests/run.mjs --no-browser    # ブラウザなしのテスト（本文に launchGame( が無いもの）だけ
 node tests/t_maps.mjs              # 1 本だけを直接
 node tests/serve.mjs 8000          # 手元のブラウザで遊ぶ：http://127.0.0.1:8000/index.html （?hai_test を付けると window.__game が出る）
 ```
 - クラウドのセッションでは Chromium が `/opt/pw-browsers` にある（`PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers`）。`playwright install` はしない。
-- CI では `node tests/node_modules/playwright/cli.js install --with-deps chromium` で入れる（`npx` は使わない）。
+- CI では `node tests/node_modules/playwright/cli.js install --with-deps --only-shell chromium` で入れる（`npx` は使わない。headless shell だけ。`~/.cache/ms-playwright` は actions/cache で残す）。
 - シャードの配り分けは `tests/durations.json`（テスト名 → CI での秒数）で決まる。所要時間の大きい順に、いま最も軽いシャードへ配る（表が同じなら結果も同じ）。表に無いテストは 180 秒とみなす。
   テストを足したり重くしたりしたら、CI のログの「OK（N 秒）」を写して表を直す（CI のログの頭に配り分けと見込みが出る）。
+- CI の道（T8、`.github/workflows/ci.yml`）：まず `quick` ジョブがブラウザなしのテスト（`--no-browser`）を走らせ、全部を走らせるかを決める。
+  PR で変わったファイルが文書（`docs/` の下か `*.md`）だけなら、ブラウザのシャードは走らせない（判定は `tools/ci/changes.mjs`。
+  `data/`・`js/`・`tests/`・`tools/`・`.github/`・`img/`・`audio/` などが 1 つでも混ざれば、`*.md` でも全部）。main への push はブラウザなしのテストだけ、手で走らせる（workflow_dispatch）と全部。
+  ブラウザなしのテストを足すときは `launchGame(` を本文に書かない（書くとブラウザありに数えられ、速い道で走らない）。
 - スクリーンショットは `tests/out/<テスト名>-<番号>-<名前>.png` に出る（コミットしない）。CI では失敗しても成功しても artifact「screenshots」に残る。
 
 ## 今あるテスト
@@ -22,6 +27,7 @@ node tests/serve.mjs 8000          # 手元のブラウザで遊ぶ：http://127
 |---|---|---|
 | `t_data.mjs` | データの整合（`tools/data/check.mjs`）と、`tools/data/io.mjs` で書き直してもエディタの書式と 1 バイトも変わらないこと。ブラウザなし | 1 秒 |
 | `t_reach.mjs` | データの自動検証（到達性・場所移動の行き先・リージョン・ID の帯・プラグインの並び。`tools/data/README.md`）が今の `data/` で通り、わざと壊した写し（一時フォルダ）で落ちること。ブラウザなし | 1 秒 |
+| `t_ci_changes.mjs` | CI の速い道の判定（`tools/ci/changes.mjs`）：文書だけで light、`data/`・`js/` などが混ざれば full。ブラウザなし | 1 秒 |
 | `t_maps.mjs` | オートタイルの形の計算（コアの表・エディタの通行設定・エディタの書いたマップと突き合わせ）、`data/` の生成物が文字マップと一致すること。見本の迷宮（Map900）に移り、描画・全マスの通行・石碑の文章・階段での移動 | 30 秒 |
 | `t_smoke.mjs` | タイトル → ニューゲーム → 歩く（キー入力と窓口）→ 戦闘（決定キーで勝つ）→ セーブ → ページの読み直し → ロードで同じ場所・同じ経験値 | 50 秒 |
 
