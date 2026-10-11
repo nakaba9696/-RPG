@@ -1,0 +1,208 @@
+// W1（#39）のデータベースの項目を書く。何度走らせても同じ結果になる（自分の帯だけを書き直す）。
+//   node tools/maps/src/w1_data.mjs
+// 書くもの：
+//   Items・Weapons・Armors・Enemies・Troops の 201–（W1 の帯 201–300）
+//   System.json の switches・variables 101–200 の名前（docs/world.md 8 章の「第1段階」の ●）、startMapId・startX・startY・partyMembers
+//   Actors.json の 1 番の名前と肩書き、5 番の名前
+// 状態異常は P4（States 141–147）が入っていればそれを、無ければ MZ の既定（4 毒・6 沈黙・10 睡眠）を使う。
+// P4 が main に入ったら、このスクリプトを走らせ直すだけで P4 の状態異常に切り替わる。
+import fs from "node:fs";
+import { readData, writeTable, dataPath, extendTable } from "../../data/io.mjs";
+
+// ---------------------------------------------------------------------------
+// 状態異常（P4 があればそちら）
+// ---------------------------------------------------------------------------
+const states = readData("States.json");
+const hasP4 = states[141]?.name === "毒" && states[142]?.name === "眠り";
+const ST = hasP4
+  ? { poison: 141, sleep: 142, silence: 146, bind: 147 }
+  : { poison: 4, sleep: 10, silence: 6, bind: 13 };
+
+// ---------------------------------------------------------------------------
+// 共通
+// ---------------------------------------------------------------------------
+const W1 = [201, 300];
+function clearBand(table, makeEmpty) {
+  extendTable(table, W1[0] - 1, makeEmpty);
+  for (let id = W1[0]; id < table.length && id <= W1[1]; id++) table[id] = makeEmpty(id);
+  // 帯の終わりより後ろに何も無いなら、空の項目を末尾から削る（ほかのレーンの項目は残す）
+  while (table.length - 1 >= W1[0] && table.length - 1 <= W1[1] && table[table.length - 1].name === "") table.pop();
+}
+function put(table, id, item, makeEmpty) {
+  if (id < W1[0] || id > W1[1]) throw new Error(`${id} は W1 の帯の外`);
+  extendTable(table, id, makeEmpty);
+  table[id] = { ...makeEmpty(id), ...item, id };
+}
+
+// ---------------------------------------------------------------------------
+// Items（欄は Items.json の既存の項目から写した）
+// ---------------------------------------------------------------------------
+const emptyItem = id => ({
+  id, animationId: 0, consumable: true,
+  damage: { critical: false, elementId: 0, formula: "0", type: 0, variance: 20 },
+  description: "", effects: [], hitType: 0, iconIndex: 0, itypeId: 1, name: "", note: "",
+  occasion: 0, price: 0, repeats: 1, scope: 7, speed: 0, successRate: 100, tpGain: 0,
+});
+const keyItem = (name, description, iconIndex = 195) => ({
+  name, description, iconIndex, itypeId: 2, consumable: false, occasion: 3, scope: 0,
+});
+const items = readData("Items.json");
+clearBand(items, emptyItem);
+put(items, 201, keyItem("坑道の鍵", "廃坑・上層の機械室の扉を開ける鍵。帝国の刻印がある。"), emptyItem);
+put(items, 202, keyItem("監房の鍵", "地下牢の点呼の広場の、南の扉を開ける鍵。"), emptyItem);
+put(items, 203, keyItem("看守長の鍵束", "看守長グラウの鍵束。地下牢のさらに奥の扉に合いそうだ。"), emptyItem);
+put(items, 204, {
+  name: "眠り香", description: "焚くと甘い煙が立つ。敵 1 体を眠らせる（沈黙中でも使える）。",
+  iconIndex: 210, animationId: 62, hitType: 0, occasion: 1, scope: 1, price: 0,
+  effects: [{ code: 21, dataId: ST.sleep, value1: 0.9, value2: 0 }],
+}, emptyItem);
+writeTable("Items.json", items);
+
+// ---------------------------------------------------------------------------
+// Weapons・Armors
+// ---------------------------------------------------------------------------
+const emptyWeapon = id => ({
+  id, animationId: 0, description: "", etypeId: 1, traits: [{ code: 31, dataId: 1, value: 0 }, { code: 22, dataId: 0, value: 0 }],
+  iconIndex: 0, name: "", note: "", params: [0, 0, 0, 0, 0, 0, 0, 0], price: 0, wtypeId: 0,
+});
+const weapons = readData("Weapons.json");
+clearBand(weapons, emptyWeapon);
+put(weapons, 201, {
+  name: "坑夫の鶴嘴", description: "捕虜が魔石を掘った鶴嘴。硬い殻にも食い込む。",
+  animationId: 6, iconIndex: 99, wtypeId: 4, price: 0, params: [0, 0, 14, 0, 0, 0, 0, 0],
+  traits: [{ code: 31, dataId: 1, value: 0 }, { code: 22, dataId: 0, value: 0 }],
+}, emptyWeapon);
+writeTable("Weapons.json", weapons);
+
+const emptyArmor = id => ({
+  id, atypeId: 1, description: "", etypeId: 4, traits: [{ code: 22, dataId: 1, value: 0 }],
+  iconIndex: 0, name: "", note: "", params: [0, 0, 0, 0, 0, 0, 0, 0], price: 0,
+});
+const armors = readData("Armors.json");
+clearBand(armors, emptyArmor);
+put(armors, 201, {
+  name: "巡礼者の外套", description: "灰をかぶった巡礼者の外套。魔法のダメージを 2 割減らす。",
+  atypeId: 3, etypeId: 4, iconIndex: 135, params: [0, 0, 0, 4, 0, 6, 0, 0],
+  traits: [{ code: 22, dataId: 1, value: 0 }, { code: 23, dataId: 7, value: 0.8 }],
+}, emptyArmor);
+put(armors, 202, {
+  name: "灯火の指輪", description: "小さな火が消えずに灯っている指輪。暗闇と眠りを防ぐ。",
+  atypeId: 1, etypeId: 5, iconIndex: 145, params: [0, 0, 0, 0, 2, 2, 0, 0],
+  traits: [{ code: 14, dataId: ST.sleep, value: 0 }],
+}, emptyArmor);
+put(armors, 203, {
+  name: "沈黙除けの首輪", description: "囚人の首輪を作り直したもの。沈黙を防ぐ。",
+  atypeId: 1, etypeId: 5, iconIndex: 146, params: [0, 0, 0, 2, 0, 2, 0, 0],
+  traits: [{ code: 14, dataId: ST.silence, value: 0 }],
+}, emptyArmor);
+writeTable("Armors.json", armors);
+
+// ---------------------------------------------------------------------------
+// Enemies・Troops（docs/world.md 4.2〜4.4 の敵。数値は仮。持ち主・P4・P7 が調整する）
+// ---------------------------------------------------------------------------
+const emptyEnemy = id => ({
+  id, actions: [{ conditionParam1: 0, conditionParam2: 0, conditionType: 0, rating: 5, skillId: 1 }],
+  battlerHue: 0, battlerName: "",
+  dropItems: [{ dataId: 1, denominator: 1, kind: 0 }, { dataId: 1, denominator: 1, kind: 0 }, { dataId: 1, denominator: 1, kind: 0 }],
+  exp: 0, traits: [{ code: 22, dataId: 0, value: 0.95 }, { code: 22, dataId: 1, value: 0.05 }, { code: 31, dataId: 1, value: 0 }],
+  gold: 0, name: "", note: "", params: [100, 0, 10, 10, 10, 10, 10, 10],
+});
+const T = {
+  attackState: (stateId, rate) => ({ code: 32, dataId: stateId, value: rate }),
+  element: (elementId, rate) => ({ code: 11, dataId: elementId, value: rate }),
+  physRate: rate => ({ code: 23, dataId: 6, value: rate }),
+  stateResist: stateId => ({ code: 14, dataId: stateId, value: 0 }),
+  stateRate: (stateId, rate) => ({ code: 13, dataId: stateId, value: rate }),
+  attackTimes: n => ({ code: 34, dataId: 0, value: n }),
+};
+const base = [{ code: 22, dataId: 0, value: 0.95 }, { code: 22, dataId: 1, value: 0.05 }, { code: 31, dataId: 1, value: 0 }];
+const attack = { conditionParam1: 0, conditionParam2: 0, conditionType: 0, rating: 5, skillId: 1 };
+const guard = { conditionParam1: 0, conditionParam2: 0, conditionType: 0, rating: 3, skillId: 2 };
+const noDrop = [{ dataId: 1, denominator: 1, kind: 0 }, { dataId: 1, denominator: 1, kind: 0 }, { dataId: 1, denominator: 1, kind: 0 }];
+// [ID, 名前, 戦闘の絵, [HP, MP, 攻, 防, 魔, 魔防, 敏, 運], 経験値, 魔石, 特徴, 行動]
+const ENEMIES = [
+  [201, "迷い蛾", "Machinerybee", [90, 0, 14, 8, 10, 10, 18, 10], 6, 4, [T.attackState(ST.sleep, 0.15)], [attack]],
+  [202, "根喰い", "Treant", [140, 0, 16, 14, 8, 10, 6, 10], 8, 6, [T.attackState(ST.poison, 0.3), T.element(2, 2)], [attack]],
+  [203, "灰の巡礼者", "Zombie", [320, 0, 22, 14, 10, 12, 10, 10], 20, 15, [T.element(2, 1.5)], [attack, guard]],
+  [205, "坑道鼠", "Frilledlizard", [110, 0, 18, 10, 8, 8, 20, 10], 8, 5, [], [attack]],
+  [206, "石喰い", "Crab", [300, 0, 24, 30, 8, 14, 8, 10], 24, 18, [T.physRate(0.5), T.element(2, 2)], [attack, guard]],
+  [207, "灯なし坑夫", "Berserker", [380, 0, 30, 18, 8, 12, 12, 10], 28, 20, [], [attack, { ...attack, rating: 4 }]],
+  [208, "大百足", "Sandworm", [900, 0, 34, 24, 10, 16, 16, 10], 80, 60, [T.attackState(ST.poison, 0.4), T.attackTimes(1), T.element(2, 2)], [attack]],
+  [209, "骨の囚人", "Wraith", [160, 0, 20, 12, 10, 10, 12, 10], 10, 8, [T.element(2, 1.5), T.stateResist(ST.poison)], [attack]],
+  [210, "獄卒", "Captain", [420, 0, 30, 20, 10, 14, 14, 10], 30, 22, [T.attackState(ST.sleep, 0.2)], [attack, guard]],
+  [211, "番犬", "Wolfman", [700, 0, 36, 20, 8, 12, 30, 10], 70, 40, [T.attackTimes(1)], [attack]],
+  [212, "看守長グラウ", "Gatekeeper", [2000, 0, 40, 28, 20, 20, 24, 10], 300, 300,
+    [T.physRate(0.5), T.element(4, 0), T.element(2, 2), T.stateResist(ST.poison), T.stateRate(ST.sleep, 1.5)], [attack]],
+];
+const enemies = readData("Enemies.json");
+clearBand(enemies, emptyEnemy);
+for (const [id, name, battlerName, params, exp, gold, traits, actions] of ENEMIES) {
+  put(enemies, id, { name, battlerName, params, exp, gold, traits: [...base, ...traits], actions, dropItems: noDrop }, emptyEnemy);
+}
+// 看守長は「看守長の鍵束」を必ず落とす（docs/world.md 4.4）
+enemies[212].dropItems = [{ dataId: 203, denominator: 1, kind: 1 }, { dataId: 1, denominator: 1, kind: 0 }, { dataId: 1, denominator: 1, kind: 0 }];
+enemies[212].note = "<hai_boss>";
+writeTable("Enemies.json", enemies);
+
+const emptyTroop = id => ({
+  id, members: [], name: "",
+  pages: [{
+    conditions: { actorHp: 50, actorId: 1, actorValid: false, enemyHp: 50, enemyIndex: 0, enemyValid: false, switchId: 1, switchValid: false, turnA: 0, turnB: 0, turnEnding: false, turnValid: false },
+    list: [{ code: 0, indent: 0, parameters: [] }], span: 0,
+  }],
+});
+// 画面 1280×720 の真ん中あたりに並べる
+const row = n => Array.from({ length: n }, (_, i) => ({ x: Math.round(640 + (i - (n - 1) / 2) * 200), y: 460 }));
+const TROOPS = [
+  [201, "W1_緑：迷い蛾", [201, 201]],
+  [202, "W1_緑：根喰い", [202]],
+  [203, "W1_黄：灰の巡礼者", [203]],
+  [204, "W1_赤：祈りの群れ", [203, 203, 203]],
+  [205, "W1_緑：坑道鼠×2", [205, 205]],
+  [206, "W1_黄：石喰い", [206]],
+  [207, "W1_黄：灯なし坑夫", [207]],
+  [208, "W1_赤：大百足", [208]],
+  [209, "W1_緑：骨の囚人", [209]],
+  [210, "W1_黄：獄卒", [210]],
+  [211, "W1_赤：番犬", [211]],
+  [212, "W1_ボス：看守長グラウ", [212]],
+];
+const troops = readData("Troops.json");
+clearBand(troops, emptyTroop);
+for (const [id, name, members] of TROOPS) {
+  const pos = row(members.length);
+  put(troops, id, { name, members: members.map((enemyId, i) => ({ enemyId, ...pos[i], hidden: false })) }, emptyTroop);
+}
+writeTable("Troops.json", troops);
+
+// ---------------------------------------------------------------------------
+// Actors：1 番の名前と肩書き（#13 の推し「ユエル」）、5 番の名前（オルド）
+// ---------------------------------------------------------------------------
+const actors = readData("Actors.json");
+actors[1].name = "ユエル";
+actors[1].nickname = "蘇生師";
+actors[5].name = "オルド";
+writeTable("Actors.json", actors);
+
+// ---------------------------------------------------------------------------
+// System.json：筋の旗の名前（docs/world.md 8 章の ●）と開始位置
+// ---------------------------------------------------------------------------
+const SWITCHES = {
+  101: "オーブ:鎖", 111: "目覚めた", 112: "セレスと話した", 113: "召喚陣を教わった", 114: "拠点の鉄扉:開",
+  131: "遺骸:オルド", 136: "加入:オルド", 151: "ボス:看守長", 153: "廃坑の昇降機",
+};
+const VARIABLES = { 101: "オーブの数", 102: "仲間の数", 104: "番号錠の入力", 105: "聖女像に祈った回数", 131: "記憶:オルド" };
+const sysPath = dataPath("System.json");
+const system = JSON.parse(fs.readFileSync(sysPath, "utf8"));
+for (const [key, names] of [["switches", SWITCHES], ["variables", VARIABLES]]) {
+  const arr = system[key];
+  while (arr.length <= 200) arr.push("");
+  for (let id = 101; id <= 300 && id < arr.length; id++) arr[id] = names[id] ?? "";
+}
+system.startMapId = 10;
+system.startX = 5;
+system.startY = 16;
+system.partyMembers = [1];
+fs.writeFileSync(sysPath, JSON.stringify(system));
+
+console.log(`W1 のデータを書いた（状態異常：${hasP4 ? "P4 の 141–147" : "MZ の既定"}）`);
