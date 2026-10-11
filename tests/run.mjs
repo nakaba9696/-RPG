@@ -4,6 +4,7 @@
 //   node tests/run.mjs t_smoke t_maps  名前（拡張子なし）で選ぶ
 //   node tests/run.mjs --shard 2/4     所要時間（tests/durations.json）で 4 つに均して配った 2 番目だけ（CI の並列用。--shard=2/4 も可）
 //   node tests/run.mjs --plan 4        4 つへの配り分けと見込み時間を表示するだけ（テストは走らせない）
+//   node tests/run.mjs --no-browser    ブラウザなしのテスト（launchGame を呼ばないもの）だけ（文書だけの PR と main への push の CI 用）
 import { spawn } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
@@ -13,10 +14,13 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
 let shard = null;
 let planN = 0;
+let noBrowser = false;
 const names = [];
 for (let k = 0; k < args.length; k++) {
   const a = args[k];
-  if (a === "--plan" || a.startsWith("--plan=")) {
+  if (a === "--no-browser") {
+    noBrowser = true;
+  } else if (a === "--plan" || a.startsWith("--plan=")) {
     const v = a === "--plan" ? args[++k] : a.slice("--plan=".length);
     planN = /^\d+$/.test(v || "") ? Number(v) : 0;
     if (planN < 1) {
@@ -39,6 +43,10 @@ for (let k = 0; k < args.length; k++) {
 }
 if ((shard || planN) && names.length) {
   console.error("--shard・--plan と名前の指定は一緒に使えない");
+  process.exit(1);
+}
+if (noBrowser && (shard || planN || names.length)) {
+  console.error("--no-browser は --shard・--plan・名前の指定と一緒に使えない");
   process.exit(1);
 }
 const wanted = names.map(a => a.replace(/\.mjs$/, ""));
@@ -92,6 +100,9 @@ if (planN) {
   process.exit(0);
 }
 
+// ブラウザなしのテスト：本文に launchGame( が無いもの（ブラウザを開くテストはすべて lib.mjs の launchGame を通る）
+const usesBrowser = f => fs.readFileSync(path.join(here, f), "utf8").includes("launchGame(");
+
 let files = wanted.length ? all.filter(f => wanted.includes(f.replace(/\.mjs$/, ""))) : all;
 if (shard) {
   const plan = makePlan(shard.n);
@@ -99,6 +110,11 @@ if (shard) {
   files = plan.shards[shard.i - 1].files;
   console.log(`シャード ${shard.i}/${shard.n}: ${files.join(", ") || "（なし）"}`);
   if (files.length === 0) process.exit(0); // テストの本数よりシャードが多いとき
+}
+
+if (noBrowser) {
+  files = all.filter(f => !usesBrowser(f));
+  console.log(`ブラウザなしのテスト: ${files.join(", ") || "（なし）"}`);
 }
 
 if (wanted.length && files.length !== wanted.length) {
