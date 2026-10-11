@@ -1,0 +1,1166 @@
+{
+  "_説明": "W1：地下牢・更生の廊下（docs/world.md 4.4）。北の入口（← 033 の施錠扉）→ 足が遅くなる廊下（魔法陣の床。入ると速度 2、出ると 4。赤の番犬が往復）→ 南の控え室（泉・書見台・R17）→ 鉄格子の大扉（→ 035）。廊下の西の壁の中は H13（影の無い壁）。東の番犬の部屋の北東の隠し扉 H12 → 赤い宝箱。",
+  "mapId": 34,
+  "name": "地下牢・更生の廊下",
+  "displayName": "更生の廊下",
+  "legend": "dungeon",
+  "tilesetId": 14,
+  "note": "<hai_tone:-51,-85,-85,85>\n<hai_dark:5>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Stone1",
+    "battleback2Name": "Stone1"
+  },
+  "chars": {
+    "h": {
+      "name": "見えない通路（煉瓦の壁に見えて通れる。右に影を落とさない。リージョン 251）",
+      "as": "=",
+      "region": 251,
+      "shadow": false
+    },
+    "G": {
+      "name": "鉄格子の大扉（場所移動）",
+      "as": "."
+    },
+    "1": {
+      "name": "魔法陣の床（足が遅くなる廊下）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "C:80"
+      ]
+    },
+    "2": {
+      "name": "魔法陣の床（足が遅くなる廊下）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "C:81"
+      ]
+    },
+    "3": {
+      "name": "魔法陣の床（足が遅くなる廊下）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "C:82"
+      ]
+    },
+    "4": {
+      "name": "魔法陣の床（足が遅くなる廊下）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "C:88"
+      ]
+    },
+    "5": {
+      "name": "魔法陣の床（足が遅くなる廊下）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "C:89"
+      ]
+    },
+    "6": {
+      "name": "魔法陣の床（足が遅くなる廊下）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "C:90"
+      ]
+    },
+    "7": {
+      "name": "魔法陣の床（足が遅くなる廊下）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "C:96"
+      ]
+    },
+    "8": {
+      "name": "魔法陣の床（足が遅くなる廊下）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "C:97"
+      ]
+    },
+    "9": {
+      "name": "魔法陣の床（足が遅くなる廊下）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "C:98"
+      ]
+    }
+  },
+  "events": [
+    {
+      "at": "<",
+      "name": "上り口（監房区へ）",
+      "type": "transfer",
+      "to": [
+        33,
+        26,
+        19,
+        "up"
+      ]
+    },
+    {
+      "name": "足が鈍る（入口）",
+      "type": "raw",
+      "x": 18,
+      "y": 7,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 205,
+              "indent": 0,
+              "parameters": [
+                -1,
+                {
+                  "list": [
+                    {
+                      "code": 29,
+                      "parameters": [
+                        2
+                      ]
+                    },
+                    {
+                      "code": 0,
+                      "parameters": []
+                    }
+                  ],
+                  "repeat": false,
+                  "skippable": true,
+                  "wait": false
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 0,
+              "parameters": [
+                {
+                  "code": 29,
+                  "parameters": [
+                    2
+                  ]
+                }
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "足が鈍る（入口）",
+      "type": "raw",
+      "x": 19,
+      "y": 7,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 205,
+              "indent": 0,
+              "parameters": [
+                -1,
+                {
+                  "list": [
+                    {
+                      "code": 29,
+                      "parameters": [
+                        2
+                      ]
+                    },
+                    {
+                      "code": 0,
+                      "parameters": []
+                    }
+                  ],
+                  "repeat": false,
+                  "skippable": true,
+                  "wait": false
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 0,
+              "parameters": [
+                {
+                  "code": 29,
+                  "parameters": [
+                    2
+                  ]
+                }
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "足が鈍る（入口）",
+      "type": "raw",
+      "x": 20,
+      "y": 7,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 205,
+              "indent": 0,
+              "parameters": [
+                -1,
+                {
+                  "list": [
+                    {
+                      "code": 29,
+                      "parameters": [
+                        2
+                      ]
+                    },
+                    {
+                      "code": 0,
+                      "parameters": []
+                    }
+                  ],
+                  "repeat": false,
+                  "skippable": true,
+                  "wait": false
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 0,
+              "parameters": [
+                {
+                  "code": 29,
+                  "parameters": [
+                    2
+                  ]
+                }
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "足が鈍る（入口）",
+      "type": "raw",
+      "x": 18,
+      "y": 18,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 205,
+              "indent": 0,
+              "parameters": [
+                -1,
+                {
+                  "list": [
+                    {
+                      "code": 29,
+                      "parameters": [
+                        2
+                      ]
+                    },
+                    {
+                      "code": 0,
+                      "parameters": []
+                    }
+                  ],
+                  "repeat": false,
+                  "skippable": true,
+                  "wait": false
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 0,
+              "parameters": [
+                {
+                  "code": 29,
+                  "parameters": [
+                    2
+                  ]
+                }
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "足が鈍る（入口）",
+      "type": "raw",
+      "x": 19,
+      "y": 18,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 205,
+              "indent": 0,
+              "parameters": [
+                -1,
+                {
+                  "list": [
+                    {
+                      "code": 29,
+                      "parameters": [
+                        2
+                      ]
+                    },
+                    {
+                      "code": 0,
+                      "parameters": []
+                    }
+                  ],
+                  "repeat": false,
+                  "skippable": true,
+                  "wait": false
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 0,
+              "parameters": [
+                {
+                  "code": 29,
+                  "parameters": [
+                    2
+                  ]
+                }
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "足が鈍る（入口）",
+      "type": "raw",
+      "x": 20,
+      "y": 18,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 205,
+              "indent": 0,
+              "parameters": [
+                -1,
+                {
+                  "list": [
+                    {
+                      "code": 29,
+                      "parameters": [
+                        2
+                      ]
+                    },
+                    {
+                      "code": 0,
+                      "parameters": []
+                    }
+                  ],
+                  "repeat": false,
+                  "skippable": true,
+                  "wait": false
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 0,
+              "parameters": [
+                {
+                  "code": 29,
+                  "parameters": [
+                    2
+                  ]
+                }
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "足が戻る",
+      "type": "raw",
+      "x": 19,
+      "y": 6,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 205,
+              "indent": 0,
+              "parameters": [
+                -1,
+                {
+                  "list": [
+                    {
+                      "code": 29,
+                      "parameters": [
+                        4
+                      ]
+                    },
+                    {
+                      "code": 0,
+                      "parameters": []
+                    }
+                  ],
+                  "repeat": false,
+                  "skippable": true,
+                  "wait": false
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 0,
+              "parameters": [
+                {
+                  "code": 29,
+                  "parameters": [
+                    4
+                  ]
+                }
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "足が戻る",
+      "type": "raw",
+      "x": 19,
+      "y": 19,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 205,
+              "indent": 0,
+              "parameters": [
+                -1,
+                {
+                  "list": [
+                    {
+                      "code": 29,
+                      "parameters": [
+                        4
+                      ]
+                    },
+                    {
+                      "code": 0,
+                      "parameters": []
+                    }
+                  ],
+                  "repeat": false,
+                  "skippable": true,
+                  "wait": false
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 0,
+              "parameters": [
+                {
+                  "code": 29,
+                  "parameters": [
+                    4
+                  ]
+                }
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "足が戻る",
+      "type": "raw",
+      "x": 16,
+      "y": 4,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 205,
+              "indent": 0,
+              "parameters": [
+                -1,
+                {
+                  "list": [
+                    {
+                      "code": 29,
+                      "parameters": [
+                        4
+                      ]
+                    },
+                    {
+                      "code": 0,
+                      "parameters": []
+                    }
+                  ],
+                  "repeat": false,
+                  "skippable": true,
+                  "wait": false
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 0,
+              "parameters": [
+                {
+                  "code": 29,
+                  "parameters": [
+                    4
+                  ]
+                }
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "足が戻る",
+      "type": "raw",
+      "x": 17,
+      "y": 4,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 205,
+              "indent": 0,
+              "parameters": [
+                -1,
+                {
+                  "list": [
+                    {
+                      "code": 29,
+                      "parameters": [
+                        4
+                      ]
+                    },
+                    {
+                      "code": 0,
+                      "parameters": []
+                    }
+                  ],
+                  "repeat": false,
+                  "skippable": true,
+                  "wait": false
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 0,
+              "parameters": [
+                {
+                  "code": 29,
+                  "parameters": [
+                    4
+                  ]
+                }
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "足が戻る",
+      "type": "raw",
+      "x": 16,
+      "y": 20,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 205,
+              "indent": 0,
+              "parameters": [
+                -1,
+                {
+                  "list": [
+                    {
+                      "code": 29,
+                      "parameters": [
+                        4
+                      ]
+                    },
+                    {
+                      "code": 0,
+                      "parameters": []
+                    }
+                  ],
+                  "repeat": false,
+                  "skippable": true,
+                  "wait": false
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 0,
+              "parameters": [
+                {
+                  "code": 29,
+                  "parameters": [
+                    4
+                  ]
+                }
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "足が戻る",
+      "type": "raw",
+      "x": 17,
+      "y": 20,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 205,
+              "indent": 0,
+              "parameters": [
+                -1,
+                {
+                  "list": [
+                    {
+                      "code": 29,
+                      "parameters": [
+                        4
+                      ]
+                    },
+                    {
+                      "code": 0,
+                      "parameters": []
+                    }
+                  ],
+                  "repeat": false,
+                  "skippable": true,
+                  "wait": false
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 0,
+              "parameters": [
+                {
+                  "code": 29,
+                  "parameters": [
+                    4
+                  ]
+                }
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "灰の泉（控え室）",
+      "type": "raw",
+      "x": 17,
+      "y": 21,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "灰の泉の湧き水。冷たい水で、体が軽くなった。"
+              ]
+            },
+            {
+              "code": 314,
+              "indent": 0,
+              "parameters": [
+                0,
+                0
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Recovery",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "記録の書見台（控え室）",
+      "type": "raw",
+      "x": 21,
+      "y": 21,
+      "pages": [
+        {
+          "image": {
+            "tileId": "B:177"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "記録の書見台。開いた帳面に、今の自分を書き留められそうだ。"
+              ]
+            },
+            {
+              "code": 352,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "思念 R17 番犬から逃げ切った囚人",
+      "type": "text",
+      "x": 20,
+      "y": 19,
+      "note": "<hai_thought:R17><hai_clue:更生の廊下の西の壁には影がない。通れる（地下牢・更生の廊下）>",
+      "lines": [
+        "あの廊下は足が鈍る。犬はそれを知っている。",
+        "西の壁を見ろ。影がない。あそこは壁じゃない。",
+        "俺は抜けた。お前も抜けろ。"
+      ]
+    },
+    {
+      "name": "赤い宝箱（沈黙除けの首輪）",
+      "type": "raw",
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 128,
+              "indent": 0,
+              "parameters": [
+                203,
+                0,
+                0,
+                1,
+                false
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[146]沈黙除けの首輪を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false
+        }
+      ],
+      "x": 34,
+      "y": 4
+    },
+    {
+      "at": "G",
+      "name": "鉄格子の大扉（拷問の間へ）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 7,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Open3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                35,
+                13,
+                11,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "番犬（赤・廊下）",
+      "type": "raw",
+      "x": 19,
+      "y": 8,
+      "note": "<hai_enemy:211,red>\n<hai_enemy_chase:6>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Nature",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 4,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 5,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "番犬（赤・部屋）",
+      "type": "raw",
+      "x": 30,
+      "y": 11,
+      "note": "<hai_enemy:211,red>\n<hai_enemy_chase:6>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Nature",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 4,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    }
+  ]
+}

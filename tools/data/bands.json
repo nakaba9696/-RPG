@@ -24,7 +24,12 @@
     "P3": { "switches": [[41, 50]], "maps": [], "database": [[121, 140]], "commonEvents": [[121, 130]] },
     "P4": { "switches": [[51, 60]], "maps": [], "database": [[141, 180]], "commonEvents": [[131, 140]] },
     "P5": { "switches": [[61, 70]], "maps": [], "database": [[181, 190]], "commonEvents": [[141, 150]] },
+    "P6": { "switches": [[71, 80]], "maps": [[907, 907]], "database": [[191, 200]], "commonEvents": [[151, 160]], "actors": [[5, 9]] },
     "W1": { "switches": [[201, 300]], "maps": [[10, 19], [20, 49]], "database": [[201, 300]], "commonEvents": [[201, 240]] },
+    "U2": { "switches": [[921, 930]], "maps": [[908, 908]], "database": [], "commonEvents": [] },
+    "V2": { "switches": [], "maps": [], "database": [], "commonEvents": [], "tilesets": [[15, 20]] },
+    "U1": { "switches": [[911, 920]], "maps": [[906, 906]], "database": [[901, 950]], "commonEvents": [[901, 950]] },
+    "P10": { "switches": [], "maps": [[911, 911]], "database": [], "commonEvents": [] },
     "U3": { "switches": [[931, 940]], "maps": [[909, 909]], "database": [], "commonEvents": [] }
   },
   "testMaps": [900, 949]

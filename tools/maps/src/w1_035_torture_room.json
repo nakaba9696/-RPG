@@ -1,0 +1,294 @@
+{
+  "_説明": "W1：拷問の間（docs/world.md 4.4）。看守長グラウ（ボス。決定ボタンで話すと戦闘、逃走可。勝つとスイッチ 151、北の扉が開く）。ボス戦の作り込みは P7・W2。",
+  "mapId": 35,
+  "name": "拷問の間",
+  "displayName": "拷問の間",
+  "legend": "dungeon",
+  "tilesetId": 14,
+  "note": "<hai_tone:-51,-85,-85,85>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Stone1",
+    "battleback2Name": "Stone1"
+  },
+  "chars": {
+    "e": {
+      "name": "南の扉（場所移動のマス）",
+      "as": "."
+    },
+    "c": {
+      "name": "吊るされた骸骨（通れない）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "B:240"
+      ]
+    }
+  },
+  "events": [
+    {
+      "at": "e",
+      "name": "南の扉（更生の廊下へ）",
+      "type": "transfer",
+      "to": [
+        34,
+        19,
+        23,
+        "up"
+      ]
+    },
+    {
+      "name": "看守長グラウ",
+      "type": "raw",
+      "x": 13,
+      "y": 6,
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "看守長グラウ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "点呼。……一人、足りない。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "お前だな。房に戻れ。更生は、まだ終わっていない。"
+              ]
+            },
+            {
+              "code": 301,
+              "indent": 0,
+              "parameters": [
+                0,
+                212,
+                true,
+                false
+              ]
+            },
+            {
+              "code": 601,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                151,
+                151,
+                0
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 1,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "看守長は灰になって崩れた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "北の鉄の扉の閂が、ひとりでに外れる音がした。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 602,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "……逃げ出した。"
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 1,
+              "parameters": [
+                0,
+                34,
+                19,
+                22,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 604,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 151,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "北の鉄の扉（オーブの間へ）",
+      "type": "raw",
+      "x": 13,
+      "y": 2,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鉄の扉は固く閉ざされている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 151,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 6,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                36,
+                8,
+                8,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
