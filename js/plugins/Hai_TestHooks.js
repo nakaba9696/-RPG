@@ -10,7 +10,11 @@
  *   scene()               今のシーンのクラス名（"Scene_Title" など）
  *   isBusy()              シーンの切り替え・フェード・場所移動の途中なら true
  *   ref(name)             "$gameMap" などのグローバルを返す
- *   newGame()             ニューゲーム（タイトルの「ニューゲーム」と同じ）
+ *   newGame({ opening })  ニューゲーム（タイトルの「ニューゲーム」と同じ）。
+ *                         opening が false（既定）なら目覚めの場面を飛ばす：スイッチ 111 を ON にし、
+ *                         プレイヤーを拠点（Hai.Defeat.home()、無ければ Map010 (16,19)）に置いてからマップへ。
+ *                         opening: true なら飛ばさない（目覚めの場面を見るテスト用）。
+ *                         タイトルの「ニューゲーム」も ?hai_test では同じく飛ばす
  *   mapId() / pos()       今のマップ ID / { x, y, d }
  *   transfer(mapId, x, y, d)  場所移動（向き 2下/4左/6右/8上、省略で 2）
  *   step(d)               プレイヤーを 1 歩動かす（動けたら true）。通れるかの判定は本物と同じ
@@ -41,6 +45,19 @@
   ];
   const classes = { SceneManager, BattleManager, DataManager, Input, TouchInput, Graphics };
 
+  // 目覚めの場面（Map010 の自動実行）を飛ばす。ほかのテストがニューゲームのすぐ後に別のマップへ移れるように。
+  const OPENING_DONE_SWITCH = 111; // 目覚めた
+  const FALLBACK_HOME = { mapId: 10, x: 16, y: 19, d: 2 }; // 拠点の広間（帰還の灯の前）
+  let playOpening = false;
+  const _DataManager_setupNewGame = DataManager.setupNewGame;
+  DataManager.setupNewGame = function() {
+    _DataManager_setupNewGame.apply(this, arguments);
+    if (playOpening) return;
+    $gameSwitches.setValue(OPENING_DONE_SWITCH, true);
+    const h = window.Hai && Hai.Defeat && Hai.Defeat.home ? Hai.Defeat.home() : FALLBACK_HOME;
+    $gamePlayer.reserveTransfer(h.mapId, h.x, h.y, h.d || 2, 0);
+  };
+
   let speed = 1;
   const _SceneManager_determineRepeatNumber = SceneManager.determineRepeatNumber;
   SceneManager.determineRepeatNumber = function() {
@@ -64,8 +81,13 @@
       if (name in classes) return classes[name];
       throw new Error("__game.ref: 知らない名前 " + name);
     },
-    newGame() {
-      DataManager.setupNewGame();
+    newGame({ opening = false } = {}) {
+      playOpening = !!opening;
+      try {
+        DataManager.setupNewGame();
+      } finally {
+        playOpening = false;
+      }
       SceneManager.goto(Scene_Map);
     },
     mapId() {
