@@ -4,7 +4,7 @@
 // 書くもの：
 //   Items・Weapons・Armors・Enemies・Troops の 201–（W1 の帯 201–300）、Skills 236（Skills 201–235 は MZ の既定のスキルなので触らない）
 //   System.json の switches・variables 101–200 の名前（docs/world.md 8 章の「第1段階」の ●）、startMapId・startX・startY・partyMembers
-//     P8（#82）の switches 121–130・variables 103 の名前は p8_data.mjs が書くので、ここでは消さずに残す
+//     P8（#82）の switches 121–130・variables 103 の名前は p8_data.mjs が、W3 以降の旗（world2.md 16 章・仲間の旗）は w3_data.mjs などが書くので、ここでは消さずに残す
 //   Actors.json の 1 番の名前と肩書き、5 番の名前
 // 状態異常は P4（States 141–147）が入っていればそれを、無ければ MZ の既定（4 毒・6 沈黙・10 睡眠）を使う。
 import fs from "node:fs";
@@ -28,11 +28,12 @@ const ST = hasP4
 // 共通
 // ---------------------------------------------------------------------------
 const W1 = [201, 300];
-function clearBand(table, makeEmpty) {
-  extendTable(table, W1[0] - 1, makeEmpty);
-  for (let id = W1[0]; id < table.length && id <= W1[1]; id++) table[id] = makeEmpty(id);
+// Items の 221– は W3〜W5 の鍵（docs/world2.md 14 章の仮の番号）なので、Items は 201–220 だけを書き直す
+function clearBand(table, makeEmpty, [from, to] = W1) {
+  extendTable(table, from - 1, makeEmpty);
+  for (let id = from; id < table.length && id <= to; id++) table[id] = makeEmpty(id);
   // 帯の終わりより後ろに何も無いなら、空の項目を末尾から削る（ほかのレーンの項目は残す）
-  while (table.length - 1 >= W1[0] && table.length - 1 <= W1[1] && table[table.length - 1].name === "") table.pop();
+  while (table.length - 1 >= from && table.length - 1 <= to && table[table.length - 1].name === "") table.pop();
 }
 function put(table, id, item, makeEmpty) {
   if (id < W1[0] || id > W1[1]) throw new Error(`${id} は W1 の帯の外`);
@@ -53,7 +54,7 @@ const keyItem = (name, description, iconIndex = 195) => ({
   name, description, iconIndex, itypeId: 2, consumable: false, occasion: 3, scope: 0,
 });
 const items = readData("Items.json");
-clearBand(items, emptyItem);
+clearBand(items, emptyItem, [201, 220]);
 put(items, 201, keyItem("坑道の鍵", "廃坑・上層の機械室の扉を開ける鍵。帝国の刻印がある。"), emptyItem);
 put(items, 202, keyItem("監房の鍵", "地下牢の点呼の広場の、南の扉を開ける鍵。"), emptyItem);
 put(items, 203, keyItem("看守長の鍵束", "看守長グラウの鍵束。地下牢のさらに奥の扉に合いそうだ。"), emptyItem);
@@ -267,8 +268,12 @@ const SWITCHES = {
   131: "遺骸:オルド", 136: "加入:オルド", 151: "ボス:看守長", 153: "廃坑の昇降機",
 };
 const VARIABLES = { 101: "オーブの数", 102: "仲間の数", 104: "番号錠の入力", 105: "聖女像に祈った回数", 131: "記憶:オルド" };
-// P8（#82）の名前は p8_data.mjs が書く（docs/plugins/Hai_Facilities.md）。ここでは消さない
-const KEEP = { switches: id => id >= 121 && id <= 130, variables: id => id === 103 };
+// P8（#82）の名前は p8_data.mjs が書く（docs/plugins/Hai_Facilities.md）。W3（#94）以降の旗は w3_data.mjs などが書く。ここでは消さない
+const LATER = { switches: [132, 135, 137, 140, 141, 142, 145, 156, 158, 161, 165], variables: [132, 135] };
+const KEEP = {
+  switches: id => (id >= 121 && id <= 130) || LATER.switches.includes(id),
+  variables: id => id === 103 || LATER.variables.includes(id),
+};
 const sysPath = dataPath("System.json");
 const system = JSON.parse(fs.readFileSync(sysPath, "utf8"));
 for (const [key, names] of [["switches", SWITCHES], ["variables", VARIABLES]]) {

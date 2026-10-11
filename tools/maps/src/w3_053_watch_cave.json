@@ -1,0 +1,266 @@
+{
+  "_説明": "W3：見張りの洞（docs/world2.md 2 章）。巨人の門の奥（← 052）。洞の広間に最後の見張りの石像（R22）、叡智のオーブ、赤い宝箱「巨人の腕輪」。洞の奥の床に H17 の隠し階段（ひび割れの床）→ 051 の地下壕の扉の内側。",
+  "mapId": 53,
+  "name": "見張りの洞",
+  "displayName": "見張りの洞",
+  "legend": "dungeon",
+  "tilesetId": 13,
+  "note": "<hai_tone:-68,-68,-51,68>\n<hai_dark:4>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "RockCave",
+    "battleback2Name": "RockCave"
+  },
+  "chars": {
+    "w": {
+      "name": "西の入口（場所移動のマス）",
+      "as": "."
+    },
+    "S": {
+      "name": "最後の見張りの石像（上。☆）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "D:64"
+      ]
+    },
+    "s": {
+      "name": "最後の見張りの石像（下。通れない）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "D:72"
+      ]
+    }
+  },
+  "events": [
+    {
+      "at": "w",
+      "name": "西の入口（巨人の門へ）",
+      "type": "transfer",
+      "to": [
+        52,
+        33,
+        6,
+        "left"
+      ]
+    },
+    {
+      "x": 9,
+      "y": 5,
+      "name": "思念 R22 巨人の最後の見張り",
+      "type": "text",
+      "note": "<hai_thought:R22>",
+      "lines": [
+        "帝国が来て、去った。王国の死者が来て、去った。",
+        "我らは誰の味方もしなかった。門を守れと言われたから守った。",
+        "灰は我らを避ける。だから我らだけが残り、だから我らは憎まれた。",
+        "石になるまで、ここにいる。それが巨人の礼儀だ。"
+      ]
+    },
+    {
+      "x": 12,
+      "y": 4,
+      "name": "叡智のオーブ",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Crystal",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "石の台に、淡く光る珠が載っている。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                171,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "叡智のオーブを手に入れた。"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "赤い宝箱（巨人の腕輪）",
+      "type": "raw",
+      "note": "",
+      "x": 8,
+      "y": 5,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 128,
+              "indent": 0,
+              "parameters": [
+                302,
+                0,
+                0,
+                1,
+                false
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[146]巨人の腕輪を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "x": 16,
+      "y": 7,
+      "name": "隠し階段（地下壕の内側へ）",
+      "type": "raw",
+      "note": "<hai_stairs:51,19,6,2>",
+      "pages": [
+        {
+          "priorityType": 0
+        }
+      ]
+    }
+  ]
+}

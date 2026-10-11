@@ -1,0 +1,512 @@
+{
+  "_説明": "W3：地下の護送路（docs/world2.md 3 章）。西の端（← 063 の H21。上り階段で 063 へ戻れる）→ 東西の一本道（焦げた影 2 体が往復。壁の窪みで待てる。R28）→ 東の端の H22 の片側扉（閂を外すとスイッチ 165、033 の西の監房の列の北の端へ）。",
+  "mapId": 64,
+  "name": "地下の護送路",
+  "displayName": "地下の護送路",
+  "legend": "dungeon",
+  "tilesetId": 14,
+  "note": "<hai_tone:-68,-68,-51,85>\n<hai_dark:4>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Stone1",
+    "battleback2Name": "Stone1"
+  },
+  "chars": {},
+  "events": [
+    {
+      "at": "<",
+      "name": "上り階段（焚刑の教会へ）",
+      "type": "transfer",
+      "to": [
+        63,
+        12,
+        8,
+        "down"
+      ]
+    },
+    {
+      "x": 19,
+      "y": 6,
+      "name": "思念 R28 送られた異端者",
+      "type": "text",
+      "note": "<hai_thought:R28>",
+      "image": {
+        "characterName": "!Other1",
+        "characterIndex": 5,
+        "direction": 8,
+        "pattern": 1
+      },
+      "lines": [
+        "目隠しをされて、長い長い地下道を歩かされた。",
+        "前の男が歩数を数えていた。千九百、二千。",
+        "着いた先で「更生」させると言われた。",
+        "……向こうで、先に送られた妹に会えるだろうか。"
+      ]
+    },
+    {
+      "x": 43,
+      "y": 7,
+      "name": "護送路の突き当たりの扉（H22 の裏）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "護送路の突き当たりの鉄の扉。こちら側に太い閂が掛かっている。"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "閂を外す",
+                  "やめる"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "閂を外す"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Open3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                165,
+                165,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "閂を外した。扉の向こうから、湿った石と鉄の匂いがする。"
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 1,
+              "parameters": [
+                0,
+                33,
+                8,
+                9,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 165,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 6,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                33,
+                8,
+                9,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "x": 41,
+      "y": 6,
+      "name": "護送の名札（H22 の扉の手前）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "tileId": "E:72"
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "壁の窪みの下に、木の名札が一枚落ちている。紐が切れている。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                307,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[187]護送の名札を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "焦げた影（黄・巡回）",
+      "type": "raw",
+      "x": 10,
+      "y": 7,
+      "note": "<hai_enemy:309,yellow>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Monster",
+            "characterIndex": 5
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 5,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "焦げた影（黄・巡回）",
+      "type": "raw",
+      "x": 28,
+      "y": 8,
+      "note": "<hai_enemy:309,yellow>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Monster",
+            "characterIndex": 5
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 5,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    }
+  ]
+}
