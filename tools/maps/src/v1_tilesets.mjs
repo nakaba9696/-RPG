@@ -45,7 +45,7 @@ export const TILESETS = [
     id: 12,
     name: "V_巡礼の森",
     names: [...OUTSIDE, "Dungeon_B", "Dungeon_C"],
-    note: "巡礼の森（Map020–021）。A〜C は外観（木・墓・坑道入口）。D＝ダンジョンの石像・折れた柱・骸骨（聖女像は D の女神像）、E＝棺・魔法陣。",
+    note: "巡礼の森（Map020–021）。A〜C は外観（木・墓・坑道入口）。D＝ダンジョンの石像・折れた柱・骸骨（聖女像は D の女神像）、E＝棺・魔法陣。 <hai_hidden_tiles:D:183,D:26>",
     tweaks: [],
   },
   {

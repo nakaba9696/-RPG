@@ -6,12 +6,15 @@ MZ の Web 実行（`index.html`）を、Playwright のヘッドレス Chromium 
 ```bash
 npm ci --ignore-scripts --prefix tests && node tests/run.mjs   # 全部（失敗が 1 本でもあれば終了コード 1）
 node tests/run.mjs t_smoke         # 名前で選ぶ（拡張子なし、いくつでも）
-node tests/run.mjs --shard 2/3     # 名前順に 3 つへ総当たりで配った 2 番目だけ（CI は 3 シャードを並列に走らせる）
+node tests/run.mjs --shard 2/4     # 所要時間で 4 つに均して配った 2 番目だけ（CI は 4 シャードを並列に走らせる）
+node tests/run.mjs --plan 4        # 4 シャードへの配り分けと見込み時間を表示するだけ
 node tests/t_maps.mjs              # 1 本だけを直接
 node tests/serve.mjs 8000          # 手元のブラウザで遊ぶ：http://127.0.0.1:8000/index.html （?hai_test を付けると window.__game が出る）
 ```
 - クラウドのセッションでは Chromium が `/opt/pw-browsers` にある（`PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers`）。`playwright install` はしない。
 - CI では `node tests/node_modules/playwright/cli.js install --with-deps chromium` で入れる（`npx` は使わない）。
+- シャードの配り分けは `tests/durations.json`（テスト名 → CI での秒数）で決まる。所要時間の大きい順に、いま最も軽いシャードへ配る（表が同じなら結果も同じ）。表に無いテストは 180 秒とみなす。
+  テストを足したり重くしたりしたら、CI のログの「OK（N 秒）」を写して表を直す（CI のログの頭に配り分けと見込みが出る）。
 - スクリーンショットは `tests/out/<テスト名>-<番号>-<名前>.png` に出る（コミットしない）。CI では失敗しても成功しても artifact「screenshots」に残る。
 
 ## 今あるテスト
@@ -64,9 +67,11 @@ await runTest(async () => {
 
 ## テスト用の窓口 `window.__game`（`js/plugins/Hai_TestHooks.js`）
 URL に `?hai_test` があるときだけ作られる（ふつうに遊ぶときと PC 版では何もしない）。
-`scene()`・`isBusy()`・`ref(name)`・`newGame()`・`mapId()`・`pos()`・`transfer(mapId, x, y, d)`・`step(d)`・`canPass(x, y, d)`・`tileId(x, y, z)`・
+`scene()`・`isBusy()`・`ref(name)`・`newGame({ opening })`・`mapId()`・`pos()`・`transfer(mapId, x, y, d)`・`step(d)`・`canPass(x, y, d)`・`tileId(x, y, z)`・
 `startBattle(troopId, canEscape, canLose)`・`strengthenParty()`・`save(slot)`・`load(slot)`・`goToTitle()`・`setSpeed(n)`。
 中身はプラグインの冒頭の説明を見る。
+- `newGame()`（とタイトルの「ニューゲーム」）は、Map010 の目覚めの場面を飛ばす（スイッチ 111 を ON にし、拠点 `Hai.Defeat.home()` に置く）。
+  目覚めの場面を見るテストだけ `newGame({ opening: true })` にする。製品のマップにテスト用の分岐は置かない。
 
 ## ヘッドレスで MZ を動かすための設定
 - MZ（PIXI）は WebGL が無いと「Failed to initialize graphics.」で止まる。ヘッドレス Chromium には GPU が無いので、

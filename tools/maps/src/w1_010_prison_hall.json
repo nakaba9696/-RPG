@@ -34,52 +34,6 @@
           "trigger": 3,
           "list": [
             {
-              "code": 108,
-              "indent": 0,
-              "parameters": [
-                "テスト（index.html?hai_test）では、ほかのテストの邪魔をしないよう目覚めの場面を飛ばす。"
-              ]
-            },
-            {
-              "code": 408,
-              "indent": 0,
-              "parameters": [
-                "tests/w_stage1.mjs は window.__game.playOpening = true にしてから見る。ふつうに遊ぶときは関係しない。"
-              ]
-            },
-            {
-              "code": 111,
-              "indent": 0,
-              "parameters": [
-                12,
-                "!!window.__game && !window.__game.playOpening"
-              ]
-            },
-            {
-              "code": 121,
-              "indent": 1,
-              "parameters": [
-                111,
-                111,
-                0
-              ]
-            },
-            {
-              "code": 115,
-              "indent": 1,
-              "parameters": []
-            },
-            {
-              "code": 0,
-              "indent": 1,
-              "parameters": []
-            },
-            {
-              "code": 412,
-              "indent": 0,
-              "parameters": []
-            },
-            {
               "code": 221,
               "indent": 0,
               "parameters": []
