@@ -9,7 +9,7 @@
  *   装備は 0＝無制限（MZ の既定の 99）。大事なもの・消耗しないアイテムは MZ の既定の 99）。
  *
  * ■ 倉庫への自動転送
- *   上限を超えて手に入れた分は捨てずに倉庫へ入れ、「〜は倉庫へ送られた」と知らせる。
+ *   上限を超えて手に入れた分は捨てずに倉庫へ入れ、「〜は倉庫へ送られた」と知らせる（既定は画面の端の小さな通知。操作を止めない）。
  *   宝箱・イベントの「アイテムの増減」・戦闘のドロップ・合成など、増えるときすべて。
  *   売る・使う・捨てるで減るときは関係しない。倉庫に上限はない。
  *   入手ログ（Hai_Notes）があれば、倉庫へ送った分も入手ログに残す。
@@ -46,7 +46,9 @@
  *   isUnique(item) / canSell(item) / canDiscard(item)
  *   isBoss(enemyId) / dropsEquipment(enemyId) / fixedDrops(enemyId)  ドロップの判定
  *   itemOf(kind, id) / kindOf(item)  種類と ID ⇔ データ（kind は item/weapon/armor か i/w/a）
- *   pendingNotices()             まだ出していない知らせ（画面の中で起きたもの）
+ *   pendingNotices()             まだ出していない文章の知らせ（画面の中で起きたもの）
+ *   toast(text)                  窓を止めない小さな通知を出す（Hai_Lore も使う）
+ *   toastState()                 { queued, shown, log }（テスト用）
  *
  * @param itemMax
  * @text 消耗品の上限
@@ -82,6 +84,22 @@
  * @type string
  * @default %1を手に入れた（一点もの）。
  *
+ * @param noticeStyle
+ * @text 知らせの出し方
+ * @desc 倉庫・一点ものの知らせの出し方。通知：画面の端に小さく出して操作を止めない／文章：文章の窓で止める（元の挙動）。
+ * @type select
+ * @option 通知
+ * @value toast
+ * @option 文章
+ * @value window
+ * @default toast
+ *
+ * @param toastFrames
+ * @text 通知を出しておく時間（フレーム）
+ * @type number
+ * @min 30
+ * @default 120
+ *
  * @param storageTitle
  * @text 倉庫の画面の見出し
  * @type string
@@ -101,6 +119,8 @@
     zakoNoEquip: params.zakoNoEquip !== "false",
     storageMessage: params.storageMessage ?? "%1（%2 個）は倉庫へ送られた。",
     uniqueMessage: params.uniqueMessage ?? "%1を手に入れた（一点もの）。",
+    noticeStyle: params.noticeStyle === "window" ? "window" : "toast",
+    toastFrames: Number(params.toastFrames || 120),
     storageTitle: params.storageTitle || "倉庫（決定で 1 つ取り出す）",
   };
   const MZ_MAX = 99;
@@ -181,16 +201,72 @@
   // ---------------------------------------------------------------------------
   // 知らせ
   // ---------------------------------------------------------------------------
-  const pending = [];
+  const pending = []; // 文章で出す知らせ（画面の中で起きたもの。マップに戻ってから）
+  const toastQueue = []; // 通知で出す知らせ（マップに戻ってから）
+  const toastLog = []; // 出した通知（テスト用の窓口）
+  let toastWindow = null;
+
+  // 窓を止めない小さな通知。Hai_Lore も使う。マップ以外（戦闘・メニュー）で呼ばれたらマップに戻ってから出す
+  function toast(text) {
+    if (!text) return;
+    toastQueue.push(String(text));
+  }
   function notify(text) {
     if (!text) return;
-    if ($gameParty.inBattle() || SceneManager._scene instanceof Scene_Map) {
+    if (P.noticeStyle === "toast") {
+      toast(text);
+    } else if ($gameParty.inBattle() || SceneManager._scene instanceof Scene_Map) {
       if ($gameMessage.hasText()) $gameMessage.newPage();
       $gameMessage.add(text);
     } else {
       pending.push(text);
     }
   }
+
+  class Window_HaiToast extends Window_Base {
+    constructor() {
+      super(new Rectangle(0, 0, 100, 100));
+      this.openness = 0;
+      this._frames = 0;
+      this.visible = false;
+    }
+    show(text) {
+      const w = Math.min(Graphics.boxWidth - 24, this.textSizeEx(text).width + this.padding * 2 + 16);
+      const h = this.fittingHeight(1);
+      this.move(Graphics.boxWidth - w - 12, 12, w, h);
+      this.createContents();
+      this.drawTextEx(text, 0, 0, w - this.padding * 2);
+      this._frames = P.toastFrames;
+      this.visible = true;
+      this.opacity = 255;
+      this.contentsOpacity = 255;
+      this.openness = 255;
+    }
+    isShowing() { return this._frames > 0; }
+    update() {
+      super.update();
+      if (this._frames > 0) {
+        this._frames--;
+        if (this._frames < 20) {
+          this.opacity = this.contentsOpacity = Math.floor(255 * this._frames / 20);
+        }
+        if (this._frames === 0) this.visible = false;
+      }
+    }
+  }
+
+  const _Scene_Map_createAllWindows = Scene_Map.prototype.createAllWindows;
+  Scene_Map.prototype.createAllWindows = function() {
+    _Scene_Map_createAllWindows.apply(this, arguments);
+    toastWindow = new Window_HaiToast();
+    this.addChild(toastWindow);
+  };
+  const _Scene_Map_terminate = Scene_Map.prototype.terminate;
+  Scene_Map.prototype.terminate = function() {
+    _Scene_Map_terminate.apply(this, arguments);
+    toastWindow = null;
+  };
+
   const _Scene_Map_update = Scene_Map.prototype.update;
   Scene_Map.prototype.update = function() {
     _Scene_Map_update.apply(this, arguments);
@@ -199,6 +275,12 @@
         if ($gameMessage.hasText()) $gameMessage.newPage();
         $gameMessage.add(text);
       }
+    }
+    if (toastQueue.length && toastWindow && !toastWindow.isShowing() && this.isActive()) {
+      const text = toastQueue.shift();
+      toastLog.push(text);
+      if (toastLog.length > 50) toastLog.shift();
+      toastWindow.show(text);
     }
   };
 
@@ -385,6 +467,8 @@
     kindOf,
     normKind,
     pendingNotices: () => pending.slice(),
+    toast,
+    toastState: () => ({ queued: toastQueue.slice(), shown: toastWindow && toastWindow.isShowing() ? toastLog[toastLog.length - 1] : null, log: toastLog.slice() }),
     Scene_HaiStorage,
     Window_HaiStorage,
   };

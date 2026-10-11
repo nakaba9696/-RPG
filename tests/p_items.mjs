@@ -30,8 +30,6 @@ await runTest(async () => {
   try {
     await game.call("newGame");
     await game.waitScene("Scene_Map");
-    // 来歴のある物（Hai_Lore）は記録済みにしておく。初めて手に入れたときの知らせ（文章）はこのテストの外（tests/u_lore.mjs）で見る
-    await game.eval(() => [...$dataItems, ...$dataWeapons, ...$dataArmors].forEach(item => item && Hai.Lore.has(item) && Hai.Lore.record(item)));
 
     const num = (kind, id) =>
       game.eval(([k, i]) => $gameParty.numItems(Hai.Items.itemOf(k, i)), [kind, id]);
@@ -67,28 +65,42 @@ await runTest(async () => {
       return readMessages(shotAt, label);
     };
 
+    let toastSeen = 0; // これより前の通知は数えない
+    // その通知が出る（先に出ている通知が消えるまで待つ）まで待つ。出たら true
+    const waitToast = async text => {
+      try {
+        await game.waitFor(([t, from]) => Hai.Items.toastState().log.slice(from).includes(t), [text, toastSeen]);
+        toastSeen = await game.eval(() => Hai.Items.toastState().log.length);
+        return true;
+      } catch {
+        return false;
+      }
+    };
+
     const params = await game.eval(() => Hai.Items.params);
+    check(params.noticeStyle === "toast", "知らせの出し方の既定が通知でない " + JSON.stringify(params));
     check(params.itemMax === 5 && params.equipMax === 0 && params.zakoNoEquip === true, "パラメータが既定と違う " + JSON.stringify(params));
 
     // --- 1. 薬草 6 つ → 5 つと倉庫 1 つ ---
-    let pages = await openBelow(HERB_BOX, "倉庫へ送られた", "herb-storage-notice");
+    let pages = await openBelow(HERB_BOX, "", "herb-storage-notice");
     check((await num("item", HERB)) === 5, `薬草を 5 つ持っていない（${await num("item", HERB)}）`);
     check((await stored("item", HERB)) === 1, "薬草が 1 つ倉庫に入っていない");
-    check(pages.some(t => t.includes("薬草（1 個）は倉庫へ送られた。")), "倉庫の知らせが出ない " + JSON.stringify(pages));
+    check(!pages.some(t => t.includes("倉庫へ送られた")), "倉庫の知らせが文章の窓で出た " + JSON.stringify(pages));
+    check((await waitToast("薬草（1 個）は倉庫へ送られた。")), "倉庫の通知が出ない");
 
     // 上限 2 の秘薬
     check((await game.eval(id => Hai.Items.maxOf($dataItems[id]), ELIXIR)) === 2, "秘薬の上限が 2 でない");
     pages = await openBelow(ELIXIR_BOX);
     check((await num("item", ELIXIR)) === 2 && (await stored("item", ELIXIR)) === 1, "秘薬が 2 つ＋倉庫 1 つにならない");
-    check(pages.some(t => t.includes("秘薬（1 個）は倉庫へ送られた。")), "秘薬の倉庫の知らせ " + JSON.stringify(pages));
+    check(!pages.some(t => t.includes("倉庫へ送られた")) && (await waitToast("秘薬（1 個）は倉庫へ送られた。")), "秘薬の倉庫の通知 " + JSON.stringify(pages));
 
     // --- 2. 一点もの ---
     pages = await openBelow(RED1);
     check((await num("weapon", UNIQUE_SWORD)) === 1, "一点ものの剣が手に入らない");
-    check(pages.some(t => t.includes("灰鋼の剣を手に入れた（一点もの）。")), "一点ものの知らせ " + JSON.stringify(pages));
+    check(await waitToast("灰鋼の剣を手に入れた（一点もの）。"), "一点ものの通知 " + JSON.stringify(pages));
     pages = await openBelow(RED2);
     check((await num("weapon", UNIQUE_SWORD)) === 1 && (await stored("weapon", UNIQUE_SWORD)) === 1, "2 本目の一点ものが倉庫へ行かない");
-    check(pages.some(t => t.includes("灰鋼の剣（1 個）は倉庫へ送られた。")), "2 本目の知らせ " + JSON.stringify(pages));
+    check((await waitToast("灰鋼の剣（1 個）は倉庫へ送られた。")), "2 本目の通知");
     check(!pages.some(t => t.includes("（一点もの）。")), "2 本目でも「一点もの」の知らせが出た " + JSON.stringify(pages));
     // 装備中も数える：装備すると袋は 0 でも、倉庫から出せない。外すと袋に戻る（倉庫へ行かない）
     const equip = await game.eval(id => {
@@ -210,8 +222,7 @@ await runTest(async () => {
     // 秘薬を作る（袋は 2/2 なので、できた秘薬は倉庫へ。合成の画面の中なので知らせはマップに戻ってから）
     check(await craft("craft", "item", ELIXIR), "秘薬が作れない");
     check((await num("item", ELIXIR)) === 2 && (await stored("item", ELIXIR)) === 1, "上限の秘薬が倉庫へ行かない");
-    pages = await readMessages();
-    check(pages.some(t => t.includes("秘薬（1 個）は倉庫へ送られた。")), "合成で倉庫へ送った知らせ " + JSON.stringify(pages));
+    check((await waitToast("秘薬（1 個）は倉庫へ送られた。")), "合成で倉庫へ送った通知（マップに戻ってから出る）");
 
     // --- 6. セーブ → 読み直し → ロード ---
     const storageBefore = await game.eval(() => Hai.Items.storage());
