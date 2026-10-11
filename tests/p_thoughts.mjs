@@ -175,7 +175,9 @@ await runTest(async () => {
     check((await th("addNote", { id: "test:1", text: "別の文" })) === null, "同じ ID の addNote が足された");
     check(await th("markRead", "R99") && !(await th("markRead", "R99")), "markRead の戻り値");
     notes = await th("notes");
-    check(notes.length === 5, `メモの数 ${notes.length}`); // R10 の 2 つ、扉、c、試し
+    // R10 の 2 つ、扉、c、試し（U1 の Hai_Notes があると、鍵を拾った入手ログ item:… も入るので数えない）
+    const ownNotes = notes.filter(n => !n.id.startsWith("item:"));
+    check(ownNotes.length === 5, `メモの数 ${ownNotes.length}`);
 
     // ---- セーブ → ページの読み直し → ロードで、既読とメモが残る
     await go(3, 9, 8);
