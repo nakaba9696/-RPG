@@ -5,6 +5,8 @@
   "displayName": "廃坑・下層",
   "legend": "dungeon",
   "tilesetId": 13,
+  "bgm": {"name": "Dungeon2", "volume": 65, "pitch": 100, "pan": 0},
+  "bgs": {"name": "Wind5", "volume": 40, "pitch": 100, "pan": 0},
   "note": "<hai_tone:-85,-85,-102,68>\n<hai_dark:5>",
   "fields": {
     "specifyBattleback": true,

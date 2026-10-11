@@ -5,6 +5,8 @@
   "displayName": "魚人の湿地",
   "legend": "marsh",
   "tilesetId": 15,
+  "bgm": {"name": "Field3", "volume": 60, "pitch": 100, "pan": 0},
+  "bgs": {"name": "Rain1", "volume": 40, "pitch": 100, "pan": 0},
   "note": "<hai_tone:-17,0,-17,102>",
   "fields": {
     "specifyBattleback": true,

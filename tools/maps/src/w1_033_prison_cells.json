@@ -5,6 +5,8 @@
   "displayName": "地下牢・監房区",
   "legend": "dungeon",
   "tilesetId": 14,
+  "bgm": {"name": "Dungeon4", "volume": 65, "pitch": 100, "pan": 0},
+  "bgs": {"name": "Darkness", "volume": 35, "pitch": 100, "pan": 0},
   "note": "<hai_tone:-51,-85,-85,85>",
   "fields": {
     "specifyBattleback": true,

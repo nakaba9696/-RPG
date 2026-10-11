@@ -354,9 +354,11 @@ export function buildMap(source, legend = readLegend()) {
   }
 
   const bgm = typeof config.bgm === "string" ? { name: config.bgm, pan: 0, pitch: 100, volume: 90 } : config.bgm;
+  const bgs = typeof config.bgs === "string" ? { name: config.bgs, pan: 0, pitch: 100, volume: 90 } : config.bgs;
   const map = {
     ...MAP_DEFAULTS,
     ...(bgm ? { bgm: { ...MAP_DEFAULTS.bgm, ...bgm }, autoplayBgm: !!bgm.name } : {}),
+    ...(bgs ? { bgs: { ...MAP_DEFAULTS.bgs, ...bgs }, autoplayBgs: !!bgs.name } : {}),
     displayName: config.displayName ?? "",
     note: config.note ?? "",
     ...(config.fields || {}),

@@ -5,6 +5,8 @@
   "displayName": "沼主の淵",
   "legend": "marsh",
   "tilesetId": 15,
+  "bgm": {"name": "Dungeon1", "volume": 65, "pitch": 100, "pan": 0},
+  "bgs": {"name": "Rain1", "volume": 35, "pitch": 100, "pan": 0},
   "note": "<hai_tone:-51,-34,-51,85>",
   "fields": {
     "specifyBattleback": true,

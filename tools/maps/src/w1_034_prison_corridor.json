@@ -5,6 +5,8 @@
   "displayName": "更生の廊下",
   "legend": "dungeon",
   "tilesetId": 14,
+  "bgm": {"name": "Dungeon4", "volume": 60, "pitch": 100, "pan": 0},
+  "bgs": {"name": "Darkness", "volume": 35, "pitch": 100, "pan": 0},
   "note": "<hai_tone:-51,-85,-85,85>\n<hai_dark:5>",
   "fields": {
     "specifyBattleback": true,

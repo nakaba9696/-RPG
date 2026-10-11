@@ -5,6 +5,8 @@
   "displayName": "地下の護送路",
   "legend": "dungeon",
   "tilesetId": 14,
+  "bgm": {"name": "Dungeon7", "volume": 60, "pitch": 100, "pan": 0},
+  "bgs": {"name": "Drips", "volume": 35, "pitch": 100, "pan": 0},
   "note": "<hai_tone:-68,-68,-51,85>\n<hai_dark:4>",
   "fields": {
     "specifyBattleback": true,

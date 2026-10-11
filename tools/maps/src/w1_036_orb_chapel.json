@@ -5,6 +5,8 @@
   "displayName": "オーブの間",
   "legend": "dungeon",
   "tilesetId": 14,
+  "bgm": {"name": "Scene2", "volume": 55, "pitch": 100, "pan": 0},
+  "bgs": {"name": "Darkness", "volume": 25, "pitch": 100, "pan": 0},
   "note": "<hai_tone:-68,-68,-34,68>",
   "chars": {
     "e": {

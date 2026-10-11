@@ -58,6 +58,7 @@ node tools/maps/build.mjs --check          # 書き出さずに、data/ が今�
 | `legend` | `legend.json` の `sets` の名前（タイルセットも決まる） |
 | `tilesetId` | 凡例のタイルセットを変えたいとき |
 | `bgm` | `"Dungeon1"` か `{ "name", "volume", "pitch", "pan" }`。指定すると自動演奏 |
+| `bgs` | `bgm` と同じ書き方（環境音）。指定すると自動演奏 |
 | `note` | マップのメモ欄（`<hai_…>` のタグ） |
 | `fields` | そのほかのマップの欄を直接（`{ "scrollType": 3, "disableDashing": true }` など） |
 | `chars` | この地図だけの文字（`legend.json` の文字を上書きもできる） |

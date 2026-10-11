@@ -5,6 +5,8 @@
   "displayName": "崩落の間",
   "legend": "dungeon",
   "tilesetId": 13,
+  "bgm": {"name": "Dungeon5", "volume": 55, "pitch": 100, "pan": 0},
+  "bgs": {"name": "Darkness", "volume": 40, "pitch": 100, "pan": 0},
   "note": "<hai_tone:-85,-85,-102,68>\n<hai_dark:3>",
   "fields": {
     "specifyBattleback": true,

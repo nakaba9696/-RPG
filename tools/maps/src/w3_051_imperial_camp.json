@@ -5,6 +5,8 @@
   "displayName": "帝国の陣跡",
   "legend": "cliff",
   "tilesetId": 20,
+  "bgm": {"name": "Field4", "volume": 60, "pitch": 100, "pan": 0},
+  "bgs": {"name": "Wind2", "volume": 40, "pitch": 100, "pan": 0},
   "note": "<hai_tone:-17,-17,-17,85>\n<hai_parallax:Mountains1,0,0>",
   "fields": {
     "specifyBattleback": true,

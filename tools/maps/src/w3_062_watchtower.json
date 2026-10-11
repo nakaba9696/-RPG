@@ -5,6 +5,8 @@
   "displayName": "焼けた見張り台",
   "legend": "village",
   "tilesetId": 19,
+  "bgm": {"name": "Field3", "volume": 65, "pitch": 100, "pan": 0},
+  "bgs": {"name": "Wind4", "volume": 45, "pitch": 100, "pan": 0},
   "note": "<hai_tone:-17,-34,-34,119>\n<hai_parallax:DarkClouds,1,0>",
   "fields": {
     "specifyBattleback": true,

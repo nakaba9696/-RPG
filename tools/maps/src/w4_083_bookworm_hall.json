@@ -5,6 +5,8 @@
   "displayName": "紙魚の王の間",
   "legend": "library",
   "tilesetId": 16,
+  "bgm": {"name": "Dungeon6", "volume": 70, "pitch": 100, "pan": 0},
+  "bgs": {"name": "Darkness", "volume": 30, "pitch": 100, "pan": 0},
   "note": "<hai_tone:-17,-17,-34,68>",
   "fields": {
     "specifyBattleback": true,

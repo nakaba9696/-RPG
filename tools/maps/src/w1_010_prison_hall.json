@@ -5,6 +5,8 @@
   "displayName": "牢獄の間",
   "legend": "dungeon",
   "tilesetId": 11,
+  "bgm": {"name": "Castle2", "volume": 60, "pitch": 100, "pan": 0},
+  "bgs": {"name": "Drips", "volume": 35, "pitch": 100, "pan": 0},
   "note": "<hai_tone:-34,-34,-17,51>",
   "fields": {
     "specifyBattleback": true,
