@@ -909,7 +909,7 @@ null,
 {"id":907,"expanded":false,"name":"T_仲間と召喚","order":21,"parentId":0,"scrollX":0,"scrollY":0},
 null,
 {"id":909,"expanded":false,"name":"T_結界と転送","order":22,"parentId":0,"scrollX":0,"scrollY":0},
-null,
+{"id":910,"expanded":false,"name":"T_所持と合成","order":23,"parentId":0,"scrollX":0,"scrollY":0},
 {"id":911,"expanded":false,"name":"T_外の隠し扉と階段","order":19,"parentId":0,"scrollX":0,"scrollY":0},
-{"id":912,"expanded":false,"name":"T_ボスの試験場","order":23,"parentId":0,"scrollX":0,"scrollY":0}
+{"id":912,"expanded":false,"name":"T_ボスの試験場","order":24,"parentId":0,"scrollX":0,"scrollY":0}
 ]
