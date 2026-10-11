@@ -2,19 +2,49 @@
 // 1 本でも落ちたら終了コード 1。
 //   node tests/run.mjs                 全部
 //   node tests/run.mjs t_smoke t_maps  名前（拡張子なし）で選ぶ
+//   node tests/run.mjs --shard 2/3     名前順に並べて 3 つに総当たりで配った 2 番目だけ（CI の並列用。--shard=2/3 も可）
 import { spawn } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const wanted = process.argv.slice(2).map(a => a.replace(/\.mjs$/, ""));
+const args = process.argv.slice(2);
+let shard = null;
+const names = [];
+for (let k = 0; k < args.length; k++) {
+  const a = args[k];
+  if (a === "--shard" || a.startsWith("--shard=")) {
+    const v = a === "--shard" ? args[++k] : a.slice("--shard=".length);
+    const m = /^(\d+)\/(\d+)$/.exec(v || "");
+    const i = m ? Number(m[1]) : 0;
+    const n = m ? Number(m[2]) : 0;
+    if (!m || n < 1 || i < 1 || i > n) {
+      console.error(`--shard の値が正しくない: ${v}（例 --shard 2/3）`);
+      process.exit(1);
+    }
+    shard = { i, n };
+  } else {
+    names.push(a);
+  }
+}
+if (shard && names.length) {
+  console.error("--shard と名前の指定は一緒に使えない");
+  process.exit(1);
+}
+const wanted = names.map(a => a.replace(/\.mjs$/, ""));
 
 const all = fs
   .readdirSync(here)
   .filter(f => /^[a-z][a-z0-9]*_[A-Za-z0-9_-]+\.mjs$/.test(f))
   .sort();
-const files = wanted.length ? all.filter(f => wanted.includes(f.replace(/\.mjs$/, ""))) : all;
+let files = wanted.length ? all.filter(f => wanted.includes(f.replace(/\.mjs$/, ""))) : all;
+if (shard) {
+  // 名前順の k 番目（0 始まり）を k % n + 1 番目のシャードへ。決まった分け方で、全シャードの和が全部になる。
+  files = all.filter((_, k) => k % shard.n === shard.i - 1);
+  console.log(`シャード ${shard.i}/${shard.n}: ${files.join(", ") || "（なし）"}`);
+  if (files.length === 0) process.exit(0); // テストの本数よりシャードが多いとき
+}
 
 if (wanted.length && files.length !== wanted.length) {
   const missing = wanted.filter(w => !all.includes(w + ".mjs"));
