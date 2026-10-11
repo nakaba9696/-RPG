@@ -1,0 +1,706 @@
+{
+  "_説明": "W3：焼け野の入口（docs/world2.md 3 章）。東の入口（← 021 の西端の焼けた道）→ 焼けた畑 → 北の墓標の丘（ザザの記憶 3、H18 の見えない柵 → 隠しの柵囲いの赤い宝箱）→ 南の兵の野営跡（異端狩りの紋章・R23）→ 西の石橋（ザザの記憶 2）→ 061。",
+  "mapId": 60,
+  "name": "焼け野の入口",
+  "displayName": "異端者の廃集落",
+  "legend": "village",
+  "tilesetId": 19,
+  "note": "<hai_tone:-34,-34,-34,136>\n<hai_parallax:DarkClouds,1,0>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "DirtField",
+    "battleback2Name": "Ruins1"
+  },
+  "chars": {
+    "e": {
+      "name": "東の入口（場所移動のマス）",
+      "as": "."
+    },
+    "w": {
+      "name": "西の出口（場所移動のマス）",
+      "as": "="
+    },
+    "Z": {
+      "name": "一番端の小さな墓標（ザザの記憶 3）",
+      "as": "."
+    }
+  },
+  "events": [
+    {
+      "at": "e",
+      "name": "東の入口（巡礼の森・奥へ）",
+      "type": "transfer",
+      "to": [
+        21,
+        1,
+        8,
+        "right"
+      ]
+    },
+    {
+      "at": "w",
+      "name": "西の出口（廃集落・広場へ）",
+      "type": "transfer",
+      "to": [
+        61,
+        42,
+        16,
+        "left"
+      ]
+    },
+    {
+      "x": 15,
+      "y": 3,
+      "name": "ザザの記憶 3「罪か誇り」",
+      "type": "text",
+      "note": "<hai_memory:6,3>",
+      "image": {
+        "tileId": "B:143"
+      },
+      "lines": [
+        "何人斬ったか、数えなかった。父さんの言いつけどおりに。",
+        "でも、一人だけ覚えている。兜が脱げて、顔が見えた。",
+        "わたしより年下だった。母さんを呼んでいた。",
+        "守った数を数えろと、父さんは言った。……あの子は、どちらに数えればいい。"
+      ]
+    },
+    {
+      "x": 13,
+      "y": 12,
+      "name": "ザザの記憶 2「転機」",
+      "type": "text",
+      "note": "<hai_memory:6,2>",
+      "image": {
+        "characterName": "!Weapon",
+        "characterIndex": 0,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "異端狩りの松明が、谷の向こうに並んでいた。",
+        "村の者は南の水路へ。子どもと年寄りが先。",
+        "橋は一人なら守れる幅だ。わたしは橋の真ん中に立った。",
+        "振り返らなかった。振り返ったら、走って逃げたくなるから。"
+      ]
+    },
+    {
+      "name": "赤い宝箱（獣人の革鎧）",
+      "type": "raw",
+      "note": "",
+      "x": 27,
+      "y": 4,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 128,
+              "indent": 0,
+              "parameters": [
+                304,
+                0,
+                0,
+                1,
+                false
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[133]獣人の革鎧を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "宝箱（異端狩りの紋章）",
+      "type": "raw",
+      "note": "",
+      "x": 23,
+      "y": 21,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                222,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[196]異端狩りの紋章を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 6,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "x": 26,
+      "y": 22,
+      "name": "思念 R23 紋章を返した異端狩りの兵",
+      "type": "text",
+      "note": "<hai_thought:R23><hai_clue:異端狩りの紋章は、焼け野の野営跡の箱にある（廃集落）>",
+      "image": {
+        "characterName": "Damage1",
+        "characterIndex": 6,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "隊長は言った。灰の病は異種族の呪いだ、村を焼けば病は止む、と。",
+        "三つ焼いた。病は止まない。王都ではまだ人が灰になっている。",
+        "紋章は野営の箱に返した。もう、これを付けて歩けない。",
+        "四つ目の村へは、行かない。"
+      ]
+    },
+    {
+      "name": "宝箱（凍て石）",
+      "type": "raw",
+      "note": "",
+      "x": 37,
+      "y": 9,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                302,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[65]凍て石を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 6,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "宝箱（灰の杖）",
+      "type": "raw",
+      "note": "",
+      "x": 27,
+      "y": 24,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 127,
+              "indent": 0,
+              "parameters": [
+                141,
+                0,
+                0,
+                1,
+                false
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[101]灰の杖を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 6,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "火の粉（緑）",
+      "type": "raw",
+      "x": 24,
+      "y": 12,
+      "note": "<hai_enemy:306,green>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "!Flame",
+            "characterIndex": 0
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3,
+          "stepAnime": true
+        }
+      ]
+    },
+    {
+      "name": "火の粉（緑）",
+      "type": "raw",
+      "x": 30,
+      "y": 16,
+      "note": "<hai_enemy:306,green>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "!Flame",
+            "characterIndex": 0
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3,
+          "stepAnime": true
+        }
+      ]
+    },
+    {
+      "name": "焼け犬（緑・巡回）",
+      "type": "raw",
+      "x": 16,
+      "y": 18,
+      "note": "<hai_enemy:307,green>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Nature",
+            "characterIndex": 0
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 5,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "焼け犬（緑・巡回）",
+      "type": "raw",
+      "x": 34,
+      "y": 10,
+      "note": "<hai_enemy:307,green>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Nature",
+            "characterIndex": 0
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 5,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "異端狩りの兵（黄）",
+      "type": "raw",
+      "x": 24,
+      "y": 23,
+      "note": "<hai_enemy:308,yellow>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Evil",
+            "characterIndex": 4
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    }
+  ]
+}

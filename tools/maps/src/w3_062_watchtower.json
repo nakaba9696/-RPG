@@ -1,0 +1,237 @@
+{
+  "_説明": "W3：焼けた見張り台（docs/world2.md 3 章）。丘の道（← 061 の西の丘への道）→ 見張り台の焼け跡にザザの遺骸（記憶 4「臨終」を同じイベントに）。",
+  "mapId": 62,
+  "name": "焼けた見張り台",
+  "displayName": "焼けた見張り台",
+  "legend": "village",
+  "tilesetId": 19,
+  "note": "<hai_tone:-17,-34,-34,119>\n<hai_parallax:DarkClouds,1,0>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "DirtField",
+    "battleback2Name": "Ruins2"
+  },
+  "chars": {
+    "e": {
+      "name": "丘の道（場所移動のマス）",
+      "as": "."
+    }
+  },
+  "events": [
+    {
+      "at": "e",
+      "name": "丘の道（廃集落・広場へ）",
+      "type": "transfer",
+      "to": [
+        61,
+        1,
+        15,
+        "right"
+      ]
+    },
+    {
+      "x": 9,
+      "y": 5,
+      "name": "遺骸 ザザ",
+      "type": "raw",
+      "note": "<hai_remains:6><hai_memory:6,4>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 7,
+            "direction": 4,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "焼け落ちた見張り台の下に、剣を握ったままの獣人の亡骸がある。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "見張り台の梯子に火がついた。もう下りられない。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "南の空を見た。水路の方に煙は上がっていない。みんな逃げ切った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "熱い。息が苦しい。剣を握る手だけは、まだ放さない。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "狂ってしまえたら楽なのに。最後まで、わたしは正気だった。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "まだ温かい魂が残っている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "拠点の召喚陣で呼べそうだ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "宝箱（凍て石）",
+      "type": "raw",
+      "note": "",
+      "x": 6,
+      "y": 10,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                302,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[65]凍て石を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 6,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false
+        }
+      ]
+    }
+  ]
+}

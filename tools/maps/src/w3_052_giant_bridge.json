@@ -1,0 +1,1240 @@
+{
+  "_説明": "W3：巨人の吊り橋と門（docs/world2.md 2 章）。西のたもと（← 051、R21）→ 吊り橋（上がっていて渡れない。スイッチ 161 で下りる）。H16 の見えない通路（西のたもとの苔から谷の南の崖を回って東のたもとへ）。東のたもとの取っ手で吊り橋を下ろす。巨人の門の前に岩背負い（任意。倒すとスイッチ 158 で門が開く）→ 053。",
+  "mapId": 52,
+  "name": "巨人の吊り橋と門",
+  "displayName": "巨人の吊り橋",
+  "legend": "cliff",
+  "tilesetId": 20,
+  "note": "<hai_tone:-17,-17,-17,85>\n<hai_parallax:Mountains2,0,0>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Wasteland",
+    "battleback2Name": "Cliff"
+  },
+  "chars": {
+    "w": {
+      "name": "西の入口（場所移動のマス）",
+      "as": "."
+    },
+    "n": {
+      "name": "門の奥（場所移動のマス）",
+      "as": "."
+    },
+    "G": {
+      "name": "巨人の門（イベント）",
+      "as": "."
+    },
+    "c": {
+      "name": "巨人の子どもの石（R21）",
+      "as": "."
+    },
+    "h": {
+      "name": "橋の取っ手",
+      "as": "."
+    },
+    "I": {
+      "name": "門の石柱（通れない）",
+      "as": ":",
+      "tiles": [
+        null,
+        null,
+        "C:9"
+      ]
+    }
+  },
+  "events": [
+    {
+      "at": "w",
+      "name": "西の入口（帝国の陣跡へ）",
+      "type": "transfer",
+      "to": [
+        51,
+        38,
+        14,
+        "left"
+      ]
+    },
+    {
+      "at": "n",
+      "name": "門の奥（見張りの洞へ）",
+      "type": "transfer",
+      "to": [
+        53,
+        1,
+        6,
+        "right"
+      ]
+    },
+    {
+      "x": 4,
+      "y": 5,
+      "name": "思念 R21 巨人の末裔の子ども",
+      "type": "text",
+      "note": "<hai_thought:R21><hai_clue:巨人の吊り橋の谷の西の崖は、苔の所だけ足がかかる（崖道）>",
+      "image": {
+        "tileId": "D:41"
+      },
+      "lines": [
+        "父さんは吊り橋を上げて、向こう岸の門を守りに行った。",
+        "橋を下ろすには、向こうの取っ手を回すんだって。",
+        "ぼくは知ってる。谷の西の崖は、苔の生えた所だけ足がかかる。",
+        "帰ってこないなら、ぼくが迎えに行く。"
+      ]
+    },
+    {
+      "name": "宝箱（雷避けの護符）",
+      "type": "raw",
+      "note": "",
+      "x": 5,
+      "y": 5,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 128,
+              "indent": 0,
+              "parameters": [
+                143,
+                0,
+                0,
+                1,
+                false
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[146]雷避けの護符を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 6,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "x": 19,
+      "y": 5,
+      "name": "吊り橋の取っ手",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Switch1",
+            "characterIndex": 8,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "錆びた鉄の取っ手。太い鎖が、谷の向こうへ延びている。"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "回す",
+                  "やめる"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "回す"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Open3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                161,
+                161,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "鎖が鳴り、吊り橋がゆっくり下りてきた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 161,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Switch1",
+            "characterIndex": 8,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "取っ手は回しきってある。吊り橋は下りている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "x": 31,
+      "y": 6,
+      "name": "岩背負い（ボス・任意）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 6,
+            "direction": 2
+          },
+          "priorityType": 1,
+          "directionFix": true,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "背に大きな岩を負った巨人が、門の前に座っている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "近づくと、巨人は黙って立ち上がった。通すつもりはないらしい。"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "押し通る",
+                  "やめる"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "押し通る"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_Boss",
+                "bossBattle",
+                "ボス戦",
+                {
+                  "troopId": "305",
+                  "escapeMapId": "52",
+                  "escapeX": "21",
+                  "escapeY": "7",
+                  "escapeDirection": "4"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "敵グループ = 0305:W3_ボス：岩背負い"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "逃げたときのマップ = 52"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "逃げたときの X = 21"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "逃げたときの Y = 7"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "逃げたときの向き = 左"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                12,
+                "Hai.Boss.lastResult() === 0"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "岩背負いは膝をつき、背の岩を門の前に下ろした。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "それきり動かない。門の閂が外れる音がした。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 158,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "D:49"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "岩背負いが下ろした岩。苔が生えはじめている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "x": 34,
+      "y": 6,
+      "name": "巨人の門",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "tileId": "D:74"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "大きな石の門。閂は向こう側から掛かっている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 158,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 34,
+      "y": 7,
+      "name": "巨人の門",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "tileId": "D:75"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "大きな石の門。閂は向こう側から掛かっている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 158,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 7,
+      "y": 6,
+      "name": "吊り橋",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 161,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:83"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 7,
+      "y": 7,
+      "name": "吊り橋",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 161,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:83"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 8,
+      "y": 6,
+      "name": "吊り橋",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 161,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:83"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 8,
+      "y": 7,
+      "name": "吊り橋",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 161,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:83"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 9,
+      "y": 6,
+      "name": "吊り橋",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 161,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:83"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 9,
+      "y": 7,
+      "name": "吊り橋",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 161,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:83"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 10,
+      "y": 6,
+      "name": "吊り橋",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 161,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:83"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 10,
+      "y": 7,
+      "name": "吊り橋",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 161,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:83"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 11,
+      "y": 6,
+      "name": "吊り橋",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 161,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:83"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 11,
+      "y": 7,
+      "name": "吊り橋",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 161,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:83"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 12,
+      "y": 6,
+      "name": "吊り橋",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 161,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:83"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 12,
+      "y": 7,
+      "name": "吊り橋",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 161,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:83"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 13,
+      "y": 6,
+      "name": "吊り橋",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 161,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:83"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 13,
+      "y": 7,
+      "name": "吊り橋",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 161,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:83"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 14,
+      "y": 6,
+      "name": "吊り橋",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 161,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:83"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 14,
+      "y": 7,
+      "name": "吊り橋",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 161,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:83"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 15,
+      "y": 6,
+      "name": "吊り橋",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 161,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:83"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 15,
+      "y": 7,
+      "name": "吊り橋",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 161,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:83"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 16,
+      "y": 6,
+      "name": "吊り橋",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 161,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:83"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 16,
+      "y": 7,
+      "name": "吊り橋",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 161,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:83"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 17,
+      "y": 6,
+      "name": "吊り橋",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 161,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:83"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 17,
+      "y": 7,
+      "name": "吊り橋",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 161,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:83"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 18,
+      "y": 6,
+      "name": "吊り橋",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 161,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:83"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 18,
+      "y": 7,
+      "name": "吊り橋",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 161,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:83"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "灰つばめ（緑・巡回）",
+      "type": "raw",
+      "x": 21,
+      "y": 8,
+      "note": "<hai_enemy:301,green>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Monster",
+            "characterIndex": 0
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 5,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "帝国の亡兵（黄）",
+      "type": "raw",
+      "x": 23,
+      "y": 5,
+      "note": "<hai_enemy:303,yellow>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Monster",
+            "characterIndex": 3
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    }
+  ]
+}

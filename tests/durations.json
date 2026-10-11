@@ -20,5 +20,7 @@
   "v_look": 129,
   "v_tilesets2": 1,
   "w_stage1": 310,
-  "w_stage1b": 160
+  "w_stage1b": 160,
+  "w_stage2a": 260,
+  "w_stage2b": 420
 }
