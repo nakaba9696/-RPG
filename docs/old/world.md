@@ -1,8 +1,10 @@
 # 世界設計書 — 灰の王国（D1）
 
+> **控え（D10、#127 で移した）。** 持ち主が世界観を作り直すと決めたので、これは前の世界「灰の王国」の設計。新しい世界の正本は [docs/world.md](../world.md)。今の `data/` のマップと文はまだこの控えの設計で作られていて、W が新しい設計に作り直すまで読み合わせに使う。
+
 W・P・V レーンがこのファイルを見て、拠点と第1段階の 3 ダンジョンを作るための設計書。
-[VISION.md](../VISION.md) の「世界設定の種」を固めたもの。ID の帯は [docs/ROADMAP.md](ROADMAP.md)、データの形は [docs/mz-data.md](mz-data.md)、
-文字マップは [tools/maps/README.md](../tools/maps/README.md)。
+[VISION.md](../../VISION.md) の「世界設定の種」を固めたもの。ID の帯は [docs/ROADMAP.md](../ROADMAP.md)、データの形は [docs/mz-data.md](../mz-data.md)、
+文字マップは [tools/maps/README.md](../../tools/maps/README.md)。
 
 - 手本（Fanastasis）の固有名詞・台詞・地名・人物は使っていない。ここに出る名前と文章はすべて自作。
 - 名前（タイトル・主人公・仲間）と暗さは推しの案で書いてある。持ち主の決定待ちは [9 章](#9-決定待ち) と issue #13。決まったら名前を置き換える（筋は変わらない）。
@@ -772,7 +774,7 @@ W1 が `System.json` の `switches`・`variables` に名前を写す（名前の
 
 ## 10. 禁止語の表
 〔秘〕の真相と、〔進〕の真相を分かる所より前に**直接示す語**。プレイヤーに見える文（Map の「文章の表示」401・選択肢 102、`Actors.json` の `nickname`・`profile`・`<hai_wake>`、アイテム・スキル・敵の名前と説明、メモの一行）に書かない。
-段階の印の決まりは [docs/knowhow.md](knowhow.md) 2.1。T7（別の issue）がこの表を読んでテストにする。
+段階の印の決まりは [docs/knowhow.md](../knowhow.md) 2.1。T7（別の issue）がこの表を読んでテストにする。
 
 - 1 行 1 語。「語」は部分一致で数える（前後に何が付いても当たる）。
 - 「使ってよい所」はマップ番号（3 桁、`,` で区切る）か `なし`。`なし` の語はどこにも書かない。
@@ -807,7 +809,7 @@ W1 が `System.json` の `switches`・`variables` に名前を写す（名前の
 ---
 
 ## 11. 口調の表
-名のある人物の一人称・相手の呼び方・語尾を固定する。**全員でこの表を守る**（[docs/knowhow.md](knowhow.md) 3.2）。
+名のある人物の一人称・相手の呼び方・語尾を固定する。**全員でこの表を守る**（[docs/knowhow.md](../knowhow.md) 3.2）。
 「根拠」は今ある文（world.md・world2.md の本文、`Actors.json` の目覚めの一言）。※は今ある文から読み取れず**推しで決めた**所（`needs-decision` の issue で持ち主に聞く）。
 
 ### 11.1 名のある人物

@@ -1,7 +1,7 @@
 # Hai_Facilities — 拠点の施設と叡智のオーブ（P8）
 
 VISION.md 核 6「拠点『牢獄の間』と、叡智のオーブで開く施設」のためのプラグイン（#82）。
-施設の開く順と碑文は [docs/world.md](../world.md) 3.3、オーブの置き場所は [docs/world2.md](../world2.md)（053・063・071 の H26・082。**置くのは W3〜W5**）。
+施設の開く順と碑文は [docs/old/world.md](../old/world.md) 3.3、オーブの置き場所は [docs/old/world2.md](../old/world2.md)（053・063・071 の H26・082。**置くのは W3〜W5**）。
 合成は [Hai_Craft](Hai_Craft.md)、倉庫は [Hai_Items](Hai_Items.md)、控えの仲間は [Hai_Companions](Hai_Companions.md) の窓口を使う。
 並びは `Hai_Companions` の後・`Hai_Comfort` の前（`js/plugins.js`・`tools/data/check.mjs` の `PLUGIN_ORDER`）。
 
@@ -18,7 +18,7 @@ VISION.md 核 6「拠点『牢獄の間』と、叡智のオーブで開く施�
 
 ## W レーンが叡智のオーブを置く書き方
 オーブは**ただの大事なもの**なので、宝箱か「アイテムの増減」（126）で 171 を 1 つ渡すだけでよい。台座の側は何もしなくてよい（数は袋の中のオーブで数える）。
-文字マップの設定（`tools/maps/src/<名前>.json` の `events`）の例（world2.md の 053 洞の広間）：
+文字マップの設定（`tools/maps/src/<名前>.json` の `events`）の例（old/world2.md の 053 洞の広間）：
 
 ```json
 {
