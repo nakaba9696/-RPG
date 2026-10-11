@@ -227,21 +227,27 @@ await runTest(async () => {
     // 2 ターン目：眠っているので動かない
     await turn(["guard", "guard", "guard", "guard"]);
     check((await actsIn(2)).every(a => !a.enemy), "眠っている骨の番人が動いた");
-    // 3 ターン目：殴ると起きる
+    // 3 ターン目：乱数 0.5（ダメージでの解除は 40%）。1 回殴られても必ずは起きない
     await turn([{ attack: true }, "guard", "guard", "guard"]);
-    const wake = (await actsIn(3)).find(a => !a.enemy && a.physical && a.hit);
+    const stay = (await actsIn(3)).find(a => !a.enemy && a.physical && a.hit);
+    check(stay && stay.wasAsleep && stay.asleep, "1 回の被弾で眠りが必ず解ける " + JSON.stringify(stay));
+    // 4 ターン目：乱数 0.1（40% の内）。殴ると起きる
+    await game.eval(() => { window.__rand = 0.1; });
+    await turn([{ attack: true }, "guard", "guard", "guard"]);
+    await game.eval(() => { window.__rand = 0.5; });
+    const wake = (await actsIn(4)).find(a => !a.enemy && a.physical && a.hit);
     check(wake && wake.wasAsleep && !wake.asleep, "被弾で起きない " + JSON.stringify(wake));
-    // 4 ターン目：凍てつく霧で凍らせ、5 ターン目は動かない
+    // 5 ターン目：凍てつく霧で凍らせ、6 ターン目は動かない
     const icePlan = ["guard", "guard", "guard", "guard"];
     icePlan[mage] = { skill: SKILL.frostMist, target: 0 };
     await turn(icePlan);
     check((await enemy()).states.includes(STATE.ice), "凍てつく霧で凍らない");
     await turn([{ attack: true }, "guard", "guard", "guard"]);
-    const frozenActs = await actsIn(5);
+    const frozenActs = await actsIn(6);
     check(frozenActs.every(a => !a.enemy), "凍った骨の番人が動いた");
     const frozenHit = frozenActs.find(a => !a.enemy && a.physical && a.hit);
     check(frozenHit && Math.abs(frozenHit.pdr - 1.5) < 1e-9, "凍った相手の物理ダメージ率が 150% でない " + JSON.stringify(frozenHit));
-    console.log(`  眠り：眠り香で眠り、動かず、殴ると起きた。氷：被ダメ ${ice.normal} → ${ice.frozen}（1.5 倍）、凍っている間は動かない`);
+    console.log(`  眠り：眠り香で眠り、動かず、1 回殴られても残り（解除 40%）、乱数次第で起きた。氷：被ダメ ${ice.normal} → ${ice.frozen}（1.5 倍）、凍っている間は動かない`);
     await escape();
 
     // ===== 3. 狙いの癖（夜狩りの犬：HP が最も低い者） =====
