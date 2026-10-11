@@ -1,0 +1,590 @@
+{
+  "_説明": "W5：下水道・上流（docs/world2.md 8 章、暗がり 5）。西の排水口の下（← 073 の排水口。梯子で 073 へ戻れる）→ 本流（水路の両側の歩道。緑 2・黄 1。北の歩道の壁に H36 の隠し扉 → 赤い宝箱「水除けの長靴」）。南の下水番の小屋に R45 と結界（灰の泉と記録の書見台）。北の歩道の東の端が鍵束の扉（← 035 の西の扉。こちらからは閂を外せばスイッチ 160）。南東の出口 → 101。",
+  "mapId": 100,
+  "name": "下水道・上流",
+  "displayName": "王都の下水道",
+  "legend": "sewer",
+  "tilesetId": 18,
+  "note": "<hai_tone:-51,-34,-51,68>\n<hai_dark:5>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Cobblestones3",
+    "battleback2Name": "Stone2"
+  },
+  "chars": {
+    "S": {
+      "name": "南東の出口（場所移動のマス）",
+      "as": "."
+    }
+  },
+  "events": [
+    {
+      "x": 3,
+      "y": 8,
+      "name": "梯子（沼主の淵の排水口へ）",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                73,
+                13,
+                5,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "x": 38,
+      "y": 27,
+      "name": "南東の出口（水門の間へ）",
+      "type": "transfer",
+      "to": [
+        101,
+        19,
+        3,
+        "down"
+      ]
+    },
+    {
+      "x": 39,
+      "y": 27,
+      "name": "南東の出口（水門の間へ）",
+      "type": "transfer",
+      "to": [
+        101,
+        20,
+        3,
+        "down"
+      ]
+    },
+    {
+      "x": 42,
+      "y": 8,
+      "name": "鍵束の扉（拷問の間の西の扉へ）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 1,
+            "direction": 2
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鉄の扉。こちら側に太い閂が掛かっている。"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "閂を外す",
+                  "やめる"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "閂を外す"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Open3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                160,
+                160,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "閂を外した。扉の向こうから、乾いた血の匂いがする。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 160,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 1,
+            "direction": 8
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                35,
+                6,
+                7,
+                6,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "x": 16,
+      "y": 4,
+      "name": "赤い宝箱（水除けの長靴）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 128,
+              "indent": 0,
+              "parameters": [
+                503,
+                0,
+                0,
+                1,
+                false
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[146]水除けの長靴を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "x": 10,
+      "y": 17,
+      "name": "思念 R45 下水番（下水番の日誌）",
+      "type": "text",
+      "note": "<hai_thought:R45><hai_clue:下水道の水門の間の取っ手で、東西の水路を切り替えられる>",
+      "image": {
+        "tileId": "E:176"
+      },
+      "lines": [
+        "王都に白い膜が張られた日から、上から人が降りてこなくなった。",
+        "水は今も流れてくる。灰が混じって、白く濁っている。",
+        "水門の間の取っ手で、東と西の水路を切り替えられる。片方を閉じれば、もう片方は歩ける。"
+      ]
+    },
+    {
+      "x": 14,
+      "y": 17,
+      "name": "下水番の小屋の結界（灰の泉と記録の書見台）",
+      "type": "raw",
+      "note": "<hai_warp:下水番の小屋>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Crystal",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "directionFix": true,
+          "trigger": 0
+        }
+      ]
+    },
+    {
+      "name": "溝鼠（緑・巡回）",
+      "type": "raw",
+      "x": 20,
+      "y": 13,
+      "note": "<hai_enemy:507,green>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Monster",
+            "characterIndex": 0
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 5,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "溝鼠（緑）",
+      "type": "raw",
+      "x": 28,
+      "y": 14,
+      "note": "<hai_enemy:507,green>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Monster",
+            "characterIndex": 0
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "灰の澱（緑・動かない）",
+      "type": "raw",
+      "x": 33,
+      "y": 14,
+      "note": "<hai_enemy:508,green>\n<hai_enemy_chase:0>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Monster",
+            "characterIndex": 4
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2
+        }
+      ]
+    },
+    {
+      "name": "近衛の亡霊（黄・巡回）",
+      "type": "raw",
+      "x": 22,
+      "y": 8,
+      "note": "<hai_enemy:509,yellow>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Damage3",
+            "characterIndex": 6
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 5,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,500 @@
+{
+  "_説明": "W5：オーブの間「封印」（docs/world2.md 8 章・11.3）。北の扉（← 103）。結界の真下の小部屋。床に古い血の跡（調べると文章）。台座にオーブ「封印」：調べるとスイッチ 104、変数 101 に 1 を足し、場面とユエルの一言。変数 101 が 4 ならスイッチ 105・106 とユエルの一言（11.4）。転送陣（スイッチ 104）→ 牢獄の間の広間 010 (16,18)。",
+  "mapId": 104,
+  "name": "オーブの間「封印」",
+  "displayName": "オーブの間",
+  "legend": "sewer",
+  "tilesetId": 18,
+  "note": "<hai_tone:51,51,68,136>",
+  "fields": {},
+  "chars": {
+    "N": {
+      "name": "北の扉（場所移動のマス）",
+      "as": "."
+    },
+    "A": {
+      "name": "台座（イベント。通れない）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "B:83"
+      ]
+    }
+  },
+  "events": [
+    {
+      "x": 8,
+      "y": 3,
+      "name": "北の扉（灰の騎士の間へ）",
+      "type": "transfer",
+      "to": [
+        103,
+        13,
+        14,
+        "up"
+      ]
+    },
+    {
+      "x": 8,
+      "y": 8,
+      "name": "オーブ「封印」の台座",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                104,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "台座の上に、白く光る珠が載っている。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Item3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                104,
+                104,
+                0
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 1,
+              "parameters": [
+                101,
+                101,
+                1,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 223,
+              "indent": 1,
+              "parameters": [
+                [
+                  -68,
+                  -68,
+                  -68,
+                  170
+                ],
+                60,
+                true
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                1,
+                1,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "……白い線が、門の内側から空へ伸びていく。自分が描いた陣だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "「外へ。早く」逃げ遅れた女を、下水の口へ押しやる。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "門が閉じる。王都の民は、皆、家の中で眠りについた。取り立ては、ここで止まる。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "自分も下水へ降りる。暗い方へ。結界の真下へ。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                1,
+                1,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "胸に刃を当てる。錠の印を刻む。痛みは思ったより少ない。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "足音。振り向くと、赤い目がこちらを見ている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "「何をしたの」声がかすれている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "「すまない。契約は果たさせない」"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                1,
+                1,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "「……あなたが死んだら、魂はばらばらになるわよ。誰があなたを拾うの」"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "「次に目を覚ましたら、俺はたぶん何も覚えていない。それでいい」"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "白い光が下りてくる。自分の名前が、もう思い出せない。"
+              ]
+            },
+            {
+              "code": 223,
+              "indent": 1,
+              "parameters": [
+                [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                60,
+                true
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "\\N[1]"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "……門を、開けてはいけない。そう決めたはずだった"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "オーブ「封印」を取り戻した。転送陣が光りはじめた。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                1,
+                101,
+                0,
+                4,
+                1
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 2,
+              "parameters": [
+                105,
+                106,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "\\N[1]"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "……全部、思い出した。セレスが門で待っている"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "台座は空だ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "x": 10,
+      "y": 6,
+      "name": "帰りの転送陣",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door2",
+            "characterIndex": 7,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "床に描かれた転送陣。光っていない。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 104,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Door2",
+            "characterIndex": 7,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 0,
+          "trigger": 1,
+          "stepAnime": true,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Teleport",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                10,
+                16,
+                18,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "x": 6,
+      "y": 9,
+      "name": "古い血の跡",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "床に、黒く乾いた血の跡がある。ここで誰かが倒れたようだ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

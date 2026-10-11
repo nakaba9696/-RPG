@@ -1,0 +1,697 @@
+{
+  "_説明": "W5：結界の真下（docs/world2.md 8 章）。北西の階段の下（← 101 の西の水路の階段）と北東の隅（← 101 の H37）→ 光の迷路：天井の格子から光が差す床（B:173）を踏むと、並列のイベントが白く光らせて「白い光に押し戻された」で 1 歩戻す。入口に R48、光の当たらない床のひび割れ (30,18) が H38 の隠し階段 → 南西の隅の小部屋（赤い宝箱「近衛の盾」）。白い蛾（黄 2）、水溜まりに白い澱。南の控え室に結界（灰の泉と記録の書見台）、R47、壁にユエルの刻み R49、その下に錠前師の型紙。南の扉 → 103。",
+  "mapId": 102,
+  "name": "結界の真下",
+  "displayName": "王都の下水道",
+  "legend": "sewer",
+  "tilesetId": 18,
+  "note": "<hai_tone:17,17,34,102>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Cobblestones3",
+    "battleback2Name": "Stone3"
+  },
+  "chars": {
+    "S": {
+      "name": "南の扉（場所移動のマス）",
+      "as": ","
+    },
+    "<": {
+      "name": "上り階段",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "B:18"
+      ]
+    },
+    ">": {
+      "name": "下り階段",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "B:26"
+      ]
+    },
+    "o": {
+      "name": "暗い横穴（穴D。通れる）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "B:31"
+      ]
+    }
+  },
+  "events": [
+    {
+      "x": 5,
+      "y": 2,
+      "name": "上り階段（水門の間の西の水路へ）",
+      "type": "transfer",
+      "to": [
+        101,
+        7,
+        23,
+        "up"
+      ]
+    },
+    {
+      "x": 34,
+      "y": 2,
+      "name": "上り口（H37。水門の間の東の水路の横穴へ）",
+      "type": "transfer",
+      "to": [
+        101,
+        27,
+        19,
+        "right"
+      ]
+    },
+    {
+      "x": 19,
+      "y": 26,
+      "name": "南の扉（灰の騎士の間へ）",
+      "type": "transfer",
+      "to": [
+        103,
+        13,
+        3,
+        "down"
+      ]
+    },
+    {
+      "x": 20,
+      "y": 26,
+      "name": "南の扉（灰の騎士の間へ）",
+      "type": "transfer",
+      "to": [
+        103,
+        14,
+        3,
+        "down"
+      ]
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "name": "結界の光（光の床を踏むと押し戻す。並列）",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 4,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "!$gamePlayer.isMoving() && $gameMap.tileId($gamePlayer.x, $gamePlayer.y, 2) === 173"
+              ]
+            },
+            {
+              "code": 224,
+              "indent": 1,
+              "parameters": [
+                [
+                  255,
+                  255,
+                  255,
+                  170
+                ],
+                20,
+                false
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Saint3",
+                  "volume": 80,
+                  "pitch": 120,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "白い光に押し戻された。"
+              ]
+            },
+            {
+              "code": 205,
+              "indent": 1,
+              "parameters": [
+                -1,
+                {
+                  "list": [
+                    {
+                      "code": 13,
+                      "parameters": []
+                    },
+                    {
+                      "code": 0,
+                      "parameters": []
+                    }
+                  ],
+                  "repeat": false,
+                  "skippable": true,
+                  "wait": true
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 1,
+              "parameters": [
+                {
+                  "code": 13,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "x": 9,
+      "y": 7,
+      "name": "思念 R48 結界を見上げていた子ども（小さな靴）",
+      "type": "text",
+      "note": "<hai_thought:R48><hai_clue:結界の真下の光の当たらない床に、割れた石。下に部屋がある（下水道）>",
+      "image": {
+        "tileId": "E:182"
+      },
+      "lines": [
+        "天井の白い光、きれいだね。でも近づくと、押し返されるの。",
+        "光の当たらない床に、割れた石が一つあるよ。下にお部屋があるの。",
+        "お父さんは門の上にいる。光の向こう。",
+        "わたし、ここで待ってる。光が消えたら、すぐ会えるから。"
+      ]
+    },
+    {
+      "x": 30,
+      "y": 18,
+      "name": "H38 隠し階段（南西の隅の小部屋へ）",
+      "type": "raw",
+      "note": "<hai_stairs:102,4,23,2>",
+      "pages": [
+        {
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 5,
+      "y": 22,
+      "name": "上り階段（光の迷路のひび割れの床へ）",
+      "type": "transfer",
+      "to": [
+        102,
+        29,
+        18,
+        "left"
+      ]
+    },
+    {
+      "x": 2,
+      "y": 22,
+      "name": "赤い宝箱（近衛の盾）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 128,
+              "indent": 0,
+              "parameters": [
+                504,
+                0,
+                0,
+                1,
+                false
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[128]近衛の盾を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "x": 18,
+      "y": 10,
+      "name": "白い澱（光の迷路の水溜まり）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "tileId": "E:85"
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "水溜まりの底に、白い澱が沈んでいる。握ると温かい。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                505,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[190]白い澱を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 22,
+      "y": 23,
+      "name": "控え室の結界（灰の泉と記録の書見台）",
+      "type": "raw",
+      "note": "<hai_warp:結界の真下の控え室>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Crystal",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "directionFix": true,
+          "trigger": 0
+        }
+      ]
+    },
+    {
+      "x": 21,
+      "y": 25,
+      "name": "思念 R47 王の近衛",
+      "type": "text",
+      "note": "<hai_thought:R47><hai_clue:灰の騎士は氷に弱く、混乱が効く（下水道）>",
+      "image": {
+        "characterName": "Damage1",
+        "characterIndex": 4,
+        "direction": 8,
+        "pattern": 1
+      },
+      "lines": [
+        "隊長は、門に誰も近づけるなと命じられた。王の最後の命令だ。",
+        "王が灰になっても、隊長は命令を解かれていない。",
+        "隊長の鎧は灰でできている。冷えると脆くなる。",
+        "それに隊長は、自分が誰を守っているのか、ときどき分からなくなる。"
+      ]
+    },
+    {
+      "x": 17,
+      "y": 21,
+      "name": "思念 R49 壁の刻み（ユエル自身）",
+      "type": "raw",
+      "note": "<hai_thought:R49>",
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "壁に、爪で刻んだような字がある。見覚えのある字だ。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "門は閉じた。錠は俺だ。中の者は眠ったまま、取り立てを免れる。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "外の灰は止まらない。遅くなるだけだ。すまない。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "次に誰かが俺を起こしても、門を開けてはいけない。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "\\N[1]"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "……俺の字だ"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "x": 17,
+      "y": 22,
+      "name": "錠前師の型紙（壁の刻みの下）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "tileId": "E:86"
+          },
+          "priorityType": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "壁の刻みの下に、紙の束が落ちている。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                503,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[122]錠前師の型紙を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "白い蛾（黄）",
+      "type": "raw",
+      "x": 14,
+      "y": 8,
+      "note": "<hai_enemy:510,yellow>\n<hai_enemy_chase:2>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Monster",
+            "characterIndex": 2
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2
+        }
+      ]
+    },
+    {
+      "name": "白い蛾（黄）",
+      "type": "raw",
+      "x": 24,
+      "y": 13,
+      "note": "<hai_enemy:510,yellow>\n<hai_enemy_chase:2>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Monster",
+            "characterIndex": 2
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2
+        }
+      ]
+    }
+  ]
+}

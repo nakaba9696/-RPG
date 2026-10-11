@@ -1,0 +1,191 @@
+{
+  "_説明": "W5：契約の写し室（docs/world2.md 7 章）。北の口（← 091 の封印扉）→ 施錠扉（蘇生師の印章 223）→ 写し室：床に契約の陣の写し、R43、黄 1。東の控えの小部屋に結界（灰の泉と記録の書見台）と R44（ボスの弱点）。南の扉 → 093。",
+  "mapId": 92,
+  "name": "契約の写し室",
+  "displayName": "蘇生師の研究所",
+  "legend": "lab",
+  "tilesetId": 17,
+  "note": "<hai_tone:0,-51,-17,51>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "DemonicWorld",
+    "battleback2Name": "DemonCastle1"
+  },
+  "chars": {
+    "N": {
+      "name": "北の口（場所移動のマス）",
+      "as": "."
+    },
+    "S": {
+      "name": "南の扉（場所移動のマス）",
+      "as": "."
+    }
+  },
+  "events": [
+    {
+      "x": 14,
+      "y": 2,
+      "name": "北の口（実験棟の封印扉へ）",
+      "type": "transfer",
+      "to": [
+        91,
+        21,
+        28,
+        "up"
+      ]
+    },
+    {
+      "x": 15,
+      "y": 2,
+      "name": "北の口（実験棟の封印扉へ）",
+      "type": "transfer",
+      "to": [
+        91,
+        22,
+        28,
+        "up"
+      ]
+    },
+    {
+      "x": 14,
+      "y": 4,
+      "name": "北の扉（施錠扉：蘇生師の印章）",
+      "type": "raw",
+      "note": "<hai_locked:蘇生師の印章><hai_key:223>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 0,
+            "direction": 2
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 0,
+            "direction": 8
+          },
+          "priorityType": 0,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "x": 14,
+      "y": 15,
+      "name": "南の扉（番人の間へ）",
+      "type": "transfer",
+      "to": [
+        93,
+        13,
+        3,
+        "down"
+      ]
+    },
+    {
+      "x": 15,
+      "y": 15,
+      "name": "南の扉（番人の間へ）",
+      "type": "transfer",
+      "to": [
+        93,
+        14,
+        3,
+        "down"
+      ]
+    },
+    {
+      "x": 14,
+      "y": 8,
+      "name": "契約の陣の写し",
+      "type": "text",
+      "lines": [
+        "床に描かれた陣の写し。赤い線が、まだ脈打っている。"
+      ]
+    },
+    {
+      "x": 10,
+      "y": 11,
+      "name": "思念 R43 王の侍従",
+      "type": "text",
+      "note": "<hai_thought:R43>",
+      "image": {
+        "characterName": "Damage1",
+        "characterIndex": 2,
+        "direction": 2,
+        "pattern": 0
+      },
+      "lines": [
+        "陛下は「何を払ってもよい」と仰せになった。私はその場にいた。",
+        "赤い目の女は、陣の中で指を折って数えた。そして何かを言い、所長は頷いた。陛下も頷いた。",
+        "その夜から、城下で人が灰になり始めた。",
+        "誰も、私に尋ねはしなかった。私の魂も、払われる分に入っていたのだが。"
+      ]
+    },
+    {
+      "x": 25,
+      "y": 7,
+      "name": "思念 R44 最後の研究員（書き付け）",
+      "type": "text",
+      "note": "<hai_thought:R44><hai_clue:契約の番人：秤の顔は火に弱い。獣の顔には刃が通る（研究所）>",
+      "image": {
+        "tileId": "E:86"
+      },
+      "lines": [
+        "陣の番人は、二つの顔を持つ。秤の顔のうちは、刃も呪文も半分しか通らない。",
+        "だが秤は火に弱い。所長の灰火で、何度も秤を焦がしたのを見た。",
+        "秤が割れたら獣になる。獣は呪文を食うが、刃はよく通る。"
+      ]
+    },
+    {
+      "x": 28,
+      "y": 8,
+      "name": "控えの小部屋の結界（灰の泉と記録の書見台）",
+      "type": "raw",
+      "note": "<hai_warp:契約の写し室の控え>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Crystal",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "directionFix": true,
+          "trigger": 0
+        }
+      ]
+    },
+    {
+      "name": "魔石の欠片（黄）",
+      "type": "raw",
+      "x": 19,
+      "y": 10,
+      "note": "<hai_enemy:504,yellow>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Monster",
+            "characterIndex": 6
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,287 @@
+{
+  "_説明": "W5：灰の騎士の間（docs/world2.md 8 章）。北の口（← 102 の南の扉）→ 錠の間の前室（天井が白く光る）。灰の騎士（ボス。話しかけると「ボス戦」、逃げたら 102 の控え室 (19,24)）。倒すとスイッチ 155 で南の扉が開く → 104。",
+  "mapId": 103,
+  "name": "灰の騎士の間",
+  "displayName": "灰の騎士の間",
+  "legend": "sewer",
+  "tilesetId": 18,
+  "note": "<hai_tone:34,34,51,119>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Castle1",
+    "battleback2Name": "Castle1"
+  },
+  "chars": {
+    "N": {
+      "name": "北の口（場所移動のマス）",
+      "as": "."
+    },
+    "e": {
+      "name": "南の扉（イベント）",
+      "as": "."
+    }
+  },
+  "events": [
+    {
+      "x": 13,
+      "y": 2,
+      "name": "北の口（結界の真下へ）",
+      "type": "transfer",
+      "to": [
+        102,
+        19,
+        25,
+        "up"
+      ]
+    },
+    {
+      "x": 14,
+      "y": 2,
+      "name": "北の口（結界の真下へ）",
+      "type": "transfer",
+      "to": [
+        102,
+        20,
+        25,
+        "up"
+      ]
+    },
+    {
+      "x": 13,
+      "y": 9,
+      "name": "灰の騎士（ボス）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 2,
+            "direction": 2
+          },
+          "priorityType": 1,
+          "directionFix": true,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "白く光る天井の下に、灰の鎧の騎士が立っている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "騎士は剣を抜いた。「門に近づくな」"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Boss",
+                "bossBattle",
+                "ボス戦",
+                {
+                  "troopId": "512",
+                  "escapeMapId": "102",
+                  "escapeX": "19",
+                  "escapeY": "24",
+                  "escapeDirection": "8"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "敵グループ = 0512:W5_ボス：灰の騎士"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "逃げたときのマップ = 102"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "逃げたときの X = 19"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "逃げたときの Y = 24"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "逃げたときの向き = 上"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "Hai.Boss.lastResult() === 0"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "灰の鎧が崩れて、白い床に積もった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "南の扉の閂が、ひとりでに外れた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 155,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 13,
+      "y": 15,
+      "name": "南の扉（オーブの間へ）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 2,
+            "direction": 2
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "重い扉。白い光が隙間から漏れているが、開かない。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 155,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 2,
+            "direction": 8
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                104,
+                8,
+                4,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

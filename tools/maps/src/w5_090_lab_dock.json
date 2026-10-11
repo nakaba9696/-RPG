@@ -1,0 +1,529 @@
+{
+  "_説明": "W5：研究所・搬入口（docs/world2.md 7 章）。北の地下壕（← 051 の地下壕の奥の坑道）→ 搬入路（トロッコの線路と魔石の箱。緑 2・黄 1）。西の守衛室に R39 と来訪の記帳、北の壁が H32 の隠し扉 → 赤い宝箱「白衣」。東の荷揚げ場に結界（灰の泉と記録の書見台）。搬入路の魔石の箱に搬入の札。南の扉 → 091。",
+  "mapId": 90,
+  "name": "研究所・搬入口",
+  "displayName": "蘇生師の研究所",
+  "legend": "lab",
+  "tilesetId": 17,
+  "note": "<hai_tone:-17,-51,-17,68>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "DemonicWorld",
+    "battleback2Name": "DemonicWorld"
+  },
+  "chars": {
+    "n": {
+      "name": "坑道（場所移動のマス）",
+      "as": ","
+    },
+    "S": {
+      "name": "南の扉（場所移動のマス）",
+      "as": ","
+    }
+  },
+  "events": [
+    {
+      "x": 19,
+      "y": 2,
+      "name": "坑道（帝国の陣跡の地下壕へ）",
+      "type": "transfer",
+      "to": [
+        51,
+        19,
+        3,
+        "down"
+      ]
+    },
+    {
+      "x": 19,
+      "y": 24,
+      "name": "南の扉（実験棟へ）",
+      "type": "transfer",
+      "to": [
+        91,
+        21,
+        3,
+        "down"
+      ]
+    },
+    {
+      "x": 20,
+      "y": 24,
+      "name": "南の扉（実験棟へ）",
+      "type": "transfer",
+      "to": [
+        91,
+        22,
+        3,
+        "down"
+      ]
+    },
+    {
+      "x": 13,
+      "y": 9,
+      "name": "思念 R39 研究所の守衛",
+      "type": "text",
+      "note": "<hai_thought:R39>",
+      "image": {
+        "characterName": "Damage1",
+        "characterIndex": 0,
+        "direction": 4,
+        "pattern": 1
+      },
+      "lines": [
+        "ここで何を作っているのか、誰も教えてくれない。",
+        "所長は若い。教会の孤児院の出だという。口数が少なく、夜も灯を消さない。",
+        "王が自ら視察に来られた。女を一人連れていた。",
+        "女は守衛の俺に「ご苦労さま」と言った。目が赤かった。"
+      ]
+    },
+    {
+      "x": 12,
+      "y": 9,
+      "name": "来訪の記帳（守衛室の机）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "tileId": "E:176"
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "机の上に、厚い記帳が開いたままになっている。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                501,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[121]来訪の記帳を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 10,
+      "y": 5,
+      "name": "赤い宝箱（白衣）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 128,
+              "indent": 0,
+              "parameters": [
+                501,
+                0,
+                0,
+                1,
+                false
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[135]白衣を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "x": 21,
+      "y": 19,
+      "name": "搬入の札（魔石の箱）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "tileId": "B:221"
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "魔石の箱に、木の札が打ち付けてある。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                502,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[187]搬入の札を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "tileId": "B:221"
+          },
+          "priorityType": 1
+        }
+      ]
+    },
+    {
+      "x": 31,
+      "y": 13,
+      "name": "荷揚げ場の結界（灰の泉と記録の書見台）",
+      "type": "raw",
+      "note": "<hai_warp:研究所の荷揚げ場>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Crystal",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "directionFix": true,
+          "trigger": 0
+        }
+      ]
+    },
+    {
+      "name": "試験体の鼠（緑・巡回）",
+      "type": "raw",
+      "x": 19,
+      "y": 10,
+      "note": "<hai_enemy:501,green>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Monster",
+            "characterIndex": 0
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 5,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "試験体の鼠（緑）",
+      "type": "raw",
+      "x": 29,
+      "y": 15,
+      "note": "<hai_enemy:501,green>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Monster",
+            "characterIndex": 0
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "白衣の亡者（黄・巡回）",
+      "type": "raw",
+      "x": 19,
+      "y": 18,
+      "note": "<hai_enemy:503,yellow>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Damage2",
+            "characterIndex": 4
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 5,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    }
+  ]
+}

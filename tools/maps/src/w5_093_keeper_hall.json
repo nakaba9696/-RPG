@@ -1,0 +1,287 @@
+{
+  "_説明": "W5：番人の間（docs/world2.md 7 章）。北の口（← 092 の南の扉）→ 床一面の陣の広間。陣の真ん中の契約の番人（ボス。話しかけると「ボス戦」、逃げたら 092 の控えの小部屋 (26,9)）。倒すとスイッチ 154 で南の扉が開く → 094。",
+  "mapId": 93,
+  "name": "番人の間",
+  "displayName": "番人の間",
+  "legend": "lab",
+  "tilesetId": 17,
+  "note": "<hai_tone:17,-51,-34,68>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "DemonCastle2",
+    "battleback2Name": "DemonCastle2"
+  },
+  "chars": {
+    "N": {
+      "name": "北の口（場所移動のマス）",
+      "as": "."
+    },
+    "e": {
+      "name": "南の扉（イベント）",
+      "as": "."
+    }
+  },
+  "events": [
+    {
+      "x": 13,
+      "y": 2,
+      "name": "北の口（契約の写し室へ）",
+      "type": "transfer",
+      "to": [
+        92,
+        14,
+        14,
+        "up"
+      ]
+    },
+    {
+      "x": 14,
+      "y": 2,
+      "name": "北の口（契約の写し室へ）",
+      "type": "transfer",
+      "to": [
+        92,
+        15,
+        14,
+        "up"
+      ]
+    },
+    {
+      "x": 13,
+      "y": 9,
+      "name": "契約の番人（ボス）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 6,
+            "direction": 2
+          },
+          "priorityType": 1,
+          "directionFix": true,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "床の陣の真ん中に、秤を掲げた影が立っている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "影は秤を傾けて、こちらの重さを量っている。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Boss",
+                "bossBattle",
+                "ボス戦",
+                {
+                  "troopId": "506",
+                  "escapeMapId": "92",
+                  "escapeX": "26",
+                  "escapeY": "9",
+                  "escapeDirection": "4"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "敵グループ = 0506:W5_ボス：契約の番人"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "逃げたときのマップ = 92"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "逃げたときの X = 26"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "逃げたときの Y = 9"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "逃げたときの向き = 左"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "Hai.Boss.lastResult() === 0"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "秤が割れる音がして、影は床の陣に沈んだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "南の扉の閂が、ひとりでに外れた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 154,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 13,
+      "y": 15,
+      "name": "南の扉（オーブの間へ）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 2,
+            "direction": 2
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "重い扉。赤い線が鎖のように絡みついていて、開かない。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 154,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 2,
+            "direction": 8
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                94,
+                8,
+                4,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

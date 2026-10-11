@@ -300,7 +300,7 @@
     {
       "x": 13,
       "y": 9,
-      "name": "淵の底の排水口（W5 が 100 下水道・上流へつなぐ）",
+      "name": "淵の底の排水口（下水道・上流へ）",
       "type": "raw",
       "pages": [
         {
@@ -315,6 +315,7 @@
             "tileId": "B:42"
           },
           "priorityType": 0,
+          "trigger": 1,
           "list": [
             {
               "code": 101,
@@ -340,6 +341,75 @@
               "parameters": [
                 "梯子の下からは、水の流れる音だけがする。"
               ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "下りる",
+                  "やめる"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "下りる"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 1,
+              "parameters": [
+                0,
+                100,
+                3,
+                9,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 0,

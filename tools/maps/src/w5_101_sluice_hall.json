@@ -1,0 +1,879 @@
+{
+  "_説明": "W5：水門の間（docs/world2.md 8 章、暗がり 5）。北の入口（← 100）→ 水門の踊り場：水門の取っ手（スイッチ 162 の切り替え）、R46、黄 1。西の水路（162 が OFF で歩ける。北の端の排水溝の上に廃液管の出口＝ H35 の着地点。突き当たりの下り階段 → 102 の北）、東の水路（162 が ON で歩ける。赤「下水の大蛇」と宝箱、西の壁の影の無い所が H37 の見えない通路 → 102 の北東）。",
+  "mapId": 101,
+  "name": "水門の間",
+  "displayName": "王都の下水道",
+  "legend": "sewer",
+  "tilesetId": 18,
+  "note": "<hai_tone:-51,-34,-51,68>\n<hai_dark:5>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Cobblestones3",
+    "battleback2Name": "Stone2"
+  },
+  "chars": {
+    "N": {
+      "name": "北の入口（場所移動のマス）",
+      "as": "."
+    },
+    "<": {
+      "name": "上り階段",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "B:18"
+      ]
+    },
+    ">": {
+      "name": "下り階段",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "B:26"
+      ]
+    },
+    "o": {
+      "name": "暗い横穴（穴D。通れる）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "B:31"
+      ]
+    }
+  },
+  "events": [
+    {
+      "x": 19,
+      "y": 2,
+      "name": "北の入口（下水道・上流へ）",
+      "type": "transfer",
+      "to": [
+        100,
+        38,
+        26,
+        "up"
+      ]
+    },
+    {
+      "x": 20,
+      "y": 2,
+      "name": "北の入口（下水道・上流へ）",
+      "type": "transfer",
+      "to": [
+        100,
+        39,
+        26,
+        "up"
+      ]
+    },
+    {
+      "x": 7,
+      "y": 24,
+      "name": "下り階段（結界の真下へ）",
+      "type": "transfer",
+      "to": [
+        102,
+        5,
+        3,
+        "down"
+      ]
+    },
+    {
+      "x": 26,
+      "y": 19,
+      "name": "暗い横穴（H37。結界の真下の北東へ）",
+      "type": "transfer",
+      "to": [
+        102,
+        34,
+        3,
+        "down"
+      ]
+    },
+    {
+      "x": 17,
+      "y": 7,
+      "name": "水門の取っ手（スイッチ 162）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Switch1",
+            "characterIndex": 0,
+            "direction": 2
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "水門の取っ手。回すと、東と西の水門が入れ替わるようだ。"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "回す",
+                  "やめる"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "回す"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Water1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                0,
+                162,
+                1
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 2,
+              "parameters": [
+                162,
+                162,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "西の水門が閉じた。東の水路の水が引いていく。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 121,
+              "indent": 2,
+              "parameters": [
+                162,
+                162,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "東の水門が閉じた。西の水路の水が引いていく。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 162,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Switch1",
+            "characterIndex": 0,
+            "direction": 8
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "水門の取っ手。回すと、東と西の水門が入れ替わるようだ。"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "回す",
+                  "やめる"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "回す"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Water1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                0,
+                162,
+                1
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 2,
+              "parameters": [
+                162,
+                162,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "西の水門が閉じた。東の水路の水が引いていく。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 121,
+              "indent": 2,
+              "parameters": [
+                162,
+                162,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "東の水門が閉じた。西の水路の水が引いていく。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "x": 16,
+      "y": 11,
+      "name": "思念 R46 王都から逃げてきた女",
+      "type": "text",
+      "note": "<hai_thought:R46>",
+      "image": {
+        "characterName": "Damage1",
+        "characterIndex": 3,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "蘇生師さまが、門の内側で何かを描いていた。白い線が空まで伸びた。",
+        "「外へ。早く」と、あの方はわたしを下水の口へ押した。",
+        "しばらくして、あの方も下水へ降りてきた。暗い方へ、結界の真下へ歩いていった。",
+        "胸に、何かを刻むつもりだと言っていた。"
+      ]
+    },
+    {
+      "x": 7,
+      "y": 12,
+      "name": "西の水路（スイッチ 162 で水が満ちる）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "tileId": "B:148"
+          },
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 162,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 7,
+      "y": 13,
+      "name": "西の水路（スイッチ 162 で水が満ちる）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "tileId": "B:148"
+          },
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 162,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 7,
+      "y": 14,
+      "name": "西の水路（スイッチ 162 で水が満ちる）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "tileId": "B:148"
+          },
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 162,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 7,
+      "y": 15,
+      "name": "西の水路（スイッチ 162 で水が満ちる）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "tileId": "B:148"
+          },
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 162,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 7,
+      "y": 16,
+      "name": "西の水路（スイッチ 162 で水が満ちる）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "tileId": "B:148"
+          },
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 162,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 7,
+      "y": 17,
+      "name": "西の水路（スイッチ 162 で水が満ちる）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "tileId": "B:148"
+          },
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 162,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 32,
+      "y": 12,
+      "name": "東の水路（スイッチ 162 で水が引く）",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 162,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:148"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 32,
+      "y": 13,
+      "name": "東の水路（スイッチ 162 で水が引く）",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 162,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:148"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 32,
+      "y": 14,
+      "name": "東の水路（スイッチ 162 で水が引く）",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 162,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:148"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 32,
+      "y": 15,
+      "name": "東の水路（スイッチ 162 で水が引く）",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 162,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:148"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 32,
+      "y": 16,
+      "name": "東の水路（スイッチ 162 で水が引く）",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 162,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:148"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 32,
+      "y": 17,
+      "name": "東の水路（スイッチ 162 で水が引く）",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 162,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:148"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 32,
+      "y": 24,
+      "name": "宝箱（凍て石）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                302,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[65]凍て石 ×2を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "近衛の亡霊（黄）",
+      "type": "raw",
+      "x": 23,
+      "y": 11,
+      "note": "<hai_enemy:509,yellow>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Damage3",
+            "characterIndex": 6
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "下水の大蛇（赤）",
+      "type": "raw",
+      "x": 32,
+      "y": 22,
+      "note": "<hai_enemy:511,red>\n<hai_enemy_chase:2>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Monster",
+            "characterIndex": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2
+        }
+      ]
+    },
+    {
+      "name": "灰の澱（緑・動かない）",
+      "type": "raw",
+      "x": 7,
+      "y": 21,
+      "note": "<hai_enemy:508,green>\n<hai_enemy_chase:0>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Monster",
+            "characterIndex": 4
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2
+        }
+      ]
+    }
+  ]
+}

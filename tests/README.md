@@ -35,6 +35,7 @@ node tests/serve.mjs 8000          # 手元のブラウザで遊ぶ：http://127
 
 ## テストを足す
 - ファイル名は `tests/<レーン>_<名前>.mjs`（例 `p_symbol_enemy.mjs`、`w_prison.mjs`）。`run.mjs` が名前順に拾って 1 本ずつ別のプロセスで走らせる。
+- W5 の `w_stage2e.mjs`・`w_stage2f.mjs` は、歩く・調べる・戦う道具（w_stage2b〜2d に各ファイルで書いてあるもの）を `tests/wplay.mjs` にまとめて読む（名前に `_` が無いので `run.mjs` はテストとして走らせない）。
 - `run.mjs`・`lib.mjs`・`serve.mjs`・`js/plugins/Hai_TestHooks.js` は T レーンのもの。足りない窓口があれば PR の説明に書いて小さく足すか、T に issue を立てる。
 - 雛形：
 ```js

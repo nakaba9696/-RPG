@@ -12,7 +12,8 @@
 //   254 隠し階段はふだんの床（タイルどおり）。現れた後の移動は場所移動として数える
 // 単純にしている所（README にも書く）：
 //   - イベントのページは「ニューゲームの直後に出るページ」（スイッチ・セルフスイッチ・変数・アイテムが無い状態）で見る。
-//     ただし、どこかのページで通れるイベント（スイッチで開く扉など）は通れる扱い（仕掛けは静的には解けないので、落としすぎない側に倒す）
+//     ただし、どこかのページで通れるイベント（スイッチで開く扉など）は通れる扱い（仕掛けは静的には解けないので、落としすぎない側に倒す）。
+//     タイルの絵のイベント（通常キャラの下）も、どこかのページで通れる絵になる（水が引く・橋が架かる）なら通れる扱い
 //   - シンボル敵（<hai_enemy>）と、自律移動が「固定」でないイベントは動くので壁にしない
 //   - <hai_locked> の扉は鍵（<hai_key:アイテム ID>）を手に入れるまで壁。鍵をくれるイベント（126 で増やす）に届けば開く
 import { isWallTopTile, isWallSideTile, isRoofTile } from "../maps/autotile.mjs";
@@ -91,11 +92,15 @@ export function makeMapModel(map, tileset, { partyMembers = [], opened = new Set
     const k = key(ev.x, ev.y);
     if (meta.hai_oneway !== undefined) oneway.set(k, Math.max(oneway.get(k) || 0, onewayBack(meta)));
     const page = initialPage(ev, partyMembers);
-    if (!page) continue;
-    if (page.image.tileId > 0 && page.priorityType === 0 && !page.through) {
+    // タイルの絵のイベント：どこかのページで通れる絵になる（水が引く・橋が架かる）なら、その絵で見る。無ければ最初のページの絵
+    const isTilePage = p => p && p.image.tileId > 0 && p.priorityType === 0 && !p.through;
+    const opens = ev.pages.find(p => isTilePage(p) && ((flags[p.image.tileId] || 0) & 0x10) === 0 && ((flags[p.image.tileId] || 0) & 0x0f) !== 0x0f);
+    const tilePage = opens || (isTilePage(page) ? page : null);
+    if (tilePage) {
       if (!tileEvents.has(k)) tileEvents.set(k, []);
-      tileEvents.get(k).push(page.image.tileId);
+      tileEvents.get(k).push(tilePage.image.tileId);
     }
+    if (!page) continue;
     let blocks;
     if (meta.hai_locked !== undefined) blocks = !opened.has(ev.id);
     else if (meta.hai_enemy !== undefined || page.moveType !== 0) blocks = false;

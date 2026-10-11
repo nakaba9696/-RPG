@@ -24,6 +24,10 @@
         null,
         "B:240"
       ]
+    },
+    "w": {
+      "name": "西の扉（イベント。看守長の鍵束）",
+      "as": "."
     }
   },
   "events": [
@@ -274,6 +278,239 @@
               "parameters": []
             }
           ]
+        }
+      ]
+    },
+    {
+      "x": 5,
+      "y": 7,
+      "name": "西の扉（看守長の鍵束。下水道へ）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 1,
+            "direction": 2
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "西の壁の鉄の扉。鍵がかかっている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "錠の形が、監房の鍵とは違う。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 1,
+            "direction": 2
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "conditions": {
+            "itemId": 203,
+            "itemValid": true
+          },
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鉄の扉。鍵がかかっている。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Open1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "看守長の鍵束の一本が、錠に合った。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 1,
+            "direction": 8
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                160,
+                160,
+                0
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                100,
+                41,
+                8,
+                4,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          }
+        },
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 1,
+            "direction": 8
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                160,
+                160,
+                0
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                100,
+                41,
+                8,
+                4,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "conditions": {
+            "switch1Id": 160,
+            "switch1Valid": true
+          }
         }
       ]
     }
