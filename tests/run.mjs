@@ -2,8 +2,8 @@
 // 1 本でも落ちたら終了コード 1。
 //   node tests/run.mjs                 全部
 //   node tests/run.mjs t_smoke t_maps  名前（拡張子なし）で選ぶ
-//   node tests/run.mjs --shard 2/4     所要時間（tests/durations.json）で 4 つに均して配った 2 番目だけ（CI の並列用。--shard=2/4 も可）
-//   node tests/run.mjs --plan 4        4 つへの配り分けと見込み時間を表示するだけ（テストは走らせない）
+//   node tests/run.mjs --shard 2/6     所要時間（tests/durations.json）で 6 つに均して配った 2 番目だけ（CI の並列用。--shard=2/6 も可）
+//   node tests/run.mjs --plan 6        6 つへの配り分けと見込み時間を表示するだけ（テストは走らせない）
 //   node tests/run.mjs --no-browser    ブラウザなしのテスト（launchGame を呼ばないもの）だけ（文書だけの PR と main への push の CI 用）
 import { spawn } from "node:child_process";
 import fs from "node:fs";
