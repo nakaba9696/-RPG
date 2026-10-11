@@ -24,6 +24,7 @@
     "P3": { "switches": [[41, 50]], "maps": [], "database": [[121, 140]], "commonEvents": [[121, 130]] },
     "P4": { "switches": [[51, 60]], "maps": [], "database": [[141, 180]], "commonEvents": [[131, 140]] },
     "P5": { "switches": [[61, 70]], "maps": [], "database": [[181, 190]], "commonEvents": [[141, 150]] },
+    "P6": { "switches": [[71, 80]], "maps": [[907, 907]], "database": [[191, 200]], "commonEvents": [[151, 160]], "actors": [[5, 9]] },
     "W1": { "switches": [[201, 300]], "maps": [[10, 19], [20, 49]], "database": [[201, 300]], "commonEvents": [[201, 240]] }
   },
   "testMaps": [900, 949]

@@ -91,7 +91,7 @@
 | `clearNotes()` | メモ帳を空にする |
 | `unreadCount(mapId?)` | そのマップ（省略で今のマップ）の読んでいない思念の数。**訪れたマップだけ**分かる（訪れていないマップは 0） |
 | `thoughts(mapId?)` | そのマップの思念の一覧 `[{ id, x, y, read }]`（オートマップに印を描く用。訪れていないマップは `[]`） |
-| `KINDS` | `["clue", "door", "item"]` |
+| `KINDS` | `["clue", "door", "item", "memory"]`（`memory` は P6 の記憶の断片。`Hai_Companions` が足す） |
 
 メモの形：
 ```js

@@ -19,7 +19,7 @@
  *
  * 状態（セーブに入る）：
  *   $gameSystem._hai.thoughts = { read: { ID: true }, maps: { マップID: [{ id, eventId, x, y }] } }
- *   $gameSystem._hai.notes    = [{ id, text, mapId, x, y, kind: "clue"|"door"|"item", time, done? }]
+ *   $gameSystem._hai.notes    = [{ id, text, mapId, x, y, kind: "clue"|"door"|"item"|"memory", time, done? }]
  *
  * 窓口 window.Hai.Thoughts：
  *   isRead(id)  markRead(id)  notes(kind)  addNote(note)  hasNote(id)  clearNotes()
@@ -118,7 +118,7 @@
   const unlockSe = params.unlockSe ?? "Open1";
   const doorNoteFormat = params.doorNote || "%1が要る扉（%2 %3,%4）";
 
-  const KINDS = ["clue", "door", "item"];
+  const KINDS = ["clue", "door", "item", "memory"]; // memory は P6（Hai_Companions）の記憶の断片
 
   // ---------------------------------------------------------------------------
   // 状態（$gameSystem._hai.thoughts と $gameSystem._hai.notes）
