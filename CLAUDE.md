@@ -3,6 +3,8 @@
 - エンジンは **RPGツクールMZ**。リポジトリ直下が MZ のプロジェクト（`Game.rmmzproject`、`index.html`、`js/`、`data/`、`img/`、`audio/` …）。
 - 読むべきもの：[VISION.md](VISION.md)（何を作るか）、[docs/ROADMAP.md](docs/ROADMAP.md)（レーン・ID の帯・約束）、
   [docs/mz-data.md](docs/mz-data.md)（`data/*.json` の形・タイル ID・オートタイル）、[docs/world.md](docs/world.md)（世界設定。D1 以降）。
+- 文を書く前に読むもの：[docs/knowhow.md](docs/knowhow.md)（創作・文章・キャラの決まり）。プレイヤーに見える文は knowhow.md の「避ける癖」を守る。
+- 設定の段階の印〔知〕〔噂〕〔進〕〔秘〕を守る（world.md・world2.md の各項目。禁止語は world.md 10 章、口調は 11 章）。既存の文の直しは [docs/rewrite.md](docs/rewrite.md) に書く。
 - ゲームの手本は Fanastasis だが、固有名詞・台詞・素材は使わない。すべて自作する（絵と音は MZ 同梱の素材と自作のもの）。
 - UI の文言・コメント・PR の説明は日本語。コミットや PR にモデル名を書かない。
 
