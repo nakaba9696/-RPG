@@ -1,0 +1,287 @@
+{
+  "_説明": "W4：紙魚の王の間（docs/world2.md 6 章）。南の口（← 082 の大扉）→ 円形の閲覧台。頁の山の上の紙魚の王（ボス。話しかけると「ボス戦」、逃げたら 082 (28,20)）。倒すとスイッチ 152 で北の扉が開く → 084。",
+  "mapId": 83,
+  "name": "紙魚の王の間",
+  "displayName": "紙魚の王の間",
+  "legend": "library",
+  "tilesetId": 16,
+  "note": "<hai_tone:-17,-17,-34,68>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "DecorativeTile2",
+    "battleback2Name": "Room3"
+  },
+  "chars": {
+    "N": {
+      "name": "北の扉（イベント）",
+      "as": ","
+    },
+    "S": {
+      "name": "南の口（場所移動のマス）",
+      "as": ","
+    }
+  },
+  "events": [
+    {
+      "x": 13,
+      "y": 16,
+      "name": "南の口（禁書庫の大扉へ）",
+      "type": "transfer",
+      "to": [
+        82,
+        28,
+        20,
+        "up"
+      ]
+    },
+    {
+      "x": 14,
+      "y": 16,
+      "name": "南の口（禁書庫の大扉へ）",
+      "type": "transfer",
+      "to": [
+        82,
+        29,
+        20,
+        "up"
+      ]
+    },
+    {
+      "x": 13,
+      "y": 7,
+      "name": "紙魚の王（ボス）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 7,
+            "direction": 2
+          },
+          "priorityType": 1,
+          "directionFix": true,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "頁の山の上で、紙魚の群れが一つの大きな形に寄り集まっている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "形は、本を読む人の背に似ていた。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Boss",
+                "bossBattle",
+                "ボス戦",
+                {
+                  "troopId": "412",
+                  "escapeMapId": "82",
+                  "escapeX": "28",
+                  "escapeY": "20",
+                  "escapeDirection": "8"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "敵グループ = 0412:W4_ボス：紙魚の王"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "逃げたときのマップ = 82"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "逃げたときの X = 28"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "逃げたときの Y = 20"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "逃げたときの向き = 上"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "Hai.Boss.lastResult() === 0"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "紙魚の王はばらばらにほどけて、頁の山に散った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "北の扉の向こうで、何かが小さく光っている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 152,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 13,
+      "y": 3,
+      "name": "北の扉（オーブの間へ）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 2,
+            "direction": 2
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "重い扉。頁の山が崩れて、内側から塞いでいる。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 152,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 2,
+            "direction": 8
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                84,
+                8,
+                9,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
