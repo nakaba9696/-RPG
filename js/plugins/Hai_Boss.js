@@ -235,7 +235,22 @@
     this._haiBossPhase = 1;
     this._haiBossDone = [];
     this._haiBossHinted = [];
+    preloadForms(enemyId);
   };
+
+  /** 形態変化の先の絵を先に読んでおく（読み込みの間、敵の絵が消えないように）。 */
+  function preloadForms(enemyId, seen = []) {
+    if (seen.includes(enemyId)) return;
+    seen.push(enemyId);
+    for (const t of transformsOf($dataEnemies[enemyId])) {
+      const data = $dataEnemies[t.to];
+      if (data.battlerName) {
+        if ($gameSystem.isSideView()) ImageManager.loadSvEnemy(data.battlerName);
+        else ImageManager.loadEnemy(data.battlerName);
+      }
+      preloadForms(t.to, seen);
+    }
+  }
 
   const _Game_Enemy_makeActionTimes = Game_Enemy.prototype.makeActionTimes;
   Game_Enemy.prototype.makeActionTimes = function() {

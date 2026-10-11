@@ -37,7 +37,15 @@ await runTest(async () => {
       const addText = Window_BattleLog.prototype.addText;
       Window_BattleLog.prototype.addText = function(text) {
         window.__log.texts.push(text);
+        if (text === window.__freezeOn) {
+          window.__freezeOn = null;
+          window.__frozen = true; // スクリーンショット用：次の更新から止める
+        }
         return addText.apply(this, arguments);
+      };
+      const updateMain = SceneManager.updateMain;
+      SceneManager.updateMain = function() {
+        if (!window.__frozen) updateMain.apply(this, arguments);
       };
       const startAction = BattleManager.startAction;
       BattleManager.startAction = function() {
@@ -89,9 +97,11 @@ await runTest(async () => {
       }
     };
     // plan[i]：パーティの i 番目の行動。"guard" / "attack" / { skill }（狙いは敵の 0 番）
-    // shotOn を渡すと、その文章が戦闘ログに出ている所でスクリーンショットを撮る（そこまでは等速）
+    // shotOn を渡すと、その文章が戦闘ログに足された所でゲームの更新を止めて（描画は続く）スクリーンショットを撮る。
+    // 等速で待つと、描画の遅い CI ではそこまでの数百フレームに時間がかかりすぎるので、早送りのまま止める。
     const turn = async (plan, shotOn) => {
-      await game.call("setSpeed", shotOn ? 1 : FAST);
+      await game.call("setSpeed", FAST);
+      if (shotOn) await game.eval(t => { window.__freezeOn = t; }, shotOn.text);
       await game.eval(p => {
         $gameParty.members().forEach((a, i) => {
           const act = a.action(0);
@@ -106,19 +116,23 @@ await runTest(async () => {
         SceneManager._scene.changeInputWindow();
       }, plan);
       if (shotOn) {
-        const t0 = Date.now();
-        for (;;) {
-          const shown = await game.eval(t => {
-            const w = SceneManager._scene._logWindow;
-            return w._lines.includes(t) ? "yes" : BattleManager.isInputting() ? "over" : "no";
-          }, shotOn.text);
-          if (shown === "yes") {
-            await game.shot(shotOn.label);
-            break;
-          }
-          check(shown !== "over" && Date.now() - t0 < 120_000, `戦闘ログに「${shotOn.text}」が出なかった`);
+        const handle = await game.page.waitForFunction(
+          () => (window.__frozen ? "frozen" : BattleManager.isInputting() || !(SceneManager._scene instanceof Scene_Battle) ? "over" : null),
+          null, { timeout: 180_000, polling: 50 });
+        const st = await handle.jsonValue();
+        check(st === "frozen", `戦闘ログに「${shotOn.text}」が出なかった`);
+        check(await game.eval(t => SceneManager._scene._logWindow._lines.includes(t), shotOn.text), `「${shotOn.text}」が戦闘ログの窓に無い`);
+        await game.page.waitForTimeout(500); // 止めたまま数回描画させる
+        if (shotOn.sprite) {
+          // 止めた所で、敵の絵が変わった先の絵で描かれている（先読みしていないと読み込みの間は消える）
+          const sp = await game.eval(() => {
+            const s = SceneManager._scene._spriteset._enemySprites[0];
+            return { name: s._battlerName, ready: s.bitmap.isReady(), w: s._frame.width, h: s._frame.height };
+          });
+          check(sp.name === shotOn.sprite && sp.ready && sp.w > 0 && sp.h > 0, "形態変化の先の絵が描かれていない " + JSON.stringify(sp));
         }
-        await game.call("setSpeed", FAST);
+        await game.shot(shotOn.label);
+        await game.eval(() => { window.__frozen = false; });
       }
       await waitInput();
       await game.call("setSpeed", 1);
@@ -190,7 +204,7 @@ await runTest(async () => {
 
     // ===== 4. HP 30% で形態変化 =====
     await game.eval(() => $gameTroop.members()[0].setHp(930)); // 31%
-    await turn(mage, { text: TRANSFORM, label: "transform" });
+    await turn(mage, { text: TRANSFORM, label: "transform", sprite: "Demon_metamorphosis" });
     const tf = (await log()).transforms;
     check(tf.length === 1, "形態変化が 1 回でない " + JSON.stringify(tf));
     const { before, after } = tf[0];
