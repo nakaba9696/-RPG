@@ -1,0 +1,154 @@
+{
+  "_説明": "P8：創作者の厨房（docs/world.md 3.1・3.3。北東の扉から入る）。かまど・流し・調理台。調理台を調べると合成（Hai_Facilities の use kitchen → Hai_Craft の画面）。出口は南の (8,12) → Map010 の北東の扉の前。",
+  "mapId": 12,
+  "name": "創作者の厨房",
+  "parentId": 10,
+  "displayName": "創作者の厨房",
+  "legend": "dungeon",
+  "tilesetId": 11,
+  "note": "<hai_tone:-34,-34,-17,51>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Stone2",
+    "battleback2Name": "Room1"
+  },
+  "chars": {
+    "K": {
+      "name": "かまど（通れない）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "D:200"
+      ]
+    },
+    "N": {
+      "name": "流し（通れない）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "D:201"
+      ]
+    },
+    "P": {
+      "name": "調理台A（通れない）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "D:202"
+      ]
+    },
+    "Q": {
+      "name": "調理台B（通れない）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "D:203"
+      ]
+    },
+    "t": {
+      "name": "食器棚の上（壁に重ねる）",
+      "as": "=",
+      "tiles": [
+        null,
+        null,
+        "D:140"
+      ]
+    },
+    "T": {
+      "name": "食器棚の下（通れない）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "D:148"
+      ]
+    },
+    "R": {
+      "name": "樽（通れない）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "D:212"
+      ]
+    },
+    "O": {
+      "name": "壺（通れない）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "D:209"
+      ]
+    },
+    "s": {
+      "name": "麻袋（通れない）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "D:248"
+      ]
+    }
+  },
+  "events": [
+    {
+      "x": 8,
+      "y": 12,
+      "name": "出口（牢獄の間へ）",
+      "type": "transfer",
+      "to": [
+        10,
+        27,
+        9,
+        "down"
+      ]
+    },
+    {
+      "x": 8,
+      "y": 3,
+      "name": "創作者の調理台",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "tileId": "D:202"
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Facilities",
+                "use",
+                "施設を使う",
+                {
+                  "facility": "kitchen"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "施設 = kitchen"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
