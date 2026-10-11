@@ -11,7 +11,9 @@
 | 地図（`map`） | 左下の上 | `Hai.AutoMap.open()`（U1）。メニューが開ける間だけ。`Hai.AutoMap` が無ければ出さない | 出さない |
 | ダッシュ（`dash`） | 右下の上 | ダッシュの入り切り（切替。Shift と同じ向きに足す。`ConfigManager.alwaysDash` とも重なる）。入っている間は金色 | 出さない |
 
-- 位置は `Graphics.boxWidth` / `boxHeight` から決める（右下・左下の余白 20px、ボタンどうしの間 16px）。
+- 位置は UI の領域（`Graphics.boxWidth` / `boxHeight`）のうち、**ブラウザの画面に見えている部分**の隅から決める（右下・左下の余白 20px、ボタンどうしの間 16px）。
+  - MZ は UA が携帯（Android・iPhone など）のときだけキャンバスを画面に合わせて縮める（`Graphics._defaultStretchMode`）。UA が携帯でないタッチ端末（iPadOS の Safari は既定で Mac の UA、細い窓のタッチ PC）では 1280×720 のキャンバスがはみ出して右と下が切れるので、キャンバスの位置（`getBoundingClientRect`）と `visualViewport` から見えている範囲を測り、その中に置く（#110）。
+  - 測り直すのは画面の大きさが変わったとき（`resize`・`orientationchange`・`visualViewport` の `resize`/`scroll`）と 60 フレームごと。
 - 大きさは 120px（パラメータ `size`）。縦画面（720×1280。ブラウザが画面全体を 720 幅に縮める）でも 120 × 0.5625 ≒ 67px で、64px を割らない。
 - ボタンの上のタップはマップの移動先にならない（`Scene_Map.isAnyButtonPressed` を alias）。一瞬のタップも拾う。
 - 2 本指でキャンセル・長押しダッシュ・右上のメニューボタン（`ConfigManager.touchUI`）は MZ のまま。
@@ -33,10 +35,12 @@
 | `show()`／`hide()` | 「タッチボタン」を ON／OFF にする（保存はしない） |
 | `isShown()` | 今のシーンでボタンが出ているか |
 | `press(name)` | テスト用。`ok`・`menu`・`cancel`・`map`・`dash` |
-| `rect(name)` | ボタンの矩形 `{ x, y, width, height }`。出ていなければ `null` |
+| `rect(name)` | ボタンの矩形 `{ x, y, width, height }`（ゲームの座標）。出ていなければ `null` |
+| `visibleArea()` | ボタンを置く領域（UI の領域のうち画面に見えている部分。ゲームの座標）。呼ぶと測り直す |
 
 ## キー割り当てとの関係
 ボタンは `Input._currentState` の `ok`・`escape` を立てるだけで、新しいキーは足さない（[keys.md](keys.md) は U1 のマージ後に、この表への参照を足す）。
 
 ## テスト
 `tests/u_touch.mjs`（`hasTouch`・`isMobile`・Android の UA・縦の `viewport` の文脈。`tests/lib.mjs` の `launchGame({ context })`）。
+最後に、ふつうの 1280×720・720×1280 の窓と、`isMobile` で UA が携帯でない文脈で、4 つのボタンと戦闘の「決定」「戻る」が画面の中にあるかを見る。

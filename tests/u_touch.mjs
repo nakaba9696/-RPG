@@ -1,6 +1,7 @@
 // U2 スマホ操作（js/plugins/Hai_TouchUI.js）の検査。タッチ端末の文脈（hasTouch・isMobile）で：
 //   ボタンが出る → 「調べる」でイベントが始まる → 「ダッシュ」の入り切り → 「メニュー」でメニュー → 「地図」で地図（Hai_AutoMap があるとき）→
-//   戦闘中は「決定」「戻る」だけ → オプションに「タッチボタン」があり OFF で消える → 縦画面（720×1280）でもボタンが画面内で 64px 以上。
+//   戦闘中は「決定」「戻る」だけ → オプションに「タッチボタン」があり OFF で消える → 縦画面（720×1280）でもボタンが画面内で 64px 以上 →
+//   ふつうの 1280×720・720×1280 の窓と、UA が携帯でないタッチ端末（MZ がキャンバスを縮めない）でも、ボタンと戦闘の「戻る」が画面の中（#110）。
 import { launchGame, check, runTest } from "./lib.mjs";
 
 // MZ は UA が携帯のときだけ画面に合わせて拡縮する（Graphics._stretchEnabled）ので、Android の UA も渡す
@@ -14,16 +15,24 @@ async function cssRect(game, name) {
     const r = Hai.TouchUI.rect(n);
     if (!r) return null;
     const c = Graphics._canvas.getBoundingClientRect();
-    const k = c.width / Graphics.boxWidth;
-    return { x: c.left + r.x * k, y: c.top + r.y * k, width: r.width * k, height: r.height * k, vw: innerWidth, vh: innerHeight };
+    const k = c.width / Graphics.width; // ボタンはシーンの子なので、座標は Graphics.width / height の中
+    const vv = window.visualViewport;
+    const v = vv ? { left: vv.offsetLeft, top: vv.offsetTop, vw: vv.offsetLeft + vv.width, vh: vv.offsetTop + vv.height } : { left: 0, top: 0, vw: innerWidth, vh: innerHeight };
+    return { x: c.left + r.x * k, y: c.top + r.y * k, width: r.width * k, height: r.height * k, ...v };
   }, name);
 }
 
-/** ボタンの真ん中を指でタップする。 */
-async function tap(game, name) {
+/** ブラウザの画面（見えている範囲）の中にあるか。 */
+function inView(r) {
+  return r.x >= r.left - 0.5 && r.y >= r.top - 0.5 && r.x + r.width <= r.vw + 0.5 && r.y + r.height <= r.vh + 0.5;
+}
+
+/** ボタンの真ん中を指でタップする（mouse が真ならマウスで押す）。 */
+async function tap(game, name, mouse = false) {
   const r = await cssRect(game, name);
   check(r, `ボタン ${name} が出ていない`);
-  await game.page.touchscreen.tap(r.x + r.width / 2, r.y + r.height / 2);
+  if (mouse) await game.page.mouse.click(r.x + r.width / 2, r.y + r.height / 2);
+  else await game.page.touchscreen.tap(r.x + r.width / 2, r.y + r.height / 2);
   await game.frames(6);
 }
 
@@ -144,7 +153,7 @@ await runTest(async () => {
     for (const n of ["ok", "menu", "dash"]) {
       const r = await cssRect(game, n);
       check(r, `縦画面でボタン ${n} が無い`);
-      check(r.x >= 0 && r.y >= 0 && r.x + r.width <= r.vw + 0.5 && r.y + r.height <= r.vh + 0.5, `縦画面でボタン ${n} が画面の外 ${JSON.stringify(r)}`);
+      check(inView(r), `縦画面でボタン ${n} が画面の外 ${JSON.stringify(r)}`);
       check(r.width >= 64 && r.height >= 64, `縦画面でボタン ${n} が小さい（${r.width.toFixed(1)}px）`);
     }
     await game.shot("portrait");
@@ -154,5 +163,47 @@ await runTest(async () => {
     game.assertNoErrors();
   } finally {
     await game.close();
+  }
+
+  // ---- 画面の中に収まるか（#110）----
+  // ふつうの窓（MZ はキャンバスを縮めない）と、isMobile だが UA が携帯でない端末
+  // （レイアウトの幅が 980 になり、縮まないキャンバスの右と下が切れる。iPadOS の Safari と同じ形）。
+  const FIT = {
+    "1280x720": {},
+    "720x1280": { viewport: { width: 720, height: 1280 } },
+    isMobile: { hasTouch: true, isMobile: true },
+  };
+  for (const [label, context] of Object.entries(FIT)) {
+    game = await launchGame({ context });
+    try {
+      await game.call("newGame");
+      await game.waitScene("Scene_Map");
+      await game.eval(() => Hai.TouchUI.show());
+      await game.frames(4);
+      const names = ["ok", "menu", "dash"];
+      if (await game.eval(() => !!(Hai.AutoMap && Hai.AutoMap.open))) names.push("map");
+      for (const n of names) {
+        const r = await cssRect(game, n);
+        check(r, `${label}：ボタン ${n} が無い`);
+        check(inView(r), `${label}：ボタン ${n} が画面の外 ${JSON.stringify(r)}`);
+      }
+      await game.shot("fit-" + label);
+      // 出ている所で押せる（ダッシュが入る）
+      await tap(game, "dash", !context.hasTouch);
+      check(await game.eval(() => $gamePlayer.isDashButtonPressed()), `${label}：ダッシュのタップが効かない`);
+      await game.call("strengthenParty");
+      await game.call("startBattle", 1, true, false);
+      await game.waitScene("Scene_Battle");
+      await game.frames(4);
+      for (const n of ["ok", "cancel"]) {
+        const r = await cssRect(game, n);
+        check(r, `${label}：戦闘でボタン ${n} が無い`);
+        check(inView(r), `${label}：戦闘でボタン ${n} が画面の外 ${JSON.stringify(r)}`);
+      }
+      await game.shot("fit-" + label + "-battle");
+      game.assertNoErrors();
+    } finally {
+      await game.close();
+    }
   }
 });
