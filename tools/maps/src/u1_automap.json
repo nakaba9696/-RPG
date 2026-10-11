@@ -1,0 +1,84 @@
+{
+  "_説明": "U1 のオートマップとメモの画面のテスト用（T の帯のうち 906 を U1 が使う）。製品のマップからは行けない。西の部屋に思念 1 つと宝箱、東の部屋へは見えない通路（P2）と施錠扉（P3）。暗い色調で地図の画面が読めるかを見る。",
+  "mapId": 906,
+  "name": "T_オートマップ",
+  "displayName": "オートマップの試験場",
+  "legend": "dungeon",
+  "bgm": "Dungeon1",
+  "note": "<hai_tone:-68,-68,-34,68>",
+  "chars": {
+    "S": { "name": "テストの開始地点", "as": "." },
+    "a": { "name": "残留思念（手がかり付き）", "as": "." },
+    "K": { "name": "宝箱（ポーション）", "as": "." },
+    "L": { "name": "施錠扉（試験場の鍵。この地図には鍵が無い）", "as": "." },
+    "R": { "name": "宝箱（ポーション）", "as": "." }
+  },
+  "events": [
+    {
+      "at": "a", "name": "思念 U1a 道に迷った巡礼者", "type": "text",
+      "note": "<hai_thought:U1a><hai_clue:東の部屋へは、苔の生えた床の先の壁を抜けられる（オートマップの試験場）>",
+      "image": { "characterName": "Damage1", "characterIndex": 1, "direction": 2, "pattern": 1 },
+      "lines": [
+        "同じ所をぐるぐる回っている気がする。壁という壁を書き留めておくべきだった。",
+        "東の部屋へ行きたいのに、扉には鍵がかかっている。",
+        "……苔の生えた床の先の壁だけ、風が抜けてくる。"
+      ]
+    },
+    {
+      "at": "K", "name": "宝箱", "type": "raw",
+      "pages": [
+        {
+          "image": { "characterName": "!Chest", "characterIndex": 0, "direction": 2, "pattern": 0 },
+          "priorityType": 1, "trigger": 0, "walkAnime": false,
+          "list": [
+            { "code": 126, "indent": 0, "parameters": [7, 0, 0, 1] },
+            { "code": 123, "indent": 0, "parameters": ["A", 0] },
+            { "code": 101, "indent": 0, "parameters": ["", 0, 0, 2, ""] },
+            { "code": 401, "indent": 0, "parameters": ["ポーションを手に入れた！"] },
+            { "code": 0, "indent": 0, "parameters": [] }
+          ]
+        },
+        {
+          "conditions": { "selfSwitchCh": "A", "selfSwitchValid": true },
+          "image": { "characterName": "!Chest", "characterIndex": 0, "direction": 8, "pattern": 0 },
+          "priorityType": 1, "trigger": 0, "walkAnime": false
+        }
+      ]
+    },
+    {
+      "at": "L", "name": "施錠扉", "type": "raw", "note": "<hai_locked:試験場の鍵><hai_key:121>",
+      "pages": [
+        {
+          "image": { "characterName": "!Door1", "characterIndex": 0, "direction": 2, "pattern": 0 },
+          "priorityType": 1, "trigger": 0, "walkAnime": false
+        },
+        {
+          "conditions": { "selfSwitchCh": "A", "selfSwitchValid": true },
+          "image": { "characterName": "!Door1", "characterIndex": 0, "direction": 8, "pattern": 0 },
+          "priorityType": 0, "trigger": 0, "walkAnime": false
+        }
+      ]
+    },
+    {
+      "at": "R", "name": "宝箱", "type": "raw",
+      "pages": [
+        {
+          "image": { "characterName": "!Chest", "characterIndex": 0, "direction": 2, "pattern": 0 },
+          "priorityType": 1, "trigger": 0, "walkAnime": false,
+          "list": [
+            { "code": 126, "indent": 0, "parameters": [7, 0, 0, 2] },
+            { "code": 123, "indent": 0, "parameters": ["A", 0] },
+            { "code": 101, "indent": 0, "parameters": ["", 0, 0, 2, ""] },
+            { "code": 401, "indent": 0, "parameters": ["ポーションを 2 つ手に入れた！"] },
+            { "code": 0, "indent": 0, "parameters": [] }
+          ]
+        },
+        {
+          "conditions": { "selfSwitchCh": "A", "selfSwitchValid": true },
+          "image": { "characterName": "!Chest", "characterIndex": 0, "direction": 8, "pattern": 0 },
+          "priorityType": 1, "trigger": 0, "walkAnime": false
+        }
+      ]
+    }
+  ]
+}
