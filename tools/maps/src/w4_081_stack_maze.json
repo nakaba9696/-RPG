@@ -1,0 +1,764 @@
+{
+  "_説明": "W4：書架の迷路（docs/world2.md 6 章）。南の入口（← 080）→ 本棚の迷路（幅 1。黄 2・緑 1）。中央の東西の通路を赤「書架の番人」が往復する。南東の隅の苔 (35,27) から東の石の壁の中を北へ H29（見えない通路。影なし）→ 北の廊下の東の端。西の写字室に結界と夜の閲覧の札。北東の焼けた区画に R36 とノクスの記憶 2。北の廊下の真ん中に番号錠 725 の鉄の扉 → 下り階段 → 082。",
+  "mapId": 81,
+  "name": "書架の迷路",
+  "displayName": "古書院・書架の迷路",
+  "legend": "library",
+  "tilesetId": 16,
+  "note": "<hai_tone:17,0,-34,68>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "DecorativeTile1",
+    "battleback2Name": "Room2"
+  },
+  "chars": {
+    "S": {
+      "name": "南の扉（イベント）",
+      "as": ","
+    },
+    "L": {
+      "name": "禁書庫の鉄の扉（イベント）",
+      "as": "."
+    },
+    ">": {
+      "name": "下り階段（階段C（下り）。場所移動のマス）",
+      "as": ",",
+      "tiles": [
+        null,
+        null,
+        "B:26"
+      ]
+    }
+  },
+  "events": [
+    {
+      "x": 21,
+      "y": 32,
+      "name": "南の扉（閲覧室へ）",
+      "type": "transfer",
+      "to": [
+        80,
+        19,
+        4,
+        "down"
+      ],
+      "image": {
+        "characterName": "!Door1",
+        "characterIndex": 0,
+        "direction": 2
+      }
+    },
+    {
+      "x": 21,
+      "y": 2,
+      "name": "下り階段（禁書庫へ）",
+      "type": "transfer",
+      "to": [
+        82,
+        3,
+        22,
+        "down"
+      ]
+    },
+    {
+      "x": 21,
+      "y": 5,
+      "name": "禁書庫の鉄の扉（番号錠 725）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "下り階段の前の鉄の扉。三桁の番号を合わせる錠が付いている。"
+              ]
+            },
+            {
+              "code": 103,
+              "indent": 0,
+              "parameters": [
+                104,
+                3
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                1,
+                104,
+                0,
+                725,
+                0
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Open1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 1,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "カチリと錠が外れた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Buzzer1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "……違うようだ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 6,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 0,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "x": 4,
+      "y": 17,
+      "name": "写字室の結界（灰の泉と記録の書見台）",
+      "type": "raw",
+      "note": "<hai_warp:古書院の写字室>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Crystal",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "directionFix": true,
+          "trigger": 0
+        }
+      ]
+    },
+    {
+      "x": 2,
+      "y": 15,
+      "name": "夜の閲覧の札（写字室の机）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "tileId": "E:75"
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "机に、札の束が紐でくくって置いてある。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                404,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[191]夜の閲覧の札を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 35,
+      "y": 3,
+      "name": "思念 R36 焚書を命じた司祭",
+      "type": "text",
+      "note": "<hai_thought:R36>",
+      "image": {
+        "characterName": "Damage1",
+        "characterIndex": 3,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "焚書は私が命じた。教会の上から命じられたからだ。",
+        "聖女の記録と、それから、悪魔の契約の作法を書いた古い写本。",
+        "燃やす前に、司書が写しを取っていたのを、私は見ていた。",
+        "見なかったことにした。私が守れた本は、それだけだ。"
+      ]
+    },
+    {
+      "x": 37,
+      "y": 1,
+      "name": "ノクスの記憶 2「転機」（焼け残りの書架）",
+      "type": "text",
+      "note": "<hai_memory:7,2>",
+      "image": {
+        "tileId": "D:185"
+      },
+      "lines": [
+        "焚書の命令が来た。聖女の記録と、古い契約の写本。",
+        "私は三晩かけて、点の字で写しを作った。目の見えぬ者にしか読めぬ写しを。",
+        "燃やされたのは元の本だけだ。火の匂いを、私は書架の陰で嗅いでいた。"
+      ]
+    },
+    {
+      "name": "宝箱（凍て石）",
+      "type": "raw",
+      "note": "",
+      "x": 39,
+      "y": 6,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                302,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[65]凍て石を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 6,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "写字の亡霊（黄・巡回）",
+      "type": "raw",
+      "x": 15,
+      "y": 11,
+      "note": "<hai_enemy:409,yellow>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Monster",
+            "characterIndex": 3
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 5,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "写字の亡霊（黄・巡回）",
+      "type": "raw",
+      "x": 27,
+      "y": 15,
+      "note": "<hai_enemy:409,yellow>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Monster",
+            "characterIndex": 3
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 5,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "焚書の灰（黄）",
+      "type": "raw",
+      "x": 37,
+      "y": 4,
+      "note": "<hai_enemy:410,yellow>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "!Flame",
+            "characterIndex": 0
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2
+        }
+      ]
+    },
+    {
+      "name": "紙魚（緑・巡回）",
+      "type": "raw",
+      "x": 13,
+      "y": 25,
+      "note": "<hai_enemy:407,green>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Monster",
+            "characterIndex": 7
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 5,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "書架の番人（赤・中央の通路を往復）",
+      "type": "raw",
+      "x": 21,
+      "y": 19,
+      "note": "<hai_enemy:411,red>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Monster",
+            "characterIndex": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 5,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    }
+  ]
+}

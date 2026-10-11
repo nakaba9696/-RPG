@@ -1,0 +1,483 @@
+{
+  "_説明": "W4：古書院・前庭と閲覧室（docs/world2.md 6 章）。南の坂（← 063 の裏口）→ 前庭（焼けた本の山、緑 2）→ 閲覧室：R35、点の字の石板にノクスの記憶 1、習字の帳面にシオンの記憶 1、長机に点の字の栞、緑 1。西の目録の部屋に R34（番号錠 725）、西の書架の一つ（本棚B）が H28 の隠し扉 → 赤い宝箱「灰樫の杖」。北の扉 → 081。",
+  "mapId": 80,
+  "name": "古書院・前庭と閲覧室",
+  "displayName": "古書院",
+  "legend": "library",
+  "tilesetId": 16,
+  "note": "<hai_tone:17,0,-34,68>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "DecorativeTile1",
+    "battleback2Name": "Room2"
+  },
+  "chars": {
+    "s": {
+      "name": "南の坂（場所移動のマス）",
+      "as": ","
+    },
+    "N": {
+      "name": "北の扉（イベント）",
+      "as": "."
+    }
+  },
+  "events": [
+    {
+      "x": 18,
+      "y": 29,
+      "name": "南の坂（焚刑の教会の裏口へ）",
+      "type": "transfer",
+      "to": [
+        63,
+        17,
+        6,
+        "down"
+      ]
+    },
+    {
+      "x": 19,
+      "y": 29,
+      "name": "南の坂（焚刑の教会の裏口へ）",
+      "type": "transfer",
+      "to": [
+        63,
+        17,
+        6,
+        "down"
+      ]
+    },
+    {
+      "x": 20,
+      "y": 29,
+      "name": "南の坂（焚刑の教会の裏口へ）",
+      "type": "transfer",
+      "to": [
+        63,
+        17,
+        6,
+        "down"
+      ]
+    },
+    {
+      "x": 19,
+      "y": 3,
+      "name": "北の扉（書架の迷路へ）",
+      "type": "transfer",
+      "to": [
+        81,
+        21,
+        29,
+        "up"
+      ],
+      "image": {
+        "characterName": "!Door1",
+        "characterIndex": 0,
+        "direction": 2
+      }
+    },
+    {
+      "x": 17,
+      "y": 15,
+      "name": "思念 R35 書院の写字生",
+      "type": "text",
+      "note": "<hai_thought:R35>",
+      "image": {
+        "characterName": "Damage1",
+        "characterIndex": 1,
+        "direction": 2,
+        "pattern": 2
+      },
+      "lines": [
+        "聖女の奇跡の記録を、二百年分さかのぼって写した。",
+        "病が鎮まった年に、聖女はもう生きていなかった。年が合わない。",
+        "写した帳面は、翌朝すべて教会に持っていかれた。",
+        "記録は嘘だった。私は、覚えていることにした。"
+      ]
+    },
+    {
+      "x": 25,
+      "y": 10,
+      "name": "ノクスの記憶 1「生い立ち」（点の字の石板）",
+      "type": "text",
+      "note": "<hai_memory:7,1>",
+      "image": {
+        "tileId": "B:177"
+      },
+      "lines": [
+        [
+          "壁に立てかけた石板。小さな点が、びっしりと打ってある。"
+        ],
+        [
+          "生まれたときから、世界は音と手触りだった。",
+          "石の板に刻まれた古い点の字を、指でなぞるのが好きだった。",
+          "書院の老司書が、それを読める子を探していた。",
+          "「目の見える者には読めぬ字だ」と老司書は笑った。私の居場所は、そこになった。"
+        ]
+      ]
+    },
+    {
+      "x": 22,
+      "y": 14,
+      "name": "シオンの記憶 1「生い立ち」（孤児院の子らの習字の帳面）",
+      "type": "text",
+      "note": "<hai_memory:9,1>",
+      "image": {
+        "tileId": "E:69"
+      },
+      "lines": [
+        [
+          "長机に、子どもの習字の帳面が開いたままになっている。"
+        ],
+        [
+          "（帳面の隅に、子どもの字で）",
+          "にいさんに字をおそわった。にいさんはやさしい。でも、あまりわらわない。",
+          "にいさんは夜、ずっと本をよんでいる。しなない方法をさがしてるんだって。",
+          "ぼくも大きくなったら、にいさんのてつだいをする。"
+        ]
+      ]
+    },
+    {
+      "x": 17,
+      "y": 11,
+      "name": "点の字の栞（閲覧室の長机）",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "tileId": "E:64"
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "長机に、細い板の栞が一本置いてある。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                403,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[189]点の字の栞を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "x": 8,
+      "y": 11,
+      "name": "思念 R34 目録係（目録の札）",
+      "type": "text",
+      "note": "<hai_thought:R34><hai_clue:古書院の禁書庫の扉の番号は 7・2・5>",
+      "image": {
+        "tileId": "E:82"
+      },
+      "lines": [
+        "禁書庫の扉の番号は、目録の札と同じにしてある。",
+        "棚の七、段の二、五冊目。",
+        "司書さまは目が見えないのに、札の場所を全部指で覚えていた。"
+      ]
+    },
+    {
+      "name": "赤い宝箱（灰樫の杖）",
+      "type": "raw",
+      "note": "",
+      "x": 1,
+      "y": 13,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 127,
+              "indent": 0,
+              "parameters": [
+                402,
+                0,
+                0,
+                1,
+                false
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[101]灰樫の杖を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "紙魚（緑・巡回）",
+      "type": "raw",
+      "x": 16,
+      "y": 22,
+      "note": "<hai_enemy:407,green>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Monster",
+            "characterIndex": 7
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 5,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "紙魚（緑・巡回）",
+      "type": "raw",
+      "x": 22,
+      "y": 24,
+      "note": "<hai_enemy:407,green>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Monster",
+            "characterIndex": 7
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 5,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "インク溜まり（緑・動かない）",
+      "type": "raw",
+      "x": 25,
+      "y": 13,
+      "note": "<hai_enemy:408,green>\n<hai_enemy_chase:0>",
+      "pages": [
+        {
+          "image": {
+            "pattern": 1,
+            "direction": 2,
+            "characterName": "Monster",
+            "characterIndex": 5
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2
+        }
+      ]
+    }
+  ]
+}

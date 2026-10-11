@@ -1,5 +1,5 @@
 {
-  "_説明": "W1：礼拝堂の地下納骨所（docs/world.md 4.2）。021 の祭壇裏の隠し階段から降りる。骨の棚の通路 → 聖女の棺の部屋（R06）。北東の隠し扉 H05 の奥に赤い宝箱。東の奥の扉は H06（→ 026 の物置）。",
+  "_説明": "W1：礼拝堂の地下納骨所（docs/world.md 4.2）。021 の祭壇裏の隠し階段から降りる。骨の棚の通路 → 聖女の棺の部屋（R06）。北東の隠し扉 H05 の奥に赤い宝箱。東の奥の扉は H06（→ 026 の物置）。聖女の棺の部屋の西の壁 (12,10) は H31 の表（スイッチ 164 で 082 へ。W4）。",
   "mapId": 22,
   "name": "礼拝堂の地下納骨所",
   "displayName": "地下納骨所",
@@ -290,6 +290,63 @@
           "trigger": 2,
           "moveType": 1,
           "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "x": 12,
+      "y": 10,
+      "name": "聖女の棺の部屋の西の壁（H31 の表）",
+      "type": "raw",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 164,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 6,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                82,
+                7,
+                13,
+                6,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
         }
       ]
     },

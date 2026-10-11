@@ -19,6 +19,10 @@
  *   isShown()         今のシーンでボタンが出ているか
  *   press(name)       テスト用：ボタンを押す。name は ok・menu・map・dash（cancel も可）
  *   rect(name)        ボタンの画面上の矩形 { x, y, width, height }（ゲームの座標）。出ていなければ null
+ *   visibleArea()     ボタンを置く領域（UI の領域のうちブラウザの画面に見えている部分。ゲームの座標）
+ *
+ * 置き場所：UA が携帯でないタッチ端末（iPadOS の Safari など）では MZ がキャンバスを縮めず、
+ * 画面の右と下が切れることがある。ボタンはキャンバスのうち見えている部分の隅に置く。
  *
  * @param size
  * @text ボタンの大きさ
@@ -127,6 +131,61 @@
     return touchState().dash ? !base : base;
   };
 
+  // ---- 見えている領域 ----
+  // MZ は UA が携帯のときだけキャンバスを画面に合わせて縮める（Graphics._defaultStretchMode）。
+  // UA が携帯でないタッチ端末（iPadOS の Safari、細い窓のタッチ PC など）では 1280×720 のキャンバスが
+  // ブラウザの画面からはみ出し、右と下が切れる。ボタンはキャンバスのうち見えている部分に置く。
+  let areaCache = null;
+  let areaFrames = 0;
+  const AREA_FRAMES = 60; // 画面の大きさの変わる知らせを取りこぼしても、この間隔で測り直す
+  const dirtyArea = () => {
+    areaCache = null;
+  };
+  window.addEventListener("resize", dirtyArea);
+  window.addEventListener("orientationchange", dirtyArea);
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener("resize", dirtyArea);
+    window.visualViewport.addEventListener("scroll", dirtyArea);
+  }
+
+  // UI の領域（ゲームの座標）
+  const uiArea = () => {
+    const x = (Graphics.width - Graphics.boxWidth) / 2;
+    const y = (Graphics.height - Graphics.boxHeight) / 2;
+    return { x, y, width: Graphics.boxWidth, height: Graphics.boxHeight };
+  };
+
+  // ブラウザの画面に見えている範囲（CSS ピクセル。キャンバスの getBoundingClientRect と同じ座標）
+  const viewportRect = () => {
+    const vv = window.visualViewport;
+    if (vv) return { left: vv.offsetLeft, top: vv.offsetTop, right: vv.offsetLeft + vv.width, bottom: vv.offsetTop + vv.height };
+    return { left: 0, top: 0, right: window.innerWidth, bottom: window.innerHeight };
+  };
+
+  const measureArea = () => {
+    const ui = uiArea();
+    const canvas = Graphics._canvas;
+    if (!canvas || !canvas.getBoundingClientRect) return ui;
+    const c = canvas.getBoundingClientRect();
+    if (!(c.width > 0 && c.height > 0)) return ui;
+    const k = c.width / Graphics.width; // CSS ピクセル / ゲームの座標
+    const v = viewportRect();
+    const x0 = Math.max(ui.x, (v.left - c.left) / k);
+    const y0 = Math.max(ui.y, (v.top - c.top) / k);
+    const x1 = Math.min(ui.x + ui.width, (v.right - c.left) / k);
+    const y1 = Math.min(ui.y + ui.height, (v.bottom - c.top) / k);
+    if (x1 - x0 < SIZE + MARGIN * 2 || y1 - y0 < SIZE + MARGIN * 2) return ui; // 測れない・狭すぎるときは元の配置
+    return { x: Math.ceil(x0), y: Math.ceil(y0), width: Math.floor(x1 - x0), height: Math.floor(y1 - y0) };
+  };
+
+  const visibleArea = () => {
+    if (!areaCache || ++areaFrames >= AREA_FRAMES) {
+      areaCache = measureArea();
+      areaFrames = 0;
+    }
+    return areaCache;
+  };
+
   // ---- ボタン ----
   class Sprite_HaiTouchButton extends Sprite {
     constructor(name) {
@@ -202,18 +261,18 @@
       return !!(window.Hai && Hai.AutoMap && typeof Hai.AutoMap.open === "function");
     }
 
-    // 配置は Graphics.boxWidth / boxHeight から
+    // 配置は UI の領域（Graphics.boxWidth / boxHeight）のうち、ブラウザの画面に見えている部分から
     layout() {
-      const w = Graphics.boxWidth;
-      const h = Graphics.boxHeight;
+      const area = visibleArea();
       const simple = this.isSimple();
       const B = this._buttons;
-      const bottom = h - MARGIN - SIZE;
-      const right = w - MARGIN - SIZE;
+      const bottom = Math.max(area.y, area.y + area.height - MARGIN - SIZE);
+      const right = Math.max(area.x, area.x + area.width - MARGIN - SIZE);
+      const left = area.x + MARGIN;
       B.ok.move(right, bottom);
-      B.menu.move(MARGIN, bottom);
-      B.dash.move(right, bottom - SIZE - GAP);
-      B.map.move(MARGIN, bottom - SIZE - GAP);
+      B.menu.move(left, bottom);
+      B.dash.move(right, Math.max(area.y, bottom - SIZE - GAP));
+      B.map.move(left, Math.max(area.y, bottom - SIZE - GAP));
       const on = this.isOn();
       B.ok.visible = on;
       B.menu.visible = on && (simple || $gameSystem.isMenuEnabled());
@@ -333,6 +392,10 @@
     press(name) {
       const b = sceneButtons();
       if (b) b.press(name);
+    },
+    visibleArea() {
+      dirtyArea();
+      return { ...visibleArea() };
     },
     rect(name) {
       const b = sceneButtons();
