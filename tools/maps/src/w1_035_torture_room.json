@@ -79,35 +79,62 @@
               ]
             },
             {
-              "code": 301,
+              "code": 357,
               "indent": 0,
               "parameters": [
-                0,
-                212,
-                true,
-                false
+                "Hai_Boss",
+                "bossBattle",
+                "ボス戦",
+                {
+                  "troopId": "212",
+                  "escapeMapId": "34",
+                  "escapeX": "19",
+                  "escapeY": "22",
+                  "escapeDirection": "8"
+                }
               ]
             },
             {
-              "code": 601,
+              "code": 657,
               "indent": 0,
-              "parameters": []
-            },
-            {
-              "code": 121,
-              "indent": 1,
               "parameters": [
-                151,
-                151,
-                0
+                "敵グループ = 0212:W1_ボス：看守長グラウ"
               ]
             },
             {
-              "code": 123,
-              "indent": 1,
+              "code": 657,
+              "indent": 0,
               "parameters": [
-                "A",
-                0
+                "逃げたときのマップ = 34"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "逃げたときの X = 19"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "逃げたときの Y = 22"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "逃げたときの向き = 上"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "Hai.Boss.lastResult() === 0"
               ]
             },
             {
@@ -141,47 +168,7 @@
               "parameters": []
             },
             {
-              "code": 602,
-              "indent": 0,
-              "parameters": []
-            },
-            {
-              "code": 101,
-              "indent": 1,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                ""
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 1,
-              "parameters": [
-                "……逃げ出した。"
-              ]
-            },
-            {
-              "code": 201,
-              "indent": 1,
-              "parameters": [
-                0,
-                34,
-                19,
-                22,
-                8,
-                0
-              ]
-            },
-            {
-              "code": 0,
-              "indent": 1,
-              "parameters": []
-            },
-            {
-              "code": 604,
+              "code": 412,
               "indent": 0,
               "parameters": []
             },

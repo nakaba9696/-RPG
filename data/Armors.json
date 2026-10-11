@@ -201,6 +201,6 @@ null,
 {"id":199,"atypeId":1,"description":"","etypeId":4,"traits":[{"code":22,"dataId":1,"value":0}],"iconIndex":0,"name":"","note":"","params":[0,0,0,0,0,0,0,0],"price":0},
 {"id":200,"atypeId":1,"description":"","etypeId":4,"traits":[{"code":22,"dataId":1,"value":0}],"iconIndex":0,"name":"","note":"","params":[0,0,0,0,0,0,0,0],"price":0},
 {"id":201,"atypeId":3,"description":"灰をかぶった巡礼者の外套。魔法のダメージを 2 割減らす。","etypeId":4,"traits":[{"code":22,"dataId":1,"value":0},{"code":23,"dataId":7,"value":0.8}],"iconIndex":135,"name":"巡礼者の外套","note":"","params":[0,0,0,4,0,6,0,0],"price":0},
-{"id":202,"atypeId":1,"description":"小さな火が消えずに灯っている指輪。暗闇と眠りを防ぐ。","etypeId":5,"traits":[{"code":14,"dataId":10,"value":0}],"iconIndex":145,"name":"灯火の指輪","note":"","params":[0,0,0,0,2,2,0,0],"price":0},
-{"id":203,"atypeId":1,"description":"囚人の首輪を作り直したもの。沈黙を防ぐ。","etypeId":5,"traits":[{"code":14,"dataId":6,"value":0}],"iconIndex":146,"name":"沈黙除けの首輪","note":"","params":[0,0,0,2,0,2,0,0],"price":0}
+{"id":202,"atypeId":1,"description":"小さな火が消えずに灯っている指輪。暗闇と眠りを防ぐ。","etypeId":5,"traits":[{"code":14,"dataId":142,"value":0}],"iconIndex":145,"name":"灯火の指輪","note":"","params":[0,0,0,0,2,2,0,0],"price":0},
+{"id":203,"atypeId":1,"description":"囚人の首輪を作り直したもの。沈黙を防ぐ。","etypeId":5,"traits":[{"code":14,"dataId":146,"value":0}],"iconIndex":146,"name":"沈黙除けの首輪","note":"","params":[0,0,0,2,0,2,0,0],"price":0}
 ]

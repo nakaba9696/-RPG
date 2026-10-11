@@ -19,5 +19,6 @@
   "u_warp": 200,
   "v_look": 129,
   "v_tilesets2": 1,
-  "w_stage1": 310
+  "w_stage1": 310,
+  "w_stage1b": 160
 }

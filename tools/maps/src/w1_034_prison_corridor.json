@@ -1161,6 +1161,27 @@
           "moveFrequency": 3
         }
       ]
+    },
+    {
+      "name": "控え室の結界",
+      "type": "raw",
+      "x": 22,
+      "y": 22,
+      "note": "<hai_warp:地下牢の控え室>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Crystal",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "directionFix": true,
+          "trigger": 0
+        }
+      ]
     }
   ]
 }
