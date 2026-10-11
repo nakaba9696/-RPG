@@ -1,6 +1,6 @@
 // 禁止語の表と文章の癖（T7、ブラウザなし）：プレイヤーに見える文を data/ から集めて点検する。
 //   落とす：world.md 10 章の禁止語 / 窓の幅（顔なし全角 46 字・顔あり 40 字・来歴 40 字）/ 制御文字の壊れ
-//   アイテム・武器・防具の説明欄と来歴（<hai_lore>、U4）は持ち歩けてどのマップでも読めるので、マップ限定の禁止語も当てる（docs/lore.md 1.4）
+//   アイテム・武器・防具の説明欄と来歴（<hai_lore>、U4）は持ち歩けてどのマップでも読めるので、マップ限定の禁止語も当てる（docs/world.md 7.3）
 //   報告だけ：knowhow.md 4.2 の「避ける癖」のうち数えられるもの → tests/out/t_words-report.md
 // 壊した例（禁止語・47 字の行・閉じていない \C[）は data/ の写しを一時フォルダに作って確かめる（data/ は触らない）。
 import fs from "node:fs";
@@ -14,7 +14,7 @@ const FACE_WIDTH = 40;
 const LORE_WIDTH = 40; // 来歴の窓（Hai_Lore）の 1 行
 
 // ---- 一時の許可表 ----------------------------------------------------------------------------
-// 既存のデータで当たった所。直すのは W（docs/rewrite.md の表）。直したらここから消す。
+// 既存のデータで当たった所。直すのは W（直し案の表は docs/old/rewrite.md。新しい世界の表は W が作る）。直したらここから消す。
 // 形：{ kind: "word"|"width"|"control", where: "場所の文字列に含まれる語", note: "rewrite.md の #n で直す" }
 const TEMP_ALLOW = [];
 
@@ -245,7 +245,7 @@ function writeReport(habits, textCount) {
   const section = (title, rule, items) =>
     `## ${title}（${items.length} 件）\n${rule}\n\n` + (items.map(i => `- ${i.where}\n  ${i.text.replace(/\n/g, " / ")}`).join("\n") || "（なし）") + "\n";
   const md =
-    "# 文章の癖の報告（t_words）\n\n報告だけ。CI は落とさない。直し方は docs/knowhow.md 4.2、直し案の表は docs/rewrite.md。\n\n" +
+    "# 文章の癖の報告（t_words）\n\n報告だけ。CI は落とさない。直し方は docs/knowhow.md 4.2、直し案の表は docs/old/rewrite.md。\n\n" +
     section("「……」の多用", "1 つのイベントのページに「……」が 3 つ以上", habits.ellipsis) + "\n" +
     section("ぼかし語", `ページごとの出現（${HEDGES.join("・")}）`, habits.hedge) + "\n" +
     section("締めの余韻", "「〜気がした／気がする」「なぜか」を含む行・文", habits.closing) + "\n" +
@@ -298,14 +298,14 @@ await runTest(async () => {
   // 1. 今の data/
   const now = scan(DATA_DIR, banned);
   writeReport(now.habits, now.textCount);
-  check(now.problems.length === 0, `禁止語・窓の幅・制御文字に ${now.problems.length} 件当たった（直し案は docs/rewrite.md、直すのは W）:\n  ` + now.problems.join("\n  "));
+  check(now.problems.length === 0, `禁止語・窓の幅・制御文字に ${now.problems.length} 件当たった（直すのは W）:\n  ` + now.problems.join("\n  "));
 
   // 2. 壊した例
   const expect = (label, edit, needle) => {
     const got = broken(label, edit, banned);
     check(got.some(p => p.includes(needle)), `「${label}」で「${needle}」の問題が出ない:\n  ${got.join("\n  ")}`);
   };
-  expect("禁止語を 1 つ入れる", addLine("Map020.json", "あれが契約の悪魔だ。"), "禁止語「契約の悪魔」");
+  expect("禁止語を 1 つ入れる", addLine("Map020.json", "あの夜を招いたのは誰だ。"), "禁止語「夜を招いた」");
   expect("47 字の行", addLine("Map020.json", "あ".repeat(47)), "窓の幅 47 > 46");
   expect("閉じていない \\C[", addLine("Map020.json", "\\C[2赤い文字"), "括弧が閉じていない");
   // MZ の標準の制御文字は落ちない
@@ -314,14 +314,14 @@ await runTest(async () => {
   expect("閉じていない \\FS[", addLine("Map020.json", "\\FS[28大きい字"), "括弧が閉じていない");
   expect("知らない制御文字", addLine("Map020.json", "\\Z[1]あ"), "知らない制御文字");
   // 来歴（<hai_lore>）とアイテムの説明欄：マップ限定の禁止語も当たる・来歴の 1 行は 40 字まで
-  expect("来歴に禁止語", addNote("Items.json", "<hai_lore>\n一行目。\n灰の病のあとに完全な魂の話が出る。\n三行目。\n</hai_lore>"), "禁止語「完全な魂」");
+  expect("来歴に禁止語", addNote("Items.json", "<hai_lore>\n一行目。\n鐘番は記憶を払ったという。\n三行目。\n</hai_lore>"), "禁止語「記憶を払」");
   expect("来歴の 41 字の行", addNote("Weapons.json", "<hai_lore>\n" + "あ".repeat(41) + "\n二行目。\n三行目。\n</hai_lore>"), "来歴の窓の幅 41 > 40");
   expect("説明欄にマップ限定の禁止語", dir => {
     const items = readJson(dir, "Items.json");
-    items.find(e => e && e.name).description = "取り立ての札。";
+    items.find(e => e && e.name).description = "親鐘の札。";
     fs.writeFileSync(path.join(dir, "Items.json"), JSON.stringify(items));
-  }, "禁止語「取り立て」");
+  }, "禁止語「親鐘」");
   // 制御文字で語を割っても、画面に出る形で見つかる
-  expect("制御文字で割った禁止語", addLine("Map020.json", "張\\C[2]本\\C[0]人"), "禁止語「張本人」");
+  expect("制御文字で割った禁止語", addLine("Map020.json", "願い\\C[2]の\\C[0]せい"), "禁止語「願いのせい」");
   console.log("  禁止語・窓の幅・制御文字: 問題なし（壊した例ではすべて落ちた）");
 });
