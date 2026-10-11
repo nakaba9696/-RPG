@@ -1,5 +1,6 @@
 // 禁止語の表と文章の癖（T7、ブラウザなし）：プレイヤーに見える文を data/ から集めて点検する。
-//   落とす：world.md 10 章の禁止語 / 窓の幅（顔なし全角 46 字・顔あり 40 字）/ 制御文字の壊れ
+//   落とす：world.md 10 章の禁止語 / 窓の幅（顔なし全角 46 字・顔あり 40 字・来歴 40 字）/ 制御文字の壊れ
+//   アイテム・武器・防具の説明欄と来歴（<hai_lore>、U4）は持ち歩けてどのマップでも読めるので、マップ限定の禁止語も当てる（docs/lore.md 1.4）
 //   報告だけ：knowhow.md 4.2 の「避ける癖」のうち数えられるもの → tests/out/t_words-report.md
 // 壊した例（禁止語・47 字の行・閉じていない \C[）は data/ の写しを一時フォルダに作って確かめる（data/ は触らない）。
 import fs from "node:fs";
@@ -10,6 +11,7 @@ import { DATA_DIR, ROOT } from "../tools/data/io.mjs";
 
 const NO_FACE_WIDTH = 46;
 const FACE_WIDTH = 40;
+const LORE_WIDTH = 40; // 来歴の窓（Hai_Lore）の 1 行
 
 // ---- 一時の許可表 ----------------------------------------------------------------------------
 // 既存のデータで当たった所。直すのは W（docs/rewrite.md の表）。直したらここから消す。
@@ -48,6 +50,10 @@ function noteTexts(note) {
   for (const tag of TEXT_TAGS) {
     for (const m of String(note || "").matchAll(new RegExp(`<hai_${tag}:([^>]*)>`, "g"))) out.push({ tag, text: m[1] });
   }
+  // 来歴（U4 Hai_Lore）：<hai_lore> と </hai_lore> の間の 1 行が画面の 1 行
+  for (const m of String(note || "").matchAll(/<hai_lore>([\s\S]*?)<\/hai_lore>/g)) {
+    for (const line of m[1].split("\n")) if (line.trim() !== "") out.push({ tag: "lore", text: line.replace(/\r$/, ""), lore: true });
+  }
   return out;
 }
 
@@ -63,7 +69,7 @@ export function collectTexts(dir) {
     const map = readJson(dir, f);
     for (const ev of map.events || []) {
       if (!ev) continue;
-      for (const t of noteTexts(ev.note)) texts.push({ where: `data/${f} (${ev.x},${ev.y})「${ev.name}」メモ <hai_${t.tag}>`, text: t.text, mapId, kind: "db", face: false, page: null });
+      for (const t of noteTexts(ev.note)) texts.push({ where: `data/${f} (${ev.x},${ev.y})「${ev.name}」メモ <hai_${t.tag}>`, text: t.text, mapId, kind: t.lore ? "lore" : "db", face: false, page: null });
       (ev.pages || []).forEach((page, pi) => {
         const list = page.list || [];
         const pageKey = `${f}#${ev.id}#${pi}`;
@@ -91,14 +97,16 @@ export function collectTexts(dir) {
     "States.json": ["name", "message1", "message2", "message3", "message4"],
     "Enemies.json": ["name"],
   };
+  const CARRIED = new Set(["Items.json", "Weapons.json", "Armors.json"]); // 持ち歩ける物（マップ限定の禁止語も当てる）
   for (const [file, fields] of Object.entries(FIELDS)) {
     const table = readJson(dir, file);
     for (const e of table) {
       if (!e) continue;
       for (const k of fields) {
-        if (typeof e[k] === "string" && e[k] !== "") texts.push({ where: `data/${file}[${e.id}]「${e.name}」${k}`, text: e[k], mapId: null, kind: "db", face: false, page: null });
+        const strict = k === "description" && CARRIED.has(file);
+        if (typeof e[k] === "string" && e[k] !== "") texts.push({ where: `data/${file}[${e.id}]「${e.name}」${k}`, text: e[k], mapId: null, kind: "db", face: false, page: null, strict });
       }
-      for (const t of noteTexts(e.note)) texts.push({ where: `data/${file}[${e.id}]「${e.name}」メモ <hai_${t.tag}>`, text: t.text, mapId: null, kind: "db", face: false, page: null });
+      for (const t of noteTexts(e.note)) texts.push({ where: `data/${file}[${e.id}]「${e.name}」メモ <hai_${t.tag}>`, text: t.text, mapId: null, kind: t.lore ? "lore" : "db", face: false, page: null, strict: !!t.lore && CARRIED.has(file) });
     }
   }
   return texts;
@@ -197,10 +205,13 @@ export function scan(dir, banned) {
     const bare = r.out;
     for (const b of banned) {
       if (b.allowed && t.mapId !== null && b.allowed.has(t.mapId)) continue;
-      if (b.allowed && t.mapId === null) continue; // 使ってよいマップがある語は、データベース側では見ない（人が見る）
+      if (b.allowed && t.mapId === null && !t.strict) continue; // 使ってよいマップがある語は、データベース側では見ない（人が見る）。持ち歩ける物の説明欄と来歴は見る
       if (bare.includes(b.word) || t.text.includes(b.word)) {
         if (!allowed("word", t.where + b.word)) problems.push(`${t.where}: 禁止語「${b.word}」（${b.stage}）\n      「${t.text}」`);
       }
+    }
+    if (t.kind === "lore" && r.width > LORE_WIDTH && !allowed("width", t.where)) {
+      problems.push(`${t.where}: 来歴の窓の幅 ${r.width} > ${LORE_WIDTH}\n      「${t.text}」`);
     }
     if (t.kind === "line") {
       const limit = t.face ? FACE_WIDTH : NO_FACE_WIDTH;
@@ -211,7 +222,7 @@ export function scan(dir, banned) {
       pageLines.get(t.page).lines.push(bare);
     }
     // 読点の打ちすぎ（文ごと）
-    if (t.kind === "line" || t.kind === "db") {
+    if (t.kind === "line" || t.kind === "db" || t.kind === "lore") {
       for (const sentence of bare.split(/[。！？\n]/)) {
         if ((sentence.match(/、/g) || []).length >= 4) habits.commas.push({ where: t.where, text: sentence });
       }
@@ -270,6 +281,16 @@ function addLine(file, text) {
   };
 }
 
+/** アイテム・武器・防具の最初の項目のメモ欄に足す。 */
+function addNote(file, note) {
+  return dir => {
+    const table = readJson(dir, file);
+    const e = table.find(x => x && x.name);
+    e.note = (e.note ? e.note + "\n" : "") + note;
+    fs.writeFileSync(path.join(dir, file), JSON.stringify(table));
+  };
+}
+
 await runTest(async () => {
   const banned = loadBannedWords();
   console.log(`  禁止語の表: ${banned.length} 語（なし ${banned.filter(b => !b.allowed).length}、マップ限定 ${banned.filter(b => b.allowed).length}）`);
@@ -292,6 +313,14 @@ await runTest(async () => {
   check(okLine.length === 0, "\\FS[28] \\PX[n] \\PY[n] \\P[n] が落ちた:\n  " + okLine.join("\n  "));
   expect("閉じていない \\FS[", addLine("Map020.json", "\\FS[28大きい字"), "括弧が閉じていない");
   expect("知らない制御文字", addLine("Map020.json", "\\Z[1]あ"), "知らない制御文字");
+  // 来歴（<hai_lore>）とアイテムの説明欄：マップ限定の禁止語も当たる・来歴の 1 行は 40 字まで
+  expect("来歴に禁止語", addNote("Items.json", "<hai_lore>\n一行目。\n灰の病のあとに完全な魂の話が出る。\n三行目。\n</hai_lore>"), "禁止語「完全な魂」");
+  expect("来歴の 41 字の行", addNote("Weapons.json", "<hai_lore>\n" + "あ".repeat(41) + "\n二行目。\n三行目。\n</hai_lore>"), "来歴の窓の幅 41 > 40");
+  expect("説明欄にマップ限定の禁止語", dir => {
+    const items = readJson(dir, "Items.json");
+    items.find(e => e && e.name).description = "取り立ての札。";
+    fs.writeFileSync(path.join(dir, "Items.json"), JSON.stringify(items));
+  }, "禁止語「取り立て」");
   // 制御文字で語を割っても、画面に出る形で見つかる
   expect("制御文字で割った禁止語", addLine("Map020.json", "張\\C[2]本\\C[0]人"), "禁止語「張本人」");
   console.log("  禁止語・窓の幅・制御文字: 問題なし（壊した例ではすべて落ちた）");
