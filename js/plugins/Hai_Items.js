@@ -12,6 +12,7 @@
  *   上限を超えて手に入れた分は捨てずに倉庫へ入れ、「〜は倉庫へ送られた」と知らせる。
  *   宝箱・イベントの「アイテムの増減」・戦闘のドロップ・合成など、増えるときすべて。
  *   売る・使う・捨てるで減るときは関係しない。倉庫に上限はない。
+ *   入手ログ（Hai_Notes）があれば、倉庫へ送った分も入手ログに残す。
  *   知らせはマップと戦闘ではすぐに文章で出す。メニュー・店・合成の画面の中で起きたときは、
  *   マップに戻ってから出す。装備を外して袋に戻すときは知らせない。
  *   倉庫から出す画面は P8（保管ゲート）が作る。ここにあるのはテスト用の最小の画面
@@ -224,6 +225,8 @@
     if (overflow > 0) {
       addToStorage(item, overflow);
       notify(P.storageMessage.format(item.name, overflow));
+      // 倉庫へ送った分も「手に入れた」として入手ログ（Hai_Notes）に残す。袋に入った分は Hai_Notes が自分で記録する
+      if (window.Hai && Hai.Notes && Hai.Notes.logItem) Hai.Notes.logItem(item, overflow);
     }
   };
 
