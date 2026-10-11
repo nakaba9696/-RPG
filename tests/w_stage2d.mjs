@@ -408,15 +408,18 @@ await runTest(async () => {
     let b2 = await boss();
     check(b2.hp < b.hp, `ノクスのファイアが紙魚の王に当たらない ${b.hp} → ${b2.hp}`);
     check((await log()).texts.includes("紙魚の王は炎に弱いようだ。"), "炎の弱点のヒントが出ない " + JSON.stringify((await log()).texts));
-    await game.eval(() => { const e = $gameTroop.members()[0]; e.setHp(Math.floor(e.mhp * 0.55)); });
+    await game.eval(() => { const e = $gameTroop.members()[0]; e.setHp(Math.floor(e.mhp * 0.49)); });
     await heal();
-    await turn(firePlan());
+    await turn(["guard", "guard", "guard"]);
     const split = await game.eval(() => $gameTroop.members().slice(1).map(e => e.isAppeared()));
     check(split.length === 2 && split.every(Boolean) && (await log()).msgs.some(m => m.includes("紙魚が這い出した")), "HP 50% で紙魚を呼ばない " + JSON.stringify(split));
     await game.shot("king-split");
     await game.eval(() => $gameTroop.members()[0].setHp(50));
-    await heal();
-    await turn(firePlan());
+    // 頁を喰う（2 ターンごと）で SP を奪われたターンはファイアが出ないので、倒れるまで数ターン
+    for (let i = 0; i < 4 && (await game.eval(() => !BattleManager.isBattleEnd() && $gameTroop.members()[0].isAlive())); i++) {
+      await heal();
+      await turn(firePlan());
+    }
     await game.waitFor(() => !(SceneManager._scene instanceof Scene_Battle) || BattleManager.isBattleEnd() || $gameMessage.isBusy(), null, 60_000);
     await toMap();
     await finishEvent();
