@@ -133,6 +133,14 @@ export function render(s, ctx) {
     if (nx === "\\") { out += "\\"; width += 0.5; i++; continue; }
     if (nx === "G") { out += "G"; width += 1; i++; continue; }
     if (ZERO_WIDTH.has(nx)) { i++; continue; }
+    // MZ の位置とフォントの大きさ（\PX[n] \PY[n] \FS[n]）。幅 0 の既知の制御文字。\P[n]（パーティの名前）と区別する
+    const pos = /^(PX|PY|FS)\[(\d+)\]/.exec(s.slice(i + 1));
+    if (pos) { i += pos[0].length; continue; }
+    if (/^(PX|PY|FS)/.test(s.slice(i + 1))) {
+      problems.push(`\\${s.slice(i + 1, i + 3)}[ の括弧が閉じていない・番号が無い（「${s.slice(i, i + 8)}」）`);
+      i += 2;
+      continue;
+    }
     if (WITH_NUM.has(nx)) {
       const m = /^\[(\d+)\]/.exec(s.slice(i + 2));
       if (!m) {
@@ -279,6 +287,10 @@ await runTest(async () => {
   expect("禁止語を 1 つ入れる", addLine("Map020.json", "あれが契約の悪魔だ。"), "禁止語「契約の悪魔」");
   expect("47 字の行", addLine("Map020.json", "あ".repeat(47)), "窓の幅 47 > 46");
   expect("閉じていない \\C[", addLine("Map020.json", "\\C[2赤い文字"), "括弧が閉じていない");
+  // MZ の標準の制御文字は落ちない
+  const okLine = broken("\\FS・\\PX・\\PY・\\P は落ちない", addLine("Map020.json", "\\FS[28]大きい字\\PX[10]\\PY[20]\\P[1]"), banned);
+  check(okLine.length === 0, "\\FS[28] \\PX[n] \\PY[n] \\P[n] が落ちた:\n  " + okLine.join("\n  "));
+  expect("閉じていない \\FS[", addLine("Map020.json", "\\FS[28大きい字"), "括弧が閉じていない");
   expect("知らない制御文字", addLine("Map020.json", "\\Z[1]あ"), "知らない制御文字");
   // 制御文字で語を割っても、画面に出る形で見つかる
   expect("制御文字で割った禁止語", addLine("Map020.json", "張\\C[2]本\\C[0]人"), "禁止語「張本人」");
