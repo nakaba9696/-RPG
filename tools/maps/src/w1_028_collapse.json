@@ -30,11 +30,11 @@
       ]
     },
     {
-      "name": "オルドの遺骸",
+      "name": "遺骸 オルド",
       "type": "raw",
       "x": 11,
       "y": 6,
-      "note": "<hai_thought:R12>",
+      "note": "<hai_remains:5><hai_memory:5,4><hai_thought:R12>",
       "pages": [
         {
           "image": {
@@ -103,26 +103,8 @@
               ]
             },
             {
-              "code": 111,
-              "indent": 0,
-              "parameters": [
-                0,
-                131,
-                1
-              ]
-            },
-            {
-              "code": 121,
-              "indent": 1,
-              "parameters": [
-                131,
-                131,
-                0
-              ]
-            },
-            {
               "code": 101,
-              "indent": 1,
+              "indent": 0,
               "parameters": [
                 "",
                 0,
@@ -133,27 +115,17 @@
             },
             {
               "code": 401,
-              "indent": 1,
+              "indent": 0,
               "parameters": [
                 "まだ温かい魂が残っている。"
               ]
             },
             {
               "code": 401,
-              "indent": 1,
+              "indent": 0,
               "parameters": [
                 "拠点の召喚陣で呼べそうだ。"
               ]
-            },
-            {
-              "code": 0,
-              "indent": 1,
-              "parameters": []
-            },
-            {
-              "code": 412,
-              "indent": 0,
-              "parameters": []
             },
             {
               "code": 0,
@@ -161,6 +133,13 @@
               "parameters": []
             }
           ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
         }
       ]
     }

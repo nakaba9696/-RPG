@@ -65,7 +65,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "……起きた。三度目でようやく、ね"
+                "起きた。三度目でようやく、ね"
               ]
             },
             {
@@ -144,7 +144,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "魂が四つに割れて、王国のどこかに散ったの。記憶の珠、オーブになって"
+                "あなたの魂は四つに割れて、外に散ったの。記憶の珠、オーブになって"
               ]
             },
             {
@@ -158,7 +158,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "この国を救えるのは、あなただけ。……行って。灰が降りやむ前に"
+                "この国を救えるのは、もうあなたしかいないの。……行って。灰が降りやむ前に"
               ]
             },
             {
@@ -887,7 +887,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "帰還の灯。手をかざすと、炎が少しだけ揺れた。"
+                "帰還の灯。手をかざしても、熱くない。"
               ]
             },
             {
@@ -966,8 +966,25 @@
           "stepAnime": true,
           "list": [
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
+              "parameters": [
+                0,
+                113,
+                1
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                12,
+                "Hai.Companions.found().length > 0"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
               "parameters": [
                 "",
                 0,
@@ -978,81 +995,211 @@
             },
             {
               "code": 401,
-              "indent": 0,
+              "indent": 2,
+              "parameters": [
+                "召喚陣の上だけ、空気が温かい。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "廃坑で見つけた男の魂が、陣の上に留まっている。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "広間のほうから、セレスの声がした。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "セレス"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "見つけたのね。陣に手を置いて、その人の顔を思い浮かべて"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "呼び戻した仲間の並びも、ここで替えられる。前の四人が戦うの"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 2,
+              "parameters": [
+                113,
+                113,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
               "parameters": [
                 "床に描かれた召喚陣。"
               ]
             },
             {
-              "code": 401,
+              "code": 357,
+              "indent": 2,
+              "parameters": [
+                "Hai_Companions",
+                "summonMenu",
+                "召喚陣",
+                {}
+              ]
+            },
+            {
+              "code": 115,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 102,
               "indent": 0,
               "parameters": [
-                "まだ呼び戻せる魂がない。"
+                [
+                  "魂を呼ぶ",
+                  "並びを替える",
+                  "やめる"
+                ],
+                2,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "魂を呼ぶ"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_Companions",
+                "summonMenu",
+                "召喚陣",
+                {}
               ]
             },
             {
               "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "並びを替える"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_Companions",
+                "partyMenu",
+                "編成",
+                {}
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                2,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
               "indent": 0,
               "parameters": []
-            }
-          ]
-        },
-        {
-          "conditions": {
-            "switch1Id": 131,
-            "switch1Valid": true
-          },
-          "image": {
-            "characterName": "!Door2",
-            "characterIndex": 4,
-            "direction": 2,
-            "pattern": 1
-          },
-          "priorityType": 0,
-          "stepAnime": true,
-          "list": [
-            {
-              "code": 101,
-              "indent": 0,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                ""
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "召喚陣が、かすかに温かい。"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "廃坑で見つけた男の魂が、呼ばれるのを待っている気がする。"
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 0,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                ""
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "……呼び戻す術は、まだ分からない。"
-              ]
             },
             {
               "code": 0,
@@ -1620,6 +1767,27 @@
               "parameters": []
             }
           ]
+        }
+      ]
+    },
+    {
+      "name": "牢獄の間の結界",
+      "type": "raw",
+      "x": 12,
+      "y": 14,
+      "note": "<hai_warp:牢獄の間>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Crystal",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "directionFix": true,
+          "trigger": 0
         }
       ]
     }

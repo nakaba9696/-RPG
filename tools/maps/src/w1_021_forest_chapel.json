@@ -666,6 +666,27 @@
         1,
         "down"
       ]
+    },
+    {
+      "name": "森の奥の結界",
+      "type": "raw",
+      "x": 16,
+      "y": 23,
+      "note": "<hai_warp:巡礼の森の奥>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Crystal",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "directionFix": true,
+          "trigger": 0
+        }
+      ]
     }
   ]
 }
