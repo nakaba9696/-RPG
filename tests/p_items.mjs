@@ -248,7 +248,7 @@ await runTest(async () => {
     }, HERB);
     check(old.storage.length === 0 && JSON.stringify(old.recipes) === JSON.stringify(["i197"]), "古いセーブで初期値にならない " + JSON.stringify(old));
     check(old.after.length === 1 && old.after[0].n === 3 && old.learn, "古いセーブで倉庫・レシピが使えない " + JSON.stringify(old));
-    await readMessages(); // 倉庫の知らせ
+    check(!(await game.eval(() => $gameMessage.isBusy())), "倉庫の知らせが文章の窓で出た");
 
     // --- 8. ドロップの決まり ---
     const drops = await game.eval(([sword]) => {

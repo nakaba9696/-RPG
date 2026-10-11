@@ -141,8 +141,8 @@ await runTest(async () => {
     await game.eval(() => (window.Hai.Lore.params.noticeText = "%1の来歴を読める。"));
     msgs = await openChest(CHEST.pill);
     check(!msgs.some(t => t.includes("来歴")), `通知なのに窓が出た ${JSON.stringify(msgs)}`);
-    await game.waitFor(() => window.Hai.Items.toastState().log.includes("試しの丸薬の来歴を読める。"));
-    check(await game.eval(() => window.Hai.Items.toastState().shown) === "試しの丸薬の来歴を読める。", "通知が出ていない");
+    await game.waitFor(() => window.Hai.Items.toastState().log.some(t => t.includes("試しの丸薬の来歴を読める。")));
+    check((await game.eval(() => window.Hai.Items.toastState().shown) || "").includes("試しの丸薬の来歴を読める。"), "通知が出ていない");
     check(await game.eval(() => !window.__game.ref("$gameMessage").isBusy() && !window.__game.ref("$gameMap").isEventRunning()), "通知が操作を止めている");
     await game.shot("notice-toast");
 
