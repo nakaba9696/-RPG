@@ -6,6 +6,7 @@ MZ の Web 実行（`index.html`）を、Playwright のヘッドレス Chromium 
 ```bash
 npm ci --ignore-scripts --prefix tests && node tests/run.mjs   # 全部（失敗が 1 本でもあれば終了コード 1）
 node tests/run.mjs t_smoke         # 名前で選ぶ（拡張子なし、いくつでも）
+node tests/run.mjs --shard 2/3     # 名前順に 3 つへ総当たりで配った 2 番目だけ（CI は 3 シャードを並列に走らせる）
 node tests/t_maps.mjs              # 1 本だけを直接
 node tests/serve.mjs 8000          # 手元のブラウザで遊ぶ：http://127.0.0.1:8000/index.html （?hai_test を付けると window.__game が出る）
 ```

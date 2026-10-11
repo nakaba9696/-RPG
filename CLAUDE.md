@@ -136,6 +136,7 @@
 ```bash
 npm ci --ignore-scripts --prefix tests && node tests/run.mjs   # 静的サーバー＋Playwright（ヘッドレス Chromium）でスモーク一式とデータの検査
 ```
+- CI は `node tests/run.mjs --shard i/3`（名前順の総当たりで 3 つに分けた i 番目）を 3 つ並列に走らせる。手元で CI の 1 シャードだけ再現するときも同じ引数で。
 - クラウドのセッションでは Chromium が `/opt/pw-browsers/chromium` にある（`PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers`）。`playwright install` は実行しない。
 - MZ は `file://` では動かない。テストは `tests/serve.mjs` の静的サーバーで `index.html?hai_test` を開く。
 - `pageerror` と console の error はゼロにする。
