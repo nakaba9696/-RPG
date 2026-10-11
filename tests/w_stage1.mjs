@@ -1,7 +1,7 @@
 // W1 拠点「牢獄の間」と第1段階のダンジョン（docs/world.md 3・4 章、tools/maps/src/w1_*）の検査：
 //   ニューゲーム → 拠点の目覚めの場面（セレスの台詞、スイッチ 111）→ 拠点（帰還の灯）が設定される →
 //   各ダンジョンへ歩いて移れる → 隠し要素が各ダンジョンで 1 つずつ開く → 残留思念でメモが増える →
-//   施錠扉が鍵で開く → データの検査（tools/data/check.mjs）が通る。マップごとのスクリーンショットを撮る。
+//   施錠扉が鍵で開く → オーブ「鎖」と帰りの転送陣 → データの検査（tools/data/check.mjs）が通る。マップごとのスクリーンショットを撮る。
 // シンボル敵は検査の邪魔にならないよう、マップに入るたびに「倒した」ことにする（セルフスイッチ A）。
 import { launchGame, check, runTest } from "./lib.mjs";
 import { checkAll } from "../tools/data/check.mjs";
@@ -22,6 +22,31 @@ const OSSUARY = 22;
 const OSSUARY_ARRIVE = { x: 3, y: 4 };
 const H05 = { x: 17, y: 8, from: { x: 17, y: 9 }, chest: { x: 16, y: 3 } }; // 隠し扉 → 赤い宝箱（眠り香）
 const SLEEP_INCENSE = 204;
+const FENCE = { x: 34, y: 3 }; // Map021 坑口の前の木の柵（坑口は (34,2)）
+const MINE_UP = 26;
+const MINE_ARRIVE = { x: 4, y: 16 };
+const H07 = { x: 14, y: 15, from: { x: 14, y: 16 } }; // 大百足の巣を迂回する隠し扉
+const MINE_KEY = { chest: { x: 4, y: 6 }, item: 201 };
+const MACHINE_DOOR = { x: 37, y: 25 }; // 坑道の鍵の施錠扉
+const LEVER = { x: 39, y: 27 };
+const ELEVATOR_UP = { x: 21, y: 2 };
+const MINE_LOW = 27;
+const H09 = { from: { x: 22, y: 22 }, passage: [23, 24, 25].map(x => ({ x, y: 22 })) }; // 落盤の脇 → Map028
+const COLLAPSE = 28;
+const ORDO = { x: 11, y: 6 };
+const HOLE = { x: 39, y: 13 }; // 掘り抜きの穴 → Map033
+const CELLS = 33;
+const CELLS_ARRIVE = { x: 6, y: 3 };
+const LOCKBOX = { x: 22, y: 2, item: 202 };
+const CELL_DOOR = { x: 26, y: 20 }; // 監房の鍵の施錠扉 → Map034
+const CORRIDOR = 34;
+const H13 = { top: { x: 16, y: 4 }, bottom: { x: 16, y: 20 } }; // 影の無い西の壁の中
+const H11 = { x: 41, y: 26 }; // 南東の通路の閂の扉 → 牢獄の間
+const IRON_DOOR_FRONT = { x: 16, y: 25 };
+const TORTURE = 35;
+const ORB_ROOM = 36;
+const ORB = { x: 8, y: 4 };
+const ORB_TELEPORT = { x: 6, y: 7 };
 
 await runTest(async () => {
   const game = await launchGame();
@@ -77,7 +102,7 @@ await runTest(async () => {
       await game.waitFor(() => {
         const s = window.__game.ref("SceneManager")._scene;
         const m = window.__game.ref("$gameMessage");
-        if (m.isBusy()) return (s._messageWindow && s._messageWindow.pause) || m.isChoice();
+        if (m.isBusy()) return (s._messageWindow && s._messageWindow.pause) || (m.isChoice() && s._choiceListWindow && s._choiceListWindow.active);
         return !window.__game.ref("$gameMap").isEventRunning();
       });
       if (!(await messageBusy())) break;
@@ -97,6 +122,9 @@ await runTest(async () => {
     await game.frames(3);
     return pages;
   }
+
+  const itemCount = id => game.eval(i => window.__game.ref("$gameParty").numItems(window.$dataItems[i]), id);
+  const switchOn = id => game.eval(i => window.__game.ref("$gameSwitches").value(i), id);
 
   /** 決定キーで調べて、出た文章を読み切る。 */
   async function investigate(shotLabel) {
@@ -196,6 +224,116 @@ await runTest(async () => {
     await investigate();
     const after = await game.eval(id => window.__game.ref("$gameParty").numItems(window.$dataItems[id]), SLEEP_INCENSE);
     check(after === before + 2, `赤い宝箱の眠り香が ${before} → ${after}`);
+
+    // ---- 8. 森の奥の坑口から廃坑・上層へ（木の柵を押し開けて歩いて入る）
+    await go(CHAPEL, FENCE.x, FENCE.y + 1, 8);
+    await investigate();
+    check(await step(8), "押し開けた柵を通れない");
+    await step(8);
+    await arrive(MINE_UP);
+    const pm = await pos();
+    check(pm.x === MINE_ARRIVE.x && pm.y === MINE_ARRIVE.y, `廃坑に着いた位置 ${JSON.stringify(pm)}`);
+    await game.shot("mine-upper");
+
+    // ---- 9. 廃坑の隠し扉 H07（影なし＋くぼみ）で大百足の巣を迂回
+    await go(MINE_UP, H07.from.x, H07.from.y, 8);
+    check(!(await step(8)), "調べる前の H07 を通れた");
+    await investigate();
+    check(await step(8) && await step(8) && await step(8), "開いた H07 の奥へ進めない");
+    check(await hp("isFound", H07.x, H07.y, MINE_UP), "H07 が見つけたことにならない");
+
+    // ---- 10. 施錠扉：鍵なしでは開かず、詰め所の机の坑道の鍵で開く → レバーで昇降機が動く
+    await go(MINE_UP, MACHINE_DOOR.x, MACHINE_DOOR.y - 1, 2);
+    const locked = await investigate();
+    check(locked.join("").includes("鍵がかかっている"), `鍵なしの施錠扉: ${JSON.stringify(locked)}`);
+    check(!(await step(2)), "鍵なしで施錠扉を通れた");
+    await go(MINE_UP, MINE_KEY.chest.x, MINE_KEY.chest.y + 1, 8);
+    await investigate();
+    check((await itemCount(MINE_KEY.item)) === 1, "坑道の鍵が手に入らない");
+    await go(MINE_UP, MACHINE_DOOR.x, MACHINE_DOOR.y - 1, 2);
+    const opened = await investigate();
+    check(opened.join("").includes("坑道の鍵"), `鍵で開けた文章: ${JSON.stringify(opened)}`);
+    check(await step(2) && await step(2), "開いた施錠扉を通れない");
+    await go(MINE_UP, LEVER.x, LEVER.y + 1, 8);
+    await investigate();
+    check(await switchOn(153), "レバーでスイッチ 153 が ON にならない");
+    await go(MINE_UP, ELEVATOR_UP.x, ELEVATOR_UP.y + 1, 8);
+    await investigate();
+    await arrive(MINE_LOW);
+    await game.shot("mine-lower");
+
+    // ---- 11. 落盤の脇の見えない通路 H09 → 崩落の間：オルドの遺骸（スイッチ 131）
+    await go(MINE_LOW, H09.from.x, H09.from.y, 6);
+    for (const p of H09.passage) check(await step(6), `H09 (${p.x},${p.y}) に入れない`);
+    await step(6);
+    await step(6);
+    await arrive(COLLAPSE);
+    await go(COLLAPSE, ORDO.x - 1, ORDO.y, 6);
+    const ordo = await investigate("collapse-ordo");
+    check(ordo.join("").includes("この梁は俺を覚えている"), `オルドの記憶 1: ${JSON.stringify(ordo)}`);
+    check(await switchOn(131), "オルドの遺骸でスイッチ 131 が ON にならない");
+
+    // ---- 12. 掘り抜きの穴 → 地下牢・監房区。番号錠 413 で監房の鍵 → 施錠扉 → 更生の廊下
+    await go(MINE_LOW, HOLE.x - 1, HOLE.y, 6);
+    await step(6);
+    await arrive(CELLS);
+    const pc = await pos();
+    check(pc.x === CELLS_ARRIVE.x && pc.y === CELLS_ARRIVE.y, `監房区に着いた位置 ${JSON.stringify(pc)}`);
+    await go(CELLS, 24, 17, 8);
+    await game.shot("prison-cells");
+    await go(CELLS, LOCKBOX.x, LOCKBOX.y + 1, 8);
+    for (const [number, ok] of [[123, false], [413, true]]) {
+      await game.press("Enter");
+      await game.waitFor(() => window.__game.ref("$gameMessage").isNumberInput() &&
+        window.__game.ref("SceneManager")._scene._messageWindow._numberInputWindow.active);
+      await game.eval(n => {
+        const w = window.__game.ref("SceneManager")._scene._messageWindow._numberInputWindow;
+        w._number = n;
+        w.refresh();
+      }, number);
+      await game.frames(5);
+      await game.press("Enter");
+      const rest = await readMessages();
+      check(rest.join("").includes(ok ? "監房の鍵" : "違うようだ"), `番号錠に ${number}: ${JSON.stringify(rest)}`);
+    }
+    check((await itemCount(LOCKBOX.item)) === 1, "番号錠の箱から監房の鍵が手に入らない");
+    await go(CELLS, CELL_DOOR.x, CELL_DOOR.y - 1, 2);
+    await investigate();
+    check(await step(2), "監房の鍵で開いた扉を通れない");
+    await step(2);
+    await arrive(CORRIDOR);
+
+    // ---- 13. 更生の廊下の西の壁の中（H13）を通って控え室へ
+    await go(CORRIDOR, H13.top.x, H13.top.y, 2);
+    await game.shot("prison-corridor");
+    for (let y = H13.top.y + 1; y <= H13.bottom.y; y++) check(await step(2), `H13 の (${H13.top.x},${y}) に入れない`);
+    check(await hp("isFound", H13.top.x, H13.top.y + 1, CORRIDOR), "H13 が見つけたことにならない");
+    const speed = await game.eval(() => window.__game.ref("$gamePlayer").moveSpeed());
+    check(speed === 4, `控え室での移動速度が ${speed}`);
+
+    // ---- 14. 監房区の南東の閂の扉（H11）を開けると牢獄の間へ抜け、以後は拠点の鉄の扉から行き来できる
+    await go(CELLS, H11.x - 1, H11.y, 6);
+    await investigate();
+    await arrive(HALL);
+    check(await switchOn(114), "H11 でスイッチ 114 が ON にならない");
+    const pi = await pos();
+    check(pi.x === IRON_DOOR_FRONT.x && pi.y === IRON_DOOR_FRONT.y, `拠点に戻った位置 ${JSON.stringify(pi)}`);
+    await turn(2);
+    await step(2);
+    await arrive(CELLS);
+
+    // ---- 15. 拷問の間（看守長は仮のイベント）と、オーブの間：オーブ「鎖」（スイッチ 101、変数 101）→ 帰りの転送陣で拠点へ
+    await go(TORTURE, 13, 9, 8);
+    await game.shot("torture-room");
+    await go(ORB_ROOM, ORB.x, ORB.y + 1, 8);
+    await game.shot("orb-room");
+    const orb = await investigate();
+    check(orb.join("").includes("帳面をめくる自分の手"), `オーブ「鎖」の場面: ${JSON.stringify(orb)}`);
+    check(await switchOn(101), "オーブでスイッチ 101 が ON にならない");
+    check((await game.eval(() => window.__game.ref("$gameVariables").value(101))) === 1, "オーブの数（変数 101）が 1 にならない");
+    await go(ORB_ROOM, ORB_TELEPORT.x + 1, ORB_TELEPORT.y, 4);
+    await step(4);
+    await arrive(HALL);
 
     check(!(await eventRunning()), "イベントが走ったまま");
     game.assertNoErrors();
