@@ -5,6 +5,8 @@
   "displayName": "巡礼の森",
   "legend": "forest",
   "tilesetId": 12,
+  "bgm": {"name": "Field2", "volume": 65, "pitch": 100, "pan": 0},
+  "bgs": {"name": "Wind3", "volume": 40, "pitch": 100, "pan": 0},
   "note": "<hai_tone:34,34,51,153>",
   "fields": {
     "specifyBattleback": true,

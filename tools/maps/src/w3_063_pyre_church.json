@@ -5,6 +5,8 @@
   "displayName": "焚刑の教会",
   "legend": "dungeon",
   "tilesetId": 14,
+  "bgm": {"name": "Castle3", "volume": 60, "pitch": 100, "pan": 0},
+  "bgs": {"name": "Fire1", "volume": 25, "pitch": 100, "pan": 0},
   "note": "<hai_tone:-34,-51,-51,85>",
   "fields": {
     "specifyBattleback": true,

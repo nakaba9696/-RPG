@@ -5,6 +5,8 @@
   "displayName": "水上集落の跡",
   "legend": "marsh",
   "tilesetId": 15,
+  "bgm": {"name": "Field3", "volume": 55, "pitch": 100, "pan": 0},
+  "bgs": {"name": "River", "volume": 35, "pitch": 100, "pan": 0},
   "note": "<hai_tone:-17,0,-17,102>",
   "fields": {
     "specifyBattleback": true,

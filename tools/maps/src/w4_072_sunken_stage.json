@@ -5,6 +5,8 @@
   "displayName": "沈んだ舞台",
   "legend": "marsh",
   "tilesetId": 15,
+  "bgm": {"name": "Scene6", "volume": 55, "pitch": 100, "pan": 0},
+  "bgs": {"name": "Rain2", "volume": 35, "pitch": 100, "pan": 0},
   "note": "<hai_tone:-34,-17,0,68>",
   "fields": {
     "specifyBattleback": true,

@@ -5,6 +5,8 @@
   "displayName": "看取りの小屋",
   "legend": "forest",
   "tilesetId": 12,
+  "bgm": {"name": "Scene4", "volume": 55, "pitch": 100, "pan": 0},
+  "bgs": {"name": "Wind1", "volume": 25, "pitch": 100, "pan": 0},
   "note": "<hai_tone:34,34,51,153>",
   "fields": {
     "specifyBattleback": true,

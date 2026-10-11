@@ -5,6 +5,8 @@
   "displayName": "異端者の廃集落",
   "legend": "village",
   "tilesetId": 19,
+  "bgm": {"name": "Field3", "volume": 60, "pitch": 100, "pan": 0},
+  "bgs": {"name": "Wind2", "volume": 35, "pitch": 100, "pan": 0},
   "note": "<hai_tone:-34,-34,-34,136>\n<hai_parallax:DarkClouds,1,0>",
   "fields": {
     "specifyBattleback": true,
