@@ -7,7 +7,8 @@
 //      スイッチ 151・撃破の記録・看守長の鍵束・北の扉が開く。
 //   5. 炎で看守長を突ける（#103）：ユエルは灰火を職業（蘇生師）で覚えている（テストで覚えさせない）。
 //      ゲームの中で手に入る物だけ（沈黙除けの首輪・坑夫の鶴嘴・眠り香 2・薬草 2）で、ユエル Lv4・オルド Lv4 が、
-//      強化なしに看守長と戦って勝つ。乱数は種を変えて 4 回、3 回以上勝つ（狂乱と点呼の番犬が重なると、薬草が間に合わず負けることがある）。
+//      強化なしに看守長と戦って勝つ。乱数は種を変えて 3 回、3 回とも勝つ
+//      （手元の試しでは Lv4・Lv4 で 8 / 8、Lv4・Lv3 で 7 / 8。負けは狂乱と点呼の番犬がユエルに重なったとき）。
 // 乱数（Math.random）は固定する（逃走の成否と行動の選び方）。5 は種つきの乱数。
 import { launchGame, check, runTest } from "./lib.mjs";
 
@@ -316,7 +317,7 @@ await runTest(async () => {
     console.log(`  看守長：点呼・炎のヒント・狂乱（形態 2、2 回行動）→ 撃破でスイッチ 151、鍵束 ${keys} → ${won.keys}、オーブの間へ`);
 
     // ===== 5. 炎で看守長を突ける（強化なし・覚えさせない） =====
-    const SEEDS = [1, 2, 3, 4];
+    const SEEDS = [1, 2, 3];
     const results = [];
     for (const seed of SEEDS) {
       await go(TORTURE, 13, 11, 8);
@@ -384,7 +385,7 @@ await runTest(async () => {
     }
     const wins = results.filter(r => r.win && !r.lost);
     console.log(`  炎で看守長：${results.map(r => `種 ${r.seed} ${r.turns} ターンで${r.win ? "勝ち" : "負け"}（${r.party.join("、")}）`).join(" / ")}`);
-    check(wins.length >= 3, `看守長に勝てたのが ${wins.length} / ${results.length} 回 ` + JSON.stringify(results));
+    check(wins.length === results.length, `看守長に勝てたのが ${wins.length} / ${results.length} 回 ` + JSON.stringify(results));
 
     game.assertNoErrors();
   } finally {

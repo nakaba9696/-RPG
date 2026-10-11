@@ -116,6 +116,8 @@ await runTest(async () => {
       $gameParty._actors = [1]; // 初期パーティ（System.json）に左右されないように主人公だけにする
       $gamePlayer.refresh();
     });
+    // 来歴のある物（Hai_Lore）は記録済みにしておく。初めて手に入れたときの知らせ（文章）はこのテストの外（tests/u_lore.mjs）で見る
+    await game.eval(() => [...$dataItems, ...$dataWeapons, ...$dataArmors].forEach(item => item && Hai.Lore.has(item) && Hai.Lore.record(item)));
     check((await game.eval(() => $dataItems[171].name)) === "叡智のオーブ", "Items 171 が叡智のオーブでない");
     check((await F("opened")).length === 0 && (await F("nextFacility")) === "soul", "最初から施設が開いている");
 
