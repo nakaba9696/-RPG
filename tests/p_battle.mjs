@@ -56,7 +56,9 @@ await runTest(async () => {
         regen.apply(this, arguments);
         if (this.isActor()) window.__log.regen.push({ name: this.name(), mhp: this.mhp, loss: hp - this.hp });
       };
-      // 試すための下ごしらえ：レベル 10、P4 の技、眠り香、ケイシーに沈黙除けの首輪
+      // 試すための下ごしらえ：MZ の既定の 4 人（1・4・6・7）、レベル 10、P4 の技、眠り香、ケイシーに沈黙除けの首輪
+      for (const a of $gameParty.members()) $gameParty.removeActor(a.actorId());
+      for (const id of [1, 4, 6, 7]) $gameParty.addActor(id);
       for (const a of $gameParty.members()) {
         a.changeLevel(10, false);
         for (const id of [158, 161, 162]) a.learnSkill(id);

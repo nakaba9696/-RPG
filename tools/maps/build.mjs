@@ -99,7 +99,7 @@ export function findChars(lines, ch) {
 
 // ---------------------------------------------------------------------------
 // 文字の定義
-//   { "tiles": [z0, z1, z2, z3], "region": n, "block": true, "as": "." }
+//   { "tiles": [z0, z1, z2, z3], "region": n, "block": true, "as": ".", "shadow": false }
 //   { "wall": { "top": "A4:1", "side": "A4:9", "height": 2 } }
 // "as" は別の文字の定義を下敷きにして、tiles の null でない所・ほかの欄だけ上書きする。
 // ---------------------------------------------------------------------------
@@ -312,10 +312,12 @@ export function buildMap(source, legend = readLegend()) {
     }
   }
   // 影（z=4）：エディタと同じく、左のマスと左上のマスがどちらも壁（A3・A4）なら、左半分に影を落とす
+  // 左のマスの文字が shadow: false（隠し通路の「影の無い壁」）なら落とさない
   if (config.shadows !== false) {
     for (let y = 0; y < height; y++) {
       for (let x = 1; x < width; x++) {
         if (isShadowingTile(data[idx(x, y, 0)])) continue;
+        if (defAt(x - 1, y).shadow === false) continue;
         const left = data[idx(x - 1, y, 0)];
         const upLeft = y > 0 ? data[idx(x - 1, y - 1, 0)] : left;
         if (isShadowingTile(left) && isShadowingTile(upLeft)) data[idx(x, y, 4)] = 0b0101;

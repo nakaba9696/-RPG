@@ -13,28 +13,36 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # テストを 3 つに分けて並列に走らせる（tests/run.mjs --shard i/n。名前順の総当たり）
   test:
+    name: test (${{ matrix.shard }}/3)
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 22
           cache: npm
+          cache-dependency-path: tests/package-lock.json
       - name: ワークフローの決まりの検査
         run: bash tools/ci/check-workflows.sh
+      # テストの npm 設定は tests/ に置く（直下の package.json は MZ のエディタが書き戻すため）
       - name: 依存を入れる
-        run: npm ci --ignore-scripts
+        run: npm ci --ignore-scripts --prefix tests
       - name: Chromium を入れる
-        run: node node_modules/playwright/cli.js install --with-deps chromium
+        run: node tests/node_modules/playwright/cli.js install --with-deps chromium
       - name: テスト
-        run: node tests/run.mjs
+        run: node tests/run.mjs --shard ${{ matrix.shard }}/3
       - name: スクリーンショットを残す
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: screenshots
+          name: screenshots-${{ matrix.shard }}
           path: tests/out/
           if-no-files-found: ignore
           retention-days: 14

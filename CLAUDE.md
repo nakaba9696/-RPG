@@ -20,6 +20,9 @@
 | `js/rmmz_*.js` | コアスクリプト（触らない。変えたい所はプラグインで alias） |
 | `js/plugins.js` | 読み込むプラグインの一覧（追記だけ） |
 | `js/plugins/Hai_<名前>.js` | 自作のプラグイン |
+| `docs/plugins/Hai_*.md` | 各プラグインの説明（使い方・メモ欄のタグ・窓口） |
+| `docs/look.md` | 見た目の決まり（タイルセット・色調・数値。V レーン） |
+| `docs/world.md` | 世界設計書（D1） |
 | `data/*.json` | データベースとマップ（形は [docs/mz-data.md](docs/mz-data.md)） |
 | `tools/maps/` | 文字マップ → `data/MapNNN.json` の変換（T1 で作る） |
 | `tools/data/` | データの JSON を読む・書く・検査する小さな関数（T1 で作る） |
@@ -131,9 +134,9 @@
 
 ## 検証（PR を出す前に必ず通す）
 ```bash
-npm ci --ignore-scripts
-node tests/run.mjs          # 静的サーバー＋Playwright（ヘッドレス Chromium）でスモーク一式とデータの検査
+npm ci --ignore-scripts --prefix tests && node tests/run.mjs   # 静的サーバー＋Playwright（ヘッドレス Chromium）でスモーク一式とデータの検査
 ```
+- CI は `node tests/run.mjs --shard i/3`（名前順の総当たりで 3 つに分けた i 番目）を 3 つ並列に走らせる。手元で CI の 1 シャードだけ再現するときも同じ引数で。
 - クラウドのセッションでは Chromium が `/opt/pw-browsers/chromium` にある（`PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers`）。`playwright install` は実行しない。
 - MZ は `file://` では動かない。テストは `tests/serve.mjs` の静的サーバーで `index.html?hai_test` を開く。
 - `pageerror` と console の error はゼロにする。

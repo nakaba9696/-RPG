@@ -1,0 +1,31 @@
+{
+  "_説明": "ID の帯。docs/ROADMAP.md の「ID の帯」（lanes）と「割り当て表」（issues）の写し。ROADMAP の帯を変えたら、ここも同じに直す（tools/data/check.mjs の checkBands が読む）。範囲は [始め, 終わり]（両端を含む）。issue の欄が [] なら割り当てなし（ROADMAP の「—」）。issue に欄が無ければレーンの帯で見る。",
+  "_種類": {
+    "switches": "System.json の switches・variables（同じ帯）",
+    "maps": "MapNNN.json と MapInfos.json",
+    "database": "Skills・Items・Weapons・Armors・Enemies・Troops・States・Animations",
+    "commonEvents": "CommonEvents（レーンの帯は database と同じ）",
+    "actors": "Actors・Classes",
+    "tilesets": "Tilesets"
+  },
+  "lanes": {
+    "owner": { "switches": [[1, 20]], "maps": [[1, 9]], "database": [[1, 100]], "commonEvents": [[1, 100]], "actors": [[1, 4]], "tilesets": [[1, 10]] },
+    "P": { "switches": [[21, 100]], "maps": [], "database": [[101, 200]], "commonEvents": [[101, 200]], "actors": [], "tilesets": [] },
+    "W": { "switches": [[101, 900]], "maps": [[10, 899]], "database": [[201, 800]], "commonEvents": [[201, 800]], "actors": [[5, 49]], "tilesets": [] },
+    "V": { "switches": [[901, 950]], "maps": [], "database": [[801, 900]], "commonEvents": [[801, 900]], "actors": [], "tilesets": [[11, 30]] },
+    "U": { "switches": [[901, 950]], "maps": [], "database": [[901, 950]], "commonEvents": [[901, 950]], "actors": [], "tilesets": [] },
+    "T": { "switches": [[951, 999]], "maps": [[900, 949]], "database": [[951, 999]], "commonEvents": [[951, 999]], "actors": [[90, 99]], "tilesets": [] },
+    "D": { "switches": [], "maps": [], "database": [], "commonEvents": [], "actors": [], "tilesets": [] }
+  },
+  "issues": {
+    "T1": { "switches": [[951, 960]], "maps": [[900, 909]], "database": [[951, 960]], "commonEvents": [[951, 960]] },
+    "P1": { "switches": [[21, 30]], "maps": [], "database": [[101, 120]], "commonEvents": [[101, 110]] },
+    "P2": { "switches": [[31, 40]], "maps": [], "database": [], "commonEvents": [[111, 120]] },
+    "P3": { "switches": [[41, 50]], "maps": [], "database": [[121, 140]], "commonEvents": [[121, 130]] },
+    "P4": { "switches": [[51, 60]], "maps": [], "database": [[141, 180]], "commonEvents": [[131, 140]] },
+    "P5": { "switches": [[61, 70]], "maps": [], "database": [[181, 190]], "commonEvents": [[141, 150]] },
+    "W1": { "switches": [[201, 300]], "maps": [[10, 19], [20, 49]], "database": [[201, 300]], "commonEvents": [[201, 240]] },
+    "U2": { "switches": [[921, 930]], "maps": [[908, 908]], "database": [], "commonEvents": [] }
+  },
+  "testMaps": [900, 949]
+}

@@ -1,0 +1,20 @@
+{
+  "_説明": "V1（見た目の土台）の試験場（T の帯 900–909 のうち 903 を V1 が使う）。製品のマップからは行けない。タイルセット 14「V_地下牢」、色調・遠景・暗がりのタグ付き。上の 2 行は何も置かず遠景を見せる。",
+  "mapId": 903,
+  "name": "T_見た目の試験場",
+  "displayName": "見た目の試験場",
+  "legend": "dungeon",
+  "tilesetId": 14,
+  "note": "<hai_tone:-68,-68,-34,68>\n<hai_parallax:DarkClouds,1,0>\n<hai_dark:5>",
+  "chars": {
+    "S": { "name": "テストの開始地点", "as": "." },
+    "t": { "name": "石碑", "as": "." },
+    "k": { "name": "骸骨（通れない）", "as": ".", "tiles": [null, null, "B:242"] },
+    "x": { "name": "樽（通れない）", "as": ".", "tiles": [null, null, "B:238"] },
+    "j": { "name": "鉄格子の上（☆）", "as": ".", "tiles": [null, null, "B:245"] },
+    "J": { "name": "鉄格子の下（通れない）", "as": ".", "tiles": [null, null, "B:253"] }
+  },
+  "events": [
+    { "at": "t", "name": "石碑", "type": "text", "image": { "tileId": "B:64" }, "lines": ["色調・遠景・暗がりの試験場。", "メモ欄の <hai_tone> <hai_parallax> <hai_dark> で雰囲気を付けている。"] }
+  ]
+}

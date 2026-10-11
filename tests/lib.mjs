@@ -36,6 +36,12 @@ export function check(cond, message) {
   if (!cond) throw new Error("確認に失敗: " + message);
 }
 
+/** 画面の大きさ（data/System.json の advanced）。ブラウザの窓をこれに合わせ、スクリーンショットも同じ大きさで出す。 */
+function screenSize() {
+  const sys = JSON.parse(fs.readFileSync(path.join(ROOT, "data", "System.json"), "utf8"));
+  return { width: sys.advanced.screenWidth, height: sys.advanced.screenHeight };
+}
+
 function testName() {
   const main = process.argv[1] ? path.basename(process.argv[1], ".mjs") : "test";
   return main;
@@ -46,6 +52,7 @@ function testName() {
  * @param {object} [opts]
  * @param {string} [opts.query]  URL の ? 以降（既定 "hai_test"）
  * @param {string} [opts.name]   スクリーンショットの頭に付ける名前（既定はテストのファイル名）
+ * @param {object} [opts.context] browser.newContext に足す設定（タッチ端末なら { hasTouch: true, isMobile: true }、縦画面なら viewport も）
  */
 export async function launchGame(opts = {}) {
   const query = opts.query ?? "hai_test";
@@ -54,7 +61,7 @@ export async function launchGame(opts = {}) {
 
   const server = await startServer();
   const browser = await chromium.launch({ args: CHROMIUM_ARGS });
-  const context = await browser.newContext({ viewport: { width: 816, height: 624 } });
+  const context = await browser.newContext({ viewport: screenSize(), ...(opts.context ?? {}) });
   const page = await context.newPage();
   const errors = [];
   page.on("pageerror", e => errors.push("pageerror: " + (e.stack || e.message)));

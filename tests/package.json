@@ -1,0 +1,12 @@
+{
+  "name": "hai-tests",
+  "private": true,
+  "description": "テストとツールの npm 設定（直下の package.json は MZ が書き戻すので、ここに置く）",
+  "scripts": {
+    "test": "node run.mjs",
+    "maps": "node ../tools/maps/build.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.56.1"
+  }
+}
