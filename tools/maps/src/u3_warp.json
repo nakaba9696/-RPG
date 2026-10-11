@@ -1,0 +1,28 @@
+{
+  "_説明": "U3（快適機能・セーブ地点・転送結界）の試験場（T の帯 900–909 のうち 909 を U3 が使う）。製品のマップからは行けない。西の部屋に結界 A、東の広間に結界 B、東の広間の南東の隅に結界 C（下が壁なので、転送すると結界の位置に立つ）。",
+  "mapId": 909,
+  "name": "T_結界と転送",
+  "displayName": "結界の試験場",
+  "legend": "dungeon",
+  "bgm": "Dungeon1",
+  "chars": {
+    "S": { "name": "開始地点（テスト用の目印）", "as": "." },
+    "A": { "name": "結界 A（西の結界）", "as": "." },
+    "B": { "name": "結界 B（東の結界）", "as": "." },
+    "C": { "name": "結界 C（奥の結界。下が壁）", "as": "." }
+  },
+  "events": [
+    {
+      "at": "A", "name": "西の結界", "type": "raw", "note": "<hai_warp:西の結界>",
+      "pages": [{ "image": { "characterName": "!Crystal", "characterIndex": 1, "direction": 8 }, "priorityType": 1, "stepAnime": true, "directionFix": true, "trigger": 0 }]
+    },
+    {
+      "at": "B", "name": "東の結界", "type": "raw", "note": "<hai_warp:東の結界>",
+      "pages": [{ "image": { "characterName": "!Crystal", "characterIndex": 1, "direction": 8 }, "priorityType": 1, "stepAnime": true, "directionFix": true, "trigger": 0 }]
+    },
+    {
+      "at": "C", "name": "奥の結界", "type": "raw", "note": "<hai_warp:奥の結界>",
+      "pages": [{ "image": { "characterName": "!Crystal", "characterIndex": 1, "direction": 8 }, "priorityType": 1, "stepAnime": true, "directionFix": true, "trigger": 0 }]
+    }
+  ]
+}
