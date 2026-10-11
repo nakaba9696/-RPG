@@ -47,7 +47,7 @@ await runTest(async () => {
       await game.frames(6);
       if (!noticeShot && (await game.eval(() => window.__game.ref("$gameMessage").allText().includes("来歴を読める")))) {
         noticeShot = true;
-        await game.shot("notice");
+        await game.shot("notice-window");
       }
       await game.press("Enter"); // 押している 3 フレームの間に pause が外れる（次の文が瞬間表示でもすぐ次の待ちに入れる）
       await game.frames(3);
@@ -129,12 +129,31 @@ await runTest(async () => {
     check(!(await game.eval(() => window.Hai.Lore.has($dataItems[944]))), "ただの石に来歴がある");
     check((await lore("records")).length === 0, "最初から記録がある");
 
-    // ---- 宝箱：初めての物に一言、記録に載る
+    // ---- 宝箱：初めての物でも来歴の知らせは出さない（既定）。記録には載る
+    const toasts = () => game.eval(() => window.Hai.Items.toastState().log);
+    check(await game.eval(() => window.Hai.Lore.params.noticeText === "" && window.Hai.Lore.params.noticeStyle === "toast"), "知らせの既定が空・通知でない");
     let msgs = await openChest(CHEST.vial);
-    check(msgs.some(t => t.includes("試しの小瓶の来歴を読める。")), `小瓶の知らせ ${JSON.stringify(msgs)}`);
+    check(!msgs.some(t => t.includes("来歴")), `小瓶で来歴の窓が出た ${JSON.stringify(msgs)}`);
+    check(!(await toasts()).some(t => t.includes("来歴")), `小瓶で来歴の通知が出た ${JSON.stringify(await toasts())}`);
+    check(JSON.stringify(await recordIds()) === JSON.stringify(["item:941"]), `小瓶が記録に載らない ${await recordIds()}`);
+
+    // 知らせを入れると（通知）：窓は出ず、画面の端に小さく出て、操作を止めない
+    await game.eval(() => (window.Hai.Lore.params.noticeText = "%1の来歴を読める。"));
     msgs = await openChest(CHEST.pill);
-    check(msgs.some(t => t.includes("試しの丸薬の来歴を読める。")), `丸薬の知らせ ${JSON.stringify(msgs)}`);
-    await openChest(CHEST.tag);
+    check(!msgs.some(t => t.includes("来歴")), `通知なのに窓が出た ${JSON.stringify(msgs)}`);
+    await game.waitFor(() => window.Hai.Items.toastState().log.some(t => t.includes("試しの丸薬の来歴を読める。")));
+    check((await game.eval(() => window.Hai.Items.toastState().shown) || "").includes("試しの丸薬の来歴を読める。"), "通知が出ていない");
+    check(await game.eval(() => !window.__game.ref("$gameMessage").isBusy() && !window.__game.ref("$gameMap").isEventRunning()), "通知が操作を止めている");
+    await game.shot("notice-toast");
+
+    // 知らせの出し方を「文章」にすると、元のように文章の窓で出る
+    await game.eval(() => (window.Hai.Lore.params.noticeStyle = "window"));
+    msgs = await openChest(CHEST.tag);
+    check(msgs.some(t => t.includes("来歴を読める。")), `文章の知らせ ${JSON.stringify(msgs)}`);
+    await game.eval(() => {
+      window.Hai.Lore.params.noticeStyle = "toast";
+      window.Hai.Lore.params.noticeText = "";
+    });
     await openChest(CHEST.dagger);
     msgs = await openChest(CHEST.stone);
     check(!msgs.some(t => t.includes("来歴")), `ただの石で来歴の知らせが出た ${JSON.stringify(msgs)}`);
@@ -151,7 +170,8 @@ await runTest(async () => {
     check(await game.eval(() => window.Hai.Items.storageCount("item", 942)) === 1, "丸薬の 2 つ目が倉庫へ行っていない");
     check(await game.eval(() => window.__game.ref("$gameParty").numItems($dataItems[942])) === 1, "袋の丸薬の数");
     check(JSON.stringify(await recordIds()) === JSON.stringify(["item:941", "item:943", "weapon:941", "item:942"]), `倉庫行きの記録 ${await recordIds()}`);
-    check(msgs.some(t => t.includes("倉庫へ送られた")) && msgs.some(t => t.includes("試しの丸薬の来歴を読める。")), `倉庫行きの知らせ ${JSON.stringify(msgs)}`);
+    check(!msgs.some(t => t.includes("倉庫へ送られた") || t.includes("来歴")), `倉庫行きで文章の窓が出た ${JSON.stringify(msgs)}`);
+    await game.waitFor(() => window.Hai.Items.toastState().log.some(t => t.includes("倉庫へ送られた")));
 
     // ---- アイテムの画面：一覧の印と説明の窓の案内
     await game.eval(() => window.__game.ref("SceneManager").push(Scene_Item));

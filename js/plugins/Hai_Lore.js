@@ -13,7 +13,7 @@
  *
  * ・アイテム・装備の画面：来歴のある物には一覧で小さな印。選んでいるときに
  *   R キー（ゲームパッドは RT）か、上の説明の窓を押すと、来歴をページ送りの窓で読める。
- * ・手に入れたとき（倉庫へ送られた分も）に「遺物の記録」へ載せる。初めてなら一言知らせる。
+ * ・手に入れたとき（倉庫へ送られた分も）に「遺物の記録」へ載せる。初めてなら（noticeText を入れたときだけ）一言知らせる。
  * ・遺物の記録：メニューの「メモ」の 4 つ目の種類（Hai_Notes が無ければメニューの項目）。
  *   手に入れた順・種類別に並べ、選ぶと来歴。使った物・手放した物も残る。
  *
@@ -74,9 +74,19 @@
  *
  * @param noticeText
  * @text 初めて手に入れたときの知らせ
- * @desc %1 アイコンと名前。空にすると知らせない。
+ * @desc %1 アイコンと名前。空にすると知らせない（既定）。一覧の ◆ と説明の窓の案内で足りるので出さない。
  * @type string
- * @default %1の来歴を読める。
+ * @default
+ *
+ * @param noticeStyle
+ * @text 知らせの出し方
+ * @desc 知らせを出すとき。通知：画面の端に小さく出して操作を止めない（Hai_Items の通知）／文章：文章の窓で止める。
+ * @type select
+ * @option 通知
+ * @value toast
+ * @option 文章
+ * @value window
+ * @default toast
  *
  * @param releasedText
  * @text 手放した物の印
@@ -119,7 +129,8 @@
     loreButton: Number(params.loreButton ?? 7),
     mark: params.mark ?? "◆",
     hintText: params.hintText ?? "来歴を読む（R）",
-    noticeText: params.noticeText ?? "%1の来歴を読める。",
+    noticeText: params.noticeText ?? "",
+    noticeStyle: params.noticeStyle === "window" ? "window" : "toast",
     releasedText: params.releasedText || "手放した",
   };
   const INPUT_NAME = "haiLore";
@@ -228,7 +239,9 @@
     if (!P.noticeText) return;
     const name = (item.iconIndex ? `\\I[${item.iconIndex}]` : "") + item.name;
     const line = P.noticeText.format(name);
-    if ($gameParty.inBattle() || SceneManager._scene instanceof Scene_Map) {
+    if (P.noticeStyle === "toast" && window.Hai && Hai.Items && Hai.Items.toast) {
+      Hai.Items.toast(line);
+    } else if ($gameParty.inBattle() || SceneManager._scene instanceof Scene_Map) {
       if ($gameMessage.hasText()) $gameMessage.newPage();
       $gameMessage.add(line);
     } else {

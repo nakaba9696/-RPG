@@ -116,8 +116,6 @@ await runTest(async () => {
       $gameParty._actors = [1]; // 初期パーティ（System.json）に左右されないように主人公だけにする
       $gamePlayer.refresh();
     });
-    // 来歴のある物（Hai_Lore）は記録済みにしておく。初めて手に入れたときの知らせ（文章）はこのテストの外（tests/u_lore.mjs）で見る
-    await game.eval(() => [...$dataItems, ...$dataWeapons, ...$dataArmors].forEach(item => item && Hai.Lore.has(item) && Hai.Lore.record(item)));
     check((await game.eval(() => $dataItems[171].name)) === "叡智のオーブ", "Items 171 が叡智のオーブでない");
     check((await F("opened")).length === 0 && (await F("nextFacility")) === "soul", "最初から施設が開いている");
 
@@ -249,12 +247,8 @@ await runTest(async () => {
     // ---- 8. 保管ゲート：薬草 6 つ（5 つ＋倉庫 1）→ 預ける → 引き出す
     await game.eval(id => $gameParty.gainItem($dataItems[id], 6), HERB);
     await waitMapIdle();
-    for (let i = 0; i < 5 && (await game.eval(() => $gameMessage.isBusy())); i++) {
-      await game.frames(12);
-      await game.press("Enter"); // 「倉庫へ送られた」の知らせ
-      await game.frames(6);
-    }
-    await waitMapIdle();
+    check(!(await game.eval(() => $gameMessage.isBusy())), "倉庫の知らせが文章の窓で出た（通知は操作を止めない）");
+    await game.waitFor(() => Hai.Items.toastState().log.some(t => t.includes("薬草（1 個）は倉庫へ送られた")));
     const stored = () => game.eval(id => Hai.Items.storageCount("item", id), HERB);
     check((await num(HERB)) === 5 && (await stored()) === 1, "薬草が 5＋倉庫 1 にならない");
     await useFacility("gate", "Scene_HaiGate");
