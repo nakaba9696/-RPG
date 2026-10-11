@@ -1,5 +1,5 @@
 // W3（#94）巨人の崖道（docs/world2.md 2 章、tools/maps/src/w3_05*）の検査：
-//   1. 廃坑・上層 026 の東の出口 → 崖道 050。見張り小屋の箱で地下壕の鍵、R18 でメモ。H14 の見えない通路で谷を迂回して巨人の石段へ。
+//   1. 廃坑・上層 026 の東の出口 → 崖道 050。見張り小屋の箱で地下壕の鍵、R18 でメモ、骨の山の王国兵の札（来歴つき）。H14 の見えない通路で谷を迂回して巨人の石段へ。
 //      石段の途中の段の縁から谷の手前へ飛び降りる（片道）。
 //   2. 帝国の陣跡 051：地下壕の扉が鍵で開く。オルドの記憶 2、H15 の隠し扉 → 赤い宝箱「工兵の手袋」、結界に触れる。
 //   3. 巨人の吊り橋 052：渡れない → H16（苔の崖）で向こう岸へ → 取っ手で吊り橋が下りる（スイッチ 161）。
@@ -34,7 +34,7 @@ const HANDLE = { x: 19, y: 5 };
 const BEARER = { x: 31, y: 6, troop: 305, escape: { x: 21, y: 7, d: 4 } };
 const CAVE = 53;
 const ORB = { x: 12, y: 4, item: 171 };
-const GIANT_CHEST = { x: 6, y: 5 };
+const GIANT_CHEST = { x: 8, y: 5 };
 const H17 = { x: 16, y: 7, to: { x: 19, y: 6 } };
 const BOLT = { x: 20, y: 7 };
 const MINE_LOW = 27;
@@ -170,6 +170,11 @@ await runTest(async () => {
     const r18 = (await talk()).join("\n");
     check(r18.includes("地下壕の鍵は、この小屋の箱に入れておく") && r18.includes("メモ"), "R18 の本文とメモ " + JSON.stringify(r18));
     check(await game.eval(() => Hai.Thoughts.hasNote("clue:R18")), "R18 の手がかりがメモに無い");
+    // 道具で語る大事なもの（docs/lore.md 4.1）：谷の手前の骨の山の王国兵の札
+    await go(ROAD, 20, 9, 2);
+    await talk();
+    const tag = await game.eval(() => ({ n: $gameParty.numItems($dataItems[305]), lore: /<hai_lore>/.test($dataItems[305].note) }));
+    check(tag.n === 1 && tag.lore, "王国兵の札が拾えない、または来歴が無い " + JSON.stringify(tag));
     // H14：曲がり道の北の端から、谷の北の岩壁の中を抜けて石段の西へ
     await go(ROAD, H14.from.x, H14.from.y, 8);
     for (const [d, x, y] of H14.path) {

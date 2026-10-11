@@ -300,5 +300,5 @@ null,
 {"id":298,"animationId":0,"description":"","etypeId":1,"traits":[{"code":31,"dataId":1,"value":0},{"code":22,"dataId":0,"value":0}],"iconIndex":0,"name":"","note":"","params":[0,0,0,0,0,0,0,0],"price":0,"wtypeId":0},
 {"id":299,"animationId":0,"description":"","etypeId":1,"traits":[{"code":31,"dataId":1,"value":0},{"code":22,"dataId":0,"value":0}],"iconIndex":0,"name":"","note":"","params":[0,0,0,0,0,0,0,0],"price":0,"wtypeId":0},
 {"id":300,"animationId":0,"description":"","etypeId":1,"traits":[{"code":31,"dataId":1,"value":0},{"code":22,"dataId":0,"value":0}],"iconIndex":0,"name":"","note":"","params":[0,0,0,0,0,0,0,0],"price":0,"wtypeId":0},
-{"id":301,"animationId":6,"description":"柄の短い、獣人の手に合わせて打たれた剣。ザザだけが握れる。","etypeId":1,"traits":[{"code":31,"dataId":1,"value":0},{"code":22,"dataId":0,"value":0}],"iconIndex":97,"name":"ザザの父の剣","note":"<hai_unique>","params":[0,0,26,4,0,0,2,0],"price":0,"wtypeId":10}
+{"id":301,"animationId":6,"description":"ザザだけが扱える片刃の剣。\n床下にしまわれていた。刃こぼれが一つも無い。","etypeId":1,"traits":[{"code":31,"dataId":1,"value":0},{"code":22,"dataId":0,"value":0}],"iconIndex":97,"name":"ザザの父の剣","note":"<hai_unique>\n<hai_lore>\n獣人の剣士が、家の床下にしまっていた片刃の剣。\n柄の革は、大人の手の形にすり減っている。\n柄頭に小さな刻みが十いくつ。刃には、こぼれが一つも無い。\n床下には、子どもの背丈に合う木の枝も一本しまってあった。\n</hai_lore>","params":[0,0,26,4,0,0,2,0],"price":0,"wtypeId":10}
 ]

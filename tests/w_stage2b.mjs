@@ -57,7 +57,7 @@ const HOSPICE_ARRIVE = { x: 1, y: 7 };
 const SHION3 = { x: 18, y: 4 };
 const SHION = { x: 21, y: 5 };
 const SPRING = { x: 3, y: 10 };
-const ITEM = { emblem: 222, prayer: 301, ice: 302, silence: 304, orb: 171 };
+const ITEM = { emblem: 222, prayer: 301, ice: 302, silence: 304, orb: 171, nameTag: 307, ashPot: 308 };
 const ARMOR = { leather: 304, coat: 305 };
 const WEAPON = { sword: 301 };
 const FAST = 16;
@@ -279,6 +279,9 @@ await runTest(async () => {
     await game.shot("tunnel");
     await go(TUNNEL, R28.x, R28.y + 1, 8);
     check((await talk()).join("").includes("千九百、二千"), "R28 の本文");
+    await go(TUNNEL, 41, 7, 8);
+    await talk();
+    check((await items("i", ITEM.nameTag)) === 1, "H22 の扉の手前で護送の名札が拾えない");
     await go(TUNNEL, H22.x - 1, H22.y, 6);
     await talk(["閂を外す"]);
     await arrive(CELLS, CELLS_ARRIVE.x, CELLS_ARRIVE.y);
@@ -414,6 +417,9 @@ await runTest(async () => {
     for (let i = 0; i < 3; i++) check(await step(6), `H23 の途中で進めない ${JSON.stringify(await pos())}`);
     await arrive(HOSPICE, HOSPICE_ARRIVE.x, HOSPICE_ARRIVE.y);
     await game.shot("hospice");
+    await go(HOSPICE, 17, 5, 8);
+    await talk();
+    check((await items("i", ITEM.ashPot)) === 1, "薬棚の下で聖灰の小壺が拾えない");
     await go(HOSPICE, SHION3.x, SHION3.y + 1, 8);
     check((await talk()).join("").includes("シオンの記憶 3/4「罪か誇り」"), "シオンの記憶 3");
     await go(HOSPICE, SHION.x, SHION.y + 1, 8);
