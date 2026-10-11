@@ -5,6 +5,7 @@
   "displayName": "蘇生師の研究所",
   "legend": "lab",
   "tilesetId": 17,
+  "bgm": "Dungeon5",
   "note": "<hai_tone:-17,-51,-17,68>",
   "fields": {
     "specifyBattleback": true,

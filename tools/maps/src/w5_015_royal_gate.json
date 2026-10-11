@@ -5,6 +5,7 @@
   "displayName": "王都の門",
   "legend": "gate",
   "tilesetId": 2,
+  "bgm": "Castle3",
   "note": "<hai_tone:-34,-51,-34,102>\n<hai_parallax:DarkClouds,1,0>",
   "fields": {
     "specifyBattleback": true,

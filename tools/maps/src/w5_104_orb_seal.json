@@ -5,6 +5,7 @@
   "displayName": "オーブの間",
   "legend": "sewer",
   "tilesetId": 18,
+  "bgm": "Scene3",
   "note": "<hai_tone:51,51,68,136>",
   "fields": {},
   "chars": {

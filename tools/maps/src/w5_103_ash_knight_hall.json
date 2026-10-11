@@ -5,6 +5,7 @@
   "displayName": "灰の騎士の間",
   "legend": "sewer",
   "tilesetId": 18,
+  "bgm": "Dungeon7",
   "note": "<hai_tone:34,34,51,119>",
   "fields": {
     "specifyBattleback": true,

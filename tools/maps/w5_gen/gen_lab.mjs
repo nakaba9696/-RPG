@@ -304,3 +304,4 @@ orbRoom({
     g.set(5, 4, "s").set(11, 4, "s");
   },
 });
+// BGM（autoplay）は下書きの JSON に直接書いた（研究所 Dungeon5、下水道 Dungeon3、ボスの間 Dungeon7、オーブの間 Scene3、王都の門 Castle3）。作り直すときは設定に bgm を足す

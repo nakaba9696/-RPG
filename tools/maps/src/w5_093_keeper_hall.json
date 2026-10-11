@@ -5,6 +5,7 @@
   "displayName": "番人の間",
   "legend": "lab",
   "tilesetId": 17,
+  "bgm": "Dungeon7",
   "note": "<hai_tone:17,-51,-34,68>",
   "fields": {
     "specifyBattleback": true,

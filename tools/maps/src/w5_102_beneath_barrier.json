@@ -5,6 +5,7 @@
   "displayName": "王都の下水道",
   "legend": "sewer",
   "tilesetId": 18,
+  "bgm": "Dungeon3",
   "note": "<hai_tone:17,17,34,102>",
   "fields": {
     "specifyBattleback": true,
