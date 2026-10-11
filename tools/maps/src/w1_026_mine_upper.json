@@ -558,8 +558,8 @@
     {
       "name": "坑道鼠（緑・巡回）",
       "type": "raw",
-      "x": 8,
-      "y": 16,
+      "x": 15,
+      "y": 18,
       "note": "<hai_enemy:205,green>",
       "pages": [
         {
@@ -647,8 +647,8 @@
     {
       "name": "坑道鼠（緑）",
       "type": "raw",
-      "x": 27,
-      "y": 17,
+      "x": 36,
+      "y": 21,
       "note": "<hai_enemy:205,green>",
       "pages": [
         {
@@ -815,6 +815,159 @@
         "兵になれば家に麦が配られると、村に触れが来た。",
         "母さんは泣いた。父さんは黙って、俺に石の割り方を最後にもう一度教えた。",
         "「石は目に沿って割れ。人も同じだ」。意味が分かったのは、ずっと後だ。"
+      ]
+    },
+    {
+      "name": "灰の湧き水（西の詰め所）",
+      "type": "raw",
+      "x": 7,
+      "y": 9,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "岩の割れ目から、灰の混じった水が湧いている。冷たい水で、体が軽くなった。"
+              ]
+            },
+            {
+              "code": 314,
+              "indent": 0,
+              "parameters": [
+                0,
+                0
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Recovery",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（薬草）",
+      "type": "raw",
+      "note": "",
+      "x": 2,
+      "y": 9,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                196,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]薬草を 2 つ手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false
+        }
       ]
     }
   ]

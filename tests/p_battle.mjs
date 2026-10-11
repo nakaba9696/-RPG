@@ -48,7 +48,14 @@ await runTest(async () => {
       const setup = Sprite_Damage.prototype.setup;
       Sprite_Damage.prototype.setup = function() {
         setup.apply(this, arguments);
-        if (this._haiColor) window.__log.colors.push(this._haiColor);
+        if (this._haiColor) {
+          window.__log.colors.push(this._haiColor);
+          // 色つきの数字が出たら早送りをやめる（スクリーンショットで数字を撮るため）
+          if (window.__slowOnColor) {
+            window.__slowOnColor = false;
+            window.__game.setSpeed(1);
+          }
+        }
       };
       const regen = Game_Battler.prototype.regenerateHp;
       Game_Battler.prototype.regenerateHp = function() {
@@ -56,22 +63,25 @@ await runTest(async () => {
         regen.apply(this, arguments);
         if (this.isActor()) window.__log.regen.push({ name: this.name(), mhp: this.mhp, loss: hp - this.hp });
       };
-      // 試すための下ごしらえ：MZ の既定の 4 人（1・4・6・7）、レベル 10、P4 の技、眠り香、ケイシーに沈黙除けの首輪
+      // 試すための下ごしらえ：4 人（1 ユエル・4・6・7）、レベル 10、P4 の癒しと凍てつく霧、眠り香、ユエルに沈黙除けの首輪。
+      // 灰火（161）は覚えさせない：ユエルが職業（蘇生師）で覚えているものを使う（R1 #103。テストで覚えさせると穴が隠れる）
       for (const a of $gameParty.members()) $gameParty.removeActor(a.actorId());
       for (const id of [1, 4, 6, 7]) $gameParty.addActor(id);
       for (const a of $gameParty.members()) {
         a.changeLevel(10, false);
-        for (const id of [158, 161, 162]) a.learnSkill(id);
+        for (const id of [158, 162]) a.learnSkill(id);
         a.recoverAll();
       }
       $gameParty.gainItem($dataItems[141], 3);
-      $gameActors.actor(6).forceChangeEquip(4, $dataArmors[141]);
+      $gameActors.actor(1).forceChangeEquip(4, $dataArmors[141]);
     });
     const party = await game.eval(() => $gameParty.members().map(a => ({ id: a.actorId(), name: a.name() })));
     check(party.length === 4, "パーティが 4 人でない");
-    const mage = party.findIndex(a => a.id === 6); // ケイシー（首輪）
+    const mage = party.findIndex(a => a.id === 1); // ユエル（首輪。灰火は職業で覚えている）
     const healer = party.findIndex(a => a.id === 7); // エリオット
-    check(mage >= 0 && healer >= 0, "ケイシー・エリオットがいない " + JSON.stringify(party));
+    check(mage >= 0 && healer >= 0, "ユエル・エリオットがいない " + JSON.stringify(party));
+    const fireOwners = await game.eval(() => $gameParty.members().filter(a => a.isLearnedSkill(161)).map(a => a.actorId()));
+    check(JSON.stringify(fireOwners) === "[1]", "灰火を覚えているのがユエルだけでない " + JSON.stringify(fireOwners));
     const log = () => game.eval(() => window.__log);
     const setRand = v => game.eval(x => { window.__rand = x; }, v);
     const tps = () => game.eval(() => $gameParty.members().map(a => a.tp));
@@ -153,7 +163,7 @@ await runTest(async () => {
     await start(142);
     check((await tps())[0] === 30, "戦闘の頭で SP が変わった");
     await game.eval(() => {
-      $gameParty.members()[0].addState(141); // リードに毒
+      $gameParty.members()[0].addState(141); // ユエルに毒
       $gameParty.members()[1].addState(146); // ミシェルに沈黙
     });
     const silence = await game.eval(([m]) => {
@@ -161,7 +171,7 @@ await runTest(async () => {
       const collared = $gameParty.members()[m];
       collared.addState(146);
       return {
-        fire: silenced.canUse($dataSkills[161]), heal: silenced.canUse($dataSkills[158]), attack: silenced.canUse($dataSkills[1]),
+        fire: !silenced.isSkillTypeSealed($dataSkills[161].stypeId), heal: silenced.canUse($dataSkills[158]), attack: silenced.canUse($dataSkills[1]),
         collared: collared.isStateAffected(146), collaredFire: collared.canUse($dataSkills[161]),
       };
     }, [mage]);
@@ -325,8 +335,10 @@ await runTest(async () => {
       if (low >= 0 && st[healer].heal) plan[healer] = { skill: SKILL.heal, target: low };
       return plan;
     };
-    // 1〜3 ターン目：ケイシーが灰火（炎 200%）。3 ターン目に更生の号令で沈黙（首輪のケイシーは平気）
-    await game.call("setSpeed", 1);
+    // 1〜3 ターン目：ユエルが灰火（炎 200%）。3 ターン目に更生の号令で沈黙（首輪のユエルは平気）
+    // 早送りで進め、炎の数字が出たところで普通の速さに戻して撮る
+    await game.eval(() => { window.__slowOnColor = true; });
+    await game.call("setSpeed", FAST);
     await game.eval(([m]) => {
       $gameParty.members().forEach((a, i) => (i === m ? a.action(0).setSkill(161) : a.action(0).setGuard()));
       $gameParty.members()[m].action(0).setTarget(0);
@@ -336,15 +348,17 @@ await runTest(async () => {
     await game.waitFor(() => SceneManager._scene._spriteset._enemySprites.some(s => s._damages.some(d => d._haiColor)), null, 120_000);
     await game.frames(20); // 被弾の点滅が終わってから
     await game.shot("fire-damage");
+    await game.call("setSpeed", FAST);
     await waitInput();
+    await game.call("setSpeed", 1);
     for (let t = 2; t <= 3; t++) await turn(await healOrGuard());
     const fire = (await log()).acts.filter(a => a.turn <= 3 && a.id === SKILL.ashFire);
     check(fire.length === 3 && fire.every(a => a.elementRate === 2 && a.hpDamage > 0), "灰火が炎 200% で当たっていない " + JSON.stringify(fire));
     const rollCall = (await actsIn(3)).filter(a => a.enemy && a.id === SKILL.rollCall);
     check(rollCall.length > 0, "3 ターン目に更生の号令を使っていない " + JSON.stringify(await actsIn(3)));
     const silenced = await game.eval(() => $gameParty.members().map(a => a.isStateAffected(146)));
-    check(!silenced[mage] && silenced.some(Boolean), "号令の沈黙（首輪のケイシーは防ぐ） " + JSON.stringify(silenced));
-    check(await game.eval(([m]) => $gameParty.members()[m].canUse($dataSkills[161]), [mage]), "首輪のケイシーが灰火を使えない");
+    check(!silenced[mage] && silenced.some(Boolean), "号令の沈黙（首輪のユエルは防ぐ） " + JSON.stringify(silenced));
+    check(await game.eval(([m]) => $gameParty.members()[m].canUse($dataSkills[161]), [mage]), "首輪のユエルが灰火を使えない");
     const colors = (await log()).colors;
     check(colors.includes("#ff5a3c"), "炎のダメージが赤くない " + JSON.stringify(colors));
     console.log(`  看守長：灰火 ${fire.map(a => a.hpDamage)}（炎 200%、数字は赤）。号令の沈黙 ${silenced}（首輪で防ぐ）`);

@@ -5,7 +5,11 @@
 //   4. 看守長グラウ（Hai_Boss）：話しかけると「ボス戦」。逃げると控え室 (19,22) へ。もう一度戦い、
 //      HP 50% で点呼（番犬 2 体）、炎の弱点のヒント、HP 25% で狂乱（形態 2・2 回行動）、看守長を倒すと番犬が逃げて勝ち →
 //      スイッチ 151・撃破の記録・看守長の鍵束・北の扉が開く。
-// 乱数（Math.random）は固定する（逃走の成否と行動の選び方）。
+//   5. 炎で看守長を突ける（#103）：ユエルは灰火を職業（蘇生師）で覚えている（テストで覚えさせない）。
+//      ゲームの中で手に入る物だけ（沈黙除けの首輪・坑夫の鶴嘴・眠り香 2・薬草 2）で、ユエル Lv4・オルド Lv4 が、
+//      強化なしに看守長と戦って勝つ。乱数は種を変えて 3 回、3 回とも勝つ
+//      （手元の試しでは Lv4・Lv4 で 8 / 8、Lv4・Lv3 で 7 / 8。負けは狂乱と点呼の番犬がユエルに重なったとき）。
+// 乱数（Math.random）は固定する（逃走の成否と行動の選び方）。5 は種つきの乱数。
 import { launchGame, check, runTest } from "./lib.mjs";
 
 const HALL = 10;
@@ -20,7 +24,12 @@ const TORTURE = 35;
 const WARDEN = { x: 13, y: 6 };
 const TROOP = 212;
 const KEYRING = 203;
-const FIRE = 161; // P4 の灰火（炎）
+const FIRE = 161; // P4 の灰火（炎）。ユエルの職業 10「蘇生師」が Lv1 で覚える
+const CLASS_YUEL = 10;
+const COLLAR = 203; // 沈黙除けの首輪（Armors。H12 の赤い宝箱）
+const PICKAXE = 201; // 坑夫の鶴嘴（Weapons。H06 の赤い宝箱）
+const INCENSE = 204; // 眠り香（Items。H05 の赤い宝箱 ×2）
+const HERB = 196; // 薬草（Items。廃坑・上層の宝箱 ×2）
 const NAME_LINE = "――看守長グラウ――";
 const HINT = "看守長グラウは炎に弱いようだ。";
 const ROLL_CALL = "点呼。番犬、二頭。前へ。";
@@ -189,8 +198,9 @@ await runTest(async () => {
           const want = p[i] || "guard";
           if (want === "guard") act.setGuard();
           else if (want === "attack") act.setAttack();
+          else if (want.item) act.setItem(want.item);
           else act.setSkill(want.skill);
-          act.setTarget(0);
+          act.setTarget(want.target ?? 0);
         });
         BattleManager.startTurn();
         SceneManager._scene.changeInputWindow();
@@ -260,8 +270,13 @@ await runTest(async () => {
 
     // 4b. 倒す
     await startFight();
+    // 灰火は職業で覚えている（テストの側から覚えさせない。R1 #103 の穴はここで隠れていた）
+    const yuel = await game.eval(([id, cls]) => {
+      const a = $gameActors.actor(1);
+      return { cls: a.currentClass().id, name: a.currentClass().name, learned: a.isLearnedSkill(id), types: a.skillTypes() };
+    }, [FIRE, CLASS_YUEL]);
+    check(yuel.cls === CLASS_YUEL && yuel.learned && yuel.types.includes(1), "ユエルが職業で灰火を覚えていない " + JSON.stringify(yuel));
     await game.call("strengthenParty");
-    await game.eval(id => $gameParty.members().forEach(a => { a.learnSkill(id); a.setMp(a.mmp); }), FIRE);
     // HP 50% → 点呼（番犬 2 体）
     await game.eval(() => $gameTroop.members()[0].setHp(1000));
     await turn(["guard", "guard"]);
@@ -300,6 +315,77 @@ await runTest(async () => {
     await game.waitFor(() => window.__game.mapId() === 36 && !window.__game.isBusy());
     await game.shot("orb-room");
     console.log(`  看守長：点呼・炎のヒント・狂乱（形態 2、2 回行動）→ 撃破でスイッチ 151、鍵束 ${keys} → ${won.keys}、オーブの間へ`);
+
+    // ===== 5. 炎で看守長を突ける（強化なし・覚えさせない） =====
+    const SEEDS = [1, 2, 3];
+    const results = [];
+    for (const seed of SEEDS) {
+      await go(TORTURE, 13, 11, 8);
+      // ゲームの中の筋：ユエルとオルド（召喚で加わった）、Lv4。赤い宝箱の首輪と鶴嘴を装備できるかは canEquip で確かめる
+      const setup = await game.eval(([seed, collar, pickaxe, incense, herb]) => {
+        let t = seed * 2654435761 >>> 0;
+        Math.random = () => { // mulberry32
+          t = (t + 0x6d2b79f5) >>> 0;
+          let r = Math.imul(t ^ (t >>> 15), 1 | t);
+          r = (r + Math.imul(r ^ (r >>> 7), 61 | r)) ^ r;
+          return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
+        };
+        const [y, o] = [1, 5].map(id => $gameActors.actor(id));
+        for (const a of [y, o]) {
+          a.clearParamPlus(); // 4b の strengthenParty を戻す
+          a.changeLevel(4, false);
+          a.clearStates();
+          a.setHp(a.mhp); // 泉で全回復した後（strengthenParty は使わない）
+          a.setMp(a.mmp);
+        }
+        $gameParty.gainItem($dataArmors[collar], 1);
+        $gameParty.gainItem($dataWeapons[pickaxe], 1);
+        for (const [id, n] of [[incense, 2], [herb, 2]]) $gameParty.gainItem($dataItems[id], n - $gameParty.numItems($dataItems[id]));
+        const ok = { collar: y.canEquip($dataArmors[collar]), pickaxeYuel: y.canEquip($dataWeapons[pickaxe]), pickaxeOrdo: o.canEquip($dataWeapons[pickaxe]) };
+        if (ok.collar) y.changeEquip(4, $dataArmors[collar]);
+        if (ok.pickaxeOrdo) o.changeEquip(0, $dataWeapons[pickaxe]);
+        return { ...ok, party: $gameParty.members().map(a => `${a.name()} Lv${a.level} HP${a.hp} MP${a.mp} 攻${a.atk} 魔${a.mat}`) };
+      }, [seed, COLLAR, PICKAXE, INCENSE, HERB]);
+      check(setup.collar && setup.pickaxeYuel && setup.pickaxeOrdo, "首輪・鶴嘴を装備できない " + JSON.stringify(setup));
+      await game.eval(t => { window.__log.msgs = []; window.__log.texts = []; window.__game.startBattle(t, true, false); }, TROOP);
+      await game.waitScene("Scene_Battle");
+      await waitInput();
+      let turns = 0;
+      for (; turns < 30; turns++) {
+        const st = await game.eval(([fire, incense, herb]) => {
+          if (!(SceneManager._scene instanceof Scene_Battle) || BattleManager.isBattleEnd()) return null;
+          const boss = $gameTroop.members()[0];
+          return {
+            boss: { alive: boss.isAlive(), hp: boss.hp, asleep: boss.isStateAffected(142) },
+            party: $gameParty.members().map(a => ({ alive: a.isAlive(), rate: a.hpRate(), fire: a.canUse($dataSkills[fire]) })),
+            incense: $gameParty.numItems($dataItems[incense]), herb: $gameParty.numItems($dataItems[herb]),
+          };
+        }, [FIRE, INCENSE, HERB]);
+        if (!st || !st.boss.alive) break;
+        // ユエル：灰火（MP が尽きたら攻撃）。オルド：倒れそうな者に薬草、看守長が起きていれば眠り香、ほかは攻撃
+        const low = st.party.findIndex(p => p.alive && p.rate < 0.5);
+        const plan = [st.party[0].fire ? { skill: FIRE } : "attack", "attack"];
+        if (low >= 0 && st.herb > 0) plan[1] = { item: HERB, target: low };
+        else if (!st.boss.asleep && st.incense > 0) plan[1] = { item: INCENSE };
+        await turn(plan);
+      }
+      const acts = await game.eval(() => window.__log.texts);
+      const end = await game.eval(() => ({
+        win: $gameTroop.isAllDead() || !$gameTroop.members()[0].isAlive(), lost: $gameParty.isAllDead(),
+        party: $gameParty.members().map(a => `${a.name()} HP${a.hp}/${a.mhp} MP${a.mp}`),
+      }));
+      results.push({ seed, turns, ...end, last: acts.slice(-12) });
+      check(turns < 30, `看守長の戦闘が終わらない（種 ${seed}）`);
+      if (seed === SEEDS[0]) {
+        check(acts.includes(HINT), "灰火で炎の弱点のヒントが出ない " + JSON.stringify(acts));
+        console.log(`  準備：${setup.party.join("、")}`);
+      }
+      await toMap();
+      await finishEvent();
+    }
+    const wins = results.filter(r => r.win && !r.lost);
+    console.log(`  炎で看守長：${results.map(r => `種 ${r.seed} ${r.turns} ターンで${r.win ? "勝ち" : "負け"}（${r.party.join("、")}）`).join(" / ")}`);
+    check(wins.length === results.length, `看守長に勝てたのが ${wins.length} / ${results.length} 回 ` + JSON.stringify(results));
 
     game.assertNoErrors();
   } finally {

@@ -30,6 +30,8 @@ await runTest(async () => {
   try {
     await game.call("newGame");
     await game.waitScene("Scene_Map");
+    // 来歴のある物（Hai_Lore）は記録済みにしておく。初めて手に入れたときの知らせ（文章）はこのテストの外（tests/u_lore.mjs）で見る
+    await game.eval(() => [...$dataItems, ...$dataWeapons, ...$dataArmors].forEach(item => item && Hai.Lore.has(item) && Hai.Lore.record(item)));
 
     const num = (kind, id) =>
       game.eval(([k, i]) => $gameParty.numItems(Hai.Items.itemOf(k, i)), [kind, id]);

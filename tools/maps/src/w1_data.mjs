@@ -1,11 +1,13 @@
-// W1（#39）・W2（#83）のデータベースの項目を書く。何度走らせても同じ結果になる（自分の帯だけを書き直す）。
+// W1（#39）・W2（#83）・W2b（#112）のデータベースの項目を書く。何度走らせても同じ結果になる（自分の帯だけを書き直す）。
 //   node tools/maps/src/w1_data.mjs           書く
 //   node tools/maps/src/w1_data.mjs --check   書かずに、今のファイルと同じかだけ見る（違えば終了コード 1）
 // 書くもの：
 //   Items・Weapons・Armors・Enemies・Troops の 201–（W1 の帯 201–300）、Skills 236（Skills 201–235 は MZ の既定のスキルなので触らない）
 //   System.json の switches・variables 101–200 の名前（docs/world.md 8 章の「第1段階」の ●）、startMapId・startX・startY・partyMembers
 //     P8（#82）の switches 121–130・variables 103 の名前は p8_data.mjs が、W3 以降の旗（world2.md 16 章・仲間の旗）は w3_data.mjs などが書くので、ここでは消さずに残す
-//   Actors.json の 1 番の名前と肩書き、5 番の名前
+//   Skills 237（ユエルの「魂吸い」）、Classes 10（ユエルの職業「蘇生師」。灰火と魂吸いを Lv1 で覚える）
+//   Actors.json の 1 番の名前と肩書きと職業、5 番の名前
+// 説明（2 行目は来歴の一行）と来歴（メモ欄の <hai_lore>）は docs/lore.md 3 章から写した（文は lore.md が正本）。
 // 状態異常は P4（States 141–147）が入っていればそれを、無ければ MZ の既定（4 毒・6 沈黙・10 睡眠）を使う。
 import fs from "node:fs";
 import path from "node:path";
@@ -23,6 +25,22 @@ const hasP4 = states[141]?.name === "毒" && states[142]?.name === "眠り";
 const ST = hasP4
   ? { poison: 141, sleep: 142, silence: 146, bind: 147 }
   : { poison: 4, sleep: 10, silence: 6, bind: 13 };
+
+// ---------------------------------------------------------------------------
+// 説明と来歴（docs/lore.md 3 章。説明は 2 行、来歴はメモ欄の <hai_lore>）
+// ---------------------------------------------------------------------------
+const LORE = {
+  "坑道の鍵": { desc: ["廃坑・上層の機械室の扉を開ける鍵。", "輪の木札に、下の捕虜の数が書き直してある。"], lore: ["帝国の工兵隊の鍵。輪に、木の札が一枚下がっている。", "札の字は「下層　四十二」。四十二を削って三十九。", "三十九を削って三十一。その下は削り跡しか無い。", "鍵は引き出しの中ではなく、机の上に置いてあった。"] },
+  "監房の鍵": { desc: ["点呼の広場の、南の扉を開ける鍵。", "握りだけが、手の脂で黒く光っている。"], lore: ["看守が毎朝これで南の扉を開け、囚人を廊下へ出した。", "戻った囚人の数は、帳面に書かない決まりだった。", "箱の底に、焼き印の札が束ねてあった。どれも「更生済」。", "札の半分ほどは、名前の横に獣の耳の形の印がある。"] },
+  "看守長の鍵束": { desc: ["看守長グラウの鍵束。拷問の間の西の扉に合いそうだ。", "十一本のうち一本だけ、刻みの形が違う。"], lore: ["鍵は十一本。十本は監房の扉に合う。", "残る一本は歯が細かく、王都の錠前師の刻印がある。", "看守長は点呼のたびに、鍵を一本ずつ鳴らして数えた。", "十一本目だけは、一度も鳴らさなかった。"] },
+  "眠り香": { desc: ["焚くと敵 1 体を眠らせる（沈黙中でも使える）。", "礼拝堂の祈りの夜に焚かれた香。甘い匂いが残る。"], lore: ["礼拝堂の祈りの夜に、聖女像の前で焚かれた香。", "煙を吸うと、まぶたが重くなり、膝の痛みが遠のく。", "長く祈った者ほど「聖女さまの声を聞いた」と言った。", "空の棺の部屋に、封を切らない香が箱で積んであった。"] },
+  "坑夫の鶴嘴": { desc: ["硬い殻にも食い込む。石喰いや大百足によく効く。", "柄に帝国の焼き印。その下に王国の字で名前が三つ。"], lore: ["帝国の工兵隊が、捕虜に配った鶴嘴。柄に隊の焼き印。", "焼き印の下に、王国の字で名前が三つ刻んである。", "上の二つは横線で消してある。三つ目は途中で終わる。", "刃は何度も研ぎ直され、元の半分の厚みしか無い。"] },
+  "巡礼者の外套": { desc: ["魔法のダメージを 2 割減らす。", "裏地の小袋に、封を切っていない白い粉。"], lore: ["森を抜けて礼拝堂へ向かう巡礼の、厚い毛織りの外套。", "裏地の小袋に、白い粉と受け取りの札が入っていた。", "札には「聖灰　一匙　銀二枚」。灰の病が出た年の日付。", "持ち主は礼拝堂に着く前に倒れた。粉の封は切っていない。"] },
+  "灯火の指輪": { desc: ["暗闇と眠りを防ぐ。小さな火が消えずに灯っている。", "捕虜の寝床の下の壁に、同じ輪と並べて埋めてあった。"], lore: ["針金を曲げた輪に、魔石の削り屑を留めた指輪。", "捕虜たちは見張りに隠して、夜の穴掘りの灯にした。", "寝床の下の壁に、同じ輪が六つ埋めてあった。", "灯っているのは、これ一つだけ。五つの石は黒く冷えていた。"] },
+  "沈黙除けの首輪": { desc: ["沈黙を防ぐ。", "囚人の首輪。内側の刻みが、爪で削り落としてある。"], lore: ["更生牢の囚人が首に付けられた鉄の輪。", "内側に小さな陣が刻まれ、号令がかかると声が出なくなる。", "この一つは、内側の陣が爪で削り落としてある。", "外側の番号は「二百十四」。監房は十室しかない。"] },
+};
+const descOf = name => LORE[name].desc.join("\n");
+const loreOf = name => ["<hai_lore>", ...LORE[name].lore, "</hai_lore>"].join("\n");
 
 // ---------------------------------------------------------------------------
 // 共通
@@ -50,16 +68,16 @@ const emptyItem = id => ({
   description: "", effects: [], hitType: 0, iconIndex: 0, itypeId: 1, name: "", note: "",
   occasion: 0, price: 0, repeats: 1, scope: 7, speed: 0, successRate: 100, tpGain: 0,
 });
-const keyItem = (name, description, iconIndex = 195) => ({
-  name, description, iconIndex, itypeId: 2, consumable: false, occasion: 3, scope: 0,
+const keyItem = (name, iconIndex = 195) => ({
+  name, description: descOf(name), note: loreOf(name), iconIndex, itypeId: 2, consumable: false, occasion: 3, scope: 0,
 });
 const items = readData("Items.json");
 clearBand(items, emptyItem, [201, 220]);
-put(items, 201, keyItem("坑道の鍵", "廃坑・上層の機械室の扉を開ける鍵。帝国の刻印がある。"), emptyItem);
-put(items, 202, keyItem("監房の鍵", "地下牢の点呼の広場の、南の扉を開ける鍵。"), emptyItem);
-put(items, 203, keyItem("看守長の鍵束", "看守長グラウの鍵束。地下牢のさらに奥の扉に合いそうだ。"), emptyItem);
+put(items, 201, keyItem("坑道の鍵"), emptyItem);
+put(items, 202, keyItem("監房の鍵"), emptyItem);
+put(items, 203, keyItem("看守長の鍵束"), emptyItem);
 put(items, 204, {
-  name: "眠り香", description: "焚くと甘い煙が立つ。敵 1 体を眠らせる（沈黙中でも使える）。",
+  name: "眠り香", description: descOf("眠り香"), note: loreOf("眠り香"),
   iconIndex: 210, animationId: 62, hitType: 0, occasion: 1, scope: 1, price: 0,
   effects: [{ code: 21, dataId: ST.sleep, value1: 0.9, value2: 0 }],
 }, emptyItem);
@@ -74,10 +92,13 @@ const emptyWeapon = id => ({
 });
 const weapons = readData("Weapons.json");
 clearBand(weapons, emptyWeapon);
+// 斧（ユエルの職業 10 とオルドの職業 4 が装備できる）。攻撃の属性は「土」：石喰いと大百足だけが土 200%（物理 50% 軽減を打ち消す）。
+// ほかの敵の土は 100% なので、ふだんは攻撃力 14 の斧（#104）
+const EARTH = 6;
 put(weapons, 201, {
-  name: "坑夫の鶴嘴", description: "捕虜が魔石を掘った鶴嘴。硬い殻にも食い込む。",
+  name: "坑夫の鶴嘴", description: descOf("坑夫の鶴嘴"), note: loreOf("坑夫の鶴嘴"),
   animationId: 6, iconIndex: 99, wtypeId: 4, price: 0, params: [0, 0, 14, 0, 0, 0, 0, 0],
-  traits: [{ code: 31, dataId: 1, value: 0 }, { code: 22, dataId: 0, value: 0 }],
+  traits: [{ code: 31, dataId: EARTH, value: 0 }, { code: 22, dataId: 0, value: 0 }],
 }, emptyWeapon);
 writeTable("Weapons.json", weapons);
 
@@ -88,17 +109,17 @@ const emptyArmor = id => ({
 const armors = readData("Armors.json");
 clearBand(armors, emptyArmor);
 put(armors, 201, {
-  name: "巡礼者の外套", description: "灰をかぶった巡礼者の外套。魔法のダメージを 2 割減らす。",
+  name: "巡礼者の外套", description: descOf("巡礼者の外套"), note: loreOf("巡礼者の外套"),
   atypeId: 3, etypeId: 4, iconIndex: 135, params: [0, 0, 0, 4, 0, 6, 0, 0],
   traits: [{ code: 22, dataId: 1, value: 0 }, { code: 23, dataId: 7, value: 0.8 }],
 }, emptyArmor);
 put(armors, 202, {
-  name: "灯火の指輪", description: "小さな火が消えずに灯っている指輪。暗闇と眠りを防ぐ。",
+  name: "灯火の指輪", description: descOf("灯火の指輪"), note: loreOf("灯火の指輪"),
   atypeId: 1, etypeId: 5, iconIndex: 145, params: [0, 0, 0, 0, 2, 2, 0, 0],
   traits: [{ code: 14, dataId: ST.sleep, value: 0 }],
 }, emptyArmor);
 put(armors, 203, {
-  name: "沈黙除けの首輪", description: "囚人の首輪を作り直したもの。沈黙を防ぐ。",
+  name: "沈黙除けの首輪", description: descOf("沈黙除けの首輪"), note: loreOf("沈黙除けの首輪"),
   atypeId: 1, etypeId: 5, iconIndex: 146, params: [0, 0, 0, 2, 0, 2, 0, 0],
   traits: [{ code: 14, dataId: ST.silence, value: 0 }],
 }, emptyArmor);
@@ -121,7 +142,43 @@ skills[SK.scales] = {
   animationId: 59, iconIndex: 8, hitType: 0, occasion: 1, scope: 1, stypeId: 2, message1: "%1は%2をまき散らした！",
   effects: [{ code: 21, dataId: ST.sleep, value1: 0.4, value2: 0 }], note: "<hai_w1:迷い蛾の技>",
 };
+// ユエルの固有技（docs/world.md 2.1）。灰火は P4 の 161（炎、MP 10）。魂吸いはここで作る（欄は P4 の 161 から写した）
+const ASH_FIRE = 161;
+const SOUL_DRAIN = 237;
+extendTable(skills, SOUL_DRAIN, emptySkill);
+skills[SOUL_DRAIN] = {
+  ...emptySkill(SOUL_DRAIN), name: "魂吸い", description: "敵単体のＨＰを吸い取る。",
+  animationId: 58, iconIndex: 71, hitType: 2, occasion: 1, scope: 1, stypeId: 1, mpCost: 6, message1: "%1は%2を放った！",
+  damage: { critical: false, elementId: 0, formula: "40 + a.mat * 2 - b.mdf", type: 5, variance: 20 }, note: "<hai_battle>",
+};
 writeTable("Skills.json", skills);
+
+// ---------------------------------------------------------------------------
+// Classes 10：ユエルの職業「蘇生師」（#103）。職業 1（剣士、持ち主の帯）は MZ の既定のまま残し、W の帯に別に作る。
+//   灰火（161）と魂吸い（237）を Lv1 で覚える。技の種類は「魔法」だけ（必殺技の空のコマンドを出さない）。
+//   装備は短剣・剣・斧（坑夫の鶴嘴）と、職業 1 と同じ防具。能力値は職業 1 の HP・MP・攻撃・防御・敏捷・運に、
+//   職業 6（魔法剣士）の魔法力・魔法防御（物理と魔法の中間）
+// ---------------------------------------------------------------------------
+const CLASS_YUEL = 10;
+const classes = readData("Classes.json");
+const emptyClass = id => ({
+  id, expParams: [30, 20, 30, 30], traits: [], learnings: [], name: "", note: "",
+  params: Array.from({ length: 8 }, () => Array(100).fill(1)),
+});
+extendTable(classes, CLASS_YUEL, emptyClass);
+const fromClass = (id, p) => classes[id].params[p].slice();
+classes[CLASS_YUEL] = {
+  ...emptyClass(CLASS_YUEL), name: "蘇生師", expParams: classes[1].expParams.slice(),
+  traits: [
+    { code: 23, dataId: 0, value: 1 }, { code: 22, dataId: 0, value: 1 }, { code: 22, dataId: 1, value: 0.05 }, { code: 22, dataId: 2, value: 0.1 },
+    { code: 41, dataId: 1, value: 0 },
+    { code: 51, dataId: 1, value: 0 }, { code: 51, dataId: 2, value: 0 }, { code: 51, dataId: 4, value: 0 },
+    { code: 52, dataId: 1, value: 0 }, { code: 52, dataId: 3, value: 0 }, { code: 52, dataId: 5, value: 0 },
+  ],
+  learnings: [{ level: 1, note: "", skillId: ASH_FIRE }, { level: 1, note: "", skillId: SOUL_DRAIN }],
+  params: [fromClass(1, 0), fromClass(1, 1), fromClass(1, 2), fromClass(1, 3), fromClass(6, 4), fromClass(6, 5), fromClass(1, 6), fromClass(1, 7)],
+};
+writeTable("Classes.json", classes);
 
 // ---------------------------------------------------------------------------
 // Enemies・Troops（docs/world.md 4.2〜4.4 の敵。数値は仮。持ち主・P4・P7 が調整する）
@@ -159,13 +216,14 @@ const ENEMIES = [
   [202, "根喰い", "Treant", [140, 0, 16, 14, 8, 10, 6, 10], 8, 6, [T.element(2, 2)], [attack, act(SK.poison, 4)]],
   [203, "灰の巡礼者", "Zombie", [320, 0, 22, 14, 10, 12, 10, 10], 20, 15, [T.element(2, 1.5)], [attack, guard]],
   [205, "坑道鼠", "Frilledlizard", [110, 0, 18, 10, 8, 8, 20, 10], 8, 5, [], [attack]],
-  [206, "石喰い", "Crab", [300, 0, 24, 30, 8, 14, 8, 10], 24, 18, [T.physRate(0.5), T.element(2, 2)], [attack, guard]],
+  [206, "石喰い", "Crab", [420, 0, 24, 30, 8, 14, 8, 10], 24, 18, [T.physRate(0.5), T.element(2, 2), T.element(EARTH, 2)], [attack, guard]],
   [207, "灯なし坑夫", "Berserker", [380, 0, 30, 18, 8, 12, 12, 10], 28, 20, [], [attack, act(SK.whip, 3)]],
-  [208, "大百足", "Sandworm", [900, 0, 34, 24, 10, 16, 16, 10], 80, 60, [T.attackTimes(1), T.element(2, 2)], [attack, act(SK.poison, 5)]],
+  [208, "大百足", "Sandworm", [900, 0, 34, 24, 10, 16, 16, 10], 80, 60, [T.attackTimes(1), T.element(2, 2), T.element(EARTH, 2)], [attack, act(SK.poison, 5)]],
   [209, "骨の囚人", "Wraith", [160, 0, 20, 12, 10, 10, 12, 10], 10, 8, [T.element(2, 1.5), T.stateResist(ST.poison)], [attack]],
   // 獄卒は P4 の 141 と同じ定型：防御 → 眠りの棍棒 → 攻撃
   [210, "獄卒", "Captain", [420, 0, 30, 20, 10, 14, 14, 10], 30, 22, [], [onTurn(2, 1, 3), onTurn(SK.sleepClub, 2, 3), onTurn(1, 3, 3)]],
-  [211, "番犬", "Wolfman", [700, 0, 36, 20, 8, 12, 30, 10], 70, 40, [T.attackTimes(1)], [attack]],
+  // 赤は「避けるのが基本」（#108）。2 人がかりでも長引く HP と防御。攻撃は看守長の点呼でも出るので上げすぎない
+  [211, "番犬", "Wolfman", [1500, 0, 36, 26, 8, 16, 30, 10], 90, 40, [T.attackTimes(1)], [attack]],
   [212, "看守長グラウ", "Gatekeeper", [2000, 60, 45, 30, 30, 25, 30, 30], 300, 300, wardenTraits, wardenActions],
   // 狂乱（HP 25% から）：防御が半分、2 回行動。見た目は赤みを帯びる（色相）
   [213, "看守長グラウ", "Gatekeeper", [2000, 60, 45, 15, 30, 25, 30, 30], 300, 300, wardenTraits, wardenActions],
@@ -175,6 +233,11 @@ clearBand(enemies, emptyEnemy);
 for (const [id, name, battlerName, params, exp, gold, traits, actions] of ENEMIES) {
   put(enemies, id, { name, battlerName, params, exp, gold, traits: [...base, ...traits], actions, dropItems: noDrop }, emptyEnemy);
 }
+// 拾い物（docs/lore.md 3 章の置き場所の案）：森の緑は薬草（P9 の 196）、坑道鼠は苦い根（P9 の 199）をときどき落とす
+const drop = (id, denominator) => [{ dataId: id, denominator, kind: 1 }, { dataId: 1, denominator: 1, kind: 0 }, { dataId: 1, denominator: 1, kind: 0 }];
+enemies[201].dropItems = drop(196, 4);
+enemies[202].dropItems = drop(196, 3);
+enemies[205].dropItems = drop(199, 3);
 // 看守長は「看守長の鍵束」を必ず落とす（docs/world.md 4.4）。狂乱の形態で倒しても同じ
 for (const id of [212, 213]) {
   enemies[id].dropItems = [{ dataId: 203, denominator: 1, kind: 1 }, { dataId: 1, denominator: 1, kind: 0 }, { dataId: 1, denominator: 1, kind: 0 }];
@@ -252,11 +315,12 @@ troops[212].pages = [
 writeTable("Troops.json", troops);
 
 // ---------------------------------------------------------------------------
-// Actors：1 番の名前と肩書き（#13 の推し「ユエル」）、5 番の名前（オルド）
+// Actors：1 番の名前と肩書きと職業（#13 の推し「ユエル」、#103 の職業 10）、5 番の名前（オルド）
 // ---------------------------------------------------------------------------
 const actors = readData("Actors.json");
 actors[1].name = "ユエル";
 actors[1].nickname = "蘇生師";
+actors[1].classId = CLASS_YUEL;
 actors[5].name = "オルド";
 writeTable("Actors.json", actors);
 
