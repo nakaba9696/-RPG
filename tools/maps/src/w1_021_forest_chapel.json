@@ -480,8 +480,8 @@
     {
       "name": "迷い蛾（緑）",
       "type": "raw",
-      "x": 21,
-      "y": 28,
+      "x": 22,
+      "y": 20,
       "note": "<hai_enemy:201,green>",
       "pages": [
         {
@@ -523,9 +523,9 @@
     {
       "name": "灰の巡礼者（黄・巡回）",
       "type": "raw",
-      "x": 28,
-      "y": 5,
-      "note": "<hai_enemy:203,yellow>",
+      "x": 31,
+      "y": 6,
+      "note": "<hai_enemy:203,yellow>\n<hai_enemy_chase:3>",
       "pages": [
         {
           "image": {
@@ -542,55 +542,15 @@
           "moveRoute": {
             "list": [
               {
-                "code": 3,
-                "parameters": []
-              },
-              {
-                "code": 3,
-                "parameters": []
-              },
-              {
-                "code": 3,
-                "parameters": []
-              },
-              {
-                "code": 3,
-                "parameters": []
-              },
-              {
-                "code": 3,
-                "parameters": []
-              },
-              {
-                "code": 3,
-                "parameters": []
-              },
-              {
-                "code": 3,
-                "parameters": []
-              },
-              {
                 "code": 2,
                 "parameters": []
               },
               {
-                "code": 2,
+                "code": 3,
                 "parameters": []
               },
               {
-                "code": 2,
-                "parameters": []
-              },
-              {
-                "code": 2,
-                "parameters": []
-              },
-              {
-                "code": 2,
-                "parameters": []
-              },
-              {
-                "code": 2,
+                "code": 3,
                 "parameters": []
               },
               {
@@ -612,9 +572,9 @@
     {
       "name": "祈りの群れ（赤）",
       "type": "raw",
-      "x": 19,
+      "x": 20,
       "y": 16,
-      "note": "<hai_enemy:204,red>",
+      "note": "<hai_enemy:204,red>\n<hai_enemy_chase:3>",
       "pages": [
         {
           "image": {
@@ -626,8 +586,7 @@
           "priorityType": 1,
           "moveSpeed": 3,
           "trigger": 2,
-          "moveType": 1,
-          "moveFrequency": 2
+          "moveType": 0
         }
       ]
     },
@@ -738,6 +697,192 @@
         "その年、王都で灰の病が出た。看取る者が足りないと、司祭さまが言った。",
         "僕は手を挙げた。兄さんが死なない方法を見つけるまで、",
         "誰かが、死んでいく人の手を握っていなければならないと思った。"
+      ]
+    },
+    {
+      "name": "霊水（献金箱の脇）",
+      "type": "raw",
+      "x": 23,
+      "y": 10,
+      "pages": [
+        {
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "献金箱の脇に、栓をした小瓶が一本残っている。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                144,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]霊水を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "image": {
+            "tileId": "B:144"
+          }
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "赤い宝箱（見張りの外套）",
+      "type": "raw",
+      "note": "",
+      "x": 18,
+      "y": 13,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 128,
+              "indent": 0,
+              "parameters": [
+                196,
+                0,
+                0,
+                1,
+                false
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[135]見張りの外套を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false
+        }
       ]
     }
   ]

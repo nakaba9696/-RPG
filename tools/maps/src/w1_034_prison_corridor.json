@@ -1039,7 +1039,7 @@
       "name": "番犬（赤・廊下）",
       "type": "raw",
       "x": 19,
-      "y": 8,
+      "y": 13,
       "note": "<hai_enemy:211,red>\n<hai_enemy_chase:6>",
       "pages": [
         {
@@ -1057,42 +1057,6 @@
           "moveRoute": {
             "list": [
               {
-                "code": 1,
-                "parameters": []
-              },
-              {
-                "code": 1,
-                "parameters": []
-              },
-              {
-                "code": 1,
-                "parameters": []
-              },
-              {
-                "code": 1,
-                "parameters": []
-              },
-              {
-                "code": 1,
-                "parameters": []
-              },
-              {
-                "code": 1,
-                "parameters": []
-              },
-              {
-                "code": 1,
-                "parameters": []
-              },
-              {
-                "code": 1,
-                "parameters": []
-              },
-              {
-                "code": 1,
-                "parameters": []
-              },
-              {
                 "code": 4,
                 "parameters": []
               },
@@ -1105,11 +1069,31 @@
                 "parameters": []
               },
               {
-                "code": 4,
+                "code": 1,
                 "parameters": []
               },
               {
-                "code": 4,
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
                 "parameters": []
               },
               {
@@ -1144,8 +1128,8 @@
       "name": "番犬（赤・部屋）",
       "type": "raw",
       "x": 30,
-      "y": 11,
-      "note": "<hai_enemy:211,red>\n<hai_enemy_chase:6>",
+      "y": 14,
+      "note": "<hai_enemy:211,red>\n<hai_enemy_chase:3>",
       "pages": [
         {
           "image": {
@@ -1157,8 +1141,7 @@
           "priorityType": 1,
           "moveSpeed": 4,
           "trigger": 2,
-          "moveType": 1,
-          "moveFrequency": 3
+          "moveType": 0
         }
       ]
     },
