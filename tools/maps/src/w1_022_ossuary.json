@@ -1,0 +1,280 @@
+{
+  "_説明": "W1：礼拝堂の地下納骨所（docs/world.md 4.2）。021 の祭壇裏の隠し階段から降りる。骨の棚の通路 → 聖女の棺の部屋（R06）。北東の隠し扉 H05 の奥に赤い宝箱。東の奥の扉は H06（→ 026 の物置）。",
+  "mapId": 22,
+  "name": "礼拝堂の地下納骨所",
+  "displayName": "地下納骨所",
+  "legend": "dungeon",
+  "tilesetId": 14,
+  "note": "<hai_tone:-68,-68,-34,119>\n<hai_dark:4>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Stone1",
+    "battleback2Name": "Stone1"
+  },
+  "chars": {
+    "k": {
+      "name": "骸骨（通れない）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "B:242"
+      ]
+    }
+  },
+  "events": [
+    {
+      "at": "<",
+      "name": "上り階段（礼拝堂へ）",
+      "type": "transfer",
+      "to": [
+        21,
+        18,
+        3,
+        "right"
+      ]
+    },
+    {
+      "name": "思念 R06 盗賊団「夜鴉」の頭",
+      "type": "text",
+      "x": 15,
+      "y": 10,
+      "note": "<hai_thought:R06>",
+      "image": {
+        "tileId": "C:86"
+      },
+      "lines": [
+        "開けてみりゃ空っぽだ。遺灰なんざ一粒もねえ。",
+        "二百年、みんな空っぽの箱を拝んでたってわけだ。",
+        "笑えるぜ。……笑えねえ。出口がねえ。奥の扉は向こうからしか開かねえ造りだ。"
+      ]
+    },
+    {
+      "name": "赤い宝箱（眠り香 ×2）",
+      "type": "raw",
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                204,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[210]眠り香を 2 つ手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false
+        }
+      ],
+      "x": 16,
+      "y": 3
+    },
+    {
+      "name": "奥の扉（H06 の裏）",
+      "type": "raw",
+      "x": 19,
+      "y": 11,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "奥の扉。こちら側からなら押せそうだが、向こうが土砂で埋まっている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "（廃坑は W1 の続きでつなぐ）"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "迷い蛾（緑・巡回）",
+      "type": "raw",
+      "x": 8,
+      "y": 6,
+      "note": "<hai_enemy:201,green>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Nature",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 5,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "迷い蛾（緑）",
+      "type": "raw",
+      "x": 14,
+      "y": 11,
+      "note": "<hai_enemy:201,green>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Nature",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    }
+  ]
+}

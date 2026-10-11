@@ -1,0 +1,670 @@
+{
+  "_説明": "W1：巡礼の森・奥（崩れた礼拝堂。docs/world.md 4.2）。南の入口 → 苔の小道 → 赤「祈りの群れ」の広場 → 北の礼拝堂（聖女像・祭壇の裏の隠し階段 H04 → 022）。西の茂みの H03 で広場を迂回。北東の坑口 → 026。",
+  "mapId": 21,
+  "name": "巡礼の森・奥",
+  "displayName": "崩れた礼拝堂",
+  "legend": "forest",
+  "tilesetId": 12,
+  "note": "<hai_tone:34,34,51,153>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Grassland",
+    "battleback2Name": "Forest"
+  },
+  "chars": {
+    "S": {
+      "name": "聖女像の上（☆）",
+      "as": "#",
+      "tiles": [
+        null,
+        null,
+        "D:82"
+      ]
+    },
+    "U": {
+      "name": "聖女像の下（通れない）",
+      "as": "#",
+      "tiles": [
+        null,
+        null,
+        "D:90"
+      ]
+    },
+    "A": {
+      "name": "祭壇（通れない）",
+      "as": "#",
+      "tiles": [
+        null,
+        null,
+        "D:83"
+      ]
+    }
+  },
+  "events": [
+    {
+      "name": "聖女像",
+      "type": "raw",
+      "x": 20,
+      "y": 2,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "灰をかぶった聖女像。両手を胸の前で組んでいる。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "祈りますか？"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "祈る",
+                  "やめる"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "祈る"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "聖女像の前にひざまずき、手を合わせた。"
+              ]
+            },
+            {
+              "code": 230,
+              "indent": 1,
+              "parameters": [
+                30
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "……何も起きなかった。"
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 1,
+              "parameters": [
+                105,
+                105,
+                1,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "思念 R05 聖女像に祈り続けた母親",
+      "type": "raw",
+      "x": 21,
+      "y": 2,
+      "note": "<hai_thought:R05>",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "variableId": 105,
+            "variableValid": true,
+            "variableValue": 3
+          },
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "祈りを重ねた像の足元に、誰かの声が染みついている……"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "お願いします。お願いします。息子の熱を下げてください。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "お祈りは毎日しました。灰も毎日飲ませました。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "……どうして何も言ってくださらないのですか。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "どうして。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "お願いします。お願いします。息子の熱を下げてください。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "お祈りは毎日しました。灰も毎日飲ませました。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "……どうして何も言ってくださらないのですか。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "どうして。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "祭壇",
+      "type": "text",
+      "x": 19,
+      "y": 4,
+      "lines": [
+        "石の祭壇。供え物の皿は空っぽだ。",
+        "祭壇の奥（像の側）の床石だけ、色が違って見える。"
+      ]
+    },
+    {
+      "name": "隠し階段（地下納骨所へ）",
+      "type": "raw",
+      "x": 19,
+      "y": 3,
+      "note": "<hai_stairs:22,3,4,2>",
+      "pages": [
+        {
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "思念 R03 盗賊団「夜鴉」の見張り",
+      "type": "text",
+      "x": 18,
+      "y": 11,
+      "note": "<hai_thought:R03>",
+      "lines": [
+        "夜鴉団、ここに参上。礼拝堂の聖女さまのお宝は、おれたちがいただく。",
+        "……と書いてから三日。頭が地下から戻らない。",
+        "下から、骨を擦るような音がする。"
+      ]
+    },
+    {
+      "name": "思念 R04 礼拝堂の老司祭",
+      "type": "text",
+      "x": 21,
+      "y": 3,
+      "note": "<hai_thought:R04><hai_clue:聖女像の足元（祭壇の裏）に何かがしまってある>",
+      "image": {
+        "characterName": "Damage1",
+        "characterIndex": 2,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "信徒には言えぬことを、ここに書く。",
+        "聖女さまの遺灰が病を治したという記録は、どこにもない。",
+        "それでも民は祈りに来る。祈る場所がなければ、民はもっと早く壊れるだろう。",
+        "私は嘘の番人だ。聖女さまの足元に、その嘘をしまってある。"
+      ]
+    },
+    {
+      "name": "木の柵",
+      "type": "raw",
+      "x": 34,
+      "y": 3,
+      "pages": [
+        {
+          "image": {
+            "tileId": "D:126"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "坑口の前の古い木の柵。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "押すと、きしみながら開いた。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Open2",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "坑口（廃坑・上層へ）",
+      "type": "text",
+      "x": 34,
+      "y": 2,
+      "priorityType": 0,
+      "lines": [
+        "坑道の奥は暗く、土砂でふさがっている。",
+        "（廃坑は W1 の続きでつなぐ）"
+      ]
+    },
+    {
+      "name": "迷い蛾（緑）",
+      "type": "raw",
+      "x": 21,
+      "y": 28,
+      "note": "<hai_enemy:201,green>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Nature",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "根喰い（緑・動かない）",
+      "type": "raw",
+      "x": 22,
+      "y": 23,
+      "note": "<hai_enemy:202,green>\n<hai_enemy_chase:0>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 0
+        }
+      ]
+    },
+    {
+      "name": "灰の巡礼者（黄・巡回）",
+      "type": "raw",
+      "x": 28,
+      "y": 5,
+      "note": "<hai_enemy:203,yellow>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 7,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 5,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "祈りの群れ（赤）",
+      "type": "raw",
+      "x": 19,
+      "y": 16,
+      "note": "<hai_enemy:204,red>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 7,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 2
+        }
+      ]
+    },
+    {
+      "name": "南の入口（森の入口へ）",
+      "type": "transfer",
+      "x": 20,
+      "y": 31,
+      "to": [
+        20,
+        8,
+        1,
+        "down"
+      ]
+    },
+    {
+      "name": "南の入口（森の入口へ）",
+      "type": "transfer",
+      "x": 21,
+      "y": 31,
+      "to": [
+        20,
+        9,
+        1,
+        "down"
+      ]
+    },
+    {
+      "name": "南の入口（森の入口へ）",
+      "type": "transfer",
+      "x": 22,
+      "y": 31,
+      "to": [
+        20,
+        10,
+        1,
+        "down"
+      ]
+    }
+  ]
+}
