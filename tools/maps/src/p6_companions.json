@@ -1,0 +1,301 @@
+{
+  "_説明": "P6（仲間）の試験場（T の帯 900–909 のうち 907 を P6 が使う）。製品のマップからは行けない。遺骸 2 体（オルド 5・ザザ 6）、召喚陣、編成の石碑、オルドの記憶の断片 4 つ（1 生い立ち〜4 臨終。本文は docs/world.md 6.1）。",
+  "mapId": 907,
+  "name": "T_仲間と召喚",
+  "displayName": "仲間の試験場",
+  "legend": "dungeon",
+  "bgm": "Dungeon1",
+  "chars": {
+    "S": {
+      "name": "テストの開始地点",
+      "as": "."
+    },
+    "a": {
+      "name": "遺骸（オルド。アクター 5）",
+      "as": "."
+    },
+    "b": {
+      "name": "遺骸（ザザ。アクター 6）",
+      "as": "."
+    },
+    "C": {
+      "name": "召喚陣",
+      "as": "."
+    },
+    "P": {
+      "name": "編成の石碑",
+      "as": "."
+    },
+    "1": {
+      "name": "オルドの記憶 1 生い立ち",
+      "as": "."
+    },
+    "2": {
+      "name": "オルドの記憶 2 転機",
+      "as": "."
+    },
+    "3": {
+      "name": "オルドの記憶 3 罪か誇り",
+      "as": "."
+    },
+    "4": {
+      "name": "オルドの記憶 4 臨終",
+      "as": "."
+    }
+  },
+  "events": [
+    {
+      "at": "a",
+      "name": "遺骸 オルド",
+      "type": "raw",
+      "note": "<hai_remains:5>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "崩れた梁の下に、大柄な男の亡骸がある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "帝国の工兵の徽章が、錆びて肩に貼りついている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "at": "b",
+      "name": "遺骸 ザザ",
+      "type": "raw",
+      "note": "<hai_remains:6>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "焼けた見張り台の残骸に、獣人の女が倒れている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "折れた剣を、最後まで手放さなかったようだ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "at": "C",
+      "name": "召喚陣",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Crystal",
+            "characterIndex": 1,
+            "direction": 8
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "directionFix": true,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Companions",
+                "summonMenu",
+                "召喚陣",
+                {}
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "at": "P",
+      "name": "編成の石碑",
+      "type": "raw",
+      "pages": [
+        {
+          "image": {
+            "tileId": "B:177"
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Companions",
+                "partyMenu",
+                "編成",
+                {}
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "at": "1",
+      "name": "記憶 オルド 1「生い立ち」",
+      "type": "text",
+      "note": "<hai_memory:5,1>",
+      "image": {
+        "characterName": "!Other1",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "貧しい石工の家の三男だった。",
+        "兵になれば、家族に麦が配られると聞いた。",
+        "だから志願した。それだけの話だ。"
+      ]
+    },
+    {
+      "at": "2",
+      "name": "記憶 オルド 2「転機」",
+      "type": "text",
+      "note": "<hai_memory:5,2>",
+      "image": {
+        "characterName": "!Other1",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "砦は落ちた。次は捕虜を盾にして進めと言われた。",
+        "俺は断った。肩章をはがされ、前線の工兵に回された。"
+      ]
+    },
+    {
+      "at": "3",
+      "name": "記憶 オルド 3「罪か誇り」",
+      "type": "text",
+      "note": "<hai_memory:5,3>",
+      "image": {
+        "characterName": "!Other1",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "牢の連中に、崩れない坑道の組み方を教えた。",
+        "落盤のたびに、何人かは生きて這い出せた。",
+        "それだけは、胸を張ってもいいだろう。"
+      ]
+    },
+    {
+      "at": "4",
+      "name": "記憶 オルド 4「臨終」",
+      "type": "text",
+      "note": "<hai_memory:5,4>",
+      "image": {
+        "characterName": "!Other1",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        [
+          "天井が鳴った。支柱が割れる音だ。",
+          "「伏せろ！」と怒鳴って、俺は一番近い梁の下に肩を入れた。",
+          "重い。だが、まだ持つ。後ろで若いのが這い出ていく足音がする。"
+        ],
+        [
+          "三人。四人。……よし。全員だ。",
+          "俺の国は俺を忘れたが、この梁は俺を覚えているだろう。"
+        ]
+      ]
+    }
+  ]
+}

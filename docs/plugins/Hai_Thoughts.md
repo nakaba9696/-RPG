@@ -88,10 +88,11 @@
 | `notes(kind?)` | メモの一覧（写し。足した順）。`kind` を渡すとその種類だけ |
 | `addNote(note)` | `{ text, id?, kind?, mapId?, x?, y? }` を足す。足したらそのメモの写し、同じ ID があれば `null`。省いた `mapId`・`x`・`y` は今のマップとプレイヤーの座標 |
 | `hasNote(id)` | その ID のメモがあるか |
+| `removeNote(id)` | その ID のメモを消す。消したら `true`（U1 の入手ログが古いものを消す用） |
 | `clearNotes()` | メモ帳を空にする |
 | `unreadCount(mapId?)` | そのマップ（省略で今のマップ）の読んでいない思念の数。**訪れたマップだけ**分かる（訪れていないマップは 0） |
 | `thoughts(mapId?)` | そのマップの思念の一覧 `[{ id, x, y, read }]`（オートマップに印を描く用。訪れていないマップは `[]`） |
-| `KINDS` | `["clue", "door", "item"]` |
+| `KINDS` | `["clue", "door", "item", "memory"]`（`memory` は P6 の記憶の断片。`Hai_Companions` が足す） |
 
 メモの形：
 ```js

@@ -1,0 +1,17 @@
+{
+  "_説明": "P10 のテスト用（T の帯のうち 911 を P10 が使う）。製品のマップからは行けない。タイルセット 12（B が Outside_B）で、開いた隠し扉と現れた隠し階段がタイルセットのメモ欄 <hai_hidden_tiles:…>（D の暗いアーチと下り階段）で描かれるかを見る。",
+  "mapId": 911,
+  "name": "T_外の隠し扉と階段",
+  "displayName": "外の隠し扉と階段",
+  "legend": "forest",
+  "bgm": "Field2",
+  "chars": {
+    "S": { "name": "テストの開始地点", "as": "." },
+    "W": { "name": "石の崖（壁A（石））", "wall": { "top": "A4:0", "side": "A4:8", "height": 2 } },
+    "D": { "name": "隠し扉（くぼんだ崖：側面だけ段差B（土）。P2 のリージョン 252）", "wall": { "top": "A4:0", "side": "A4:45", "height": 2 }, "region": 252 },
+    "H": { "name": "見えない通路（崖に見えて通れる。P2 のリージョン 251）", "as": "W", "region": 251, "shadow": false }
+  },
+  "events": [
+    { "at": "v", "name": "隠し階段", "type": "raw", "note": "<hai_stairs:911,3,9>", "pages": [{ "priorityType": 0 }] }
+  ]
+}

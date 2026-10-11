@@ -119,14 +119,14 @@ await runTest(async () => {
     write(dir, "Map001.json", map);
   }, "製品のマップからテスト用のマップ 900 へ行ける");
 
-  // 入口の無いテスト用のマップ（文字マップの S の無い Map903 の写しを 909 に）
+  // 入口の無いテスト用のマップ（文字マップの S の無い Map903 の写しを 949 に）
   expect("入口の無いマップ", dir => {
-    fs.copyFileSync(path.join(dir, "Map903.json"), path.join(dir, "Map909.json"));
+    fs.copyFileSync(path.join(dir, "Map903.json"), path.join(dir, "Map949.json"));
     const infos = read(dir, "MapInfos.json");
-    while (infos.length <= 909) infos.push(null);
-    infos[909] = { ...infos[903], id: 909, name: "T_入口なし" };
+    while (infos.length <= 949) infos.push(null);
+    infos[949] = { ...infos[903], id: 949, name: "T_入口なし" };
     write(dir, "MapInfos.json", infos);
-  }, "data/Map909.json: 入口がない");
+  }, "data/Map949.json: 入口がない");
 
   // プラグインの並び
   const pluginsText = fs.readFileSync(path.join(ROOT, "js", "plugins.js"), "utf8");
