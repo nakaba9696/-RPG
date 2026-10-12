@@ -1,0 +1,2845 @@
+{
+  "_説明": "W6（#144）：黒鉄の砦・内郭（docs/world.md 3.4・4 章、docs/mapdesign.md）。墓所（西）で目覚め、中庭（真ん中）・大広間（炉）・名の壁（東）・門楼（北、外の霧の森へ）・城壁へ上る階段（北西、019）・南の廊下（営倉への鉄扉）。部屋の扉 7 つ（稽古場・書庫・食堂・倉、崩れた療養所・鍛冶場・見張り台）。この設定は node tools/maps/src/w6_data.mjs が書く。地図は w6_010_keep.txt と .deco.txt（手で書く）。",
+  "mapId": 10,
+  "name": "黒鉄の砦・内郭",
+  "displayName": "黒鉄の砦",
+  "legend": "dungeon",
+  "tilesetId": 11,
+  "bgm": {
+    "name": "Castle2",
+    "volume": 60,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Wind1",
+    "volume": 25,
+    "pitch": 100,
+    "pan": 0
+  },
+  "note": "<hai_tone:-34,-34,-17,68>\n<hai_ash:2>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Stone2",
+    "battleback2Name": "Fort1"
+  },
+  "chars": {
+    "#": {
+      "name": "砦の壁（壁O（砦）。下が床なら側面、ほかは上面）",
+      "wall": {
+        "top": "A4:22",
+        "side": "A4:30",
+        "height": 2
+      }
+    },
+    ".": {
+      "name": "石畳（石畳A）",
+      "tiles": [
+        "A5:20"
+      ]
+    },
+    ",": {
+      "name": "中庭の土（床C（岩洞窟））",
+      "tiles": [
+        "A2:8"
+      ]
+    },
+    "a": {
+      "name": "中庭の灰の吹きだまり（床の汚れを重ねる）",
+      "as": ",",
+      "tiles": [
+        null,
+        "A2:15"
+      ]
+    },
+    "A": {
+      "name": "石畳の上の灰",
+      "as": ".",
+      "tiles": [
+        null,
+        "A2:15"
+      ]
+    },
+    "c": {
+      "name": "大広間の赤い敷物（じゅうたんA）",
+      "as": ".",
+      "tiles": [
+        null,
+        "A2:19"
+      ]
+    },
+    "C": {
+      "name": "墓所の紫の敷物（じゅうたんB）",
+      "as": ".",
+      "tiles": [
+        null,
+        "A2:27"
+      ]
+    },
+    "p": {
+      "name": "名の壁の輪の台（石段）",
+      "as": ".",
+      "tiles": [
+        null,
+        "A2:30"
+      ]
+    },
+    "S": {
+      "name": "目覚めの場所（開始位置）",
+      "as": "C"
+    },
+    "<": {
+      "name": "外門への階段（上り）",
+      "as": "A",
+      "tiles": [
+        null,
+        null,
+        "B:18"
+      ]
+    },
+    ">": {
+      "name": "城壁へ上る階段（上り）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "B:18"
+      ]
+    }
+  },
+  "deco": {
+    "1": {
+      "name": "石版",
+      "z2": "B:177"
+    },
+    "2": {
+      "name": "割れた石版",
+      "z2": "B:178"
+    },
+    "3": {
+      "name": "鉄くず",
+      "z2": "E:151"
+    },
+    "4": {
+      "name": "水桶",
+      "z2": "E:150"
+    },
+    "5": {
+      "name": "桶",
+      "z2": "D:211"
+    },
+    "7": {
+      "name": "薪（端材）",
+      "z2": "D:220"
+    },
+    "9": {
+      "name": "壁の石の面（書き付け）",
+      "z2": "D:35"
+    },
+    "r": {
+      "name": "瓦礫",
+      "z2": "B:120"
+    },
+    "R": {
+      "name": "苔の瓦礫",
+      "z2": "B:121"
+    },
+    "u": {
+      "name": "折れた柱",
+      "z2": "B:113"
+    },
+    "h": {
+      "name": "端材",
+      "z2": "B:125"
+    },
+    "b": {
+      "name": "壊れたバリケード",
+      "z2": "B:126"
+    },
+    "x": {
+      "name": "骸骨",
+      "z2": "B:242"
+    },
+    "X": {
+      "name": "骸骨",
+      "z2": "B:250"
+    },
+    "w": {
+      "name": "蜘蛛の巣（壁）",
+      "z2": "B:176"
+    },
+    "k": {
+      "name": "壁の刻み（亀裂）",
+      "z2": "B:195"
+    },
+    "m": {
+      "name": "壁の苔",
+      "z2": "B:1"
+    },
+    "v": {
+      "name": "壁のツタ",
+      "z2": "B:184"
+    },
+    "Q": {
+      "name": "木箱",
+      "z2": "B:221"
+    },
+    "q": {
+      "name": "壊れた木箱",
+      "z2": "B:222"
+    },
+    "n": {
+      "name": "壊れた樽",
+      "z2": "B:239"
+    },
+    "N": {
+      "name": "樽",
+      "z2": "D:212"
+    },
+    "s": {
+      "name": "麻袋",
+      "z2": "D:248"
+    },
+    "t": {
+      "name": "壊れた机",
+      "z2": "B:243"
+    },
+    "y": {
+      "name": "壊れた椅子",
+      "z2": "B:251"
+    },
+    "+": {
+      "name": "机の上の命令書の束",
+      "z2": "B:243",
+      "z3": "E:72"
+    },
+    "T": {
+      "name": "食卓（左）",
+      "z2": "D:112"
+    },
+    "U": {
+      "name": "食卓（右）",
+      "z2": "D:113"
+    },
+    "P": {
+      "name": "食卓（左）と皿",
+      "z2": "D:112",
+      "z3": "E:58"
+    },
+    "o": {
+      "name": "食卓（右）と椀",
+      "z2": "D:113",
+      "z3": "E:62"
+    },
+    "c": {
+      "name": "椅子",
+      "z2": "D:120"
+    },
+    "f": {
+      "name": "破れた旗（上）",
+      "z2": "D:81"
+    },
+    "F": {
+      "name": "破れた旗（下）",
+      "z2": "D:89"
+    },
+    "e": {
+      "name": "崩れた壁",
+      "z2": "B:16"
+    },
+    "Z": {
+      "name": "貼り紙（触れ書き）",
+      "z2": "D:216"
+    },
+    "K": {
+      "name": "外套掛けの木釘（壁）",
+      "z2": "E:144"
+    },
+    "i": {
+      "name": "兜",
+      "z2": "E:152"
+    },
+    "&": {
+      "name": "鎧のスタンド",
+      "z2": "E:160"
+    }
+  },
+  "stamps": [
+    {
+      "at": "V",
+      "name": "棺（縦）",
+      "tiles": [
+        [
+          "C:86"
+        ],
+        [
+          "C:94"
+        ]
+      ]
+    },
+    {
+      "at": "W",
+      "name": "棺（縦）",
+      "tiles": [
+        [
+          "C:87"
+        ],
+        [
+          "C:95"
+        ]
+      ]
+    },
+    {
+      "at": "H",
+      "name": "棺（横）",
+      "tiles": [
+        [
+          "C:78",
+          "C:79"
+        ]
+      ]
+    },
+    {
+      "at": "J",
+      "name": "蓋の割れた棺（横）",
+      "tiles": [
+        [
+          "C:102",
+          "C:103"
+        ]
+      ]
+    },
+    {
+      "at": "O",
+      "name": "崩れた外壁の石の山（2×2）",
+      "tiles": [
+        [
+          "B:202",
+          "B:203"
+        ],
+        [
+          "B:210",
+          "B:211"
+        ]
+      ]
+    },
+    {
+      "at": "M",
+      "name": "名の壁の大きな石碑（3×2）",
+      "tiles": [
+        [
+          "B:66",
+          "B:67",
+          "B:68"
+        ],
+        [
+          "B:74",
+          "B:75",
+          "B:76"
+        ]
+      ]
+    },
+    {
+      "at": "G",
+      "name": "名の壁の輪（3×3）",
+      "tiles": [
+        [
+          "C:80",
+          "C:81",
+          "C:82"
+        ],
+        [
+          "C:88",
+          "C:89",
+          "C:90"
+        ],
+        [
+          "C:96",
+          "C:97",
+          "C:98"
+        ]
+      ]
+    },
+    {
+      "at": "L",
+      "name": "大広間の炉（大きな暖炉 3×2）",
+      "tiles": [
+        [
+          "D:189",
+          "D:190",
+          "D:191"
+        ],
+        [
+          "D:197",
+          "D:198",
+          "D:199"
+        ]
+      ]
+    },
+    {
+      "at": "I",
+      "name": "石の柱（1×2。上は☆）",
+      "tiles": [
+        [
+          "B:97"
+        ],
+        [
+          "B:105"
+        ]
+      ]
+    },
+    {
+      "at": "!",
+      "name": "槍立て（1×2。空の鐘架の脚にも）",
+      "tiles": [
+        [
+          "E:175"
+        ],
+        [
+          "E:183"
+        ]
+      ]
+    },
+    {
+      "at": "?",
+      "name": "剣立て（1×2）",
+      "tiles": [
+        [
+          "E:174"
+        ],
+        [
+          "E:182"
+        ]
+      ]
+    },
+    {
+      "at": "Y",
+      "name": "粗末な寝台（1×2）",
+      "tiles": [
+        [
+          "D:171"
+        ],
+        [
+          "D:179"
+        ]
+      ]
+    },
+    {
+      "at": "D",
+      "name": "朽ちた寝台（1×2）",
+      "tiles": [
+        [
+          "D:174"
+        ],
+        [
+          "D:182"
+        ]
+      ]
+    }
+  ],
+  "scatter": [
+    {
+      "on": ".",
+      "z": 1,
+      "tiles": [
+        "A2:15"
+      ],
+      "rate": 0.05,
+      "seed": 1010
+    },
+    {
+      "on": ".",
+      "tiles": [
+        "B:32",
+        "B:33"
+      ],
+      "rate": 0.07,
+      "seed": 1011
+    },
+    {
+      "on": ",a",
+      "tiles": [
+        "B:33",
+        "B:33",
+        "B:32"
+      ],
+      "rate": 0.14,
+      "seed": 1012
+    }
+  ],
+  "events": [
+    {
+      "name": "目覚めの場面",
+      "type": "raw",
+      "x": 0,
+      "y": 39,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 221,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 320,
+              "indent": 0,
+              "parameters": [
+                1,
+                "墓守"
+              ]
+            },
+            {
+              "code": 324,
+              "indent": 0,
+              "parameters": [
+                1,
+                "墓守"
+              ]
+            },
+            {
+              "code": 230,
+              "indent": 0,
+              "parameters": [
+                60
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Bell3",
+                  "volume": 50,
+                  "pitch": 130,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 230,
+              "indent": 0,
+              "parameters": [
+                45
+              ]
+            },
+            {
+              "code": 222,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "床の小さな鈴が、まだ揺れている。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                111,
+                111,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 111,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "シャノ（柱の陰）",
+      "type": "raw",
+      "x": 31,
+      "y": 26,
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 112,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "People1",
+            "characterIndex": 2,
+            "direction": 4,
+            "pattern": 1
+          },
+          "priorityType": 1
+        },
+        {
+          "conditions": {
+            "switch1Id": 172,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "シャノ（食卓）",
+      "type": "raw",
+      "x": 22,
+      "y": 30,
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 172,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "People1",
+            "characterIndex": 2,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                1,
+                102,
+                0,
+                1,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "シャノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "……また誰かと話してた？　ま、いいけど"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "シャノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "見てた？　さっき梁の上まで登った。鉄の留め金、三つ取れた"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "シャノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "地下の牢の鐘、外して持ってったら、頭に褒められる。……たぶん"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "砦の炉",
+      "type": "raw",
+      "x": 25,
+      "y": 25,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 2,
+            "direction": 6,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "directionFix": true,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "炉は冷えている。灰の下に、乾いた薪が残っている。"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "火を入れる",
+                  "やめる"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "火を入れる"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Fire1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                112,
+                112,
+                0
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_Defeat",
+                "setHome",
+                "拠点を設定",
+                {
+                  "mapId": "0",
+                  "x": "25",
+                  "y": "26",
+                  "direction": "8"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "マップ ID = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "X = 25"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "Y = 26"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "向き = 8"
+              ]
+            },
+            {
+              "code": 230,
+              "indent": 1,
+              "parameters": [
+                20
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "炉に火が入った。煤けた壁が、赤く照らされる。"
+              ]
+            },
+            {
+              "code": 230,
+              "indent": 1,
+              "parameters": [
+                40
+              ]
+            },
+            {
+              "code": 205,
+              "indent": 1,
+              "parameters": [
+                2,
+                {
+                  "list": [
+                    {
+                      "code": 2,
+                      "indent": null,
+                      "parameters": []
+                    },
+                    {
+                      "code": 1,
+                      "indent": null,
+                      "parameters": []
+                    },
+                    {
+                      "code": 2,
+                      "indent": null,
+                      "parameters": []
+                    },
+                    {
+                      "code": 2,
+                      "indent": null,
+                      "parameters": []
+                    },
+                    {
+                      "code": 2,
+                      "indent": null,
+                      "parameters": []
+                    },
+                    {
+                      "code": 17,
+                      "indent": null,
+                      "parameters": []
+                    },
+                    {
+                      "code": 0,
+                      "parameters": []
+                    }
+                  ],
+                  "repeat": false,
+                  "skippable": false,
+                  "wait": true
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 1,
+              "parameters": [
+                {
+                  "code": 2,
+                  "indent": null,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 1,
+              "parameters": [
+                {
+                  "code": 1,
+                  "indent": null,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 1,
+              "parameters": [
+                {
+                  "code": 2,
+                  "indent": null,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 1,
+              "parameters": [
+                {
+                  "code": 2,
+                  "indent": null,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 1,
+              "parameters": [
+                {
+                  "code": 2,
+                  "indent": null,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 1,
+              "parameters": [
+                {
+                  "code": 17,
+                  "indent": null,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "シャノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "……火、つけたの、あんた？"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "シャノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "おれ、鉄を拾いに来ただけ。鈴、蹴っちゃった。ごめん"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                12,
+                "Hai.Thoughts.isRead('K01')"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "シャノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "さっき誰と話してたの？　……ま、いいや"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "シャノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "頭に言われてんだ。砦の地下の牢の鐘、外して持ってこいって"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "シャノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "でも鉄の扉が開かない。あと、森の霧で炊き出しの爺さんが三日帰ってない"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "シャノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "おれは霧、だめなんだ。……ここ、ちょっといていい？"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_Facilities",
+                "open",
+                "部屋を開く",
+                {
+                  "facility": "gate"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "部屋 = gate"
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 1,
+              "parameters": [
+                103,
+                103,
+                1,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_Thoughts",
+                "addNote",
+                "メモを足す",
+                {
+                  "text": "鐘：砦の地下の牢（シャノ）",
+                  "id": "shano:bell",
+                  "kind": "clue"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "メモの一行 = 鐘：砦の地下の牢（シャノ）"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "ID = shano:bell"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "種類 = clue"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_Thoughts",
+                "addNote",
+                "メモを足す",
+                {
+                  "text": "炊き出しの爺さん：外の森の霧（シャノ）",
+                  "id": "shano:cook",
+                  "kind": "clue"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "メモの一行 = 炊き出しの爺さん：外の森の霧（シャノ）"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "ID = shano:cook"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "種類 = clue"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "\\C[6]メモ：\\C[0]鐘：砦の地下の牢（シャノ）"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "\\C[6]メモ：\\C[0]炊き出しの爺さん：外の森の霧（シャノ）"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                172,
+                172,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 112,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "directionFix": true,
+          "stepAnime": true,
+          "list": [
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Warp",
+                "open",
+                "結界を開く",
+                {}
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "墓所の壁の書き付け",
+      "type": "raw",
+      "x": 7,
+      "y": 13,
+      "pages": [
+        {
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "壁に、刃物で刻んだ字がある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "「四つの鐘を鳴らして。それから、山の頂の鐘楼へ」"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "最後の一画が、途中で止まっている。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                171,
+                1
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_Thoughts",
+                "addNote",
+                "メモを足す",
+                {
+                  "text": "四つの鐘を鳴らす。それから山の頂の鐘楼へ（墓所の壁）",
+                  "id": "goal:bells",
+                  "kind": "clue"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "メモの一行 = 四つの鐘を鳴らす。それから山の頂の鐘楼へ（墓所の壁）"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "ID = goal:bells"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "種類 = clue"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "\\C[6]メモ：\\C[0]四つの鐘を鳴らす。それから山の頂の鐘楼へ（墓所の壁）"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                171,
+                171,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "灰の上の足跡",
+      "type": "raw",
+      "x": 12,
+      "y": 19,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "灰に、裸足の小さな足跡。外へ駆けていった。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                173,
+                173,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 173,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "灰の上の足跡",
+      "type": "raw",
+      "x": 12,
+      "y": 20,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "灰に、裸足の小さな足跡。外へ駆けていった。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                173,
+                173,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 173,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "外の霧の森へ（外門への階段）",
+      "type": "transfer",
+      "at": "<",
+      "to": [
+        20,
+        18,
+        27,
+        "down"
+      ]
+    },
+    {
+      "name": "城壁へ上る階段",
+      "type": "transfer",
+      "at": ">",
+      "to": [
+        19,
+        2,
+        8,
+        "right"
+      ]
+    },
+    {
+      "name": "小さな鈴",
+      "type": "text",
+      "x": 6,
+      "y": 19,
+      "lines": [
+        "小さな真鍮の鈴。結んであった紐が、途中で切れている。"
+      ],
+      "image": {
+        "tileId": "E:121"
+      }
+    },
+    {
+      "name": "外套掛け",
+      "type": "text",
+      "x": 3,
+      "y": 13,
+      "lines": [
+        "壁の木釘。外套を掛けておく所だ。",
+        "釘には何も掛かっていない。"
+      ]
+    },
+    {
+      "name": "思念 K01 婚礼の歌を覚えたい父親",
+      "type": "text",
+      "x": 11,
+      "y": 21,
+      "note": "<hai_thought:K01>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "娘の婚礼の歌を、まだ半分しか覚えていない。",
+        "墓守さん、続きを聞いといてくれ。"
+      ]
+    },
+    {
+      "name": "薄い思念 F01 墓所の番の老人",
+      "type": "raw",
+      "x": 4,
+      "y": 23,
+      "note": "<hai_faint:F01>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "棺の前に、墓守がしゃがんで耳を寄せている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "わしには何も聞こえん。いつものことだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "やがて墓守は立ち上がり、壁の釘から外套を取った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "「町まで行ってくる」と言うので、灯を一つ持たせた。"
+              ]
+            },
+            {
+              "code": 117,
+              "indent": 0,
+              "parameters": [
+                201
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "薄い思念 F07 小間使いの子",
+      "type": "raw",
+      "x": 11,
+      "y": 13,
+      "note": "<hai_faint:F07>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "壁に背中をつけて、まっすぐ立つ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "墓守が刃物で、あたしの頭の上に刻みを入れる。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "「去年より、指二本ぶん」"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "墓守は、自分のぶんは刻まない。ずるい。"
+              ]
+            },
+            {
+              "code": 117,
+              "indent": 0,
+              "parameters": [
+                201
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "割れた棺",
+      "type": "text",
+      "x": 11,
+      "y": 24,
+      "lines": [
+        "蓋の割れた棺。中は空で、底に乾いた花びらが貼りついている。"
+      ]
+    },
+    {
+      "name": "騎士長の触れ書き",
+      "type": "text",
+      "x": 22,
+      "y": 13,
+      "lines": [
+        [
+          "壁の触れ書き。騎士長の印がある。",
+          "「夜、戸を叩かれても開けぬこと。名を呼ばれても答えぬこと。」",
+          "「当番の者、灯を倍に。油は倉から。」"
+        ],
+        [
+          "下の余白に、別の手で一行。",
+          "「油、もう無い」"
+        ]
+      ]
+    },
+    {
+      "name": "崩れた壁の隙間",
+      "type": "text",
+      "x": 33,
+      "y": 13,
+      "lines": [
+        "崩れた壁の隙間から、東の空が見える。",
+        "雲の上に、塔の影が一つ。山の頂だ。"
+      ]
+    },
+    {
+      "name": "井戸",
+      "type": "text",
+      "x": 29,
+      "y": 19,
+      "lines": [
+        "石を組んだ井戸。覗くと、底は暗い。水の音はしない。",
+        "縁の石に、綱でこすれた溝が何本もある。"
+      ],
+      "image": {
+        "tileId": "B:31"
+      }
+    },
+    {
+      "name": "思念 K04 水汲みの女",
+      "type": "text",
+      "x": 28,
+      "y": 19,
+      "note": "<hai_thought:K04>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "水を汲んでおいてって言われたの。桶に三杯。",
+        "二杯目のとき、門の方で、誰かが「入れておくれ」って。",
+        "三杯目、まだ汲んでない。"
+      ]
+    },
+    {
+      "name": "灰に埋もれた骨",
+      "type": "text",
+      "x": 21,
+      "y": 16,
+      "lines": [
+        "灰に半ば埋もれた骨。指の骨が、門の方を向いている。"
+      ]
+    },
+    {
+      "name": "門の内側の凹み",
+      "type": "text",
+      "x": 24,
+      "y": 1,
+      "lines": [
+        "門の内側に、拳ほどの凹みが三つ。縦に並んでいる。"
+      ]
+    },
+    {
+      "name": "番の机",
+      "type": "text",
+      "x": 27,
+      "y": 5,
+      "lines": [
+        "番の机。賽子が二つ、六の目を上にして置いてある。"
+      ]
+    },
+    {
+      "name": "名の壁",
+      "type": "text",
+      "x": 39,
+      "y": 13,
+      "lines": [
+        "砦の兵の名が、石に彫ってある。",
+        "上の方の名ほど字が深い。下の方は、刃物で急いで掻いたような字だ。"
+      ]
+    },
+    {
+      "name": "名の壁（騎士長の欄）",
+      "type": "text",
+      "x": 42,
+      "y": 13,
+      "lines": [
+        "一番上に、騎士長の名。",
+        "その下には、三つの国の字が混ざって並んでいる。"
+      ]
+    },
+    {
+      "name": "名の壁（墓守の欄）",
+      "type": "text",
+      "x": 45,
+      "y": 13,
+      "lines": [
+        "壁の端に、「墓守」と彫った欄がある。",
+        "名前の所だけ、石が削られている。",
+        "削った跡に、また何か彫り、それもまた削ってある。刃の跡が重なって、もう読めない。"
+      ]
+    },
+    {
+      "name": "名の壁の輪",
+      "type": "raw",
+      "x": 42,
+      "y": 19,
+      "pages": [
+        {
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                1,
+                102,
+                0,
+                1,
+                1
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 1,
+              "parameters": [
+                [
+                  "輪に触れる",
+                  "並びを替える",
+                  "やめる"
+                ],
+                2,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 1,
+              "parameters": [
+                0,
+                "輪に触れる"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 2,
+              "parameters": [
+                "Hai_Companions",
+                "summonMenu",
+                "名の壁で呼ぶ",
+                {}
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 1,
+              "parameters": [
+                1,
+                "並びを替える"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 2,
+              "parameters": [
+                "Hai_Companions",
+                "partyMenu",
+                "編成",
+                {}
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 1,
+              "parameters": [
+                2,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_Companions",
+                "summonMenu",
+                "名の壁で呼ぶ",
+                {}
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                113,
+                113,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "空の鐘架",
+      "type": "text",
+      "x": 22,
+      "y": 27,
+      "lines": [
+        "鐘を吊るす木の架。鐘は無い。",
+        "切れた綱が、架の上から垂れている。"
+      ]
+    },
+    {
+      "name": "騎士長の命令書の束",
+      "type": "text",
+      "x": 10,
+      "y": 31,
+      "lines": [
+        [
+          "紐でくくった命令書の束。封蝋の色が三つある。",
+          "教会の白「頂に足場を組む。石工を回せ。」",
+          "王の青「兵の半数、西の村へ戻せ。」",
+          "帝国の黒「古言兵の一隊、砦を通す。糧を出せ。」"
+        ],
+        [
+          "束の一番下に、騎士長の手で一行。",
+          "「三つとも、今月中に。」"
+        ]
+      ]
+    },
+    {
+      "name": "思念 K02 灯の当番",
+      "type": "text",
+      "x": 4,
+      "y": 32,
+      "note": "<hai_thought:K02>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "報告。灯の油、残り二樽。",
+        "触れのとおり倍に灯せば、もって五日。",
+        "五日目の当番は自分だ。数え直しても、五日だ。"
+      ]
+    },
+    {
+      "name": "宝箱（ポーション）",
+      "type": "raw",
+      "x": 11,
+      "y": 29,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                7,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "ポーション×2を手に入れた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "思念 K03 残った兵",
+      "type": "text",
+      "x": 46,
+      "y": 32,
+      "note": "<hai_thought:K03>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "王国の兵だった。西へ戻る列に、自分の名は無かった。",
+        "残った。残された、とは書かないでくれ。"
+      ]
+    },
+    {
+      "name": "寝台の下",
+      "type": "text",
+      "x": 43,
+      "y": 30,
+      "lines": [
+        "寝台の下に、木彫りの小さな馬。脚が一本ない。"
+      ]
+    },
+    {
+      "name": "宝箱（ハイポーション）",
+      "type": "raw",
+      "x": 38,
+      "y": 33,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                8,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "ハイポーションを手に入れた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "稽古場の扉",
+      "type": "raw",
+      "x": 40,
+      "y": 8,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Facilities",
+                "door",
+                "崩れた扉",
+                {
+                  "door": "soul"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "どの部屋の扉か = soul"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 121,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 2,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                11,
+                8,
+                11,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "書庫の扉",
+      "type": "raw",
+      "x": 33,
+      "y": 8,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Facilities",
+                "door",
+                "崩れた扉",
+                {
+                  "door": "lore"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "どの部屋の扉か = lore"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 124,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 2,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                14,
+                8,
+                11,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "食堂の扉",
+      "type": "raw",
+      "x": 5,
+      "y": 36,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Facilities",
+                "door",
+                "崩れた扉",
+                {
+                  "door": "kitchen"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "どの部屋の扉か = kitchen"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 122,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 2,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                12,
+                8,
+                11,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "倉の扉",
+      "type": "raw",
+      "x": 10,
+      "y": 36,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Facilities",
+                "door",
+                "崩れた扉",
+                {
+                  "door": "gate"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "どの部屋の扉か = gate"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 123,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 2,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                13,
+                8,
+                11,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "療養所の扉（崩れている）",
+      "type": "raw",
+      "x": 44,
+      "y": 8,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "扉が崩れて、瓦礫で塞がっている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "鍛冶場の扉（崩れている）",
+      "type": "raw",
+      "x": 42,
+      "y": 36,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "扉が崩れて、瓦礫で塞がっている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "見張り台の扉（崩れている）",
+      "type": "raw",
+      "x": 17,
+      "y": 8,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "扉が崩れて、瓦礫で塞がっている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "営倉への鉄扉",
+      "type": "raw",
+      "x": 25,
+      "y": 36,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 2
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "錆びた鉄の扉。押しても引いても動かない。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "隙間から覗くと、向こう側に閂が掛かっている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 114,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 2
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                33,
+                40,
+                26,
+                4,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

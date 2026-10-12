@@ -16,13 +16,13 @@ const HERB = 196, ANTIDOTE = 197, ROOT = 199, MOSS = 200;
 // 試験場の崩れた扉（上の壁）と、部屋を開く生き残り（扉の 2 マス下）。立つのはその 1 つ下
 const DOOR = { soul: { x: 3, y: 2 }, kitchen: { x: 6, y: 2 }, gate: { x: 10, y: 2 }, lore: { x: 13, y: 2 } };
 const SURVIVOR = { soul: { x: 3, y: 4 }, kitchen: { x: 6, y: 4 }, gate: { x: 10, y: 4 }, lore: { x: 13, y: 4 } };
-// Map010 の扉（tools/maps/src/w1_010_prison_hall.json）と施設の中
-const HALL_DOOR = { soul: { x: 5, y: 8 }, kitchen: { x: 27, y: 8 }, gate: { x: 5, y: 26 }, lore: { x: 27, y: 26 } };
+// Map010 の扉（W6 #144 の黒鉄の砦。tools/maps/src/w6_data.mjs の P.doors。どれも北の壁にあり、下から上を向いて触れる）と施設の中
+const HALL_DOOR = { soul: { x: 40, y: 8 }, kitchen: { x: 5, y: 36 }, gate: { x: 10, y: 36 }, lore: { x: 33, y: 8 } };
 const ROOM = {
-  soul: { map: 11, arrive: { x: 8, y: 11 }, use: { x: 8, y: 4 } },
+  soul: { map: 11, arrive: { x: 8, y: 11 }, use: { x: 8, y: 6 } },
   kitchen: { map: 12, arrive: { x: 8, y: 11 }, use: { x: 8, y: 3 } },
-  gate: { map: 13, arrive: { x: 8, y: 3 }, use: { x: 8, y: 7 } },
-  lore: { map: 14, arrive: { x: 8, y: 3 }, use: { x: 8, y: 7 } },
+  gate: { map: 13, arrive: { x: 8, y: 11 }, use: { x: 8, y: 3 } },
+  lore: { map: 14, arrive: { x: 8, y: 11 }, use: { x: 9, y: 6 } },
 };
 
 await runTest(async () => {
@@ -122,7 +122,7 @@ await runTest(async () => {
     const api = await game.eval(() => Object.keys(Hai.Facilities));
     check(!api.some(k => /orb|insert|next/i.test(k)), "窓口に叡智のオーブの名残りがある " + JSON.stringify(api));
 
-    // ---- 1. 閉じた部屋：Map010 の北西の扉は「瓦礫で塞がっている」だけ。叡智のオーブを持っていても開かない
+    // ---- 1. 閉じた部屋：Map010 の稽古場の扉は「瓦礫で塞がっている」だけ。叡智のオーブを持っていても開かない
     await gainOrbs(1);
     await go(10, HALL_DOOR.soul.x, HALL_DOOR.soul.y + 1, 8);
     let pages = await talk([], { 0: "door-closed" });
@@ -166,7 +166,7 @@ await runTest(async () => {
     await go(TEST_MAP, 8, 5, 8);
     await game.shot("test-map-all-open");
 
-    // ---- 4. Map010 の開いた扉 → 魂の間 → 出口で扉の前へ
+    // ---- 4. Map010 の開いた扉 → 稽古場 → 出口で扉の前へ
     await go(10, HALL_DOOR.soul.x, HALL_DOOR.soul.y + 1, 8);
     await game.frames(10);
     await game.shot("hall-door-open");
@@ -176,13 +176,13 @@ await runTest(async () => {
       return g.mapId() === m && g.pos().x === x && g.pos().y === y && !g.isBusy();
     }, [ROOM.soul.map, ROOM.soul.arrive.x, ROOM.soul.arrive.y]);
     await game.shot("room-soul");
-    check(await game.call("step", 2), "魂の間の出口へ歩けない");
+    check(await game.call("step", 2), "稽古場の出口へ歩けない");
     await game.waitFor(() => window.__game.mapId() === 10 && !window.__game.isBusy());
     const back = await game.call("pos");
-    check(back.x === 5 && back.y === 9, "出口から北西の扉の前へ戻らない " + JSON.stringify(back));
-    // 南の扉（保管ゲート）も
-    await go(10, HALL_DOOR.gate.x, HALL_DOOR.gate.y - 1, 2);
-    await game.call("step", 2);
+    check(back.x === HALL_DOOR.soul.x && back.y === HALL_DOOR.soul.y + 1, "出口から稽古場の扉の前へ戻らない " + JSON.stringify(back));
+    // 南の廊下の倉の扉も
+    await go(10, HALL_DOOR.gate.x, HALL_DOOR.gate.y + 1, 8);
+    await game.call("step", 8);
     await game.waitFor(([m, x, y]) => window.__game.mapId() === m && window.__game.pos().x === x && window.__game.pos().y === y && !window.__game.isBusy(),
       [ROOM.gate.map, ROOM.gate.arrive.x, ROOM.gate.arrive.y]);
 
