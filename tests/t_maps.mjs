@@ -266,7 +266,38 @@ function bfs(lines, from, to) {
   return path;
 }
 
+// イベントの id（何人かで同じマップに足すとき）：id のあるイベントはその番号に置き、間は null。id の無いものは前から詰める
+function checkEventIds() {
+  const legend = readLegend();
+  const src = JSON.parse(JSON.stringify(readSource(SAMPLE)));
+  const before = buildMap(src, legend).events;
+  const n = before.length;
+  const free = [];
+  for (let y = 0; y < src.lines.length && free.length < 3; y++) {
+    for (let x = 0; x < [...src.lines[y]].length && free.length < 3; x++) {
+      if (!before.some(e => e && e.x === x && e.y === y)) free.push([x, y]);
+    }
+  }
+  src.config.events.unshift({ id: n + 3, name: "id 付き", type: "text", x: free[0][0], y: free[0][1], lines: ["一"] });
+  src.config.events.push({ name: "id 無し", type: "text", x: free[1][0], y: free[1][1], lines: ["二"] });
+  const after = buildMap(src, legend).events;
+  check(after.length === n + 4, `id 付きの番号まで伸びない（${after.length}）`);
+  check(after[n + 3] && after[n + 3].id === n + 3 && after[n + 3].name === "id 付き", "id 付きのイベントがその番号にない");
+  check(after[n + 1] === null && after[n + 2] === null, "間が null で埋まっていない");
+  check(after[n] && after[n].name === "id 無し", "id の無いイベントが前から詰まっていない");
+  check(before.slice(1).every((e, i) => JSON.stringify(e) === JSON.stringify(after[i + 1])), "id 付きを足すと、ほかのイベントの番号が変わる");
+  let msg = "";
+  try {
+    src.config.events.push({ id: n, name: "重なり", type: "text", x: free[2][0], y: free[2][1], lines: ["三"] });
+    buildMap(src, legend);
+  } catch (e) {
+    msg = e.message;
+  }
+  check(msg.includes("もう使われている"), `使われている id で止まらない（${msg || "エラーなし"}）`);
+  console.log("  イベントの id（その番号に置く・間は null）: 問題なし");
+}
 await runTest(async () => {
+  checkEventIds();
   checkAutotileMath();
   checkAgainstEditorFlags();
   reportEditorMaps();
