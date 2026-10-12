@@ -1,5 +1,7 @@
 # Hai_Facilities — 拠点の施設と叡智のオーブ（P8）
 
+> 注：この説明の**例**（セレス・オーブ・牢獄の間・魔石・旧マップの番号など）は前の世界「灰の王国」のもの（控えは [docs/old/](../old/)）。新しい世界「最後の鐘」の設計は [docs/world.md](../world.md)。仕組みの直しは P11・P12 などの issue で行う。
+
 VISION.md 核 6「拠点『牢獄の間』と、叡智のオーブで開く施設」のためのプラグイン（#82）。
 施設の開く順と碑文は [docs/old/world.md](../old/world.md) 3.3、オーブの置き場所は [docs/old/world2.md](../old/world2.md)（053・063・071 の H26・082。**置くのは W3〜W5**）。
 合成は [Hai_Craft](Hai_Craft.md)、倉庫は [Hai_Items](Hai_Items.md)、控えの仲間は [Hai_Companions](Hai_Companions.md) の窓口を使う。
