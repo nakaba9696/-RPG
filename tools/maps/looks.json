@@ -118,7 +118,7 @@
       "key": "summit",
       "name": "山の頂",
       "maps": "015",
-      "sample": 915,
+      "sample": 918,
       "places": [
         { "maps": "015", "name": "山の頂の鐘楼", "tilesetId": 21, "legend": "rampart", "note": "<hai_tone:-17,-17,0,119>\n<hai_parallax:DarkClouds,1,0>\n<hai_ash:6>\n<hai_fog:60,0.6,0>", "bgm": { "name": "Scene8", "volume": 55 }, "bgs": { "name": "Wind5", "volume": 45 }, "battleback": ["Clouds", "Tower"] }
       ]

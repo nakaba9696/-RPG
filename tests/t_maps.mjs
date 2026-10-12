@@ -1,15 +1,20 @@
 // 文字マップ → MapNNN.json の変換（tools/maps）の検査。
 //   前半（ブラウザなし）：オートタイルの形の計算をコアの表・エディタの通行設定・エディタの書いたマップと突き合わせる。
 //                         data/ の生成物が今の文字マップと一致する（作り直し忘れがない）。
+//                         置き物の道具（T10：重ね書き・スタンプ・散らし・段差・建物）を見本（Map915）で確かめ、
+//                         置き物の密度（1 画面ごとの z=2・z=3 と空の 3×3）を全部の文字マップについて報告する（落とさない）。
 //   後半（MZ の Web 実行）：見本の迷宮（Map900）に移り、タイルが描かれ、壁に通れず床は通れ、
 //                         石碑を調べると文章が出て、階段で Map001 に戻る。
+//                         置き物の道具の見本（Map915）に移り、段差は梯子でだけ上り下りでき、屋根と壁は通れない。
 import fs from "node:fs";
 import { launchGame, check, runTest } from "./lib.mjs";
 import * as A from "../tools/maps/autotile.mjs";
-import { buildMap, readSource, listSources, readLegend, findChars, withMapInfo } from "../tools/maps/build.mjs";
+import { buildMap, readSource, listSources, readLegend, findChars, withMapInfo, seededRandom } from "../tools/maps/build.mjs";
+import { densityOf, formatDensity, ledgeTopsOfSources } from "../tools/maps/density.mjs";
 import { readData, dataPath, mapFileName, formatMap, formatTable } from "../tools/data/io.mjs";
 
 const SAMPLE = "sample_dungeon";
+const TOOLS_SAMPLE = "t10_tools";
 // 見本の迷宮で歩ける文字（T は石碑のイベントがあるので通れない）
 const WALKABLE = new Set([".", ",", "S", "<"]);
 
@@ -128,6 +133,115 @@ function checkSampleWalls(lines, map) {
   }
 }
 
+// 置き物の道具（T10）の見本 t10_tools（Map915）を、文字マップと設定から期待される中身と突き合わせる
+function checkTools() {
+  const legend = readLegend();
+  const source = readSource(TOOLS_SAMPLE);
+  const map = buildMap(source, legend);
+  const { width: w, height: h, data } = map;
+  const at = (x, y, z) => data[(z * h + y) * w + x];
+  const kindAt = (x, y) => (A.isAutotile(at(x, y, 0)) ? A.autotileKind(at(x, y, 0)) : -1);
+  const KIND = { ledgeTop: 80 + 37, ledgeSide: 80 + 45, roof: 48 + 5, houseWall: 48 + 13 };
+  const lines = source.lines;
+  const deco = source.deco;
+  check(deco && deco.length === h, "見本に重ね書き（t10_tools.deco.txt）がない");
+
+  // 段差：1 段目（^）の上面、その下の行（14）は側面。梯子・坂は側面の上に z=2
+  const [ladder] = findChars(lines, "|");
+  const [slope] = findChars(lines, "/");
+  const [ladder2] = findChars(lines, "L");
+  for (let x = 23; x <= 38; x++) {
+    check(kindAt(x, 13) === KIND.ledgeTop, `(${x},13) は高台の上面のはず`);
+    check(kindAt(x, 14) === KIND.ledgeSide, `(${x},14) は高台の側面のはず（${at(x, 14, 0)}）`);
+    check(kindAt(x, 15) !== KIND.ledgeSide, `(${x},15) は側面にならない（height 1）`);
+  }
+  check(at(ladder.x, ladder.y, 2) === 18 && at(slope.x, slope.y, 2) === 1, "梯子・坂の z=2 が残っていない");
+  // 2 段目（A）の側面は 1 段目の上にかぶさり、その下の 1 段目の上面は側面とつながる（縁の止めがない）
+  check(kindAt(ladder2.x, ladder2.y) === 80 + 45 && at(ladder2.x, ladder2.y, 2) === 18, "2 段目の側面の梯子");
+  const below = at(ladder2.x, ladder2.y + 1, 0);
+  check(A.autotileKind(below) === KIND.ledgeTop && !A.openEdges("floor", A.autotileShape(below)).u,
+    "2 段目の側面の下の 1 段目の上面に、上の縁が付いている（梯子へ上がれない）");
+
+  // 建物：屋根（R）の下 2 行に外壁。戸口・窓は壁の上の z=2
+  for (const p of findChars(lines, "R")) {
+    check(kindAt(p.x, p.y) === KIND.roof, `(${p.x},${p.y}) は屋根のはず`);
+    if (lines[p.y + 1][p.x] !== "R") {
+      for (const k of [1, 2]) check(kindAt(p.x, p.y + k) === KIND.houseWall, `(${p.x},${p.y + k}) は家の壁のはず（${at(p.x, p.y + k, 0)}）`);
+      check(kindAt(p.x, p.y + 3) !== KIND.houseWall, `(${p.x},${p.y + 3}) は家の壁にならない（height 2）`);
+    }
+  }
+  for (const p of findChars(lines, "d")) check(kindAt(p.x, p.y) === KIND.houseWall && at(p.x, p.y, 2) === 131, `戸口 (${p.x},${p.y})`);
+
+  // 重ね書き：z2・z3 の組（X は瓦礫の上に骸骨）
+  for (const p of findChars(deco, "X")) check(at(p.x, p.y, 2) === 512 + 120 && at(p.x, p.y, 3) === 512 + 242, `重ね書きの X (${p.x},${p.y})`);
+  for (const p of findChars(deco, "g")) check(at(p.x, p.y, 2) === 142, `重ね書きの g (${p.x},${p.y})`);
+
+  // スタンプ：左上の文字から、設定の tiles・upper のとおり
+  const tileId = spec => {
+    const [, sheet, n] = /^([BCDE]):(\d+)$/.exec(spec);
+    return { B: 0, C: 256, D: 512, E: 768 }[sheet] + Number(n);
+  };
+  for (const st of source.config.stamps) {
+    const spots = findChars(deco, st.at);
+    check(spots.length > 0, `スタンプ ${st.at} が重ね書きにない`);
+    for (const p of spots) {
+      [[2, st.tiles], [3, st.upper || []]].forEach(([z, rows]) => rows.forEach((row, dy) => row.forEach((spec, dx) => {
+        if (spec) check(at(p.x + dx, p.y + dy, z) === tileId(spec), `スタンプ ${st.at} (${p.x + dx},${p.y + dy}) z=${z}`);
+      })));
+    }
+  }
+
+  // 散らし：同じ種なら同じ並び。草地（,）に z2 が散り、土（.）に z1 の汚れが散る。イベントのマスには置かない
+  const r1 = seededRandom(12);
+  const r2 = seededRandom(12);
+  const r3 = seededRandom(13);
+  const a = [0, 1, 2, 3, 4].map(() => r1());
+  check(JSON.stringify(a) === JSON.stringify(a.map(() => r2())) && a[0] !== r3(), "種付きの乱数が同じ種で同じにならない");
+  check(formatMap(buildMap(readSource(TOOLS_SAMPLE), legend)) === formatMap(map), "2 度目の変換で結果が変わった");
+  let onGrass = 0;
+  let patches = 0;
+  lines.forEach((line, y) => [...line].forEach((ch, x) => {
+    if (ch === "," && deco[y][x] === "." && at(x, y, 2)) onGrass++;
+    if (ch === "." && A.isAutotile(at(x, y, 1))) patches++;
+  }));
+  const grass = lines.join("").split(",").length - 1;
+  check(onGrass > grass * 0.1 && onGrass < grass * 0.3, `草地の散らしが rate 0.2 から外れた（${onGrass} / ${grass}）`);
+  check(patches > 0, "土の z1 の散らし（汚れ）がない");
+  for (const e of map.events.filter(Boolean)) {
+    if (lines[e.y][e.x] === "T") check(at(e.x, e.y, 2) === 0 || deco[e.y][e.x] !== ".", `イベントのマス (${e.x},${e.y}) に散らしが置かれた`);
+  }
+
+  // 間違いは変換で止める
+  const expectThrow = (mutate, words, what) => {
+    const src = JSON.parse(JSON.stringify(readSource(TOOLS_SAMPLE)));
+    mutate(src);
+    let msg = "";
+    try {
+      buildMap(src, legend);
+    } catch (e) {
+      msg = e.message;
+    }
+    check(msg.includes(words), `${what}で止まらない（${msg || "エラーなし"}）`);
+  };
+  expectThrow(s => (s.deco[23] = s.deco[23].slice(0, 3) + "g" + s.deco[23].slice(4)), "スタンプの下", "スタンプの下に重ね書きの文字");
+  expectThrow(s => s.deco.pop(), "行の数", "重ね書きの大きさ違い");
+  expectThrow(s => s.config.scatter.push({ on: ",", tiles: ["B:141"], rate: 0.1, seed: 1 }), "通れないタイル", "散らしに通れない置き物");
+  expectThrow(s => (s.deco[0] = "?" + s.deco[0].slice(1)), "定義がない", "重ね書きの知らない文字");
+  expectThrow(s => (s.config.chars.A.ledge.top = "A4:45"), "A4 の上面", "段差の top に側面");
+  console.log("  置き物の道具（重ね書き・スタンプ・散らし・段差・建物）: 問題なし");
+}
+
+// 置き物の密度（docs/mapdesign.md 6.1）。落とさない。報告だけ
+function reportDensity() {
+  const tops = ledgeTopsOfSources();
+  const tilesets = readData("Tilesets.json");
+  console.log("  置き物の密度（画面ごと：置き物のある床の割合 / 空の 3×3 の数。目安 15〜25%・空の 3×3 は少なく）");
+  for (const id of [...tops.keys()].sort((x, y) => x - y)) {
+    const map = readData(mapFileName(id));
+    for (const line of formatDensity(`Map${String(id).padStart(3, "0")}`, densityOf(map, tilesets[map.tilesetId], tops.get(id)))) console.log("    " + line);
+  }
+}
+
 function bfs(lines, from, to) {
   const key = p => `${p.x},${p.y}`;
   const prev = new Map([[key(from), null]]);
@@ -157,6 +271,8 @@ await runTest(async () => {
   checkAgainstEditorFlags();
   reportEditorMaps();
   checkGeneratedUpToDate();
+  checkTools();
+  reportDensity();
 
   const source = readSource(SAMPLE);
   const lines = source.lines;
@@ -261,6 +377,70 @@ await runTest(async () => {
     const back = await game.call("pos");
     check(back.x === 8 && back.y === 6, `階段の行き先が違う ${JSON.stringify(back)}`);
     console.log(`  石碑の文章 → 階段で Map001 (8,6) に戻った（穴は (${pit.x},${pit.y}) から）`);
+
+    // 置き物の道具の見本（Map915）
+    const tools = readSource(TOOLS_SAMPLE);
+    const toolsMap = readData(mapFileName(tools.config.mapId));
+    const [tStart] = findChars(tools.lines, "S");
+    const [tLadder] = findChars(tools.lines, "|");
+    const [tLadder2] = findChars(tools.lines, "L");
+    const goTo = async (x, y, d) => {
+      await game.call("transfer", tools.config.mapId, x, y, d);
+      await game.waitFor(({ id, x, y }) => window.__game.mapId() === id && $gamePlayer.x === x && $gamePlayer.y === y && !window.__game.isBusy(),
+        { id: tools.config.mapId, x, y });
+      await game.waitFor(() => SceneManager._scene._spriteset._tilemap.isReady());
+      await game.frames(20);
+    };
+    await goTo(tStart.x, tStart.y, 8);
+    check(JSON.stringify(await game.eval(() => $dataMap.data)) === JSON.stringify(toolsMap.data), "MZ が読んだ Map915 の data がファイルと違う");
+    await game.shot("map915-south");
+
+    // 通行：段差の横からは上れず、梯子でだけ上り下りできる。屋根と家の壁は通れない
+    const passes = await game.eval(list => list.map(([x, y, d]) => $gamePlayer.canPass(x, y, d)), [
+      [tLadder.x, tLadder.y + 1, 8], [tLadder.x - 1, tLadder.y + 1, 8], [tLadder.x, tLadder.y, 8],
+      [22, 8, 6], [23, 8, 4], [tLadder2.x, tLadder2.y + 1, 8], [tLadder2.x - 1, tLadder2.y + 1, 8], [30, 5, 6],
+      [4, 10, 8], [13, 12, 6],
+    ]);
+    const want = [true, false, true, false, false, true, false, false, false, false];
+    const what = ["地面→梯子", "地面→崖の側面", "梯子→高台", "地面→高台の横", "高台→横の地面", "1 段目→2 段目の梯子", "1 段目→2 段目の側面",
+      "1 段目→2 段目の横", "地面→家の壁", "道→屋根"];
+    passes.forEach((p, i) => check(p === want[i], `${what[i]}: MZ は ${p ? "通れる" : "通れない"}`));
+    // 開始地点から 2 段目まで、MZ の通行で道がある
+    const reach = await game.eval(({ from, to }) => {
+      const seen = new Set([`${from.x},${from.y}`]);
+      const queue = [from];
+      while (queue.length) {
+        const p = queue.shift();
+        if (p.x === to.x && p.y === to.y) return true;
+        for (const [d, dx, dy] of [[2, 0, 1], [4, -1, 0], [6, 1, 0], [8, 0, -1]]) {
+          const q = { x: p.x + dx, y: p.y + dy };
+          if (seen.has(`${q.x},${q.y}`) || !$gamePlayer.canPass(p.x, p.y, d)) continue;
+          seen.add(`${q.x},${q.y}`);
+          queue.push(q);
+        }
+      }
+      return false;
+    }, { from: tStart, to: { x: tLadder2.x, y: tLadder2.y - 2 } });
+    check(reach, "開始地点から 2 段目の高台まで道がない");
+
+    // 梯子を上って高台へ、さらに 2 段目へ
+    await goTo(tLadder.x, tLadder.y + 1, 8);
+    for (let i = 0; i < 3; i++) {
+      check(await game.call("step", 8), `梯子を上れない（${i + 1} 歩目）`);
+      await game.waitPlayerStopped();
+    }
+    const up = await game.call("pos");
+    check(up.x === tLadder.x && up.y === tLadder.y - 2, `梯子の上 ${JSON.stringify(up)}`);
+    await game.shot("map915-ledge");
+    await goTo(tLadder2.x, tLadder2.y + 1, 8);
+    for (let i = 0; i < 2; i++) {
+      check(await game.call("step", 8), `2 段目の梯子を上れない（${i + 1} 歩目）`);
+      await game.waitPlayerStopped();
+    }
+    await game.shot("map915-ledge2");
+    await goTo(6, 11, 2);
+    await game.shot("map915-village");
+    console.log("  Map915: 段差は梯子でだけ上り下りでき、屋根と壁は通れない");
 
     game.assertNoErrors();
   } finally {

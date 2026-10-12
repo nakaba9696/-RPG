@@ -1,6 +1,6 @@
 {
-  "_説明": "V4 の見本（T の帯 900–949 のうち 915 を V4 が使う）。製品のマップからは行けない。タイルセット 21、凡例 rampart、メモ欄・曲・戦闘の背景は tools/maps/looks.json の「山の頂の鐘楼」と同じ（tests/v_regions.mjs が見る）。",
-  "mapId": 915,
+  "_説明": "V4 の見本（T の帯 900–949 のうち 918 を V4 が使う）。製品のマップからは行けない。タイルセット 21、凡例 rampart、メモ欄・曲・戦闘の背景は tools/maps/looks.json の「山の頂の鐘楼」と同じ（tests/v_regions.mjs が見る）。",
+  "mapId": 918,
   "name": "T_頂の鐘楼の見本",
   "displayName": "頂の鐘楼の見本",
   "legend": "rampart",

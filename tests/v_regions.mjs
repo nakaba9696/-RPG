@@ -1,6 +1,6 @@
 // V4 新しい世界の見た目：地域ごとのタイルセット・色調・霧と灰（tools/maps/looks.json）。
 //   1. ブラウザなし：looks.json の 11 の地域が揃い、どの場所もタイルセット（V_ で始まる名前・画像が在る）・凡例（同じタイルセットか、
-//      A〜C が同梱のダンジョンと同じ）・曲・環境音・戦闘の背景のファイルが在る。見本のマップ 915–917 の設定が looks.json の先頭の場所と同じ。
+//      A〜C が同梱のダンジョンと同じ）・曲・環境音・戦闘の背景のファイルが在る。見本のマップ 916–918 の設定が looks.json の先頭の場所と同じ。
 //   2. どの場所のメモ欄も Hai_MapTone が読める（色調・遠景・暗がり・霧・灰）。遠景の絵が在る。
 //   3. 地域ごとに見本のマップに入り、先頭の場所の見た目を掛けて撮る（製品のマップは今のメモ欄の代わりに looks.json の値を掛ける）。
 //      霧のある地域は霧の層が見え、灰のある地域は灰の粒が強さ × 10 個ある。最後に 11 枚を 1 枚に並べた絵を撮る。
@@ -14,7 +14,7 @@ import { readSource, findChars, LEGEND_PATH } from "../tools/maps/build.mjs";
 
 const LOOKS = JSON.parse(fs.readFileSync(path.join(ROOT, "tools", "maps", "looks.json"), "utf8"));
 const LEGEND = JSON.parse(fs.readFileSync(LEGEND_PATH, "utf8"));
-const SAMPLES = { 915: "v4_915_summit", 916: "v4_916_undercity", 917: "v4_917_foundry" };
+const SAMPLES = { 918: "v4_918_summit", 916: "v4_916_undercity", 917: "v4_917_foundry" };
 // issue #137 の地域（砦・霧の森・鉄の坑道・営倉・焼けた村・記録院・霧の湖・地下水道と地下都市・境山の古道・鋳物場と研究所・山の頂）
 const KEYS = ["fort", "forest", "mine", "prison", "village", "archive", "lake", "undercity", "pass", "foundry", "summit"];
 const exists = (...p) => fs.existsSync(path.join(ROOT, ...p));
@@ -51,7 +51,7 @@ function checkData() {
       places++;
     }
   }
-  // 見本のマップ 915–917 は looks.json の先頭の場所と同じ
+  // 見本のマップ 916–918 は looks.json の先頭の場所と同じ
   for (const region of LOOKS.regions.filter(r => SAMPLES[r.sample])) {
     const p = region.places[0];
     const map = readData(`Map${region.sample}.json`);
