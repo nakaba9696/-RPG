@@ -13,7 +13,7 @@
 import { launchGame, check, runTest } from "./lib.mjs";
 
 const HALL = 10;
-const CIRCLE = { x: 28, y: 17 };
+const CIRCLE = { x: 42, y: 18 }; // 砦の名の壁の輪 (42,19) の上に立つ所（W6 #144）
 const CHURCH = 63;
 const BACKDOOR = { x: 17, y: 5 };
 const COURT = 80;
@@ -450,8 +450,8 @@ await runTest(async () => {
     await game.eval(() => { $gameSwitches.setValue(105, false); $gameSwitches.setValue(106, false); $gameVariables.setValue(101, 1); });
     await go(ORB_ROOM, RETURN_CIRCLE.x, RETURN_CIRCLE.y + 1, 8);
     await game.call("step", 8);
-    await arrive(HALL, 16, 18);
-    console.log("  オーブの間：場面（スイッチ 102・変数 101）・4 つ目なら 105・106・帰りの転送陣で牢獄の間へ");
+    await arrive(HALL, 25, 27);
+    console.log("  オーブの間：場面（スイッチ 102・変数 101）・4 つ目なら 105・106・帰りの転送陣で砦の炉の前へ");
 
     // ===== 6. セーブ・ロード =====
     await game.call("save", 1);
@@ -463,7 +463,7 @@ await runTest(async () => {
       map: $gameMap.mapId(), pos: window.__game.pos(), sw102: $gameSwitches.value(102), sw152: $gameSwitches.value(152), sw164: $gameSwitches.value(164),
       party: $gameParty.members().map(a => a.actorId()), found: Hai.HiddenPassage.isFound(12, 7, 82),
     }));
-    check(loaded.map === HALL && loaded.pos.x === 16 && loaded.pos.y === 18 && loaded.sw102 && loaded.sw152 && loaded.sw164 && loaded.party.includes(7) && loaded.found,
+    check(loaded.map === HALL && loaded.pos.x === 25 && loaded.pos.y === 27 && loaded.sw102 && loaded.sw152 && loaded.sw164 && loaded.party.includes(7) && loaded.found,
       "ロードの後の状態 " + JSON.stringify(loaded));
     console.log("  セーブ・ロード：旗（102・152・164）・ノクスの加入・見つけた隠し扉が残る");
 

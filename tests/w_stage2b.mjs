@@ -11,7 +11,7 @@
 import { launchGame, check, runTest } from "./lib.mjs";
 
 const HALL = 10;
-const CIRCLE = { x: 28, y: 17 };
+const CIRCLE = { x: 42, y: 18 }; // 砦の名の壁の輪 (42,19) の上に立つ所（W6 #144）
 const CHAPEL = 21;
 const SIGN = { x: 19, y: 20 }; // 021 の西の焼けた道の道標（W7 #145 で作り直した礼拝堂）
 const H23 = { flower: { x: 55, y: 31 } }; // 021 の東の白い花（W7 #145）。東へ 4 歩で 023

@@ -5,11 +5,11 @@
 //   → 門番の薄い思念 F02（記憶が戻る一言）・砦への鉄扉の閂 → 廊下 034 のレバーと牢番の帳面 → 牢番 035（倒すと鍵束、北の扉）
 //   → 営倉の鐘 036 を鳴らす（スイッチ 101・変数 101・当番の札）→ 鉄扉の近道で砦へ戻る → 鍵束で監房の倉の扉が開く → データの検査が通る。
 // シンボル敵は検査の邪魔にならないよう、マップに入るたびに「倒した」ことにする（セルフスイッチ A）。
-// 砦（010）の出入口は W6（#144）が作り直すまで前の世界の座標（下の FORT）。
+// 砦（010）の出入口は W6（#144）の座標（下の FORT）。外門への階段 (25,2) → 020 (35,47)、営倉への鉄扉 → 033 (47,42)、戻りは 010 (25,3)・(25,37)。
 import { launchGame, check, runTest } from "./lib.mjs";
 import { checkAll } from "../tools/data/check.mjs";
 
-const FORT = { map: 10, stairs: { x: 16, y: 3 }, ironArrive: { x: 16, y: 25 } };
+const FORT = { map: 10, stairs: { x: 25, y: 2 }, ironArrive: { x: 25, y: 37 } };
 const FOREST = 20, CHAPEL = 21, OSSUARY = 22, MINE = 26, DEPTHS = 27, STATION = 29, CELLS = 33, HALL = 34, WARDEN_ROOM = 35, BELL_ROOM = 36;
 const ITEM = { keyRing: 321, lantern: 322, dutyTag: 323, prayerBook: 324, wardenLog: 325, elixir: 198 };
 const ARMOR = { smallBell: 321 };
@@ -135,8 +135,7 @@ await runTest(async () => {
     check((await game.call("mapId")) === FORT.map, "ニューゲームで砦にいない");
     await go(FORT.map, FORT.stairs.x, FORT.stairs.y + 1, 8);
     await step(8);
-    await game.waitFor(m => window.__game.mapId() === m && !window.__game.isBusy(), FOREST);
-    await calm();
+    await arrive(FOREST, 35, 47);
     await game.shot("forest-arrive");
     const forestInfo = await game.eval(() => ({ w: $dataMap.width, h: $dataMap.height, fog: Hai.MapTone.fog(), name: $gameMap.displayName() }));
     check(forestInfo.w === 70 && forestInfo.h === 50 && forestInfo.fog && forestInfo.fog.density === 120 && forestInfo.name === "霧の森", "霧の森の大きさ・霧 " + JSON.stringify(forestInfo));
