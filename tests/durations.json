@@ -22,10 +22,11 @@
   "v_regions": 101,
   "v_sound": 17,
   "v_tilesets2": 1,
-  "w_stage1": 318,
+  "w_fort": 210,
+  "w_stage1": 333,
   "w_stage1b": 234,
   "w_stage2a": 376,
   "w_stage2b": 480,
-  "w_stage2c": 370,
+  "w_stage2c": 378,
   "w_stage2d": 388
 }

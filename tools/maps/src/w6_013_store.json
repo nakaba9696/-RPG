@@ -1,0 +1,220 @@
+{
+  "mapId": 13,
+  "name": "倉",
+  "parentId": 10,
+  "displayName": "倉",
+  "legend": "dungeon",
+  "tilesetId": 11,
+  "bgm": {
+    "name": "Castle2",
+    "volume": 60,
+    "pitch": 100,
+    "pan": 0
+  },
+  "note": "<hai_tone:-17,-26,-43,34>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Stone2",
+    "battleback2Name": "Room1"
+  },
+  "_説明": "W6（#144）：倉（docs/world.md 4.3。シャノが来ると開く）。札の下がった棚を調べると倉庫の出し入れ（Hai_Facilities の use gate）。出口は南 (8,12) → 010 の倉の扉の前。この設定は w6_data.mjs が書く。",
+  "chars": {
+    "#": {
+      "name": "砦の壁（壁O（砦）。下が床なら側面、ほかは上面）",
+      "wall": {
+        "top": "A4:22",
+        "side": "A4:30",
+        "height": 2
+      }
+    },
+    ".": {
+      "name": "石畳（石畳A）",
+      "tiles": [
+        "A5:20"
+      ]
+    }
+  },
+  "deco": {
+    "Q": {
+      "name": "木箱",
+      "z2": "D:224"
+    },
+    "q": {
+      "name": "壊れた木箱",
+      "z2": "D:228"
+    },
+    "X": {
+      "name": "大きな木箱",
+      "z2": "D:243"
+    },
+    "s": {
+      "name": "麻袋",
+      "z2": "D:248"
+    },
+    "S": {
+      "name": "麻袋",
+      "z2": "D:249"
+    },
+    "N": {
+      "name": "樽",
+      "z2": "D:212"
+    },
+    "n": {
+      "name": "壊れた樽",
+      "z2": "D:237"
+    }
+  },
+  "stamps": [
+    {
+      "at": "u",
+      "name": "雑貨棚",
+      "tiles": [
+        [
+          "D:153"
+        ],
+        [
+          "D:161"
+        ]
+      ]
+    },
+    {
+      "at": "v",
+      "name": "雑貨棚",
+      "tiles": [
+        [
+          "D:154"
+        ],
+        [
+          "D:162"
+        ]
+      ]
+    },
+    {
+      "at": "w",
+      "name": "雑貨棚",
+      "tiles": [
+        [
+          "D:155"
+        ],
+        [
+          "D:163"
+        ]
+      ]
+    },
+    {
+      "at": "x",
+      "name": "札の下がった棚（パン棚）",
+      "tiles": [
+        [
+          "D:152"
+        ],
+        [
+          "D:160"
+        ]
+      ]
+    },
+    {
+      "at": "Y",
+      "name": "むしろの寝床",
+      "tiles": [
+        [
+          "D:173"
+        ],
+        [
+          "D:181"
+        ]
+      ]
+    }
+  ],
+  "scatter": [
+    {
+      "on": ".",
+      "z": 1,
+      "tiles": [
+        "A2:15"
+      ],
+      "rate": 0.04,
+      "seed": 1310
+    },
+    {
+      "on": ".",
+      "tiles": [
+        "B:32",
+        "B:33"
+      ],
+      "rate": 0.05,
+      "seed": 1311
+    }
+  ],
+  "events": [
+    {
+      "name": "出口（黒鉄の砦へ）",
+      "type": "transfer",
+      "x": 8,
+      "y": 12,
+      "to": [
+        10,
+        10,
+        37,
+        "down"
+      ]
+    },
+    {
+      "name": "札の下がった棚",
+      "type": "raw",
+      "x": 8,
+      "y": 3,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Facilities",
+                "use",
+                "部屋を使う",
+                {
+                  "facility": "gate"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "部屋 = gate"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "絵の札",
+      "type": "text",
+      "x": 6,
+      "y": 3,
+      "lines": [
+        "棚ごとに、木の札が下がっている。",
+        "字ではなく、鍋や靴や縄の絵が、炭で描いてある。"
+      ]
+    },
+    {
+      "name": "むしろ",
+      "type": "text",
+      "x": 14,
+      "y": 7,
+      "lines": [
+        "積んだ木箱のそばに、むしろが一枚。",
+        "乾いた藁の匂い。床から一番遠い隅だ。"
+      ]
+    }
+  ]
+}

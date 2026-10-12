@@ -11,7 +11,7 @@
 import { launchGame, check, runTest } from "./lib.mjs";
 
 const HALL = 10;
-const CIRCLE = { x: 28, y: 17 };
+const CIRCLE = { x: 42, y: 18 }; // 砦の名の壁の輪 (42,19) の上に立つ所（W6 #144）
 const SQUARE = 61;
 const CANAL_END = { x: 38, y: 31 };
 const REEDS = 70;
