@@ -359,14 +359,90 @@
               "code": 401,
               "indent": 1,
               "parameters": [
-                "塊が崩れる。抱えられていた声が、一つずつ床に落ちて消えた。"
+                "塊が崩れる。灰色の殻が、壁ぎわに積もった。"
               ]
             },
             {
               "code": 401,
               "indent": 1,
               "parameters": [
-                "灰色の中から、彫り刀を握った手が一本、上へ伸びた。"
+                "殻の中から、小さな明かりが漏れた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "明かりは床を這わず、東の壁へ向かって流れた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "壁を抜けていった。一つ、また一つ。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                0,
+                144,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "トゥーラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "行った"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "灰色の中から、彫り刀を握った手が一本、"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "上へ伸びた。"
               ]
             },
             {
@@ -423,15 +499,243 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "思念は、その一言を置いて消えた。"
+                "刃の欠けた彫り刀が、床に落ちている。"
               ]
             },
             {
-              "code": 320,
+              "code": 111,
               "indent": 0,
               "parameters": [
-                1,
-                "ルカ"
+                0,
+                144,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "トゥーラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "兄貴。……兄貴は、兄貴でいいよな"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                141,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゼリナ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "つけ帳、書き直さなあかん"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "!$gameSwitches.value(144) && !$gameSwitches.value(141) && $gameSwitches.value(143) && 0 < 2"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ベルトラン"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "呼びにくい名じゃねえな。短くていい"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "!$gameSwitches.value(144) && !$gameSwitches.value(141) && $gameSwitches.value(140) && ($gameSwitches.value(143) ? 1 : 0) < 2"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ディル"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "読める名だ"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "!$gameSwitches.value(144) && !$gameSwitches.value(141) && $gameSwitches.value(142) && ($gameSwitches.value(143) ? 1 : 0) + ($gameSwitches.value(140) ? 1 : 0) < 2"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アンセルモ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "名簿の一行、埋まったのう"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "!$gameSwitches.value(144) && !$gameSwitches.value(141) && $gameSwitches.value(139) && ($gameSwitches.value(143) ? 1 : 0) + ($gameSwitches.value(140) ? 1 : 0) + ($gameSwitches.value(142) ? 1 : 0) < 2"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ノラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "あんた、名前あったんだ！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "呼ばれてしまったか。"
               ]
             },
             {
@@ -442,14 +746,14 @@
                 0,
                 0,
                 2,
-                "\\N[1]"
+                ""
               ]
             },
             {
               "code": 401,
               "indent": 0,
               "parameters": [
-                "最後の一画は、あの夜のままだ。"
+                "声は遠のき、戻らなかった。霧が、北の口から薄れていく。"
               ]
             },
             {
@@ -609,21 +913,124 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "墓所の壁に、相棒が刃を当てている。灯は一つ。"
+                "墓所。棺の前で、墓守が眠っている。"
               ]
             },
             {
               "code": 401,
               "indent": 0,
               "parameters": [
-                "彫り刀を持つ手が、最後の一画の手前で止まる。戸を叩く音が、三度。"
+                "壁に彫る。四つの鐘を鳴らして。"
               ]
             },
             {
               "code": 401,
               "indent": 0,
               "parameters": [
-                "振り返った顔が、こちらを見て、口を動かす。"
+                "それから、山の頂の鐘楼へ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "刃の先が欠けた。構わない。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "戸が、三度叩かれた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "戸の向こうから、声がする。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "わたしの名を呼んでいる。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "墓守の声だ。眠っているのに。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "手を止めた。戸は見ない。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "眠っている方へ、向き直る。"
+              ]
+            },
+            {
+              "code": 242,
+              "indent": 0,
+              "parameters": [
+                1
+              ]
+            },
+            {
+              "code": 246,
+              "indent": 0,
+              "parameters": [
+                1
+              ]
+            },
+            {
+              "code": 230,
+              "indent": 0,
+              "parameters": [
+                60
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                2,
+                1,
+                ""
               ]
             },
             {
@@ -631,6 +1038,14 @@
               "indent": 0,
               "parameters": [
                 "「ルカ」"
+              ]
+            },
+            {
+              "code": 320,
+              "indent": 0,
+              "parameters": [
+                1,
+                "ルカ"
               ]
             },
             {

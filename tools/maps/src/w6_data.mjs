@@ -14,6 +14,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { readData, formatTable, dataPath, extendTable } from "../../data/io.mjs";
 import { SRC_DIR } from "../build.mjs";
+import * as W14 from "./w14_parts.mjs"; // 終盤（W14 #234）：010 の三つ目の鐘の夜・出立（イベント ID 71–）、019 の頂への門・東の眺め
 
 const check = process.argv.includes("--check");
 const outputs = []; // [{ file, text }]
@@ -486,6 +487,8 @@ const keepEvents = [
   ironDoor,
 ];
 if (keepEvents[SHANO_HIDE_ID - 1] !== shanoHide) throw new Error("シャノ（柱の陰）の ID がずれた");
+writing.pages.push(W14.writingNightPage(writing.pages[0].list)); // W14：三つ目の鐘の夜の書き付け（場面表 2.4）
+keepEvents.push(...W14.keepEvents()); // W14：ID 71–（場面表 2.1・2.3・4.1）
 
 // 置き物（.deco.txt の文字）。Dungeon_B＝B、Dungeon_C＝C、Inside_B＝D、Inside_C＝E（タイルセット 11）
 const FORT_WALL = { name: "砦の壁（壁O（砦）。下が床なら側面、ほかは上面）", wall: { top: "A4:22", side: "A4:30", height: 2 } };
@@ -788,10 +791,16 @@ const rampartConfig = {
           list: [...say(["大きな門。押すと、隙間から灰が流れこんでくる。", "門の向こうは灰と霧で、一歩先も見えない。"]), END] },
         // W11（#191）：開くのは最後の地域の山場を越えて 4 つ目の鐘を鳴らしたとき（スイッチ 109。084・094・104 の霧の戸口が立てる）。行き先 180 は W14
         { conditions: { switch1Id: SW.summitGate, switch1Valid: true }, image: { characterName: "!$Gate1", characterIndex: 0, direction: UP, pattern: 1 }, priorityType: 1, walkAnime: false,
-          list: [...say(["門の向こうの灰が引いている。山道が上へ続いている。"]), END] },
+          list: W14.summitGateList() }, // W14：触れると 180 灰の斜面へ（場面表 4.3）
       ],
     },
-    text("東の眺め", [43, 8], ["東に、山の頂。塔の影が雲を突いている。", "灰は、そちらから降ってくる。"]),
+    {
+      name: "東の眺め", type: "raw", x: 43, y: 8,
+      pages: [
+        { priorityType: 1, list: [...say(["東に、山の頂。塔の影が雲を突いている。", "灰は、そちらから降ってくる。"]), END] },
+        { ...W14.eastViewPage, priorityType: 1 }, // W14：灯の数（場面表 4.2）
+      ],
+    },
     thought("K05", "城壁の見張り", [24, 8], ["見張り、異常なし。灰、いつもより多し。", "頂の鐘、今夜も聞こえず。報告は朝にまとめる。"]),
     chest("城壁の宝箱", [42, 9], 7, 1, "ポーション"),
   ],

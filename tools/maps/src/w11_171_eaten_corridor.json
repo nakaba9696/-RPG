@@ -190,6 +190,20 @@
               ]
             },
             {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "const L = {\"1168\":[\"west\",413],\"1169\":[\"east\",620]};"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "for (const id in L) $gameSwitches.setValue(Number(id), L[id][0] === last && $gameSwitches.value(L[id][1]));"
+              ]
+            },
+            {
               "code": 214,
               "indent": 0,
               "parameters": []
@@ -516,6 +530,58 @@
       ]
     },
     {
+      "name": "声だけの影（言い残し 焼けた村の子）",
+      "type": "raw",
+      "x": 40,
+      "y": 23,
+      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:おねえちゃん、三つしか叩かなかったよ。おかあ>",
+      "pages": [
+        {
+          "conditions": {
+            "switch1Id": 1168,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 2,
+          "moveType": 0,
+          "moveFrequency": 5,
+          "moveSpeed": 3
+        }
+      ]
+    },
+    {
+      "name": "声だけの影（言い残し 名無し兵）",
+      "type": "raw",
+      "x": 28,
+      "y": 32,
+      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:顔は覚えている。たぶん>",
+      "pages": [
+        {
+          "conditions": {
+            "switch1Id": 1169,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 2,
+          "moveType": 0,
+          "moveFrequency": 5,
+          "moveSpeed": 3
+        }
+      ]
+    },
+    {
       "name": "声だけの影（C2–C3 の西の口）",
       "type": "raw",
       "x": 5,
@@ -769,6 +835,43 @@
               ]
             },
             {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                138,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "あなた。刃の音です。石を、彫っています"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
               "code": 121,
               "indent": 0,
               "parameters": [
@@ -822,6 +925,43 @@
               ]
             },
             {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                138,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "あなた。刃の音です。石を、彫っています"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
               "code": 121,
               "indent": 0,
               "parameters": [
@@ -873,6 +1013,43 @@
               "parameters": [
                 "掻く音が近い。一画ずつ、間を置いて。"
               ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                138,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "あなた。刃の音です。石を、彫っています"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 121,

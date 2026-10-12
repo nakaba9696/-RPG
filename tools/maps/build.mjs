@@ -485,8 +485,15 @@ export function buildMapWithInfo(source, legend = readLegend()) {
     used.add(key);
     events.push(makeEvent(spec, events.length, x, y, at));
   };
+  const fixed = []; // id を指定したイベント（並びの後ろ、block の後に、その番号へ置く。間は null）
   (config.events || []).forEach((spec, i) => {
     const at = `${where}.json の events[${i}]`;
+    if (spec.id !== undefined) {
+      if (!Number.isInteger(spec.id) || spec.id < 1) throw new Error(`${at}: id は 1 以上の整数で`);
+      if (spec.at !== undefined) throw new Error(`${at}: id を指定するイベントは at ではなく x・y で置く`);
+      fixed.push({ spec, at });
+      return;
+    }
     if (spec.at !== undefined) {
       const spots = findChars(lines, spec.at);
       if (spots.length === 0) throw new Error(`${at}: 文字 "${spec.at}" が地図にない`);
@@ -503,6 +510,12 @@ export function buildMapWithInfo(source, legend = readLegend()) {
     }
   }
   for (const p of decoBlocks) place({ type: "block", name: "通行止め" }, p.x, p.y, `${where}.deco.txt (${p.x},${p.y})`);
+  for (const { spec, at } of fixed.sort((a, b) => a.spec.id - b.spec.id)) {
+    if (spec.id < events.length) throw new Error(`${at}: id ${spec.id} はもう使われている（並びのイベントは ${events.length - 1} まで）`);
+    if (!(spec.x >= 0 && spec.x < width && spec.y >= 0 && spec.y < height)) throw new Error(`${at}: 座標が地図の外`);
+    while (events.length < spec.id) events.push(null);
+    place(spec, spec.x, spec.y, at);
+  }
 
   // 散らし：on の文字のマスに、種付きの乱数で rate の割合だけ tiles のどれかを置く（z は既定 2）。
   // 置く層（z=2 なら z=3 も）が空いていて、重ね書き・スタンプ・イベント・側面のないマスだけ。行ごとに左から数える。

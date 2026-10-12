@@ -15,6 +15,7 @@ import { fileURLToPath } from "node:url";
 import { readData, formatTable, dataPath, extendTable } from "../../data/io.mjs";
 import { SRC_DIR } from "../build.mjs";
 import { withThirdScene, lairDoorEvents } from "./w11_parts.mjs"; // W11（#191）：鐘番の思念の 2 ページ目と霧の戸口
+import { ringAfter, ropeAt054 } from "./w14_parts.mjs"; // W14（#234）：鐘の綱の鳴ったあとの一行
 
 const check = process.argv.includes("--check");
 const outputs = []; // [{ file, text }]
@@ -1027,6 +1028,7 @@ const eastGateEvents = [
   text("城壁", [24, 6], ["見上げるほどの城壁。積んだ石の継ぎ目に、灰が詰まっている。"]),
   chestItem("気付け薬", [36, 14], ITEM.smelling, 2, 176),
   foe(TROOP.goats, "green", [14, 12]),
+  ropeAt054, // W14（#234）：灰の斜面 180 の崖から下ろした縄（崖を下りる近道の片側）
 ];
 const eastGateConfig = {
   _説明: "W10（#156）：城壁の東門の外（docs/world.md 4.1・5.2・5.3）。東の道→050、城壁の東門（外から閂を外すとスイッチ 617・174。以後、触れると 019 (30,9)。019 の東門からも 054 へ出られる）、薄い思念 F08（東門の番）。この設定は node tools/maps/src/w10_data.mjs が書く。",
@@ -1546,6 +1548,7 @@ const bellRope = {
         switchOn(FLAG.bellsAll, 2),
         end(2),
         ENDIF(1),
+        ...ringAfter(1), // W14：鳴ったあとの一行（三つ目・四つ目）
         selfOn("A", 1),
         ...say(["壁の札掛けに、当番の札が一枚だけ残っている。"], "", 1),
         se("Item3", 1), gainItem(ITEM.dutyTag, 1, 1),
