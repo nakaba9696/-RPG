@@ -2,9 +2,9 @@
 
 - エンジンは **RPGツクールMZ**。リポジトリ直下が MZ のプロジェクト（`Game.rmmzproject`、`index.html`、`js/`、`data/`、`img/`、`audio/` …）。
 - 読むべきもの：[VISION.md](VISION.md)（何を作るか）、[docs/ROADMAP.md](docs/ROADMAP.md)（レーン・ID の帯・約束）、
-  [docs/mz-data.md](docs/mz-data.md)（`data/*.json` の形・タイル ID・オートタイル）、[docs/world.md](docs/world.md)（世界設定。D1 以降）。
+  [docs/mz-data.md](docs/mz-data.md)（`data/*.json` の形・タイル ID・オートタイル）、[docs/world.md](docs/world.md)（世界設定「最後の鐘」。D10 で作り直した）、[docs/mapdesign.md](docs/mapdesign.md)（マップの作り方）。前の世界の設計は控えとして [docs/old/](docs/old/)（world.md・world2.md・lore.md・rewrite.md）。
 - 文を書く前に読むもの：[docs/knowhow.md](docs/knowhow.md)（創作・文章・キャラの決まり）。プレイヤーに見える文は knowhow.md の「避ける癖」を守る。
-- 設定の段階の印〔知〕〔噂〕〔進〕〔秘〕を守る（world.md・world2.md の各項目。禁止語は world.md 10 章、口調は 11 章）。既存の文の直しは [docs/rewrite.md](docs/rewrite.md) に書く。
+- 設定の段階の印〔知〕〔噂〕〔進〕〔秘〕を守る（world.md の各項目。禁止語は world.md 10 章、口調は 11 章）。既存の文の直しの表は前の世界の [docs/old/rewrite.md](docs/old/rewrite.md)（新しい世界の表は W が作り直したあとに作る）。
 - 持ち主は PR を取り込む前に MZ のエディタを閉じる（開いたままだと、エディタの保存で JSON が上書きされる。knowhow.md 7 章）。
 - ゲームの手本は Fanastasis だが、固有名詞・台詞・素材は使わない。すべて自作する（絵と音は MZ 同梱の素材と自作のもの）。
 - UI の文言・コメント・PR の説明は日本語。コミットや PR にモデル名を書かない。
@@ -25,7 +25,9 @@
 | `js/plugins/Hai_<名前>.js` | 自作のプラグイン |
 | `docs/plugins/Hai_*.md` | 各プラグインの説明（使い方・メモ欄のタグ・窓口） |
 | `docs/look.md` | 見た目の決まり（タイルセット・色調・数値。V レーン） |
-| `docs/world.md` | 世界設計書（D1） |
+| `docs/world.md` | 世界設計書「最後の鐘」（D10） |
+| `docs/mapdesign.md` | マップの作り方（D10） |
+| `docs/old/` | 前の世界「灰の王国」の設計の控え（world.md・world2.md・lore.md・rewrite.md） |
 | `data/*.json` | データベースとマップ（形は [docs/mz-data.md](docs/mz-data.md)） |
 | `tools/maps/` | 文字マップ → `data/MapNNN.json` の変換（T1 で作る） |
 | `tools/data/` | データの JSON を読む・書く・検査する小さな関数（T1 で作る） |

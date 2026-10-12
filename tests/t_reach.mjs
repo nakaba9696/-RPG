@@ -97,9 +97,9 @@ await runTest(async () => {
   // 割り当て表に無い issue の接頭辞のマップ
   expect("割り当て表に無い接頭辞", dir => {
     const infos = read(dir, "MapInfos.json");
-    infos[903].name = "W9_試し";
+    infos[903].name = "W99_試し";
     write(dir, "MapInfos.json", infos);
-  }, "MapInfos.json[903]「W9_試し」: 接頭辞 W9_ の W9 が割り当て表");
+  }, "MapInfos.json[903]「W99_試し」: 接頭辞 W99_ の W99 が割り当て表");
 
   // 施錠扉：鍵が手に入らないと落ち、鍵（宝箱がくれる Items 7）に届けば開く
   const lock = key => dir => {
