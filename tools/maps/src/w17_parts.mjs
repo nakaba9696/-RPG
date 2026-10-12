@@ -9,12 +9,10 @@ const say = (lines, speaker = "", indent = 0) => [cmd(101, ["", 0, 0, 2, speaker
 const shift = (list, n) => list.map(c => ({ ...c, indent: c.indent + n }));
 const close = indent => cmd(0, [], indent);
 const ENDIF = (indent = 0) => cmd(412, [], indent);
-const ELSE = (indent = 0) => cmd(411, [], indent);
 const swOn = (id, indent = 0) => cmd(121, [id, id, 0], indent);
 const selfOn = (ch, indent = 0) => cmd(123, [ch, 0], indent);
 const ifSwitch = (id, on = true, indent = 0) => cmd(111, [0, id, on ? 0 : 1], indent);
 const ifActor = (actorId, indent = 0) => cmd(111, [4, actorId, 0], indent);
-const ifItem = (id, indent = 0) => cmd(111, [8, id], indent);
 const ifSelf = (ch, on = true, indent = 0) => cmd(111, [2, ch, on ? 0 : 1], indent);
 const se = (name, indent = 0, volume = 90, pitch = 100) => cmd(250, [{ name, volume, pitch, pan: 0 }], indent);
 
@@ -112,7 +110,6 @@ const ITEM_TONGUE = 606;
 const IMG = {
   zelina: { characterName: "Actor1", characterIndex: 7, direction: 2, pattern: 1 },
   tula: { characterName: "Actor2", characterIndex: 2, direction: 2, pattern: 1 },
-  anselmo: { characterName: "Actor2", characterIndex: 0, direction: 2, pattern: 1 },
 };
 const auto = (cond, list) => ({ conditions: cond, priorityType: 0, trigger: 3, list: [...list, END] });
 const done = id => ({ conditions: { switch1Id: id, switch1Valid: true }, priorityType: 0 });
