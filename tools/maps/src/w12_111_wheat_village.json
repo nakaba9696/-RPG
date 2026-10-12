@@ -1,0 +1,920 @@
+{
+  "_説明": "W12（#195）：麦の村（docs/world.md 5.2 の 111、text.md 5.7 の 5-05・5-06）。夕べの会の集落。西の口→110、結界、ソレンヌの詰め所（夕べの会の天幕。頼みごと「足場の木」の届け先。スイッチ 1055）、ヴォルフラムの家の帳面、麦の倉（麦の穂の焼き印。嘆願書の判と並ぶ）、村の衆。この設定は node tools/maps/src/w12_data.mjs が書く。",
+  "mapId": 111,
+  "name": "麦の村",
+  "displayName": "麦の村",
+  "legend": "highway",
+  "tilesetId": 24,
+  "note": "<hai_tone:0,-9,-34,68>",
+  "bgm": {
+    "name": "Scene5",
+    "volume": 55,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Wind1",
+    "volume": 20,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "DirtField",
+    "battleback2Name": "Grassland"
+  },
+  "stamps": [
+    {
+      "at": "A",
+      "name": "集落の天幕（天幕A。3×3。下の真ん中が入口）",
+      "tiles": [
+        [
+          "B:5",
+          "B:6",
+          "B:7"
+        ],
+        [
+          "B:13",
+          "B:14",
+          "B:15"
+        ],
+        [
+          "B:21",
+          "B:22",
+          "B:23"
+        ]
+      ]
+    },
+    {
+      "at": "B",
+      "name": "夕べの会の天幕（天幕B。赤い屋根。3×3。下の真ん中が入口）",
+      "tiles": [
+        [
+          "B:29",
+          "B:30",
+          "B:31"
+        ],
+        [
+          "B:37",
+          "B:38",
+          "B:39"
+        ],
+        [
+          "B:45",
+          "B:46",
+          "B:47"
+        ]
+      ]
+    }
+  ],
+  "scatter": [
+    {
+      "on": "\"",
+      "tiles": [
+        "B:172",
+        "B:172",
+        "B:173"
+      ],
+      "rate": 0.55,
+      "solid": true,
+      "seed": 11101
+    },
+    {
+      "on": ".",
+      "z": 1,
+      "tiles": [
+        "A2:15"
+      ],
+      "rate": 0.05,
+      "seed": 11102
+    },
+    {
+      "on": ",",
+      "tiles": [
+        "B:152",
+        "B:153"
+      ],
+      "rate": 0.05,
+      "seed": 11103
+    }
+  ],
+  "events": [
+    {
+      "name": "西の口（麦の街道へ）",
+      "type": "transfer",
+      "x": 0,
+      "y": 18,
+      "to": [
+        110,
+        67,
+        38,
+        4
+      ]
+    },
+    {
+      "name": "西の口（麦の街道へ）",
+      "type": "transfer",
+      "x": 0,
+      "y": 19,
+      "to": [
+        110,
+        67,
+        39,
+        4
+      ]
+    },
+    {
+      "name": "西の口（麦の街道へ）",
+      "type": "transfer",
+      "x": 0,
+      "y": 20,
+      "to": [
+        110,
+        67,
+        40,
+        4
+      ]
+    },
+    {
+      "name": "結界（麦の村）",
+      "type": "raw",
+      "x": 4,
+      "y": 19,
+      "note": "<hai_warp:麦の村>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ソレンヌ",
+      "type": "raw",
+      "x": 17,
+      "y": 14,
+      "pages": [
+        {
+          "image": {
+            "characterName": "People4",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                8,
+                1055
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ソレンヌ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "その木は、修道院の工房のものだな。テオどのに頼まれたか。"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 1,
+              "parameters": [
+                [
+                  "足場の木を渡す",
+                  "まだ渡さない"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 1,
+              "parameters": [
+                0,
+                "足場の木を渡す"
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 2,
+              "parameters": [
+                1055,
+                1,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 2,
+              "parameters": [
+                1055,
+                1055,
+                0
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 2,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ソレンヌ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "かたじけない。頂へは、わたしが担いで上る。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "段の数は、長が数えてある。わたしは担ぐだけだ。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 2,
+              "parameters": [
+                "Hai_Notes",
+                "errandEnd",
+                "頼みごとを終える",
+                {
+                  "key": "scaffold",
+                  "result": "done",
+                  "text": "足場の木はソレンヌの詰め所に届いた"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "key = scaffold"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "result = done"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "text = 足場の木はソレンヌの詰め所に届いた"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 1,
+              "parameters": [
+                1,
+                "まだ渡さない"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                0,
+                1058,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 2,
+              "parameters": [
+                0,
+                1055,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ソレンヌ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "木は天幕の裏に立てかけてある。上るときに、肩に当て布を足す。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ソレンヌ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "修道院の写本係のテオどのに会え。字のことなら、あの人だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "長は修道院にいる。頂のことは、長が言う。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ソレンヌ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "わたしはソレンヌ。夕べの会の騎士だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "きみは砦の方から来たな。夜のうちに、あちらの空に火が見えた。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ソレンヌ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "この村は麦を会に出す。会は鐘の番をする。二百年、そうしてきた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "関所の向こうへ行くなら、収税吏に気をつけろ。まだ取り立てている。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ソレンヌ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "長は修道院だ。頂のことは、長が言う。わたしは言わない。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 2,
+              "parameters": [
+                1058,
+                1058,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "家の帳面",
+      "type": "text",
+      "x": 11,
+      "y": 10,
+      "lines": [
+        [
+          "軒先の台に、家の帳面が開いたまま置いてある。",
+          "始まりの頁に、太い字で『舟で着いた。十四』。",
+          "その下に名が十四。一つだけ、線で消してある。"
+        ],
+        [
+          "次の頁から先は、会へ出した麦の袋の数ばかりが並ぶ。"
+        ]
+      ],
+      "image": {
+        "tileId": "E:69"
+      }
+    },
+    {
+      "name": "ヴォルフラムの家の戸",
+      "type": "raw",
+      "x": 9,
+      "y": 9,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "戸の脇に大鍋が伏せてある。鍋の底に、煤で大きく『わし』。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "東の家の戸",
+      "type": "raw",
+      "x": 33,
+      "y": 9,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "戸は閉まっている。中で、粉を挽く石の音がする。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "南の家の戸",
+      "type": "raw",
+      "x": 8,
+      "y": 26,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "戸の脇に、干した麦の束が吊ってある。束は三十。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "麦の倉",
+      "type": "raw",
+      "x": 36,
+      "y": 26,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "麦の倉。戸の板に、麦の穂の形の焼き印が押してある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "印の下に『会へ　秋の分』の札。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "井戸",
+      "type": "raw",
+      "x": 21,
+      "y": 16,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "井戸の綱は新しい。桶の縁に、指で切った鐘の形の印。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "麦打ちの女",
+      "type": "raw",
+      "x": 28,
+      "y": 28,
+      "pages": [
+        {
+          "image": {
+            "characterName": "People2",
+            "characterIndex": 1,
+            "direction": 4,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "麦打ちの女"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鐘の火が見えたよ。砦の方。夜の間、ずっと。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "あたしらは麦を打つ。会に出す分が先。うちの分は、そのあと。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "村の年寄り",
+      "type": "raw",
+      "x": 40,
+      "y": 17,
+      "pages": [
+        {
+          "image": {
+            "characterName": "People3",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "村の年寄り"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "わしの爺さまの爺さまは、関所で麦を一握り取られた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "それで、ここに畑を開いた。一握り分の畑だと、爺さまは笑うとった。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "村の年寄り"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "夜に戸を叩かれても、開けんことだ。叩く手が爺さまの手でもな。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "村の子",
+      "type": "raw",
+      "x": 14,
+      "y": 18,
+      "pages": [
+        {
+          "image": {
+            "characterName": "People1",
+            "characterIndex": 6,
+            "direction": 6,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "村の子"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "ソレンヌさまの てんとには はいっちゃ だめなんだよ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "かねの かず、ぼく 三十まで いえる。いち、に、さん、し……"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

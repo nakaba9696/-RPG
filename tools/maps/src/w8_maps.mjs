@@ -10,6 +10,7 @@ import { fileURLToPath } from "node:url";
 import { readData } from "../../data/io.mjs";
 import { ITEM, WEAPON, ARMOR, TROOP, SW, VAR, FLAG } from "./w8_data.mjs";
 import { withThirdScene, lairDoorEvents } from "./w11_parts.mjs"; // W11（#191）：鐘番の思念の 2 ページ目と霧の戸口
+import { STREET_FROM_SHRINE, SLOPE_FROM_COURT } from "./w12_parts.mjs"; // W12（#195）：063 祠の裏口と 080 南の坂の行き先
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const check = process.argv.includes("--check");
@@ -643,11 +644,11 @@ function config(file, cfg) {
       ],
     },
     {
-      name: "奥の戸（記録院へ）", type: "raw", x: 13, y: 3, note: "",
+      name: "奥の戸（麦の街道へ）", type: "raw", x: 13, y: 3, note: "",
       pages: [
         { image: IMG.door, priorityType: 1, trigger: 0, walkAnime: false, list: [...say(["戸には閂が掛かっている。閂は、戸の外側にだけある。"]), end(0)] },
         { conditions: { switch1Id: SW.shrineBoss, switch1Valid: true }, image: IMG.doorOpen, priorityType: 1, trigger: 1, walkAnime: false,
-          list: [se("Door1"), move(...ARRIVE.courtSouth, DIR.up), end(0)] },
+          list: [se("Door1"), move(...STREET_FROM_SHRINE, DIR.right), end(0)] }, // W12：080 → 110 麦の街道
       ],
     },
     pickup("生贄の帳面", 18, 6, "item", ITEM.sacrificeLedger, ["台の上に、灰で黒くなった帳面がある。", "一行に一つずつ、くじの月と、家と、「済」の印。"], {
@@ -675,7 +676,7 @@ function config(file, cfg) {
     chest(6, 14, "item", ITEM.holyWater, 1),
   ];
   config("w8_063_shrine", {
-    _説明: "W8（#155）：村の祠（docs/world.md 2.3・5.5・6.4）。ボス 生贄の祠の番（弱み：生贄の帳面の最後の名。帳面を持って挑むと戦いの頭に見せる）、祠の経典、ノラの記憶 2、奥の戸→080 記録院（ボスのあと）、西の戸→064。",
+    _説明: "W8（#155）：村の祠（docs/world.md 2.3・5.5・6.4）。ボス 生贄の祠の番（弱み：生贄の帳面の最後の名。帳面を持って挑むと戦いの頭に見せる）、祠の経典、ノラの記憶 2、奥の戸→110 麦の街道（ボスのあと。W12 で 080 から差し替え）、西の戸→064。",
     mapId: 63, name: "村の祠", displayName: "村の祠", ...SHRINE_BASE,
     note: "<hai_tone:-34,-51,-51,85>",
     chars: { ",": { name: "祭壇の前の段（石畳。床の汚れ）", as: ".", tiles: [null, "A2:15"] } },
@@ -805,7 +806,7 @@ function config(file, cfg) {
     ...say(["イスメネは本を三冊抱えて、南の戸口から出ていった。"], "", indent),
   ];
   const events = [
-    ...[18, 19, 20, 21].map(x => transfer("南の戸口（村の祠へ）", x, 29, ARRIVE.shrineBack, "down")),
+    ...[18, 19, 20, 21].map(x => transfer("南の坂（修道院の裏の坂へ）", x, 29, SLOPE_FROM_COURT(x), "down")), // W12：063 → 124 裏の坂
     ...[18, 19, 20, 21].map(x => transfer("北の廊下（書架へ）", x, 0, [MAP.stacks, x + 10, 42], "up")),
     warp("記録院の前庭", 12, 23),
     {
@@ -891,7 +892,7 @@ function config(file, cfg) {
     enemy("インクの影（緑・往復）", 13, 19, TROOP.inkShades, "green", body("Evil", 0), { route: patrol("down", 5) }),
   ];
   config("w8_080_archive_court", {
-    _説明: "W8（#155）：記録院・前庭（docs/world.md 5.1・6.4・7.1・7.3）。イスメネ（真名を読んだ学者を越えたあとに話すと砦へ。書庫を開く。頼み「本物の写し」）、ディルの記憶 1、古言の碑の扉（ディル）、南→063、北→081。",
+    _説明: "W8（#155）：記録院・前庭（docs/world.md 5.1・6.4・7.1・7.3）。イスメネ（真名を読んだ学者を越えたあとに話すと砦へ。書庫を開く。頼み「本物の写し」）、ディルの記憶 1、古言の碑の扉（ディル）、南→124 修道院の裏の坂（W12 で 063 から差し替え）、北→081。",
     mapId: 80, name: "記録院・前庭", displayName: "記録院", ...LIBRARY_BASE,
     note: "<hai_tone:17,0,-34,68>",
     bgm: { name: "Castle1", volume: 55, pitch: 100, pan: 0 }, bgs: { name: "Clock", volume: 30, pitch: 100, pan: 0 },

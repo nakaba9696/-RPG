@@ -1,0 +1,979 @@
+{
+  "_説明": "W12（#195）：関所の塔（docs/world.md 5.2 の 112・5.5、text.md 5.7 の 5-07〜5-09）。南の口→110 の関所の門、西の間（通行の札の束）とその奥の見えない通路の小部屋、東の間（収税吏の帳面・金の延べ棒）、真ん中の石段（石工の印）、北の間にボス 関所の収税吏（スイッチ 1051。弱み：通行の札で「通せ」、配給札で勘定が狂う）、思念 R5-02、裏の崖道→120。この設定は node tools/maps/src/w12_data.mjs が書く。",
+  "mapId": 112,
+  "name": "関所の塔",
+  "displayName": "関所の塔",
+  "legend": "dungeon",
+  "tilesetId": 11,
+  "note": "<hai_tone:-34,-34,-17,85>",
+  "bgm": {
+    "name": "Castle1",
+    "volume": 55,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Wind2",
+    "volume": 25,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Castle2",
+    "battleback2Name": "Castle2"
+  },
+  "chars": {
+    "#": {
+      "name": "関所の塔の壁（壁O（砦）。下が床なら側面、ほかは上面）",
+      "wall": {
+        "top": "A4:22",
+        "side": "A4:30",
+        "height": 2
+      }
+    },
+    ".": {
+      "name": "石畳（石畳A）",
+      "tiles": [
+        "A5:20"
+      ]
+    },
+    ",": {
+      "name": "石段の踏み面（床A（土洞窟））",
+      "tiles": [
+        "A2:0"
+      ]
+    }
+  },
+  "deco": {
+    "N": {
+      "name": "樽",
+      "z2": "D:212"
+    },
+    "h": {
+      "name": "端材",
+      "z2": "D:220"
+    },
+    "n": {
+      "name": "壊れた樽",
+      "z2": "B:239"
+    },
+    "b": {
+      "name": "椅子A",
+      "z2": "D:120"
+    },
+    "t": {
+      "name": "テーブルA",
+      "z2": "D:112"
+    },
+    "Z": {
+      "name": "簡易棚B（本。札の束）",
+      "z2": "D:185"
+    },
+    "s": {
+      "name": "麻袋A",
+      "z2": "D:248"
+    },
+    "S": {
+      "name": "麻袋C",
+      "z2": "D:250"
+    },
+    "u": {
+      "name": "金の延べ棒A（一握りは王のもの）",
+      "z2": "E:200"
+    },
+    "U": {
+      "name": "金の延べ棒B",
+      "z2": "E:201"
+    }
+  },
+  "stamps": [
+    {
+      "at": "柱",
+      "name": "石の柱（1×2。上は☆）",
+      "tiles": [
+        [
+          "B:98"
+        ],
+        [
+          "B:106"
+        ]
+      ]
+    },
+    {
+      "at": "!",
+      "name": "槍立て（1×2）",
+      "tiles": [
+        [
+          "E:175"
+        ],
+        [
+          "E:183"
+        ]
+      ]
+    }
+  ],
+  "scatter": [
+    {
+      "on": ".",
+      "z": 1,
+      "tiles": [
+        "A2:15"
+      ],
+      "rate": 0.05,
+      "seed": 11201
+    },
+    {
+      "on": ".,",
+      "tiles": [
+        "B:32",
+        "B:33"
+      ],
+      "rate": 0.08,
+      "seed": 11202
+    }
+  ],
+  "events": [
+    {
+      "name": "南の口（関所の道へ）",
+      "type": "transfer",
+      "x": 24,
+      "y": 39,
+      "to": [
+        110,
+        48,
+        9,
+        2
+      ]
+    },
+    {
+      "name": "南の口（関所の道へ）",
+      "type": "transfer",
+      "x": 25,
+      "y": 39,
+      "to": [
+        110,
+        48,
+        9,
+        2
+      ]
+    },
+    {
+      "name": "裏の崖道（修道院へ）",
+      "type": "transfer",
+      "x": 24,
+      "y": 2,
+      "to": [
+        120,
+        9,
+        42,
+        8
+      ]
+    },
+    {
+      "name": "関所の収税吏",
+      "type": "raw",
+      "x": 24,
+      "y": 5,
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "裏の口の前に、帳面を抱えた役人の影が立っている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "片手を、こちらへ差し出したまま動かない。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "関所の収税吏"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "通る者。一握り。一握りは王のもの。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Boss",
+                "bossBattle",
+                "ボス戦",
+                {
+                  "troopId": "1051",
+                  "escapeMapId": "112",
+                  "escapeX": "24",
+                  "escapeY": "9",
+                  "escapeDirection": "2"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "troopId = 1051"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "escapeMapId = 112"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "escapeX = 24"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "escapeY = 9"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "escapeDirection = 2"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "Hai.Boss.lastResult() === 0"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "関所の収税吏"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "……通せ。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "収税吏は、帳面を抱いたまま崩れた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "腰の袋に、秘薬が一つ残っていた。裏の口から、崖の風が入ってくる。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 1,
+              "parameters": [
+                198,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 1051,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "収税吏の帳面",
+      "type": "text",
+      "x": 42,
+      "y": 20,
+      "lines": [
+        [
+          "机の上に、帳面が開いている。日ごとに、数が二つ。"
+        ],
+        [
+          "刈り入れの月、一日。納め、百十二握り。通し、百十二。",
+          "同じ月、二日。納め、百四十握り。通し、百三十一。",
+          "同じ月、三日。納め、百九十握り。通し、百六十二。",
+          "同じ月、四日。納め、二百三握り。通し、百五十。"
+        ]
+      ],
+      "image": {
+        "tileId": "E:69"
+      }
+    },
+    {
+      "name": "通行の札の束",
+      "type": "raw",
+      "x": 6,
+      "y": 21,
+      "pages": [
+        {
+          "image": {
+            "tileId": "D:185"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "棚に、通行の札が束ねて積んである。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "束の札には、裏の刻みが一つも無い。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "石段",
+      "type": "raw",
+      "x": 24,
+      "y": 26,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "石段に、石工の印が刻んである。段は十二。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "十三段目の石が抜けて、そこだけ土が見える。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "金の延べ棒",
+      "type": "raw",
+      "x": 44,
+      "y": 19,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "収税の箱の上に、麦の印を打った金の延べ棒が積んである。数えると、二十。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "思念 R5-02 関所を越えた巡礼",
+      "type": "text",
+      "x": 30,
+      "y": 8,
+      "note": "<hai_thought:R5-02>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "関所を裏から越えて、修道院へ上った。札は持っていなかった。",
+        "崖の祠に、小鐘を一つ置いてきた。預かった鐘だ。",
+        "返す先は、鐘の札に書いておいた。祠の梁の鉤に掛けてある。"
+      ]
+    },
+    {
+      "name": "宝箱（気付け薬）",
+      "type": "raw",
+      "x": 11,
+      "y": 17,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                143,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]気付け薬×2を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "宝箱（鉄くず）",
+      "type": "raw",
+      "x": 46,
+      "y": 29,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 125,
+              "indent": 0,
+              "parameters": [
+                0,
+                0,
+                160
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鉄くずを 160 手に入れた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "宝箱（毒消し）",
+      "type": "raw",
+      "x": 36,
+      "y": 10,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                197,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[177]毒消し×2を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "宝箱（鉄くず）",
+      "type": "raw",
+      "x": 5,
+      "y": 11,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 125,
+              "indent": 0,
+              "parameters": [
+                0,
+                0,
+                220
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鉄くずを 220 手に入れた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "関所の兵の亡骸（黄）",
+      "type": "raw",
+      "x": 20,
+      "y": 32,
+      "note": "<hai_enemy:1055,yellow>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 3,
+          "moveType": 1
+        }
+      ]
+    },
+    {
+      "name": "関所の兵の亡骸（黄）",
+      "type": "raw",
+      "x": 42,
+      "y": 26,
+      "note": "<hai_enemy:1055,yellow>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 3,
+          "moveType": 1
+        }
+      ]
+    },
+    {
+      "name": "飢えの列（緑）",
+      "type": "raw",
+      "x": 7,
+      "y": 27,
+      "note": "<hai_enemy:1053,green>\n<hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 3,
+          "moveType": 1
+        }
+      ]
+    },
+    {
+      "name": "飢えの列（緑）",
+      "type": "raw",
+      "x": 32,
+      "y": 11,
+      "note": "<hai_enemy:1053,green>\n<hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 3,
+          "moveType": 1
+        }
+      ]
+    }
+  ]
+}

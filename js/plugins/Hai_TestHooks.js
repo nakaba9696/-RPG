@@ -118,8 +118,9 @@
     village: { // 焼けた村（祠の番）、ノラ、アンネリーゼ、ピピネル（森の療養小屋）。地域五と記録院の手前
       switches: [401, 405, 411], variables: { 401: 2 }, companions: [6], facilities: ["smithy", "infirmary"], // 鍛冶場・療養所（P13）
     },
-    archive: { // 地域五と記録院（学者・記録院の鐘）、ディル、イスメネ（書庫）。W12 が地域五の旗を足す
-      requires: ["village"], switches: [102, 406, 407], companions: [7], facilities: ["lore"],
+    archive: { // 地域五（収税吏・関所の門・院長・修道院の裏門。W12）と記録院（学者・記録院の鐘）、ディル、イスメネ（書庫）
+      requires: ["village"], switches: [1051, 1052, 1053, 1054, 102, 406, 407], companions: [7], facilities: ["lore"],
+      items: [["item", 1051]], // 通行の札
     },
     water: { // 霧の湖（沼主・ミルレーネ）と地下水道（扉の番・水底の鐘）、ゼリナ、アンセルモ
       switches: [103, 107, 503, 504], companions: [8, 9],
@@ -137,7 +138,7 @@
     region2: [{ mapId: 60, x: 47, y: 18, d: 4 }], // 焼けた村・入口（021 の西の焼けた道から）
     region3: [{ mapId: 70, x: 22, y: 1, d: 2 }], // 霧の湖（061 の水路の石段から）
     region4: [{ mapId: 50, x: 1, y: 18, d: 6 }], // 境山の古道（026 の東の坑道から）
-    region5: [{ mapId: 63, x: 13, y: 4, d: 2 }], // 麦の街道（110。W12 が足す）ができるまでは、祠の奥の戸の前（戸に触れないよう祠の中を向く）
+    region5: [{ mapId: 110, x: 2, y: 31, d: 6 }, { mapId: 63, x: 13, y: 4, d: 2 }], // 麦の街道の西の口（063 の祠の裏口から。W12）。無ければ祠の奥の戸の前
     last_archive: [{ mapId: 170, x: 2, y: 20, d: 6 }, { mapId: 84, x: 13, y: 18, d: 8 }], // 縄張りの縁（170。W11）の、その地域の戸口の着き場。無ければ、まだの鐘の間
     last_water: [{ mapId: 170, x: 25, y: 37, d: 8 }, { mapId: 104, x: 13, y: 22, d: 8 }],
     last_foundry: [{ mapId: 170, x: 47, y: 20, d: 4 }, { mapId: 94, x: 13, y: 24, d: 8 }],

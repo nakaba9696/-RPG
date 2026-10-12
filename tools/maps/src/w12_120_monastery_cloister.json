@@ -1,0 +1,1040 @@
+{
+  "_説明": "W12（#195）：鐘守の修道院・前庭と回廊（docs/world.md 5.2 の 120、text.md 5.7 の 5-13・5-14）。南の口→112 の裏の崖道、前庭（結界・嘆願の判の石と嘆願書の束）、回廊の輪が 2 つ（西は水盤、東は空の鐘架と当番表）、北西の戸→121、北東の戸→122、礼拝堂の下り階段→123、東の裏門（院長のあと。スイッチ 1054）→124。この設定は node tools/maps/src/w12_data.mjs が書く。",
+  "mapId": 120,
+  "name": "鐘守の修道院・前庭と回廊",
+  "displayName": "鐘守の修道院",
+  "legend": "monastery",
+  "tilesetId": 25,
+  "note": "<hai_tone:-34,-34,-17,85>",
+  "bgm": {
+    "name": "Scene3",
+    "volume": 55,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Wind1",
+    "volume": 25,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Cobblestones1",
+    "battleback2Name": "Temple"
+  },
+  "deco": {
+    "v": {
+      "name": "長椅子の代わりの石の椅子（通れない）",
+      "z2": "B:121"
+    },
+    "t": {
+      "name": "テーブルA（通れない）",
+      "z2": "B:112"
+    },
+    "T": {
+      "name": "テーブルB（食卓。通れない）",
+      "z2": "B:114"
+    },
+    "h": {
+      "name": "椅子A",
+      "z2": "B:120"
+    },
+    "w": {
+      "name": "端材（足場の木。通れない）",
+      "z2": "D:125"
+    },
+    "R": {
+      "name": "苔の瓦礫（通れない）",
+      "z2": "D:121"
+    }
+  },
+  "stamps": [
+    {
+      "at": "A",
+      "name": "教会机（祭壇。3×2）",
+      "tiles": [
+        [
+          "C:184",
+          "C:185",
+          "C:186"
+        ],
+        [
+          "C:192",
+          "C:193",
+          "C:194"
+        ]
+      ]
+    },
+    {
+      "at": "B",
+      "name": "鐘を抱く女の像（女神像で代用。1×2）",
+      "tiles": [
+        [
+          "C:169"
+        ],
+        [
+          "C:177"
+        ]
+      ]
+    },
+    {
+      "at": "C",
+      "name": "空の鐘架（石の柱 2 本と台座。3×2。鐘の絵は同梱に無い）",
+      "tiles": [
+        [
+          "B:24",
+          null,
+          "B:24"
+        ],
+        [
+          "B:32",
+          "C:173",
+          "B:32"
+        ]
+      ]
+    }
+  ],
+  "scatter": [
+    {
+      "on": ".:",
+      "z": 1,
+      "tiles": [
+        "A2:15"
+      ],
+      "rate": 0.06,
+      "seed": 12001
+    },
+    {
+      "on": ".:",
+      "tiles": [
+        "D:32",
+        "D:33"
+      ],
+      "rate": 0.07,
+      "seed": 12002
+    }
+  ],
+  "events": [
+    {
+      "name": "南の口（関所の塔の裏の崖道へ）",
+      "type": "transfer",
+      "x": 8,
+      "y": 44,
+      "to": [
+        112,
+        24,
+        3,
+        2
+      ]
+    },
+    {
+      "name": "南の口（関所の塔の裏の崖道へ）",
+      "type": "transfer",
+      "x": 9,
+      "y": 44,
+      "to": [
+        112,
+        24,
+        3,
+        2
+      ]
+    },
+    {
+      "name": "南の口（関所の塔の裏の崖道へ）",
+      "type": "transfer",
+      "x": 10,
+      "y": 44,
+      "to": [
+        112,
+        24,
+        3,
+        2
+      ]
+    },
+    {
+      "name": "北西の戸（写本室と食堂へ）",
+      "type": "transfer",
+      "x": 14,
+      "y": 1,
+      "to": [
+        121,
+        19,
+        27,
+        8
+      ]
+    },
+    {
+      "name": "北西の戸（写本室と食堂へ）",
+      "type": "transfer",
+      "x": 15,
+      "y": 1,
+      "to": [
+        121,
+        20,
+        27,
+        8
+      ]
+    },
+    {
+      "name": "北東の戸（鐘守の塔へ）",
+      "type": "transfer",
+      "x": 43,
+      "y": 1,
+      "to": [
+        122,
+        19,
+        27,
+        8
+      ]
+    },
+    {
+      "name": "北東の戸（鐘守の塔へ）",
+      "type": "transfer",
+      "x": 44,
+      "y": 1,
+      "to": [
+        122,
+        20,
+        27,
+        8
+      ]
+    },
+    {
+      "name": "裏門の外（裏の坂へ）",
+      "type": "transfer",
+      "x": 59,
+      "y": 14,
+      "to": [
+        124,
+        1,
+        4,
+        6
+      ]
+    },
+    {
+      "name": "下り階段（納骨堂へ）",
+      "type": "raw",
+      "x": 54,
+      "y": 40,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                123,
+                24,
+                5,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "裏門（裏の坂へ）",
+      "type": "raw",
+      "x": 57,
+      "y": 14,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "修道院の裏門。閂に錠が掛かっている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "錠は新しい。鍵穴の縁だけ、指の脂で黒く光っている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 1054,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 0,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "結界（鐘守の修道院）",
+      "type": "raw",
+      "x": 5,
+      "y": 31,
+      "note": "<hai_warp:鐘守の修道院>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "拾い物（嘆願書の束）",
+      "type": "raw",
+      "x": 13,
+      "y": 35,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "石碑の根元に、紐でくくった紙の束。雨よけの革に包んである。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                1053,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[121]嘆願書の束を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "嘆願の判の石",
+      "type": "raw",
+      "x": 12,
+      "y": 34,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "石碑に、四十七の判の跡が並べて刻んである。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "上に一行。『西の村々より』。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "鐘守の当番表",
+      "type": "text",
+      "x": 47,
+      "y": 9,
+      "lines": [
+        "鐘守の当番の表。四つの鐘と頂に、名が割り振ってある。",
+        "営倉、一。記録院、一。水底、一。鋳物場、一。頂、二。",
+        "どの欄も、同じ日付で止まっている。"
+      ],
+      "image": {
+        "tileId": "B:91"
+      }
+    },
+    {
+      "name": "空の鐘架",
+      "type": "raw",
+      "x": 44,
+      "y": 10,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鐘架の梁はきれいなままだ。鉤を打った跡が一つも無い。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "礼拝堂の祭壇",
+      "type": "raw",
+      "x": 40,
+      "y": 32,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "祭壇の布に、指で数える形が縫い取ってある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "指は三十本。最後の一本だけ、糸の色が違う。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（薬草）",
+      "type": "raw",
+      "x": 5,
+      "y": 5,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                196,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]薬草×2を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "宝箱（秘薬）",
+      "type": "raw",
+      "x": 27,
+      "y": 39,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                198,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[179]秘薬を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "宝箱（鉄くず）",
+      "type": "raw",
+      "x": 54,
+      "y": 24,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 125,
+              "indent": 0,
+              "parameters": [
+                0,
+                0,
+                140
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鉄くずを 140 手に入れた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "宝箱（鉄くず）",
+      "type": "raw",
+      "x": 20,
+      "y": 41,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 125,
+              "indent": 0,
+              "parameters": [
+                0,
+                0,
+                80
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鉄くずを 80 手に入れた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "鐘守の亡骸（黄）",
+      "type": "raw",
+      "x": 15,
+      "y": 24,
+      "note": "<hai_enemy:1056,yellow>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 3,
+          "moveType": 1
+        }
+      ]
+    },
+    {
+      "name": "鐘守の亡骸（黄）",
+      "type": "raw",
+      "x": 40,
+      "y": 5,
+      "note": "<hai_enemy:1056,yellow>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 3,
+          "moveType": 1
+        }
+      ]
+    },
+    {
+      "name": "祈りの影（緑）",
+      "type": "raw",
+      "x": 20,
+      "y": 11,
+      "note": "<hai_enemy:1057,green>\n<hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 3,
+          "moveType": 1
+        }
+      ]
+    },
+    {
+      "name": "祈りの影（緑）",
+      "type": "raw",
+      "x": 50,
+      "y": 22,
+      "note": "<hai_enemy:1057,green>\n<hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 3,
+          "moveType": 1
+        }
+      ]
+    },
+    {
+      "name": "棺守り（赤・番兵）",
+      "type": "raw",
+      "x": 30,
+      "y": 40,
+      "note": "<hai_enemy:1058,red>\n<hai_enemy_chase:2>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 3,
+          "moveType": 0
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,327 @@
+{
+  "_説明": "W12（#195）：街道の祠（docs/world.md 5.2 の 113・5.8 の 3、text.md 5.7 の 5-10）。南の戸口→110、鐘を抱く女の像（鐘の口は開いている）、結界。この設定は node tools/maps/src/w12_data.mjs が書く。",
+  "mapId": 113,
+  "name": "街道の祠",
+  "displayName": "街道の祠",
+  "legend": "dungeon",
+  "tilesetId": 14,
+  "note": "<hai_tone:-34,-51,-51,85>",
+  "bgm": {
+    "name": "Scene9",
+    "volume": 50,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Stone1",
+    "battleback2Name": "Temple"
+  },
+  "chars": {
+    ",": {
+      "name": "像の前の段（石畳。床の汚れ）",
+      "as": ".",
+      "tiles": [
+        null,
+        "A2:15"
+      ]
+    }
+  },
+  "deco": {
+    "3": {
+      "name": "石碑A（通れない）",
+      "z2": "B:64"
+    },
+    "R": {
+      "name": "苔の瓦礫（通れない）",
+      "z2": "B:121"
+    },
+    "r": {
+      "name": "瓦礫A（通れない）",
+      "z2": "B:120"
+    },
+    "x": {
+      "name": "骸骨A（通れない）",
+      "z2": "B:242"
+    },
+    "P": {
+      "name": "壺B（通れない）",
+      "z2": "B:231"
+    },
+    "w": {
+      "name": "蜘蛛の巣",
+      "z2": "B:176"
+    },
+    "k": {
+      "name": "砂利A（通れる）",
+      "z2": "B:32"
+    },
+    "K": {
+      "name": "砂利B（通れる）",
+      "z2": "B:33"
+    }
+  },
+  "stamps": [
+    {
+      "at": "像",
+      "name": "鐘を抱く女の像（女神像。1×2）",
+      "tiles": [
+        [
+          "B:82"
+        ],
+        [
+          "B:90"
+        ]
+      ]
+    },
+    {
+      "at": "柱",
+      "name": "石の柱（1×2。上は☆）",
+      "tiles": [
+        [
+          "B:98"
+        ],
+        [
+          "B:106"
+        ]
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "南の戸口（麦の街道へ）",
+      "type": "transfer",
+      "x": 12,
+      "y": 16,
+      "to": [
+        110,
+        14,
+        9,
+        2
+      ]
+    },
+    {
+      "name": "南の戸口（麦の街道へ）",
+      "type": "transfer",
+      "x": 13,
+      "y": 16,
+      "to": [
+        110,
+        14,
+        9,
+        2
+      ]
+    },
+    {
+      "name": "南の戸口（麦の街道へ）",
+      "type": "transfer",
+      "x": 14,
+      "y": 16,
+      "to": [
+        110,
+        14,
+        9,
+        2
+      ]
+    },
+    {
+      "name": "鐘を抱く女の像",
+      "type": "raw",
+      "x": 13,
+      "y": 4,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鐘を抱く女の像。抱かれた鐘の口は、塞がれずに開いている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "台座に『夕べを数えよ』。その下の行は、鑿の跡だけで字が無い。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "結界（街道の祠）",
+      "type": "raw",
+      "x": 8,
+      "y": 12,
+      "note": "<hai_warp:街道の祠>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "石碑",
+      "type": "raw",
+      "x": 11,
+      "y": 3,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "石碑の面は、雨で削れて読めない。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "根元に、麦の粒が三つ供えてある。乾いている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（霊水）",
+      "type": "raw",
+      "x": 17,
+      "y": 12,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                144,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]霊水を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    }
+  ]
+}
