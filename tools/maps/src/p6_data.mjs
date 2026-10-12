@@ -129,7 +129,7 @@ const ACTORS = {
   8: {
     name: "ゼリナ", nickname: "方舟の酒保", classId: 7, initialLevel: 10,
     profile: "砦の酒保を一人で回した。金と子どもが好き。\n味方を強め、敵の狙いを引きつけてかわす。戦いの後の鉄くずが増える。",
-    note: "<hai_wake:舟は？　……あんた、乗りそびれたクチか。>",
+    note: "<hai_wake:舟は？　あんた、乗りそびれたクチか。>", // W17（#233）：「……」を外す
     traits: [{ code: 22, dataId: 1, value: 0.15 }, { code: 23, dataId: 0, value: 2 }, { code: 64, dataId: 3, value: 1 }],
   },
   9: {
@@ -147,7 +147,7 @@ const ACTORS = {
   11: {
     name: "トゥーラ", nickname: "研究所の檻の子", classId: 5, initialLevel: 12,
     profile: "熊の獣人の子。口が悪く、世話焼き。力が強い。\n味方に使う薬の効き目が上がる。",
-    note: "<hai_wake:兄貴、誰だよ。……檻の外の人か。>",
+    note: "<hai_wake:兄貴、誰だよ。檻の外の人か。>", // W17（#233）：「……」を外す
     traits: [{ code: 21, dataId: 2, value: 1.2 }, { code: 23, dataId: 3, value: 1.5 }],
   },
 };

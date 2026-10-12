@@ -954,6 +954,70 @@
               "parameters": []
             },
             {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                2,
+                "B",
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゼリナ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "……乗せる方も降ろす方も、数えるんやな"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 2,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
               "code": 0,
               "indent": 0,
               "parameters": []
@@ -1157,7 +1221,7 @@
       "type": "raw",
       "x": 8,
       "y": 15,
-      "note": "<hai_enemy:502,green><hai_enemy_hesitate>",
+      "note": "<hai_enemy:502,green><hai_enemy_hesitate><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -1179,7 +1243,7 @@
       "type": "raw",
       "x": 20,
       "y": 13,
-      "note": "<hai_enemy:503,yellow><hai_enemy_chase:4>",
+      "note": "<hai_enemy:503,yellow><hai_enemy_chase:4><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {

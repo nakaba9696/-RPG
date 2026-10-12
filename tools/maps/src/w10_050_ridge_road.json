@@ -1444,7 +1444,7 @@
       "type": "raw",
       "x": 30,
       "y": 16,
-      "note": "<hai_enemy:601,green>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:601,green>\n<hai_enemy_hesitate>\n<hai_enemy_bell:104>",
       "pages": [
         {
           "image": {
@@ -1466,7 +1466,7 @@
       "type": "raw",
       "x": 64,
       "y": 27,
-      "note": "<hai_enemy:601,green>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:601,green>\n<hai_enemy_hesitate>\n<hai_enemy_bell:104>",
       "pages": [
         {
           "image": {
@@ -1488,7 +1488,7 @@
       "type": "raw",
       "x": 52,
       "y": 30,
-      "note": "<hai_enemy:602,green>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:602,green>\n<hai_enemy_hesitate>\n<hai_enemy_bell:104>",
       "pages": [
         {
           "image": {
@@ -1510,7 +1510,7 @@
       "type": "raw",
       "x": 70,
       "y": 53,
-      "note": "<hai_enemy:601,green>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:601,green>\n<hai_enemy_hesitate>\n<hai_enemy_bell:104>",
       "pages": [
         {
           "image": {
@@ -1532,7 +1532,7 @@
       "type": "raw",
       "x": 24,
       "y": 18,
-      "note": "<hai_enemy:603,yellow>",
+      "note": "<hai_enemy:603,yellow>\n<hai_enemy_bell:104>",
       "pages": [
         {
           "image": {
@@ -1613,7 +1613,7 @@
       "type": "raw",
       "x": 40,
       "y": 36,
-      "note": "<hai_enemy:603,yellow>",
+      "note": "<hai_enemy:603,yellow>\n<hai_enemy_bell:104>",
       "pages": [
         {
           "image": {
@@ -1694,7 +1694,7 @@
       "type": "raw",
       "x": 60,
       "y": 42,
-      "note": "<hai_enemy:604,yellow>\n<hai_enemy_chase:4>",
+      "note": "<hai_enemy:604,yellow>\n<hai_enemy_chase:4>\n<hai_enemy_bell:104>",
       "pages": [
         {
           "image": {
@@ -1716,7 +1716,7 @@
       "type": "raw",
       "x": 14,
       "y": 50,
-      "note": "<hai_enemy:605,red>\n<hai_enemy_chase:2>",
+      "note": "<hai_enemy:605,red>\n<hai_enemy_chase:2>\n<hai_enemy_bell:104>",
       "pages": [
         {
           "image": {

@@ -1124,21 +1124,148 @@
     },
     {
       "name": "思念 R3-14 水を戻した水番",
-      "type": "text",
+      "type": "raw",
       "x": 10,
       "y": 26,
       "note": "<hai_thought:R3-14>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "札は千枚と聞いた。列は三日。数えた頭は、千と四百。",
-        "四百は、札の無い者だ。並ぶなとは、誰も言わなかった。",
-        "三日めの夕方、扉の方で太鼓が鳴った。閉める合図だ。水を戻せ、と。",
-        "戻した。輪を三十回。下の道には、まだ列の尻尾がいた。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "札は千枚と聞いた。列は三日。数えた頭は、千と四百。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "四百は、札の無い者だ。並ぶなとは、誰も言わなかった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "三日めの夕方、扉の方で太鼓が鳴った。閉める合図だ。水を戻せ、と。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "戻した。輪を三十回。下の道には、まだ列の尻尾がいた。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                2,
+                "A",
+                1
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                12,
+                "Hai.Thoughts.isRead(\"R3-17\")"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 2,
+              "parameters": [
+                4,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゼリナ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "千枚と聞いて、千四百並んだんやろ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "……うちと同じや。数えてから、乗せたらよかった"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
       ]
     },
     {
@@ -1398,7 +1525,7 @@
       "type": "raw",
       "x": 8,
       "y": 16,
-      "note": "<hai_enemy:506,green><hai_enemy_chase:3><hai_enemy_hesitate>",
+      "note": "<hai_enemy:506,green><hai_enemy_chase:3><hai_enemy_hesitate><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -1420,7 +1547,7 @@
       "type": "raw",
       "x": 16,
       "y": 20,
-      "note": "<hai_enemy:506,green><hai_enemy_chase:3><hai_enemy_hesitate>",
+      "note": "<hai_enemy:506,green><hai_enemy_chase:3><hai_enemy_hesitate><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -1442,7 +1569,7 @@
       "type": "raw",
       "x": 6,
       "y": 28,
-      "note": "<hai_enemy:507,green><hai_enemy_hesitate>",
+      "note": "<hai_enemy:507,green><hai_enemy_hesitate><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -1464,7 +1591,7 @@
       "type": "raw",
       "x": 22,
       "y": 7,
-      "note": "<hai_enemy:507,green><hai_enemy_hesitate>",
+      "note": "<hai_enemy:507,green><hai_enemy_hesitate><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -1486,7 +1613,7 @@
       "type": "raw",
       "x": 34,
       "y": 15,
-      "note": "<hai_enemy:508,yellow><hai_enemy_chase:4>",
+      "note": "<hai_enemy:508,yellow><hai_enemy_chase:4><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -1508,7 +1635,7 @@
       "type": "raw",
       "x": 30,
       "y": 34,
-      "note": "<hai_enemy:508,yellow><hai_enemy_chase:4>",
+      "note": "<hai_enemy:508,yellow><hai_enemy_chase:4><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -1530,7 +1657,7 @@
       "type": "raw",
       "x": 44,
       "y": 29,
-      "note": "<hai_enemy:509,yellow><hai_enemy_chase:3>",
+      "note": "<hai_enemy:509,yellow><hai_enemy_chase:3><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {

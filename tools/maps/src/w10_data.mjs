@@ -15,6 +15,7 @@ import { fileURLToPath } from "node:url";
 import { readData, formatTable, dataPath, extendTable } from "../../data/io.mjs";
 import { SRC_DIR } from "../build.mjs";
 import { withThirdScene, lairDoorEvents } from "./w11_parts.mjs"; // W11（#191）：鐘番の思念の 2 ページ目と霧の戸口
+import { aside, ACTOR as W17_ACTOR, W17_SW, W17_SWITCH_NAMES, NAMELESS_SHADE, nightDoorStart, nightDoorEnd } from "./w17_parts.mjs"; // W17（#233）：原作の反映
 
 const check = process.argv.includes("--check");
 const outputs = []; // [{ file, text }]
@@ -118,10 +119,12 @@ export const SKILL = { oldWord: 601, crossbow: 602, rockSwing: 603, sootBreath: 
 export const ENEMY = {
   goat: 601, wolf: 602, nameless: 603, archer: 604, veteran: 605, rockBearer: 606,
   sootRat: 607, slag: 608, failure: 609, cagedFailure: 610, seamed: 611, daughter: 612,
+  namelessShade: NAMELESS_SHADE, // W17（#233）
 };
 export const TROOP = {
   goats: 601, wolf: 602, nameless: 603, archer: 604, veteran: 605, rockBearer: 606,
   sootRats: 607, slag: 608, failure: 609, cagedFailure: 610, seamed: 611, daughter: 612,
+  namelessShade: NAMELESS_SHADE,
 };
 // スイッチ・変数（601–700）
 export const SW = {
@@ -151,6 +154,7 @@ const SWITCH_NAMES = {
   617: "東門の外:閂を外した",
   618: "鋳物場:搬入路を滑り降りた（H34）",
   619: "古道:上段に綱を掛けた",
+  620: W17_SWITCH_NAMES[620], // W17（#233）
 };
 const VARIABLE_NAMES = {
   601: "頼み:名を返す（0 未・1 受けた・2 記録を持った・3 終わり）",
@@ -351,6 +355,8 @@ const ENEMIES = [
   [ENEMY.slag, "鋳くず", "Demonpot", 30, [420, 0, 32, 30, 8, 10, 10, 10], 28, 22, [T.element(ELEMENT.ice, 2), T.physRate(0.7)], [attack, act(SKILL.sootBreath, 3)], noDrop],
   [ENEMY.failure, "失敗作", "Zombie", 260, [700, 0, 40, 24, 8, 16, 16, 10], 48, 32, [T.element(ELEMENT.light, 2), T.element(ELEMENT.fire, 1.5)], [attack, act(SKILL.seamClaw, 3)], noDrop],
   [ENEMY.cagedFailure, "檻の失敗作", "Wolfman", 270, [560, 0, 42, 18, 8, 12, 32, 10], 46, 30, [T.element(ELEMENT.light, 2)], [attack, act(SKILL.seamClaw, 4)], noDrop],
+  // W17（台本 13）：051 の夜の戸の、声だけの影（名無し兵）。弱い
+  [ENEMY.namelessShade, "声だけの影（名無し兵）", "SF_Shadow", 0, [260, 0, 26, 14, 10, 14, 20, 10], 20, 0, [T.element(ELEMENT.light, 2), T.physRate(0.85)], [attack], noDrop],
   [ENEMY.seamed, "継ぎ目の失敗作", "Demon", 280, [2200, 0, 52, 32, 8, 20, 22, 10], 140, 80, [T.element(ELEMENT.light, 2), T.physRate(0.85)], [attack, act(SKILL.seamClaw, 4), act(SKILL.sootBreath, 2)], noDrop],
 ];
 const enemies = readData("Enemies.json");
@@ -397,6 +403,7 @@ const TROOPS = [
   [TROOP.cagedFailure, "W10_黄：檻の失敗作", [ENEMY.cagedFailure]],
   [TROOP.seamed, "W10_赤：継ぎ目の失敗作", [ENEMY.seamed]],
   [TROOP.daughter, "W10_ボス：研究者の娘", [ENEMY.daughter]],
+  [TROOP.namelessShade, "W10_夜の戸：声だけの影（名無し兵）", [ENEMY.namelessShade]],
 ];
 const troops = readData("Troops.json");
 clearBand(troops, emptyTroop);
@@ -443,6 +450,19 @@ const thought = (id, name, [x, y], lines, note = "") => ({
 });
 const memory = (actorId, n, who, [x, y], lines, image = IMG.memory) => ({
   name: `記憶 ${who} ${n}`, type: "text", x, y, note: `<hai_memory:${actorId},${n}>`, image, lines,
+});
+// W17：思念・記憶・文章のあとに命令（仲間の一言など）を足した形
+const thoughtThen = (id, name, [x, y], lines, after, note = "") => ({
+  name: `思念 ${id} ${name}`, type: "raw", x, y, note: `<hai_thought:${id}>${note}`,
+  pages: [{ image: IMG.thought, priorityType: 1, list: [...say(lines), ...after, END] }],
+});
+const memoryThen = (actorId, n, who, [x, y], lines, after, image = IMG.memory) => ({
+  name: `記憶 ${who} ${n}`, type: "raw", x, y, note: `<hai_memory:${actorId},${n}>`,
+  pages: [{ image, priorityType: 1, list: [...say(lines), ...after, END] }],
+});
+const textThen = (name, [x, y], lines, after, extra = {}) => ({
+  name, type: "raw", x, y,
+  pages: [{ ...(extra.image ? { image: extra.image } : {}), priorityType: 1, list: [...say(lines), ...after, END] }],
 });
 const faint = (id, name, [x, y], lines) => ({
   name: `薄い思念 ${id} ${name}`, type: "raw", x, y, note: `<hai_faint:${id}>`,
@@ -507,7 +527,8 @@ const foe = (troopId, rank, [x, y], kind = "random", chase = null) => {
     page.moveRoute = routeOf([...Array(kind.n).fill(MOVE[kind.dir]), ...Array(kind.n).fill(MOVE[back])]);
     label = "・往復";
   }
-  const note = [`<hai_enemy:${troopId},${rank}>`, ...(chase !== null ? [`<hai_enemy_chase:${chase}>`] : []), ...(rank === "green" ? ["<hai_enemy_hesitate>"] : [])].join("\n");
+  const note = [`<hai_enemy:${troopId},${rank}>`, ...(chase !== null ? [`<hai_enemy_chase:${chase}>`] : []), ...(rank === "green" ? ["<hai_enemy_hesitate>"] : []),
+    `<hai_enemy_bell:${FLAG.bellFoundry}>`].join("\n"); // W17：地域四の鐘の旗（P14 #230 が読む。東を向いて止まる）
   return { name: `${NAMES[troopId]}（${rankName}${label}）`, type: "raw", x, y, note, pages: [page] };
 };
 const bossBattle = (troopId, [mapId, x, y, d], indent = 0) => plugin("Hai_Boss", "bossBattle", "ボス戦",
@@ -668,6 +689,7 @@ const namelessCamp = {
         ...say(["石板に、軍の書き言葉。丁寧な字だ。", "「墓守と見受ける。声は無い。払った。書いて話す」"]),
         ...say(["「この陣の地下壕の下に、古い鋳物場がある。その奥に、帝国の研究所」", "「研究所の観察の記録を、持って来てほしい。護送の欄に、名が並んでいる頁がある」"]),
         ...say(["「代わりに、研究所の門を開ける綱の在りかを書く」", "「型の間の西の壁際。滑車の綱。引けば門が上がる」"]),
+        ...say(["石板の、字の下の空いた所を指で叩いた。名を書く所だ。", "名無しはそこに書きかけ、一画だけ引いて、止まった。袖で消した。"]), // W17（台本 12）
         choice(["引き受ける", "断る"], 1),
         when(0, "引き受ける"),
         ...say(["名無しは、石板の字を袖で消した。", "「鋳物場の南西の小部屋で待つ。古い寝床がある」"], "", 1),
@@ -676,6 +698,7 @@ const namelessCamp = {
         ...errand(1, "研究所の観察の記録を、名無しに（鋳物場の南西の小部屋）", 1),
         ...addNote("nameless:gate", "研究所の門の綱：型の間の西の壁際（名無し）", 1),
         ...say([memo("研究所の観察の記録を、名無しに（鋳物場の南西の小部屋）")], "", 1),
+        ...indented(aside(W17_ACTOR.zelina, null, say(["名が無いと、帳面に書けへんな。つけも、取れへん"], "ゼリナ")), 1), // W17：名無しが去ったあと
         end(1),
         when(1, "断る"),
         ...say(["名無しは、石板に一つだけ書いた。", "「了解」"], "", 1),
@@ -692,6 +715,47 @@ const bunkerDoor = {
     { image: IMG.ironShut, priorityType: 1, walkAnime: false },
     { conditions: { selfSwitchCh: "A", selfSwitchValid: true }, image: IMG.ironOpen, priorityType: 1, trigger: 1, walkAnime: false,
       list: [se("Move1"), transfer(MAP.dock, 8, 3, DOWN), END] },
+  ],
+};
+// W17（台本 13）：夜の戸。名無し兵の手紙（Items 603）を持っていて、まだ答えていない（スイッチ 620 OFF）とき
+const tentText = say(["破れた天幕。中に寝具が十。九つは畳んである。"]);
+const nightTent = {
+  name: "天幕", type: "raw", x: 15, y: 12,
+  pages: [
+    { priorityType: 1, list: [...tentText, END] },
+    { conditions: { itemId: ITEM.soldierLetter, itemValid: true }, priorityType: 1, list: [
+      ifSwitch(W17_SW.nightDoorCamp, false),
+      ...indented([
+        ...nightDoorStart(),
+        ...say(["破れた天幕。灰が、天幕の破れから中へ入ってくる。", "天幕の柱が、叩かれた。三度。拳で。外から。"]),
+        ...say(["……おまえ。名前を、書こうとして"]),
+        choice(["答える", "答えない"], 1),
+        when(0, "答える"),
+        ...say(["宛名は、書けたのか"], "\\N[1]", 1),
+        ...say(["灰の中に、人の形の濃い所があった。声だけの影が、近づいてきた。"], "", 1),
+        cmd(301, [0, NAMELESS_SHADE, true, false], 1),
+        cmd(601, [], 1),
+        ...say(["影が消えたあと、天幕の中に、声だけが一行残った。", "「顔は覚えている。たぶん」", "帳面に、一行書いた。"], "", 2),
+        switchOn(W17_SW.nightDoorCamp, 2),
+        end(2),
+        cmd(602, [], 1),
+        end(2),
+        cmd(604, [], 1),
+        end(1),
+        when(1, "答えない"),
+        ...say(["幕を上げなかった。音は、二度目は来なかった。"], "", 1),
+        switchOn(W17_SW.nightDoorCamp, 1),
+        end(1),
+        ENDCHOICE(),
+        ...nightDoorEnd(),
+      ], 1),
+      end(1),
+      ELSE(),
+      ...indented(tentText, 1),
+      end(1),
+      ENDIF(),
+      END,
+    ] },
   ],
 };
 const campEvents = [
@@ -739,7 +803,7 @@ const campEvents = [
     "受け取りの帳面に、隊の名を書いた。半日のことは、書く欄が無かった。",
   ]),
   text("攻城弩", [38, 9], ["高台の攻城弩。弦は切れている。", "向きは西。砦の方だ。"]),
-  text("天幕", [15, 12], ["破れた天幕。中に寝具が十。九つは畳んである。"]),
+  nightTent, // W17（台本 13）：夜の戸（名無し兵の手紙を持っていて、まだ答えていないとき）
   text("陣の敷石", [25, 23], ["敷石に、帝国の印が刻んである。", "一つおきに、印の上から別の印が彫り重ねてある。"]),
   foe(TROOP.nameless, "yellow", [22, 30], { dir: "right", n: 7 }),
   foe(TROOP.goats, "green", [36, 28]),
@@ -770,6 +834,13 @@ const guido = {
       list: [
         ...say(["灯の油、今日のぶんは入れた。明日のぶんは、明日だな。", "わしはグィド。この烽火の番だ。あんた、砦から来たのか。砦に火が入ったのは、ここから見えた"], "グィド"),
         ...say(["山の数は、昨日から一つ減ってる。東の端の、いちばん低いのが見えん。", "まあ、明日にしよう。明日も見えんかったら、数え直す"], "グィド"),
+        // W17（台本 15）：グィドの数え歌
+        ...say(["グィドは、数え直した。指を折りながら、節を付けて。"]),
+        ...say(["ひとつ、戸の外。ふたつ、扉の前"], "グィド"),
+        ...say(["三つ目の所で、指だけを折った。声は出さなかった。"]),
+        ...say(["よっつ、よっつ目が、見えん"], "グィド"),
+        ...aside(W17_ACTOR.zelina, null, say(["数え歌で、山を数えるんか"], "ゼリナ")),
+        ...say(["三つ目は、じいさんが言うなと。なんでかは、わからんよ"], "グィド"),
         ...say(["陣跡の地下壕か。鍵なら、家の手紙の箱の底にあった。", "爺さまの、そのまた爺さまの頃からだ。わしは開けたことがない。持ってけ"], "グィド"),
         se("Key", 0), gainItem(ITEM.bunkerKey),
         ...say(["\\I[195]地下壕の鍵を手に入れた！"]),
@@ -880,6 +951,7 @@ const bonePicker = {
       ENDIF(1),
       end(1),
       ENDIF(),
+      ...aside(W17_ACTOR.zelina, "B", say(["丁寧な化け物やな。……うちの客より、よっぽど丁寧や"], "ゼリナ")), // W17（台本 16）：頭を上げたあと
       ...say(["生きておられる方。骨を拾っております。本日は、三百と十二本。", "取り引きを、なさいますか。"], "骨拾い"),
       choice(["剣のこと", "帳面のこと", "やめる"], 2),
       when(0, "剣のこと"),
@@ -949,8 +1021,8 @@ const beltranSword = {
         ...say([
           "洞の前まで来た。剣を杖にして立っている。座ったら、もう立てねえ。",
           "骨拾いのやつが、頭を下げて待ってる。気の長い奴だ。",
+          "子どもは、森の小屋へ運んだ。息があった。あとは婆さんがどうにかする。",
           "描きたい絵が一枚あったんだがな。山と、橋と、手前に誰か。",
-          "誰を描くかは、決めてなかった。",
         ]),
         END,
       ] },
@@ -1084,11 +1156,11 @@ const dockEvents = [
   text("搬入の名簿", [5, 27], ["帳場の壁に、名簿が釘で留めてある。", "上の方は大人の字。下の方は、子どもの字が増えていく。", "名の横に、どれも番号が書き足してある。"]),
   text("線路の終わり", [36, 17], ["線路は東の口で曲がり、型の間へ続いている。", "車止めに、荷車が一台、鎖でつないである。"]),
   text("積み場の木箱", [27, 5], ["木箱の焼き印は「研究所」。中身は空で、藁だけが残っている。"]),
-  thought("R4-11", "荷を下ろした男", [20, 16], [
+  thoughtThen("R4-11", "荷を下ろした男", [20, 16], [
     "荷を下ろす。数える。上に知らせる。それだけだ。",
     "箱の中身は見るな、と言われた。見なかった。",
     "一箱、泣いていた。それも数に入れた。",
-  ]),
+  ], aside(W17_ACTOR.zelina, "B", say(["……中身は見るな、か。", "うちは、籠の中を見てしもたけどな"], "ゼリナ"))),
   thought("R4-12", "鐘鉄を運んだ坑夫", [30, 24], [
     "坑道から、樋で鐘鉄を落とした。頭が「売るな」と刻印を打った鉄だ。",
     "教会納めの印は、鋳物場で打つんだと。樋の下で、誰かが打っていた。",
@@ -1161,6 +1233,7 @@ const tulaRemains = {
         ]),
         se("Item3"), gainItem(ITEM.tongue),
         ...say(["\\I[209]親鐘の舌を手に入れた！"]),
+        ...say(["舌だ。頂の鐘の"], "\\N[1]"), // W17（台本 10）
         END,
       ] },
     { conditions: { selfSwitchCh: "A", selfSwitchValid: true }, priorityType: 0 },
@@ -1293,6 +1366,10 @@ function namelessStop() {
     ...say(["鎧が、膝から崩れた。中は灰だった。", "石板の字は、名の一画目で止まっている。"]),
     switchOn(SW.namelessStopped),
     ...errandEnd("dead", "名無しは崩れた（鋳物場の南西の小部屋）"),
+    ...aside(W17_ACTOR.tula, null, [ // W17（台本 19）
+      ...say(["……あたしを村から連れてきた兵の一人だ。歩き方で分かった"], "トゥーラ"),
+      ...say(["崩れちまったら、殴れねえな"], "トゥーラ"),
+    ]),
   ];
 }
 function namelessLeave() {
@@ -1301,6 +1378,7 @@ function namelessLeave() {
     ...say(["名無しは、型の間の方へ出ていった。足音が、さっきまでと違う。"]),
     switchOn(SW.namelessLeft),
     ...errandEnd("done", "名無しは、誰かの名を名乗って去った（鋳物場の南西の小部屋）"),
+    ...aside(W17_ACTOR.tula, null, say(["あいつ、あたしを村から連れてきた兵の一人だ。", "……行っちまった。殴りそこねた"], "トゥーラ")), // W17（台本 19）
   ];
 }
 function namelessSit() {
@@ -1310,6 +1388,10 @@ function namelessSit() {
     ...say(["石板に、もう一度だけ書く。「了解」"]),
     switchOn(SW.namelessSat),
     ...errandEnd("done", "名無しは、イルゼの名の前で座りこんだ（鋳物場の南西の小部屋）"),
+    ...aside(W17_ACTOR.tula, null, [ // W17（台本 19）
+      ...say(["兄貴。……あいつ、あたしを村から連れてきた兵の一人だ。", "顔は布の下で見えねえけど、歩き方で分かる"], "トゥーラ"),
+      ...say(["殴らねえよ。座ってる奴は、殴らねえ"], "トゥーラ"),
+    ]),
   ];
 }
 const hallEvents = [
@@ -1401,14 +1483,21 @@ const runeDoor = {
 };
 const moldEvents = [
   ...exits("北の口（型の間へ）", [[12, 0], [13, 0], [14, 0]], MAP.hall, 18, 43, "up"),
-  memory(11, 3, "トゥーラ", [6, 12], [
+  memoryThen(11, 3, "トゥーラ", [6, 12], [
     "檻のちびどもの飯、あたしが分けてた。でかいのが多く取ると泣くからな。",
     "骨を移された次の日から、腕が熱くて、力が倍になった。",
     "檻の格子、曲がるんじゃねえかって思った。曲がった。",
     "ちびどもには、まだ出るなって言った。先に、道を見てくる。",
-  ]),
+  ], aside(W17_ACTOR.tula, "B", say(["道、見に行ったきりだったな。あたし"], "トゥーラ"))), // W17（台本 18）
   pickItem("鋳物場の鐘鉄", [16, 13], ITEM.moldIron, 1, 209, ["型の脇に、白っぽい鉄の棒が束ねて立てかけてある。一本だけ、切り取られずに残っている。"]),
-  text("親鐘の型", [12, 8], ["真ん中の台に、大きな鐘の型。外側の型は割られ、内側の型だけが残る。", "内側の型に、銘を彫る所がある。字は、削りかけで止まっている。"]),
+  textThen("親鐘の型", [12, 8], ["真ん中の台に、大きな鐘の型。外側の型は割られ、内側の型だけが残る。", "内側の型に、銘を彫る所がある。字は、削りかけで止まっている。"], [
+    // W17（台本 18）：親鐘の舌を持っているとき
+    ifItem(ITEM.tongue),
+    ...say(["背の舌を下ろして、型の内側に合わせた。合った。"], "", 1),
+    ...indented(aside(W17_ACTOR.tula, null, say(["兄貴。それ、戻しに行くのか。夜明けまでに"], "トゥーラ")), 1),
+    end(1),
+    ENDIF(),
+  ]),
   text("四つの鐘の型", [10, 7], ["親鐘の型を囲んで、小さな鐘の型が四つ。", "四つとも、外側の型が割られている。一つだけ、内側に新しい字の跡がある。"]),
   runeDoor,
   chestWeapon("鋳型の槌", [23, 8], WEAPON.moldHammer, 104, true),
@@ -1449,6 +1538,7 @@ const labRecord = {
         end(1),
         ENDIF(),
         ...say([memo("研究者の娘は光を嫌う（研究所の報告の写し）")]),
+        ...aside(W17_ACTOR.tula, null, say(["十一番って、あたしか。世話を焼く、だってよ。", "ちびどもの飯を分けただけだろ"], "トゥーラ")), // W17（台本 18）
         END,
       ] },
     { conditions: { selfSwitchCh: "A", selfSwitchValid: true }, image: { tileId: "C:149" }, priorityType: 1,
@@ -1463,10 +1553,15 @@ const daughter = {
         ...say(["北の扉の前に、白い服の娘が立っている。腕に、継ぎ目のような縫い跡。"]),
         ...say(["とうさま？　……ちがう。とうさまは、灯を消してくれるもの。"], "研究者の娘"),
         ...say(["ここは、とうさまのところ。とうさまが来るまで、だれも通さないの。"], "研究者の娘"),
+        ...aside(W17_ACTOR.tula, null, [ // W17（台本 18）
+          ...say(["十七番。あんた、十七番だろ。", "あたし、十一番。飯、分けてやったろ"], "トゥーラ"),
+          ...say(["娘は、番号には応じなかった。"]),
+        ]),
         ...bossBattle(TROOP.daughter, [MAP.lab, 11, 9, LEFT]),
         ifScript("Hai.Boss.lastResult() === 0"),
         ...say(["あ。灯が、消えた。"], "研究者の娘", 1),
         ...say(["娘は床に座りこみ、扉の方を向いたまま動かなくなった。", "縫い跡の糸が一本ずつほどけ、白い服だけが残った。"], "", 1),
+        ...indented(aside(W17_ACTOR.tula, null, say(["トゥーラは、床の布の人形を拾った。片腕が別の布で縫い付けてある。", "白い服の上に置いて、何も言わなかった。"])), 1), // W17（台本 18）
         ...say(["北の扉の閂が、内側から外れる音がした。"], "", 1),
         end(1),
         ENDIF(),
