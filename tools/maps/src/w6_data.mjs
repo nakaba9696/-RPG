@@ -185,7 +185,7 @@ const moveRoute = (charId, steps) => {
 const shanoScene = indent => [
   cmd(230, [15], indent),
   ...moveRoute(SHANO_HIDE_ID, shanoWalk).map(c => ({ ...c, indent })),
-  ...say(["……火、つけたの、あんた？"], "シャノ", indent),
+  ...say(["火、つけたの、あんた？"], "シャノ", indent),
   ...say(["おれ、鉄を拾いに来ただけ。鈴、蹴っちゃった。ごめん"], "シャノ", indent),
   cmd(111, [12, "Hai.Thoughts.isRead('K01')"], indent),
   ...say(["さっき誰と話してたの？　……ま、いいや"], "シャノ", indent + 1),
