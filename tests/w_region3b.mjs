@@ -1,6 +1,6 @@
 // W9（#157）地域三・地下水道と地下都市（docs/world.md 5.1・5.2・5.5・6.4・7.2・8.1・8.3、tools/maps/src/w9_*）の通しの検査：
 //   営倉の牢番の詰め所 035 の西の扉（牢番の鍵束）→ 地下水道・上流 100：アンセルモの記憶 1・王の布告（手がかり）・舫いの杭（櫂）で南の洞の赤い宝箱・沈んだ戸口
-//   → 水門 101：上流の弁だけでは水が引かない → 下流の弁で引く（スイッチ 505）・アンセルモの記憶 2 → 沈んでいた南の廊下
+//   → 水門 101：上流の弁だけでは水が引かない → 下流の弁で引く（スイッチ 505）・アンセルモの記憶 2・廃水の管（H35）で鋳物場 091 と行き来 → 沈んでいた南の廊下
 //   → 閉じた扉の前 102（角灯で暗がりが半径 5）：アンセルモの遺骸と記憶 4（完全体）・記憶 3・騎士長の日誌・弔いの名簿・扉の番の手がかり
 //   → 扉の番 103：王の布告を見せると戦いの頭に「迷い」・倒すとスイッチ 504・衛兵の兜 → 水底の鐘 104：鳴らす（スイッチ 103・変数 101 に 1、4 つ目ならスイッチ 105・当番の札）
 //   → 井戸の縦穴 105：村の長（頼み「扉の外の歌」→ 弔いの名簿を見せると大扉の閂、スイッチ 510）・大扉の内側 → 102
@@ -12,11 +12,11 @@ import { POINTS, drawAll } from "../tools/maps/src/w9_maps.mjs";
 
 drawAll();
 const S0 = POINTS.sewerUpper, S1 = POINTS.sluice, G2 = POINTS.gateFront, G3 = POINTS.gateKeeper, B4 = POINTS.bellDeep, WL = POINTS.well;
-const FORT = 10, WARDEN_POST = 35, PASSAGE = 37, SEWER = 100, SLUICE = 101, GATE = 102, WARDEN_ROOM = 103, BELL = 104, WELL = 105;
+const FOUNDRY = 91, FORT = 10, WARDEN_POST = 35, PASSAGE = 37, SEWER = 100, SLUICE = 101, GATE = 102, WARDEN_ROOM = 103, BELL = 104, WELL = 105;
 const ITEM = { keyRing: 321, lantern: 322, oar: 501, decree: 503, journal: 504, dutyTag: 505, dirge: 508 };
 const ARMOR = { helm: 503 };
 const WEAPON = { censer: 502 };
-const SW = { westDoor: 308, drained: 505, valveUp: 506, valveDown: 507, rope: 508, grate: 509, gateOpened: 510, wardenWavers: 515, doorWarden: 504, anselmoFound: 135, bellWater: 103, bellsAll: 105 };
+const SW = { pipe: 517, westDoor: 308, drained: 505, valveUp: 506, valveDown: 507, rope: 508, grate: 509, gateOpened: 510, wardenWavers: 515, doorWarden: 504, anselmoFound: 135, bellWater: 103, bellsAll: 105 };
 const VAR = { songTask: 501, bellCount: 101 };
 const WARDEN_TROOP = 512, WAVER = 501;
 const ANSELMO = 9;
@@ -221,6 +221,13 @@ await runTest(async () => {
     const down = await look(SLUICE, S1.valveDown[0], S1.valveDown[1] + 1, 8, ["回す"]);
     check(down.includes("水が、低い音") && (await sw(SW.drained)), "下流の弁で水が引かない（スイッチ 505） " + JSON.stringify(down));
     check((await look(SLUICE, S1.anselmo2[0], S1.anselmo2[1] + 1, 8)).includes("最初の日のほかは"), "アンセルモの記憶 2");
+    // H35：廃水の管の口の閂を外し、鋳物場 091 と行き来する
+    await look(SLUICE, S1.arrivePipe[0], S1.arrivePipe[1], 6, ["閂を外す"]);
+    check(await sw(SW.pipe), "廃水の管の格子の閂（スイッチ 517）");
+    await talk(["管をくぐる"]);
+    await arrive(FOUNDRY, 52, 37);
+    await look(FOUNDRY, 52, 37, 2, ["管をくぐる"]);
+    await arrive(SLUICE, S1.arrivePipe[0], S1.arrivePipe[1]);
     await go(SLUICE, S1.exitS[0], S1.flood[0][1] - 1, 2);
     while ((await pos()).y < S1.exitS[1]) check(await step(2), `水の引いた南の廊下を通れない ${JSON.stringify(await pos())}`);
     await arrive(GATE, G2.arriveN[0], G2.arriveN[1]);

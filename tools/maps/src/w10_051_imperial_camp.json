@@ -1,0 +1,1522 @@
+{
+  "_説明": "W10（#156）：帝国の陣跡（docs/world.md 2.2・5.2・7.2）。南の道→050、東の道→052、北西の地下壕の扉（地下壕の鍵。052 のグィドがくれる）→090。名無し（頼みごと「名を返す」の始まり）、名無し兵の手紙、援軍の荷車の鉤綱（スイッチ 312）、結界、見張りの高台（坂）、攻城弩の台の裏の見えない通路。この設定は node tools/maps/src/w10_data.mjs が書く。",
+  "mapId": 51,
+  "name": "帝国の陣跡",
+  "displayName": "帝国の陣跡",
+  "legend": "cliff",
+  "tilesetId": 20,
+  "note": "<hai_tone:-17,-17,-17,85>\n<hai_parallax:Mountains1,0,0>\n<hai_ash:4>\n<hai_hidden_tiles:D:183,D:26>",
+  "bgm": {
+    "name": "Field4",
+    "volume": 65,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Wind4",
+    "volume": 45,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Wasteland",
+    "battleback2Name": "Cliff"
+  },
+  "chars": {
+    "^": {
+      "name": "高い段（段差B（土）の上面。下の 1 行に崖の側面が自動で付く）",
+      "ledge": {
+        "top": "A4:37",
+        "side": "A4:45",
+        "height": 1
+      }
+    },
+    "R": {
+      "name": "崖に掛けた綱（側面の行。通れる。鉤綱を掛けるまではイベントが塞ぐ）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "B:19"
+      ]
+    },
+    "/": {
+      "name": "坂の石段（段 1 の側面に刻んだ階段）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "B:1"
+      ]
+    },
+    "b": {
+      "name": "吊り橋（横。谷の上。通れる）",
+      "as": " ",
+      "tiles": [
+        null,
+        null,
+        "B:83"
+      ]
+    },
+    "%": {
+      "name": "苔（手がかり：見えない通路の手前の床）",
+      "as": ".",
+      "tiles": [
+        null,
+        "A2:23"
+      ]
+    }
+  },
+  "deco": {
+    "x": {
+      "name": "骸骨（通れない）",
+      "z2": "D:242"
+    },
+    "X": {
+      "name": "骸骨B（通れない）",
+      "z2": "C:24"
+    },
+    "r": {
+      "name": "瓦礫（通れない）",
+      "z2": "D:120"
+    },
+    "p": {
+      "name": "折れた石の柱（通れない）",
+      "z2": "D:113"
+    },
+    "s": {
+      "name": "槍（通れない）",
+      "z2": "E:132"
+    },
+    "S": {
+      "name": "槍B（通れない）",
+      "z2": "E:133"
+    },
+    "h": {
+      "name": "盾（通れない）",
+      "z2": "E:138"
+    },
+    "a": {
+      "name": "鎧のスタンド（通れない）",
+      "z2": "E:160"
+    },
+    "t": {
+      "name": "枯れ木（通れない）",
+      "z2": "B:240"
+    },
+    "T": {
+      "name": "枯れ木B（通れない）",
+      "z2": "B:232"
+    },
+    "k": {
+      "name": "小石（通れる）",
+      "z2": "B:171"
+    },
+    "o": {
+      "name": "岩A（通れない）",
+      "z2": "B:159"
+    },
+    "O": {
+      "name": "岩B（通れない）",
+      "z2": "B:167"
+    },
+    "w": {
+      "name": "薪（通れない）",
+      "z2": "B:170"
+    },
+    "c": {
+      "name": "木箱（通れない）",
+      "z2": "B:181"
+    },
+    "v": {
+      "name": "樽（通れない）",
+      "z2": "B:141"
+    },
+    "f": {
+      "name": "石のかまど（通れない）",
+      "z2": "B:147"
+    },
+    "B": {
+      "name": "倒れた子鐘（通れない）",
+      "z2": "E:121"
+    }
+  },
+  "stamps": [
+    {
+      "at": "幕",
+      "name": "破れた天幕（3×3。下の段の真ん中が入口）",
+      "tiles": [
+        [
+          "B:29",
+          "B:30",
+          "B:31"
+        ],
+        [
+          "B:37",
+          "B:38",
+          "B:39"
+        ],
+        [
+          "B:45",
+          "B:46",
+          "B:47"
+        ]
+      ]
+    }
+  ],
+  "scatter": [
+    {
+      "on": ".",
+      "z": 1,
+      "tiles": [
+        "A2:15"
+      ],
+      "rate": 0.08,
+      "seed": 5101
+    },
+    {
+      "on": ".",
+      "tiles": [
+        "B:171",
+        "B:239",
+        "B:252"
+      ],
+      "rate": 0.12,
+      "seed": 5102
+    },
+    {
+      "on": "^",
+      "tiles": [
+        "B:171",
+        "B:239"
+      ],
+      "rate": 0.05,
+      "seed": 5103
+    }
+  ],
+  "events": [
+    {
+      "name": "南の道（尾根道へ）",
+      "type": "transfer",
+      "x": 24,
+      "y": 39,
+      "to": [
+        50,
+        55,
+        1,
+        "down"
+      ]
+    },
+    {
+      "name": "南の道（尾根道へ）",
+      "type": "transfer",
+      "x": 25,
+      "y": 39,
+      "to": [
+        50,
+        55,
+        1,
+        "down"
+      ]
+    },
+    {
+      "name": "南の道（尾根道へ）",
+      "type": "transfer",
+      "x": 26,
+      "y": 39,
+      "to": [
+        50,
+        55,
+        1,
+        "down"
+      ]
+    },
+    {
+      "name": "東の道（吊り橋と烽火台へ）",
+      "type": "transfer",
+      "x": 49,
+      "y": 17,
+      "to": [
+        52,
+        1,
+        14,
+        "right"
+      ]
+    },
+    {
+      "name": "東の道（吊り橋と烽火台へ）",
+      "type": "transfer",
+      "x": 49,
+      "y": 18,
+      "to": [
+        52,
+        1,
+        14,
+        "right"
+      ]
+    },
+    {
+      "name": "東の道（吊り橋と烽火台へ）",
+      "type": "transfer",
+      "x": 49,
+      "y": 19,
+      "to": [
+        52,
+        1,
+        14,
+        "right"
+      ]
+    },
+    {
+      "name": "地下壕の扉",
+      "type": "raw",
+      "x": 10,
+      "y": 3,
+      "note": "<hai_locked:地下壕の鍵><hai_key:601>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 2
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 2
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                90,
+                8,
+                3,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "地下壕の扉の札",
+      "type": "text",
+      "x": 11,
+      "y": 4,
+      "lines": [
+        "扉の脇の札「地下壕。鍵は番の者が持つ」。",
+        "札の下に、別の手で「番の者、帰らず」。"
+      ]
+    },
+    {
+      "name": "結界（帝国の陣跡）",
+      "type": "raw",
+      "x": 20,
+      "y": 21,
+      "note": "<hai_warp:帝国の陣跡>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "名無し（陣跡）",
+      "type": "raw",
+      "x": 28,
+      "y": 11,
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 7,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "天幕の前に、鎧の者が座っている。顔の所に、布が巻いてある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "こちらを見ると、膝の上の石板に、白い石で字を書いた。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "「墓守と見受けた。声は出ない。払った。書いて話す」"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "「この下の鋳物場の奥に、帝国の研究所がある」"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "「研究所の観察の記録を、持って来てほしい」"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "「代わりに、研究所の門を開ける綱の在りかを書いておく」"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "「型の間の西の壁際。引けば門が上がる」"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "引き受ける",
+                  "断る"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "引き受ける"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "名無しは、石板の字を袖で消した。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "「鋳物場の南西の小部屋で待つ。古い寝床がある」"
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 1,
+              "parameters": [
+                601,
+                601,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                606,
+                606,
+                0
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_Notes",
+                "errand",
+                "頼みごとを進める",
+                {
+                  "key": "name",
+                  "title": "名を返す",
+                  "who": "名無し",
+                  "stage": "1",
+                  "text": "研究所の観察の記録を、名無しに（鋳物場の南西の小部屋）",
+                  "variableId": "164"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "key = name"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "title = 名を返す"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "who = 名無し"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "stage = 1"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = 研究所の観察の記録を、名無しに（鋳物場の南西の小部屋）"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 164"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_Thoughts",
+                "addNote",
+                "メモに足す",
+                {
+                  "text": "研究所の門の綱：型の間の西の壁際（名無し）",
+                  "id": "nameless:gate",
+                  "kind": "clue"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = 研究所の門の綱：型の間の西の壁際（名無し）"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "id = nameless:gate"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "kind = clue"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "\\C[6]メモ：\\C[0]研究所の観察の記録を、名無しに（鋳物場の南西の小部屋）"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "断る"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "名無しは、石板に一つだけ書いた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "「了解」"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "variableId": 601,
+            "variableValid": true,
+            "variableValue": 1
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "帝国の兵の骸（手紙）",
+      "type": "raw",
+      "x": 14,
+      "y": 22,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "焚き火の跡の脇に、帝国の兵の骸。膝の上に、封をした手紙。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                603,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[192]名無し兵の手紙を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "焚き火の跡の脇に、帝国の兵の骸。膝の上は空だ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（鉤綱）",
+      "type": "raw",
+      "x": 46,
+      "y": 22,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                602,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                312,
+                312,
+                0
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[234]鉤綱を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "援軍の荷車",
+      "type": "text",
+      "x": 44,
+      "y": 23,
+      "lines": [
+        "荷車の札は「後発」。荷は綱と油と、乾いた麦。",
+        "麦の袋は、一つも開けていない。"
+      ]
+    },
+    {
+      "name": "宝箱（帝国の小盾）",
+      "type": "raw",
+      "x": 45,
+      "y": 28,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 128,
+              "indent": 0,
+              "parameters": [
+                603,
+                0,
+                0,
+                1,
+                false
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[128]帝国の小盾を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "拾い物（砦の名札）",
+      "type": "raw",
+      "x": 40,
+      "y": 7,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "見張りの高台の隅に、木の名札が落ちている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "黒鉄の砦の兵の名札だ。紐が、帝国の結び方で結び直してある。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                328,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[197]砦の名札を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "拾い物（鉄くず）",
+      "type": "raw",
+      "x": 31,
+      "y": 33,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 125,
+              "indent": 0,
+              "parameters": [
+                0,
+                0,
+                50
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鉄くずを 50 手に入れた。"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "拾い物（薬草）",
+      "type": "raw",
+      "x": 6,
+      "y": 21,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                196,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]薬草を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "思念 R4-05 後発の輜重兵",
+      "type": "text",
+      "x": 40,
+      "y": 21,
+      "note": "<hai_thought:R4-05>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "後発の隊は、先発の隊の三日後に着く決まりだった。",
+        "着いたら、先発の隊は名簿ごと無かった。",
+        "名簿が無いと、誰を待てばいいのか分からない。それで、まだ待っている。"
+      ]
+    },
+    {
+      "name": "思念 R4-06 陣の書記",
+      "type": "text",
+      "x": 16,
+      "y": 15,
+      "note": "<hai_thought:R4-06>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "古言兵の名簿をつけるのが仕事だった。",
+        "名を払った兵は、名簿から消す。消すと、誰に糧を出したか分からなくなる。",
+        "だから番号を振った。番号は払えないそうだ。"
+      ]
+    },
+    {
+      "name": "攻城弩",
+      "type": "text",
+      "x": 38,
+      "y": 9,
+      "lines": [
+        "高台の攻城弩。弦は切れている。",
+        "向きは西。砦の方だ。"
+      ]
+    },
+    {
+      "name": "天幕",
+      "type": "text",
+      "x": 15,
+      "y": 12,
+      "lines": [
+        "破れた天幕。中に寝具が十。九つは畳んである。"
+      ]
+    },
+    {
+      "name": "陣の敷石",
+      "type": "text",
+      "x": 25,
+      "y": 23,
+      "lines": [
+        "敷石に、帝国の印が刻んである。",
+        "一つおきに、印の上から別の印が彫り重ねてある。"
+      ]
+    },
+    {
+      "name": "名無し（黄・往復）",
+      "type": "raw",
+      "x": 22,
+      "y": 30,
+      "note": "<hai_enemy:603,yellow>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 7,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 4,
+          "moveType": 3,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "灰山羊（緑）",
+      "type": "raw",
+      "x": 36,
+      "y": 28,
+      "note": "<hai_enemy:601,green>\n<hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Nature",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 3,
+          "moveType": 1
+        }
+      ]
+    },
+    {
+      "name": "尾根の狼（緑）",
+      "type": "raw",
+      "x": 7,
+      "y": 13,
+      "note": "<hai_enemy:602,green>\n<hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 3,
+          "moveType": 1
+        }
+      ]
+    },
+    {
+      "name": "名無しの射手（黄・番兵）",
+      "type": "raw",
+      "x": 42,
+      "y": 10,
+      "note": "<hai_enemy:604,yellow>\n<hai_enemy_chase:4>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 3,
+          "moveType": 0
+        }
+      ]
+    }
+  ]
+}

@@ -780,8 +780,9 @@ const rampartConfig = {
       pages: [
         { image: { characterName: "!$Gate1", characterIndex: 0, direction: DOWN, pattern: 1 }, priorityType: 1, walkAnime: false,
           list: [...say(["外へ下りる門。外から閂が掛かっていて、内からは動かない。", "門の下の隙間から、灰をかぶった山道が見える。"]), END] },
-        { conditions: { switch1Id: SW.eastGate, switch1Valid: true }, image: { characterName: "!$Gate1", characterIndex: 0, direction: UP, pattern: 1 }, priorityType: 1, walkAnime: false,
-          list: [...say(["東門の閂は外れている。"]), END] },
+        // 閂が外れたら、触れると城壁の東門の外（054。W10 #156）へ
+        { conditions: { switch1Id: SW.eastGate, switch1Valid: true }, image: { characterName: "!$Gate1", characterIndex: 0, direction: UP, pattern: 1 }, priorityType: 1, trigger: 1, walkAnime: false,
+          list: [se("Move1"), cmd(201, [0, 54, 20, 6, DOWN, 0]), END] },
       ],
     },
     {

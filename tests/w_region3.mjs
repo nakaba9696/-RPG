@@ -184,7 +184,7 @@ await runTest(async () => {
     };
 
     // ===== 1. 焼けた村の広場 → 霧の湖・葦原 070 =====
-    await go(SQUARE, 38, 31, 2);
+    await go(SQUARE, 38, 32, 2); // W8（#155）の広場の水路の石段 (38,33) の手前
     await step(2);
     await arrive(LAKE, L.entry[0], L.entry[1]);
     const lakeInfo = await game.eval(() => ({ w: $dataMap.width, h: $dataMap.height, fog: Hai.MapTone.fog(), name: $gameMap.displayName(), tileset: $gameMap.tilesetId() }));

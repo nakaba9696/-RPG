@@ -21,7 +21,12 @@ import { POINTS, MAPS, drawAll } from "./w9_maps.mjs";
 drawAll();
 const check = process.argv.includes("--check");
 const outputs = [];
-const writeTable = (name, array) => outputs.push({ file: dataPath(name), text: formatTable(array) });
+const writeTable = (name, array) => {
+  const file = dataPath(name);
+  const i = outputs.findIndex(o => o.file === file);
+  if (i >= 0) outputs.splice(i, 1); // 同じ表を二度書くときは後のものだけ
+  outputs.push({ file, text: formatTable(array) });
+};
 
 // ---------------------------------------------------------------------------
 // ID
@@ -43,7 +48,7 @@ export const TROOP = {
 export const SW = {
   fogPath: 501, oar: 502, marshLord: 503, doorWarden: 504, drained: 505, valveUp: 506, valveDown: 507,
   rope: 508, grate: 509, gateOpened: 510, askedOutsiders: 511, waterGateOpen: 512, waterGateShut: 513,
-  toldMirlene: 514, wardenWavers: 515, askedSong: 516,
+  toldMirlene: 514, wardenWavers: 515, askedSong: 516, pipe: 517,
 };
 export const VAR = { songTask: 501 };
 // world.md 4.4 の旗（W6 の帯）と P の帯：使うだけ
@@ -68,6 +73,7 @@ const SWITCH_NAMES = {
   514: "頼み:ミルレーネに水門のことを伝えた",
   515: "ボス:扉の番が布告を見た（戦いの頭に迷う）",
   516: "頼み:村の長に扉の外の歌のことを聞いた",
+  517: "水道:廃水の管の格子の閂（101↔091。H35）",
 };
 const VARIABLE_NAMES = {
   501: "頼み:扉の外の歌（0 未・1 聞いた・2 名簿を見せた・3 見せなかった）",
@@ -225,9 +231,10 @@ writeTable("Skills.json", skills);
 
 // States
 const emptyState = id => ({
-  id, autoRemovalTiming: 0, chanceByDamage: 100, traits: [], iconIndex: 0, maxTurns: 1, message1: "", message2: "", message3: "", message4: "",
-  minTurns: 1, motion: 0, name: "", note: "", overlay: 0, priority: 50, removeAtBattleEnd: true, removeByDamage: false,
-  removeByRestriction: false, removeByWalking: false, restriction: 0, stepsToRemove: 100, messageType: 1,
+  id, autoRemovalTiming: 0, chanceByDamage: 100, iconIndex: 0, maxTurns: 1, message1: "", message2: "", message3: "", message4: "",
+  minTurns: 1, motion: 0, name: "", note: "", overlay: 0, priority: 50, releaseByDamage: false, removeAtBattleEnd: true,
+  removeByDamage: false, removeByRestriction: false, removeByWalking: false, restriction: 0, stepsToRemove: 100, traits: [],
+  messageType: 1,
 });
 const states = readData("States.json");
 clearBand(states, emptyState);
@@ -355,6 +362,26 @@ troops[TROOP.doorWarden].pages = [
     ] },
 ];
 writeTable("Troops.json", troops);
+
+// ---------------------------------------------------------------------------
+// 前の世界の魚人の湿地（W4。070–073）の物を空にする（issue #157 の 10。W8 #155 が「W9 が湖を作り直すまで触らない」と残した物）。
+// 帯は W8 の 401–500 の中だが、どのマップからも使われていない。名前が前の世界のままのときだけ空にする（何度走らせても同じ）。
+// ---------------------------------------------------------------------------
+const OLD_MARSH = {
+  "Items.json": [[null, { 401: "灰の病の届け帳", 402: "牙の首飾り", 406: "沼主の髭" }, emptyItem]],
+  "Weapons.json": [[null, { 401: "漁師の銛" }, emptyWeapon]],
+  "Armors.json": [[null, { 401: "歌い手の首飾り", 402: "水鏡の護符" }, emptyArmor]],
+  "Skills.json": [[null, { 401: "吸い付き", 402: "眠りの舌", 403: "溺れの息", 404: "惑わしの羽", 405: "噛み砕き", 406: "尾の一撃", 407: "泥吐き", 408: "呑み込み", 409: "淵に潜る", 410: "大波" }, emptySkill]],
+  "States.json": [[null, { 401: "淵に潜る", 402: "呑み込まれ" }, emptyState]],
+  "Enemies.json": [[null, { 401: "葦蛭", 402: "泥蛙", 403: "沈み人", 404: "霧の鷺", 405: "大顎", 406: "沼主", 413: "沼主" }, emptyEnemy]],
+  "Troops.json": [[null, { 401: "W4_緑：葦蛭", 402: "W4_緑：泥蛙", 403: "W4_黄：沈み人", 404: "W4_黄：霧の鷺", 405: "W4_赤：大顎", 406: "W4_ボス：沼主" }, emptyTroop]],
+};
+const TABLES = { "Items.json": items, "Weapons.json": weapons, "Armors.json": armors, "Skills.json": skills, "States.json": states, "Enemies.json": enemies, "Troops.json": troops };
+for (const [file, [[, names, makeEmpty]]] of Object.entries(OLD_MARSH)) {
+  const table = TABLES[file];
+  for (const [id, name] of Object.entries(names)) if (table[id] && table[id].name === name) table[id] = makeEmpty(Number(id));
+  writeTable(file, table);
+}
 
 // ---------------------------------------------------------------------------
 // System.json（スイッチ・変数 501–600 の名前）と MapInfos.json（070–074・100–105 の名前）
@@ -624,8 +651,8 @@ const LAKE = 70, HOUSE = 71, PIER = 72, POOL = 73, ISLE = 74;
 const SEWER = 100, SLUICE = 101, GATE = 102, WARDEN_ROOM = 103, BELL = 104, WELL = 105;
 const L = POINTS.lake, H = POINTS.house, PI = POINTS.pier, PO = POINTS.pool, IS = POINTS.isle;
 const S0 = POINTS.sewerUpper, S1 = POINTS.sluice, G2 = POINTS.gateFront, G3 = POINTS.gateKeeper, B4 = POINTS.bellDeep, WL = POINTS.well;
-// 焼けた村の広場（061。今は前の世界の W3 の形。W8 #155 が作り直したら、後から main に入る方が座標を合わせる）
-const SQUARE = { mapId: 61, x: 38, y: 31 };
+// 焼けた村の広場（061。W8 #155）
+const SQUARE = { mapId: 61, x: 38, y: 32 }; // W8（#155）の広場の水路の石段 (38–39,33) の手前
 
 // 霧の濃さ：霧の道が引いたら薄く、森の水門を開けたらもっと薄く（マップに入るたびに並列で一度だけ見る）
 const fogAuto = (dens1, dens2) => ev.raw("霧の濃さ（自動）", [0, 0], [{
@@ -920,6 +947,7 @@ CONFIGS.push(config("w9_074_isle", ISLE, "小島", "lake", [
 // 100 地下水道・上流
 // ---------------------------------------------------------------------------
 const WARDEN_POST = { mapId: 35, x: 3, y: 8 }; // 営倉の牢番の詰め所（W7）の西の扉の内側
+const FOUNDRY = { mapId: 91, x: 52, y: 37 }; // 鋳物場・型の間（W10 #156）の廃水の管 (52,38) の前
 const lanternAuto = ev.raw("角灯の明かり（自動）", [0, 0], [{
   priorityType: 0, trigger: 4,
   list: [ifItem(ITEM.lantern), ...plugin("Hai_MapTone", "dark", "暗がりの半径を変える", { radius: "5" }, 1), close(1), ENDIF(), cmd(214, []), END],
@@ -1012,9 +1040,16 @@ CONFIGS.push(config("w9_101_sluice", SLUICE, "地下水道・水門", "sewer", [
   ev.memory(ACTOR.anselmo, 2, "アンセルモ", S1.anselmo2, ["王国の司祭として、地下へ下りる列の世話を言いつけられた。", "年寄りの手を引いて、子どもを肩に乗せて、水の上の板を渡す。三日、歌いながらの。", "歌うと、列が速く進む。酒は一滴も飲まんかった。最初の日のほかはな。"]),
   ev.thought("R3-15", "札の無い子", S1.r313, ["列のまえのほうで、司祭さまが歌ってた。へたくそって、みんな笑ってた。", "おれ、札がなかったから、列の横を走ってついてった。", "水の上の板のとこで、兵隊さんに止められた。"]),
   ev.thought("R3-16", "管の口の番", S1.r314, ["東の管から流れてくる水は、いつも鉄の味がした。", "山の根の鋳物場の湯だと、水番が言っていた。管の中は、人がかがんで通れる。", "通って逃げようとした者がいる。戻ってこなかったから、通れたんだろう。"]),
-  ev.raw("廃水の管の口", S1.pipe, [{ image: { tileId: "E:109" }, priorityType: 1, list: [
-    ...say(["壁に、人がかがんで通れるほどの管の口。奥から、鉄の匂いの風が来る。"]), END,
-  ] }], "<hai_w9:H35。091（W10）からの管の出口。091 への場所移動は W10 が足す>"),
+  ev.raw("廃水の管の口（H35。鋳物場 091 へ）", S1.pipe, [
+    { image: { tileId: "E:109" }, priorityType: 1, list: [
+      ...say(["壁に、人がかがんで通れるほどの管の口。奥から、鉄の匂いの風が来る。", "口の格子に、こちら側から閂が掛かっている。"]),
+      ...choice(["閂を外す", "やめる"], 1, [[se("Open2"), swOn(SW.pipe), ...say(["閂を外した。管は、上の方へ続いている。"])], []]),
+      END,
+    ] },
+    { conditions: { switch1Id: SW.pipe, switch1Valid: true }, image: { tileId: "E:109" }, priorityType: 1, list: [
+      ...choice(["管をくぐる", "やめる"], 1, [[se("Move1"), transferCmd(FOUNDRY.mapId, FOUNDRY.x, FOUNDRY.y, UP)], []]), END,
+    ] },
+  ], "<hai_w9:H35。鋳物場 091（W10）の廃水の管 (52,38) とつながる。閂はこちら側（スイッチ 517）>"),
   ev.thought("R3-17", "列を止めた兵", S1.r315, ["命令は、日没に列を止めろ、だった。", "日没の鐘は鳴らなかった。だから、自分の数で日没を決めた。", "三十まで数えて、槍を横にした。槍の向こうに、まだ二百はいた。"]),
   ev.chest("水番の長靴", S1.swChest, ["a", ARMOR.boots, 1]),
   ev.floor("苔の床", S1.hint, ["南の壁ぎわの床だけ、苔が厚い。壁に、影が落ちていない所がある。"]),
