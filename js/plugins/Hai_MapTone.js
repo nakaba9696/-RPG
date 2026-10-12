@@ -27,6 +27,11 @@
  *   <hai_ash:4>
  *     降る灰。灰色の粒がゆっくり舞い落ちる（強さ 1〜9。数が増える）。天候（雨・雪）とは別に重ねられる。絵は使わない。
  *
+ * 門叩きの縄張り（world.md 3.7）：3 つ目の鐘のあと、まだ鳴っていない最後の地域の色調が暗くなり、霧が出る。
+ *   プラグインコマンド「lair」で地域（west・south・east）を指定すると、その地域のマップ（パラメータ「縄張りの地域」）に入ったとき
+ *   メモ欄の色調に「縄張りの色調の差」を足し、霧の濃さに「縄張りの霧」を足す（霧の無いマップにも薄い霧が出る）。
+ *   地域は $gameSystem に持つ（セーブに入る）。「lairReset」で戻す（4 つ目の鐘のあと）。マップのメモ欄は書き換えない。
+ *
  * 暗がりは、画面の 1/4 の大きさの絵（中心が透明な黒）を 1 回だけ描き、4 倍に拡大してプレイヤーに付いて動かす。
  * 毎フレームの描き直しはしない（半径・濃さ・画面の大きさが変わったときだけ描き直す）。
  *
@@ -45,6 +50,26 @@
  * @min 0
  * @max 100
  * @default 45
+ *
+ * @param lairAreas
+ * @text 縄張りの地域
+ * @desc 地域の名前とマップ ID の範囲。「名前:始め-終わり,…」を ; で区切る（docs/look.md 3.4）。
+ * @type string
+ * @default west:60-64,80-84,110-124;south:70-74,100-105;east:50-54,90-94
+ *
+ * @param lairTone
+ * @text 縄張りの色調の差
+ * @desc 縄張りになった地域のマップで、メモ欄の色調に足す値（赤, 緑, 青, グレー）。
+ * @type string
+ * @default -51,-51,-34,51
+ *
+ * @param lairFog
+ * @text 縄張りの霧
+ * @desc 縄張りになった地域のマップで、霧の濃さに足す値（0〜255）。0 で霧は足さない。
+ * @type number
+ * @min 0
+ * @max 255
+ * @default 50
  *
  * @command dark
  * @text 暗がりの半径を変える
@@ -90,6 +115,23 @@
  *
  * @command ashReset
  * @text 降る灰をメモ欄の値に戻す
+ *
+ * @command lair
+ * @text 縄張りの地域を決める
+ * @desc 門叩きが縄張りを広げた地域（3 つ目の鐘のあと、まだ鳴っていない地域）。その地域のマップの色調が暗くなり、霧が出る。
+ *
+ * @arg area
+ * @text 地域
+ * @desc パラメータ「縄張りの地域」の名前（west＝西の谷と麦の街道、south＝南の水、east＝東の山）。
+ * @type select
+ * @option west
+ * @option south
+ * @option east
+ * @default west
+ *
+ * @command lairReset
+ * @text 縄張りを消す
+ * @desc 4 つ目の鐘を鳴らして門叩きが退いたとき。地域の色調と霧が元に戻る。
  */
 (() => {
   "use strict";
@@ -104,6 +146,26 @@
   const FOG_SY = 0.05;
   const FOG_SIZE = 384;
   const ASH_PER_POWER = 10;
+  // 縄張り（門叩き）の地域と、足す色調・霧
+  const lairAreas = parseAreas(params.lairAreas ?? "west:60-64,80-84,110-124;south:70-74,100-105;east:50-54,90-94");
+  const lairTone = String(params.lairTone || "-51,-51,-34,51")
+    .split(",")
+    .map(s => Number(s.trim()) || 0);
+  const lairFog = Number(params.lairFog ?? 50);
+
+  /** 「名前:始め-終わり,…;…」→ { 名前: [[始め, 終わり], …] } */
+  function parseAreas(text) {
+    const out = {};
+    for (const part of String(text).split(";")) {
+      const [name, ranges] = part.split(":").map(s => (s || "").trim());
+      if (!name || !ranges) continue;
+      out[name] = ranges.split(",").map(r => {
+        const [a, b] = r.split("-").map(Number);
+        return [a, Number.isFinite(b) ? b : a];
+      });
+    }
+    return out;
+  }
 
   function numbers(text) {
     return String(text)
@@ -158,16 +220,38 @@
 
   const sameTone = (a, b) => !!a && !!b && a.length === b.length && a.every((v, i) => v === b[i]);
 
-  /** 今のマップのメモ欄の色調を掛ける（場所移動のたびに Game_Map.setup から呼ぶ）。 */
-  function applyMapTone() {
-    const st = state();
+  /** マップ ID の地域の名前（パラメータ「縄張りの地域」。どこにも入らなければ null）。 */
+  function areaOf(mapId) {
+    for (const [name, ranges] of Object.entries(lairAreas)) {
+      if (ranges.some(([a, b]) => mapId >= a && mapId <= b)) return name;
+    }
+    return null;
+  }
+
+  /** 今のマップが縄張りになった地域なら、その地域の名前（でなければ null）。 */
+  function lairHere() {
+    const lair = state().lair;
+    return lair && $gameMap && areaOf($gameMap.mapId()) === lair ? lair : null;
+  }
+
+  /** 今のマップの色調（メモ欄＋縄張りの差）。無ければ null。 */
+  function mapTone() {
     const tone = parseTone($dataMap && $dataMap.meta);
+    if (!lairHere()) return tone;
+    const base = tone || [0, 0, 0, 0];
+    return base.map((v, i) => Math.max(i === 3 ? 0 : -255, Math.min(255, v + (lairTone[i] || 0))));
+  }
+
+  /** 今のマップのメモ欄の色調を掛ける（場所移動のたびに Game_Map.setup から呼ぶ。縄張りが変わった時は duration で移る）。 */
+  function applyMapTone(duration = 0) {
+    const st = state();
+    const tone = mapTone();
     if (tone) {
-      $gameScreen.startTint(tone, 0);
+      $gameScreen.startTint(tone, duration);
       st.applied = tone.slice();
     } else if (st.applied) {
       // このプラグインが掛けた色調のままなら戻す。イベントで変えられていたら触らない。
-      if (sameTone($gameScreen._toneTarget, st.applied)) $gameScreen.startTint([0, 0, 0, 0], 0);
+      if (sameTone($gameScreen._toneTarget, st.applied)) $gameScreen.startTint([0, 0, 0, 0], duration);
       st.applied = null;
     }
   }
@@ -182,7 +266,10 @@
     /** 今のマップの霧 { density, sx, sy }（無ければ null）。プラグインコマンドで変えた濃さを含む。 */
     fog() {
       if (!$gameMap || !$dataMap) return null;
-      const base = parseFog($dataMap.meta);
+      let base = parseFog($dataMap.meta);
+      if (lairFog > 0 && lairHere()) {
+        base = { density: Math.min(255, (base ? base.density : 0) + lairFog), sx: base ? base.sx : FOG_SX, sy: base ? base.sy : FOG_SY };
+      }
       const override = $gameMap._haiFogDensity;
       if (override === undefined || override === null) return base;
       if (!(override > 0)) return null;
@@ -208,7 +295,14 @@
     appliedTone() {
       return state().applied ? state().applied.slice() : null;
     },
-    params: { darkOpacity, darkSoftness },
+    areaOf,
+    /** 縄張りになった地域の名前（lair コマンドで決めた値。無ければ null）。 */
+    lair() {
+      return $gameSystem ? state().lair || null : null;
+    },
+    /** 今のマップが縄張りになった地域か（色調と霧が足されているか）。 */
+    lairHere: () => !!lairHere(),
+    params: { darkOpacity, darkSoftness, lairAreas, lairTone, lairFog },
   };
 
   PluginManager.registerCommand(pluginName, "dark", args => {
@@ -228,6 +322,15 @@
   });
   PluginManager.registerCommand(pluginName, "ashReset", () => {
     $gameMap._haiAshPower = null;
+  });
+  PluginManager.registerCommand(pluginName, "lair", args => {
+    const area = String(args.area || "").trim();
+    state().lair = lairAreas[area] ? area : null;
+    applyMapTone(60); // 今いるマップが縄張りになったら、1 秒で暗くなる
+  });
+  PluginManager.registerCommand(pluginName, "lairReset", () => {
+    state().lair = null;
+    applyMapTone(60);
   });
 
   // --- 色調と暗がりの上書きは、マップに入るたび（Game_Map.setup）に決める ---

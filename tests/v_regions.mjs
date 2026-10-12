@@ -1,11 +1,14 @@
-// V4 新しい世界の見た目：地域ごとのタイルセット・色調・霧と灰（tools/maps/looks.json）。
-//   1. ブラウザなし：looks.json の 11 の地域が揃い、どの場所もタイルセット（V_ で始まる名前・画像が在る）・凡例（同じタイルセットか、
-//      A〜C が同梱のダンジョンと同じ）・曲・環境音・戦闘の背景のファイルが在る。見本のマップ 916–918 の設定が looks.json の先頭の場所と同じ。
+// V4・V5 新しい世界の見た目：地域ごとのタイルセット・色調・霧と灰（tools/maps/looks.json）。
+//   1. ブラウザなし：looks.json の 15 の地域（V4 の 11 と V5 の 4）が揃い、どの場所もタイルセット（V_ で始まる名前・画像が在る）・凡例（同じタイルセットか、
+//      A〜C が同梱のダンジョンと同じ）・曲・環境音・戦闘の背景のファイルが在る。見本のマップ 916–918・920・921 の設定が looks.json の先頭の場所と同じ。
+//      スタンプ（looks.json の stamps）は、使えるタイルセットの B〜E の画像がそろい、見本のマップ 920・921 の設定と同じ。
 //   2. どの場所のメモ欄も Hai_MapTone が読める（色調・遠景・暗がり・霧・灰）。遠景の絵が在る。
 //   3. 地域ごとに見本のマップに入り、先頭の場所の見た目を掛けて撮る（製品のマップは今のメモ欄の代わりに looks.json の値を掛ける）。
-//      霧のある地域は霧の層が見え、灰のある地域は灰の粒が強さ × 10 個ある。最後に 11 枚を 1 枚に並べた絵を撮る。
+//      霧のある地域は霧の層が見え、灰のある地域は灰の粒が強さ × 10 個ある。最後に 15 枚と縄張りの 1 枚を 1 枚に並べた絵を撮る。
 //   4. 霧：霧の層で画面が明るくなる。プラグインコマンド fog 0 で 1 秒ほどで消え、fogReset で戻る。
 //      灰：粒は落ちていく。プラグインコマンド ash で数が変わり、0 で止まり、ashReset で戻る。
+//   5. 門叩きの縄張り（V5）：プラグインコマンド lair west で、西の谷のマップ（080）の色調が「縄張りの色調の差」だけ暗くなり、霧が足される。
+//      ほかの地域（070）は変わらない。lairReset で戻る。
 import fs from "node:fs";
 import path from "node:path";
 import { launchGame, check, runTest, ROOT, OUT_DIR } from "./lib.mjs";
@@ -14,16 +17,20 @@ import { readSource, findChars, LEGEND_PATH } from "../tools/maps/build.mjs";
 
 const LOOKS = JSON.parse(fs.readFileSync(path.join(ROOT, "tools", "maps", "looks.json"), "utf8"));
 const LEGEND = JSON.parse(fs.readFileSync(LEGEND_PATH, "utf8"));
-const SAMPLES = { 918: "v4_918_summit", 916: "v4_916_undercity", 917: "v4_917_foundry" };
-// issue #137 の地域（砦・霧の森・鉄の坑道・営倉・焼けた村・記録院・霧の湖・地下水道と地下都市・境山の古道・鋳物場と研究所・山の頂）
-const KEYS = ["fort", "forest", "mine", "prison", "village", "archive", "lake", "undercity", "pass", "foundry", "summit"];
+// 見本のマップ（文字マップ）。境山の高み（heights）は頂の見本 918 に高みの値を掛けて撮る。
+const SAMPLES = { 918: "v4_918_summit", 916: "v4_916_undercity", 917: "v4_917_foundry", 920: "v5_920_highway", 921: "v5_921_monastery" };
+// 見本のマップの設定が先頭の場所と同じでなければならない地域
+const OWN_SAMPLE = { summit: 918, undercity: 916, foundry: 917, highway: 920, monastery: 921 };
+// issue #137 の地域（砦・霧の森・鉄の坑道・営倉・焼けた村・記録院・霧の湖・地下水道と地下都市・境山の古道・鋳物場と研究所・山の頂）と
+// issue #173 の地域（麦の街道と関所・鐘守の修道院・門叩きの縄張り・境山の高み）
+const KEYS = ["fort", "forest", "mine", "prison", "village", "archive", "lake", "undercity", "pass", "foundry", "summit", "highway", "monastery", "lair", "heights"];
 const exists = (...p) => fs.existsSync(path.join(ROOT, ...p));
 
 // --- 1. ブラウザなし ---
 function checkData() {
   const tilesets = readData("Tilesets.json");
   const infos = readData("MapInfos.json");
-  check(LOOKS.regions.map(r => r.key).join() === KEYS.join(), "looks.json の地域が issue #137 の 11 と違う：" + LOOKS.regions.map(r => r.key).join());
+  check(LOOKS.regions.map(r => r.key).join() === KEYS.join(), "looks.json の地域が issue #137・#173 の 15 と違う：" + LOOKS.regions.map(r => r.key).join());
   const dungeonAC = tilesets[4].tilesetNames.slice(0, 7).join();
   let places = 0;
   for (const region of LOOKS.regions) {
@@ -51,8 +58,9 @@ function checkData() {
       places++;
     }
   }
-  // 見本のマップ 916–918 は looks.json の先頭の場所と同じ
-  for (const region of LOOKS.regions.filter(r => SAMPLES[r.sample])) {
+  // 見本のマップ 916–918・920・921 は looks.json の先頭の場所と同じ
+  for (const region of LOOKS.regions.filter(r => OWN_SAMPLE[r.key])) {
+    check(region.sample === OWN_SAMPLE[region.key], `${region.name} の見本のマップが ${OWN_SAMPLE[region.key]} でない`);
     const p = region.places[0];
     const map = readData(`Map${region.sample}.json`);
     check(map.tilesetId === p.tilesetId, `Map${region.sample} のタイルセット ${map.tilesetId} が looks.json の ${p.tilesetId} と違う`);
@@ -61,6 +69,28 @@ function checkData() {
     check(map.specifyBattleback && map.battleback1Name === p.battleback[0] && map.battleback2Name === p.battleback[1], `Map${region.sample} の戦闘の背景が looks.json と違う`);
   }
   console.log(`  地域 ${LOOKS.regions.length}、場所 ${places}：タイルセット・凡例・曲・環境音・戦闘の背景・遠景のファイルが在る`);
+
+  // スタンプ：使えるタイルセットは、スタンプが使う B〜E の画像が 1 つ目と同じ。見本のマップの設定のスタンプは looks.json と同じ形
+  const stamps = Object.entries(LOOKS.stamps).filter(([k]) => !k.startsWith("_"));
+  const used = new Set();
+  for (const [key, st] of stamps) {
+    const letters = new Set([...st.tiles, ...(st.upper || [])].flat().filter(Boolean).map(t => t.split(":")[0]));
+    const images = id => [...letters].map(l => tilesets[id].tilesetNames[5 + "BCDE".indexOf(l)]).join();
+    check(st.tilesets.length > 0 && st.tilesets.every(id => images(id) === images(st.tilesets[0])), `スタンプ ${key} の使えるタイルセット ${st.tilesets} の画像がそろわない`);
+  }
+  for (const name of Object.values(SAMPLES).filter(n => n.startsWith("v5_"))) {
+    const config = JSON.parse(fs.readFileSync(path.join(ROOT, "tools", "maps", "src", name + ".json"), "utf8"));
+    for (const st of config.stamps || []) {
+      const hit = stamps.find(([, s]) => s.name === st.name);
+      check(hit, `${name} のスタンプ「${st.name}」が looks.json の stamps に無い`);
+      if (!hit) continue;
+      check(JSON.stringify([st.tiles, st.upper || null]) === JSON.stringify([hit[1].tiles, hit[1].upper || null]), `${name} のスタンプ「${st.name}」の形が looks.json と違う`);
+      check(hit[1].tilesets.includes(config.tilesetId), `${name} のタイルセット ${config.tilesetId} でスタンプ「${st.name}」は使えない`);
+      used.add(hit[0]);
+    }
+  }
+  check(stamps.every(([k]) => used.has(k)), `見本のマップで使っていないスタンプ：${stamps.map(([k]) => k).filter(k => !used.has(k))}`);
+  console.log(`  スタンプ ${stamps.length}：使えるタイルセットの画像がそろい、見本のマップ 920・921 が同じ形で使う`);
 }
 
 await runTest(async () => {
@@ -221,9 +251,54 @@ await runTest(async () => {
     await game.frames(2);
     check((await game.eval(() => Hai.MapTone.ash().power)) === villageAsh, "ashReset で灰が戻らない");
 
+    // --- 5. 門叩きの縄張り：lair で地域の色調が暗くなり、霧が足される ---
+    const lair = await game.eval(() => ({ params: Hai.MapTone.params, area80: Hai.MapTone.areaOf(80), area70: Hai.MapTone.areaOf(70), area110: Hai.MapTone.areaOf(110) }));
+    check(lair.area80 === "west" && lair.area110 === "west" && lair.area70 === "south", `縄張りの地域の読み方が違う：${JSON.stringify(lair)}`);
+    const enter = async (id, x, y) => {
+      await game.call("transfer", id, x, y, 2);
+      await game.waitFor(m => window.__game.mapId() === m && !window.__game.isBusy(), id);
+      await game.eval(() => {
+        for (const e of $gameMap.events()) if (/hai_enemy/.test(e.event().note)) e.erase();
+        SceneManager._scene._mapNameWindow.hide();
+        // 地図の真ん中にいちばん近い、歩けてイベントの無いマス（撮る絵のため）
+        let best = null;
+        for (let y = 1; y < $gameMap.height() - 1; y++) {
+          for (let x = 1; x < $gameMap.width() - 1; x++) {
+            if (![2, 4, 6, 8].every(d => $gameMap.isPassable(x, y, d)) || $gameMap.eventsXy(x, y).length) continue;
+            const d = (x - $gameMap.width() / 2) ** 2 + (y - $gameMap.height() / 2) ** 2;
+            if (!best || d < best.d) best = { x, y, d };
+          }
+        }
+        $gamePlayer.locate(best.x, best.y);
+      });
+      await game.frames(5);
+      return game.eval(() => ({ tone: $gameScreen.tone().slice(), base: Hai.MapTone.parseTone($dataMap.meta) || [0, 0, 0, 0], fog: Hai.MapTone.fog(), here: Hai.MapTone.lairHere() }));
+    };
+    const plain = await enter(80, 1, 1);
+    check(!plain.here && plain.tone.join() === plain.base.join(), `縄張りの前の 080 の色調 ${plain.tone}`);
+    await game.eval(() => PluginManager.callCommand($gameMap._interpreter, "Hai_MapTone", "lair", { area: "west" }));
+    await game.frames(70);
+    const shaded = await game.eval(() => ({ tone: $gameScreen.tone().slice(), fog: Hai.MapTone.fog(), here: Hai.MapTone.lairHere(), lair: Hai.MapTone.lair() }));
+    const want = plain.base.map((v, i) => Math.max(i === 3 ? 0 : -255, Math.min(255, v + lair.params.lairTone[i])));
+    check(shaded.here && shaded.lair === "west" && shaded.tone.join() === want.join(), `lair west で 080 の色調が ${want} にならない：${shaded.tone}`);
+    check(shaded.fog && shaded.fog.density === Math.min(255, (plain.fog ? plain.fog.density : 0) + lair.params.lairFog), `lair west で 080 の霧が足されない：${JSON.stringify(shaded.fog)}`);
+    await game.waitFor(() => SceneManager._scene._spriteset._tilemap.isReady() && ImageManager.isReady());
+    await game.frames(20);
+    const lairFile = await game.shot("lair-west-080");
+    const south = await enter(70, 1, 1);
+    check(!south.here && south.tone.join() === south.base.join(), `縄張りでない 070 の色調が変わった：${south.tone}`);
+    const again = await enter(80, 1, 1);
+    check(again.here && again.tone.join() === want.join(), `080 に入り直すと縄張りの色調にならない：${again.tone}`);
+    await game.eval(() => PluginManager.callCommand($gameMap._interpreter, "Hai_MapTone", "lairReset", {}));
+    await game.frames(70);
+    const reset = await game.eval(() => ({ tone: $gameScreen.tone().slice(), here: Hai.MapTone.lairHere(), lair: Hai.MapTone.lair() }));
+    check(!reset.here && reset.lair === null && reset.tone.join() === plain.base.join(), `lairReset で 080 の色調が戻らない：${reset.tone}`);
+    shots.push({ file: lairFile, label: "縄張りになった西の谷（記録院 080。lair west）", sub: `色調 ${want}、霧 +${lair.params.lairFog}（元の 080 のメモ欄に足す）` });
+    console.log(`  縄張り：080 の色調 ${plain.base} → ${want}、霧 ${plain.fog ? plain.fog.density : 0} → ${shaded.fog.density}。070 は変わらず、lairReset で戻る`);
+
     game.assertNoErrors();
 
-    // 11 枚を 1 枚に並べる（PR に載せる見本）
+    // 地域の絵を 1 枚に並べる（PR に載せる見本）
     const sheet = await game.page.context().newPage();
     await sheet.setViewportSize({ width: 1280, height: 720 });
     const cells = shots
@@ -236,7 +311,7 @@ await runTest(async () => {
     const sheetFile = path.join(OUT_DIR, "v_regions-sheet.png");
     await sheet.screenshot({ path: sheetFile, fullPage: true });
     await sheet.close();
-    console.log(`  スクリーンショット: ${path.relative(ROOT, sheetFile)}（11 の地域を並べた見本）`);
+    console.log(`  スクリーンショット: ${path.relative(ROOT, sheetFile)}（${shots.length} 枚を並べた見本）`);
   } finally {
     await game.close();
   }
