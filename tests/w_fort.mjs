@@ -137,7 +137,7 @@ await runTest(async () => {
     // ---- 4. 墓所の壁の書き付け：目的のメモ
     const w = ev("墓所の壁の書き付け");
     const writing = await investigate(w.x, w.y + 1, 8, "writing");
-    check(has(writing, "「四つの鐘を鳴らして。それから、山の頂の鐘楼へ」") && has(writing, "最後の一画が、途中で止まっている。"), `書き付け ${JSON.stringify(writing)}`);
+    check(has(writing, "「四つの鐘を鳴らして。\nそれから、山の頂の鐘楼へ」") && has(writing, "最後の一画が、途中で止まっている。"), `書き付け ${JSON.stringify(writing)}`);
     check(has(writing, "メモ："), "書き付けのメモの行が出ない");
     check(await hasNote("goal:bells"), "目的のメモが無い");
     check(await switchOn(171), "書き付けのあとスイッチ 171 が ON でない");
@@ -160,8 +160,10 @@ await runTest(async () => {
     check(has(fire, "炉は冷えている") && has(fire, "［火を入れる／やめる］"), `炉の文 ${JSON.stringify(fire)}`);
     check(has(fire, "炉に火が入った。"), "火を入れた文が出ない");
     const shanoLines = fire.filter(p => p.startsWith("シャノ「"));
-    check(shanoLines.length === 6, `シャノの台詞の数 ${shanoLines.length}: ${JSON.stringify(shanoLines)}`);
+    check(shanoLines.length === 8, `シャノの台詞の数 ${shanoLines.length}: ${JSON.stringify(shanoLines)}`);
     check(has(fire, "鈴、蹴っちゃった") && has(fire, "砦の地下の牢の鐘") && has(fire, "ここ、ちょっといていい？"), `シャノの台詞 ${JSON.stringify(shanoLines)}`);
+    // W15（#231）：夜の戸の忠告と、席に着いてからの一言（「……ここ」の「……」は取った）
+    check(has(fire, "夜は戸ぇ開けんなよ") && has(fire, "椅子に座るの、久しぶり") && !has(fire, "……ここ、ちょっと"), `シャノの台詞（W15） ${JSON.stringify(shanoLines)}`);
     check(has(fire, "さっき誰と話してたの？"), "K01 を読んだのに「誰と話してたの」が出ない");
     check(await switchOn(112), "スイッチ 112（炉に火を入れた）が ON でない");
     check(await switchOn(172), "スイッチ 172（シャノが砦にいる）が ON でない");
@@ -183,7 +185,7 @@ await runTest(async () => {
 
     // 食卓のシャノに話しかける
     const talk = await investigate(home.x, home.y + 1, 8);
-    check(talk.length >= 2 && talk.every(t => t.startsWith("シャノ「")), `食卓のシャノ ${JSON.stringify(talk)}`);
+    check(talk.length >= 1 && talk.every(t => t.startsWith("シャノ「")) && has(talk, "頭に褒められる"), `食卓のシャノ ${JSON.stringify(talk)}`);
 
     // ---- 7. 開いた倉の扉 → 倉（013）→ 戻る
     const store = ev("倉の扉");

@@ -1168,7 +1168,7 @@
       "type": "raw",
       "x": 4,
       "y": 7,
-      "note": "<hai_enemy:332,yellow>\n<hai_enemy_chase:1>",
+      "note": "<hai_enemy:332,yellow>\n<hai_enemy_chase:1>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -1489,7 +1489,7 @@
       "type": "raw",
       "x": 40,
       "y": 18,
-      "note": "<hai_enemy:332,yellow>\n<hai_enemy_chase:1>",
+      "note": "<hai_enemy:332,yellow>\n<hai_enemy_chase:1>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -1818,7 +1818,7 @@
       "type": "raw",
       "x": 6,
       "y": 24,
-      "note": "<hai_enemy:331,green>",
+      "note": "<hai_enemy:331,green>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {

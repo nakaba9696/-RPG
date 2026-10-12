@@ -511,6 +511,63 @@
               "indent": 0,
               "parameters": [
                 {
+                  "name": "Knock",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 230,
+              "indent": 0,
+              "parameters": [
+                70
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Knock",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 230,
+              "indent": 0,
+              "parameters": [
+                18
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Knock",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 230,
+              "indent": 0,
+              "parameters": [
+                50
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
                   "name": "Bell3",
                   "volume": 50,
                   "pitch": 130,
@@ -601,14 +658,79 @@
             "switch1Valid": true
           },
           "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 172,
+            "switch1Valid": true,
+            "switch2Id": 101,
+            "switch2Valid": true
+          },
+          "image": {
+            "characterName": "People1",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 2,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "シャノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "見てた？　さっき梁の上まで登った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鉄の留め金、三つ取れた"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "シャノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "下は、人が多い"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
         }
       ]
     },
     {
       "name": "シャノ（食卓）",
       "type": "raw",
-      "x": 22,
-      "y": 30,
+      "x": 18,
+      "y": 29,
       "pages": [
         {
           "priorityType": 0
@@ -621,7 +743,7 @@
           "image": {
             "characterName": "People1",
             "characterIndex": 2,
-            "direction": 8,
+            "direction": 6,
             "pattern": 1
           },
           "priorityType": 1,
@@ -630,11 +752,9 @@
               "code": 111,
               "indent": 0,
               "parameters": [
-                1,
-                102,
                 0,
-                1,
-                1
+                138,
+                0
               ]
             },
             {
@@ -652,7 +772,7 @@
               "code": 401,
               "indent": 1,
               "parameters": [
-                "……また誰かと話してた？　ま、いいけど"
+                "また誰かと話してた？　ま、いいけど"
               ]
             },
             {
@@ -680,24 +800,6 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "見てた？　さっき梁の上まで登った。鉄の留め金、三つ取れた"
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 0,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                "シャノ"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
                 "地下の牢の鐘、外して持ってったら、頭に褒められる。……たぶん"
               ]
             },
@@ -707,6 +809,21 @@
               "parameters": []
             }
           ]
+        },
+        {
+          "conditions": {
+            "variableId": 165,
+            "variableValid": true,
+            "variableValue": 3
+          },
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 101,
+            "switch1Valid": true
+          },
+          "priorityType": 0
         }
       ]
     },
@@ -741,7 +858,14 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "炉は冷えている。灰の下に、乾いた薪が残っている。"
+                "炉は冷えている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "灰の下に、乾いた薪が残っている。"
               ]
             },
             {
@@ -852,7 +976,14 @@
               "code": 401,
               "indent": 1,
               "parameters": [
-                "炉に火が入った。煤けた壁が、赤く照らされる。"
+                "炉に火が入った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "煤けた壁が、赤く照らされる。"
               ]
             },
             {
@@ -997,7 +1128,14 @@
               "code": 401,
               "indent": 1,
               "parameters": [
-                "おれ、鉄を拾いに来ただけ。鈴、蹴っちゃった。ごめん"
+                "おれ、鉄を拾いに来ただけ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "鈴、蹴っちゃった。ごめん"
               ]
             },
             {
@@ -1051,7 +1189,14 @@
               "code": 401,
               "indent": 1,
               "parameters": [
-                "頭に言われてんだ。砦の地下の牢の鐘、外して持ってこいって"
+                "頭に言われてんだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "砦の地下の牢の鐘、外して持ってこいって"
               ]
             },
             {
@@ -1069,7 +1214,14 @@
               "code": 401,
               "indent": 1,
               "parameters": [
-                "でも鉄の扉が開かない。あと、森の霧で炊き出しの爺さんが三日帰ってない"
+                "でも鉄の扉が開かない。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "あと、森の霧で炊き出しの爺さんが三日帰ってない"
               ]
             },
             {
@@ -1087,7 +1239,39 @@
               "code": 401,
               "indent": 1,
               "parameters": [
-                "おれは霧、だめなんだ。……ここ、ちょっといていい？"
+                "おれは霧、だめなんだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "ここ、ちょっといていい？"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "シャノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "あ、あと。あんた、夜は戸ぇ開けんなよ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "知らなそうだから言っとく"
               ]
             },
             {
@@ -1216,12 +1400,279 @@
               ]
             },
             {
+              "code": 205,
+              "indent": 1,
+              "parameters": [
+                2,
+                {
+                  "list": [
+                    {
+                      "code": 37,
+                      "indent": null,
+                      "parameters": []
+                    },
+                    {
+                      "code": 1,
+                      "indent": null,
+                      "parameters": []
+                    },
+                    {
+                      "code": 2,
+                      "indent": null,
+                      "parameters": []
+                    },
+                    {
+                      "code": 2,
+                      "indent": null,
+                      "parameters": []
+                    },
+                    {
+                      "code": 2,
+                      "indent": null,
+                      "parameters": []
+                    },
+                    {
+                      "code": 2,
+                      "indent": null,
+                      "parameters": []
+                    },
+                    {
+                      "code": 2,
+                      "indent": null,
+                      "parameters": []
+                    },
+                    {
+                      "code": 2,
+                      "indent": null,
+                      "parameters": []
+                    },
+                    {
+                      "code": 2,
+                      "indent": null,
+                      "parameters": []
+                    },
+                    {
+                      "code": 2,
+                      "indent": null,
+                      "parameters": []
+                    },
+                    {
+                      "code": 2,
+                      "indent": null,
+                      "parameters": []
+                    },
+                    {
+                      "code": 2,
+                      "indent": null,
+                      "parameters": []
+                    },
+                    {
+                      "code": 38,
+                      "indent": null,
+                      "parameters": []
+                    },
+                    {
+                      "code": 16,
+                      "indent": null,
+                      "parameters": []
+                    },
+                    {
+                      "code": 0,
+                      "parameters": []
+                    }
+                  ],
+                  "repeat": false,
+                  "skippable": true,
+                  "wait": true
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 1,
+              "parameters": [
+                {
+                  "code": 37,
+                  "indent": null,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 1,
+              "parameters": [
+                {
+                  "code": 1,
+                  "indent": null,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 1,
+              "parameters": [
+                {
+                  "code": 2,
+                  "indent": null,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 1,
+              "parameters": [
+                {
+                  "code": 2,
+                  "indent": null,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 1,
+              "parameters": [
+                {
+                  "code": 2,
+                  "indent": null,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 1,
+              "parameters": [
+                {
+                  "code": 2,
+                  "indent": null,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 1,
+              "parameters": [
+                {
+                  "code": 2,
+                  "indent": null,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 1,
+              "parameters": [
+                {
+                  "code": 2,
+                  "indent": null,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 1,
+              "parameters": [
+                {
+                  "code": 2,
+                  "indent": null,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 1,
+              "parameters": [
+                {
+                  "code": 2,
+                  "indent": null,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 1,
+              "parameters": [
+                {
+                  "code": 2,
+                  "indent": null,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 1,
+              "parameters": [
+                {
+                  "code": 2,
+                  "indent": null,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 1,
+              "parameters": [
+                {
+                  "code": 38,
+                  "indent": null,
+                  "parameters": []
+                }
+              ]
+            },
+            {
+              "code": 505,
+              "indent": 1,
+              "parameters": [
+                {
+                  "code": 16,
+                  "indent": null,
+                  "parameters": []
+                }
+              ]
+            },
+            {
               "code": 121,
               "indent": 1,
               "parameters": [
                 172,
                 172,
                 0
+              ]
+            },
+            {
+              "code": 230,
+              "indent": 1,
+              "parameters": [
+                20
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "シャノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "見てた？　おれ、椅子に座るの、久しぶり"
               ]
             },
             {
@@ -1318,7 +1769,14 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "「四つの鐘を鳴らして。それから、山の頂の鐘楼へ」"
+                "「四つの鐘を鳴らして。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "それから、山の頂の鐘楼へ」"
               ]
             },
             {
@@ -1552,7 +2010,8 @@
       "x": 6,
       "y": 19,
       "lines": [
-        "小さな真鍮の鈴。結んであった紐が、途中で切れている。"
+        "小さな真鍮の鈴。",
+        "結んであった紐が、途中で切れている。"
       ],
       "image": {
         "tileId": "E:121"
@@ -1630,14 +2089,39 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "やがて墓守は立ち上がり、壁の釘から外套を取った。"
+                "やがて墓守は立ち上がり、"
               ]
             },
             {
               "code": 401,
               "indent": 0,
               "parameters": [
-                "「町まで行ってくる」と言うので、灯を一つ持たせた。"
+                "壁の釘から外套を取った。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "「町まで行ってくる」と言うので、"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "灯を一つ持たせた。"
               ]
             },
             {
@@ -1755,12 +2239,279 @@
     },
     {
       "name": "崩れた壁の隙間",
-      "type": "text",
+      "type": "raw",
       "x": 33,
       "y": 13,
-      "lines": [
-        "崩れた壁の隙間から、東の空が見える。",
-        "雲の上に、塔の影が一つ。山の頂だ。"
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "崩れた壁の隙間から、東の空が見える。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "雲の上に、塔の影が一つ。山の頂だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "塔の影の下に、灯は無い。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "variableId": 101,
+            "variableValid": true,
+            "variableValue": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                1,
+                101,
+                0,
+                1,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "崩れた壁の隙間から、東の空が見える。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "雲の上に、塔の影が一つ。山の頂だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "塔の影の下に、灯が二つ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                1,
+                101,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "崩れた壁の隙間から、東の空が見える。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "雲の上に、塔の影が一つ。山の頂だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "塔の影の下に、灯が三つ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                1,
+                101,
+                0,
+                3,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "崩れた壁の隙間から、東の空が見える。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "雲の上に、塔の影が一つ。山の頂だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "塔の影の下に、灯が四つ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                1,
+                101,
+                0,
+                4,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "崩れた壁の隙間から、東の空が見える。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "雲の上に、塔の影が一つ。山の頂だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "塔の影の下に、灯が五つ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
       ]
     },
     {
@@ -1927,7 +2678,8 @@
       },
       "lines": [
         "水を汲んでおいてって言われたの。桶に三杯。",
-        "二杯目のとき、門の方で、誰かが「入れておくれ」って。",
+        "二杯目のとき、門の方で、",
+        "誰かが「入れておくれ」って。",
         "三杯目、まだ汲んでない。"
       ]
     },
@@ -3097,6 +3849,2279 @@
                 4,
                 0
               ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "食卓",
+      "type": "text",
+      "x": 25,
+      "y": 29,
+      "lines": [
+        "長い食卓。椅子が十四。",
+        "どれも埃をかぶっている。",
+        "いちばん奥の席に一つだけ、",
+        "椀が伏せてある。"
+      ]
+    },
+    {
+      "name": "伏せた椀",
+      "type": "raw",
+      "x": 30,
+      "y": 29,
+      "pages": [
+        {
+          "image": {
+            "tileId": "E:62"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "伏せた椀を起こす。中は乾いている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "椀の底に、小刀で彫った印。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "墓所の壁の字と、同じ手だ。"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "伏せておく",
+                  "起こしておく"
+                ],
+                -2,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "伏せておく"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                116,
+                116,
+                1
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "起こしておく"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                116,
+                116,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 403,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 116,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "E:62"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "伏せた椀を起こす。中は乾いている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "椀の底に、小刀で彫った印。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "墓所の壁の字と、同じ手だ。"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "伏せておく",
+                  "起こしておく"
+                ],
+                -2,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "伏せておく"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                116,
+                116,
+                1
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "起こしておく"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                116,
+                116,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 403,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ヴォルフラム（炉の前）",
+      "type": "raw",
+      "x": 24,
+      "y": 26,
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 306,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "People1",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                172,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "シャノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "でかい爺さんが来た。鍋、担いでた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "霧、平気なんだって。信じらんない"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ヴォルフラム"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "座れ！　食え！"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "ヴォルフラムは椀を取り、鍋から一杯よそった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "よそった椀を、食卓の空いた席に置いた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "炉から数えて三つ目の、壁の側の席。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                117,
+                117,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ヴォルフラム"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "先に盛る。誰のぶんかは知らん。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "家の決まりだ"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ヴォルフラム"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "奥のは触らんぞ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "伏せた椀は、伏せた奴が起こす"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 306,
+            "switch1Valid": true,
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "People1",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ヴォルフラム"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "座れ！　食え！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "輪のあと（ブルーノの名乗り）",
+      "type": "raw",
+      "x": 1,
+      "y": 39,
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 138,
+            "switch1Valid": true
+          },
+          "priorityType": 0,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "隊の方でなくても、いいです。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "僕は、ブルーノといいます"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鐘の騎士団の。たぶん、最後の"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 138,
+            "switch1Valid": true,
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "ブルーノの席",
+      "type": "raw",
+      "x": 19,
+      "y": 30,
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 138,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "Actor1",
+            "characterIndex": 4,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveType": 3,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 42,
+                "indent": null,
+                "parameters": [
+                  128
+                ]
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": false,
+            "skippable": true,
+            "wait": false
+          },
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "末席でいいです。隊では、いつもそこでした"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 138,
+            "switch1Valid": true,
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "Actor1",
+            "characterIndex": 4,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveType": 3,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 42,
+                "indent": null,
+                "parameters": [
+                  128
+                ]
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": false,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "マルゴ",
+      "type": "raw",
+      "x": 17,
+      "y": 30,
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 306,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "People3",
+            "characterIndex": 5,
+            "direction": 6,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "マルゴ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鐘は？"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                172,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "シャノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "扉が開かないんだって。地下の。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "おれ、言ったじゃん"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "マルゴ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "あんたが火の人かい。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "あたしはマルゴ。拾い屋の頭だ"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "マルゴ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "地下の牢に、鐘がある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "外して持ってきな。鉄として買う"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "マルゴ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鐘一つで、麦が三月"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                172,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "マルゴは戸口の席のシャノを見て、"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "言葉を切った。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "マルゴ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "値は、あとで"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "マルゴ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鳴らすんじゃないよ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鳴った鐘は、鉄に戻らない"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "マルゴ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "三日したら、取りに来る"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "あの人、鐘を、鉄と言いました"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Notes",
+                "errand",
+                "頼みごとを進める",
+                {
+                  "key": "prisonBell",
+                  "stage": "1",
+                  "text": "マルゴが営倉の鐘を鉄として買いに来た"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "キー = prisonBell"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "段 = 1"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "今の一行 = マルゴが営倉の鐘を鉄として買いに来た"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                115,
+                115,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 115,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "variableId": 165,
+            "variableValid": true,
+            "variableValue": 3
+          },
+          "image": {
+            "characterName": "People3",
+            "characterIndex": 5,
+            "direction": 6,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "マルゴ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "外したってね。うちの者が見てきた"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "マルゴ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鉄は、鳴らしてから売る方が高い"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "マルゴ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鐘は台に戻させた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鳴らしてから、また呼びな"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                172,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "シャノは、マルゴとこちらを見比べた。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "シャノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "おれ、外にいる。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "鐘が鳴ったら戻る"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Notes",
+                "errand",
+                "頼みごとを進める",
+                {
+                  "key": "prisonBell",
+                  "stage": "4",
+                  "text": "マルゴは鐘を買わなかった。鐘は台に戻った"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "キー = prisonBell"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "段 = 4"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "今の一行 = マルゴは鐘を買わなかった。鐘は台に戻った"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "variableId": 165,
+            "variableValid": true,
+            "variableValue": 4
+          },
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 101,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 115,
+            "switch1Valid": true,
+            "switch2Id": 101,
+            "switch2Valid": true
+          },
+          "image": {
+            "characterName": "People3",
+            "characterIndex": 5,
+            "direction": 6,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "マルゴ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鳴らしたね"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "マルゴ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "坑道まで聞こえた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "掘り場の連中が、鶴嘴を落とした"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "マルゴ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鳴った鐘は、あたしは買わない"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "マルゴ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "お前はここで鉄拾ってな。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "霧も無いし、火もある"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "マルゴ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鋏なら売る。鉄切り鋏。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "坑道の奥の格子を切るやつだ"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "マルゴ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "値は、あとで"
+              ]
+            },
+            {
+              "code": 302,
+              "indent": 0,
+              "parameters": [
+                0,
+                1001,
+                0,
+                0,
+                true
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Notes",
+                "errandEnd",
+                "頼みごとを終える",
+                {
+                  "key": "prisonBell",
+                  "result": "done",
+                  "text": "マルゴは鳴った鐘を買わなかった。鋏を売りに来る"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "キー = prisonBell"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "終わり方 = done"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "最後の一行 = マルゴは鳴った鐘を買わなかった。鋏を売りに来る"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                118,
+                118,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 118,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "拾い屋（マルゴの連れ 1）",
+      "type": "raw",
+      "x": 17,
+      "y": 31,
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 306,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "People3",
+            "characterIndex": 1,
+            "direction": 6,
+            "pattern": 1
+          },
+          "priorityType": 1
+        },
+        {
+          "conditions": {
+            "switch1Id": 115,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "variableId": 165,
+            "variableValid": true,
+            "variableValue": 3
+          },
+          "image": {
+            "characterName": "People3",
+            "characterIndex": 1,
+            "direction": 6,
+            "pattern": 1
+          },
+          "priorityType": 1
+        },
+        {
+          "conditions": {
+            "variableId": 165,
+            "variableValid": true,
+            "variableValue": 4
+          },
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 101,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 115,
+            "switch1Valid": true,
+            "switch2Id": 101,
+            "switch2Valid": true
+          },
+          "image": {
+            "characterName": "People3",
+            "characterIndex": 1,
+            "direction": 6,
+            "pattern": 1
+          },
+          "priorityType": 1
+        },
+        {
+          "conditions": {
+            "switch1Id": 118,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "拾い屋（マルゴの連れ 2）",
+      "type": "raw",
+      "x": 18,
+      "y": 31,
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 306,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "People3",
+            "characterIndex": 1,
+            "direction": 6,
+            "pattern": 1
+          },
+          "priorityType": 1
+        },
+        {
+          "conditions": {
+            "switch1Id": 115,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "variableId": 165,
+            "variableValid": true,
+            "variableValue": 3
+          },
+          "image": {
+            "characterName": "People3",
+            "characterIndex": 1,
+            "direction": 6,
+            "pattern": 1
+          },
+          "priorityType": 1
+        },
+        {
+          "conditions": {
+            "variableId": 165,
+            "variableValid": true,
+            "variableValue": 4
+          },
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 101,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 115,
+            "switch1Valid": true,
+            "switch2Id": 101,
+            "switch2Valid": true
+          },
+          "image": {
+            "characterName": "People3",
+            "characterIndex": 1,
+            "direction": 6,
+            "pattern": 1
+          },
+          "priorityType": 1
+        },
+        {
+          "conditions": {
+            "switch1Id": 118,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "アデル（食卓）",
+      "type": "raw",
+      "x": 19,
+      "y": 28,
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 307,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "Actor3",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                8,
+                327
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アデル"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "後輩。遅い。先輩を待たせないで"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アデル"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "鐘鉄は？　あった？"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "布に包んだ塊を、食卓のアデルの前に置いた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "布を開くと、白い鉄が炉の火を返した。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アデル"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "いい？　これは私が預かる。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "会の長が、頂の道具を打つの"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アデル"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "売るな、って書いてある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "掘った人が書いたのね。長には、そう言っとく"
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 1,
+              "parameters": [
+                327,
+                1,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 1,
+              "parameters": [
+                301,
+                301,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_Notes",
+                "errand",
+                "頼みごとを進める",
+                {
+                  "key": "summitTools",
+                  "stage": "2",
+                  "text": "鐘鉄をアデルに渡した。長が道具を打つ"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "キー = summitTools"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "段 = 2"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "今の一行 = 鐘鉄をアデルに渡した。長が道具を打つ"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アデル"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "後輩。鐘鉄、まだ？"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "下の層の長屋。白っぽい鉄"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 307,
+            "switch1Valid": true,
+            "variableId": 301,
+            "variableValid": true,
+            "variableValue": 2
+          },
+          "image": {
+            "characterName": "Actor3",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アデル"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "いい？　鐘鉄は長に渡す。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "頂の道具になる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "アデルの講義",
+      "type": "raw",
+      "x": 2,
+      "y": 39,
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 307,
+            "switch1Valid": true,
+            "switch2Id": 101,
+            "switch2Valid": true,
+            "actorId": 5,
+            "actorValid": true
+          },
+          "priorityType": 0,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "アデルが、向かいの席の空気に向かって言った。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アデル"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "いい？　鐘はね、巻くの。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鳴らなくなっても、巻くの"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アデル"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "布は、舌の方から。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "舌を布で包んで、口の所で結ぶ。結び目は二つ"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "アデルは手拭いを取り、"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "椀を鐘に見立てて巻いてみせた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "椀の口を上にして、底の方から布を回した。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アデル"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "これで、鳴らない。会ではそう教える"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "……その巻き方は、違います"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "アデルには聞こえなかった。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アデル"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "いい？　もう一回。こうやって、底から"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "すみません"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "アデルは三度巻いて、三度ほどいた。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アデル"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "今のは試し"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 307,
+            "switch1Valid": true,
+            "switch2Id": 101,
+            "switch2Valid": true,
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "先に盛る一椀",
+      "type": "raw",
+      "x": 29,
+      "y": 29,
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 117,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "E:62"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "先に盛った一椀。湯気が、まだ立っている。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "あれは、僕のぶんでは、ないです"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 0,

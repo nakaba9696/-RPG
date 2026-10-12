@@ -106,7 +106,7 @@
   const OTHER_BELLS = ["archive", "water", "foundry"];
   const BELL_REGION = { archive: "region2", water: "region3", foundry: "region4" };
 
-  // 地域を済ませたときに立つ旗。companions は呼んだ仲間（遺骸も見つけた扱い）、facilities は Hai_Facilities の部屋
+  // 地域を済ませたときに立つ旗。companions は呼んだ仲間（遺骸も見つけた扱い）、facilities は Hai_Facilities の部屋、selfSwitches は見たことにする自動実行
   const DONE = {
     fort: { // 目覚め・炉・墓所の書き付け・シャノ（倉）
       switches: [111, 112, 171, 172], facilities: ["gate"],
@@ -114,6 +114,8 @@
     prison: { // 地域一：霧の森・鉄の坑道・砦の営倉（営倉の鐘・牢番）、ブルーノ、ヴォルフラム（食堂）、アデル（稽古場）
       switches: [101, 113, 114, 151, 301, 302, 303, 305, 306, 307, 308], companions: [5], facilities: ["kitchen", "soul"],
       items: [["item", 321], ["item", 322], ["armor", 321]], // 牢番の鍵束・鐘番の角灯・見張り塔の小鐘
+      // 砦の自動実行を見たことにする（W15 #231：010 の 45 輪のあとの名乗り・51 アデルの講義）。[マップ ID, イベント ID, セルフスイッチ]
+      selfSwitches: [[10, 45, "A"], [10, 51, "A"]],
     },
     village: { // 焼けた村（祠の番）、ノラ、アンネリーゼ、ピピネル（森の療養小屋）。地域五と記録院の手前
       switches: [401, 405, 411], variables: { 401: 2 }, companions: [6], facilities: ["smithy", "infirmary"], // 鍛冶場・療養所（P13）
@@ -214,6 +216,7 @@
       for (const id of d.switches || []) $gameSwitches.setValue(id, true);
       for (const [id, v] of Object.entries(d.variables || {})) $gameVariables.setValue(Number(id), v);
       for (const [kind, id] of d.items || []) gain(kind, id);
+      for (const [mapId, eventId, ch] of d.selfSwitches || []) $gameSelfSwitches.setValue([mapId, eventId, ch], true);
       if (window.Hai && Hai.Companions) for (const id of d.companions || []) if (!Hai.Companions.summoned().includes(id)) Hai.Companions.summon(id);
       if (window.Hai && Hai.Facilities) for (const k of d.facilities || []) Hai.Facilities.open(k);
     };

@@ -336,8 +336,19 @@
           "priorityType": 1,
           "list": [
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
+              "parameters": [
+                1,
+                165,
+                0,
+                3,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
               "parameters": [
                 "",
                 0,
@@ -348,27 +359,143 @@
             },
             {
               "code": 401,
+              "indent": 1,
+              "parameters": [
+                "鐘は、台座の脇の床に下ろしてある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "綱だけが、梁から垂れている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
               "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
               "parameters": [
                 "台座の上に、抱えられるほどの鐘が据えてある。"
               ]
             },
             {
               "code": 401,
-              "indent": 0,
+              "indent": 1,
               "parameters": [
                 "鐘の綱が、天井の梁から垂れている。"
               ]
             },
             {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "これが、営倉の鐘ですか。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "隊の鐘より、ずっと大きい"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "僕は、鳴らしたことがありません。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "鳴らすのは、鐘番の役でしたから"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                1,
+                165,
+                0,
+                1,
+                0
+              ]
+            },
+            {
               "code": 102,
-              "indent": 0,
+              "indent": 2,
               "parameters": [
                 [
                   "綱を引く",
+                  "鐘を外す（マルゴに売る）",
                   "やめる"
                 ],
-                1,
+                2,
                 0,
                 2,
                 0
@@ -376,7 +503,7 @@
             },
             {
               "code": 402,
-              "indent": 0,
+              "indent": 2,
               "parameters": [
                 0,
                 "綱を引く"
@@ -384,7 +511,7 @@
             },
             {
               "code": 250,
-              "indent": 1,
+              "indent": 3,
               "parameters": [
                 {
                   "name": "Bell3",
@@ -396,7 +523,7 @@
             },
             {
               "code": 225,
-              "indent": 1,
+              "indent": 3,
               "parameters": [
                 3,
                 5,
@@ -406,7 +533,7 @@
             },
             {
               "code": 224,
-              "indent": 1,
+              "indent": 3,
               "parameters": [
                 [
                   255,
@@ -420,14 +547,14 @@
             },
             {
               "code": 230,
-              "indent": 1,
+              "indent": 3,
               "parameters": [
                 30
               ]
             },
             {
               "code": 250,
-              "indent": 1,
+              "indent": 3,
               "parameters": [
                 {
                   "name": "Bell3",
@@ -439,14 +566,14 @@
             },
             {
               "code": 230,
-              "indent": 1,
+              "indent": 3,
               "parameters": [
                 40
               ]
             },
             {
               "code": 250,
-              "indent": 1,
+              "indent": 3,
               "parameters": [
                 {
                   "name": "Bell3",
@@ -458,14 +585,14 @@
             },
             {
               "code": 230,
-              "indent": 1,
+              "indent": 3,
               "parameters": [
                 60
               ]
             },
             {
               "code": 101,
-              "indent": 1,
+              "indent": 3,
               "parameters": [
                 "",
                 0,
@@ -476,21 +603,65 @@
             },
             {
               "code": 401,
-              "indent": 1,
+              "indent": 3,
               "parameters": [
                 "鐘が鳴る。音が石を伝って、上へ抜けていく。"
               ]
             },
             {
               "code": 401,
-              "indent": 1,
+              "indent": 3,
               "parameters": [
                 "天井から、灰が一筋落ちた。"
               ]
             },
             {
+              "code": 111,
+              "indent": 3,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "ブルーノの手の甲の鐘は、鳴らなかった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "ブルーノは、自分の手を見た。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 3,
+              "parameters": []
+            },
+            {
               "code": 121,
-              "indent": 1,
+              "indent": 3,
               "parameters": [
                 101,
                 101,
@@ -499,7 +670,7 @@
             },
             {
               "code": 122,
-              "indent": 1,
+              "indent": 3,
               "parameters": [
                 101,
                 101,
@@ -509,8 +680,19 @@
               ]
             },
             {
+              "code": 111,
+              "indent": 3,
+              "parameters": [
+                1,
+                165,
+                0,
+                3,
+                4
+              ]
+            },
+            {
               "code": 121,
-              "indent": 1,
+              "indent": 4,
               "parameters": [
                 310,
                 310,
@@ -518,8 +700,18 @@
               ]
             },
             {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 3,
+              "parameters": []
+            },
+            {
               "code": 123,
-              "indent": 1,
+              "indent": 3,
               "parameters": [
                 "A",
                 0
@@ -527,7 +719,7 @@
             },
             {
               "code": 101,
-              "indent": 1,
+              "indent": 3,
               "parameters": [
                 "",
                 0,
@@ -538,14 +730,14 @@
             },
             {
               "code": 401,
-              "indent": 1,
+              "indent": 3,
               "parameters": [
                 "壁の札掛けに、当番の札が一枚だけ残っている。"
               ]
             },
             {
               "code": 250,
-              "indent": 1,
+              "indent": 3,
               "parameters": [
                 {
                   "name": "Item3",
@@ -557,7 +749,7 @@
             },
             {
               "code": 126,
-              "indent": 1,
+              "indent": 3,
               "parameters": [
                 323,
                 0,
@@ -567,7 +759,7 @@
             },
             {
               "code": 101,
-              "indent": 1,
+              "indent": 3,
               "parameters": [
                 "",
                 0,
@@ -578,19 +770,665 @@
             },
             {
               "code": 401,
-              "indent": 1,
+              "indent": 3,
               "parameters": [
                 "\\I[196]当番の札（営倉）を手に入れた！"
               ]
             },
             {
+              "code": 111,
+              "indent": 3,
+              "parameters": [
+                8,
+                429
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "営倉の札と、並べた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "日付は、同じだった。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "\\N[1]"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "同じ日だ"
+              ]
+            },
+            {
               "code": 0,
-              "indent": 1,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 3,
+              "parameters": [
+                1,
+                165,
+                0,
+                1,
+                1
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 4,
+              "parameters": [
+                "Hai_Notes",
+                "errand",
+                "頼みごとを進める",
+                {
+                  "key": "prisonBell",
+                  "stage": "2",
+                  "text": "鳴らした。マルゴは鳴った鐘を買わない"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "key = prisonBell"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "stage = 2"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "text = 鳴らした。マルゴは鳴った鐘を買わない"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 3,
               "parameters": []
             },
             {
               "code": 402,
-              "indent": 0,
+              "indent": 2,
+              "parameters": [
+                1,
+                "鐘を外す（マルゴに売る）"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "鐘を台座から外した。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "抱えると、腕が痺れるほど重い。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "鐘を、台座の脇の床に下ろした。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 3,
+              "parameters": [
+                "Hai_Notes",
+                "errand",
+                "頼みごとを進める",
+                {
+                  "key": "prisonBell",
+                  "stage": "3",
+                  "text": "鐘を台座から外した。マルゴが取りに来る"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 3,
+              "parameters": [
+                "key = prisonBell"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 3,
+              "parameters": [
+                "stage = 3"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 3,
+              "parameters": [
+                "text = 鐘を台座から外した。マルゴが取りに来る"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 2,
+              "parameters": [
+                2,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 102,
+              "indent": 2,
+              "parameters": [
+                [
+                  "綱を引く",
+                  "やめる"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 2,
+              "parameters": [
+                0,
+                "綱を引く"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 3,
+              "parameters": [
+                {
+                  "name": "Bell3",
+                  "volume": 100,
+                  "pitch": 90,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 225,
+              "indent": 3,
+              "parameters": [
+                3,
+                5,
+                20,
+                false
+              ]
+            },
+            {
+              "code": 224,
+              "indent": 3,
+              "parameters": [
+                [
+                  255,
+                  255,
+                  255,
+                  120
+                ],
+                20,
+                true
+              ]
+            },
+            {
+              "code": 230,
+              "indent": 3,
+              "parameters": [
+                30
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 3,
+              "parameters": [
+                {
+                  "name": "Bell3",
+                  "volume": 90,
+                  "pitch": 90,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 230,
+              "indent": 3,
+              "parameters": [
+                40
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 3,
+              "parameters": [
+                {
+                  "name": "Bell3",
+                  "volume": 80,
+                  "pitch": 85,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 230,
+              "indent": 3,
+              "parameters": [
+                60
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "鐘が鳴る。音が石を伝って、上へ抜けていく。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "天井から、灰が一筋落ちた。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 3,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "ブルーノの手の甲の鐘は、鳴らなかった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "ブルーノは、自分の手を見た。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 121,
+              "indent": 3,
+              "parameters": [
+                101,
+                101,
+                0
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 3,
+              "parameters": [
+                101,
+                101,
+                1,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 3,
+              "parameters": [
+                1,
+                165,
+                0,
+                3,
+                4
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 4,
+              "parameters": [
+                310,
+                310,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 123,
+              "indent": 3,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "壁の札掛けに、当番の札が一枚だけ残っている。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 3,
+              "parameters": [
+                {
+                  "name": "Item3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 3,
+              "parameters": [
+                323,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "\\I[196]当番の札（営倉）を手に入れた！"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 3,
+              "parameters": [
+                8,
+                429
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "営倉の札と、並べた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "日付は、同じだった。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "\\N[1]"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "同じ日だ"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 3,
+              "parameters": [
+                1,
+                165,
+                0,
+                1,
+                1
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 4,
+              "parameters": [
+                "Hai_Notes",
+                "errand",
+                "頼みごとを進める",
+                {
+                  "key": "prisonBell",
+                  "stage": "2",
+                  "text": "鳴らした。マルゴは鳴った鐘を買わない"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "key = prisonBell"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "stage = 2"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "text = 鳴らした。マルゴは鳴った鐘を買わない"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 2,
               "parameters": [
                 1,
                 "やめる"
@@ -598,11 +1436,31 @@
             },
             {
               "code": 0,
-              "indent": 1,
+              "indent": 3,
               "parameters": []
             },
             {
               "code": 404,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
               "indent": 0,
               "parameters": []
             },

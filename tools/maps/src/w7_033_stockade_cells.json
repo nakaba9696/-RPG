@@ -701,6 +701,68 @@
               ]
             },
             {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "……今、数えてましたね。三十まで"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "声は、出してなかったですけど。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "口が、そう動いてました"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
               "code": 0,
               "indent": 0,
               "parameters": []
@@ -1931,7 +1993,7 @@
       "type": "raw",
       "x": 21,
       "y": 9,
-      "note": "<hai_enemy:331,green>",
+      "note": "<hai_enemy:331,green>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -2012,7 +2074,7 @@
       "type": "raw",
       "x": 35,
       "y": 5,
-      "note": "<hai_enemy:331,green>",
+      "note": "<hai_enemy:331,green>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -2034,7 +2096,7 @@
       "type": "raw",
       "x": 13,
       "y": 30,
-      "note": "<hai_enemy:331,green>",
+      "note": "<hai_enemy:331,green>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -2056,7 +2118,7 @@
       "type": "raw",
       "x": 25,
       "y": 34,
-      "note": "<hai_enemy:333,yellow>",
+      "note": "<hai_enemy:333,yellow>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -2153,7 +2215,7 @@
       "type": "raw",
       "x": 46,
       "y": 12,
-      "note": "<hai_enemy:333,yellow>",
+      "note": "<hai_enemy:333,yellow>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -2250,7 +2312,7 @@
       "type": "raw",
       "x": 30,
       "y": 22,
-      "note": "<hai_enemy:334,red>\n<hai_enemy_chase:3>",
+      "note": "<hai_enemy:334,red>\n<hai_enemy_chase:3>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -2264,6 +2326,302 @@
           "trigger": 2,
           "moveType": 0,
           "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "房の列の端 1",
+      "type": "raw",
+      "x": 29,
+      "y": 41,
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 101,
+            "switch1Valid": true
+          },
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "房の影が、三つ、廊下に出ている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "三つとも、同じ方を向いて立っている。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "追って、来ません"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "あの、みんな、"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "\\N[1]"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "……東を向いている"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "{ const e = $gameMap.events().find(e => e.event().name === \"房の列の端 2\"); if (e) $gameSelfSwitches.setValue([$gameMap.mapId(), e.eventId(), \"A\"], true); }"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 101,
+            "switch1Valid": true,
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "房の列の端 2",
+      "type": "raw",
+      "x": 30,
+      "y": 41,
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 101,
+            "switch1Valid": true
+          },
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "房の影が、三つ、廊下に出ている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "三つとも、同じ方を向いて立っている。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "追って、来ません"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "あの、みんな、"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "\\N[1]"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "……東を向いている"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "{ const e = $gameMap.events().find(e => e.event().name === \"房の列の端 1\"); if (e) $gameSelfSwitches.setValue([$gameMap.mapId(), e.eventId(), \"A\"], true); }"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 101,
+            "switch1Valid": true,
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
         }
       ]
     }
