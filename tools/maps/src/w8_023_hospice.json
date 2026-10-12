@@ -1,0 +1,768 @@
+{
+  "_説明": "W8（#155）：森の療養小屋（docs/world.md 5.2・7.1）。ピピネル（話すと砦へ。スイッチ 411・生き残りの数）、療養小屋の帳面、湧き水（全回復）。西の林→021（W7 の東の白い花の先）。",
+  "mapId": 23,
+  "name": "森の療養小屋",
+  "displayName": "森の療養小屋",
+  "legend": "forest",
+  "tilesetId": 12,
+  "note": "<hai_tone:0,-9,-17,68>\n<hai_fog:60>",
+  "bgm": {
+    "name": "Scene4",
+    "volume": 55,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Wind1",
+    "volume": 25,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Grassland",
+    "battleback2Name": "Forest"
+  },
+  "chars": {
+    "e": {
+      "name": "西の林（場所移動のマス）",
+      "as": "."
+    },
+    "W": {
+      "name": "小屋の壁（建物E（土壁））",
+      "wall": {
+        "top": "A4:20",
+        "side": "A4:28",
+        "height": 1
+      }
+    },
+    "h": {
+      "name": "枯れた薬草の畝（通れる）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "B:239"
+      ]
+    },
+    "s": {
+      "name": "湧き水（イベント）",
+      "as": "."
+    },
+    "B": {
+      "name": "粗末な寝台（通れない）",
+      "as": "#",
+      "tiles": [
+        null,
+        null,
+        "E:150"
+      ]
+    }
+  },
+  "deco": {
+    "i": {
+      "name": "桶（通れない）",
+      "z2": "B:145"
+    },
+    "z": {
+      "name": "壺（通れない）",
+      "z2": "B:144"
+    },
+    "v": {
+      "name": "樽（通れない）",
+      "z2": "B:141"
+    },
+    "H": {
+      "name": "干し草（通れない）",
+      "z2": "B:248"
+    },
+    "k": {
+      "name": "草A（通れる）",
+      "z2": "B:152"
+    },
+    "f": {
+      "name": "花（通れる）",
+      "z2": "B:160"
+    },
+    "s": {
+      "name": "小石（通れる）",
+      "z2": "B:171"
+    },
+    "w": {
+      "name": "薪（通れない）",
+      "z2": "B:170"
+    },
+    "L": {
+      "name": "落ち葉（通れる）",
+      "z2": "B:252"
+    }
+  },
+  "scatter": [
+    {
+      "on": ".",
+      "tiles": [
+        "B:152",
+        "B:153",
+        "B:160",
+        "B:171",
+        "B:252"
+      ],
+      "rate": 0.12,
+      "seed": 230
+    }
+  ],
+  "events": [
+    {
+      "name": "西の林（古い礼拝堂へ）",
+      "type": "transfer",
+      "x": 0,
+      "y": 6,
+      "to": [
+        21,
+        58,
+        31,
+        "left"
+      ]
+    },
+    {
+      "name": "西の林（古い礼拝堂へ）",
+      "type": "transfer",
+      "x": 0,
+      "y": 7,
+      "to": [
+        21,
+        58,
+        31,
+        "left"
+      ]
+    },
+    {
+      "name": "西の林（古い礼拝堂へ）",
+      "type": "transfer",
+      "x": 0,
+      "y": 8,
+      "to": [
+        21,
+        58,
+        31,
+        "left"
+      ]
+    },
+    {
+      "name": "ピピネル",
+      "type": "raw",
+      "x": 18,
+      "y": 6,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "People1",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ピピネル"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "おや、人の子かえ。婆の小屋に客とは、珍しいのう。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "婆はピピネルじゃ。見た目で笑うたら、薬に苦い根を足すぞ。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ピピネル"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "森の外に締め出されて、もう長いこと、ここで薬を煎じておる。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "砦の炉に火が入ったと？　……ほう。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ピピネル"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "火の入る所には、怪我人が出る。怪我人の出る所には、婆が要るじゃろ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "行ってやろう。薬草の籠を背負うてな。"
+              ]
+            },
+            {
+              "code": 221,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                411,
+                411,
+                0
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 0,
+              "parameters": [
+                103,
+                103,
+                1,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 222,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "ピピネルは籠を背負って、森の道を砦の方へ歩いていった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "拾い物（療養小屋の帳面）",
+      "type": "raw",
+      "x": 17,
+      "y": 4,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "tileId": "D:185"
+          },
+          "priorityType": 1,
+          "stepAnime": false,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "薬棚の下に、紐で綴じた帳面がある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "表紙に、小さな花の絵。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                430,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[228]療養小屋の帳面を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "思念 R2-14 熱の下がらない男",
+      "type": "text",
+      "x": 16,
+      "y": 7,
+      "note": "<hai_thought:R2-14>",
+      "image": {
+        "characterName": "Damage1",
+        "characterIndex": 1,
+        "direction": 4,
+        "pattern": 1
+      },
+      "lines": [
+        "ここで寝てた。熱が下がったら、帰っていいと言われた。",
+        "帰る村は焼けたと、通りがかりの者に聞いた。",
+        "だから、下がらないふりをした。婆さまは何も言わずに、薬をくれた。"
+      ]
+    },
+    {
+      "name": "湧き水",
+      "type": "raw",
+      "x": 3,
+      "y": 10,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "tileId": "B:146"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "岩の割れ目から、冷たい水が湧いている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "手ですくって飲んだ。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Recovery",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 314,
+              "indent": 0,
+              "parameters": [
+                0,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "体の重さが、少し抜けた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "拾い物（薬草）",
+      "type": "raw",
+      "x": 7,
+      "y": 6,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "枯れた畝の中に、まだ青い葉が残っている。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                196,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]薬草 ×2を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "拾い物（苦根）",
+      "type": "raw",
+      "x": 11,
+      "y": 8,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "畝の端に、太い根が掘りかけのまま。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                199,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[189]苦い根を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "小屋の裏の小石",
+      "type": "text",
+      "x": 24,
+      "y": 6,
+      "lines": [
+        "小石が積んである。数えると、帳面の花の絵と同じ数。"
+      ]
+    },
+    {
+      "name": "寝台",
+      "type": "text",
+      "x": 16,
+      "y": 5,
+      "lines": [
+        "寝台の藁は干したばかり。誰も寝ていない。"
+      ]
+    }
+  ]
+}

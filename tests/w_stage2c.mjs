@@ -13,7 +13,7 @@ import { launchGame, check, runTest } from "./lib.mjs";
 const HALL = 10;
 const CIRCLE = { x: 42, y: 18 }; // 砦の名の壁の輪 (42,19) の上に立つ所（W6 #144）
 const SQUARE = 61;
-const CANAL_END = { x: 38, y: 31 };
+const CANAL_END = { x: 38, y: 32 }; // W8（#155）で作り直した広場 061 の水路の石段 (38,33) の手前
 const REEDS = 70;
 const REEDS_ARRIVE = { x: 22, y: 1 };
 const SIGN = { x: 20, y: 2 };

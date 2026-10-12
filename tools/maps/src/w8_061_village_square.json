@@ -1,0 +1,2433 @@
+{
+  "_説明": "W8（#155）：焼けた村・広場（docs/world.md 5.1・5.2・6.4・7.3）。南の道→060、見張り台の戸→062、祠の坂の上の戸口→063、水路の石段→070（W9）。アンネリーゼと弟の筋、ノラの記憶 3（触れ書き）、倒れた梁（トゥーラ）の先の倉、生け垣の奥の見えない通路の先（使徒狩りの投げ槍）。",
+  "mapId": 61,
+  "name": "焼けた村・広場",
+  "displayName": "焼けた村",
+  "legend": "village",
+  "tilesetId": 19,
+  "note": "<hai_tone:-34,-34,-34,136>\n<hai_parallax:DarkClouds,1,0>\n<hai_ash:3>",
+  "bgm": {
+    "name": "Field3",
+    "volume": 65,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Wind2",
+    "volume": 40,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "DirtField",
+    "battleback2Name": "Ruins1"
+  },
+  "deco": {
+    "1": {
+      "name": "石の柱（下。通れない）",
+      "z2": "D:105"
+    },
+    "2": {
+      "name": "壊れた像（通れない）",
+      "z2": "D:91"
+    },
+    "7": {
+      "name": "砂利（通れる）",
+      "z2": "D:32"
+    },
+    "k": {
+      "name": "草A（通れる）",
+      "z2": "B:152"
+    },
+    "K": {
+      "name": "草B（通れる）",
+      "z2": "B:153"
+    },
+    "f": {
+      "name": "花（通れる）",
+      "z2": "B:160"
+    },
+    "s": {
+      "name": "小石（通れる）",
+      "z2": "B:171"
+    },
+    "l": {
+      "name": "枯れ草（通れる）",
+      "z2": "B:239"
+    },
+    "L": {
+      "name": "落ち葉（通れる）",
+      "z2": "B:252"
+    },
+    "g": {
+      "name": "墓A（通れない）",
+      "z2": "B:142"
+    },
+    "G": {
+      "name": "墓B（通れない）",
+      "z2": "B:143"
+    },
+    "r": {
+      "name": "瓦礫（通れない）",
+      "z2": "D:120"
+    },
+    "R": {
+      "name": "苔の瓦礫（通れない）",
+      "z2": "D:121"
+    },
+    "x": {
+      "name": "骸骨（通れない）",
+      "z2": "D:242"
+    },
+    "X": {
+      "name": "骸骨B（通れない）",
+      "z2": "D:250"
+    },
+    "q": {
+      "name": "瓦礫の上の骸骨（通れない）",
+      "z2": "D:120",
+      "z3": "D:242"
+    },
+    "b": {
+      "name": "樽（通れない）",
+      "z2": "B:141"
+    },
+    "c": {
+      "name": "木箱（通れない）",
+      "z2": "B:181"
+    },
+    "C": {
+      "name": "木箱の上の壺（通れない）",
+      "z2": "B:181",
+      "z3": "B:144"
+    },
+    "p": {
+      "name": "壺（通れない）",
+      "z2": "B:144"
+    },
+    "w": {
+      "name": "薪（通れない）",
+      "z2": "B:170"
+    },
+    "t": {
+      "name": "枯れ木（通れない）",
+      "z2": "B:240"
+    },
+    "o": {
+      "name": "倒木（通れない）",
+      "z2": "B:164"
+    },
+    "O": {
+      "name": "石のかまど（通れない）",
+      "z2": "B:147"
+    },
+    "i": {
+      "name": "桶（通れない）",
+      "z2": "B:145"
+    },
+    "H": {
+      "name": "干し草（通れない）",
+      "z2": "B:248"
+    },
+    "v": {
+      "name": "立て札（通れない）",
+      "z2": "B:137"
+    },
+    "z": {
+      "name": "壺B（通れない）",
+      "z2": "B:144"
+    },
+    "h": {
+      "name": "苔の切り株（通れない）",
+      "z2": "B:243"
+    },
+    "a": {
+      "name": "石碑（通れない）",
+      "z2": "C:32"
+    },
+    "u": {
+      "name": "壊れた台座（通れない）",
+      "z2": "C:76"
+    },
+    "m": {
+      "name": "折れた石の柱（通れない）",
+      "z2": "C:17"
+    },
+    "d": {
+      "name": "穴（通れない）",
+      "z2": "B:169"
+    },
+    "n": {
+      "name": "シダ（通れない）",
+      "z2": "B:246"
+    }
+  },
+  "stamps": [
+    {
+      "at": "幕",
+      "name": "破れた天幕（3×3）",
+      "tiles": [
+        [
+          "B:29",
+          "B:30",
+          "B:31"
+        ],
+        [
+          "B:37",
+          "B:38",
+          "B:39"
+        ],
+        [
+          "B:45",
+          null,
+          "B:47"
+        ]
+      ]
+    },
+    {
+      "at": "木",
+      "name": "大木（2×2。上の段は☆）",
+      "tiles": [
+        [
+          "B:176",
+          "B:177"
+        ],
+        [
+          "B:184",
+          "B:185"
+        ]
+      ]
+    },
+    {
+      "at": "寝",
+      "name": "焼け出された寝台（1×2）",
+      "tiles": [
+        [
+          "E:168"
+        ],
+        [
+          "E:176"
+        ]
+      ]
+    },
+    {
+      "at": "薪",
+      "name": "薪の山と壺（2×1）",
+      "tiles": [
+        [
+          "B:170",
+          "B:170"
+        ]
+      ],
+      "upper": [
+        [
+          "B:144",
+          null
+        ]
+      ]
+    }
+  ],
+  "chars": {},
+  "scatter": [
+    {
+      "on": ".",
+      "z": 1,
+      "tiles": [
+        "A2:15"
+      ],
+      "rate": 0.08,
+      "seed": 610
+    },
+    {
+      "on": ".",
+      "tiles": [
+        "B:171",
+        "B:239",
+        "B:252",
+        "D:32",
+        "B:152",
+        "B:153"
+      ],
+      "rate": 0.14,
+      "seed": 611
+    },
+    {
+      "on": ",",
+      "tiles": [
+        "B:152",
+        "B:153",
+        "B:239",
+        "B:160"
+      ],
+      "rate": 0.2,
+      "seed": 612
+    },
+    {
+      "on": ";",
+      "tiles": [
+        "D:32",
+        "D:33",
+        "B:252"
+      ],
+      "rate": 0.12,
+      "seed": 613
+    },
+    {
+      "on": ":",
+      "tiles": [
+        "B:171",
+        "D:32",
+        "D:33"
+      ],
+      "rate": 0.08,
+      "seed": 614
+    },
+    {
+      "on": "^",
+      "tiles": [
+        "B:239",
+        "B:171"
+      ],
+      "rate": 0.1,
+      "seed": 615
+    }
+  ],
+  "events": [
+    {
+      "name": "南の道（焼けた村の入口へ）",
+      "type": "transfer",
+      "x": 33,
+      "y": 49,
+      "to": [
+        60,
+        23,
+        2,
+        "down"
+      ]
+    },
+    {
+      "name": "南の道（焼けた村の入口へ）",
+      "type": "transfer",
+      "x": 34,
+      "y": 49,
+      "to": [
+        60,
+        24,
+        2,
+        "down"
+      ]
+    },
+    {
+      "name": "南の道（焼けた村の入口へ）",
+      "type": "transfer",
+      "x": 35,
+      "y": 49,
+      "to": [
+        60,
+        25,
+        2,
+        "down"
+      ]
+    },
+    {
+      "name": "南の道（焼けた村の入口へ）",
+      "type": "transfer",
+      "x": 36,
+      "y": 49,
+      "to": [
+        60,
+        26,
+        2,
+        "down"
+      ]
+    },
+    {
+      "name": "南の道（焼けた村の入口へ）",
+      "type": "transfer",
+      "x": 37,
+      "y": 49,
+      "to": [
+        60,
+        27,
+        2,
+        "down"
+      ]
+    },
+    {
+      "name": "見張り台の戸",
+      "type": "raw",
+      "x": 9,
+      "y": 7,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Door1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                62,
+                13,
+                12,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "祠の戸口",
+      "type": "raw",
+      "x": 35,
+      "y": 5,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Door1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                63,
+                13,
+                16,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "水路の石段（霧の湖へ）",
+      "type": "transfer",
+      "x": 38,
+      "y": 33,
+      "to": [
+        70,
+        22,
+        1,
+        "down"
+      ]
+    },
+    {
+      "name": "水路の石段（霧の湖へ）",
+      "type": "transfer",
+      "x": 39,
+      "y": 33,
+      "to": [
+        70,
+        22,
+        1,
+        "down"
+      ]
+    },
+    {
+      "name": "水路の石段",
+      "type": "text",
+      "x": 40,
+      "y": 33,
+      "lines": [
+        "石段が水路へ下りている。水路は南の霧の中へ続く。",
+        "石段の苔に、小舟を舫った縄の擦れ跡。"
+      ]
+    },
+    {
+      "name": "結界（村の祠の下）",
+      "type": "raw",
+      "x": 33,
+      "y": 9,
+      "note": "<hai_warp:村の祠の下>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "stepAnime": true,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "記憶 ノラ 3",
+      "type": "text",
+      "x": 31,
+      "y": 15,
+      "note": "<hai_memory:6,3>",
+      "image": {
+        "tileId": "B:137"
+      },
+      "lines": [
+        "街道の宿で、荷運びの男が話してた。",
+        "西の谷の村で、くじの娘が逃げたって。",
+        "代わりに、その妹が祠へ行ったって。",
+        "あたし、宿の裏で、朝まで動けなかった。"
+      ]
+    },
+    {
+      "name": "井戸",
+      "type": "text",
+      "x": 38,
+      "y": 20,
+      "image": {
+        "tileId": "B:147"
+      },
+      "lines": [
+        "石を落とすと、少し間があって水の音がした。",
+        "井戸の縁に、刻み目が三十ずつ束ねてある。"
+      ]
+    },
+    {
+      "name": "思念 R2-08 井戸の子ども",
+      "type": "text",
+      "x": 39,
+      "y": 22,
+      "note": "<hai_thought:R2-08>",
+      "image": {
+        "characterName": "Damage1",
+        "characterIndex": 7,
+        "direction": 8,
+        "pattern": 1
+      },
+      "lines": [
+        "井戸に石を落とすとね、三つ数えて、ぽちゃん。",
+        "くじの夜は、みんな井戸のまわりで数えるの。三十まで。",
+        "三十まで数えたら、終わってるんだって。"
+      ]
+    },
+    {
+      "name": "思念 R2-05 槍を持ってきた若者",
+      "type": "text",
+      "x": 26,
+      "y": 20,
+      "note": "<hai_thought:R2-05>",
+      "image": {
+        "characterName": "Damage2",
+        "characterIndex": 6,
+        "direction": 6,
+        "pattern": 1
+      },
+      "lines": [
+        "祠のくじを止めに来た。槍一本で。",
+        "村の者は誰も礼を言わなかった。戸を閉めて、黙ってた。",
+        "代わりに誰が行くか、みんな分かってたんだな。俺だけが分かってなかった。"
+      ]
+    },
+    {
+      "name": "思念 R2-06 槍を預かった年寄り",
+      "type": "text",
+      "x": 13,
+      "y": 19,
+      "note": "<hai_thought:R2-06><hai_clue:使徒狩りの槍は、村の西の生け垣の奥に放られたらしい（焼けた村の広場）>",
+      "image": {
+        "characterName": "Damage2",
+        "characterIndex": 0,
+        "direction": 8,
+        "pattern": 1
+      },
+      "lines": [
+        "使徒狩りの若いのが来て、くじを止めると言った。",
+        "止めたら、村ごと喰われる。あれは、それが分からん。",
+        "槍は預かった。西の生け垣の奥に、放った。"
+      ]
+    },
+    {
+      "name": "金床",
+      "type": "text",
+      "x": 52,
+      "y": 18,
+      "image": {
+        "tileId": "B:150"
+      },
+      "lines": [
+        "金床の角が欠けている。欠けた所だけ、新しい鉄で継いである。"
+      ]
+    },
+    {
+      "name": "思念 R2-07 閂を打った鍛冶",
+      "type": "text",
+      "x": 58,
+      "y": 18,
+      "note": "<hai_thought:R2-07>",
+      "image": {
+        "characterName": "Damage2",
+        "characterIndex": 2,
+        "direction": 4,
+        "pattern": 1
+      },
+      "lines": [
+        "祠の戸の閂は、わしが打った。",
+        "内からは開かない閂を、と言われた。外からだけ開く閂だ。",
+        "打てと言われて、打った。鍛冶は、頼まれた物を打つ。"
+      ]
+    },
+    {
+      "name": "アンネリーゼ",
+      "type": "raw",
+      "x": 56,
+      "y": 19,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "People2",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                1,
+                401,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アンネリーゼ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "おう、あんた。見ねえ顔だね。後輩かい。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "あたいはアンネリーゼ。ここで鉄を打ち直してる。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アンネリーゼ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "……頼みがあるんだ。弟のルッツが、村の入口の灰の連中の所に入っちまった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "祠の祈りがどうとか言ってさ。あの馬鹿。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アンネリーゼ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "連れて帰ってくれねえか。あたいが行くと、喧嘩になる。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "礼は……鉄くずで、ええと、三十と、二十と……とにかく払う！"
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 1,
+              "parameters": [
+                401,
+                401,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_Notes",
+                "errand",
+                "頼みごとを進める",
+                {
+                  "key": "brother",
+                  "title": "弟を連れて帰る",
+                  "who": "アンネリーゼ",
+                  "stage": "1",
+                  "variableId": "161",
+                  "text": "灰の信徒の集落（焼けた村の入口）にいるルッツを連れて帰る"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "key = brother"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "title = 弟を連れて帰る"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "who = アンネリーゼ"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "stage = 1"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 161"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = 灰の信徒の集落（焼けた村の入口）にいるルッツを連れて帰る"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                1,
+                401,
+                0,
+                1,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アンネリーゼ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "ルッツは村の入口の、灰の連中の所だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "あいつ、昔から言い負かされると黙るんだ。言い負かすんじゃねえぞ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 2,
+              "parameters": [
+                1,
+                401,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アンネリーゼ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "ルッツが帰ってきた。ばあちゃんの名が帳面にあったって。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "……あいつ、泣きやがって。あたいまで、もらっちまった。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アンネリーゼ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "決めた。あたいは砦へ行く。あんたの所、鍛冶の手が要るだろ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "ルッツには、この小屋の火を見させる。後輩、行くよ。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 3,
+              "parameters": [
+                "Hai_Notes",
+                "errandEnd",
+                "頼みごとを終える",
+                {
+                  "key": "brother",
+                  "result": "done",
+                  "text": "アンネリーゼは砦へ。ルッツは村の鍛冶小屋の火を見ている"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 3,
+              "parameters": [
+                "key = brother"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 3,
+              "parameters": [
+                "result = done"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 3,
+              "parameters": [
+                "text = アンネリーゼは砦へ。ルッツは村の鍛冶小屋の火を見ている"
+              ]
+            },
+            {
+              "code": 221,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 121,
+              "indent": 3,
+              "parameters": [
+                401,
+                401,
+                0
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 3,
+              "parameters": [
+                103,
+                103,
+                1,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 3,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 222,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "アンネリーゼは金槌を腰に差して、村の南へ出ていった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アンネリーゼ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "……あいつ、残るってさ。元気だって。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "いいさ。あたいは砦で鉄を打つ。あいつが来たら、すぐ分かるように。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 3,
+              "parameters": [
+                "Hai_Notes",
+                "errandEnd",
+                "頼みごとを終える",
+                {
+                  "key": "brother",
+                  "result": "done",
+                  "text": "アンネリーゼは砦へ。ルッツは村の鍛冶小屋の火を見ている"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 3,
+              "parameters": [
+                "key = brother"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 3,
+              "parameters": [
+                "result = done"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 3,
+              "parameters": [
+                "text = アンネリーゼは砦へ。ルッツは村の鍛冶小屋の火を見ている"
+              ]
+            },
+            {
+              "code": 221,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 121,
+              "indent": 3,
+              "parameters": [
+                401,
+                401,
+                0
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 3,
+              "parameters": [
+                103,
+                103,
+                1,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 3,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 222,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "アンネリーゼは金槌を腰に差して、村の南へ出ていった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ルッツ（鍛冶小屋）",
+      "type": "raw",
+      "x": 54,
+      "y": 20,
+      "note": "",
+      "pages": [
+        {
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 402,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "People3",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                401,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ルッツ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "姉ちゃんは砦に行った。おれは、この小屋の火を見てる。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "火を絶やすと、姉ちゃんに殴られる。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ルッツ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "姉ちゃんに怒られた。……帰ってきて、よかった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "見張り台の外壁",
+      "type": "text",
+      "x": 12,
+      "y": 7,
+      "lines": [
+        "外壁の板が、内側から黒く焦げている。",
+        "屋根の上で、何かを燃やした跡らしい。"
+      ]
+    },
+    {
+      "name": "打ち付けた戸",
+      "type": "text",
+      "x": 60,
+      "y": 9,
+      "lines": [
+        "戸は内側から打ち付けてある。表に、拳ほどの凹みが三つ。"
+      ]
+    },
+    {
+      "name": "倒れた梁（トゥーラ）",
+      "type": "raw",
+      "x": 55,
+      "y": 40,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "tileId": "B:164"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                11,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "トゥーラが梁の下に肩を入れた。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "トゥーラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "どいてな、兄貴。……よっ、と！"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Push",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 1,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "焼けた梁が倒れて、倉の戸口を塞いでいる。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "一人では動かない。もっと力のある者なら。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "倉の札",
+      "type": "text",
+      "x": 58,
+      "y": 37,
+      "lines": [
+        "樽に札。「祠の分」「村の分」。",
+        "祠の分の樽だけ、封が切られていない。"
+      ]
+    },
+    {
+      "name": "思念 R2-09 墓掘り",
+      "type": "text",
+      "x": 46,
+      "y": 41,
+      "note": "<hai_thought:R2-09>",
+      "image": {
+        "characterName": "Damage2",
+        "characterIndex": 4,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "ここに埋まってるのは、くじで行かなかった者ばかりだ。",
+        "行った者は、祠から戻らん。墓を掘る手間もない。",
+        "村が焼けた夜は、掘る者がいなかった。"
+      ]
+    },
+    {
+      "name": "名のある墓",
+      "type": "text",
+      "x": 41,
+      "y": 39,
+      "lines": [
+        "墓標の名の下に、「くじ　白」と刻んである。"
+      ]
+    },
+    {
+      "name": "名のある墓",
+      "type": "text",
+      "x": 51,
+      "y": 43,
+      "lines": [
+        "墓標の名の下に、「くじ　白」。隣も、その隣も。"
+      ]
+    },
+    {
+      "name": "焼けた鍋",
+      "type": "text",
+      "x": 16,
+      "y": 22,
+      "lines": [
+        "かまどに鍋が掛かったまま。鍋の底に、焦げた麦。"
+      ]
+    },
+    {
+      "name": "並んだ寝台の跡",
+      "type": "text",
+      "x": 7,
+      "y": 22,
+      "lines": [
+        "寝台の跡が五つ。一つだけ、藁が新しい。"
+      ]
+    },
+    {
+      "name": "宝箱（薬草）",
+      "type": "raw",
+      "x": 16,
+      "y": 12,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                196,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]薬草 ×2を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（毒消し）",
+      "type": "raw",
+      "x": 24,
+      "y": 40,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                197,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[177]毒消し ×2を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（鉄くず）",
+      "type": "raw",
+      "x": 61,
+      "y": 39,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Coin",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 125,
+              "indent": 0,
+              "parameters": [
+                0,
+                0,
+                60
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鉄くずを 60 手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（秘薬）",
+      "type": "raw",
+      "x": 63,
+      "y": 41,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                198,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[179]秘薬を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（霊水）",
+      "type": "raw",
+      "x": 47,
+      "y": 4,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                144,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]霊水 ×2を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "赤い宝箱（使徒狩りの投げ槍）",
+      "type": "raw",
+      "x": 4,
+      "y": 40,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 127,
+              "indent": 0,
+              "parameters": [
+                421,
+                0,
+                0,
+                1,
+                false
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[107]使徒狩りの投げ槍を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "灰鼬（緑）",
+      "type": "raw",
+      "x": 10,
+      "y": 30,
+      "note": "<hai_enemy:421,green>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "灰鼬（緑）",
+      "type": "raw",
+      "x": 25,
+      "y": 29,
+      "note": "<hai_enemy:421,green>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "煤けた鴉（黄・往復）",
+      "type": "raw",
+      "x": 30,
+      "y": 22,
+      "note": "<hai_enemy:422,yellow>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Nature",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 4,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "焼け跡の番犬（黄）",
+      "type": "raw",
+      "x": 60,
+      "y": 25,
+      "note": "<hai_enemy:424,yellow>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "祠へ歩く者（黄）",
+      "type": "raw",
+      "x": 21,
+      "y": 19,
+      "note": "<hai_enemy:423,yellow>\n<hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 2,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 4,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "祠へ歩く者（黄）",
+      "type": "raw",
+      "x": 44,
+      "y": 37,
+      "note": "<hai_enemy:423,yellow>\n<hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 2,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "使徒狩りの亡骸（赤・畑の番）",
+      "type": "raw",
+      "x": 50,
+      "y": 6,
+      "note": "<hai_enemy:425,red>\n<hai_enemy_chase:2>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 0,
+          "moveFrequency": 3
+        }
+      ]
+    }
+  ]
+}

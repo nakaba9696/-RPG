@@ -1,0 +1,1730 @@
+{
+  "_説明": "W8（#155）：記録院・前庭（docs/world.md 5.1・6.4・7.1・7.3）。イスメネ（真名を読んだ学者を越えたあとに話すと砦へ。書庫を開く。頼み「本物の写し」）、ディルの記憶 1、古言の碑の扉（ディル）、南→063、北→081。",
+  "mapId": 80,
+  "name": "記録院・前庭",
+  "displayName": "記録院",
+  "legend": "library",
+  "tilesetId": 16,
+  "deco": {
+    "1": {
+      "name": "石の柱B（下。通れない）",
+      "z2": "B:106"
+    },
+    "2": {
+      "name": "折れた石の柱（通れない）",
+      "z2": "B:114"
+    },
+    "3": {
+      "name": "石碑A（通れない）",
+      "z2": "B:64"
+    },
+    "4": {
+      "name": "壊れた像（通れない）",
+      "z2": "B:91"
+    },
+    "5": {
+      "name": "亀裂B（壁に）",
+      "z2": "B:187"
+    },
+    "7": {
+      "name": "壁の苔（壁に）",
+      "z2": "B:1"
+    },
+    "8": {
+      "name": "壁のツタ（壁に）",
+      "z2": "B:184"
+    },
+    "k": {
+      "name": "砂利A（通れる）",
+      "z2": "B:32"
+    },
+    "K": {
+      "name": "砂利B（通れる）",
+      "z2": "B:33"
+    },
+    "r": {
+      "name": "瓦礫A（通れない）",
+      "z2": "B:120"
+    },
+    "R": {
+      "name": "苔の瓦礫（通れない）",
+      "z2": "B:121"
+    },
+    "u": {
+      "name": "瓦礫D（土。通れない）",
+      "z2": "B:124"
+    },
+    "x": {
+      "name": "骸骨A（通れない）",
+      "z2": "B:242"
+    },
+    "X": {
+      "name": "骸骨B（通れない）",
+      "z2": "B:250"
+    },
+    "q": {
+      "name": "瓦礫の上の骸骨（通れない）",
+      "z2": "B:120",
+      "z3": "B:242"
+    },
+    "o": {
+      "name": "岩B（通れない）",
+      "z2": "B:41"
+    },
+    "e": {
+      "name": "端材（通れない）",
+      "z2": "B:125"
+    },
+    "w": {
+      "name": "蜘蛛の巣（壁に）",
+      "z2": "B:176"
+    },
+    "b": {
+      "name": "樽A（通れない）",
+      "z2": "B:238"
+    },
+    "B": {
+      "name": "樽B（廃墟。通れない）",
+      "z2": "B:239"
+    },
+    "c": {
+      "name": "木箱A（通れない）",
+      "z2": "B:220"
+    },
+    "C": {
+      "name": "木箱C（廃墟。通れない）",
+      "z2": "B:222"
+    },
+    "p": {
+      "name": "壺A（廃墟。通れない）",
+      "z2": "B:223"
+    },
+    "P": {
+      "name": "壺B（通れない）",
+      "z2": "B:231"
+    },
+    "t": {
+      "name": "テーブル（廃墟。通れない）",
+      "z2": "B:243"
+    },
+    "h": {
+      "name": "椅子（廃墟）",
+      "z2": "B:251"
+    },
+    "l": {
+      "name": "ロープ（通れない）",
+      "z2": "B:234"
+    },
+    "g": {
+      "name": "土砂A（通れない）",
+      "z2": "B:216"
+    },
+    "j": {
+      "name": "鉄格子（上）",
+      "z2": "B:244"
+    },
+    "J": {
+      "name": "鉄格子（下）",
+      "z2": "B:252"
+    },
+    "y": {
+      "name": "粗末なベッド（通れない）",
+      "z2": "C:150"
+    },
+    "Y": {
+      "name": "むしろの寝床",
+      "z2": "C:151"
+    },
+    "z": {
+      "name": "倒れた棚（通れない）",
+      "z2": "C:192"
+    },
+    "Z": {
+      "name": "本棚A（下。通れない）",
+      "z2": "C:205"
+    },
+    "n": {
+      "name": "椅子（Dungeon_C）",
+      "z2": "C:157"
+    },
+    "N": {
+      "name": "テーブル（Dungeon_C）",
+      "z2": "C:149"
+    },
+    "f": {
+      "name": "積まれた木箱（通れない）",
+      "z2": "C:228"
+    },
+    "F": {
+      "name": "積まれた木箱B",
+      "z2": "C:229"
+    },
+    "v": {
+      "name": "クローゼット（通れない）",
+      "z2": "C:178"
+    },
+    "V": {
+      "name": "チェスト（通れない）",
+      "z2": "C:176"
+    },
+    "a": {
+      "name": "線路（横）",
+      "z2": "C:105"
+    },
+    "A": {
+      "name": "線路（縦）",
+      "z2": "C:104"
+    },
+    "d": {
+      "name": "燭台（通れない）",
+      "z2": "E:186"
+    },
+    "D": {
+      "name": "長机（教会机。通れない）",
+      "z2": "E:193"
+    },
+    "i": {
+      "name": "紙の束（通れない）",
+      "z2": "E:80"
+    },
+    "m": {
+      "name": "巻物の棚（通れない）",
+      "z2": "D:185"
+    },
+    "M": {
+      "name": "焼けた書架（通れない）",
+      "z2": "D:175"
+    },
+    "s": {
+      "name": "散った紙（通れない）",
+      "z2": "E:72"
+    },
+    "S": {
+      "name": "積んだ本（通れない）",
+      "z2": "E:68"
+    },
+    "T": {
+      "name": "書見台（通れない）",
+      "z2": "E:194"
+    },
+    "Q": {
+      "name": "女神像（通れない）",
+      "z2": "E:177"
+    }
+  },
+  "stamps": [],
+  "note": "<hai_tone:17,0,-34,68>",
+  "bgm": {
+    "name": "Castle1",
+    "volume": 55,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Clock",
+    "volume": 30,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "DecorativeTile1",
+    "battleback2Name": "Room2"
+  },
+  "chars": {},
+  "scatter": [
+    {
+      "on": ".",
+      "tiles": [
+        "B:32",
+        "B:33"
+      ],
+      "rate": 0.08,
+      "seed": 800
+    },
+    {
+      "on": ",",
+      "tiles": [
+        "B:32",
+        "B:33"
+      ],
+      "rate": 0.08,
+      "seed": 801
+    }
+  ],
+  "events": [
+    {
+      "name": "南の戸口（村の祠へ）",
+      "type": "transfer",
+      "x": 18,
+      "y": 29,
+      "to": [
+        63,
+        13,
+        4,
+        "down"
+      ]
+    },
+    {
+      "name": "南の戸口（村の祠へ）",
+      "type": "transfer",
+      "x": 19,
+      "y": 29,
+      "to": [
+        63,
+        13,
+        4,
+        "down"
+      ]
+    },
+    {
+      "name": "南の戸口（村の祠へ）",
+      "type": "transfer",
+      "x": 20,
+      "y": 29,
+      "to": [
+        63,
+        13,
+        4,
+        "down"
+      ]
+    },
+    {
+      "name": "南の戸口（村の祠へ）",
+      "type": "transfer",
+      "x": 21,
+      "y": 29,
+      "to": [
+        63,
+        13,
+        4,
+        "down"
+      ]
+    },
+    {
+      "name": "北の廊下（書架へ）",
+      "type": "transfer",
+      "x": 18,
+      "y": 0,
+      "to": [
+        81,
+        28,
+        42,
+        "up"
+      ]
+    },
+    {
+      "name": "北の廊下（書架へ）",
+      "type": "transfer",
+      "x": 19,
+      "y": 0,
+      "to": [
+        81,
+        29,
+        42,
+        "up"
+      ]
+    },
+    {
+      "name": "北の廊下（書架へ）",
+      "type": "transfer",
+      "x": 20,
+      "y": 0,
+      "to": [
+        81,
+        30,
+        42,
+        "up"
+      ]
+    },
+    {
+      "name": "北の廊下（書架へ）",
+      "type": "transfer",
+      "x": 21,
+      "y": 0,
+      "to": [
+        81,
+        31,
+        42,
+        "up"
+      ]
+    },
+    {
+      "name": "結界（記録院の前庭）",
+      "type": "raw",
+      "x": 12,
+      "y": 23,
+      "note": "<hai_warp:記録院の前庭>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "stepAnime": true,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "イスメネ",
+      "type": "raw",
+      "x": 24,
+      "y": 17,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "People1",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                406,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                8,
+                426
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 2,
+              "parameters": [
+                1,
+                402,
+                0,
+                1,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "イスメネ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "その二冊。……封じた書架の、写しですね。"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 3,
+              "parameters": [
+                [
+                  "写しを返す",
+                  "まだ持っている"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 3,
+              "parameters": [
+                0,
+                "写しを返す"
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 4,
+              "parameters": [
+                426,
+                1,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 4,
+              "parameters": [
+                402,
+                402,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "イスメネ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "受け取りました。記録します。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "どちらが本物かは、書きません。分からないので。まだ。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 4,
+              "parameters": [
+                "Hai_Notes",
+                "errandEnd",
+                "頼みごとを終える",
+                {
+                  "key": "copies",
+                  "result": "done",
+                  "text": "二通りの写しはイスメネの書架に戻った"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "key = copies"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "result = done"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "text = 二通りの写しはイスメネの書架に戻った"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 3,
+              "parameters": [
+                1,
+                "まだ持っている"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "イスメネ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "学者の声が止んだのですね。記録します。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "……書架の番は、わたしでなくてもできます。いいえ、できません。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "イスメネ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "でも、砦に書庫があるなら、そこも書架です。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "行きます。記録は、持って行けるだけ持って。"
+              ]
+            },
+            {
+              "code": 221,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                407,
+                407,
+                0
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 1,
+              "parameters": [
+                103,
+                103,
+                1,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_Facilities",
+                "open",
+                "部屋を開く",
+                {
+                  "facility": "lore"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "facility = lore"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 1,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 222,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "イスメネは本を三冊抱えて、南の戸口から出ていった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                1,
+                402,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "イスメネ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "あなた、記録にない方です。記録します。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "わたしはイスメネ。ここの書庫番です。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "イスメネ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "奥の書架は封じてあります。封じた人は、もういません。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "その奥の真名の間に、学者がまだいます。いる、と記録にあります。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "イスメネ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "一つ、頼めますか。奥に、銘の写しが二通りあるはずです。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "どちらが本物か、わたしは知りません。まだ。見つけたら、見せてください。"
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 2,
+              "parameters": [
+                402,
+                402,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 2,
+              "parameters": [
+                "Hai_Notes",
+                "errand",
+                "頼みごとを進める",
+                {
+                  "key": "copies",
+                  "title": "本物の写し",
+                  "who": "イスメネ",
+                  "stage": "1",
+                  "variableId": "163",
+                  "text": "記録院の奥の二通りの写しを、イスメネに見せる"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "key = copies"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "title = 本物の写し"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "who = イスメネ"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "stage = 1"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "variableId = 163"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "text = 記録院の奥の二通りの写しを、イスメネに見せる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "イスメネ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "真名の間の学者は、まだ読んでいます。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "封じた書架に、札が掛かっているはずです。読んでから行ってください。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "記憶 ディル 1",
+      "type": "text",
+      "x": 4,
+      "y": 8,
+      "note": "<hai_memory:7,1>",
+      "image": {
+        "tileId": "E:194"
+      },
+      "lines": [
+        [
+          "港の倉の裏に、濡れて捨てられた本が積んであった。",
+          "字はそれで覚えた。勘定は、荷札で覚えた。"
+        ],
+        [
+          "記録院の門で、一枚書いてみろと言われた。書いたら、入れた。",
+          "それだけの話だよ。泣ける所は無い。"
+        ]
+      ]
+    },
+    {
+      "name": "思念 R2-15 前の書庫番",
+      "type": "text",
+      "x": 8,
+      "y": 10,
+      "note": "<hai_thought:R2-15>",
+      "image": {
+        "characterName": "Damage2",
+        "characterIndex": 3,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "古言は消すべきです。使うたびに、使った人が欠けるのですから。",
+        "消すには、まず全部を書き留めなければなりません。",
+        "書き留めるほど、書架は重くなりました。"
+      ]
+    },
+    {
+      "name": "思念 R2-16 教会の使い",
+      "type": "text",
+      "x": 29,
+      "y": 23,
+      "note": "<hai_thought:R2-16>",
+      "image": {
+        "characterName": "Damage1",
+        "characterIndex": 3,
+        "direction": 8,
+        "pattern": 1
+      },
+      "lines": [
+        "教会の使いだ。銘の写しを受け取りに来た。",
+        "三日待てと言われた。二日目に、催促の手紙を書いた。",
+        "急がせた方が早く出来る。そう教わっていた。"
+      ]
+    },
+    {
+      "name": "古言の碑の扉（ディル）",
+      "type": "raw",
+      "x": 33,
+      "y": 20,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "tileId": "B:66"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                7,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "石の扉に、人の字でない線が刻んである。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ディル"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "……読めるよ。読むだけならな。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "訳？　しない。訳すと、あんたも欠けるだろ。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "ディルが一行を、声に出さずに唇で辿った。石の扉が横へ滑った。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Open5",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                410,
+                410,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "石の扉に、人の字でない線が刻んである。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "線は一筆で戻ってくる。読める者なら、開け方が分かりそうだ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 410,
+            "switch1Valid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（秘薬）",
+      "type": "raw",
+      "x": 35,
+      "y": 18,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                198,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[179]秘薬を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（霊水）",
+      "type": "raw",
+      "x": 36,
+      "y": 21,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                144,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]霊水 ×2を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "思念 R2-17 扉を閉めた写字生",
+      "type": "text",
+      "x": 35,
+      "y": 22,
+      "note": "<hai_thought:R2-17>",
+      "image": {
+        "characterName": "Damage1",
+        "characterIndex": 0,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "この部屋の扉は、古言で閉める。開けられる者は、院に三人。",
+        "三人とも、写しの仕事で手が離せなかった。",
+        "だから、ここに入れた物は、誰も出していない。"
+      ]
+    },
+    {
+      "name": "受付の机",
+      "type": "text",
+      "x": 23,
+      "y": 16,
+      "lines": [
+        "机の上に、来た人の名を書く帳面。今の日付の行に、一つだけ名がある。"
+      ]
+    },
+    {
+      "name": "書見台",
+      "type": "text",
+      "x": 10,
+      "y": 22,
+      "lines": [
+        "書見台に、開いたままの本。頁の端に、指で付けた折り目が並ぶ。"
+      ]
+    },
+    {
+      "name": "女神の像",
+      "type": "text",
+      "x": 19,
+      "y": 20,
+      "lines": [
+        "像の台座に「記す者は、忘れぬ者」。",
+        "その下に、小さく削った跡。"
+      ]
+    },
+    {
+      "name": "閲覧の札",
+      "type": "text",
+      "x": 3,
+      "y": 5,
+      "lines": [
+        "札に「声に出して読むこと、これを禁ず」。"
+      ]
+    },
+    {
+      "name": "宝箱（灰の苔）",
+      "type": "raw",
+      "x": 5,
+      "y": 14,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                200,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[190]灰の苔 ×2を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（鉄くず）",
+      "type": "raw",
+      "x": 14,
+      "y": 8,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Coin",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 125,
+              "indent": 0,
+              "parameters": [
+                0,
+                0,
+                40
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鉄くずを 40 手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "紙魚（緑）",
+      "type": "raw",
+      "x": 26,
+      "y": 9,
+      "note": "<hai_enemy:427,green>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "インクの影（緑・往復）",
+      "type": "raw",
+      "x": 13,
+      "y": 19,
+      "note": "<hai_enemy:428,green>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 4,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    }
+  ]
+}
