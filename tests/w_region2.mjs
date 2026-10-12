@@ -202,7 +202,7 @@ await runTest(async () => {
     check(await game.eval(() => Hai.Thoughts.notes("clue").some(n => n.text.includes("済の印が無い"))), "帳面の手がかりがメモに無い");
     await go(SHRINE, 17, 7, 8);
     const m2 = (await talk()).join("\n");
-    check(m2.includes("窓を開けて") && m2.includes("完全体"), "ノラの記憶 2 で完全体にならない " + JSON.stringify(m2));
+    check(m2.includes("桟を蹴った") && m2.includes("完全体"), "ノラの記憶 2 で完全体にならない " + JSON.stringify(m2));
     check(await game.eval(n => Hai.Companions.isComplete(n), NORA), "ノラが完全体にならない");
     await go(SHRINE, 9, 6, 8);
     await talk();
