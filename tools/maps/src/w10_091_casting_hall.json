@@ -1,0 +1,3049 @@
+{
+  "_説明": "W10（#156）：古い鋳物場・型の間と研究所の檻（docs/world.md 2.2・5.2・6.3・7.3・8.1）。西の口→090、型の間（炉・門の綱→研究所の門）、檻の区画（トゥーラの遺骸と親鐘の舌）、研究所の門→093、隠し扉の奥の鉄の搬入路（H34→027 (44,10)。片道）、型置き場（倒れた柱：トゥーラかブルーノ）、廃水の管（H35。W9 が 101 への場所移動を足す）、鉄格子（鉄切り鋏）、名無しの隠れ家、南の廊下→092。この設定は node tools/maps/src/w10_data.mjs が書く。",
+  "mapId": 91,
+  "name": "鋳物場・型の間と研究所の檻",
+  "displayName": "古い鋳物場",
+  "legend": "foundry",
+  "tilesetId": 23,
+  "note": "<hai_tone:0,-34,-68,68>",
+  "bgm": {
+    "name": "Dungeon5",
+    "volume": 60,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Fire2",
+    "volume": 20,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Fort1",
+    "battleback2Name": "Fort2"
+  },
+  "deco": {
+    "c": {
+      "name": "木箱（通れない）",
+      "z2": "B:220"
+    },
+    "k": {
+      "name": "樽（通れない）",
+      "z2": "B:238"
+    },
+    "q": {
+      "name": "鉄くず（通れない）",
+      "z2": "E:151"
+    },
+    "x": {
+      "name": "骸骨（通れない）",
+      "z2": "B:242"
+    },
+    "r": {
+      "name": "瓦礫（通れない）",
+      "z2": "B:120"
+    },
+    "a": {
+      "name": "型から出した鎧（通れない）",
+      "z2": "E:160"
+    },
+    "n": {
+      "name": "金床（通れない）",
+      "z2": "E:148"
+    },
+    "w": {
+      "name": "水桶（通れない）",
+      "z2": "E:150"
+    },
+    "o": {
+      "name": "かまど（通れない）",
+      "z2": "D:200"
+    }
+  },
+  "scatter": [
+    {
+      "on": ".",
+      "tiles": [
+        "B:32",
+        "B:33"
+      ],
+      "rate": 0.09,
+      "seed": 9101
+    },
+    {
+      "on": ":",
+      "tiles": [
+        "B:32"
+      ],
+      "rate": 0.04,
+      "seed": 9102
+    }
+  ],
+  "events": [
+    {
+      "name": "西の口（搬入口へ）",
+      "type": "transfer",
+      "x": 0,
+      "y": 20,
+      "to": [
+        90,
+        38,
+        15,
+        "left"
+      ]
+    },
+    {
+      "name": "西の口（搬入口へ）",
+      "type": "transfer",
+      "x": 0,
+      "y": 21,
+      "to": [
+        90,
+        38,
+        15,
+        "left"
+      ]
+    },
+    {
+      "name": "西の口（搬入口へ）",
+      "type": "transfer",
+      "x": 0,
+      "y": 22,
+      "to": [
+        90,
+        38,
+        15,
+        "left"
+      ]
+    },
+    {
+      "name": "南の廊下（鐘の型の部屋へ）",
+      "type": "transfer",
+      "x": 17,
+      "y": 44,
+      "to": [
+        92,
+        13,
+        1,
+        "down"
+      ]
+    },
+    {
+      "name": "南の廊下（鐘の型の部屋へ）",
+      "type": "transfer",
+      "x": 18,
+      "y": 44,
+      "to": [
+        92,
+        13,
+        1,
+        "down"
+      ]
+    },
+    {
+      "name": "南の廊下（鐘の型の部屋へ）",
+      "type": "transfer",
+      "x": 19,
+      "y": 44,
+      "to": [
+        92,
+        13,
+        1,
+        "down"
+      ]
+    },
+    {
+      "name": "研究所の門",
+      "type": "raw",
+      "x": 57,
+      "y": 5,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 2
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鉄の門。上から吊り下ろす形で、隙間が無い。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "門の上の滑車から、綱が東の壁の上を延びている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 614,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 2
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                93,
+                1,
+                9,
+                6,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "門の綱",
+      "type": "raw",
+      "x": 5,
+      "y": 13,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Switch1",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "西の壁際の滑車に、太い綱が巻いてある。綱は天井を伝って、東へ延びている。"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "綱を引く",
+                  "やめる"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "綱を引く"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Open5",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                614,
+                614,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "綱を引くと、檻の区画の奥で、鉄の門の上がる音がした。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 614,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Switch1",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "綱は、引いたままの所で止めてある。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "結界（型の間）",
+      "type": "raw",
+      "x": 52,
+      "y": 5,
+      "note": "<hai_warp:型の間>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "遺骸 トゥーラ",
+      "type": "raw",
+      "x": 55,
+      "y": 18,
+      "note": "<hai_remains:11><hai_memory:11,4>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "いちばん奥の檻。戸は、内側から曲げて開けてある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "檻の外に、獣人の子の骸。背負子に、太い鉄の舌を括りつけている。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "檻、曲げた。痛かったけど、骨のせいで力だけはある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "廊下に、鐘の舌が転がってた。夜明けまでに戻すって札が付いてた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "戻す奴がいねえなら、あたしが背負ってく。帰り道のついでだろ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "背負子に彫っといた。かえりは、かるい。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                606,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[209]親鐘の舌を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "倒れた柱",
+      "type": "raw",
+      "x": 28,
+      "y": 32,
+      "pages": [
+        {
+          "image": {
+            "tileId": "B:113"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "$gameParty.members().some(a => a.actorId() === 11 || a.actorId() === 5)"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "倒れた石の柱が、型置き場への口を塞いでいる。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                4,
+                11,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "トゥーラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "こんなもん、どけりゃいいんだろ。兄貴は下がってろ、馬鹿"
+              ]
+            },
+            {
+              "code": 411,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "お、押してみます。いち、に、さん……！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Earth4",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                613,
+                613,
+                0
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 1,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "柱が転がり、型置き場への口が開いた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "倒れた石の柱が、型置き場への口を塞いでいる。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "一人では動かない。もっと力のある者なら。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "錆びた鉄格子",
+      "type": "raw",
+      "x": 54,
+      "y": 29,
+      "pages": [
+        {
+          "image": {
+            "tileId": "D:252"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                313,
+                0
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Sword2",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "鉄切り鋏で、錆びた格子を一本ずつ切った。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                615,
+                615,
+                0
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 1,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "錆びた鉄格子。向こうの物置に、赤い箱が見える。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "手では曲がらない。鉄を切る道具があれば。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "鉄の搬入路（H34。坑道・下層へ）",
+      "type": "raw",
+      "x": 6,
+      "y": 4,
+      "pages": [
+        {
+          "image": {
+            "tileId": "C:112"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "床に、鉄の樋が斜めに口を開けている。下へ、どこまでも続いている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "樋の縁に「坑道より。鐘鉄」の刻印。"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "滑り降りる",
+                  "やめる"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "滑り降りる"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Fall",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                618,
+                618,
+                0
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 1,
+              "parameters": [
+                0,
+                27,
+                44,
+                10,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "名無し（隠れ家）",
+      "type": "raw",
+      "x": 8,
+      "y": 37,
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "variableId": 601,
+            "variableValid": true,
+            "variableValue": 1
+          },
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 7,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                8,
+                604
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "名無しは、手を差し出した。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "石板に書く。「記録を」"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 1,
+              "parameters": [
+                [
+                  "渡す",
+                  "まだ渡さない"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 1,
+              "parameters": [
+                0,
+                "渡す"
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 2,
+              "parameters": [
+                604,
+                1,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 2,
+              "parameters": [
+                607,
+                607,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "名無しは綴りを一枚ずつめくり、ある頁で手を止めた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "長いあいだ、同じ行を指でなぞっていた。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "石板に書く。「番号で、書かれていた。名の欄は、空だった」"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "「墓守。死んだ者の物を、生きている者へ渡す手だと聞いた」"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "「その手で、俺に名を返せ。誰の名でもいい」"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "名無しが立ち上がった。鎧の継ぎ目から、冷たい息が漏れる。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 2,
+              "parameters": [
+                0,
+                616,
+                0
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 3,
+              "parameters": [
+                [
+                  "止める",
+                  "見逃す",
+                  "「イルゼ」と書く"
+                ],
+                -1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 3,
+              "parameters": [
+                0,
+                "止める"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "名無しの腕を押さえた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "名無しは石板に何か書きかけて、字の途中で手を止めた。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 4,
+              "parameters": [
+                {
+                  "name": "Collapse2",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "鎧が、膝から崩れた。中は灰だった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "石板の字は、名の一画目で止まっている。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 4,
+              "parameters": [
+                608,
+                608,
+                0
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 4,
+              "parameters": [
+                "Hai_Notes",
+                "errandEnd",
+                "頼みごとを終える",
+                {
+                  "key": "name",
+                  "result": "dead",
+                  "text": "名無しは崩れた（鋳物場の南西の小部屋）"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "key = name"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "result = dead"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "text = 名無しは崩れた（鋳物場の南西の小部屋）"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 3,
+              "parameters": [
+                1,
+                "見逃す"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "名無しは、石板に知らない名を三つ書き、一つずつ消した。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "最後に書いた名の下に線を引き、それを名乗るように、胸に手を当てた。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "名無しは、型の間の方へ出ていった。足音が、さっきまでと違う。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 4,
+              "parameters": [
+                609,
+                609,
+                0
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 4,
+              "parameters": [
+                "Hai_Notes",
+                "errandEnd",
+                "頼みごとを終える",
+                {
+                  "key": "name",
+                  "result": "done",
+                  "text": "名無しは、誰かの名を名乗って去った（鋳物場の南西の小部屋）"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "key = name"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "result = done"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "text = 名無しは、誰かの名を名乗って去った（鋳物場の南西の小部屋）"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 3,
+              "parameters": [
+                2,
+                "「イルゼ」と書く"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "石板の端に、手紙の差出人の名を書いた。「イルゼ」"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "名無しの手が止まった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "その名の下に何か書きかけて、やめた。名無しは、寝床に座りこんだ。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "石板に、もう一度だけ書く。「了解」"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 4,
+              "parameters": [
+                610,
+                610,
+                0
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 4,
+              "parameters": [
+                "Hai_Notes",
+                "errandEnd",
+                "頼みごとを終える",
+                {
+                  "key": "name",
+                  "result": "done",
+                  "text": "名無しは、イルゼの名の前で座りこんだ（鋳物場の南西の小部屋）"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "key = name"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "result = done"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "text = 名無しは、イルゼの名の前で座りこんだ（鋳物場の南西の小部屋）"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 102,
+              "indent": 3,
+              "parameters": [
+                [
+                  "止める",
+                  "見逃す"
+                ],
+                -1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 3,
+              "parameters": [
+                0,
+                "止める"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "名無しの腕を押さえた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "名無しは石板に何か書きかけて、字の途中で手を止めた。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 4,
+              "parameters": [
+                {
+                  "name": "Collapse2",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "鎧が、膝から崩れた。中は灰だった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "石板の字は、名の一画目で止まっている。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 4,
+              "parameters": [
+                608,
+                608,
+                0
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 4,
+              "parameters": [
+                "Hai_Notes",
+                "errandEnd",
+                "頼みごとを終える",
+                {
+                  "key": "name",
+                  "result": "dead",
+                  "text": "名無しは崩れた（鋳物場の南西の小部屋）"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "key = name"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "result = dead"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "text = 名無しは崩れた（鋳物場の南西の小部屋）"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 3,
+              "parameters": [
+                1,
+                "見逃す"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "名無しは、石板に知らない名を三つ書き、一つずつ消した。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "最後に書いた名の下に線を引き、それを名乗るように、胸に手を当てた。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "名無しは、型の間の方へ出ていった。足音が、さっきまでと違う。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 4,
+              "parameters": [
+                609,
+                609,
+                0
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 4,
+              "parameters": [
+                "Hai_Notes",
+                "errandEnd",
+                "頼みごとを終える",
+                {
+                  "key": "name",
+                  "result": "done",
+                  "text": "名無しは、誰かの名を名乗って去った（鋳物場の南西の小部屋）"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "key = name"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "result = done"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "text = 名無しは、誰かの名を名乗って去った（鋳物場の南西の小部屋）"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 122,
+              "indent": 2,
+              "parameters": [
+                601,
+                601,
+                0,
+                0,
+                3
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 1,
+              "parameters": [
+                1,
+                "まだ渡さない"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "名無しは、また座った。「待つ」"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "古い寝床に、名無しが座っている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "石板に書く。「研究所の奥。観察の記録を」"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 610,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 7,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "名無しは、寝床に座ったまま動かない。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "膝の上の石板に、同じ名が一つだけ書いてある。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "名無しの寝床",
+      "type": "text",
+      "x": 11,
+      "y": 35,
+      "lines": [
+        "古い寝床。枕の代わりに、畳んだ帝国の外套。",
+        "壁に、石で引いた線が何百も並ぶ。日を数えたのだろうか。"
+      ]
+    },
+    {
+      "name": "廃水の管（H35。地下水道・水門へ。W9 がつなぐ）",
+      "type": "raw",
+      "x": 52,
+      "y": 38,
+      "pages": [
+        {
+          "image": {
+            "tileId": "E:150"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "壁の下に、人がくぐれるほどの廃水の管。奥から水の音がする。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "管の口は、内側から格子で塞がれている。向こうから外す閂が見える。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "赤い宝箱（番号の腕輪）",
+      "type": "raw",
+      "x": 54,
+      "y": 27,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 128,
+              "indent": 0,
+              "parameters": [
+                605,
+                0,
+                0,
+                1,
+                false
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[146]番号の腕輪を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 2,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "宝箱（型師の前掛け）",
+      "type": "raw",
+      "x": 30,
+      "y": 36,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 128,
+              "indent": 0,
+              "parameters": [
+                606,
+                0,
+                0,
+                1,
+                false
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[136]型師の前掛けを手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "拾い物（砦の名札）",
+      "type": "raw",
+      "x": 49,
+      "y": 2,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "門の前の窪みに、木の名札が一つ。紐は、子どもの手で結び直してある。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                328,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[197]砦の名札を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "宝箱（秘薬）",
+      "type": "raw",
+      "x": 12,
+      "y": 8,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                198,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]秘薬を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "宝箱（鉄くず）",
+      "type": "raw",
+      "x": 39,
+      "y": 39,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 125,
+              "indent": 0,
+              "parameters": [
+                0,
+                0,
+                200
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鉄くずを 200 手に入れた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "拾い物（灰の苔）",
+      "type": "raw",
+      "x": 5,
+      "y": 39,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                200,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]灰の苔を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "思念 R4-13 檻の中で数えた子",
+      "type": "text",
+      "x": 45,
+      "y": 6,
+      "note": "<hai_thought:R4-13>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "となりのおりの子に、おしえてもらった。かぞえると、こわくないって。",
+        "いち、に、さん。",
+        "となりの子は、きのう、よばれていった。つづきは、あたしがかぞえてる。"
+      ]
+    },
+    {
+      "name": "思念 R4-14 型師",
+      "type": "text",
+      "x": 8,
+      "y": 25,
+      "note": "<hai_thought:R4-14>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "鐘の型は、壊して出す。同じ型では、二度と鋳られない。",
+        "舌だけは、鋳直せと言われた。教会の札を持った男が、夜明けまでにと。",
+        "炉に火を入れる前に、研究所の連中が来て、炉を三つ持っていった。"
+      ]
+    },
+    {
+      "name": "思念 R4-15 廃水の番",
+      "type": "text",
+      "x": 48,
+      "y": 32,
+      "note": "<hai_thought:R4-15>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "汚れた水は管で下へ流す。下は砦の地下の水路だと聞いた。",
+        "流れていく物の中に、ときどき、小さな靴が混ざる。"
+      ]
+    },
+    {
+      "name": "炉",
+      "type": "text",
+      "x": 17,
+      "y": 15,
+      "lines": [
+        "三つ並んだ炉の跡。火床の鉄は持ち去られ、煉瓦だけが残る。"
+      ]
+    },
+    {
+      "name": "檻",
+      "type": "text",
+      "x": 43,
+      "y": 13,
+      "lines": [
+        "鉄の格子の檻。床に、小さな手の跡が並んでいる。",
+        "格子の高い所には、手の跡が無い。"
+      ]
+    },
+    {
+      "name": "型の並び",
+      "type": "text",
+      "x": 6,
+      "y": 15,
+      "lines": [
+        "型から出した鎧が三領、壁に並ぶ。",
+        "胸の所に、鐘の形の浮き彫り。三領とも、同じ所が欠けている。"
+      ]
+    },
+    {
+      "name": "失敗作（黄・往復）",
+      "type": "raw",
+      "x": 10,
+      "y": 19,
+      "note": "<hai_enemy:609,yellow>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 4,
+          "moveType": 3,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "失敗作（黄・往復）",
+      "type": "raw",
+      "x": 26,
+      "y": 27,
+      "note": "<hai_enemy:609,yellow>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 4,
+          "moveType": 3,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "煤鼠（緑）",
+      "type": "raw",
+      "x": 30,
+      "y": 16,
+      "note": "<hai_enemy:607,green>\n<hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Nature",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 3,
+          "moveType": 1
+        }
+      ]
+    },
+    {
+      "name": "鋳くず（緑）",
+      "type": "raw",
+      "x": 22,
+      "y": 28,
+      "note": "<hai_enemy:608,green>\n<hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 3,
+          "moveType": 1
+        }
+      ]
+    },
+    {
+      "name": "檻の失敗作（黄・往復）",
+      "type": "raw",
+      "x": 44,
+      "y": 14,
+      "note": "<hai_enemy:610,yellow>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 4,
+          "moveType": 3,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "鋳くず（緑）",
+      "type": "raw",
+      "x": 39,
+      "y": 18,
+      "note": "<hai_enemy:608,green>\n<hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 3,
+          "moveType": 1
+        }
+      ]
+    },
+    {
+      "name": "継ぎ目の失敗作（赤・番兵）",
+      "type": "raw",
+      "x": 46,
+      "y": 33,
+      "note": "<hai_enemy:611,red>\n<hai_enemy_chase:2>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 3,
+          "moveType": 0
+        }
+      ]
+    }
+  ]
+}
