@@ -22,7 +22,8 @@
  *   稽古場  控えの仲間に魂を与えてレベルを 1 つ上げる（前に出ている仲間の最高レベルまで）
  *   食堂    Hai_Craft の合成の画面
  *   倉      Hai_Items の倉庫から引き出す・袋から預ける
- *   書庫    倒したボスの一覧・読んだ思念と戻った記憶の数（写しの読み比べは名前だけ）
+ *   書庫    倒したボスの一覧・読んだ思念と戻った記憶の数・拾った言い残し（写しの読み比べは名前だけ）
+ *           「朝の砦のスイッチ」が ON の間、「読んだ思念」の見出しは「送った人」になる（P14）
  *   療養所  全員の状態異常を治す。開いている間、消耗品の所持上限が 1 つ増える（Hai_Items）
  *   鍛冶場  一点ものの装備を魂で鍛え直す（能力が上がる）。鉄切り鋏を打つ（スイッチ 313 を ON）
  *   見張り台  訪れたマップの地図を隅まで埋める（Hai_AutoMap）。開いている間、転送の行き先が増える（Hai_Warp）
@@ -172,6 +173,17 @@
  * @type string
  * @default 霧の森の門:20:35:47:8,焼けた村の入口:60:47:18:4,霧の湖の石段:70:22:1:2,境山の古道の口:50:1:18:6
  *
+ * @param morningSwitch
+ * @text 朝の砦のスイッチ
+ * @desc ON の間、書庫の「読んだ思念」の見出しを「送った人の見出し」にする（結末のあと。0 で替えない）。
+ * @type switch
+ * @default 1165
+ *
+ * @param sentTitle
+ * @text 送った人の見出し
+ * @type string
+ * @default 送った人
+ *
  * @command door
  * @text 崩れた扉
  * @desc 部屋が閉じていれば「扉が崩れて、瓦礫で塞がっている。」を出す。開いていれば何もしない。
@@ -278,6 +290,8 @@
       .map(t => t.trim().split(":"))
       .filter(a => a.length >= 4 && a[0])
       .map(([name, mapId, x, y, d]) => ({ name, mapId: Number(mapId), x: Number(x), y: Number(y), d: Number(d) || 2 })),
+    morningSwitch: Number(params.morningSwitch ?? 1165),
+    sentTitle: params.sentTitle || "送った人",
   };
   const indexOf = key => KEYS.indexOf(String(key));
   const nameOf = key => P.names[indexOf(key)] || String(key);
@@ -737,8 +751,16 @@
   const LORE = [
     { symbol: "bosses", name: "倒したボス" },
     { symbol: "thoughts", name: "読んだ思念" },
+    { symbol: "legacies", name: "言い残し" },
     { symbol: "copies", name: "写しの読み比べ" },
   ];
+
+  /** 書庫の見出し。朝の砦（スイッチ ON）では「読んだ思念」が「送った人」になる。 */
+  function loreName(symbol) {
+    if (symbol === "thoughts" && P.morningSwitch > 0 && $gameSwitches.value(P.morningSwitch)) return P.sentTitle;
+    const c = LORE.find(l => l.symbol === symbol);
+    return c ? c.name : "";
+  }
 
   function loreLines(symbol) {
     if (symbol === "bosses") {
@@ -749,7 +771,13 @@
       const th = window.Hai && Hai.Thoughts;
       const notes = th ? th.notes().length : 0;
       const faint = th && th.faintCount ? th.faintCount() : 0;
-      return [`読んだ思念　${readThoughts()}`, `戻った記憶　${faint}`, `メモ　${notes}`];
+      return [`${loreName("thoughts")}　${readThoughts()}`, `戻った記憶　${faint}`, `メモ　${notes}`];
+    }
+    if (symbol === "legacies") {
+      // 拾った分だけ並べる（無いことは、一覧に出ないことで分かる）
+      const th = window.Hai && Hai.Thoughts;
+      const list = th && th.legacies ? th.legacies() : [];
+      return list.flatMap(l => [`\\C[16]${l.speaker}\\C[0]`, `　${l.text}`]);
     }
     if (symbol === "copies") return ["読み比べる写しは、まだ一冊もない。"];
     return [];
@@ -757,7 +785,7 @@
 
   class Window_HaiLoreCommand extends Window_Command {
     makeCommandList() {
-      for (const c of LORE) this.addCommand(c.name, c.symbol);
+      for (const c of LORE) this.addCommand(loreName(c.symbol), c.symbol);
     }
     callUpdateHelp() {
       if (this._pageWindow) this._pageWindow.setSymbol(this.currentSymbol());
@@ -967,6 +995,7 @@
     reveal,
     watchDestinations,
     loreLines,
+    loreName,
     openScene,
     Scene_HaiSouls,
     Scene_HaiGate,

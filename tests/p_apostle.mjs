@@ -2,7 +2,7 @@
 // 弱い化け物のためらい（Hai_SymbolEnemy の <hai_enemy_hesitate>）、頼みごとの一覧（Hai_Notes）。乱数（Math.random）は固定する。
 //   1. 技は覚えるスイッチ（162）が ON になるまで主人公の技の一覧に無い。ON で戦闘の技の窓に「思いの刃」が出る。
 //   2. 耐える戦い（Troops 183、<hai_endure:5>）：画面の操作で「思いの刃」を 3 回 → 呑まれ 40・80・100、3 回目の行動の終わりに
-//      ステート「呑まれ」（操作できない）。次のターン、仲間のコマンド「呼びかける」→ ログに「ブルーノ「あなた！」」、
+//      ステート「呑まれ」（操作できない）。次のターン、仲間のコマンド「呼びかける」→ ログに「ブルーノ「あなた！　数えてください。いち、に、さん」」、
 //      呑まれが 40 に下がりステートが外れる。5 ターン目の終わりで「耐えきった。」→ 勝ち（撃破の旗）。呑まれは 0 に戻る。
 //   3. 呼ばないとき：呑まれのステートの間は自動で敵を攻撃し、3 ターンで切れて呑まれが 50 に下がる。
 //   4. ためらい（Map919）：<hai_enemy_hesitate> の敵は見つけるとこちらを向いて止まり、30 フレームより後に動き出す。
@@ -76,7 +76,7 @@ await runTest(async () => {
         errands: Hai.Notes.errands().length, none: Hai.Notes.errand("brother"),
       };
     });
-    check(old.engulf === 0 && old.word === "あなた！" && !old.learned && old.errands === 0 && old.none === null,
+    check(old.engulf === 0 && old.word === "あなた！　数えてください。いち、に、さん" && !old.learned && old.errands === 0 && old.none === null,
       "古いセーブの初期値 " + JSON.stringify(old));
 
     // ===== 1. 技はスイッチで覚える =====
@@ -211,6 +211,8 @@ await runTest(async () => {
     }, [STATE, ENGULF_VAR]);
 
     // ===== 2. 耐える戦い：思いの刃 3 回 → 呑まれ → 呼びかけ → 5 ターンで勝ち =====
+    // P14 で耐える戦いの主人公の命令は「耐える」「呼ぶ」だけになった。ここではふだんの命令で呑まれの溜まり方を見る（P14 の命令は p_hooks）
+    await game.eval(() => Hai.Apostle.setEndureCommands(false));
     await game.eval(t => window.__game.startBattle(t, false, false), TROOP);
     await game.waitScene("Scene_Battle");
     await game.call("setSpeed", FAST);
@@ -260,7 +262,7 @@ await runTest(async () => {
     st = await status();
     check(st.engulf === 40 && !st.state, "呼びかけのあと呑まれが 40 に下がらない／ステートが残る " + JSON.stringify(st));
     texts = (await log()).texts;
-    check(texts.includes("ブルーノ「あなた！」"), "呼びかけの一行が無い " + JSON.stringify(texts.slice(-8)));
+    check(texts.includes("ブルーノ「あなた！　数えてください。いち、に、さん」"), "呼びかけの一行が無い " + JSON.stringify(texts.slice(-8)));
     check(texts.some(x => /は顔を上げた。$/.test(x)), "戻った一行が無い " + JSON.stringify(texts.slice(-8)));
     const acts4 = (await log()).acts.filter(a => a.turn === 4 && a.actor === 1);
     check(acts4.length === 1 && acts4[0].skill === 1, "呑まれている主人公が自動で攻撃していない " + JSON.stringify(acts4));
@@ -453,10 +455,10 @@ await runTest(async () => {
     await game.call("load", 1);
     await game.waitScene("Scene_Map");
     const loaded = await game.eval(() => ({ word: Hai.Apostle.callWord(5), word6: Hai.Apostle.callWord(6), brother: Hai.Notes.errand("brother"), iron: Hai.Notes.errand("iron") }));
-    check(loaded.word === "……ここです。" && loaded.word6 === "あんた！" && loaded.brother && loaded.brother.stage === 2 && loaded.iron.result === "dead",
+    check(loaded.word === "……ここです。" && loaded.word6 === "あんた！　あんた、顔が灰色！" && loaded.brother && loaded.brother.stage === 2 && loaded.iron.result === "dead",
       "ロードで呼びかけの言葉・頼みごとが消えた " + JSON.stringify(loaded));
     await game.eval(() => Hai.Apostle.setCallWord(5, ""));
-    check(await game.eval(() => Hai.Apostle.callWord(5)) === "あなた！", "言葉を空にしてもパラメータの言葉に戻らない");
+    check(await game.eval(() => Hai.Apostle.callWord(5)) === "あなた！　数えてください。いち、に、さん", "言葉を空にしてもパラメータの言葉に戻らない");
 
     game.assertNoErrors();
   } finally {

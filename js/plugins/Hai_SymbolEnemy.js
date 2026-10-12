@@ -13,6 +13,10 @@
  *                           <hai_enemy_hesitate:40> で止まるフレーム数を変える
  *   <hai_enemy_shade:一行>  声だけの影（P13）。姿が薄く（パラメータ「影の不透明度」）、追わない。
  *                           触れると戦闘。倒すと「一行」を窓なしで画面の真ん中に出す（値を省くと何も出さない）
+ *   <hai_enemy_bell:103>    東を向いて止まる（P14）。スイッチ 103（その地域の鐘）が ON なら追わず、
+ *                           右（東）を向いて止まり、影と同じ薄さになる。触れると戦闘。説明の文は出さない。
+ *                           マップのメモ欄に書くと、そのマップのシンボル敵すべてに付く（イベントのほうが優先）。
+ *                           パラメータ「朝の砦のスイッチ」が ON の間、この旗の敵は出ない。
  *
  * ■ 動き
  *   ふだんはページの「自律移動」（固定・ランダム・近づく・カスタム）のとおりに動く。
@@ -38,6 +42,8 @@
  *   canSeePlayer(event)   今プレイヤーを追える位置にいるか
  *   colorOf(rank)         その強さの色 [赤, 緑, 青, 強さ]
  *   isShade(event) / shadeVoice(event)  声だけの影か / 倒したときの一行（無ければ ""）
+ *   bellSwitchOf(event)   東を向いて止まる旗のスイッチ ID（無ければ 0）
+ *   isBellStopped(event)  今、東を向いて止まっているか
  *
  * @param chaseRange
  * @text 追い始める距離
@@ -76,6 +82,12 @@
  * @max 255
  * @default 96
  *
+ * @param morningSwitch
+ * @text 朝の砦のスイッチ
+ * @desc ON の間、<hai_enemy_bell> の敵を出さない（結末のあと。0 で使わない）。
+ * @type switch
+ * @default 1165
+ *
  * @param greenColor
  * @text 緑（弱い）の色
  * @desc 絵に重ねる色。赤,緑,青,強さ（0〜255）。
@@ -112,6 +124,7 @@
   const fleeFrames = Number(params.fleeFrames || 180);
   const hesitateFrames = Number(params.hesitateFrames ?? 30);
   const shadeOpacity = Math.max(0, Math.min(255, Number(params.shadeOpacity ?? 96)));
+  const morningSwitch = Number(params.morningSwitch ?? 1165);
   const parseColor = (text, fallback) => {
     const c = String(text || fallback).split(",").map(Number);
     return c.length === 4 && c.every(n => Number.isFinite(n)) ? c : fallback.split(",").map(Number);
@@ -144,6 +157,22 @@
       hesitate: hesitate === undefined ? 0 : hesitate === true ? hesitateFrames : Math.max(0, Number(hesitate) || 0),
     };
   }
+
+  /** 東を向いて止まる旗のスイッチ ID（イベントのメモ欄、無ければマップのメモ欄）。シンボル敵でなければ 0。 */
+  function bellSwitchOf(event) {
+    const data = event && event instanceof Game_Event ? event.event() : null;
+    if (!data || !data.meta || !data.meta.hai_enemy || data.meta.hai_enemy === true) return 0;
+    const own = data.meta.hai_enemy_bell;
+    const mapMeta = event._mapId === $gameMap.mapId() && $dataMap ? $dataMap.meta || {} : {};
+    const tag = own !== undefined ? own : mapMeta.hai_enemy_bell;
+    return tag === undefined || tag === true ? 0 : Math.max(0, Number(tag) || 0);
+  }
+
+  const isBellStopped = event => {
+    const id = bellSwitchOf(event);
+    return id > 0 && $gameSwitches.value(id);
+  };
+  const isMorning = () => morningSwitch > 0 && $gameSwitches.value(morningSwitch);
 
   // イベントごとの状態（Game_Event に置くので、$gameMap ごとセーブに入る）
   function stateOf(event) {
@@ -182,7 +211,7 @@
 
   function canSeePlayer(event) {
     const info = infoOf(event);
-    if (!info || info.chaseRange <= 0 || $gamePlayer.isInVehicle()) return false;
+    if (!info || info.chaseRange <= 0 || $gamePlayer.isInVehicle() || isBellStopped(event)) return false;
     const dx = Math.abs($gameMap.deltaX(event.x, $gamePlayer.x));
     const dy = Math.abs($gameMap.deltaY(event.y, $gamePlayer.y));
     if (dx + dy > info.chaseRange) return false;
@@ -231,7 +260,9 @@
     hesitateOf: event => (infoOf(event) || {}).hesitate || 0,
     isShade: event => !!(infoOf(event) || {}).shade,
     shadeVoice: event => (infoOf(event) || {}).voice || "",
-    params: { chaseRange, chaseSpeed, fleeFrames, hesitateFrames, shadeOpacity },
+    bellSwitchOf,
+    isBellStopped,
+    params: { chaseRange, chaseSpeed, fleeFrames, hesitateFrames, shadeOpacity, morningSwitch },
   };
 
   PluginManager.registerCommand(pluginName, "defeated", function() {
@@ -268,9 +299,11 @@
   };
 
   // 勝った敵（セルフスイッチ A が ON）は、どのページも出さない（絵も当たりも無くなる）
+  // 朝の砦（スイッチ ON）では、東を向いて止まる旗の敵も出さない
   const _Game_Event_findProperPageIndex = Game_Event.prototype.findProperPageIndex;
   Game_Event.prototype.findProperPageIndex = function() {
     if (infoOf(this) && isDefeated(this._mapId, this._eventId)) return -1;
+    if (isMorning() && bellSwitchOf(this) > 0) return -1;
     return _Game_Event_findProperPageIndex.apply(this, arguments);
   };
 
@@ -317,6 +350,15 @@
   Game_Event.prototype.updateSelfMovement = function() {
     if (infoOf(this) && this._pageIndex >= 0 && !this._locked) {
       const s = stateOf(this);
+      if (isBellStopped(this)) {
+        // 東を向いて止まる：追わず、ページの自律移動もしない
+        if (s.chasing) {
+          s.chasing = false;
+          s.hesitate = 0;
+          this.setMoveSpeed(s.baseSpeed || this._moveSpeed);
+        }
+        return;
+      }
       const chase = s.flee <= 0 && canSeePlayer(this);
       if (chase !== s.chasing) {
         s.chasing = chase;
@@ -340,6 +382,19 @@
   Game_Event.prototype.update = function() {
     _Game_Event_update.apply(this, arguments);
     const s = this._haiSymbol;
+    // 東を向いて止まる（スイッチはページを替えずに変わるので、毎フレーム見る）
+    if (s && this._pageIndex >= 0) {
+      const bell = isBellStopped(this);
+      if (bell) {
+        if (!this._locked && !this.isMoving()) this._direction = 6;
+        if (this.opacity() !== shadeOpacity) this.setOpacity(shadeOpacity);
+        s.bell = true;
+      } else if (s.bell) {
+        s.bell = false;
+        const info = infoOf(this);
+        this.setOpacity(info && info.shade ? shadeOpacity : 255);
+      }
+    }
     // ためらっている間は止まったまま（止まっている時間も数え直すので、自律移動の頻度の待ちはそのあと）
     if (s && s.hesitate > 0 && !$gameMap.isEventRunning()) {
       s.hesitate -= 1;
