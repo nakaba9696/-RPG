@@ -137,11 +137,11 @@
     region2: [{ mapId: 60, x: 47, y: 18, d: 4 }], // 焼けた村・入口（021 の西の焼けた道から）
     region3: [{ mapId: 70, x: 22, y: 1, d: 2 }], // 霧の湖（061 の水路の石段から）
     region4: [{ mapId: 50, x: 1, y: 18, d: 6 }], // 境山の古道（026 の東の坑道から）
-    region5: [{ mapId: 63, x: 13, y: 4, d: 8 }], // 麦の街道（110。W12 が足す）ができるまでは、祠の奥の戸の前
+    region5: [{ mapId: 63, x: 13, y: 4, d: 2 }], // 麦の街道（110。W12 が足す）ができるまでは、祠の奥の戸の前（戸に触れないよう祠の中を向く）
     last_archive: [{ mapId: 84, x: 13, y: 18, d: 8 }], // 縄張り（170。W11 が足す）ができるまでは、まだの鐘の間
     last_water: [{ mapId: 104, x: 13, y: 22, d: 8 }],
     last_foundry: [{ mapId: 94, x: 13, y: 24, d: 8 }],
-    summit: [{ mapId: 19, x: 30, y: 9, d: 2 }], // 灰の斜面（180。W14 が足す）ができるまでは、城壁の東門
+    summit: [{ mapId: 19, x: 30, y: 9, d: 8 }], // 灰の斜面（180。W14 が足す）ができるまでは、城壁の東門の内（門に触れないよう北を向く。門は南の 1 歩先）
   };
 
   const BUNDLES = {
@@ -385,8 +385,16 @@
     setup(name, opts = {}) {
       resolveCheckpoint(name, opts); // 名前の間違いはここで投げる
       return new Promise((resolve, reject) => {
-        pendingSetup = { name, opts, resolve, reject };
-        SceneManager.goto(Scene_Map);
+        // 今の場面が始まりきってから切り替える（場所移動の直後の Scene_Map は窓がまだ無く、stop で落ちる）
+        const go = () => {
+          const scene = SceneManager._scene;
+          const settled = scene && scene.isStarted() && !SceneManager.isSceneChanging() &&
+            !(scene instanceof Scene_Map && $gamePlayer.isTransferring());
+          if (!settled) return void setTimeout(go, 16);
+          pendingSetup = { name, opts, resolve, reject };
+          SceneManager.goto(Scene_Map);
+        };
+        go();
       });
     },
     checkpoints() {

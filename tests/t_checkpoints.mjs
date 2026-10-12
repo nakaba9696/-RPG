@@ -69,7 +69,8 @@ await runTest(async () => {
 
       // 入口から歩ける（どれかの向きに 1 歩出て、戻れる）
       let moved = 0;
-      for (const d of [2, 4, 6, 8]) {
+      // 着いた向き（地域の中を向く）から試す。戸口を踏んで別のマップへ出たら失敗にする
+      for (const d of [r.to.d, 2, 4, 6, 8].filter((d, i, a) => a.indexOf(d) === i)) {
         if (await game.call("step", d)) {
           await game.waitPlayerStopped();
           moved = d;
@@ -77,8 +78,11 @@ await runTest(async () => {
         }
       }
       check(moved, `${label}: 入口 Map${r.to.mapId} (${r.to.x},${r.to.y}) からどこへも歩けない`);
+      await game.frames(4);
+      check(!(await game.eval(() => $gamePlayer.isTransferring())) && (await game.call("mapId")) === r.to.mapId, `${label}: 入口から 1 歩で別のマップへ出た（向き ${moved}）`);
       check(await game.call("step", 10 - moved), `${label}: 入口へ戻れない`);
       await game.waitPlayerStopped();
+      await game.waitFor(() => !window.__game.isBusy());
       console.log(`  ${label}: Map${r.to.mapId} (${r.to.x},${r.to.y})・鐘 ${st.bells}・仲間 ${c.companions.length}・生き残り ${st.survivors}・入口まで約 ${Math.round(e.minutes)} 分（ゲームの中 ${e.playtime} 秒）`);
       if (shots < 4 && ["fort", "region5", "bells3", "bells4"].includes(c.name)) {
         shots++;
