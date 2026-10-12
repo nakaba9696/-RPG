@@ -356,7 +356,7 @@ const ENEMIES = [
   [ENEMY.failure, "失敗作", "Zombie", 260, [700, 0, 40, 24, 8, 16, 16, 10], 48, 32, [T.element(ELEMENT.light, 2), T.element(ELEMENT.fire, 1.5)], [attack, act(SKILL.seamClaw, 3)], noDrop],
   [ENEMY.cagedFailure, "檻の失敗作", "Wolfman", 270, [560, 0, 42, 18, 8, 12, 32, 10], 46, 30, [T.element(ELEMENT.light, 2)], [attack, act(SKILL.seamClaw, 4)], noDrop],
   // W17（台本 13）：051 の夜の戸の、声だけの影（名無し兵）。弱い
-  [ENEMY.namelessShade, "声だけの影（名無し兵）", "SF_Shadow", 0, [260, 0, 26, 14, 10, 14, 20, 10], 20, 0, [T.element(ELEMENT.light, 2), T.physRate(0.85)], [attack], noDrop],
+  [ENEMY.namelessShade, "声だけの影（名無し兵）", "SF_Shadow", 0, [400, 0, 32, 16, 10, 14, 24, 10], 26, 0, [T.element(ELEMENT.light, 2), T.physRate(0.85)], [attack], noDrop],
   [ENEMY.seamed, "継ぎ目の失敗作", "Demon", 280, [2200, 0, 52, 32, 8, 20, 22, 10], 140, 80, [T.element(ELEMENT.light, 2), T.physRate(0.85)], [attack, act(SKILL.seamClaw, 4), act(SKILL.sootBreath, 2)], noDrop],
 ];
 const enemies = readData("Enemies.json");
