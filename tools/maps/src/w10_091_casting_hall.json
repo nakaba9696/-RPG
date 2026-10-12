@@ -1315,13 +1315,13 @@
               "code": 357,
               "indent": 4,
               "parameters": [
-                "Hai_Thoughts",
-                "addNote",
-                "メモに足す",
+                "Hai_Notes",
+                "errandEnd",
+                "頼みごとを終える",
                 {
-                  "text": "名無しは崩れた（鋳物場の南西の小部屋）",
-                  "id": "task:nameless:done",
-                  "kind": "clue"
+                  "key": "name",
+                  "result": "dead",
+                  "text": "名無しは崩れた（鋳物場の南西の小部屋）"
                 }
               ]
             },
@@ -1329,21 +1329,21 @@
               "code": 657,
               "indent": 4,
               "parameters": [
+                "key = name"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "result = dead"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
                 "text = 名無しは崩れた（鋳物場の南西の小部屋）"
-              ]
-            },
-            {
-              "code": 657,
-              "indent": 4,
-              "parameters": [
-                "id = task:nameless:done"
-              ]
-            },
-            {
-              "code": 657,
-              "indent": 4,
-              "parameters": [
-                "kind = clue"
               ]
             },
             {
@@ -1415,13 +1415,13 @@
               "code": 357,
               "indent": 4,
               "parameters": [
-                "Hai_Thoughts",
-                "addNote",
-                "メモに足す",
+                "Hai_Notes",
+                "errandEnd",
+                "頼みごとを終える",
                 {
-                  "text": "名無しは、誰かの名を名乗って去った（鋳物場の南西の小部屋）",
-                  "id": "task:nameless:done",
-                  "kind": "clue"
+                  "key": "name",
+                  "result": "done",
+                  "text": "名無しは、誰かの名を名乗って去った（鋳物場の南西の小部屋）"
                 }
               ]
             },
@@ -1429,21 +1429,21 @@
               "code": 657,
               "indent": 4,
               "parameters": [
+                "key = name"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "result = done"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
                 "text = 名無しは、誰かの名を名乗って去った（鋳物場の南西の小部屋）"
-              ]
-            },
-            {
-              "code": 657,
-              "indent": 4,
-              "parameters": [
-                "id = task:nameless:done"
-              ]
-            },
-            {
-              "code": 657,
-              "indent": 4,
-              "parameters": [
-                "kind = clue"
               ]
             },
             {
@@ -1533,13 +1533,13 @@
               "code": 357,
               "indent": 4,
               "parameters": [
-                "Hai_Thoughts",
-                "addNote",
-                "メモに足す",
+                "Hai_Notes",
+                "errandEnd",
+                "頼みごとを終える",
                 {
-                  "text": "名無しは、イルゼの名の前で座りこんだ（鋳物場の南西の小部屋）",
-                  "id": "task:nameless:done",
-                  "kind": "clue"
+                  "key": "name",
+                  "result": "done",
+                  "text": "名無しは、イルゼの名の前で座りこんだ（鋳物場の南西の小部屋）"
                 }
               ]
             },
@@ -1547,21 +1547,21 @@
               "code": 657,
               "indent": 4,
               "parameters": [
+                "key = name"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "result = done"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
                 "text = 名無しは、イルゼの名の前で座りこんだ（鋳物場の南西の小部屋）"
-              ]
-            },
-            {
-              "code": 657,
-              "indent": 4,
-              "parameters": [
-                "id = task:nameless:done"
-              ]
-            },
-            {
-              "code": 657,
-              "indent": 4,
-              "parameters": [
-                "kind = clue"
               ]
             },
             {
@@ -1681,13 +1681,13 @@
               "code": 357,
               "indent": 4,
               "parameters": [
-                "Hai_Thoughts",
-                "addNote",
-                "メモに足す",
+                "Hai_Notes",
+                "errandEnd",
+                "頼みごとを終える",
                 {
-                  "text": "名無しは崩れた（鋳物場の南西の小部屋）",
-                  "id": "task:nameless:done",
-                  "kind": "clue"
+                  "key": "name",
+                  "result": "dead",
+                  "text": "名無しは崩れた（鋳物場の南西の小部屋）"
                 }
               ]
             },
@@ -1695,21 +1695,21 @@
               "code": 657,
               "indent": 4,
               "parameters": [
+                "key = name"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "result = dead"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
                 "text = 名無しは崩れた（鋳物場の南西の小部屋）"
-              ]
-            },
-            {
-              "code": 657,
-              "indent": 4,
-              "parameters": [
-                "id = task:nameless:done"
-              ]
-            },
-            {
-              "code": 657,
-              "indent": 4,
-              "parameters": [
-                "kind = clue"
               ]
             },
             {
@@ -1781,13 +1781,13 @@
               "code": 357,
               "indent": 4,
               "parameters": [
-                "Hai_Thoughts",
-                "addNote",
-                "メモに足す",
+                "Hai_Notes",
+                "errandEnd",
+                "頼みごとを終える",
                 {
-                  "text": "名無しは、誰かの名を名乗って去った（鋳物場の南西の小部屋）",
-                  "id": "task:nameless:done",
-                  "kind": "clue"
+                  "key": "name",
+                  "result": "done",
+                  "text": "名無しは、誰かの名を名乗って去った（鋳物場の南西の小部屋）"
                 }
               ]
             },
@@ -1795,21 +1795,21 @@
               "code": 657,
               "indent": 4,
               "parameters": [
+                "key = name"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
+                "result = done"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 4,
+              "parameters": [
                 "text = 名無しは、誰かの名を名乗って去った（鋳物場の南西の小部屋）"
-              ]
-            },
-            {
-              "code": 657,
-              "indent": 4,
-              "parameters": [
-                "id = task:nameless:done"
-              ]
-            },
-            {
-              "code": 657,
-              "indent": 4,
-              "parameters": [
-                "kind = clue"
               ]
             },
             {

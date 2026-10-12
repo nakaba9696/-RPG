@@ -333,6 +333,86 @@
               ]
             },
             {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                1,
+                601,
+                0,
+                1,
+                0
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_Notes",
+                "errand",
+                "頼みごとを進める",
+                {
+                  "key": "name",
+                  "title": "名を返す",
+                  "who": "名無し",
+                  "stage": "2",
+                  "text": "研究所の報告の写しを、名無しに（鋳物場の南西の小部屋）",
+                  "variableId": "164"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "key = name"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "title = 名を返す"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "who = 名無し"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "stage = 2"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = 研究所の報告の写しを、名無しに（鋳物場の南西の小部屋）"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 164"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
               "code": 101,
               "indent": 0,
               "parameters": [

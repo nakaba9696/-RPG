@@ -211,6 +211,8 @@ await runTest(async () => {
     await go(CAMP, 28, 12, 8);
     const nameless = (await talk(["引き受ける"])).join("\n");
     check(nameless.includes("観察の記録") && (await vr(VAR.nameless)) === 1, "名無しの頼み " + JSON.stringify(nameless));
+    const errand1 = await game.eval(() => ({ e: Hai.Notes.errand("name"), v: $gameVariables.value(164) }));
+    check(errand1.e && errand1.e.stage === 1 && errand1.v === 1, "頼みごとの一覧に「名を返す」が載らない " + JSON.stringify(errand1));
     await go(CAMP, 14, 23, 8);
     await talk();
     check((await items("i", ITEM.soldierLetter)) === 1, "名無し兵の手紙");
@@ -340,6 +342,8 @@ await runTest(async () => {
     // ===== 9. 名無しに記録を渡す（イルゼ）・搬入路（H34）=====
     await go(HALL, 8, 38, 8);
     const den = (await talk(["渡す", "「イルゼ」と書く"])).join("\n");
+    const errand3 = await game.eval(() => Hai.Notes.errand("name"));
+    check(errand3 && errand3.result === "done", "頼みごと「名を返す」が終わらない " + JSON.stringify(errand3));
     check(den.includes("番号で、書かれていた") && (await sw(SW.namelessSat)) && (await vr(VAR.nameless)) === 3 && (await items("i", ITEM.labReport)) === 0, "名無しの分かれ目（イルゼ） " + JSON.stringify(den));
     await go(HALL, 9, 11, 8);
     const hidden = (await inspectPlain()).join("");

@@ -32,6 +32,11 @@ const plugin = (name, command, label, args = {}, indent = 0, show = {}) => [
 const switchOn = (id, indent = 0) => cmd(121, [id, id, 0], indent);
 const selfOn = (ch = "A", indent = 0) => cmd(123, [ch, 0], indent);
 const memo = text => `\\C[6]メモ：\\C[0]${text}`;
+// 頼みごとの一覧（P12 の Hai_Notes。docs/plugins/Hai_Notes.md）。「名を返す」の段は P12 の変数 164 にも写す
+const ERRAND = { key: "name", title: "名を返す", who: "名無し", variableId: 164 };
+const errand = (stage, text, indent = 0) => plugin("Hai_Notes", "errand", "頼みごとを進める",
+  { key: ERRAND.key, title: ERRAND.title, who: ERRAND.who, stage: String(stage), text, variableId: String(ERRAND.variableId) }, indent);
+const errandEnd = (result, text, indent = 0) => plugin("Hai_Notes", "errandEnd", "頼みごとを終える", { key: ERRAND.key, result, text }, indent);
 const addNote = (id, text, indent = 0) => plugin("Hai_Thoughts", "addNote", "メモに足す", { text, id, kind: "clue" }, indent);
 const transfer = (mapId, x, y, d, indent = 0) => cmd(201, [0, mapId, x, y, d, 0], indent);
 const ifSwitch = (id, on = true, indent = 0) => cmd(111, [0, id, on ? 0 : 1], indent);
@@ -466,7 +471,7 @@ const warp = (name, [x, y]) => ({
   pages: [{ image: IMG.warp, priorityType: 1, stepAnime: true, list: [END] }],
 });
 // シンボル敵（docs/plugins/Hai_SymbolEnemy.md。緑は往復かランダム、赤は持ち場から出ない）。
-// 弱い化け物（緑）は <hai_enemy_hesitate>（P12 #151 のためらい。P12 が入る前は読まれないだけ）
+// 弱い化け物（緑）は <hai_enemy_hesitate>（P12 #151 のためらい）
 const ENEMY_IMG = {
   [TROOP.goats]: { characterName: "Nature", characterIndex: 3 },
   [TROOP.wolf]: { characterName: "Monster", characterIndex: 2 },
@@ -662,7 +667,7 @@ const namelessCamp = {
         ...say(["名無しは、石板の字を袖で消した。", "「鋳物場の南西の小部屋で待つ。古い寝床がある」"], "", 1),
         setVar(VAR.nameless, 1, 1),
         switchOn(SW.namelessAsked, 1),
-        ...addNote("task:nameless", "研究所の観察の記録を、名無しに（鋳物場の南西の小部屋）", 1),
+        ...errand(1, "研究所の観察の記録を、名無しに（鋳物場の南西の小部屋）", 1),
         ...addNote("nameless:gate", "研究所の門の綱：型の間の西の壁際（名無し）", 1),
         ...say([memo("研究所の観察の記録を、名無しに（鋳物場の南西の小部屋）")], "", 1),
         end(1),
@@ -1273,7 +1278,7 @@ function namelessStop() {
     se("Collapse2"),
     ...say(["鎧が、膝から崩れた。中は灰だった。", "石板の字は、名の一画目で止まっている。"]),
     switchOn(SW.namelessStopped),
-    ...addNote("task:nameless:done", "名無しは崩れた（鋳物場の南西の小部屋）"),
+    ...errandEnd("dead", "名無しは崩れた（鋳物場の南西の小部屋）"),
   ];
 }
 function namelessLeave() {
@@ -1281,7 +1286,7 @@ function namelessLeave() {
     ...say(["名無しは、石板に知らない名を三つ書き、一つずつ消した。", "最後に書いた名の下に線を引き、それを名乗るように、胸に手を当てた。"]),
     ...say(["名無しは、型の間の方へ出ていった。足音が、さっきまでと違う。"]),
     switchOn(SW.namelessLeft),
-    ...addNote("task:nameless:done", "名無しは、誰かの名を名乗って去った（鋳物場の南西の小部屋）"),
+    ...errandEnd("done", "名無しは、誰かの名を名乗って去った（鋳物場の南西の小部屋）"),
   ];
 }
 function namelessSit() {
@@ -1290,7 +1295,7 @@ function namelessSit() {
     ...say(["名無しの手が止まった。", "その名の下に何か書きかけて、やめた。名無しは、寝床に座りこんだ。"]),
     ...say(["石板に、もう一度だけ書く。「了解」"]),
     switchOn(SW.namelessSat),
-    ...addNote("task:nameless:done", "名無しは、イルゼの名の前で座りこんだ（鋳物場の南西の小部屋）"),
+    ...errandEnd("done", "名無しは、イルゼの名の前で座りこんだ（鋳物場の南西の小部屋）"),
   ];
 }
 const hallEvents = [
@@ -1418,6 +1423,10 @@ const labRecord = {
         se("Book1"), gainItem(ITEM.labReport), selfOn(),
         ...say(["\\I[229]研究所の報告の写しを手に入れた！"]),
         ...addNote("clue:daughter", "研究者の娘は光を嫌う（研究所の報告の写し）"),
+        ifVar(VAR.nameless, 1, 0),
+        ...errand(2, "研究所の報告の写しを、名無しに（鋳物場の南西の小部屋）", 1),
+        end(1),
+        ENDIF(),
         ...say([memo("研究者の娘は光を嫌う（研究所の報告の写し）")]),
         END,
       ] },

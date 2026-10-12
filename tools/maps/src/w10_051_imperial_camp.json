@@ -548,14 +548,45 @@
               "code": 357,
               "indent": 1,
               "parameters": [
-                "Hai_Thoughts",
-                "addNote",
-                "メモに足す",
+                "Hai_Notes",
+                "errand",
+                "頼みごとを進める",
                 {
+                  "key": "name",
+                  "title": "名を返す",
+                  "who": "名無し",
+                  "stage": "1",
                   "text": "研究所の観察の記録を、名無しに（鋳物場の南西の小部屋）",
-                  "id": "task:nameless",
-                  "kind": "clue"
+                  "variableId": "164"
                 }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "key = name"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "title = 名を返す"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "who = 名無し"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "stage = 1"
               ]
             },
             {
@@ -569,14 +600,7 @@
               "code": 657,
               "indent": 1,
               "parameters": [
-                "id = task:nameless"
-              ]
-            },
-            {
-              "code": 657,
-              "indent": 1,
-              "parameters": [
-                "kind = clue"
+                "variableId = 164"
               ]
             },
             {
