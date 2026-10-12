@@ -1,0 +1,127 @@
+{
+  "_説明": "地域ごとの見た目の推し（V4。新しい世界「最後の鐘」）。W がマップを作るとき、文字マップの設定（tools/maps/src/<名前>.json）の tilesetId・legend・note・bgm・bgs・fields（戦闘の背景）に写す。中身の説明は docs/look.md 3 章。places の先頭がその地域の見本（tests/v_regions.mjs が sample のマップで撮る）。持ち主がテストプレイで決め直してよい。",
+  "regions": [
+    {
+      "key": "fort",
+      "name": "黒鉄の砦",
+      "maps": "010–019",
+      "sample": 10,
+      "places": [
+        { "maps": "010", "name": "内郭（中庭は灰に埋まる）", "tilesetId": 11, "legend": "dungeon", "note": "<hai_tone:-34,-34,-17,68>\n<hai_ash:2>", "bgm": { "name": "Castle2", "volume": 60 }, "bgs": { "name": "Wind1", "volume": 25 }, "battleback": ["Stone2", "Fort1"] },
+        { "maps": "011–014・016・017", "name": "直した部屋（稽古場・食堂・倉・書庫・療養所・鍛冶場）", "tilesetId": 11, "legend": "dungeon", "note": "<hai_tone:-17,-26,-43,34>", "bgm": { "name": "Castle2", "volume": 60 }, "bgs": null, "battleback": ["Stone2", "Room1"] },
+        { "maps": "018・019", "name": "見張り台・城壁の上", "tilesetId": 21, "legend": "rampart", "note": "<hai_tone:-34,-34,-17,85>\n<hai_parallax:DarkClouds,1,0>\n<hai_ash:3>", "bgm": { "name": "Castle2", "volume": 55 }, "bgs": { "name": "Wind4", "volume": 40 }, "battleback": ["Fort2", "Fort2"] }
+      ]
+    },
+    {
+      "key": "forest",
+      "name": "霧の森",
+      "maps": "020–025",
+      "sample": 20,
+      "places": [
+        { "maps": "020・021", "name": "入口・古い礼拝堂と崖", "tilesetId": 12, "legend": "forest", "note": "<hai_tone:0,0,17,102>\n<hai_fog:120>", "bgm": { "name": "Field2", "volume": 65 }, "bgs": { "name": "Wind3", "volume": 40 }, "battleback": ["Grassland", "Forest"] },
+        { "maps": "024", "name": "霧の奥（霧の壁の先）", "tilesetId": 12, "legend": "forest", "note": "<hai_tone:17,17,34,136>\n<hai_fog:180,0.15,0.05>", "bgm": { "name": "Field2", "volume": 55 }, "bgs": { "name": "Wind3", "volume": 30 }, "battleback": ["Grassland", "Forest"] },
+        { "maps": "022", "name": "納骨所", "tilesetId": 14, "legend": "dungeon", "note": "<hai_tone:-68,-68,-34,119>\n<hai_dark:4>", "bgm": { "name": "Dungeon3", "volume": 60 }, "bgs": { "name": "Drips", "volume": 40 }, "battleback": ["Stone1", "Temple"] },
+        { "maps": "023", "name": "森の療養小屋", "tilesetId": 12, "legend": "forest", "note": "<hai_tone:0,-9,-17,68>\n<hai_fog:60>", "bgm": { "name": "Scene4", "volume": 55 }, "bgs": { "name": "Wind1", "volume": 25 }, "battleback": ["Grassland", "Forest"] }
+      ]
+    },
+    {
+      "key": "mine",
+      "name": "鉄の坑道",
+      "maps": "026–032",
+      "sample": 26,
+      "places": [
+        { "maps": "026・028・029", "name": "上層・坑道の門・坑夫の詰め所", "tilesetId": 13, "legend": "dungeon", "note": "<hai_tone:-85,-85,-102,68>\n<hai_dark:5>", "bgm": { "name": "Dungeon2", "volume": 65 }, "bgs": { "name": "Drips", "volume": 40 }, "battleback": ["DirtCave", "DirtCave"] },
+        { "maps": "027", "name": "下層（角灯が要る暗がり）", "tilesetId": 13, "legend": "dungeon", "note": "<hai_tone:-85,-85,-102,68>\n<hai_dark:1.5>", "bgm": { "name": "Dungeon2", "volume": 65 }, "bgs": { "name": "Wind5", "volume": 40 }, "battleback": ["DirtCave", "DirtCave"] }
+      ]
+    },
+    {
+      "key": "prison",
+      "name": "砦の営倉",
+      "maps": "033–037",
+      "sample": 33,
+      "places": [
+        { "maps": "033・035・037", "name": "監房・牢番の詰め所・井戸の底への通路", "tilesetId": 14, "legend": "dungeon", "note": "<hai_tone:-51,-85,-85,85>", "bgm": { "name": "Dungeon4", "volume": 65 }, "bgs": { "name": "Darkness", "volume": 35 }, "battleback": ["Stone1", "Stone1"] },
+        { "maps": "034", "name": "廊下（往復の番の獣）", "tilesetId": 14, "legend": "dungeon", "note": "<hai_tone:-51,-85,-85,85>\n<hai_dark:5>", "bgm": { "name": "Dungeon4", "volume": 60 }, "bgs": { "name": "Darkness", "volume": 35 }, "battleback": ["Stone1", "Stone1"] },
+        { "maps": "036", "name": "営倉の鐘の間", "tilesetId": 14, "legend": "dungeon", "note": "<hai_tone:-68,-68,-34,68>", "bgm": { "name": "Scene2", "volume": 55 }, "bgs": { "name": "Darkness", "volume": 25 }, "battleback": null }
+      ]
+    },
+    {
+      "key": "village",
+      "name": "焼けた村",
+      "maps": "060–064",
+      "sample": 60,
+      "places": [
+        { "maps": "060–062", "name": "入口・広場・見張り台", "tilesetId": 19, "legend": "village", "note": "<hai_tone:-34,-34,-34,136>\n<hai_parallax:DarkClouds,1,0>\n<hai_ash:3>", "bgm": { "name": "Field3", "volume": 65 }, "bgs": { "name": "Wind2", "volume": 40 }, "battleback": ["DirtField", "Ruins1"] },
+        { "maps": "063", "name": "村の祠", "tilesetId": 14, "legend": "dungeon", "note": "<hai_tone:-34,-51,-51,85>", "bgm": { "name": "Castle3", "volume": 60 }, "bgs": { "name": "Fire1", "volume": 25 }, "battleback": ["Stone1", "Temple"] },
+        { "maps": "064", "name": "荷運びの抜け道", "tilesetId": 14, "legend": "dungeon", "note": "<hai_tone:-68,-68,-51,85>\n<hai_dark:4>", "bgm": { "name": "Dungeon7", "volume": 60 }, "bgs": { "name": "Drips", "volume": 35 }, "battleback": ["Stone1", "Stone1"] }
+      ]
+    },
+    {
+      "key": "archive",
+      "name": "記録院",
+      "maps": "080–084",
+      "sample": 80,
+      "places": [
+        { "maps": "080・081", "name": "前庭・書架", "tilesetId": 16, "legend": "library", "note": "<hai_tone:17,0,-34,68>", "bgm": { "name": "Castle1", "volume": 55 }, "bgs": { "name": "Clock", "volume": 30 }, "battleback": ["DecorativeTile1", "Room2"] },
+        { "maps": "082", "name": "封じた書架（角灯が要る暗がり）", "tilesetId": 16, "legend": "library", "note": "<hai_tone:-34,-34,-51,68>\n<hai_dark:1.5>", "bgm": { "name": "Dungeon7", "volume": 55 }, "bgs": { "name": "Darkness", "volume": 35 }, "battleback": ["DecorativeTile2", "Room3"] },
+        { "maps": "083", "name": "真名の間", "tilesetId": 16, "legend": "library", "note": "<hai_tone:-17,-17,-34,68>", "bgm": { "name": "Dungeon6", "volume": 70 }, "bgs": { "name": "Darkness", "volume": 30 }, "battleback": ["DecorativeTile2", "Room3"] },
+        { "maps": "084", "name": "記録院の鐘の間", "tilesetId": 16, "legend": "library", "note": "<hai_tone:-68,-68,-34,68>", "bgm": { "name": "Scene2", "volume": 55 }, "bgs": { "name": "Darkness", "volume": 25 }, "battleback": null }
+      ]
+    },
+    {
+      "key": "lake",
+      "name": "霧の湖",
+      "maps": "070–074",
+      "sample": 70,
+      "places": [
+        { "maps": "070・071・074", "name": "葦原・湖の家・小島", "tilesetId": 15, "legend": "marsh", "note": "<hai_tone:-17,0,0,102>\n<hai_fog:150,0.2,0.02>", "bgm": { "name": "Field3", "volume": 60 }, "bgs": { "name": "River", "volume": 40 }, "battleback": ["PoisonSwamp", "PoisonSwamp"] },
+        { "maps": "072", "name": "沈んだ桟橋", "tilesetId": 15, "legend": "marsh", "note": "<hai_tone:-34,-17,0,68>\n<hai_fog:90,0.1,0>", "bgm": { "name": "Scene6", "volume": 55 }, "bgs": { "name": "Wave1", "volume": 30 }, "battleback": ["PoisonSwamp", "Ruins3"] },
+        { "maps": "073", "name": "湖の淵", "tilesetId": 15, "legend": "marsh", "note": "<hai_tone:-51,-34,-51,85>\n<hai_fog:70>", "bgm": { "name": "Dungeon1", "volume": 65 }, "bgs": { "name": "River", "volume": 35 }, "battleback": ["PoisonSwamp", "PoisonSwamp"] }
+      ]
+    },
+    {
+      "key": "undercity",
+      "name": "地下水道と地下都市",
+      "maps": "100–105",
+      "sample": 916,
+      "places": [
+        { "maps": "105・扉の内側の村", "name": "井戸の縦穴・扉の内側の村（地下の灯がある）", "tilesetId": 22, "legend": "undercity", "note": "<hai_tone:-34,-43,-51,68>", "bgm": { "name": "Dungeon7", "volume": 55 }, "bgs": { "name": "Drips", "volume": 30 }, "battleback": ["Cobblestones3", "Town5"] },
+        { "maps": "102", "name": "地下都市の閉じた扉の前（角灯が要る暗がり）", "tilesetId": 22, "legend": "undercity", "note": "<hai_tone:-34,-34,-17,85>\n<hai_dark:1.5>", "bgm": { "name": "Dungeon7", "volume": 55 }, "bgs": { "name": "Darkness", "volume": 35 }, "battleback": ["Cobblestones3", "Town5"] },
+        { "maps": "100・101", "name": "上流・水門", "tilesetId": 18, "legend": "dungeon", "note": "<hai_tone:-51,-34,-51,68>\n<hai_dark:5>", "bgm": { "name": "Dungeon7", "volume": 60 }, "bgs": { "name": "Waterfall1", "volume": 35 }, "battleback": ["Cobblestones3", "Stone2"] },
+        { "maps": "103", "name": "扉の番の間", "tilesetId": 18, "legend": "dungeon", "note": "<hai_tone:-34,-34,-17,85>", "bgm": { "name": "Dungeon6", "volume": 70 }, "bgs": { "name": "Drips", "volume": 30 }, "battleback": ["Castle1", "Castle1"] },
+        { "maps": "104", "name": "水底の鐘の間", "tilesetId": 18, "legend": "dungeon", "note": "<hai_tone:-68,-51,-17,68>", "bgm": { "name": "Scene2", "volume": 55 }, "bgs": { "name": "Drips", "volume": 25 }, "battleback": null }
+      ]
+    },
+    {
+      "key": "pass",
+      "name": "境山の古道",
+      "maps": "050–054",
+      "sample": 50,
+      "places": [
+        { "maps": "050・051・054", "name": "尾根道・陣跡・東門の外", "tilesetId": 20, "legend": "cliff", "note": "<hai_tone:-17,-17,-17,85>\n<hai_parallax:Mountains1,0,0>\n<hai_ash:4>", "bgm": { "name": "Field4", "volume": 65 }, "bgs": { "name": "Wind4", "volume": 45 }, "battleback": ["Wasteland", "Cliff"] },
+        { "maps": "052", "name": "吊り橋と烽火台", "tilesetId": 20, "legend": "cliff", "note": "<hai_tone:-17,-17,0,102>\n<hai_parallax:Mountains2,0,0>\n<hai_fog:70,0.5,0>", "bgm": { "name": "Field4", "volume": 65 }, "bgs": { "name": "Wind5", "volume": 50 }, "battleback": ["Wasteland", "Cliff"] },
+        { "maps": "053", "name": "骨拾いの洞", "tilesetId": 13, "legend": "dungeon", "note": "<hai_tone:-68,-68,-51,68>\n<hai_dark:4>", "bgm": { "name": "Dungeon5", "volume": 60 }, "bgs": { "name": "Drips", "volume": 40 }, "battleback": ["RockCave", "RockCave"] }
+      ]
+    },
+    {
+      "key": "foundry",
+      "name": "古い鋳物場と帝国の研究所",
+      "maps": "090–094",
+      "sample": 917,
+      "places": [
+        { "maps": "090–092", "name": "搬入口・型の間・鐘の型の部屋", "tilesetId": 23, "legend": "foundry", "note": "<hai_tone:0,-34,-68,68>", "bgm": { "name": "Dungeon5", "volume": 60 }, "bgs": { "name": "Fire2", "volume": 20 }, "battleback": ["Fort1", "Fort2"] },
+        { "maps": "091（檻の区画）・093", "name": "研究所の檻・研究所の奥", "tilesetId": 17, "legend": "dungeon", "note": "<hai_tone:-34,-51,-17,68>", "bgm": { "name": "Dungeon6", "volume": 60 }, "bgs": { "name": "Darkness", "volume": 30 }, "battleback": ["Stone3", "Room3"] },
+        { "maps": "094", "name": "鋳物場の鐘の間", "tilesetId": 23, "legend": "foundry", "note": "<hai_tone:-68,-68,-34,68>", "bgm": { "name": "Scene2", "volume": 55 }, "bgs": { "name": "Darkness", "volume": 25 }, "battleback": null }
+      ]
+    },
+    {
+      "key": "summit",
+      "name": "山の頂",
+      "maps": "015",
+      "sample": 915,
+      "places": [
+        { "maps": "015", "name": "山の頂の鐘楼", "tilesetId": 21, "legend": "rampart", "note": "<hai_tone:-17,-17,0,119>\n<hai_parallax:DarkClouds,1,0>\n<hai_ash:6>\n<hai_fog:60,0.6,0>", "bgm": { "name": "Scene8", "volume": 55 }, "bgs": { "name": "Wind5", "volume": 45 }, "battleback": ["Clouds", "Tower"] }
+      ]
+    }
+  ]
+}
