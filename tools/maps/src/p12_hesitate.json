@@ -1,0 +1,58 @@
+{
+  "_説明": "P12（弱い化け物のためらい）の試験場（T の帯 900–949 の空き 919）。製品のマップからは行けない。上の通路の敵は <hai_enemy_hesitate>（見つけると一瞬止まる）、下の通路の敵はふつう。どちらも止まっていて、近づくと追う。",
+  "mapId": 919,
+  "name": "T_ためらう敵",
+  "displayName": "ためらう敵の試験場",
+  "legend": "dungeon",
+  "bgm": "Dungeon1",
+  "chars": {
+    "S": {
+      "name": "テストの開始地点",
+      "as": "."
+    }
+  },
+  "events": [
+    {
+      "name": "ためらう敵",
+      "type": "raw",
+      "x": 12,
+      "y": 1,
+      "note": "<hai_enemy:101,green>\n<hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "moveType": 0,
+          "moveFrequency": 5,
+          "trigger": 2
+        }
+      ]
+    },
+    {
+      "name": "ためらわない敵",
+      "type": "raw",
+      "x": 12,
+      "y": 3,
+      "note": "<hai_enemy:101,green>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "moveType": 0,
+          "moveFrequency": 5,
+          "trigger": 2
+        }
+      ]
+    }
+  ]
+}
