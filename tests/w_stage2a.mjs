@@ -6,13 +6,13 @@
 //   4. 岩背負い（任意のボス）：逃げると東のたもとへ。戦って HP 50% で「誓いの石化」（物理が効かない）、雷の弱点のヒント、
 //      倒すとスイッチ 158・岩背負いの石帯・門が開く。
 //   5. 見張りの洞 053：叡智のオーブ、赤い宝箱「巨人の腕輪」、H17 の隠し階段 → 051 の地下壕の扉の内側。内側の閂で扉が開く。
-//   6. オルドの記憶 1（026）・3（027）を読み、R12 と合わせて 4 つで完全体（スイッチ 141）。
+//   （6. オルドの記憶 1・3 は前の世界の坑道にあった。W7 #145 で坑道を作り直したので外した）
 //   7. セーブ・ロードで旗と持ち物が残る。
 // 乱数（Math.random）は固定する（逃走の成否と行動の選び方）。
 import { launchGame, check, runTest } from "./lib.mjs";
 
 const MINE_UP = 26;
-const MINE_EXIT = { x: 41, y: 16 }; // 026 の中央の坑道の東の端（(42,16) が出口）
+const MINE_EXIT = { x: 58, y: 16 }; // 026 の東の坑道の端（(59,16) が出口。W7 #145 で作り直した坑道）
 const ROAD = 50;
 const ROAD_ARRIVE = { x: 1, y: 18 };
 const KEY_CHEST = { x: 9, y: 17 };
@@ -37,9 +37,6 @@ const ORB = { x: 12, y: 4, item: 171 };
 const GIANT_CHEST = { x: 8, y: 5 };
 const H17 = { x: 16, y: 7, to: { x: 19, y: 6 } };
 const BOLT = { x: 20, y: 7 };
-const MINE_LOW = 27;
-const ORDO1 = { x: 2, y: 6 };
-const ORDO3 = { x: 26, y: 9 };
 const ITEM = { bunkerKey: 221, thunder: 303 };
 const ARMOR = { gloves: 301, bracelet: 302, belt: 303 };
 const FAST = 16;
@@ -390,15 +387,7 @@ await runTest(async () => {
       "内側の閂で地下壕の扉が開かない");
     console.log("  見張りの洞：叡智のオーブ・巨人の腕輪・H17 で地下壕の内側へ・内側の閂");
 
-    // ===== 6. オルドの記憶 1・3 → 完全体 =====
-    await go(MINE_UP, ORDO1.x, ORDO1.y + 1, 8);
-    check((await talk()).join("\n").includes("石は目に沿って割れ"), "オルドの記憶 1");
-    await go(MINE_LOW, ORDO3.x, ORDO3.y + 1, 8);
-    check((await talk()).join("\n").includes("一度も人を潰さなかった"), "オルドの記憶 3");
-    await game.eval(() => Hai.Companions.learnMemory(5, 4)); // 臨終（R12、028）は W2 の検査で読んでいる
-    const ordo = await game.eval(() => ({ memories: Hai.Companions.memories(5), complete: Hai.Companions.isComplete(5), var131: $gameVariables.value(131) }));
-    check(ordo.memories.length === 4 && ordo.complete && ordo.var131 === 4, "オルドの記憶が 4 つ揃わない（変数 131 が 4 でない） " + JSON.stringify(ordo));
-    console.log(`  オルドの記憶：${JSON.stringify(ordo.memories)}・完全体 ${ordo.complete}`);
+    // （6. オルドの記憶 1・3 は前の世界の坑道 026・027 にあった。W7 #145 で坑道を新しい世界に作り直したので外した）
 
     // ===== 7. セーブ・ロード =====
     await go(BRIDGE, 22, 7, 2);
