@@ -576,7 +576,7 @@
     {
       "name": "シャノ（柱の陰）",
       "type": "raw",
-      "x": 31,
+      "x": 30,
       "y": 26,
       "pages": [
         {
@@ -834,7 +834,7 @@
               "code": 230,
               "indent": 1,
               "parameters": [
-                20
+                10
               ]
             },
             {
@@ -859,7 +859,7 @@
               "code": 230,
               "indent": 1,
               "parameters": [
-                40
+                15
               ]
             },
             {
@@ -870,17 +870,14 @@
                 {
                   "list": [
                     {
-                      "code": 2,
+                      "code": 29,
                       "indent": null,
-                      "parameters": []
+                      "parameters": [
+                        4
+                      ]
                     },
                     {
                       "code": 1,
-                      "indent": null,
-                      "parameters": []
-                    },
-                    {
-                      "code": 2,
                       "indent": null,
                       "parameters": []
                     },
@@ -915,9 +912,11 @@
               "indent": 1,
               "parameters": [
                 {
-                  "code": 2,
+                  "code": 29,
                   "indent": null,
-                  "parameters": []
+                  "parameters": [
+                    4
+                  ]
                 }
               ]
             },
@@ -927,17 +926,6 @@
               "parameters": [
                 {
                   "code": 1,
-                  "indent": null,
-                  "parameters": []
-                }
-              ]
-            },
-            {
-              "code": 505,
-              "indent": 1,
-              "parameters": [
-                {
-                  "code": 2,
                   "indent": null,
                   "parameters": []
                 }

@@ -82,7 +82,7 @@ const P = {
   start: [7, 18], // 墓所の床（目覚め）。System.json の開始位置
   hearth: [25, 25], // 大広間の炉（北の壁の暖炉）
   home: [25, 26], // 炉の前（全滅の戻り先）
-  shanoHide: [31, 26], // 東の柱の陰
+  shanoHide: [30, 26], // 東の柱 (31,26) の陰
   shanoSeat: [22, 30], // 食卓
   gateDents: [24, 1], // 外門への階段の脇の壁
   ironDoor: [25, 36], // 南の廊下の鉄扉
@@ -169,10 +169,9 @@ const shanoSeat = {
 
 // 炉：火を入れる → 回復と記録（Hai_Warp の選択肢）・全滅の戻り先（Hai_Defeat）→ シャノが柱の陰から出てくる
 const shanoWalk = [
-  { code: 2 }, // 左
+  { code: 29, parameters: [4] }, // 速さ 4（場面を間延びさせない）
   { code: 1 }, // 下
-  { code: 2 },
-  { code: 2 },
+  { code: 2 }, // 左
   { code: 2 },
   { code: 17 }, // 左を向く
 ];
@@ -184,7 +183,7 @@ const moveRoute = (charId, steps) => {
   ];
 };
 const shanoScene = indent => [
-  cmd(230, [40], indent),
+  cmd(230, [15], indent),
   ...moveRoute(SHANO_HIDE_ID, shanoWalk).map(c => ({ ...c, indent })),
   ...say(["……火、つけたの、あんた？"], "シャノ", indent),
   ...say(["おれ、鉄を拾いに来ただけ。鈴、蹴っちゃった。ごめん"], "シャノ", indent),
@@ -220,7 +219,7 @@ const hearth = {
         switchOn(SW.hearth, 1),
         ...plugin("Hai_Defeat", "setHome", "拠点を設定", { mapId: "0", x: String(P.home[0]), y: String(P.home[1]), direction: String(UP) }, 1,
           { mapId: "マップ ID", x: "X", y: "Y", direction: "向き" }),
-        cmd(230, [20], 1),
+        cmd(230, [10], 1),
         ...say(["炉に火が入った。煤けた壁が、赤く照らされる。"], "", 1),
         ...shanoScene(1),
         cmd(0, [], 1),
