@@ -318,9 +318,9 @@ await runTest(async () => {
   expect("来歴の 41 字の行", addNote("Weapons.json", "<hai_lore>\n" + "あ".repeat(41) + "\n二行目。\n三行目。\n</hai_lore>"), "来歴の窓の幅 41 > 40");
   expect("説明欄にマップ限定の禁止語", dir => {
     const items = readJson(dir, "Items.json");
-    items.find(e => e && e.name).description = "思いを喰う石。";
+    items.find(e => e && e.name).description = "記憶を預けた石。";
     fs.writeFileSync(path.join(dir, "Items.json"), JSON.stringify(items));
-  }, "禁止語「思いを喰う」");
+  }, "禁止語「記憶を預け」");
   // 制御文字で語を割っても、画面に出る形で見つかる
   expect("制御文字で割った禁止語", addLine("Map020.json", "誰が\\C[2]悪\\C[0]い"), "禁止語「誰が悪い」");
   console.log("  禁止語・窓の幅・制御文字: 問題なし（壊した例ではすべて落ちた）");
