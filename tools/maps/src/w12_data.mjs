@@ -647,7 +647,8 @@ const roadConfig = {
   scatter: [
     { on: "\"", tiles: ["B:172", "B:172", "B:173"], rate: 0.55, solid: true, seed: 11001 },
     { on: ".:", z: 1, tiles: ["A2:15"], rate: 0.08, seed: 11002 },
-    { on: ",", tiles: ["B:152", "B:153", "B:239"], rate: 0.06, seed: 11003 },
+    { on: ",", tiles: ["B:152", "B:153", "B:239"], rate: 0.12, seed: 11003 },
+    { on: "^", tiles: ["B:152", "B:239", "B:171"], rate: 0.08, seed: 11004 },
   ],
   events: roadEvents,
 };
@@ -799,7 +800,10 @@ const towerConfig = {
     { at: "柱", name: "石の柱（1×2。上は☆）", tiles: [["B:98"], ["B:106"]] },
     { at: "!", name: "槍立て（1×2）", tiles: [["E:175"], ["E:183"]] },
   ],
-  scatter: [{ on: ".", z: 1, tiles: ["A2:15"], rate: 0.05, seed: 11201 }],
+  scatter: [
+    { on: ".", z: 1, tiles: ["A2:15"], rate: 0.05, seed: 11201 },
+    { on: ".,", tiles: ["B:32", "B:33"], rate: 0.08, seed: 11202 },
+  ],
   events: towerEvents,
 };
 
@@ -864,7 +868,7 @@ const cliffConfig = {
     L: { name: "2 段目の側面の梯子（下は 1 段目の上面）", as: "^", tiles: [null, null, "B:18"] },
     3: { name: "2 段目の上の着き場（道（草地）。上にも道を重ねて、まわりの Q とつなぐ）", tiles: ["A2:2", "A2:2"] },
   },
-  scatter: [{ on: ",^A", tiles: ["B:152", "B:239"], rate: 0.05, seed: 11501 }],
+  scatter: [{ on: ",^A", tiles: ["B:152", "B:239", "B:171"], rate: 0.12, seed: 11501 }],
   events: cliffEvents,
 };
 
@@ -909,6 +913,7 @@ const viewEvents = [
 const viewConfig = {
   _説明: "W12（#195）：崖の上の見晴らし（docs/world.md 5.2 の 116、text.md 5.7 の 5-12）。南の口→115、東の眺め（塔の影の灯は鳴らした鐘の数＋1。3 つ目の場面のあとは縄張りの灰）、西の崖の縄→020 霧の森・入口の西の高台（片側。D14 の「遠い所が実は隣」）。この設定は node tools/maps/src/w12_data.mjs が書く。",
   mapId: MAP.view, name: "崖の上の見晴らし", displayName: "崖の上の見晴らし", ...lookOf("cliff"),
+  scatter: [{ on: ",", tiles: ["B:152", "B:239", "B:171"], rate: 0.12, seed: 11601 }],
   events: viewEvents,
 };
 
@@ -965,7 +970,10 @@ const cloisterConfig = {
   mapId: MAP.cloister, name: "鐘守の修道院・前庭と回廊", displayName: "鐘守の修道院", ...lookOf("cloister"),
   deco: MONASTERY_DECO,
   stamps: [stamp("A", "churchTable"), stamp("B", "goddess"), stamp("C", "bellFrame")],
-  scatter: [{ on: ".:", z: 1, tiles: ["A2:15"], rate: 0.06, seed: 12001 }],
+  scatter: [
+    { on: ".:", z: 1, tiles: ["A2:15"], rate: 0.06, seed: 12001 },
+    { on: ".:", tiles: ["D:32", "D:33"], rate: 0.07, seed: 12002 },
+  ],
   events: cloisterEvents,
 };
 
@@ -1092,7 +1100,10 @@ const belfryConfig = {
   mapId: MAP.belfry, name: "鐘守の塔", displayName: "鐘守の塔", ...lookOf("belfry"),
   deco: MONASTERY_DECO,
   stamps: [stamp("C", "bellFrame")],
-  scatter: [{ on: ".", z: 1, tiles: ["A2:15"], rate: 0.05, seed: 12201 }],
+  scatter: [
+    { on: ".", z: 1, tiles: ["A2:15"], rate: 0.05, seed: 12201 },
+    { on: ".", tiles: ["D:32", "D:33"], rate: 0.07, seed: 12202 },
+  ],
   events: belfryEvents,
 };
 
@@ -1185,6 +1196,7 @@ const slopeConfig = {
   _説明: "W12（#195）：裏の坂（docs/world.md 5.2 の 124、text.md 5.7 の 5-23）。西の口→120 の裏門、高台から坂を下りて北へ、北の坂→080 記録院・前庭の南。この設定は node tools/maps/src/w12_data.mjs が書く。",
   mapId: MAP.slope, name: "裏の坂", displayName: "修道院の裏の坂", ...lookOf("slope"),
   chars: HIGH_CHARS,
+  scatter: [{ on: ",^", tiles: ["B:152", "B:239", "B:171"], rate: 0.1, seed: 12401 }],
   events: slopeEvents,
 };
 

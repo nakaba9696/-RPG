@@ -23,6 +23,18 @@
     "battleback1Name": "Wasteland",
     "battleback2Name": "Cliff"
   },
+  "scatter": [
+    {
+      "on": ",",
+      "tiles": [
+        "B:152",
+        "B:239",
+        "B:171"
+      ],
+      "rate": 0.12,
+      "seed": 11601
+    }
+  ],
   "events": [
     {
       "name": "南の口（崖の小道へ）",
