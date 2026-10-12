@@ -314,14 +314,14 @@ await runTest(async () => {
   expect("閉じていない \\FS[", addLine("Map020.json", "\\FS[28大きい字"), "括弧が閉じていない");
   expect("知らない制御文字", addLine("Map020.json", "\\Z[1]あ"), "知らない制御文字");
   // 来歴（<hai_lore>）とアイテムの説明欄：マップ限定の禁止語も当たる・来歴の 1 行は 40 字まで
-  expect("来歴に禁止語", addNote("Items.json", "<hai_lore>\n一行目。\n鐘番は記憶を払ったという。\n三行目。\n</hai_lore>"), "禁止語「記憶を払」");
+  expect("来歴に禁止語", addNote("Items.json", "<hai_lore>\n一行目。\n四つの鐘は封じの楔だという。\n三行目。\n</hai_lore>"), "禁止語「封じの楔」");
   expect("来歴の 41 字の行", addNote("Weapons.json", "<hai_lore>\n" + "あ".repeat(41) + "\n二行目。\n三行目。\n</hai_lore>"), "来歴の窓の幅 41 > 40");
   expect("説明欄にマップ限定の禁止語", dir => {
     const items = readJson(dir, "Items.json");
-    items.find(e => e && e.name).description = "親鐘の札。";
+    items.find(e => e && e.name).description = "鐘番の縄張りの札。";
     fs.writeFileSync(path.join(dir, "Items.json"), JSON.stringify(items));
-  }, "禁止語「親鐘」");
+  }, "禁止語「鐘番の縄張り」");
   // 制御文字で語を割っても、画面に出る形で見つかる
-  expect("制御文字で割った禁止語", addLine("Map020.json", "願い\\C[2]の\\C[0]せい"), "禁止語「願いのせい」");
+  expect("制御文字で割った禁止語", addLine("Map020.json", "誰が\\C[2]悪\\C[0]い"), "禁止語「誰が悪い」");
   console.log("  禁止語・窓の幅・制御文字: 問題なし（壊した例ではすべて落ちた）");
 });
