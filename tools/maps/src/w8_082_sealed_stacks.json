@@ -428,12 +428,90 @@
     },
     {
       "name": "札",
-      "type": "text",
+      "type": "raw",
       "x": 22,
       "y": 3,
-      "lines": [
-        "戸の脇に札が掛けてある。",
-        "「この先の者に、声を出させるな。出させれば、読む」。"
+      "note": "",
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "戸の脇に札が掛けてある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "「この先の者に、声を出させるな。出させれば、読む」。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                7,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ディル"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "書いたのは、隣の机の男の字だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "あいつ、字がきれいだった"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
       ]
     },
     {
@@ -595,14 +673,46 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "男の腕から、二冊の写しが滑り落ちていた。"
+                "男の腕から、二冊の写しが滑り落ちている。"
               ]
             },
             {
               "code": 401,
               "indent": 0,
               "parameters": [
-                "灰色の表紙と、茶色の表紙。"
+                "灰色の表紙と、茶色の表紙。中身は、ほとんど同じ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "違うのは、終わりの近くの一行。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "片方に有って、片方に無い。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "角灯の火では、その一行の字は小さすぎた。"
               ]
             },
             {
@@ -1302,7 +1412,7 @@
       "type": "raw",
       "x": 20,
       "y": 13,
-      "note": "<hai_enemy:429,yellow>\n<hai_enemy_chase:3>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:429,yellow>\n<hai_enemy_chase:3>\n<hai_enemy_hesitate>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -1324,7 +1434,7 @@
       "type": "raw",
       "x": 24,
       "y": 21,
-      "note": "<hai_enemy:428,green>",
+      "note": "<hai_enemy:428,green>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -1346,7 +1456,7 @@
       "type": "raw",
       "x": 16,
       "y": 9,
-      "note": "<hai_enemy:428,green>",
+      "note": "<hai_enemy:428,green>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {

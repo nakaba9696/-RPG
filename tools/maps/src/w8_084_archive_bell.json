@@ -600,6 +600,104 @@
               ]
             },
             {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                8,
+                323
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "営倉の札と、並べた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "日付は、同じだった。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "\\N[1]"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "同じ日だ"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 2,
+              "parameters": [
+                415,
+                415,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "札の日付を、墓守は覚えておいた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
               "code": 0,
               "indent": 1,
               "parameters": []
@@ -668,14 +766,88 @@
     },
     {
       "name": "札掛け",
-      "type": "text",
+      "type": "raw",
       "x": 18,
       "y": 4,
-      "image": {
-        "tileId": "B:178"
-      },
-      "lines": [
-        "札掛けの釘は四本。札の掛かっていた跡が、四つとも同じ色に焼けている。"
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "tileId": "B:178"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "札掛けの釘は四本。札の掛かっていた跡が、四つとも同じ色に焼けている。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                8,
+                429
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "札は一枚。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
       ]
     },
     {
@@ -1598,22 +1770,129 @@
     },
     {
       "name": "記憶 ディル 3",
-      "type": "text",
+      "type": "raw",
       "x": 7,
       "y": 13,
       "note": "<hai_memory:7,3>",
-      "image": {
-        "tileId": "E:194"
-      },
-      "lines": [
-        [
-          "教会に渡す銘の写しを、俺が写した。二冊。",
-          "一冊は書架に残す。一冊は教会へ。"
-        ],
-        [
-          "どっちを渡したか、確かめる気になれば、確かめられた。",
-          "確かめないことにした。それだけだよ。"
-        ]
+      "pages": [
+        {
+          "image": {
+            "tileId": "E:194"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "教会に渡す銘の写しを、俺が写した。二冊。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "一冊は書架に残す。一冊は教会へ。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "どっちを渡したか、確かめる気になれば、確かめられた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "確かめないことにした。それだけだよ。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                7,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "ディルは台の上の、灰の積もっていない所を見た。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ディル"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "ここに、二冊置いてたんだな。俺は"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
       ]
     },
     {

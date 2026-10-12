@@ -479,6 +479,79 @@
               ]
             },
             {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                6,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                8,
+                1053
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ノラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "四十七！"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "ノラが束の判と石碑の判を、一つずつ合わせた。合った。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
               "code": 0,
               "indent": 0,
               "parameters": []
@@ -529,6 +602,197 @@
               ]
             },
             {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "鐘守の修道院、ですよね。ここ"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                2,
+                "A",
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "\\N[1]"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "鐘架だけだ。鐘は、四つにしか無い"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 1,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                1057,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                4,
+                7,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 2,
+              "parameters": [
+                0,
+                416,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "ディルが鐘架の下で、梁を見ていた。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ディル"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "三通りか"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "俺が写したのは、二つだ"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 3,
+              "parameters": [
+                416,
+                416,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
               "code": 0,
               "indent": 0,
               "parameters": []
@@ -570,6 +834,50 @@
               "parameters": [
                 "指は三十本。最後の一本だけ、糸の色が違う。"
               ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "……三十"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "縫い間違い、でしょうか"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 0,
@@ -931,7 +1239,7 @@
       "type": "raw",
       "x": 15,
       "y": 24,
-      "note": "<hai_enemy:1056,yellow>",
+      "note": "<hai_enemy:1056,yellow>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -953,7 +1261,7 @@
       "type": "raw",
       "x": 40,
       "y": 5,
-      "note": "<hai_enemy:1056,yellow>",
+      "note": "<hai_enemy:1056,yellow>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -975,7 +1283,7 @@
       "type": "raw",
       "x": 20,
       "y": 11,
-      "note": "<hai_enemy:1057,green>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:1057,green>\n<hai_enemy_hesitate>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -997,7 +1305,7 @@
       "type": "raw",
       "x": 50,
       "y": 22,
-      "note": "<hai_enemy:1057,green>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:1057,green>\n<hai_enemy_hesitate>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -1019,7 +1327,7 @@
       "type": "raw",
       "x": 30,
       "y": 40,
-      "note": "<hai_enemy:1058,red>\n<hai_enemy_chase:2>",
+      "note": "<hai_enemy:1058,red>\n<hai_enemy_chase:2>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {

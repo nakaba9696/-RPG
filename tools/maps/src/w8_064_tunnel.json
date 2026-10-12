@@ -863,7 +863,7 @@
       "type": "raw",
       "x": 20,
       "y": 10,
-      "note": "<hai_enemy:421,green>",
+      "note": "<hai_enemy:421,green>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -944,7 +944,7 @@
       "type": "raw",
       "x": 36,
       "y": 6,
-      "note": "<hai_enemy:423,yellow>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:423,yellow>\n<hai_enemy_hesitate>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {

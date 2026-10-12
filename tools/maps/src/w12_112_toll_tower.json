@@ -353,6 +353,31 @@
               ]
             },
             {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "帳面は、最後の頁が開いていた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "納めの欄だけ、数がある。通しの欄は、空いている。"
+              ]
+            },
+            {
               "code": 0,
               "indent": 1,
               "parameters": []
@@ -384,15 +409,10 @@
       "x": 42,
       "y": 20,
       "lines": [
-        [
-          "机の上に、帳面が開いている。日ごとに、数が二つ。"
-        ],
-        [
-          "刈り入れの月、一日。納め、百十二握り。通し、百十二。",
-          "同じ月、二日。納め、百四十握り。通し、百三十一。",
-          "同じ月、三日。納め、百九十握り。通し、百六十二。",
-          "同じ月、四日。納め、二百三握り。通し、百五十。"
-        ]
+        "机の上に、帳面が開いている。日ごとに、数が二つ。",
+        "刈り入れの月、一日。納め、百十二握り。通し、百十二。",
+        "同じ月、四日。納め、二百三握り。通し、百五十。",
+        "間の日も、納めと通しの差が、日ごとに開いている。"
       ],
       "image": {
         "tileId": "E:69"
@@ -477,6 +497,50 @@
               "parameters": [
                 "十三段目の石が抜けて、そこだけ土が見える。"
               ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "ブルーノが十三段目を跳び越えようとして、"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "やめて、またいだ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 0,
@@ -892,7 +956,7 @@
       "type": "raw",
       "x": 20,
       "y": 32,
-      "note": "<hai_enemy:1055,yellow>",
+      "note": "<hai_enemy:1055,yellow>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -914,7 +978,7 @@
       "type": "raw",
       "x": 42,
       "y": 26,
-      "note": "<hai_enemy:1055,yellow>",
+      "note": "<hai_enemy:1055,yellow>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -936,7 +1000,7 @@
       "type": "raw",
       "x": 7,
       "y": 27,
-      "note": "<hai_enemy:1053,green>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:1053,green>\n<hai_enemy_hesitate>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -958,7 +1022,7 @@
       "type": "raw",
       "x": 32,
       "y": 11,
-      "note": "<hai_enemy:1053,green>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:1053,green>\n<hai_enemy_hesitate>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
