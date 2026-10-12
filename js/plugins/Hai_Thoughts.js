@@ -10,6 +10,10 @@
  *   <hai_thought:R04>        残留思念。ID は docs/world.md 4.6 の番号か任意の文字列。
  *                            読み終えたら既読にし、セルフスイッチ A を ON にする。
  *                            既読の思念は、もう一度調べると本文の頭に「（読んだ）」が付く。
+ *   <hai_faint:F01>          会話できない薄い思念（墓守の記憶のありか）。<hai_thought> の代わりに書く。
+ *                            調べると画面が暗くなり、文章だけが窓なしで出る。見終えると既読・セルフスイッチ A、
+ *                            初めて見たときだけ「戻った記憶の数」を 1 増やす（変数にも写す）。
+ *                            会話・選択肢は置かない（tools/data/check.mjs が見る）。
  *   <hai_clue:テキスト>      読み終えたとき、メモ帳にこの一行を足す（同じものは二度足さない）。
  *                            1 つのイベントに何個でも書ける。
  *   <hai_locked:坑道の鍵>    施錠扉。セルフスイッチ A が OFF の間、調べると
@@ -18,12 +22,12 @@
  *                            扉のイベントの 1 ページ目は中身なし（扉の絵だけ）にする。
  *
  * 状態（セーブに入る）：
- *   $gameSystem._hai.thoughts = { read: { ID: true }, maps: { マップID: [{ id, eventId, x, y }] } }
+ *   $gameSystem._hai.thoughts = { read: { ID: true }, faint: { ID: true }, maps: { マップID: [{ id, eventId, x, y, faint? }] } }
  *   $gameSystem._hai.notes    = [{ id, text, mapId, x, y, kind: "clue"|"door"|"item"|"memory", time, done? }]
  *
  * 窓口 window.Hai.Thoughts：
  *   isRead(id)  markRead(id)  notes(kind)  addNote(note)  hasNote(id)  removeNote(id)  clearNotes()
- *   unreadCount(mapId)  thoughts(mapId)
+ *   unreadCount(mapId)  thoughts(mapId)  isFaint(id)  faintCount()
  * 詳しくは docs/plugins/Hai_Thoughts.md。
  *
  * @param readMark
@@ -69,6 +73,24 @@
  * @type string
  * @default %1が要る扉（%2 %3,%4）
  *
+ * @param faintVariable
+ * @text 戻った記憶の数の変数
+ * @desc 薄い思念を見て戻った記憶の数（0〜）を入れる変数。0 で使わない。
+ * @type variable
+ * @default 138
+ *
+ * @param faintTone
+ * @text 薄い思念の画面の色調
+ * @desc 赤,緑,青,グレー（カンマ区切り）。
+ * @type string
+ * @default -102,-102,-85,170
+ *
+ * @param faintFrames
+ * @text 暗くする・戻すフレーム数
+ * @type number
+ * @min 0
+ * @default 30
+ *
  * @command addNote
  * @text メモを足す
  * @desc メモ帳に一行足す（同じ ID は二度足さない）。場所はこのイベントの座標。
@@ -103,6 +125,14 @@
  * @type string
  * @default
  *
+ * @command faintBegin
+ * @text 薄い思念の始め（内部）
+ * @desc 画面を暗くする。<hai_faint> のイベントに自動で入る。
+ *
+ * @command faintEnd
+ * @text 薄い思念の終わり（内部）
+ * @desc 画面の色調を元に戻す。<hai_faint> のイベントに自動で入る。
+ *
  * @command clearNotes
  * @text メモを全部消す（テスト用）
  */
@@ -117,6 +147,9 @@
   const unlockMessage = params.unlockMessage ?? "%1で扉を開けた。";
   const unlockSe = params.unlockSe ?? "Open1";
   const doorNoteFormat = params.doorNote || "%1が要る扉（%2 %3,%4）";
+  const faintVariable = Number(params.faintVariable ?? 138);
+  const faintTone = String(params.faintTone || "-102,-102,-85,170").split(",").map(Number);
+  const faintFrames = Number(params.faintFrames ?? 30);
 
   const KINDS = ["clue", "door", "item", "memory"]; // memory は P6（Hai_Companions）の記憶の断片
 
@@ -132,6 +165,7 @@
     const h = hai();
     h.thoughts = h.thoughts || {};
     h.thoughts.read = h.thoughts.read || {};
+    h.thoughts.faint = h.thoughts.faint || {};
     h.thoughts.maps = h.thoughts.maps || {};
     return h.thoughts;
   }
@@ -150,6 +184,17 @@
     const key = String(id);
     if (state().read[key]) return false;
     state().read[key] = true;
+    return true;
+  }
+
+  const faintCount = () => Object.keys(state().faint).filter(k => state().faint[k]).length;
+
+  /** 薄い思念を見た印。初めてなら数えて true。 */
+  function markFaint(id) {
+    const key = String(id);
+    if (state().faint[key]) return false;
+    state().faint[key] = true;
+    if (faintVariable > 0) $gameVariables.setValue(faintVariable, faintCount());
     return true;
   }
 
@@ -185,9 +230,12 @@
     return (data && data.meta) || {};
   }
 
-  /** 思念の ID。<hai_thought> の値が空なら「マップID,イベントID」。思念でなければ null。 */
+  const isFaintEvent = event => metaOf(event).hai_faint !== undefined;
+
+  /** 思念の ID。<hai_thought>（薄い思念は <hai_faint>）の値が空なら「マップID,イベントID」。思念でなければ null。 */
   function thoughtIdOf(event, mapId) {
-    const v = metaOf(event).hai_thought;
+    const meta = metaOf(event);
+    const v = meta.hai_faint !== undefined ? meta.hai_faint : meta.hai_thought;
     if (v === undefined) return null;
     const s = v === true ? "" : String(v).trim();
     return s || `${mapId},${event.eventId()}`;
@@ -232,7 +280,7 @@
     const list = [];
     for (const ev of $gameMap.events()) {
       const id = thoughtIdOf(ev, mapId);
-      if (id !== null) list.push({ id, eventId: ev.eventId(), x: ev.event().x, y: ev.event().y });
+      if (id !== null) list.push({ id, eventId: ev.eventId(), x: ev.event().x, y: ev.event().y, ...(isFaintEvent(ev) ? { faint: true } : {}) });
     }
     if (list.length) state().maps[mapId] = list;
     else delete state().maps[mapId];
@@ -247,7 +295,7 @@
 
   function thoughtsOf(mapId) {
     const list = mapId === $gameMap.mapId() ? scanCurrentMap() : state().maps[mapId] || [];
-    return list.map(t => ({ id: t.id, x: t.x, y: t.y, read: isRead(t.id) }));
+    return list.map(t => ({ id: t.id, x: t.x, y: t.y, read: isRead(t.id), ...(t.faint ? { faint: true } : {}) }));
   }
 
   // ---------------------------------------------------------------------------
@@ -271,6 +319,31 @@
       out.push(end);
     }
     return out;
+  }
+
+  /** 薄い思念：暗くする → 文章（窓なし・顔なし・名前なし・真ん中）→ 戻す。 */
+  function faintList(list) {
+    const out = list.map(c => (c.code === 101 ? cmd(101, ["", 0, 2, 1, ""], c.indent) : c));
+    const end = out.pop();
+    return [
+      cmd(357, [pluginName, "faintBegin", "薄い思念の始め（内部）", {}]),
+      cmd(230, [faintFrames]),
+      ...out,
+      cmd(357, [pluginName, "faintEnd", "薄い思念の終わり（内部）", {}]),
+      cmd(230, [faintFrames]),
+      end,
+    ];
+  }
+
+  function faintBegin(interpreter) {
+    if (!interpreter._haiFaintTone) interpreter._haiFaintTone = ($gameScreen._toneTarget || [0, 0, 0, 0]).slice();
+    $gameScreen.startTint(faintTone, faintFrames);
+  }
+
+  function faintEnd(interpreter, frames = faintFrames) {
+    const tone = interpreter._haiFaintTone;
+    interpreter._haiFaintTone = null;
+    if (tone) $gameScreen.startTint(tone, frames);
   }
 
   function doorList(lock, opened, noteText) {
@@ -316,7 +389,9 @@
         const clues = cluesOf(event).map((text, i) => ({ id: clueId(thoughtId, i), text }));
         const fresh = clues.filter(c => !findNote(c.id));
         list = thoughtList(list, isRead(thoughtId), fresh.map(c => c.text));
-        haiInfo = { type: "thought", id: thoughtId, clues: fresh, x: event.x, y: event.y };
+        const faint = isFaintEvent(event);
+        if (faint) list = faintList(list);
+        haiInfo = { type: "thought", id: thoughtId, faint, clues: fresh, x: event.x, y: event.y };
       } else if (lock && isClosedDoor(event)) {
         const opened = !!lock.item && $gameParty.hasItem(lock.item);
         const noteId = `door:${mapId},${eventId}`;
@@ -335,6 +410,7 @@
     const mapId = interpreter._mapId;
     if (info.type === "thought") {
       markRead(info.id);
+      if (info.faint) markFaint(info.id);
       $gameSelfSwitches.setValue([mapId, interpreter._eventId, "A"], true);
       for (const c of info.clues) addNote({ id: c.id, text: c.text, mapId, x: info.x, y: info.y, kind: "clue" });
     } else if (info.type === "door") {
@@ -351,6 +427,7 @@
   Game_Interpreter.prototype.terminate = function() {
     const info = this._haiThought;
     this._haiThought = null;
+    if (this._haiFaintTone) faintEnd(this, 0); // 「イベント処理の中断」で終わっても暗いまま残さない
     if (info && this.isOnCurrentMap()) finish(this, info);
     _Game_Interpreter_terminate.apply(this, arguments);
   };
@@ -372,6 +449,14 @@
 
   PluginManager.registerCommand(pluginName, "markRead", args => {
     if (args.id) markRead(args.id);
+  });
+
+  PluginManager.registerCommand(pluginName, "faintBegin", function() {
+    faintBegin(this);
+  });
+
+  PluginManager.registerCommand(pluginName, "faintEnd", function() {
+    faintEnd(this);
   });
 
   PluginManager.registerCommand(pluginName, "clearNotes", () => {
@@ -417,7 +502,18 @@
     unreadCount(mapId) {
       return thoughtsOf(mapId === undefined ? $gameMap.mapId() : Number(mapId)).filter(t => !t.read).length;
     },
-    /** そのマップの思念の一覧 [{ id, x, y, read }]。訪れていないマップは []。 */
+    /** 薄い思念を見たか（見て記憶が戻ったか）。 */
+    isFaint(id) {
+      return !!state().faint[String(id)];
+    },
+    /** 薄い思念を見て戻った記憶の数。 */
+    faintCount,
+    /** 薄い思念を見た扱いにする（演出なし。テスト用）。新しく数えたら true。既読にもする。 */
+    markFaint(id) {
+      markRead(id);
+      return markFaint(id);
+    },
+    /** そのマップの思念の一覧 [{ id, x, y, read, faint? }]。訪れていないマップは []。 */
     thoughts(mapId) {
       return thoughtsOf(mapId === undefined ? $gameMap.mapId() : Number(mapId));
     },

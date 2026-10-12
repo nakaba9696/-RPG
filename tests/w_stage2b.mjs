@@ -198,9 +198,9 @@ await runTest(async () => {
     await talk();
     check((await items("a", ARMOR.leather)) === 1, "赤い宝箱で獣人の革鎧が手に入らない");
     await go(FIELD, ZAZA3.x, ZAZA3.y + 1, 8);
-    check((await talk()).join("").includes("ザザの記憶 3/4「罪か誇り」"), "ザザの記憶 3");
+    check((await talk()).join("").includes("ノラの記憶 3/4「罪か誇り」"), "ザザの記憶 3");
     await go(FIELD, ZAZA2.x, ZAZA2.y + 1, 8);
-    check((await talk()).join("").includes("ザザの記憶 2/4「転機」"), "ザザの記憶 2");
+    check((await talk()).join("").includes("ノラの記憶 2/4「転機」"), "ザザの記憶 2");
     console.log("  焼け野：道標・紋章・R23・H18 → 獣人の革鎧・ザザの記憶 2・3");
 
     // ===== 2. 061 廃集落・広場 =====
@@ -210,7 +210,7 @@ await runTest(async () => {
     await game.shot("square");
     await go(SQUARE, ZAZA1.x, ZAZA1.y + 1, 8);
     const z1 = (await talk()).join("\n");
-    check(z1.includes("自分の剣を床下にしまった") && z1.includes("ザザの記憶 1/4「生い立ち」"), "ザザの記憶 1 " + JSON.stringify(z1));
+    check(z1.includes("自分の剣を床下にしまった") && z1.includes("ノラの記憶 1/4「生い立ち」"), "ザザの記憶 1 " + JSON.stringify(z1));
     check(await game.eval(() => Hai.Thoughts.hasNote("clue:zaza-sword")), "ザザの父の剣の手がかりがメモに無い");
     // H19：父の家の床のひび割れ → 床下の隠れ部屋
     await go(SQUARE, H19.x, H19.y - 1, 2);
@@ -250,13 +250,13 @@ await runTest(async () => {
     await arrive(TOWER, TOWER_ARRIVE.x, TOWER_ARRIVE.y);
     await go(TOWER, ZAZA.x, ZAZA.y + 1, 8);
     const body = (await talk([], { 0: "zaza-remains" })).join("\n");
-    check(body.includes("最後まで、わたしは正気だった") && body.includes("ザザの遺骸を拠点へ送った。"), "ザザの遺骸 " + JSON.stringify(body));
-    const zz = await game.eval(() => ({ sw132: $gameSwitches.value(132), memories: Hai.Companions.memories(6), complete: Hai.Companions.isComplete(6), sw142: $gameSwitches.value(142) }));
-    check(zz.sw132 && zz.memories.length === 4 && zz.complete && zz.sw142, "ザザの遺骸と記憶 4 つ（完全体）" + JSON.stringify(zz));
+    check(body.includes("最後まで、わたしは正気だった") && body.includes("名の壁の輪に置けば、この人を呼べる。"), "ザザの遺骸 " + JSON.stringify(body));
+    const zz = await game.eval(() => ({ sw132: $gameSwitches.value(132), memories: Hai.Companions.memories(6), complete: Hai.Companions.isComplete(6), var132: $gameVariables.value(132) }));
+    check(zz.sw132 && zz.memories.length === 4 && zz.complete && zz.var132 === 4, "ザザの遺骸と記憶 4 つ（完全体）" + JSON.stringify(zz));
     await go(HALL, CIRCLE.x, CIRCLE.y, 2);
-    const summon = (await talk([0, "ザザ（獣人の剣士）"])).join("\n");
-    check(summon.includes("ザザが目を覚ました。"), "召喚陣でザザが目を覚まさない " + JSON.stringify(summon));
-    check(await game.eval(() => $gameParty.members().some(a => a.actorId() === 6) && $gameSwitches.value(137)), "ザザが加わらない");
+    const summon = (await talk([0, "ノラ（生贄の村の娘）"])).join("\n");
+    check(summon.includes("ノラが目を開けた。"), "召喚陣でザザが目を覚まさない " + JSON.stringify(summon));
+    check(await game.eval(() => $gameParty.members().some(a => a.actorId() === 6) && $gameSwitches.value(139)), "ザザが加わらない");
     console.log("  見張り台：ザザの遺骸（記憶 4 つで完全体）→ 召喚陣でザザが加わった");
 
     // ===== 4. 063 焚刑の教会・064 護送路・033 =====
@@ -412,7 +412,7 @@ await runTest(async () => {
 
     // ===== 6. 023 看取りの小屋（021 の H23）=====
     await go(CHAPEL, SHION2.x, SHION2.y - 1, 2);
-    check((await talk()).join("").includes("シオンの記憶 2/4「転機」"), "シオンの記憶 2");
+    check((await talk()).join("").includes("アンセルモの記憶 2/4「転機」"), "シオンの記憶 2");
     await go(CHAPEL, H23.ash.x, H23.ash.y, 6);
     for (let i = 0; i < 3; i++) check(await step(6), `H23 の途中で進めない ${JSON.stringify(await pos())}`);
     await arrive(HOSPICE, HOSPICE_ARRIVE.x, HOSPICE_ARRIVE.y);
@@ -421,10 +421,10 @@ await runTest(async () => {
     await talk();
     check((await items("i", ITEM.ashPot)) === 1, "薬棚の下で聖灰の小壺が拾えない");
     await go(HOSPICE, SHION3.x, SHION3.y + 1, 8);
-    check((await talk()).join("").includes("シオンの記憶 3/4「罪か誇り」"), "シオンの記憶 3");
+    check((await talk()).join("").includes("アンセルモの記憶 3/4「罪か誇り」"), "シオンの記憶 3");
     await go(HOSPICE, SHION.x, SHION.y + 1, 8);
     const sb = (await talk([], { 0: "shion-remains" })).join("\n");
-    check(sb.includes("兄さんは、間に合った？") && sb.includes("シオンの遺骸を拠点へ送った。"), "シオンの遺骸 " + JSON.stringify(sb));
+    check(sb.includes("兄さんは、間に合った？") && sb.includes("名の壁の輪に置けば、この人を呼べる。"), "シオンの遺骸 " + JSON.stringify(sb));
     const sh = await game.eval(() => ({ sw135: $gameSwitches.value(135), memories: Hai.Companions.memories(9) }));
     check(sh.sw135 && JSON.stringify(sh.memories) === "[2,3,4]", "シオンの遺骸と記憶 2〜4 " + JSON.stringify(sh));
     await game.eval(() => $gameParty.members().forEach(a => a.setHp(1)));

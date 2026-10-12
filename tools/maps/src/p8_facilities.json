@@ -1,5 +1,5 @@
 {
-  "_説明": "P8 の試験場（T の帯 900–949 のうち 913 を P8 が使う）。製品のマップからは行けない。上の壁に Map010 と同じ台座が 4 つ（左から魂の間・創作者の厨房・保管ゲート・理知の間）。開いた扉に触れると本物の施設（011–014）へ。この設定は node tools/maps/src/p8_data.mjs が書く。",
+  "_説明": "P8・P11 の試験場（T の帯 900–949 のうち 913 を P8 が使う）。製品のマップからは行けない。上の壁に Map010 と同じ崩れた扉が 4 つ（左から稽古場・食堂・倉・書庫）、その 2 マス下に部屋を開く生き残りが 4 人。開いた扉に触れると本物の部屋（011–014）へ。この設定は node tools/maps/src/p8_data.mjs が書く。",
   "mapId": 913,
   "name": "T_施設",
   "displayName": "施設の試験場",
@@ -13,7 +13,7 @@
   },
   "events": [
     {
-      "name": "台座（魂の間）",
+      "name": "崩れた扉（稽古場）",
       "type": "raw",
       "x": 3,
       "y": 2,
@@ -29,37 +29,12 @@
           "walkAnime": false,
           "list": [
             {
-              "code": 101,
-              "indent": 0,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                ""
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "台座の付いた石の扉。碑文が刻まれている。"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "「魂は量れる。量れるものは、与えることもできる」"
-              ]
-            },
-            {
               "code": 357,
               "indent": 0,
               "parameters": [
                 "Hai_Facilities",
-                "pedestal",
-                "台座",
+                "door",
+                "崩れた扉",
                 {
                   "door": "soul"
                 }
@@ -69,7 +44,7 @@
               "code": 657,
               "indent": 0,
               "parameters": [
-                "どの扉の台座か = soul"
+                "どの部屋の扉か = soul"
               ]
             },
             {
@@ -128,7 +103,7 @@
       ]
     },
     {
-      "name": "台座（創作者の厨房）",
+      "name": "崩れた扉（食堂）",
       "type": "raw",
       "x": 6,
       "y": 2,
@@ -144,37 +119,12 @@
           "walkAnime": false,
           "list": [
             {
-              "code": 101,
-              "indent": 0,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                ""
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "台座の付いた石の扉。碑文が刻まれている。"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "「火と塩と根。生きるための術は、いつも台所から」"
-              ]
-            },
-            {
               "code": 357,
               "indent": 0,
               "parameters": [
                 "Hai_Facilities",
-                "pedestal",
-                "台座",
+                "door",
+                "崩れた扉",
                 {
                   "door": "kitchen"
                 }
@@ -184,7 +134,7 @@
               "code": 657,
               "indent": 0,
               "parameters": [
-                "どの扉の台座か = kitchen"
+                "どの部屋の扉か = kitchen"
               ]
             },
             {
@@ -243,7 +193,7 @@
       ]
     },
     {
-      "name": "台座（保管ゲート）",
+      "name": "崩れた扉（倉）",
       "type": "raw",
       "x": 10,
       "y": 2,
@@ -259,37 +209,12 @@
           "walkAnime": false,
           "list": [
             {
-              "code": 101,
-              "indent": 0,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                ""
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "台座の付いた石の扉。碑文が刻まれている。"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "「持ちきれぬものは、置いていけ。門が覚えている」"
-              ]
-            },
-            {
               "code": 357,
               "indent": 0,
               "parameters": [
                 "Hai_Facilities",
-                "pedestal",
-                "台座",
+                "door",
+                "崩れた扉",
                 {
                   "door": "gate"
                 }
@@ -299,7 +224,7 @@
               "code": 657,
               "indent": 0,
               "parameters": [
-                "どの扉の台座か = gate"
+                "どの部屋の扉か = gate"
               ]
             },
             {
@@ -358,7 +283,7 @@
       ]
     },
     {
-      "name": "台座（理知の間）",
+      "name": "崩れた扉（書庫）",
       "type": "raw",
       "x": 13,
       "y": 2,
@@ -374,37 +299,12 @@
           "walkAnime": false,
           "list": [
             {
-              "code": 101,
-              "indent": 0,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                ""
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "台座の付いた石の扉。碑文が刻まれている。"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "「読めぬ文字は、まだ出会っていない言葉にすぎない」"
-              ]
-            },
-            {
               "code": 357,
               "indent": 0,
               "parameters": [
                 "Hai_Facilities",
-                "pedestal",
-                "台座",
+                "door",
+                "崩れた扉",
                 {
                   "door": "lore"
                 }
@@ -414,7 +314,7 @@
               "code": 657,
               "indent": 0,
               "parameters": [
-                "どの扉の台座か = lore"
+                "どの部屋の扉か = lore"
               ]
             },
             {
@@ -461,6 +361,250 @@
                 3,
                 2,
                 0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "生き残り（アデル。稽古場を開く）",
+      "type": "raw",
+      "x": 3,
+      "y": 4,
+      "pages": [
+        {
+          "image": {
+            "characterName": "People1",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "（試験）アデルが砦に来た。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Facilities",
+                "open",
+                "部屋を開く",
+                {
+                  "facility": "soul"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "部屋 = soul"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "生き残り（ヴォルフラム。食堂を開く）",
+      "type": "raw",
+      "x": 6,
+      "y": 4,
+      "pages": [
+        {
+          "image": {
+            "characterName": "People1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "（試験）ヴォルフラムが砦に来た。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Facilities",
+                "open",
+                "部屋を開く",
+                {
+                  "facility": "kitchen"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "部屋 = kitchen"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "生き残り（シャノ。倉を開く）",
+      "type": "raw",
+      "x": 10,
+      "y": 4,
+      "pages": [
+        {
+          "image": {
+            "characterName": "People1",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "（試験）シャノが砦に来た。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Facilities",
+                "open",
+                "部屋を開く",
+                {
+                  "facility": "gate"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "部屋 = gate"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "生き残り（イスメネ。書庫を開く）",
+      "type": "raw",
+      "x": 13,
+      "y": 4,
+      "pages": [
+        {
+          "image": {
+            "characterName": "People1",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "（試験）イスメネが砦に来た。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Facilities",
+                "open",
+                "部屋を開く",
+                {
+                  "facility": "lore"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "部屋 = lore"
               ]
             },
             {

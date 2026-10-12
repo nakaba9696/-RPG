@@ -139,6 +139,12 @@ export function checkAll({ dataDir = DATA_DIR, readData, pluginsText, bands = re
       if (ev.id !== i) problems.push(`${at}: id が ${ev.id}`);
       if (!(ev.x >= 0 && ev.x < map.width && ev.y >= 0 && ev.y < map.height)) problems.push(`${at}: 座標 (${ev.x},${ev.y}) が地図の外`);
       ev.pages.forEach((p, k) => checkList(p.list, `${at} pages[${k}]`, problems));
+      // 会話できない薄い思念（Hai_Thoughts の <hai_faint>）には、選択肢・数値入力・アイテム選択を置かない（docs/world.md 6.5）
+      if (parseMeta(ev.note || "").hai_faint !== undefined) {
+        ev.pages.forEach((p, k) => {
+          if ((p.list || []).some(c => [102, 103, 104].includes(c.code))) problems.push(`${at} pages[${k}]: 薄い思念（<hai_faint>）に選択肢・数値入力・アイテム選択がある（会話できない思念）`);
+        });
+      }
     });
   }
   if (!maps[system.startMapId]) problems.push(`System.json: 開始マップ ${system.startMapId} がない`);

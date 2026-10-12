@@ -278,7 +278,7 @@ await runTest(async () => {
     const summon = async (name) => {
       await go(HALL, CIRCLE.x, CIRCLE.y, 2);
       const text = (await talk([0, name])).join("\n");
-      check(text.includes(`${name}が目を覚ました。`), `召喚陣で${name}が目を覚まさない ` + JSON.stringify(text));
+      check(text.includes(`${name}が目を開けた。`), `召喚陣で${name}が目を覚まさない ` + JSON.stringify(text));
     };
 
     // ===== 1. 063 の裏口 → 080 前庭と閲覧室 =====
@@ -291,9 +291,9 @@ await runTest(async () => {
     check((await talk()).join("").includes("記録は嘘だった"), "R35 の本文");
     await go(COURT, NOX1.x, NOX1.y + 1, 8);
     const nox1 = (await talk()).join("\n");
-    check(nox1.includes("点の字") && nox1.includes("ノクスの記憶 1/4「生い立ち」"), "ノクスの記憶 1 " + JSON.stringify(nox1));
+    check(nox1.includes("点の字") && nox1.includes("ディルの記憶 1/4「生い立ち」"), "ノクスの記憶 1 " + JSON.stringify(nox1));
     await go(COURT, SHION1.x, SHION1.y + 1, 8);
-    check((await talk()).join("").includes("シオンの記憶 1/4「生い立ち」"), "シオンの記憶 1");
+    check((await talk()).join("").includes("アンセルモの記憶 1/4「生い立ち」"), "シオンの記憶 1");
     await go(COURT, BOOKMARK.x, BOOKMARK.y - 1, 2);
     await talk();
     check((await items("i", ITEM.bookmark)) === 1 && (await hasLore("i", ITEM.bookmark)), "長机で点の字の栞（来歴つき）が拾えない");
@@ -324,7 +324,7 @@ await runTest(async () => {
     await go(MAZE, R36.x, R36.y + 1, 8);
     check((await talk()).join("").includes("司書が写しを取っていた"), "R36 の本文");
     await go(MAZE, NOX2.x, NOX2.y + 1, 8);
-    check((await talk()).join("").includes("ノクスの記憶 2/4「転機」"), "ノクスの記憶 2");
+    check((await talk()).join("").includes("ディルの記憶 2/4「転機」"), "ノクスの記憶 2");
     // H29：迷路の南東の隅の苔から、東の石の壁の中を北へ（赤「書架の番人」の通路を通らずに北の廊下へ）
     await go(MAZE, H29.moss.x, H29.moss.y, 6);
     const route = [6, 6, ...Array(20).fill(8), 4];
@@ -349,16 +349,16 @@ await runTest(async () => {
     check(await game.eval(() => Hai.Thoughts.hasNote("clue:R37")), "R37 の手がかりがメモに無い");
     await go(VAULT, NOX3.x, NOX3.y - 1, 2);
     const nox3 = await talk();
-    check(nox3.join("\n").includes("ありがとうございます、先生") && nox3.join("").includes("ノクスの記憶 3/4「罪か誇り」"), "ノクスの記憶 3 " + JSON.stringify(nox3));
+    check(nox3.join("\n").includes("ありがとうございます、先生") && nox3.join("").includes("ディルの記憶 3/4「罪か誇り」"), "ノクスの記憶 3 " + JSON.stringify(nox3));
     await go(VAULT, H30.x, H30.y + 1, 8);
     await inspectPlain();
     check(await game.eval(([x, y]) => Hai.HiddenPassage.isFound(x, y), [H30.x, H30.y]), "H30 の隠し扉が開かない");
     for (let i = 0; i < 3; i++) check(await step(8), `H30 の奥へ進めない ${JSON.stringify(await pos())}`);
     await go(VAULT, H30.remains.x + 1, H30.remains.y, 4);
     const body = (await talk([], { 1: "nox-remains" })).join("\n");
-    check(body.includes("本は残る。誰かが、いつか読む。") && body.includes("ノクスの遺骸を拠点へ送った。"), "ノクスの遺骸 " + JSON.stringify(body));
-    const nx = await game.eval(() => ({ sw133: $gameSwitches.value(133), memories: Hai.Companions.memories(7), complete: Hai.Companions.isComplete(7), sw143: $gameSwitches.value(143) }));
-    check(nx.sw133 && nx.memories.length === 4 && nx.complete && nx.sw143, "ノクスの遺骸と記憶 4 つ（完全体）" + JSON.stringify(nx));
+    check(body.includes("本は残る。誰かが、いつか読む。") && body.includes("名の壁の輪に置けば、この人を呼べる。"), "ノクスの遺骸 " + JSON.stringify(body));
+    const nx = await game.eval(() => ({ sw133: $gameSwitches.value(133), memories: Hai.Companions.memories(7), complete: Hai.Companions.isComplete(7), var133: $gameVariables.value(133) }));
+    check(nx.sw133 && nx.memories.length === 4 && nx.complete && nx.var133 === 4, "ノクスの遺骸と記憶 4 つ（完全体）" + JSON.stringify(nx));
     const orbs0 = await items("i", ITEM.orb);
     await go(VAULT, ORB.x, ORB.y + 1, 8);
     await talk();
@@ -371,8 +371,8 @@ await runTest(async () => {
     await game.shot("ossuary-h31");
     await game.call("step", 4);
     await arrive(VAULT, H31.x + 1, H31.y);
-    await summon("ノクス");
-    check(await game.eval(() => $gameParty.members().some(a => a.actorId() === 7) && $gameSwitches.value(138)), "ノクスが加わらない");
+    await summon("ディル");
+    check(await game.eval(() => $gameParty.members().some(a => a.actorId() === 7) && $gameSwitches.value(140)), "ノクスが加わらない");
     console.log(`  禁書庫：R37・ノクスの記憶 3・H30 → ノクスの遺骸（記憶 ${JSON.stringify(nx.memories)}、完全体）・叡智のオーブ・H31（スイッチ 164）・ノクスが加わった`);
 
     // ===== 4. 083 紙魚の王 =====

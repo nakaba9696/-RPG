@@ -1,11 +1,11 @@
-// P8 拠点の施設と叡智のオーブ（js/plugins/Hai_Facilities.js）の検査。試験場 Map913（tools/maps/src/p8_facilities）と、Map010・011–014 で：
-//   1. オーブ 0 個で台座 → 碑文と「オーブが要る」だけ（選択肢なし）。
-//   2. 1 個はめると、どの扉の台座でも魂の間が開く（理知の間の台座ではめる）。「やめる」なら何も起きない。
-//   3. 2〜4 個目で、創作者の厨房 → 保管ゲート → 理知の間の順に開く。スイッチ 121〜124 と変数 103。
-//   4. Map010 の開いた扉に触れると施設のマップへ。施設の出口で Map010 の扉の前へ戻る。
-//   5. 戦闘の勝利で魂が増える（勝利の文に「魂を N 手に入れた」）。ボスを倒すと理知の間の一覧に入る。
-//   6. 魂の間：魂を与えてレベルを 1 つ上げる（前に出ている仲間の最高レベルまで）。
-//   7. 創作者の厨房：合成の画面で作る。 8. 保管ゲート：預ける・引き出す。 9. 理知の間：倒したボスと読んだ思念。
+// P8・P11 砦の部屋（js/plugins/Hai_Facilities.js）の検査。試験場 Map913（tools/maps/src/p8_facilities）と、Map010・011–014 で：
+//   1. 閉じた部屋の崩れた扉（Map010）→「扉が崩れて、瓦礫で塞がっている。」だけ（選択肢なし）。叡智のオーブを持っていても開かない。
+//   2. 生き残り（試験場）を調べると、その部屋だけが開く（プラグインコマンド open。順は決まっていない）。スイッチ 121〜124。
+//   3. 二度目の open は何もしない。4 部屋とも開く。
+//   4. Map010 の開いた扉に触れると部屋のマップへ。部屋の出口で Map010 の扉の前へ戻る。
+//   5. 戦闘の勝利で魂が増える（勝利の文に「魂を N 手に入れた」）。ボスを倒すと書庫の一覧に入る。
+//   6. 稽古場：魂を与えてレベルを 1 つ上げる（前に出ている仲間の最高レベルまで）。
+//   7. 食堂：合成の画面で作る。 8. 倉：預ける・引き出す。 9. 書庫：倒したボスと読んだ思念・戻った記憶。
 //   10. セーブ → 読み直し → ロードで残る。 11. 古いセーブ（_hai.facilities が無い）で壊れない。
 import { launchGame, check, runTest } from "./lib.mjs";
 
@@ -13,8 +13,9 @@ const TEST_MAP = 913;
 const SLOT = 3;
 const ORB = 171;
 const HERB = 196, ANTIDOTE = 197, ROOT = 199, MOSS = 200;
-// 試験場の台座（上の壁）。立つのはその 1 つ下
-const PEDESTAL = { soul: { x: 3, y: 2 }, kitchen: { x: 6, y: 2 }, gate: { x: 10, y: 2 }, lore: { x: 13, y: 2 } };
+// 試験場の崩れた扉（上の壁）と、部屋を開く生き残り（扉の 2 マス下）。立つのはその 1 つ下
+const DOOR = { soul: { x: 3, y: 2 }, kitchen: { x: 6, y: 2 }, gate: { x: 10, y: 2 }, lore: { x: 13, y: 2 } };
+const SURVIVOR = { soul: { x: 3, y: 4 }, kitchen: { x: 6, y: 4 }, gate: { x: 10, y: 4 }, lore: { x: 13, y: 4 } };
 // Map010 の扉（tools/maps/src/w1_010_prison_hall.json）と施設の中
 const HALL_DOOR = { soul: { x: 5, y: 8 }, kitchen: { x: 27, y: 8 }, gate: { x: 5, y: 26 }, lore: { x: 27, y: 26 } };
 const ROOM = {
@@ -116,47 +117,53 @@ await runTest(async () => {
       $gameParty._actors = [1]; // 初期パーティ（System.json）に左右されないように主人公だけにする
       $gamePlayer.refresh();
     });
-    check((await game.eval(() => $dataItems[171].name)) === "叡智のオーブ", "Items 171 が叡智のオーブでない");
-    check((await F("opened")).length === 0 && (await F("nextFacility")) === "soul", "最初から施設が開いている");
+    check((await F("opened")).length === 0 && JSON.stringify(await F("closed")) === '["soul","kitchen","gate","lore"]', "最初から部屋が開いている");
+    check((await game.eval(() => ["soul", "kitchen", "gate", "lore"].map(k => Hai.Facilities.nameOf(k)).join())) === "稽古場,食堂,倉,書庫", "部屋の名前");
+    const api = await game.eval(() => Object.keys(Hai.Facilities));
+    check(!api.some(k => /orb|insert|next/i.test(k)), "窓口に叡智のオーブの名残りがある " + JSON.stringify(api));
 
-    // ---- 1. オーブ 0 個：Map010 の北西の扉の台座は碑文と「オーブが要る」だけ
+    // ---- 1. 閉じた部屋：Map010 の北西の扉は「瓦礫で塞がっている」だけ。叡智のオーブを持っていても開かない
+    await gainOrbs(1);
     await go(10, HALL_DOOR.soul.x, HALL_DOOR.soul.y + 1, 8);
-    let pages = await talk([], { 1: "pedestal-no-orb" });
-    check(pages[0].includes("魂は量れる") && pages.at(-1).includes("叡智のオーブが要るようだ"), "オーブ 0 個の台座 " + JSON.stringify(pages));
-    check(!pages.sawChoice, "オーブ 0 個で選択肢が出た");
-    check(!(await switches())[0], "オーブ 0 個で魂の間が開いた");
-
-    // ---- 2. 1 個目：理知の間の台座ではめても魂の間が開く。「やめる」は何も起きない
-    await gainOrbs(1);
-    await go(TEST_MAP, PEDESTAL.lore.x, PEDESTAL.lore.y + 1, 8);
-    pages = await talk([1]);
-    check(pages.sawChoice && (await orbs()) === 1 && (await F("opened")).length === 0, "「やめる」でオーブが減った・開いた " + JSON.stringify(pages));
-    pages = await talk([0], { choice: "pedestal-choice", 2: "pedestal-opened-elsewhere" });
-    check(pages.some(p => p.includes("北西の扉（魂の間）の開く音がする")), "よその扉が開いた文 " + JSON.stringify(pages));
-    check(JSON.stringify(await F("opened")) === '["soul"]', "1 個目で魂の間が開かない " + JSON.stringify(await F("opened")));
-    check(JSON.stringify(await switches()) === "[true,false,false,false]", "スイッチ 121 " + JSON.stringify(await switches()));
-    check((await game.eval(() => $gameVariables.value(103))) === 1 && (await orbs()) === 0, "変数 103・オーブの数");
-    // 理知の間の台座はまだ閉じたまま（1 ページ目）、魂の間の台座は開いたページ
-    const pageOf = (x, y) => game.eval(([x2, y2]) => $gameMap.event($gameMap.eventIdXy(x2, y2))._pageIndex, [x, y]);
-    check((await pageOf(PEDESTAL.lore.x, PEDESTAL.lore.y)) === 0 && (await pageOf(PEDESTAL.soul.x, PEDESTAL.soul.y)) === 1, "台座のページが切り替わらない");
-
-    // ---- 3. 2〜4 個目は順に開く
-    await gainOrbs(3);
-    await go(TEST_MAP, PEDESTAL.kitchen.x, PEDESTAL.kitchen.y + 1, 8);
-    pages = await talk([0]);
-    check(pages.some(p => p.includes("扉が開いた。創作者の厨房に入れる。")), "この扉が開いた文 " + JSON.stringify(pages));
-    await go(TEST_MAP, PEDESTAL.lore.x, PEDESTAL.lore.y + 1, 8);
-    pages = await talk([0]);
-    check(pages.some(p => p.includes("南西の扉（保管ゲート）の開く音がする")), "3 個目は保管ゲート " + JSON.stringify(pages));
-    await go(TEST_MAP, PEDESTAL.lore.x, PEDESTAL.lore.y + 1, 8);
-    pages = await talk([0]);
-    check(pages.some(p => p.includes("理知の間に入れる")), "4 個目は理知の間 " + JSON.stringify(pages));
-    check(JSON.stringify(await F("opened")) === '["soul","kitchen","gate","lore"]', "開いた順 " + JSON.stringify(await F("opened")));
-    check(JSON.stringify(await switches()) === "[true,true,true,true]", "スイッチ 121〜124 " + JSON.stringify(await switches()));
-    check((await game.eval(() => $gameVariables.value(103))) === 4 && (await orbs()) === 0, "4 個はめたあとの変数 103・オーブ");
-    await gainOrbs(1);
-    check((await F("insertOrb", "soul")) === null && (await orbs()) === 1, "すべて開いたあとにオーブが減った");
+    let pages = await talk([], { 0: "door-closed" });
+    check(pages.length === 1 && pages[0].includes("扉が崩れて、瓦礫で塞がっている。"), "閉じた崩れた扉 " + JSON.stringify(pages));
+    check(!pages.sawChoice && (await orbs()) === 1 && (await F("opened")).length === 0, "崩れた扉で選択肢が出た・オーブが減った・開いた");
     await game.eval(id => $gameParty.loseItem($dataItems[id], 1), ORB);
+    // 古いマップの「台座」（pedestal）も同じに動く
+    pages = await game.eval(() => {
+      const it = new Game_Interpreter();
+      it.setup([{ code: 357, indent: 0, parameters: ["Hai_Facilities", "pedestal", "台座", { door: "lore" }] }, { code: 0, indent: 0, parameters: [] }], 0);
+      it.update();
+      const text = it._childInterpreter ? it._childInterpreter._list.filter(c => c.code === 401).map(c => c.parameters[0]) : [];
+      $gameMessage.clear(); // この試しの解釈器が出した文章を、マップの窓に残さない
+      return text;
+    });
+    check(pages.length === 1 && pages[0].includes("瓦礫で塞がっている"), "古いマップの台座 " + JSON.stringify(pages));
+
+    // ---- 2. 生き残り：食堂（ヴォルフラム）を先に開く。開くのはその部屋だけ
+    await go(TEST_MAP, DOOR.kitchen.x, DOOR.kitchen.y + 1, 8);
+    pages = await talk();
+    check(pages.length === 1 && pages[0].includes("瓦礫で塞がっている"), "試験場の崩れた扉 " + JSON.stringify(pages));
+    await go(TEST_MAP, SURVIVOR.kitchen.x, SURVIVOR.kitchen.y + 1, 8);
+    pages = await talk();
+    check(pages[0].includes("ヴォルフラムが砦に来た"), "生き残りの文 " + JSON.stringify(pages));
+    check(JSON.stringify(await F("opened")) === '["kitchen"]', "食堂だけが開かない " + JSON.stringify(await F("opened")));
+    check(JSON.stringify(await switches()) === "[false,true,false,false]", "スイッチ 122 " + JSON.stringify(await switches()));
+    // 食堂の扉は開いたページ、稽古場の扉は閉じたまま
+    const pageOf = (x, y) => game.eval(([x2, y2]) => $gameMap.event($gameMap.eventIdXy(x2, y2))._pageIndex, [x, y]);
+    check((await pageOf(DOOR.kitchen.x, DOOR.kitchen.y)) === 1 && (await pageOf(DOOR.soul.x, DOOR.soul.y)) === 0, "扉のページが切り替わらない");
+
+    // ---- 3. 同じ生き残りをもう一度調べても何も変わらない。残りの 3 人で 4 部屋とも開く
+    pages = await talk();
+    check(JSON.stringify(await F("opened")) === '["kitchen"]', "二度目の open で何か開いた");
+    for (const key of ["lore", "soul", "gate"]) {
+      await go(TEST_MAP, SURVIVOR[key].x, SURVIVOR[key].y + 1, 8);
+      await talk();
+    }
+    check(JSON.stringify(await F("opened")) === '["soul","kitchen","gate","lore"]', "4 部屋 " + JSON.stringify(await F("opened")));
+    check(JSON.stringify(await switches()) === "[true,true,true,true]", "スイッチ 121〜124 " + JSON.stringify(await switches()));
+    check((await F("closed")).length === 0 && !(await F("open", "soul")), "開いた部屋がまた開いた");
+    await go(TEST_MAP, 8, 5, 8);
     await game.shot("test-map-all-open");
 
     // ---- 4. Map010 の開いた扉 → 魂の間 → 出口で扉の前へ
@@ -209,13 +216,13 @@ await runTest(async () => {
     check(msgs.some(t => t.includes("魂を 20 手に入れた。")), "勝利の文に魂が出ない " + JSON.stringify(msgs));
     check(JSON.stringify(await F("bosses")) === "[1]", "倒したボスを覚えていない " + JSON.stringify(await F("bosses")));
 
-    // ---- 6. 魂の間：控えのオルド（Lv 3）を上げる。上限は前に出ている仲間の最高レベル
+    // ---- 6. 稽古場：控えのブルーノ（Lv 3）を上げる。上限は前に出ている仲間の最高レベル
     await game.eval(() => {
       $gameActors.actor(1).changeLevel(5, false);
       Hai.Companions.summon(5);
       $gameActors.actor(5).changeLevel(3, false);
     });
-    check((await F("soulCost", 5)) === 3 && (await F("soulCap", 5)) === 5 && (await F("canRaise", 5)), "オルドの魂・上限 ");
+    check((await F("soulCost", 5)) === 3 && (await F("soulCap", 5)) === 5 && (await F("canRaise", 5)), "ブルーノの魂・上限 ");
     check(!(await F("canRaise", 1)), "最高レベルの主人公が上げられる");
     await useFacility("soul", "Scene_HaiSouls");
     await game.eval(() => SceneManager._scene._statusWindow.select(1));
@@ -223,7 +230,7 @@ await runTest(async () => {
     await game.shot("soul-room");
     await game.press("Enter");
     await game.frames(8);
-    check((await game.eval(() => $gameActors.actor(5).level)) === 4 && (await F("souls")) === 17, "魂の間でレベルが上がらない");
+    check((await game.eval(() => $gameActors.actor(5).level)) === 4 && (await F("souls")) === 17, "稽古場でレベルが上がらない");
     await game.press("Enter"); // Lv 4 → 5（魂 4）
     await game.frames(8);
     await game.press("Enter"); // 上限 5 なので上がらない
@@ -232,7 +239,7 @@ await runTest(async () => {
     await game.shot("soul-room-capped");
     await closeScene();
 
-    // ---- 7. 創作者の厨房：合成の画面で毒消しを作る
+    // ---- 7. 食堂：合成の画面で毒消しを作る
     await game.eval(([r, m]) => {
       $gameParty.gainItem($dataItems[r], 2);
       $gameParty.gainItem($dataItems[m], 1);
@@ -241,10 +248,10 @@ await runTest(async () => {
     await game.shot("kitchen");
     await game.press("Enter");
     await game.frames(8);
-    check((await num(ANTIDOTE)) === 1 && (await num(ROOT)) === 0, "厨房で毒消しが作れない");
+    check((await num(ANTIDOTE)) === 1 && (await num(ROOT)) === 0, "食堂で毒消しが作れない");
     await closeScene();
 
-    // ---- 8. 保管ゲート：薬草 6 つ（5 つ＋倉庫 1）→ 預ける → 引き出す
+    // ---- 8. 倉：薬草 6 つ（5 つ＋倉庫 1）→ 預ける → 引き出す
     await game.eval(id => $gameParty.gainItem($dataItems[id], 6), HERB);
     await waitMapIdle();
     check(!(await game.eval(() => $gameMessage.isBusy())), "倉庫の知らせが文章の窓で出た（通知は操作を止めない）");
@@ -291,7 +298,7 @@ await runTest(async () => {
     check((await num(HERB)) === 5 && (await stored()) === 1, "引き出せない");
     await closeScene();
 
-    // ---- 9. 理知の間：倒したボスと読んだ思念
+    // ---- 9. 書庫：倒したボスと読んだ思念・戻った記憶
     await useFacility("lore", "Scene_HaiLore");
     const lore = await game.eval(() => SceneManager._scene._pageWindow.lines());
     check(lore.some(l => l.includes("ゴブリン")) && lore.some(l => l.includes("弱い：")), "倒したボスの一覧 " + JSON.stringify(lore));
@@ -299,7 +306,11 @@ await runTest(async () => {
     await game.press("ArrowDown");
     await game.frames(6);
     const lore2 = await game.eval(() => SceneManager._scene._pageWindow.lines());
-    check(lore2[0].startsWith("読んだ残留思念"), "読んだ思念の数 " + JSON.stringify(lore2));
+    check(lore2[0].startsWith("読んだ思念") && lore2[1].startsWith("戻った記憶"), "読んだ思念・戻った記憶の数 " + JSON.stringify(lore2));
+    await game.press("ArrowDown");
+    await game.frames(6);
+    const lore3 = await game.eval(() => SceneManager._scene._pageWindow.lines());
+    check(lore3[0].includes("写し"), "写しの読み比べ " + JSON.stringify(lore3));
     await closeScene();
 
     // ---- 10. セーブ → 読み直し → ロード
@@ -320,16 +331,16 @@ await runTest(async () => {
       delete $gameSystem._hai.facilities;
       for (const n of [121, 122, 123, 124]) $gameSwitches.setValue(n, false);
       r.none = Hai.Facilities.opened();
-      r.next = Hai.Facilities.nextFacility();
+      r.closed = Hai.Facilities.closed().length;
       r.added = Hai.Facilities.addSouls(3);
       return r;
     });
     check(old.opened.length === 4 && old.souls === 0 && old.bosses.length === 0, "古いセーブ（スイッチ ON）" + JSON.stringify(old));
-    check(old.none.length === 0 && old.next === "soul" && old.added === 3, "古いセーブ（スイッチ OFF）" + JSON.stringify(old));
-    // 閉じた施設を使おうとすると「扉は閉ざされている。」
+    check(old.none.length === 0 && old.closed === 4 && old.added === 3, "古いセーブ（スイッチ OFF）" + JSON.stringify(old));
+    // 閉じた部屋を使おうとすると「扉が崩れて、瓦礫で塞がっている。」
     await go(ROOM.soul.map, ROOM.soul.use.x, ROOM.soul.use.y + 1, 8);
     pages = await talk();
-    check(pages.length === 1 && pages[0].includes("扉は閉ざされている。"), "閉じた施設 " + JSON.stringify(pages));
+    check(pages.length === 1 && pages[0].includes("瓦礫で塞がっている。"), "閉じた部屋 " + JSON.stringify(pages));
 
     game.assertNoErrors();
   } finally {

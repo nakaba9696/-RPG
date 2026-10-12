@@ -207,7 +207,7 @@ await runTest(async () => {
     check(await step(8), "開いた地下壕の扉を通れない");
     await go(CAMP, ORDO2.x, ORDO2.y + 1, 8);
     const ordo2 = (await talk()).join("\n");
-    check(ordo2.includes("肩章を剥がされ") && ordo2.includes("オルドの記憶 2/4「転機」"), "オルドの記憶 2 " + JSON.stringify(ordo2));
+    check(ordo2.includes("肩章を剥がされ") && ordo2.includes("ブルーノの記憶 2/4「転機」"), "オルドの記憶 2 " + JSON.stringify(ordo2));
     await go(CAMP, H15.x, H15.y + 1, 8);
     await inspectPlain();
     check(await game.eval(([x, y]) => Hai.HiddenPassage.isFound(x, y), [H15.x, H15.y]), "H15 の隠し扉が開かない");
@@ -396,8 +396,8 @@ await runTest(async () => {
     await go(MINE_LOW, ORDO3.x, ORDO3.y + 1, 8);
     check((await talk()).join("\n").includes("一度も人を潰さなかった"), "オルドの記憶 3");
     await game.eval(() => Hai.Companions.learnMemory(5, 4)); // 臨終（R12、028）は W2 の検査で読んでいる
-    const ordo = await game.eval(() => ({ memories: Hai.Companions.memories(5), complete: Hai.Companions.isComplete(5), sw141: $gameSwitches.value(141) }));
-    check(ordo.memories.length === 4 && ordo.complete, "オルドの記憶が 4 つ揃わない " + JSON.stringify(ordo));
+    const ordo = await game.eval(() => ({ memories: Hai.Companions.memories(5), complete: Hai.Companions.isComplete(5), var131: $gameVariables.value(131) }));
+    check(ordo.memories.length === 4 && ordo.complete && ordo.var131 === 4, "オルドの記憶が 4 つ揃わない（変数 131 が 4 でない） " + JSON.stringify(ordo));
     console.log(`  オルドの記憶：${JSON.stringify(ordo.memories)}・完全体 ${ordo.complete}`);
 
     // ===== 7. セーブ・ロード =====
