@@ -339,8 +339,8 @@ const ENEMIES = [
   [ENEMY.inkShade, "インクの影", "Wraith", 220, [220, 20, 18, 14, 22, 18, 16, 10], 14, 10, [T.element(ELEMENT.light, 2), T.physRate(0.7)], [attack, act(SKILL.inkSpray, 4)], drop(1, ITEM.holyWater, 5)],
   [ENEMY.silentReader, "黙読者", "Sorcerer", 170, [420, 40, 22, 18, 28, 26, 14, 10], 30, 20, [T.element(ELEMENT.fire, 1.5), T.stateRate(ST.silence, 1.5)], [attack, act(SKILL.silentRead, 4)], noDrop],
   [ENEMY.copyist, "写字の手", "Lich", 120, [480, 0, 34, 20, 10, 16, 20, 10], 32, 22, [T.element(ELEMENT.fire, 1.5)], [attack, act(SKILL.copyHand, 4)], noDrop],
-  // 夜の戸の声だけの影（W16。W11 の 701 と同じ型・数値。言い残しはマップのイベントのメモ欄 <hai_enemy_shade:…>）
-  [ENEMY.voiceShade, "声だけの影", "SF_Shadow", 0, [820, 40, 44, 26, 32, 30, 26, 10], 50, 30, [T.element(ELEMENT.light, 2), T.element(ELEMENT.dark, 0.5), T.physRate(0.85)], [attack, act(701, 3)], drop(1, ITEM.mossAsh, 4)],
+  // 夜の戸の声だけの影（W16。W11 の 701 と同じ型で、強さは焼けた村のふつうの敵 1〜2 体分。言い残しはマップのイベントのメモ欄 <hai_enemy_shade:…>）
+  [ENEMY.voiceShade, "声だけの影", "SF_Shadow", 0, [420, 20, 28, 16, 20, 20, 16, 10], 28, 20, [T.element(ELEMENT.light, 2), T.element(ELEMENT.dark, 0.5), T.physRate(0.85)], [attack, act(SKILL.lotVoice, 3)], drop(1, ITEM.mossAsh, 4)],
   [ENEMY.shelfWarden, "書架の番人", "Stoneknight", 60, [1800, 0, 44, 34, 8, 20, 14, 10], 100, 55, [T.element(ELEMENT.thunder, 1.5), T.physRate(0.8)], [attack, act(SKILL.shelfFall, 4)], noDrop],
 ];
 const enemies = readData("Enemies.json");

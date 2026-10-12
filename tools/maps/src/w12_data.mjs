@@ -362,10 +362,10 @@ const ENEMIES = [
     dropItems: noDrop,
     note: ["<hai_boss>", "<hai_boss_name:院長>", `<hai_boss_switch:${SW.abbot}>`, "<hai_weak_hint:光>", "<hai_actions_low:2,50>", "<hai_drop:none>"].join("\n") }],
   // 緑・黄・赤
-  // 夜の戸の声だけの影（W16。W11 の 701 と同じ型・数値。言い残しはマップのイベントのメモ欄 <hai_enemy_shade:…>）
-  [ENEMY.voiceShade, { name: "声だけの影", battlerName: "SF_Shadow", battlerHue: 0, params: [820, 40, 44, 26, 32, 30, 26, 10], exp: 50, gold: 30,
+  // 夜の戸の声だけの影（W16。W11 の 701 と同じ型で、強さは麦の街道のふつうの敵 1〜2 体分。言い残しはマップのイベントのメモ欄 <hai_enemy_shade:…>）
+  [ENEMY.voiceShade, { name: "声だけの影", battlerName: "SF_Shadow", battlerHue: 0, params: [480, 20, 30, 18, 22, 20, 18, 10], exp: 32, gold: 22,
     traits: [...base, T.element(ELEMENT.light, 2), T.element(ELEMENT.dark, 0.5), { code: 23, dataId: 6, value: 0.85 }],
-    actions: [attack, act(701, 3)], dropItems: drop(1, P_ITEM.mossAsh, 4) }],
+    actions: [attack, act(SKILL.whisper, 3)], dropItems: drop(1, P_ITEM.mossAsh, 4) }],
   [ENEMY.line, { name: "飢えの列", battlerName: "Zombie", battlerHue: 40, params: [240, 0, 22, 12, 8, 10, 14, 10], exp: 14, gold: 10,
     traits: [...base, T.element(ELEMENT.fire, 1.5)], actions: [attack, act(SKILL.cling, 4)], dropItems: drop(1, P_ITEM.herb, 6) }],
   [ENEMY.crow, { name: "痩せ烏", battlerName: "Crow", battlerHue: 0, params: [180, 0, 24, 10, 8, 10, 32, 10], exp: 12, gold: 8,
