@@ -41,7 +41,7 @@
     "T10": {},
     "P11": { "switches": [[131, 150]], "maps": [], "actors": [[5, 11]] },
     "P12": { "switches": [[161, 170]], "maps": [] },
-    "W6": { "switches": [[101, 200]], "maps": [[10, 19]], "database": [[201, 300]], "commonEvents": [[201, 300]] },
+    "W6": { "switches": [[101, 130], [151, 160], [171, 200]], "maps": [[10, 19]], "database": [[201, 300]], "commonEvents": [[201, 300]] },
     "W7": { "switches": [[301, 400]], "maps": [[20, 49]], "database": [[301, 400]], "commonEvents": [[301, 400]] },
     "W8": { "switches": [[401, 500]], "maps": [[60, 64], [80, 84]], "database": [[401, 500]], "commonEvents": [[401, 500]] },
     "W9": { "switches": [[501, 600]], "maps": [[70, 74], [100, 105]], "database": [[501, 600]], "commonEvents": [[501, 600]] },
