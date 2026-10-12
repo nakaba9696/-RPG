@@ -1,0 +1,265 @@
+{
+  "mapId": 11,
+  "name": "稽古場",
+  "parentId": 10,
+  "displayName": "稽古場",
+  "legend": "dungeon",
+  "tilesetId": 11,
+  "bgm": {
+    "name": "Castle2",
+    "volume": 60,
+    "pitch": 100,
+    "pan": 0
+  },
+  "note": "<hai_tone:-17,-26,-43,34>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Stone2",
+    "battleback2Name": "Room1"
+  },
+  "_説明": "W6（#144）：稽古場（docs/world.md 4.3。アデルが来ると開く）。木人を調べると魂で仲間を育てる（Hai_Facilities の use soul）。剣の教官の薄い思念 F05。出口は南 (8,12) → 010 の稽古場の扉の前。この設定は w6_data.mjs が書く。",
+  "chars": {
+    "#": {
+      "name": "砦の壁（壁O（砦）。下が床なら側面、ほかは上面）",
+      "wall": {
+        "top": "A4:22",
+        "side": "A4:30",
+        "height": 2
+      }
+    },
+    ".": {
+      "name": "石畳（石畳A）",
+      "tiles": [
+        "A5:20"
+      ]
+    },
+    "s": {
+      "name": "稽古場の砂（床A（土洞窟））",
+      "tiles": [
+        "A2:0"
+      ]
+    }
+  },
+  "deco": {
+    "4": {
+      "name": "水桶",
+      "z2": "E:150"
+    },
+    "Z": {
+      "name": "貼り紙（稽古場の決まり）",
+      "z2": "D:91"
+    },
+    "w": {
+      "name": "壁の剣",
+      "z2": "D:82"
+    },
+    "W": {
+      "name": "壁の剣",
+      "z2": "D:83"
+    },
+    "d": {
+      "name": "壁の盾",
+      "z2": "D:90"
+    },
+    "&": {
+      "name": "稽古の木人（鎧のスタンド）",
+      "z2": "E:161"
+    },
+    "b": {
+      "name": "長椅子",
+      "z2": "D:208"
+    },
+    "h": {
+      "name": "端材",
+      "z2": "D:220"
+    },
+    "n": {
+      "name": "壊れた樽",
+      "z2": "B:239"
+    },
+    "N": {
+      "name": "樽",
+      "z2": "D:212"
+    }
+  },
+  "stamps": [
+    {
+      "at": "!",
+      "name": "槍立て",
+      "tiles": [
+        [
+          "E:175"
+        ],
+        [
+          "E:183"
+        ]
+      ]
+    },
+    {
+      "at": "?",
+      "name": "剣立て",
+      "tiles": [
+        [
+          "E:174"
+        ],
+        [
+          "E:182"
+        ]
+      ]
+    }
+  ],
+  "scatter": [
+    {
+      "on": ".",
+      "z": 1,
+      "tiles": [
+        "A2:15"
+      ],
+      "rate": 0.04,
+      "seed": 1110
+    },
+    {
+      "on": ".",
+      "tiles": [
+        "B:32",
+        "B:33"
+      ],
+      "rate": 0.05,
+      "seed": 1111
+    }
+  ],
+  "events": [
+    {
+      "name": "出口（黒鉄の砦へ）",
+      "type": "transfer",
+      "x": 8,
+      "y": 12,
+      "to": [
+        10,
+        40,
+        9,
+        "down"
+      ]
+    },
+    {
+      "name": "稽古の木人",
+      "type": "raw",
+      "x": 8,
+      "y": 6,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Facilities",
+                "use",
+                "部屋を使う",
+                {
+                  "facility": "soul"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "部屋 = soul"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "稽古場の決まり",
+      "type": "text",
+      "x": 4,
+      "y": 2,
+      "lines": [
+        "稽古場の決まり。",
+        "「木剣は使ったら拭いて戻すこと。」",
+        "「新兵は、朝の鐘の前に壁の内を三周。」",
+        "その下に小さく「朝の鐘、去年から鳴らず。走る刻は各自」。"
+      ]
+    },
+    {
+      "name": "薄い思念 F05 剣の教官",
+      "type": "raw",
+      "x": 12,
+      "y": 9,
+      "note": "<hai_faint:F05>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "稽古場の隅で、教官が木剣で肩を叩いている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "「おまえ、俺が新兵だったころから、その顔だな」"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "「何を食えばそうなる。隊の若いのに教えてやれ」"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "墓守は答えずに、落ちていた木剣を拾って教官に返した。"
+              ]
+            },
+            {
+              "code": 117,
+              "indent": 0,
+              "parameters": [
+                201
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

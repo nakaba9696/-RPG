@@ -1,0 +1,432 @@
+{
+  "_説明": "W6（#144）：城壁の上（docs/world.md 4.1・4.2・5.2）。西の下り階段 → 010、見張り台の扉（崩れている。018 は後回し）、南の胸壁の東門（外から閂。開けるのは W10 の 054 の側）、東の塔の頂への門（四つの鐘が鳴るまで灰で押し戻される。015 は W11）。この設定は node tools/maps/src/w6_data.mjs が書く。",
+  "mapId": 19,
+  "name": "城壁の上",
+  "parentId": 10,
+  "displayName": "黒鉄の砦・城壁の上",
+  "legend": "rampart",
+  "tilesetId": 21,
+  "bgm": {
+    "name": "Castle2",
+    "volume": 55,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Wind4",
+    "volume": 40,
+    "pitch": 100,
+    "pan": 0
+  },
+  "note": "<hai_tone:-34,-34,-17,85>\n<hai_parallax:DarkClouds,1,0>\n<hai_ash:3>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Fort2",
+    "battleback2Name": "Fort2"
+  },
+  "chars": {
+    "<": {
+      "name": "下り階段（010 へ）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "D:26"
+      ]
+    }
+  },
+  "deco": {
+    "a": {
+      "name": "鎧の亡骸（鎧のスタンド）",
+      "z2": "E:160"
+    },
+    "x": {
+      "name": "骸骨",
+      "z2": "D:242"
+    },
+    "r": {
+      "name": "瓦礫",
+      "z2": "D:120"
+    },
+    "p": {
+      "name": "倒れた槍立て",
+      "z2": "E:183"
+    },
+    "f": {
+      "name": "烽火の跡（石のかまど）",
+      "z2": "B:147"
+    },
+    "b": {
+      "name": "壊れた像（胸壁の上）",
+      "z2": "D:91"
+    }
+  },
+  "scatter": [
+    {
+      "on": ".",
+      "z": 1,
+      "tiles": [
+        "A2:15"
+      ],
+      "rate": 0.12,
+      "seed": 1910
+    },
+    {
+      "on": ".",
+      "tiles": [
+        "D:32",
+        "D:33"
+      ],
+      "rate": 0.06,
+      "seed": 1911
+    }
+  ],
+  "events": [
+    {
+      "name": "砦の中へ（下り階段）",
+      "type": "transfer",
+      "at": "<",
+      "to": [
+        10,
+        6,
+        4,
+        "down"
+      ]
+    },
+    {
+      "name": "見張り台の扉（崩れている）",
+      "type": "raw",
+      "x": 16,
+      "y": 6,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "扉が崩れて、瓦礫で塞がっている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "東門",
+      "type": "raw",
+      "x": 30,
+      "y": 10,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!$Gate1",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "外へ下りる門。外から閂が掛かっていて、内からは動かない。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "門の下の隙間から、灰をかぶった山道が見える。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 174,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!$Gate1",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "東門の閂は外れている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "頂への門",
+      "type": "raw",
+      "x": 41,
+      "y": 6,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!$Gate1",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "大きな門。押すと、隙間から灰が流れこんでくる。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "門の向こうは灰と霧で、一歩先も見えない。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 105,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!$Gate1",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "門の向こうの灰が引いている。山道が上へ続いている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "東の眺め",
+      "type": "text",
+      "x": 43,
+      "y": 8,
+      "lines": [
+        "東に、山の頂。塔の影が雲を突いている。",
+        "灰は、そちらから降ってくる。"
+      ]
+    },
+    {
+      "name": "思念 K05 城壁の見張り",
+      "type": "text",
+      "x": 24,
+      "y": 8,
+      "note": "<hai_thought:K05>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "見張り、異常なし。灰、いつもより多し。",
+        "頂の鐘、今夜も聞こえず。報告は朝にまとめる。"
+      ]
+    },
+    {
+      "name": "宝箱（ポーション）",
+      "type": "raw",
+      "x": 42,
+      "y": 9,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                7,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "ポーションを手に入れた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    }
+  ]
+}

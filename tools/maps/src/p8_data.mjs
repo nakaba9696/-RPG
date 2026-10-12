@@ -1,31 +1,28 @@
-// P8（#82）・P11（#134）のデータを書く。何度走らせても同じ結果になる（自分の帯と、Map010 の扉の 4 イベントだけを書き直す）。
+// P8（#82）・P11（#134）のデータを書く。何度走らせても同じ結果になる（自分の帯と試験場 Map913 だけを書き直す）。
 //   node tools/maps/src/p8_data.mjs           書く
 //   node tools/maps/src/p8_data.mjs --check   書かずに、今のファイルと同じかだけ見る（違えば終了コード 1）
 // 書くもの：
 //   Items 171–178（171 叡智のオーブ。P11 で仕組みからは外した。置き場所を消すのは W。172–178 は空）
 //   System.json の switches 121–130 の名前（docs/world.md 4.4）
-//   Map010 の 4 つの扉（北西・北東・南西・南東）の崩れた扉のイベント：data/Map010.json と、その下書き tools/maps/src/w1_010_prison_hall.json の両方。
-//     イベントの名前は前の世界のまま（魂の間の扉…。W が 010 を作り直すまでの目印）。
-//     Map010 は W レーンも触るので、ファイルを作り直さず、名前の同じ 4 つのイベントだけを差し替える（ほかのイベントとタイルはそのまま）。
-//     衝突したら main 側を取ってから、このスクリプトを走らせ直す。
+//   （Map010 の扉 4 つは W6（#144）が 010 を作り直したので、w6_data.mjs が書く。ここでは書かない）
 //   試験場 Map913 の下書きの設定 tools/maps/src/p8_facilities.json（崩れた扉 4 つと、部屋を開く生き残り 4 人。地図は node tools/maps/build.mjs p8_facilities で作る）
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { readData, formatTable, formatMap, dataPath, extendTable } from "../../data/io.mjs";
-import { buildMap, readSource, readLegend, SRC_DIR } from "../build.mjs";
+import { readData, formatTable, dataPath, extendTable } from "../../data/io.mjs";
+import { SRC_DIR } from "../build.mjs";
 
 const check = process.argv.includes("--check");
 const outputs = []; // [{ file, text }]
 
 // ---------------------------------------------------------------------------
-// 部屋と扉（docs/world.md 4.2・4.3）。hall は Map010 のイベントの名前（前の世界の名残り）。survivor は試験場で部屋を開く生き残り
+// 部屋と扉（docs/world.md 4.2・4.3）。to は部屋の着く所（011–014 はどれも南の出口の上 (8,11)、上向き）。survivor は試験場で部屋を開く生き残り
 // ---------------------------------------------------------------------------
 const FACILITIES = [
-  { key: "soul", name: "稽古場", hall: "魂の間", door: [5, 8], test: [3, 2], sw: 121, to: [11, 8, 11, 8], survivor: "アデル" },
-  { key: "kitchen", name: "食堂", hall: "創作者の厨房", door: [27, 8], test: [6, 2], sw: 122, to: [12, 8, 11, 8], survivor: "ヴォルフラム" },
-  { key: "gate", name: "倉", hall: "保管ゲート", door: [5, 26], test: [10, 2], sw: 123, to: [13, 8, 3, 2], survivor: "シャノ" },
-  { key: "lore", name: "書庫", hall: "理知の間", door: [27, 26], test: [13, 2], sw: 124, to: [14, 8, 3, 2], survivor: "イスメネ" },
+  { key: "soul", name: "稽古場", test: [3, 2], sw: 121, to: [11, 8, 11, 8], survivor: "アデル" },
+  { key: "kitchen", name: "食堂", test: [6, 2], sw: 122, to: [12, 8, 11, 8], survivor: "ヴォルフラム" },
+  { key: "gate", name: "倉", test: [10, 2], sw: 123, to: [13, 8, 11, 8], survivor: "シャノ" },
+  { key: "lore", name: "書庫", test: [13, 2], sw: 124, to: [14, 8, 11, 8], survivor: "イスメネ" },
 ];
 const ORB = 171;
 
@@ -125,32 +122,6 @@ while (system.variables.length <= 130) system.variables.push("");
 for (let id = 121; id <= 130; id++) system.switches[id] = SWITCHES[id] ?? "";
 if (system.variables[103] === "叡智のオーブの数") system.variables[103] = "";
 outputs.push({ file: sysFile, text: JSON.stringify(system) });
-
-// ---------------------------------------------------------------------------
-// Map010 の扉 4 つ（下書きの設定と data/Map010.json の両方）
-// ---------------------------------------------------------------------------
-const HALL = "w1_010_prison_hall";
-const hallCfg = JSON.parse(fs.readFileSync(srcPath(HALL), "utf8"));
-for (const f of FACILITIES) {
-  const name = `${f.hall}の扉`;
-  const i = hallCfg.events.findIndex(e => e.name === name);
-  if (i < 0) throw new Error(`${HALL}.json に「${name}」のイベントがない`);
-  hallCfg.events[i] = doorSpec(f, name, f.door);
-}
-outputs.push({ file: srcPath(HALL), text: sourceText(hallCfg) });
-
-// 下書きから作ったマップの中の、その 4 つのイベントだけを data/Map010.json へ写す
-const legend = readLegend();
-const built = buildMap({ ...readSource(HALL), config: hallCfg }, legend);
-const map010 = readData("Map010.json");
-for (const f of FACILITIES) {
-  const name = `${f.hall}の扉`;
-  const from = built.events.find(e => e && e.name === name);
-  const to = map010.events.findIndex(e => e && e.name === name);
-  if (to < 0) throw new Error(`data/Map010.json に「${name}」のイベントがない`);
-  map010.events[to] = { ...from, id: to, x: map010.events[to].x, y: map010.events[to].y };
-}
-outputs.push({ file: dataPath("Map010.json"), text: formatMap(map010) });
 
 // ---------------------------------------------------------------------------
 // 試験場 Map913 の設定（台座 4 つ。地図は build.mjs が作る）

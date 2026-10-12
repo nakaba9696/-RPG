@@ -1,0 +1,200 @@
+{
+  "mapId": 14,
+  "name": "書庫",
+  "parentId": 10,
+  "displayName": "書庫",
+  "legend": "dungeon",
+  "tilesetId": 11,
+  "bgm": {
+    "name": "Castle2",
+    "volume": 60,
+    "pitch": 100,
+    "pan": 0
+  },
+  "note": "<hai_tone:-17,-26,-43,34>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Stone2",
+    "battleback2Name": "Room1"
+  },
+  "_説明": "W6（#144）：書庫（docs/world.md 4.3。イスメネが来ると開く）。書見台を調べると倒したボスと読んだ思念（Hai_Facilities の use lore）。出口は南 (8,12) → 010 の書庫の扉の前。この設定は w6_data.mjs が書く。",
+  "chars": {
+    "#": {
+      "name": "砦の壁（壁O（砦）。下が床なら側面、ほかは上面）",
+      "wall": {
+        "top": "A4:22",
+        "side": "A4:30",
+        "height": 2
+      }
+    },
+    ".": {
+      "name": "石畳（石畳A）",
+      "tiles": [
+        "A5:20"
+      ]
+    }
+  },
+  "deco": {
+    "b": {
+      "name": "積んだ本",
+      "z2": "E:64"
+    },
+    "e": {
+      "name": "巻物",
+      "z2": "E:82"
+    },
+    "f": {
+      "name": "目録の写し",
+      "z2": "E:72"
+    },
+    "d": {
+      "name": "書見台（机と開いた本）",
+      "z2": "D:116",
+      "z3": "E:68"
+    },
+    "c": {
+      "name": "椅子",
+      "z2": "D:120"
+    }
+  },
+  "stamps": [
+    {
+      "at": "u",
+      "name": "本棚",
+      "tiles": [
+        [
+          "D:157"
+        ],
+        [
+          "D:165"
+        ]
+      ]
+    },
+    {
+      "at": "v",
+      "name": "本棚",
+      "tiles": [
+        [
+          "D:158"
+        ],
+        [
+          "D:166"
+        ]
+      ]
+    },
+    {
+      "at": "w",
+      "name": "本棚",
+      "tiles": [
+        [
+          "D:159"
+        ],
+        [
+          "D:167"
+        ]
+      ]
+    },
+    {
+      "at": "x",
+      "name": "倒れた棚",
+      "tiles": [
+        [
+          "D:175"
+        ],
+        [
+          "D:183"
+        ]
+      ]
+    }
+  ],
+  "scatter": [
+    {
+      "on": ".",
+      "z": 1,
+      "tiles": [
+        "A2:15"
+      ],
+      "rate": 0.04,
+      "seed": 1410
+    },
+    {
+      "on": ".",
+      "tiles": [
+        "B:32",
+        "B:33"
+      ],
+      "rate": 0.05,
+      "seed": 1411
+    }
+  ],
+  "events": [
+    {
+      "name": "出口（黒鉄の砦へ）",
+      "type": "transfer",
+      "x": 8,
+      "y": 12,
+      "to": [
+        10,
+        33,
+        9,
+        "down"
+      ]
+    },
+    {
+      "name": "書見台",
+      "type": "raw",
+      "x": 9,
+      "y": 6,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Facilities",
+                "use",
+                "部屋を使う",
+                {
+                  "facility": "lore"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "部屋 = lore"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "湿った本",
+      "type": "text",
+      "x": 4,
+      "y": 3,
+      "lines": [
+        "棚の本は、湿気で一つの塊になっている。背の字は読めない。"
+      ]
+    },
+    {
+      "name": "目録の写し",
+      "type": "text",
+      "x": 13,
+      "y": 9,
+      "lines": [
+        "書庫の目録の写し。棚の番号と、本の名。",
+        "途中から、本の名の代わりに「濡れて読めず」が続く。"
+      ]
+    }
+  ]
+}

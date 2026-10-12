@@ -1,7 +1,8 @@
 // W2（#83）W1 の仕上げの検査：
 //   1. 崩落の間のオルドの遺骸（Hai_Companions の遺骸・記憶 4「臨終」R12）→ 遺骸が拠点へ送られる（スイッチ 131、記憶、メモ）。
-//   2. 拠点の召喚陣（summonMenu）：初めてはセレスの説明（スイッチ 113）→ 選択肢「魂を呼ぶ」でオルドが加わる（スイッチ 136）。
-//   3. 結界（Hai_Warp）：地下牢の控え室の結界を調べて覚え、拠点の結界に触れてから、拠点の結界の「転送する」で控え室へ移る。
+//   2. 砦の名の壁の輪（summonMenu。W6 #144 で作り直した 010）：初めは誰を呼ぶかの一覧（スイッチ 113）でブルーノが加わる（スイッチ 138）。
+//      2 度目からは「輪に触れる／並びを替える／やめる」。
+//   3. 結界（Hai_Warp）：地下牢の控え室の結界を調べて覚え、砦の炉に火を入れてから、炉の「転送する」で控え室へ移る。
 //   4. 看守長グラウ（Hai_Boss）：話しかけると「ボス戦」。逃げると控え室 (19,22) へ。もう一度戦い、
 //      HP 50% で点呼（番犬 2 体）、炎の弱点のヒント、HP 25% で狂乱（形態 2・2 回行動）、看守長を倒すと番犬が逃げて勝ち →
 //      スイッチ 151・撃破の記録・看守長の鍵束・北の扉が開く。
@@ -15,8 +16,8 @@ import { launchGame, check, runTest } from "./lib.mjs";
 const HALL = 10;
 const COLLAPSE = 28;
 const ORDO = { x: 11, y: 6 }; // 遺骸 オルド
-const CIRCLE = { x: 28, y: 17 }; // 召喚陣（足元のイベント）
-const HALL_WARP = { x: 12, y: 14 }; // 牢獄の間の結界
+const CIRCLE = { x: 42, y: 18 }; // 名の壁の輪 (42,19) の上に立つ所（下を向いて調べる）
+const HEARTH_FRONT = { x: 25, y: 26 }; // 砦の炉 (25,25) の前
 const CORRIDOR = 34;
 const LOBBY_WARP = { x: 22, y: 22 }; // 地下牢の控え室の結界
 const ESCAPE_TO = { x: 19, y: 22, d: 8 }; // 看守長から逃げたとき
@@ -136,12 +137,12 @@ await runTest(async () => {
       "遺骸を調べた後の状態 " + JSON.stringify(remains));
     console.log(`  遺骸：スイッチ 131・見つけた ${JSON.stringify(remains.found)}・記憶 ${JSON.stringify(remains.memories)}・遺骸が消えた`);
 
-    // ===== 2. 召喚陣 =====
+    // ===== 2. 名の壁の輪 =====
     await go(HALL, CIRCLE.x, CIRCLE.y, 2);
-    const summon = await talk([0, 0], { 2: "circle-celes", choice: "circle-choice" });
+    const summon = await talk([0], { choice: "circle-choice" });
     const summonText = summon.join("\n");
-    check(summonText.includes("見つけたのね") && summonText.includes("［魂を呼ぶ／並びを替える／やめる］"), "召喚陣の説明と選択肢 " + JSON.stringify(summon));
-    check(summonText.includes("ブルーノが目を開けた。"), "オルドが目を覚まさない " + JSON.stringify(summon));
+    check(summonText.includes("誰を呼ぶ？") && !summonText.includes("輪に触れる"), "初めての輪は呼ぶ一覧から " + JSON.stringify(summon));
+    check(summonText.includes("ブルーノが目を開けた。"), "ブルーノが目を覚まさない " + JSON.stringify(summon));
     const party = await game.eval(() => ({
       members: $gameParty.members().map(a => a.actorId()), sw113: $gameSwitches.value(113), sw138: $gameSwitches.value(138),
       count: $gameVariables.value(102),
@@ -149,23 +150,22 @@ await runTest(async () => {
     check(JSON.stringify(party.members) === "[1,5]" && party.sw113 && party.sw138 && party.count === 1, "召喚の後のパーティと旗 " + JSON.stringify(party));
     // 2 度目は説明なしで選択肢から
     const again = await talk([2]);
-    check(again.length === 1 && again[0].includes("［魂を呼ぶ／並びを替える／やめる］"), "2 度目の召喚陣 " + JSON.stringify(again));
-    console.log(`  召喚陣：セレスの説明（スイッチ 113）→ オルドが加わった ${JSON.stringify(party.members)}`);
+    check(again.length === 1 && again[0].includes("［輪に触れる／並びを替える／やめる］"), "2 度目の輪 " + JSON.stringify(again));
+    console.log(`  名の壁の輪：呼ぶ一覧（スイッチ 113）→ ブルーノが加わった ${JSON.stringify(party.members)}`);
 
     // ===== 3. 結界 =====
     await go(CORRIDOR, LOBBY_WARP.x, LOBBY_WARP.y + 1, 8);
     const lobby = await talk([-1], { choice: "warp-lobby" });
     check(lobby.join("\n").includes("地下牢の控え室に触れた。"), "控え室の結界に触れた文章 " + JSON.stringify(lobby));
-    await go(HALL, HALL_WARP.x, HALL_WARP.y + 1, 8);
-    await game.call("step", 8); // 結界にぶつかる（触れる）
-    await game.waitFor(() => $gameMap.isEventRunning() || $gameMessage.isBusy());
-    const touched = await talk([], {}, false);
-    check(touched.join("\n").includes("牢獄の間に触れた。"), "拠点の結界に触れた文章 " + JSON.stringify(touched));
+    // 砦の炉に火を入れる（全滅の戻り先になる。シャノの場面も流れる）
+    await go(HALL, HEARTH_FRONT.x, HEARTH_FRONT.y, 8);
+    const fire = await talk([0]);
+    check(fire.join("\n").includes("炉に火が入った。"), "炉に火が入らない " + JSON.stringify(fire));
     const visited = await game.eval(() => Hai.Warp.visited().map(v => v.name));
-    check(visited.includes("牢獄の間") && visited.includes("地下牢の控え室"), "訪れた結界 " + JSON.stringify(visited));
+    check(visited.includes("地下牢の控え室"), "訪れた結界 " + JSON.stringify(visited));
     const warpPages = await talk(["転送する", "地下牢の控え室"], { choice: "warp-hall" });
     const list = warpPages.find(p => p.includes("どこへ転送する？")) || "";
-    check(list.includes("地下牢の控え室") && !list.includes("牢獄の間"), "拠点の結界からの転送の一覧（いまの所を除く）" + JSON.stringify(warpPages));
+    check(warpPages[0].includes("砦の炉が静かに光っている。") && list.includes("地下牢の控え室"), "砦の炉からの転送の一覧 " + JSON.stringify(warpPages));
     await game.waitFor(m => window.__game.mapId() === m && !window.__game.isBusy(), CORRIDOR);
     const arrived = await game.call("pos");
     check(arrived.x === LOBBY_WARP.x && arrived.y === LOBBY_WARP.y + 1, "転送の着いた所 " + JSON.stringify(arrived));

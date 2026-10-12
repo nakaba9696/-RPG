@@ -1,0 +1,258 @@
+{
+  "mapId": 12,
+  "name": "食堂",
+  "parentId": 10,
+  "displayName": "食堂",
+  "legend": "dungeon",
+  "tilesetId": 11,
+  "bgm": {
+    "name": "Castle2",
+    "volume": 60,
+    "pitch": 100,
+    "pan": 0
+  },
+  "note": "<hai_tone:-17,-26,-43,34>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Stone2",
+    "battleback2Name": "Room1"
+  },
+  "_説明": "W6（#144）：食堂（docs/world.md 4.3。ヴォルフラムが来ると開く。来なくても鍋だけ残る）。大鍋を調べると合成（Hai_Facilities の use kitchen）。古い勘定台に酒保の帳場の娘の薄い思念 F04。出口は南 (8,12) → 010 の食堂の扉の前。この設定は w6_data.mjs が書く。",
+  "chars": {
+    "#": {
+      "name": "砦の壁（壁O（砦）。下が床なら側面、ほかは上面）",
+      "wall": {
+        "top": "A4:22",
+        "side": "A4:30",
+        "height": 2
+      }
+    },
+    ".": {
+      "name": "石畳（石畳A）",
+      "tiles": [
+        "A5:20"
+      ]
+    }
+  },
+  "deco": {
+    "K": {
+      "name": "かまど",
+      "z2": "D:200"
+    },
+    "N": {
+      "name": "流し",
+      "z2": "D:201"
+    },
+    "P": {
+      "name": "調理台",
+      "z2": "D:202"
+    },
+    "Q": {
+      "name": "調理台",
+      "z2": "D:203"
+    },
+    "k": {
+      "name": "かまどの上の大鍋",
+      "z2": "D:200",
+      "z3": "E:63"
+    },
+    "y": {
+      "name": "食器棚（上）",
+      "z2": "D:140"
+    },
+    "Y": {
+      "name": "食器棚（下）",
+      "z2": "D:148"
+    },
+    "m": {
+      "name": "吊るし肉の鉤（壁）",
+      "z2": "E:137"
+    },
+    "s": {
+      "name": "麻袋",
+      "z2": "D:248"
+    },
+    "+": {
+      "name": "古い勘定台と帳面",
+      "z2": "B:243",
+      "z3": "E:68"
+    },
+    "T": {
+      "name": "食卓（左）",
+      "z2": "D:112"
+    },
+    "U": {
+      "name": "食卓（右）",
+      "z2": "D:113"
+    },
+    "L": {
+      "name": "食卓（左）と皿",
+      "z2": "D:112",
+      "z3": "E:58"
+    },
+    "o": {
+      "name": "食卓（右）と椀",
+      "z2": "D:113",
+      "z3": "E:62"
+    },
+    "c": {
+      "name": "椅子",
+      "z2": "D:120"
+    },
+    "n": {
+      "name": "樽",
+      "z2": "D:212"
+    }
+  },
+  "scatter": [
+    {
+      "on": ".",
+      "z": 1,
+      "tiles": [
+        "A2:15"
+      ],
+      "rate": 0.04,
+      "seed": 1210
+    },
+    {
+      "on": ".",
+      "tiles": [
+        "B:32",
+        "B:33"
+      ],
+      "rate": 0.05,
+      "seed": 1211
+    }
+  ],
+  "events": [
+    {
+      "name": "出口（黒鉄の砦へ）",
+      "type": "transfer",
+      "x": 8,
+      "y": 12,
+      "to": [
+        10,
+        5,
+        37,
+        "down"
+      ]
+    },
+    {
+      "name": "大鍋",
+      "type": "raw",
+      "x": 8,
+      "y": 3,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Facilities",
+                "use",
+                "部屋を使う",
+                {
+                  "facility": "kitchen"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "部屋 = kitchen"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "薄い思念 F04 酒保の帳場の娘",
+      "type": "raw",
+      "x": 13,
+      "y": 5,
+      "note": "<hai_faint:F04>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "帳面を開くと、一番上は今月も墓守のつけだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "銀三枚。先月も、その前の月も、銀三枚。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "「いつ払うの」と聞くと、墓守は棚の干し肉を一本、勝手に足した。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "これで銀三枚と、干し肉一本。"
+              ]
+            },
+            {
+              "code": 117,
+              "indent": 0,
+              "parameters": [
+                201
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "食器棚",
+      "type": "text",
+      "x": 11,
+      "y": 3,
+      "lines": [
+        "食器棚。欠けた椀が、数を揃えて重ねてある。"
+      ]
+    }
+  ]
+}
