@@ -1,0 +1,499 @@
+{
+  "_説明": "W13（#192）：狩人の寝床（docs/world.md 5.2 の 032）。北の口→030、寝床と鞘の型（K-05）、思念 K-07、東の古い坑道の閂（スイッチ 1102）→026 の使徒狩りの鍛冶場の跡の奥（帰りの近道。026 の側の戸は閂を外したあとだけ開く）。この設定は node tools/maps/src/w13_data.mjs が書く。",
+  "mapId": 32,
+  "name": "狩人の寝床",
+  "displayName": "狩人の寝床",
+  "legend": "dungeon",
+  "tilesetId": 13,
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "DirtCave",
+    "battleback2Name": "DirtCave"
+  },
+  "note": "<hai_tone:-85,-85,-102,68>\n<hai_dark:5>",
+  "bgm": {
+    "name": "Dungeon2",
+    "volume": 55,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Drips",
+    "volume": 35,
+    "pitch": 100,
+    "pan": 0
+  },
+  "chars": {
+    ";": {
+      "name": "土の床の汚れ（煤）",
+      "as": ",",
+      "tiles": [
+        null,
+        "A2:15"
+      ]
+    }
+  },
+  "deco": {
+    "t": {
+      "name": "テーブル（廃墟。通れない）",
+      "z2": "B:243"
+    },
+    "h": {
+      "name": "椅子（廃墟）",
+      "z2": "B:251"
+    },
+    "x": {
+      "name": "骸骨A（通れない）",
+      "z2": "B:242"
+    },
+    "X": {
+      "name": "骸骨B（通れない）",
+      "z2": "B:250"
+    },
+    "q": {
+      "name": "瓦礫の上の骸骨（通れない）",
+      "z2": "B:120",
+      "z3": "B:242"
+    },
+    "r": {
+      "name": "瓦礫A（通れない）",
+      "z2": "B:120"
+    },
+    "c": {
+      "name": "木箱A（通れない）",
+      "z2": "B:220"
+    },
+    "C": {
+      "name": "木箱C（廃墟。通れない）",
+      "z2": "B:222"
+    },
+    "b": {
+      "name": "樽A（通れない）",
+      "z2": "B:238"
+    },
+    "p": {
+      "name": "壺A（廃墟。通れない）",
+      "z2": "B:223"
+    },
+    "e": {
+      "name": "端材（通れない）",
+      "z2": "B:125"
+    },
+    "s": {
+      "name": "スコップ（通れない）",
+      "z2": "B:232"
+    },
+    "S": {
+      "name": "つるはし（通れない）",
+      "z2": "B:233"
+    },
+    "l": {
+      "name": "ロープ（通れない）",
+      "z2": "B:234"
+    },
+    "g": {
+      "name": "土砂A（炭の山。通れない）",
+      "z2": "B:216"
+    },
+    "G": {
+      "name": "土砂B（石。通れない）",
+      "z2": "B:217"
+    },
+    "k": {
+      "name": "砂利A（通れる）",
+      "z2": "B:32"
+    },
+    "K": {
+      "name": "砂利B（通れる）",
+      "z2": "B:33"
+    },
+    "Y": {
+      "name": "むしろの寝床",
+      "z2": "C:151"
+    }
+  },
+  "stamps": [
+    {
+      "at": "床",
+      "name": "寝台（粗末なベッド）",
+      "tiles": [
+        [
+          "C:150"
+        ]
+      ]
+    }
+  ],
+  "scatter": [
+    {
+      "on": ",",
+      "tiles": [
+        "B:32",
+        "B:33"
+      ],
+      "rate": 0.1,
+      "seed": 3201
+    }
+  ],
+  "events": [
+    {
+      "name": "北の口（炉の間へ）",
+      "type": "transfer",
+      "x": 12,
+      "y": 0,
+      "to": [
+        30,
+        24,
+        38,
+        "up"
+      ]
+    },
+    {
+      "name": "北の口（炉の間へ）",
+      "type": "transfer",
+      "x": 13,
+      "y": 0,
+      "to": [
+        30,
+        25,
+        38,
+        "up"
+      ]
+    },
+    {
+      "name": "古い坑道の閂（鍛冶場の跡へ）",
+      "type": "raw",
+      "x": 25,
+      "y": 8,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "古い坑道の口を、板の戸で塞いである。閂はこちら側に掛かっている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "戸の隙間から、上の坑道の風が来る。"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "閂を外す",
+                  "やめる"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "閂を外す"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Open1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                1102,
+                1102,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "閂を外した。戸の向こうに、上りの坑道が続いている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 1102,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 0,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                26,
+                45,
+                5,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "鞘の型",
+      "type": "text",
+      "x": 19,
+      "y": 5,
+      "lines": [
+        "壁に、骨の剣の鞘を合わせる木の型が掛かっている。",
+        "型は二つ分。片方だけ、型の内側が手の脂で黒い。"
+      ],
+      "image": {
+        "tileId": "B:125"
+      }
+    },
+    {
+      "name": "思念 K-07 頭の隣で寝た狩人",
+      "type": "text",
+      "x": 8,
+      "y": 10,
+      "note": "<hai_thought:K-07>",
+      "image": {
+        "characterName": "Damage1",
+        "characterIndex": 4,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "頭は寝床でも柄を握って寝た。指を外してやるのが、俺の夜の番だった。",
+        "五本外して横に置くと、朝には四本で握り直している。"
+      ]
+    },
+    {
+      "name": "むしろの寝床",
+      "type": "raw",
+      "x": 12,
+      "y": 12,
+      "pages": [
+        {
+          "image": {
+            "tileId": "C:151"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "むしろの寝床。枕の代わりに、砥石が一つ置いてある。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（毒消し）",
+      "type": "raw",
+      "x": 21,
+      "y": 7,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                197,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[177]毒消し×2を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    }
+  ]
+}
