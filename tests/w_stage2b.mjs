@@ -5,7 +5,7 @@
 //   4. 焚刑の教会 063：紋章で大扉・R26・R27・H21 → 地下の護送路 064・R28・H22 の閂（スイッチ 165）→ 監房区 033 と行き来。
 //   5. 焚刑官ハルト：逃げると広場の北の坂の下へ。HP 50% で聖火の法（反撃）、沈黙で反撃が止む、氷の弱点のヒント、
 //      倒すとスイッチ 156・耐火の外套・祈祷書・祭壇の叡智のオーブ・裏口が開く。
-//   6. 021 の告解室のシオンの記憶 2、H23 → 看取りの小屋 023：シオンの記憶 3・遺骸・湧き水。
+//   6. 021 の H23（W7 #145 で作り直した礼拝堂の東の白い花）→ 看取りの小屋 023：シオンの記憶 3・遺骸・湧き水。
 //   7. セーブ・ロード。
 // 乱数（Math.random）は固定する（逃走の成否と行動の選び方）。
 import { launchGame, check, runTest } from "./lib.mjs";
@@ -13,9 +13,8 @@ import { launchGame, check, runTest } from "./lib.mjs";
 const HALL = 10;
 const CIRCLE = { x: 28, y: 17 };
 const CHAPEL = 21;
-const SIGN = { x: 9, y: 7 };
-const SHION2 = { x: 15, y: 10 };
-const H23 = { ash: { x: 36, y: 4 } };
+const SIGN = { x: 19, y: 20 }; // 021 の西の焼けた道の道標（W7 #145 で作り直した礼拝堂）
+const H23 = { flower: { x: 55, y: 31 } }; // 021 の東の白い花（W7 #145）。東へ 4 歩で 023
 const FIELD = 60;
 const FIELD_ARRIVE = { x: 38, y: 14 };
 const EMBLEM = { x: 23, y: 21 };
@@ -179,7 +178,7 @@ await runTest(async () => {
 
     // ===== 1. 021 の西端の焼けた道 → 060 =====
     await go(CHAPEL, SIGN.x, SIGN.y + 1, 8);
-    check((await talk()).join("").includes("立ち入りを禁ず"), "焼けた道標の文章");
+    check((await talk()).join("").includes("西に「村」"), "焼けた道標の文章");
     await go(CHAPEL, 1, 8, 4);
     await step(4);
     await arrive(FIELD, FIELD_ARRIVE.x, FIELD_ARRIVE.y);
@@ -411,10 +410,10 @@ await runTest(async () => {
     console.log("  焚刑官：逃走・聖火の法（反撃）・沈黙で反撃が止む・氷のヒント・撃破（スイッチ 156）・耐火の外套と祈祷書・叡智のオーブ");
 
     // ===== 6. 023 看取りの小屋（021 の H23）=====
-    await go(CHAPEL, SHION2.x, SHION2.y - 1, 2);
-    check((await talk()).join("").includes("アンセルモの記憶 2/4「転機」"), "シオンの記憶 2");
-    await go(CHAPEL, H23.ash.x, H23.ash.y, 6);
+    // （シオンの記憶 2 は前の世界の礼拝堂の告解室にあった。W7 #145 で礼拝堂を作り直したので、記憶 2 は無い）
+    await go(CHAPEL, H23.flower.x, H23.flower.y, 6);
     for (let i = 0; i < 3; i++) check(await step(6), `H23 の途中で進めない ${JSON.stringify(await pos())}`);
+    await game.call("step", 6);
     await arrive(HOSPICE, HOSPICE_ARRIVE.x, HOSPICE_ARRIVE.y);
     await game.shot("hospice");
     await go(HOSPICE, 17, 5, 8);
@@ -426,7 +425,7 @@ await runTest(async () => {
     const sb = (await talk([], { 0: "shion-remains" })).join("\n");
     check(sb.includes("兄さんは、間に合った？") && sb.includes("名の壁の輪に置けば、この人を呼べる。"), "シオンの遺骸 " + JSON.stringify(sb));
     const sh = await game.eval(() => ({ sw135: $gameSwitches.value(135), memories: Hai.Companions.memories(9) }));
-    check(sh.sw135 && JSON.stringify(sh.memories) === "[2,3,4]", "シオンの遺骸と記憶 2〜4 " + JSON.stringify(sh));
+    check(sh.sw135 && JSON.stringify(sh.memories) === "[3,4]", "シオンの遺骸と記憶 3・4 " + JSON.stringify(sh));
     await game.eval(() => $gameParty.members().forEach(a => a.setHp(1)));
     await go(HOSPICE, SPRING.x + 1, SPRING.y, 4);
     await talk();

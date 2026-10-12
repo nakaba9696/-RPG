@@ -1,0 +1,1623 @@
+{
+  "_説明": "W7（#145）：霧の奥（docs/world.md 5.2・7.1）。ヴォルフラム（話すと砦へ。スイッチ 306・変数 103・食堂を開く・鐘喰いの護符）、エルフが閉じた森の門、霧の抜け道（ここから開けるとスイッチ 302、020 の北東へ）。",
+  "mapId": 24,
+  "name": "霧の奥",
+  "displayName": "霧の奥",
+  "legend": "forest",
+  "tilesetId": 12,
+  "note": "<hai_tone:17,17,34,136>\n<hai_fog:180,0.15,0.05>\n<hai_hidden_tiles:D:183,D:26>",
+  "bgm": {
+    "name": "Field2",
+    "volume": 55,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Wind3",
+    "volume": 30,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Grassland",
+    "battleback2Name": "Forest"
+  },
+  "chars": {
+    "^": {
+      "name": "高台（段差A（草地）の上面。下の 1 行に崖の側面が自動で付く）",
+      "ledge": {
+        "top": "A4:36",
+        "side": "A4:44",
+        "height": 1
+      }
+    },
+    "/": {
+      "name": "坂の石段（高台の側面に刻んだ階段。側面の行に書く）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "B:1"
+      ]
+    },
+    "Y": {
+      "name": "高台の上の木（通れない）",
+      "as": "^",
+      "tiles": [
+        null,
+        null,
+        "B:158"
+      ]
+    },
+    "y": {
+      "name": "高台の上の枯れ木（通れない）",
+      "as": "^",
+      "tiles": [
+        null,
+        null,
+        "B:240"
+      ]
+    },
+    "~": {
+      "name": "池（通れない）",
+      "tiles": [
+        "A1:1"
+      ]
+    },
+    "=": {
+      "name": "丸太の橋（池の上。通れる）",
+      "as": "~",
+      "tiles": [
+        null,
+        null,
+        "B:81"
+      ]
+    },
+    "Q": {
+      "name": "見えない通路の手前の白い花（高台の上）",
+      "as": "^",
+      "tiles": [
+        null,
+        null,
+        "B:160"
+      ]
+    },
+    "Z": {
+      "name": "高台の上の見えない通路（木に見えて通れる。リージョン 251）",
+      "as": "Y",
+      "region": 251
+    },
+    "s": {
+      "name": "石畳の上の草（礼拝堂の床の割れ目）",
+      "as": "#",
+      "tiles": [
+        null,
+        null,
+        "B:152"
+      ]
+    },
+    "B": {
+      "name": "石畳の上の瓦礫（通れない）",
+      "as": "#",
+      "tiles": [
+        null,
+        null,
+        "D:120"
+      ]
+    }
+  },
+  "deco": {
+    "1": {
+      "name": "石の柱（下。通れない）",
+      "z2": "D:105"
+    },
+    "2": {
+      "name": "壊れた像（通れない）",
+      "z2": "D:91"
+    },
+    "3": {
+      "name": "女神像（下。通れない）",
+      "z2": "D:90"
+    },
+    "4": {
+      "name": "台座（通れない）",
+      "z2": "D:83"
+    },
+    "5": {
+      "name": "木の橋（縦。通れる）",
+      "z2": "B:82"
+    },
+    "6": {
+      "name": "石碑B（通れない）",
+      "z2": "D:65"
+    },
+    "7": {
+      "name": "砂利（通れる）",
+      "z2": "D:32"
+    },
+    "8": {
+      "name": "苔の瓦礫の上の骸骨（通れない）",
+      "z2": "D:121",
+      "z3": "D:250"
+    },
+    "k": {
+      "name": "草A",
+      "z2": "B:152"
+    },
+    "K": {
+      "name": "草B",
+      "z2": "B:153"
+    },
+    "j": {
+      "name": "草C",
+      "z2": "B:154"
+    },
+    "J": {
+      "name": "草D",
+      "z2": "B:155"
+    },
+    "f": {
+      "name": "白い花",
+      "z2": "B:160"
+    },
+    "F": {
+      "name": "花B",
+      "z2": "B:161"
+    },
+    "e": {
+      "name": "花D",
+      "z2": "B:163"
+    },
+    "s": {
+      "name": "小石",
+      "z2": "B:171"
+    },
+    "l": {
+      "name": "枯れ草",
+      "z2": "B:239"
+    },
+    "L": {
+      "name": "落ち葉",
+      "z2": "B:252"
+    },
+    "r": {
+      "name": "瓦礫（通れない）",
+      "z2": "D:120"
+    },
+    "R": {
+      "name": "苔の瓦礫（通れない）",
+      "z2": "D:121"
+    },
+    "x": {
+      "name": "骸骨（通れない）",
+      "z2": "D:242"
+    },
+    "X": {
+      "name": "骸骨B（通れない）",
+      "z2": "D:250"
+    },
+    "o": {
+      "name": "倒木（通れない）",
+      "z2": "B:164"
+    },
+    "b": {
+      "name": "植え込み（通れない）",
+      "z2": "B:166"
+    },
+    "p": {
+      "name": "岩A（通れない）",
+      "z2": "B:159"
+    },
+    "P": {
+      "name": "岩B（通れない）",
+      "z2": "B:167"
+    },
+    "m": {
+      "name": "キノコ（通れない）",
+      "z2": "B:234"
+    },
+    "n": {
+      "name": "シダ（通れない）",
+      "z2": "B:246"
+    },
+    "c": {
+      "name": "折れた石の柱（通れない）",
+      "z2": "C:17"
+    },
+    "C": {
+      "name": "折れた石の柱B（通れない）",
+      "z2": "C:18"
+    },
+    "w": {
+      "name": "薪（通れない）",
+      "z2": "B:170"
+    },
+    "h": {
+      "name": "苔の切り株（通れない）",
+      "z2": "B:243"
+    },
+    "g": {
+      "name": "墓A（通れない）",
+      "z2": "B:142"
+    },
+    "G": {
+      "name": "墓B（通れない）",
+      "z2": "B:143"
+    },
+    "q": {
+      "name": "瓦礫の上の骸骨（通れない）",
+      "z2": "D:120",
+      "z3": "D:242"
+    },
+    "t": {
+      "name": "立て札（通れない）",
+      "z2": "B:137"
+    },
+    "u": {
+      "name": "壊れた台座（通れない）",
+      "z2": "C:76"
+    },
+    "a": {
+      "name": "石碑（通れない）",
+      "z2": "C:32"
+    },
+    "d": {
+      "name": "穴（通れない）",
+      "z2": "B:169"
+    },
+    "i": {
+      "name": "桶（通れない）",
+      "z2": "B:145"
+    },
+    "v": {
+      "name": "樽（通れない）",
+      "z2": "B:141"
+    },
+    "z": {
+      "name": "壺（通れない）",
+      "z2": "B:144"
+    },
+    "H": {
+      "name": "干し草（通れない）",
+      "z2": "B:248"
+    },
+    "O": {
+      "name": "石のかまど（通れない）",
+      "z2": "B:147"
+    },
+    "W": {
+      "name": "ツタ（通れない）",
+      "z2": "B:20"
+    }
+  },
+  "scatter": [
+    {
+      "on": ".",
+      "z": 1,
+      "tiles": [
+        "A2:15"
+      ],
+      "rate": 0.06,
+      "seed": 29
+    },
+    {
+      "on": ".",
+      "tiles": [
+        "B:152",
+        "B:153",
+        "B:154",
+        "B:155",
+        "B:171",
+        "B:239",
+        "B:252",
+        "B:252",
+        "B:160"
+      ],
+      "rate": 0.12,
+      "seed": 24
+    },
+    {
+      "on": ",",
+      "tiles": [
+        "B:171",
+        "B:239",
+        "B:252"
+      ],
+      "rate": 0.05,
+      "seed": 25
+    },
+    {
+      "on": "^",
+      "tiles": [
+        "B:152",
+        "B:153",
+        "B:239",
+        "B:252",
+        "B:171"
+      ],
+      "rate": 0.12,
+      "seed": 26
+    }
+  ],
+  "events": [
+    {
+      "name": "南の霧の口（古い礼拝堂へ）",
+      "type": "transfer",
+      "x": 19,
+      "y": 29,
+      "to": [
+        21,
+        27,
+        2,
+        "down"
+      ]
+    },
+    {
+      "name": "南の霧の口（古い礼拝堂へ）",
+      "type": "transfer",
+      "x": 20,
+      "y": 29,
+      "to": [
+        21,
+        27,
+        2,
+        "down"
+      ]
+    },
+    {
+      "name": "南の霧の口（古い礼拝堂へ）",
+      "type": "transfer",
+      "x": 21,
+      "y": 29,
+      "to": [
+        21,
+        27,
+        2,
+        "down"
+      ]
+    },
+    {
+      "name": "ヴォルフラム",
+      "type": "raw",
+      "x": 19,
+      "y": 11,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "People1",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ヴォルフラム"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "おう！　そこのお前！　鍋を見なかったか！"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ヴォルフラム"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "でかい鍋だ。炊き出しの鍋だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "三日前ここに置いて、薪を拾いに行って、戻ったらどこだか分からん！"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "わははは！　腹が減った！"
+              ]
+            },
+            {
+              "code": 213,
+              "indent": 0,
+              "parameters": [
+                0,
+                8,
+                true
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ヴォルフラム"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "……横にあるな。ずっと横にあったか。そうか。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ヴォルフラム"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "砦？　火が入ったのか。なら行く。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鍋はわしが担ぐ。お前は先を歩け！　わしは道を覚えん！"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ヴォルフラム"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "それと、これを持っとけ。孫に持たせとった護符だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "孫には、もう要らん。持っとけ。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 128,
+              "indent": 0,
+              "parameters": [
+                323,
+                0,
+                0,
+                1,
+                false
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[146]鐘喰いの護符を手に入れた！"
+              ]
+            },
+            {
+              "code": 221,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                306,
+                306,
+                0
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 0,
+              "parameters": [
+                103,
+                103,
+                1,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Facilities",
+                "open",
+                "部屋を開く",
+                {
+                  "facility": "kitchen"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "facility = kitchen"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 222,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "ヴォルフラムは鍋を担いで、霧の中を砦の方へ歩いていった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鍋の底を叩く音が、しばらく聞こえていた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "炊き出しの大鍋",
+      "type": "raw",
+      "x": 20,
+      "y": 11,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "tileId": "B:145"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "炊き出しの大鍋。底に、焦げた麦がこびりついている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 306,
+            "switch1Valid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "閉じた森の門",
+      "type": "text",
+      "x": 33,
+      "y": 3,
+      "image": {
+        "characterName": "!$Gate1",
+        "characterIndex": 0,
+        "direction": 2,
+        "pattern": 0
+      },
+      "lines": [
+        "蔦に埋もれた、背の高い木の門。取っ手も鍵穴も無い。",
+        "耳を当てると、奥でずっと同じ節の歌が続いている。"
+      ]
+    },
+    {
+      "name": "門の脇の爪の跡",
+      "type": "text",
+      "x": 31,
+      "y": 5,
+      "image": {
+        "tileId": "D:65"
+      },
+      "lines": [
+        "門の脇の石に、爪で引っかいた跡がいくつも。",
+        "低い所の跡ほど、新しい。"
+      ]
+    },
+    {
+      "name": "思念 R1-11 門を叩いた男",
+      "type": "text",
+      "x": 34,
+      "y": 7,
+      "note": "<hai_thought:R1-11>",
+      "image": {
+        "characterName": "Damage1",
+        "characterIndex": 1,
+        "direction": 8,
+        "pattern": 1
+      },
+      "lines": [
+        "開けてくれ、と叫んだ。中で歌が聞こえていた。",
+        "歌は一度も止まらなかった。返事の代わりに歌ってるんだと思った。",
+        "三日叩いて、やめた。あれは返事じゃなかった。"
+      ]
+    },
+    {
+      "name": "思念 R1-12 布を結んだ旅人",
+      "type": "text",
+      "x": 8,
+      "y": 6,
+      "note": "<hai_thought:R1-12><hai_clue:白い布をたどれば、霧の奥から森の入口へ戻れるらしい（霧の奥の北東）>",
+      "image": {
+        "characterName": "Damage2",
+        "characterIndex": 1,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "迷ったら戻れるように、枝に布を結んでいく。",
+        "戻りの布は白、先へ行く布は赤。",
+        "赤い布は、もう残っていない。白い布は、北東の木まで続いている。"
+      ]
+    },
+    {
+      "name": "思念 R1-13 迷い人を見送った母親",
+      "type": "text",
+      "x": 33,
+      "y": 21,
+      "note": "<hai_thought:R1-13>",
+      "image": {
+        "characterName": "Damage1",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "あの子は、わたしの声で呼ばれて、霧の中へ行った。",
+        "わたしは、ここにいたのに。",
+        "だから、呼ばれても返事をしない。あの子の声でも、しない。"
+      ]
+    },
+    {
+      "name": "霧の抜け道（森の入口へ）",
+      "type": "raw",
+      "x": 38,
+      "y": 6,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "枝に結んだ白い布が、霧の中へ点々と続いている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "たどれば、どこかへ抜けられそうだ。"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "布をたどる",
+                  "やめる"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "布をたどる"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                302,
+                302,
+                0
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 1,
+              "parameters": [
+                0,
+                20,
+                62,
+                10,
+                4,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 302,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 0,
+          "trigger": 1,
+          "stepAnime": true,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                20,
+                62,
+                10,
+                4,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（気付け薬）",
+      "type": "raw",
+      "x": 4,
+      "y": 24,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                143,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]気付け薬を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（鉄くず）",
+      "type": "raw",
+      "x": 35,
+      "y": 22,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 125,
+              "indent": 0,
+              "parameters": [
+                0,
+                0,
+                90
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鉄くずを 90 手に入れた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "拾い物（薬草）",
+      "type": "raw",
+      "x": 9,
+      "y": 9,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                196,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "薬草を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "拾い物（苦い根）",
+      "type": "raw",
+      "x": 22,
+      "y": 24,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                199,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "苦い根を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "拾い物（灰の苔）",
+      "type": "raw",
+      "x": 27,
+      "y": 10,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                200,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "灰の苔を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "霧の中の人影",
+      "type": "raw",
+      "x": 16,
+      "y": 18,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "People3",
+            "characterIndex": 7,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "人影は、こちらを向く前に霧に溶けた。"
+              ]
+            },
+            {
+              "code": 214,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "霧の中の人影",
+      "type": "raw",
+      "x": 29,
+      "y": 22,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "People3",
+            "characterIndex": 7,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "人影は、こちらを向く前に霧に溶けた。"
+              ]
+            },
+            {
+              "code": 214,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "迷い人（黄・追ってくる）",
+      "type": "raw",
+      "x": 18,
+      "y": 15,
+      "note": "<hai_enemy:323,yellow>\n<hai_enemy_chase:6>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 2,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "迷い人（黄・追ってくる）",
+      "type": "raw",
+      "x": 30,
+      "y": 9,
+      "note": "<hai_enemy:323,yellow>\n<hai_enemy_chase:6>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 2,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "迷い人（黄・追ってくる）",
+      "type": "raw",
+      "x": 7,
+      "y": 22,
+      "note": "<hai_enemy:323,yellow>\n<hai_enemy_chase:5>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 2,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "灰鴉（黄）",
+      "type": "raw",
+      "x": 12,
+      "y": 12,
+      "note": "<hai_enemy:322,yellow>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Nature",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    }
+  ]
+}

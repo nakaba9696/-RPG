@@ -1,0 +1,2253 @@
+{
+  "_説明": "W7（#145）：霧の森・入口（docs/world.md 5.2、docs/mapdesign.md 9 章）。南の門→砦、北の道→021、北東の霧の抜け道（024 から開く近道）。倒れた見張り塔の小鐘、森の墓地（ノラの盛り土）、高台（坂の石段）、見えない通路 2（白い花）。文字マップは作業用の描画の道具で作り、置き物まで描いた。",
+  "mapId": 20,
+  "name": "霧の森・入口",
+  "displayName": "霧の森",
+  "legend": "forest",
+  "tilesetId": 12,
+  "note": "<hai_tone:0,0,17,102>\n<hai_fog:120>\n<hai_hidden_tiles:D:183,D:26>",
+  "bgm": {
+    "name": "Field2",
+    "volume": 65,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Wind3",
+    "volume": 40,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Grassland",
+    "battleback2Name": "Forest"
+  },
+  "chars": {
+    "^": {
+      "name": "高台（段差A（草地）の上面。下の 1 行に崖の側面が自動で付く）",
+      "ledge": {
+        "top": "A4:36",
+        "side": "A4:44",
+        "height": 1
+      }
+    },
+    "/": {
+      "name": "坂の石段（高台の側面に刻んだ階段。側面の行に書く）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "B:1"
+      ]
+    },
+    "Y": {
+      "name": "高台の上の木（通れない）",
+      "as": "^",
+      "tiles": [
+        null,
+        null,
+        "B:158"
+      ]
+    },
+    "y": {
+      "name": "高台の上の枯れ木（通れない）",
+      "as": "^",
+      "tiles": [
+        null,
+        null,
+        "B:240"
+      ]
+    },
+    "~": {
+      "name": "池（通れない）",
+      "tiles": [
+        "A1:1"
+      ]
+    },
+    "=": {
+      "name": "丸太の橋（池の上。通れる）",
+      "as": "~",
+      "tiles": [
+        null,
+        null,
+        "B:81"
+      ]
+    },
+    "Q": {
+      "name": "見えない通路の手前の白い花（高台の上）",
+      "as": "^",
+      "tiles": [
+        null,
+        null,
+        "B:160"
+      ]
+    },
+    "Z": {
+      "name": "高台の上の見えない通路（木に見えて通れる。リージョン 251）",
+      "as": "Y",
+      "region": 251
+    },
+    "s": {
+      "name": "石畳の上の草（礼拝堂の床の割れ目）",
+      "as": "#",
+      "tiles": [
+        null,
+        null,
+        "B:152"
+      ]
+    },
+    "B": {
+      "name": "石畳の上の瓦礫（通れない）",
+      "as": "#",
+      "tiles": [
+        null,
+        null,
+        "D:120"
+      ]
+    }
+  },
+  "deco": {
+    "1": {
+      "name": "石の柱（下。通れない）",
+      "z2": "D:105"
+    },
+    "2": {
+      "name": "壊れた像（通れない）",
+      "z2": "D:91"
+    },
+    "3": {
+      "name": "女神像（下。通れない）",
+      "z2": "D:90"
+    },
+    "4": {
+      "name": "台座（通れない）",
+      "z2": "D:83"
+    },
+    "5": {
+      "name": "木の橋（縦。通れる）",
+      "z2": "B:82"
+    },
+    "6": {
+      "name": "石碑B（通れない）",
+      "z2": "D:65"
+    },
+    "7": {
+      "name": "砂利（通れる）",
+      "z2": "D:32"
+    },
+    "8": {
+      "name": "苔の瓦礫の上の骸骨（通れない）",
+      "z2": "D:121",
+      "z3": "D:250"
+    },
+    "k": {
+      "name": "草A",
+      "z2": "B:152"
+    },
+    "K": {
+      "name": "草B",
+      "z2": "B:153"
+    },
+    "j": {
+      "name": "草C",
+      "z2": "B:154"
+    },
+    "J": {
+      "name": "草D",
+      "z2": "B:155"
+    },
+    "f": {
+      "name": "白い花",
+      "z2": "B:160"
+    },
+    "F": {
+      "name": "花B",
+      "z2": "B:161"
+    },
+    "e": {
+      "name": "花D",
+      "z2": "B:163"
+    },
+    "s": {
+      "name": "小石",
+      "z2": "B:171"
+    },
+    "l": {
+      "name": "枯れ草",
+      "z2": "B:239"
+    },
+    "L": {
+      "name": "落ち葉",
+      "z2": "B:252"
+    },
+    "r": {
+      "name": "瓦礫（通れない）",
+      "z2": "D:120"
+    },
+    "R": {
+      "name": "苔の瓦礫（通れない）",
+      "z2": "D:121"
+    },
+    "x": {
+      "name": "骸骨（通れない）",
+      "z2": "D:242"
+    },
+    "X": {
+      "name": "骸骨B（通れない）",
+      "z2": "D:250"
+    },
+    "o": {
+      "name": "倒木（通れない）",
+      "z2": "B:164"
+    },
+    "b": {
+      "name": "植え込み（通れない）",
+      "z2": "B:166"
+    },
+    "p": {
+      "name": "岩A（通れない）",
+      "z2": "B:159"
+    },
+    "P": {
+      "name": "岩B（通れない）",
+      "z2": "B:167"
+    },
+    "m": {
+      "name": "キノコ（通れない）",
+      "z2": "B:234"
+    },
+    "n": {
+      "name": "シダ（通れない）",
+      "z2": "B:246"
+    },
+    "c": {
+      "name": "折れた石の柱（通れない）",
+      "z2": "C:17"
+    },
+    "C": {
+      "name": "折れた石の柱B（通れない）",
+      "z2": "C:18"
+    },
+    "w": {
+      "name": "薪（通れない）",
+      "z2": "B:170"
+    },
+    "h": {
+      "name": "苔の切り株（通れない）",
+      "z2": "B:243"
+    },
+    "g": {
+      "name": "墓A（通れない）",
+      "z2": "B:142"
+    },
+    "G": {
+      "name": "墓B（通れない）",
+      "z2": "B:143"
+    },
+    "q": {
+      "name": "瓦礫の上の骸骨（通れない）",
+      "z2": "D:120",
+      "z3": "D:242"
+    },
+    "t": {
+      "name": "立て札（通れない）",
+      "z2": "B:137"
+    },
+    "u": {
+      "name": "壊れた台座（通れない）",
+      "z2": "C:76"
+    },
+    "a": {
+      "name": "石碑（通れない）",
+      "z2": "C:32"
+    },
+    "d": {
+      "name": "穴（通れない）",
+      "z2": "B:169"
+    },
+    "i": {
+      "name": "桶（通れない）",
+      "z2": "B:145"
+    },
+    "v": {
+      "name": "樽（通れない）",
+      "z2": "B:141"
+    },
+    "z": {
+      "name": "壺（通れない）",
+      "z2": "B:144"
+    },
+    "H": {
+      "name": "干し草（通れない）",
+      "z2": "B:248"
+    },
+    "O": {
+      "name": "石のかまど（通れない）",
+      "z2": "B:147"
+    },
+    "W": {
+      "name": "ツタ（通れない）",
+      "z2": "B:20"
+    }
+  },
+  "stamps": [
+    {
+      "at": "木",
+      "name": "大木（2×2。上の段は☆）",
+      "tiles": [
+        [
+          "B:176",
+          "B:177"
+        ],
+        [
+          "B:184",
+          "B:185"
+        ]
+      ]
+    },
+    {
+      "at": "幕",
+      "name": "破れた天幕（3×3）",
+      "tiles": [
+        [
+          "B:29",
+          "B:30",
+          "B:31"
+        ],
+        [
+          "B:37",
+          "B:38",
+          "B:39"
+        ],
+        [
+          "B:45",
+          null,
+          "B:47"
+        ]
+      ]
+    }
+  ],
+  "scatter": [
+    {
+      "on": ".",
+      "z": 1,
+      "tiles": [
+        "A2:15"
+      ],
+      "rate": 0.06,
+      "seed": 25
+    },
+    {
+      "on": ".",
+      "tiles": [
+        "B:152",
+        "B:153",
+        "B:154",
+        "B:155",
+        "B:171",
+        "B:239",
+        "B:252",
+        "B:252",
+        "B:160"
+      ],
+      "rate": 0.12,
+      "seed": 20
+    },
+    {
+      "on": ",",
+      "tiles": [
+        "B:171",
+        "B:239",
+        "B:252"
+      ],
+      "rate": 0.05,
+      "seed": 21
+    },
+    {
+      "on": "^",
+      "tiles": [
+        "B:152",
+        "B:153",
+        "B:239",
+        "B:252",
+        "B:171"
+      ],
+      "rate": 0.12,
+      "seed": 22
+    }
+  ],
+  "events": [
+    {
+      "name": "南の門（黒鉄の砦へ）",
+      "type": "transfer",
+      "x": 34,
+      "y": 49,
+      "to": [
+        10,
+        16,
+        4,
+        "down"
+      ]
+    },
+    {
+      "name": "南の門（黒鉄の砦へ）",
+      "type": "transfer",
+      "x": 35,
+      "y": 49,
+      "to": [
+        10,
+        16,
+        4,
+        "down"
+      ]
+    },
+    {
+      "name": "南の門（黒鉄の砦へ）",
+      "type": "transfer",
+      "x": 36,
+      "y": 49,
+      "to": [
+        10,
+        16,
+        4,
+        "down"
+      ]
+    },
+    {
+      "name": "北の道（礼拝堂へ）",
+      "type": "transfer",
+      "x": 39,
+      "y": 0,
+      "to": [
+        21,
+        29,
+        43,
+        "up"
+      ]
+    },
+    {
+      "name": "北の道（礼拝堂へ）",
+      "type": "transfer",
+      "x": 40,
+      "y": 0,
+      "to": [
+        21,
+        30,
+        43,
+        "up"
+      ]
+    },
+    {
+      "name": "北の道（礼拝堂へ）",
+      "type": "transfer",
+      "x": 41,
+      "y": 0,
+      "to": [
+        21,
+        31,
+        43,
+        "up"
+      ]
+    },
+    {
+      "name": "結界（霧の森の入口）",
+      "type": "raw",
+      "x": 38,
+      "y": 45,
+      "note": "<hai_warp:霧の森の入口>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "stepAnime": true,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "道標",
+      "type": "text",
+      "x": 33,
+      "y": 43,
+      "image": {
+        "tileId": "B:137"
+      },
+      "lines": [
+        "道標。北に「礼拝堂」、南に「砦」。",
+        "南の字だけ、誰かが刃物でなぞってある。"
+      ]
+    },
+    {
+      "name": "木樵の小屋の戸板",
+      "type": "text",
+      "x": 38,
+      "y": 36,
+      "image": {
+        "tileId": "D:125"
+      },
+      "lines": [
+        "崩れた小屋の戸板。内側から釘で打ち付けてある。",
+        "表に、拳ほどの凹みが三つ、縦に並んでいる。"
+      ]
+    },
+    {
+      "name": "思念 R1-01 戸に答えなかった木樵",
+      "type": "text",
+      "x": 39,
+      "y": 37,
+      "note": "<hai_thought:R1-01>",
+      "image": {
+        "characterName": "Damage1",
+        "characterIndex": 2,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "夜、戸を三度叩かれた。女房の声で、入れておくれ、と。",
+        "女房は昼に、この手で埋めた。",
+        "答えなかった。朝になると、戸の前に女房の靴が揃えてあった。",
+        "左右が逆だった。あいつは、いつもそう脱いだ。"
+      ]
+    },
+    {
+      "name": "倒れた荷車",
+      "type": "text",
+      "x": 32,
+      "y": 37,
+      "lines": [
+        "荷車が横倒しになっている。積み荷は無い。",
+        "轍は北へ続き、途中で消えている。"
+      ]
+    },
+    {
+      "name": "見張り塔の石組み",
+      "type": "text",
+      "x": 11,
+      "y": 33,
+      "image": {
+        "tileId": "C:17"
+      },
+      "lines": [
+        "崩れた見張り塔の石組み。",
+        "落ちた梁に、同じ形の鉤が七つ並んでいる。"
+      ]
+    },
+    {
+      "name": "拾い物（見張り塔の小鐘）",
+      "type": "raw",
+      "x": 12,
+      "y": 34,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "塔の根元の石の間に、手のひらほどの鐘が挟まっている。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 128,
+              "indent": 0,
+              "parameters": [
+                321,
+                0,
+                0,
+                1,
+                false
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[205]見張り塔の小鐘を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "思念 R1-02 塔の鐘番",
+      "type": "text",
+      "x": 10,
+      "y": 35,
+      "note": "<hai_thought:R1-02>",
+      "image": {
+        "characterName": "Damage2",
+        "characterIndex": 0,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "塔の鐘は七つ。夕べごとに一つずつ外して、東へ行く騎士に渡した。",
+        "鳴らしながら行け、と教会の人は言った。",
+        "今朝で六つ目。騎士はまだ誰も戻らない。",
+        "最後の一つは渡さない。塔が黙ったら、ここは境じゃなくなる。"
+      ]
+    },
+    {
+      "name": "鎧の亡骸",
+      "type": "text",
+      "x": 14,
+      "y": 36,
+      "image": {
+        "characterName": "Damage3",
+        "characterIndex": 4,
+        "direction": 4,
+        "pattern": 1
+      },
+      "lines": [
+        "鎧の亡骸が、木にもたれて座っている。",
+        "手の甲の小さな鐘は、布で巻いて結んである。"
+      ]
+    },
+    {
+      "name": "焚き火の跡",
+      "type": "text",
+      "x": 16,
+      "y": 40,
+      "image": {
+        "tileId": "B:147"
+      },
+      "lines": [
+        "石の輪の中に、焦げた布の切れ端。",
+        "布には、鐘の形の刺繍が半分だけ残っている。"
+      ]
+    },
+    {
+      "name": "記憶 ブルーノ 2",
+      "type": "text",
+      "x": 17,
+      "y": 40,
+      "note": "<hai_memory:5,2>",
+      "image": {
+        "characterName": "!Other1",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "隊長に聞いた。怖いときは、どうするんですか。",
+        "隊長は笑って、祈りを数えろ、と言った。",
+        "いち、に、さん。三十まで数えたら、夕べは終わってる。",
+        "僕はその夜、三十を四回数えた。隊長は二回で寝た。"
+      ]
+    },
+    {
+      "name": "池",
+      "type": "text",
+      "x": 7,
+      "y": 42,
+      "lines": [
+        "水面に灰が浮いている。",
+        "底に、丸い金物が沈んでいる。手は届かない。"
+      ]
+    },
+    {
+      "name": "宝箱（気付け薬）",
+      "type": "raw",
+      "x": 4,
+      "y": 41,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                143,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]気付け薬を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "思念 R1-03 墓を掘った村の女",
+      "type": "text",
+      "x": 54,
+      "y": 40,
+      "note": "<hai_thought:R1-03>",
+      "image": {
+        "characterName": "Damage1",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "騎士さまたちは鐘を鳴らして東へ行った。",
+        "帰ってきたのは鐘の音だけ。それも夕べごとに遠くなって、",
+        "七日目に聞こえなくなった。",
+        "墓には何も入れていない。名前を書く板が、足りなかったから。"
+      ]
+    },
+    {
+      "name": "盛り土（ノラ）",
+      "type": "raw",
+      "x": 58,
+      "y": 35,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "tileId": 0
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                6,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ノラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "ここ、何か埋まってる！　鉄の匂い。……掘るよ！"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Earth1",
+                  "volume": 80,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 1,
+              "parameters": [
+                328,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 1,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "\\I[197]砦の名札を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "土が盛り上がっている。誰かが掘り返して、また埋めた跡。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "素手では固い。鼻の利く者なら、何が埋まっているか分かりそうだ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "掘り返した穴。底は湿っている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（毒消し）",
+      "type": "raw",
+      "x": 62,
+      "y": 40,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                197,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[177]毒消し×2を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（秘薬）",
+      "type": "raw",
+      "x": 56,
+      "y": 26,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                198,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[179]秘薬を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "拾い物（薬草）",
+      "type": "raw",
+      "x": 55,
+      "y": 27,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "白い花の根元に、薬草が群れて生えている。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                196,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "薬草を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "思念 R1-04 高台の見張り（帝国の出）",
+      "type": "text",
+      "x": 16,
+      "y": 6,
+      "note": "<hai_thought:R1-04>",
+      "image": {
+        "characterName": "Damage2",
+        "characterIndex": 2,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "境の見張りは三つの国の兵の寄り合いだ。自分はグラーデンの出。",
+        "教会の騎士が鐘を鳴らして東へ行くのを、ここから見た。",
+        "鐘を鳴らして境を越えるのは、喧嘩を売りに行くのと同じだ。",
+        "隊長はそう言って、報告には書かなかった。"
+      ]
+    },
+    {
+      "name": "宝箱（霊水）",
+      "type": "raw",
+      "x": 5,
+      "y": 6,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                144,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]霊水を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "見張りの小屋の跡",
+      "type": "text",
+      "x": 11,
+      "y": 9,
+      "lines": [
+        "見張りの小屋の跡。東の空が、木の切れ目から見える。",
+        "雲の上に、塔の影が一つ。"
+      ]
+    },
+    {
+      "name": "拾い物（鉄くず）",
+      "type": "raw",
+      "x": 4,
+      "y": 14,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "木の根の間に、鎧の板と古い釘が束ねて隠してある。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Coin",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 125,
+              "indent": 0,
+              "parameters": [
+                0,
+                0,
+                80
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鉄くずを 80 手に入れた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "霧の抜け道（霧の奥へ）",
+      "type": "raw",
+      "x": 64,
+      "y": 10,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "木の間に、白い霧が詰まっている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "押し入ると、すぐに足もとが分からなくなる。戻った。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 302,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 0,
+          "trigger": 1,
+          "stepAnime": true,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                24,
+                36,
+                6,
+                6,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（薬草）",
+      "type": "raw",
+      "x": 58,
+      "y": 7,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                196,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]薬草×2を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "思念 R1-05 霧を見ていた子ども",
+      "type": "text",
+      "x": 52,
+      "y": 12,
+      "note": "<hai_thought:R1-05>",
+      "image": {
+        "characterName": "Damage1",
+        "characterIndex": 7,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "霧の中に、羊みたいなのがいっぱいいるんだよ。",
+        "ぼくの名前で呼ぶから、行っちゃだめって、母さんが言った。",
+        "でも母さんの声でも呼ぶんだよ。どっちが母さん？"
+      ]
+    },
+    {
+      "name": "拾い物（薬草）",
+      "type": "raw",
+      "x": 44,
+      "y": 33,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                196,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "薬草を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "拾い物（苦い根）",
+      "type": "raw",
+      "x": 26,
+      "y": 22,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                199,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "苦い根を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "拾い物（薬草）",
+      "type": "raw",
+      "x": 47,
+      "y": 11,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                196,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "薬草を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "狩りの待ち場",
+      "type": "text",
+      "x": 16,
+      "y": 27,
+      "image": {
+        "tileId": "B:170"
+      },
+      "lines": [
+        "木の枝を編んだ、狩りの待ち場。",
+        "敷いた毛皮は、獣ではなく人の外套だった。"
+      ]
+    },
+    {
+      "name": "灰の吹きだまり",
+      "type": "text",
+      "x": 30,
+      "y": 46,
+      "lines": [
+        "灰の吹きだまり。踏むと、靴の跡が二つ重なった。",
+        "一つは小さな裸足。北へ向かっている。"
+      ]
+    },
+    {
+      "name": "灰犬（緑・群れ）",
+      "type": "raw",
+      "x": 42,
+      "y": 28,
+      "note": "<hai_enemy:321,green>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "灰犬（緑・群れ）",
+      "type": "raw",
+      "x": 45,
+      "y": 30,
+      "note": "<hai_enemy:321,green>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "灰犬（緑・群れ）",
+      "type": "raw",
+      "x": 40,
+      "y": 31,
+      "note": "<hai_enemy:321,green>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "灰鴉（黄・往復）",
+      "type": "raw",
+      "x": 30,
+      "y": 26,
+      "note": "<hai_enemy:322,yellow>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Nature",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 4,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "迷い人（黄・番兵）",
+      "type": "raw",
+      "x": 50,
+      "y": 38,
+      "note": "<hai_enemy:323,yellow>\n<hai_enemy_chase:3>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 6,
+            "direction": 4,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 0,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "鐘鳴りの亡骸（黄・寝ている）",
+      "type": "raw",
+      "x": 15,
+      "y": 34,
+      "note": "<hai_enemy:324,yellow>\n<hai_enemy_chase:2>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 0,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "灰犬（緑）",
+      "type": "raw",
+      "x": 57,
+      "y": 11,
+      "note": "<hai_enemy:321,green>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    }
+  ]
+}
