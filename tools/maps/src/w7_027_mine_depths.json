@@ -1,0 +1,1792 @@
+{
+  "_説明": "W7（#145）：鉄の坑道・下層（docs/world.md 5.2、暗がり 1.5。鐘番の角灯を持っていれば自動で半径 5）。昇降機→026、大扉（ブルーノかトゥーラ。スイッチ 304）の先の長屋（トゥーラの記憶 1・鐘鉄の塊）、地下の流れの橋（赤の番。南の橋で迂回）、掘り抜き→033、見えない通路→028。",
+  "mapId": 27,
+  "name": "鉄の坑道・下層",
+  "displayName": "鉄の坑道・下層",
+  "legend": "dungeon",
+  "tilesetId": 13,
+  "note": "<hai_tone:-85,-85,-102,68>\n<hai_dark:1.5>",
+  "bgm": {
+    "name": "Dungeon2",
+    "volume": 65,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Wind5",
+    "volume": 40,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "DirtCave",
+    "battleback2Name": "DirtCave"
+  },
+  "chars": {
+    ";": {
+      "name": "土の床の汚れ（煤）",
+      "as": ",",
+      "tiles": [
+        null,
+        "A2:15"
+      ]
+    },
+    ":": {
+      "name": "濃い床（踏み固めた道）",
+      "tiles": [
+        "A2:2"
+      ]
+    },
+    "~": {
+      "name": "地下水（通れない）",
+      "tiles": [
+        "A1:8"
+      ]
+    },
+    "=": {
+      "name": "木の橋（流れの上。通れる）",
+      "as": "~",
+      "tiles": [
+        null,
+        null,
+        "B:147"
+      ]
+    },
+    "_": {
+      "name": "穴（通れない）",
+      "tiles": [
+        "A2:4"
+      ]
+    },
+    "%": {
+      "name": "苔の床（見えない通路の手前）",
+      "as": ",",
+      "tiles": [
+        null,
+        "A2:23"
+      ]
+    }
+  },
+  "deco": {
+    "0": {
+      "name": "棺C（下）",
+      "z2": "C:87"
+    },
+    "1": {
+      "name": "石の柱B（下。通れない）",
+      "z2": "B:106"
+    },
+    "2": {
+      "name": "折れた石の柱（通れない）",
+      "z2": "B:114"
+    },
+    "3": {
+      "name": "石碑A（通れない）",
+      "z2": "B:64"
+    },
+    "4": {
+      "name": "壊れた像（通れない）",
+      "z2": "B:91"
+    },
+    "5": {
+      "name": "亀裂B（壁に）",
+      "z2": "B:187"
+    },
+    "6": {
+      "name": "掘られた床（通れない）",
+      "z2": "B:17"
+    },
+    "7": {
+      "name": "壁の苔（壁に）",
+      "z2": "B:1"
+    },
+    "8": {
+      "name": "壁のツタ（壁に）",
+      "z2": "B:184"
+    },
+    "9": {
+      "name": "棺B（上）",
+      "z2": "C:86"
+    },
+    "k": {
+      "name": "砂利A（通れる）",
+      "z2": "B:32"
+    },
+    "K": {
+      "name": "砂利B（通れる）",
+      "z2": "B:33"
+    },
+    "r": {
+      "name": "瓦礫A（通れない）",
+      "z2": "B:120"
+    },
+    "R": {
+      "name": "苔の瓦礫（通れない）",
+      "z2": "B:121"
+    },
+    "u": {
+      "name": "瓦礫D（土。通れない）",
+      "z2": "B:124"
+    },
+    "x": {
+      "name": "骸骨A（通れない）",
+      "z2": "B:242"
+    },
+    "X": {
+      "name": "骸骨B（通れない）",
+      "z2": "B:250"
+    },
+    "q": {
+      "name": "瓦礫の上の骸骨（通れない）",
+      "z2": "B:120",
+      "z3": "B:242"
+    },
+    "o": {
+      "name": "岩B（通れない）",
+      "z2": "B:41"
+    },
+    "O": {
+      "name": "岩A（土。通れない）",
+      "z2": "B:40"
+    },
+    "e": {
+      "name": "端材（通れない）",
+      "z2": "B:125"
+    },
+    "w": {
+      "name": "蜘蛛の巣（壁に。通れない所に）",
+      "z2": "B:176"
+    },
+    "b": {
+      "name": "樽A（通れない）",
+      "z2": "B:238"
+    },
+    "B": {
+      "name": "樽B（廃墟。通れない）",
+      "z2": "B:239"
+    },
+    "c": {
+      "name": "木箱A（通れない）",
+      "z2": "B:220"
+    },
+    "C": {
+      "name": "木箱C（廃墟。通れない）",
+      "z2": "B:222"
+    },
+    "p": {
+      "name": "壺A（廃墟。通れない）",
+      "z2": "B:223"
+    },
+    "P": {
+      "name": "壺B（通れない）",
+      "z2": "B:231"
+    },
+    "t": {
+      "name": "テーブル（廃墟。通れない）",
+      "z2": "B:243"
+    },
+    "h": {
+      "name": "椅子（廃墟）",
+      "z2": "B:251"
+    },
+    "s": {
+      "name": "スコップ（通れない）",
+      "z2": "B:232"
+    },
+    "S": {
+      "name": "つるはし（通れない）",
+      "z2": "B:233"
+    },
+    "l": {
+      "name": "ロープ（通れない）",
+      "z2": "B:234"
+    },
+    "g": {
+      "name": "土砂A（通れない）",
+      "z2": "B:216"
+    },
+    "G": {
+      "name": "土砂B（石。通れない）",
+      "z2": "B:217"
+    },
+    "m": {
+      "name": "壁の補強材（廃坑。壁に）",
+      "z2": "B:133"
+    },
+    "M": {
+      "name": "壁の補強材（廃坑）",
+      "z2": "B:134"
+    },
+    "j": {
+      "name": "鉄格子（上）",
+      "z2": "B:244"
+    },
+    "J": {
+      "name": "鉄格子（下）",
+      "z2": "B:252"
+    },
+    "y": {
+      "name": "粗末なベッド（通れない）",
+      "z2": "C:150"
+    },
+    "Y": {
+      "name": "むしろの寝床（通れる？）",
+      "z2": "C:151"
+    },
+    "z": {
+      "name": "倒れた棚（通れない）",
+      "z2": "C:192"
+    },
+    "Z": {
+      "name": "本棚A（下。通れない）",
+      "z2": "C:205"
+    },
+    "n": {
+      "name": "椅子（Dungeon_C）",
+      "z2": "C:157"
+    },
+    "N": {
+      "name": "テーブル（Dungeon_C）",
+      "z2": "C:149"
+    },
+    "a": {
+      "name": "線路（横）",
+      "z2": "C:112"
+    },
+    "A": {
+      "name": "線路（縦）",
+      "z2": "C:104"
+    },
+    "i": {
+      "name": "枕木",
+      "z2": "C:113"
+    },
+    "f": {
+      "name": "積まれた木箱（通れない）",
+      "z2": "C:228"
+    },
+    "F": {
+      "name": "積まれた木箱B",
+      "z2": "C:229"
+    },
+    "v": {
+      "name": "クローゼット（通れない）",
+      "z2": "C:178"
+    },
+    "V": {
+      "name": "チェスト（通れない）",
+      "z2": "C:176"
+    }
+  },
+  "stamps": [
+    {
+      "at": "床",
+      "name": "寝台（粗末なベッド）",
+      "tiles": [
+        [
+          "C:150"
+        ]
+      ]
+    }
+  ],
+  "scatter": [
+    {
+      "on": ",",
+      "tiles": [
+        "B:32",
+        "B:33",
+        "B:32",
+        "B:33"
+      ],
+      "rate": 0.12,
+      "seed": 27
+    }
+  ],
+  "events": [
+    {
+      "name": "昇降機（上層へ）",
+      "type": "raw",
+      "x": 24,
+      "y": 2,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "tileId": "B:12"
+          },
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Earth1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                26,
+                30,
+                40,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "角灯の明かり（自動）",
+      "type": "raw",
+      "x": 1,
+      "y": 1,
+      "note": "",
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 4,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                8,
+                322
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_MapTone",
+                "dark",
+                "暗がりの半径を変える",
+                {
+                  "radius": "5"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "radius = 5"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 214,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "坑道の大扉",
+      "type": "raw",
+      "x": 10,
+      "y": 17,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!$Gate1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "お、押します。……いち、に、さん！"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Push",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 230,
+              "indent": 1,
+              "parameters": [
+                20
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Earth3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                304,
+                304,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "軋みながら、大扉が奥へ倒れた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                4,
+                11,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "トゥーラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "どけよ、兄貴。こんなの、担げば一発だろ。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 2,
+              "parameters": [
+                {
+                  "name": "Push",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 230,
+              "indent": 2,
+              "parameters": [
+                20
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 2,
+              "parameters": [
+                {
+                  "name": "Earth3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 2,
+              "parameters": [
+                304,
+                304,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "軋みながら、大扉が奥へ倒れた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "鉄で縁を打った、厚い木の大扉。閂は外れているのに、びくともしない。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "一人では動かない。もっと力のある者なら。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 304,
+            "switch1Valid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "記憶 トゥーラ 1",
+      "type": "text",
+      "x": 4,
+      "y": 22,
+      "note": "<hai_memory:11,1>",
+      "image": {
+        "characterName": "!Other1",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "坑夫の家の長女だよ。弟が三人、妹が二人。",
+        "父ちゃんより先に坑に下りて、後に上がった。弟たちの飯を作ってからな。",
+        "あたしの分は、いつも鍋の底。焦げたとこが、いちばんうまいんだよ。"
+      ]
+    },
+    {
+      "name": "長屋の床下",
+      "type": "raw",
+      "x": 3,
+      "y": 12,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "tileId": "B:216"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "床板の一枚が浮いている。持ち上げると、布の包みが入っていた。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                327,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[209]鐘鉄の塊を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "床下は空だ。布の切れ端だけが残っている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "思念 R1-20 長屋の隣の女",
+      "type": "text",
+      "x": 7,
+      "y": 20,
+      "note": "<hai_thought:R1-20>",
+      "image": {
+        "characterName": "Damage1",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "隣の娘は、弟たちの飯を作ってから坑に下りる。",
+        "父親より先に下りて、後に上がる。坑夫の誰より早い。",
+        "帝国の人が、食べ物の出る仕事があるって言いに来た。娘だけが話を聞いてた。"
+      ]
+    },
+    {
+      "name": "思念 R1-19 坑道の鐘番",
+      "type": "text",
+      "x": 43,
+      "y": 9,
+      "note": "<hai_thought:R1-19>",
+      "image": {
+        "characterName": "Damage2",
+        "characterIndex": 7,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "角灯は、詰め所に戻してきた。",
+        "下で灯をつけたら、上の連中が下りてくる。籠は六人までだ。",
+        "暗いまま待てば、誰も下りてこない。それでいい。"
+      ]
+    },
+    {
+      "name": "思念 R1-21 掘り抜きの坑夫",
+      "type": "text",
+      "x": 47,
+      "y": 34,
+      "note": "<hai_thought:R1-21>",
+      "image": {
+        "characterName": "Damage1",
+        "characterIndex": 0,
+        "direction": 6,
+        "pattern": 1
+      },
+      "lines": [
+        "営倉の下まで掘れば、砦の中だ。中なら鐘が鳴る。",
+        "向こうからも掘る音がした。あっちは、出ようとしてたんだろう。",
+        "穴がつながった晩、どっちが先に通ったのかは、知らない。"
+      ]
+    },
+    {
+      "name": "掘り抜きの穴（営倉へ）",
+      "type": "raw",
+      "x": 49,
+      "y": 34,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "tileId": "B:31"
+          },
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                33,
+                6,
+                5,
+                6,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "崩れた坑道（坑道の門へ）",
+      "type": "transfer",
+      "x": 4,
+      "y": 35,
+      "to": [
+        28,
+        24,
+        7,
+        "left"
+      ]
+    },
+    {
+      "name": "宝箱（薬草）",
+      "type": "raw",
+      "x": 27,
+      "y": 3,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                196,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]薬草×2を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（秘薬）",
+      "type": "raw",
+      "x": 46,
+      "y": 10,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                198,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[179]秘薬を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（鉄くず）",
+      "type": "raw",
+      "x": 18,
+      "y": 33,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 125,
+              "indent": 0,
+              "parameters": [
+                0,
+                0,
+                150
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鉄くずを 150 手に入れた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（毒消し）",
+      "type": "raw",
+      "x": 8,
+      "y": 24,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                197,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[177]毒消し×2を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "壁の刻み",
+      "type": "text",
+      "x": 20,
+      "y": 17,
+      "lines": [
+        "壁に、籠の数を数えた刻み。三本目の刻みが、途中で止まっている。"
+      ]
+    },
+    {
+      "name": "拾い物（鉄くず）",
+      "type": "raw",
+      "x": 33,
+      "y": 37,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Coin",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 125,
+              "indent": 0,
+              "parameters": [
+                0,
+                0,
+                40
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鉄くずを 40 手に入れた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "拾い物（苦い根）",
+      "type": "raw",
+      "x": 41,
+      "y": 20,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                199,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "苦い根を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "灯なし（黄・往復）",
+      "type": "raw",
+      "x": 24,
+      "y": 12,
+      "note": "<hai_enemy:329,yellow>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 4,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "灯なし（黄・往復）",
+      "type": "raw",
+      "x": 44,
+      "y": 18,
+      "note": "<hai_enemy:329,yellow>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 4,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "灯なし（黄・往復）",
+      "type": "raw",
+      "x": 26,
+      "y": 37,
+      "note": "<hai_enemy:329,yellow>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 4,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "骨食み（緑）",
+      "type": "raw",
+      "x": 16,
+      "y": 31,
+      "note": "<hai_enemy:327,green>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "骨食み（緑）",
+      "type": "raw",
+      "x": 34,
+      "y": 28,
+      "note": "<hai_enemy:327,green>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "骨鎧の狩人（赤・橋の番）",
+      "type": "raw",
+      "x": 40,
+      "y": 14,
+      "note": "<hai_enemy:330,red>\n<hai_enemy_chase:2>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 5,
+            "direction": 4,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 0,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "灰鼠（緑）",
+      "type": "raw",
+      "x": 24,
+      "y": 18,
+      "note": "<hai_enemy:326,green>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    }
+  ]
+}
