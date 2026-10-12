@@ -1,0 +1,1533 @@
+{
+  "_説明": "W9（#157）：地下水道・上流（world.md 5.2・2.2 地下への避難・6.4 アンセルモ 1・8.3 王の布告）。西の梯子→073（沼主を倒すと上れる）、北東の石段→035、東→101。舫いの杭（櫂）→南の洞の赤い宝箱。南の水門番の小屋は 101 の弁で水が引くと入れる。",
+  "mapId": 100,
+  "name": "地下水道・上流",
+  "displayName": "地下水道",
+  "legend": "dungeon",
+  "tilesetId": 18,
+  "note": "<hai_tone:-51,-34,-51,68>\n<hai_dark:5>",
+  "bgm": {
+    "name": "Dungeon7",
+    "volume": 60,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Waterfall1",
+    "volume": 35,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Cobblestones3",
+    "battleback2Name": "Stone2"
+  },
+  "chars": {
+    "~": {
+      "name": "水路（通れない）",
+      "tiles": [
+        "A1:14"
+      ]
+    },
+    "b": {
+      "name": "石の橋（横。水路の上。通れる）",
+      "as": "~",
+      "tiles": [
+        null,
+        null,
+        "B:149"
+      ]
+    },
+    "B": {
+      "name": "石の橋（縦。水路の上。通れる）",
+      "as": "~",
+      "tiles": [
+        null,
+        null,
+        "B:148"
+      ]
+    }
+  },
+  "deco": {
+    "1": {
+      "name": "石の柱B（下。通れない）",
+      "z2": "B:106"
+    },
+    "k": {
+      "name": "砂利A（通れる）",
+      "z2": "B:32"
+    },
+    "K": {
+      "name": "砂利B（通れる）",
+      "z2": "B:33"
+    },
+    "s": {
+      "name": "小さな芽（苔の芽。通れる）",
+      "z2": "B:36"
+    },
+    "r": {
+      "name": "瓦礫A（通れない）",
+      "z2": "B:120"
+    },
+    "q": {
+      "name": "瓦礫の上の骸骨（通れない）",
+      "z2": "B:120",
+      "z3": "B:242"
+    },
+    "x": {
+      "name": "骸骨A（通れない）",
+      "z2": "B:242"
+    },
+    "b": {
+      "name": "樽A（通れない）",
+      "z2": "B:238"
+    },
+    "B": {
+      "name": "樽B（廃墟。通れない）",
+      "z2": "B:239"
+    },
+    "c": {
+      "name": "木箱A（通れない）",
+      "z2": "B:220"
+    },
+    "C": {
+      "name": "木箱C（廃墟。通れない）",
+      "z2": "B:222"
+    },
+    "f": {
+      "name": "積まれた木箱（通れない）",
+      "z2": "C:228"
+    },
+    "Z": {
+      "name": "本棚A（通れない）",
+      "z2": "C:205"
+    },
+    "N": {
+      "name": "テーブル（通れない）",
+      "z2": "C:149"
+    },
+    "n": {
+      "name": "椅子",
+      "z2": "C:157"
+    },
+    "y": {
+      "name": "粗末なベッド（通れない）",
+      "z2": "C:150"
+    },
+    "弁": {
+      "name": "弁（バルブ。通れない）",
+      "z2": "E:50"
+    },
+    "祭": {
+      "name": "祭壇（通れない）",
+      "z2": "E:170"
+    }
+  },
+  "stamps": [],
+  "events": [
+    {
+      "name": "梯子（淵へ）",
+      "type": "raw",
+      "x": 5,
+      "y": 3,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "tileId": "B:5"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "梯子の上から、水が滴っている。上の口は、水で塞がっている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 503,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:5"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                73,
+                13,
+                5,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "石段（営倉の牢番の詰め所へ）",
+      "type": "transfer",
+      "x": 45,
+      "y": 3,
+      "to": [
+        35,
+        3,
+        8,
+        "right"
+      ],
+      "image": {
+        "tileId": "B:2"
+      }
+    },
+    {
+      "name": "結界（地下水道の入口）",
+      "type": "raw",
+      "x": 47,
+      "y": 5,
+      "note": "<hai_warp:地下水道の入口>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true
+        }
+      ]
+    },
+    {
+      "name": "東の歩き場（水門へ）",
+      "type": "transfer",
+      "x": 51,
+      "y": 15,
+      "to": [
+        101,
+        1,
+        15,
+        "right"
+      ]
+    },
+    {
+      "name": "東の歩き場（水門へ）",
+      "type": "transfer",
+      "x": 51,
+      "y": 16,
+      "to": [
+        101,
+        1,
+        16,
+        "right"
+      ]
+    },
+    {
+      "name": "上流の祭壇",
+      "type": "text",
+      "x": 21,
+      "y": 4,
+      "lines": [
+        "苔むした小さな祭壇。燭台が四つ、蝋は無い。",
+        "祭壇の脇に、譜面が一枚。酒の染みがある。"
+      ]
+    },
+    {
+      "name": "記憶 アンセルモ 1",
+      "type": "text",
+      "x": 21,
+      "y": 5,
+      "note": "<hai_memory:9,1>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "わしの喉は、聖歌隊いちばんと言われた。酒もいちばん飲んだ。",
+        "祭の朝、聖歌の三番で、しゃっくりが出た。司教さまの顔ときたら。",
+        "その日のうちに隊から追い出された。ここの祭壇で一人で歌い直したのが、始まりよ。"
+      ]
+    },
+    {
+      "name": "拾い物（王の布告）",
+      "type": "raw",
+      "x": 36,
+      "y": 15,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "tileId": "D:91"
+          },
+          "priorityType": 1,
+          "stepAnime": false,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "壁から剥がれかけた板。王家の印の焼き印がある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "上の半分に「民を地下に守る。扉は日没に閉じる」。下の半分は削られている。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                503,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[192]王の布告を手に入れた！"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Thoughts",
+                "addNote",
+                "メモを足す",
+                {
+                  "text": "王の布告「民を地下に守る。扉は日没に閉じる」。下の半分は削られている（地下水道・上流）",
+                  "id": "clue:decree",
+                  "kind": "clue"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "text = 王の布告「民を地下に守る。扉は日没に閉じる」。下の半分は削られている（地下水道・上流）"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "id = clue:decree"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "kind = clue"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "思念 R3-12 札を分けた母",
+      "type": "text",
+      "x": 30,
+      "y": 4,
+      "note": "<hai_thought:R3-12>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "札は三枚。うちは四人。",
+        "いちばん下の子を、隣の家の札に入れてもらった。名前を、その家の子の名に変えて。",
+        "あの子が内で、その名で呼ばれていたらいい。"
+      ]
+    },
+    {
+      "name": "思念 R3-13 水番",
+      "type": "text",
+      "x": 38,
+      "y": 29,
+      "note": "<hai_thought:R3-13><hai_clue:水門の上流の弁と下流の弁を両方回すと、池の水が落ちる（地下水道の水番）>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "水門は二つで一つ。上流の弁と下流の弁を、両方回して初めて池の水が落ちる。",
+        "片方だけでは、水は唸るだけだ。",
+        "相棒は、扉が閉まる日に内へ入った。俺は上流の弁の前で、相棒の分を待った。"
+      ]
+    },
+    {
+      "name": "宝箱（薬草）",
+      "type": "raw",
+      "x": 11,
+      "y": 25,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                196,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]薬草×2を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "苔の床",
+      "type": "text",
+      "x": 3,
+      "y": 27,
+      "lines": [
+        "倉の西の壁ぎわだけ、床に苔が厚い。壁の継ぎ目から、風が来る。"
+      ],
+      "priorityType": 0
+    },
+    {
+      "name": "宝箱（鉄くず）",
+      "type": "raw",
+      "x": 0,
+      "y": 27,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Coin",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 125,
+              "indent": 0,
+              "parameters": [
+                0,
+                0,
+                150
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鉄くずを 150 手に入れた。"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "舫いの杭（南の洞へ）",
+      "type": "raw",
+      "x": 24,
+      "y": 20,
+      "note": "",
+      "pages": [
+        {
+          "priorityType": 1,
+          "image": {
+            "tileId": "B:130"
+          },
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                8,
+                501
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "杭に、底の浅い小舟が繋いである。水路は南へ下っている。"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 1,
+              "parameters": [
+                [
+                  "小舟で下る",
+                  "やめる"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 1,
+              "parameters": [
+                0,
+                "小舟で下る"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 2,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 2,
+              "parameters": [
+                0,
+                100,
+                24,
+                29,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 1,
+              "parameters": [
+                1,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "杭に、底の浅い小舟が繋いである。漕ぐ物が無い。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "舫いの杭（戻る）",
+      "type": "raw",
+      "x": 25,
+      "y": 29,
+      "note": "",
+      "pages": [
+        {
+          "priorityType": 1,
+          "image": {
+            "tileId": "B:130"
+          },
+          "list": [
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "小舟で戻る",
+                  "やめる"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "小舟で戻る"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 1,
+              "parameters": [
+                0,
+                100,
+                23,
+                20,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（鎖の香炉）",
+      "type": "raw",
+      "x": 28,
+      "y": 28,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 127,
+              "indent": 0,
+              "parameters": [
+                502,
+                0,
+                0,
+                1,
+                false
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[98]鎖の香炉を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "洞の壁",
+      "type": "text",
+      "x": 20,
+      "y": 27,
+      "lines": [
+        "洞の壁に、水の跡の線が何本も。いちばん上の線は、天井に近い。"
+      ]
+    },
+    {
+      "name": "沈んだ戸口 1",
+      "type": "raw",
+      "x": 41,
+      "y": 21,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "tileId": "E:85"
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "水が胸まで来ている。流れが速くて進めない。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 505,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "沈んだ戸口 2",
+      "type": "raw",
+      "x": 42,
+      "y": 21,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "tileId": "E:85"
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "水が胸まで来ている。流れが速くて進めない。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 505,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "思念 R3-14 水を戻した水番",
+      "type": "text",
+      "x": 10,
+      "y": 26,
+      "note": "<hai_thought:R3-14>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "列は三日続いた。水を落として、上流から下流まで、人が歩ける道にした。",
+        "最後の日の夕方、扉の方で太鼓が鳴った。閉める合図だ。",
+        "水を戻せと言われて、戻した。下の道には、まだ列の尻尾がいた。"
+      ]
+    },
+    {
+      "name": "宝箱（油の壺）",
+      "type": "raw",
+      "x": 46,
+      "y": 26,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                332,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]油の壺×2を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "拾い物（苦い根）",
+      "type": "raw",
+      "x": 16,
+      "y": 33,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                199,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[189]苦い根を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "拾い物（薬草）",
+      "type": "raw",
+      "x": 33,
+      "y": 20,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                196,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]薬草を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "溝鼠（緑・群れ）",
+      "type": "raw",
+      "x": 8,
+      "y": 16,
+      "note": "<hai_enemy:506,green><hai_enemy_chase:3><hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "溝鼠（緑・群れ）",
+      "type": "raw",
+      "x": 16,
+      "y": 20,
+      "note": "<hai_enemy:506,green><hai_enemy_chase:3><hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "白い蛭（緑）",
+      "type": "raw",
+      "x": 6,
+      "y": 28,
+      "note": "<hai_enemy:507,green><hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "白い蛭（緑）",
+      "type": "raw",
+      "x": 22,
+      "y": 7,
+      "note": "<hai_enemy:507,green><hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "扉の外の者（黄・往復）",
+      "type": "raw",
+      "x": 34,
+      "y": 15,
+      "note": "<hai_enemy:508,yellow><hai_enemy_chase:4>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "扉の外の者（黄）",
+      "type": "raw",
+      "x": 30,
+      "y": 34,
+      "note": "<hai_enemy:508,yellow><hai_enemy_chase:4>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "水番の亡骸（黄）",
+      "type": "raw",
+      "x": 44,
+      "y": 29,
+      "note": "<hai_enemy:509,yellow><hai_enemy_chase:3>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    }
+  ]
+}
