@@ -757,31 +757,31 @@
             "pattern": 0
           },
           "priorityType": 1,
+          "trigger": 1,
           "walkAnime": false,
           "list": [
             {
-              "code": 101,
+              "code": 250,
               "indent": 0,
               "parameters": [
-                "",
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
                 0,
-                0,
+                100,
+                45,
+                4,
                 2,
-                ""
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "下りの石段は、途中から水に沈んでいる。"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "水が引けば、その先へ行けそうだ。"
+                0
               ]
             },
             {

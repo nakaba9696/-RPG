@@ -1,0 +1,495 @@
+{
+  "_説明": "W9（#157）：湖の淵（前の世界の沼主の淵の形。world.md 5.5 ボス 沼主・弱みの手がかりは葦の刈り跡）。北→071。沼主を倒すと（スイッチ 503）淵の水が引き、底の排水口→100。",
+  "mapId": 73,
+  "name": "湖の淵",
+  "displayName": "湖の淵",
+  "legend": "marsh",
+  "tilesetId": 15,
+  "note": "<hai_tone:-51,-34,-51,85>\n<hai_fog:70>",
+  "bgm": {
+    "name": "Dungeon1",
+    "volume": 65,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "River",
+    "volume": 35,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "PoisonSwamp",
+    "battleback2Name": "PoisonSwamp"
+  },
+  "deco": {
+    "k": {
+      "name": "草A",
+      "z2": "B:152"
+    },
+    "K": {
+      "name": "草B",
+      "z2": "B:153"
+    },
+    "l": {
+      "name": "枯れ草",
+      "z2": "B:239"
+    },
+    "i": {
+      "name": "舫いの杭（ビット。通れない）",
+      "z2": "B:130"
+    },
+    "舟": {
+      "name": "倒れた舟（仮の絵：倒木。通れない）",
+      "z2": "B:164"
+    },
+    "g": {
+      "name": "墓A（通れない）",
+      "z2": "B:142"
+    },
+    "G": {
+      "name": "墓B（通れない）",
+      "z2": "B:143"
+    },
+    "O": {
+      "name": "焚き火の跡（薪。通れない）",
+      "z2": "B:170"
+    },
+    "p": {
+      "name": "岩A（通れない）",
+      "z2": "B:159"
+    },
+    "b": {
+      "name": "樽（通れない）",
+      "z2": "B:141"
+    },
+    "v": {
+      "name": "桶（通れない）",
+      "z2": "B:145"
+    },
+    "z": {
+      "name": "壺（通れない）",
+      "z2": "B:144"
+    },
+    "c": {
+      "name": "木箱（通れない）",
+      "z2": "B:181"
+    },
+    "t": {
+      "name": "立て札（通れない）",
+      "z2": "B:137"
+    },
+    "x": {
+      "name": "骸骨（通れない）",
+      "z2": "D:242"
+    }
+  },
+  "stamps": [],
+  "events": [
+    {
+      "name": "北の道（湖の家へ）",
+      "type": "transfer",
+      "x": 12,
+      "y": 0,
+      "to": [
+        71,
+        5,
+        34,
+        "up"
+      ]
+    },
+    {
+      "name": "北の道（湖の家へ）",
+      "type": "transfer",
+      "x": 13,
+      "y": 0,
+      "to": [
+        71,
+        6,
+        34,
+        "up"
+      ]
+    },
+    {
+      "name": "結界（湖の淵の手前）",
+      "type": "raw",
+      "x": 16,
+      "y": 3,
+      "note": "<hai_warp:湖の淵の手前>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true
+        }
+      ]
+    },
+    {
+      "name": "思念 R3-08 火打ち石の子",
+      "type": "text",
+      "x": 7,
+      "y": 5,
+      "note": "<hai_thought:R3-08>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "兄ちゃんが刈って、おれが火をつける番だった。",
+        "火打ち石がしめってて、つかなかった。",
+        "兄ちゃん、ちゃんと逃げたかな。"
+      ]
+    },
+    {
+      "name": "焦げた刈り跡",
+      "type": "text",
+      "x": 19,
+      "y": 4,
+      "lines": [
+        "淵の縁の葦が刈り取られ、切り口が焦げている。",
+        "焦げた所だけ、泥に這った跡が無い。"
+      ]
+    },
+    {
+      "name": "沼主",
+      "type": "raw",
+      "x": 13,
+      "y": 6,
+      "note": "<hai_w9:倒したあとは 2 ページ目が淵の底の排水口（100 へ）>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "淵の水が、ゆっくり盛り上がった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "葦の根を体じゅうに絡ませたものが、岸の方を向いた。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Boss",
+                "bossBattle",
+                "ボス戦",
+                {
+                  "troopId": "511",
+                  "escapeMapId": "71",
+                  "escapeX": "5",
+                  "escapeY": "34",
+                  "escapeDirection": "8"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "troopId = 511"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "escapeMapId = 71"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "escapeX = 5"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "escapeY = 34"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "escapeDirection = 8"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "Hai.Boss.lastResult() === 0"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "主は葦の根に絡まったまま、淵の底へ沈んでいった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "水が、底の口へ吸い込まれていく。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Water1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 128,
+              "indent": 1,
+              "parameters": [
+                502,
+                0,
+                0,
+                1,
+                false
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "\\I[128]沼主の鱗を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 503,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:44"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "水の引いた淵の底に、石を組んだ口が開いている。梯子が下へ続いている。"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "下りる",
+                  "やめる"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "下りる"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 1,
+              "parameters": [
+                0,
+                100,
+                5,
+                4,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "引いた淵の底 2",
+      "type": "raw",
+      "x": 13,
+      "y": 7,
+      "note": "",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 503,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "D:32"
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "引いた淵の底 3",
+      "type": "raw",
+      "x": 13,
+      "y": 8,
+      "note": "",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 503,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "D:32"
+          },
+          "priorityType": 0
+        }
+      ]
+    }
+  ]
+}
