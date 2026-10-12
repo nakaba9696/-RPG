@@ -1,0 +1,1937 @@
+{
+  "_説明": "W8（#155）：記録院・書架（docs/world.md 5.2・6.4・mapdesign 8 章の番号錠）。書架の迷路と輪、写字室（ディルの記憶 2・写しの台帳・錠の数の手がかり 2 本）、閲覧の小部屋（鐘の古い記録）、北の錠の戸（429）→082、南→080、南西の隠し扉の先の赤い宝箱（封蝋の指輪）。",
+  "mapId": 81,
+  "name": "記録院・書架",
+  "displayName": "記録院",
+  "legend": "library",
+  "tilesetId": 16,
+  "deco": {
+    "1": {
+      "name": "石の柱B（下。通れない）",
+      "z2": "B:106"
+    },
+    "2": {
+      "name": "折れた石の柱（通れない）",
+      "z2": "B:114"
+    },
+    "3": {
+      "name": "石碑A（通れない）",
+      "z2": "B:64"
+    },
+    "4": {
+      "name": "壊れた像（通れない）",
+      "z2": "B:91"
+    },
+    "5": {
+      "name": "亀裂B（壁に）",
+      "z2": "B:187"
+    },
+    "7": {
+      "name": "壁の苔（壁に）",
+      "z2": "B:1"
+    },
+    "8": {
+      "name": "壁のツタ（壁に）",
+      "z2": "B:184"
+    },
+    "k": {
+      "name": "砂利A（通れる）",
+      "z2": "B:32"
+    },
+    "K": {
+      "name": "砂利B（通れる）",
+      "z2": "B:33"
+    },
+    "r": {
+      "name": "瓦礫A（通れない）",
+      "z2": "B:120"
+    },
+    "R": {
+      "name": "苔の瓦礫（通れない）",
+      "z2": "B:121"
+    },
+    "u": {
+      "name": "瓦礫D（土。通れない）",
+      "z2": "B:124"
+    },
+    "x": {
+      "name": "骸骨A（通れない）",
+      "z2": "B:242"
+    },
+    "X": {
+      "name": "骸骨B（通れない）",
+      "z2": "B:250"
+    },
+    "q": {
+      "name": "瓦礫の上の骸骨（通れない）",
+      "z2": "B:120",
+      "z3": "B:242"
+    },
+    "o": {
+      "name": "岩B（通れない）",
+      "z2": "B:41"
+    },
+    "e": {
+      "name": "端材（通れない）",
+      "z2": "B:125"
+    },
+    "w": {
+      "name": "蜘蛛の巣（壁に）",
+      "z2": "B:176"
+    },
+    "b": {
+      "name": "樽A（通れない）",
+      "z2": "B:238"
+    },
+    "B": {
+      "name": "樽B（廃墟。通れない）",
+      "z2": "B:239"
+    },
+    "c": {
+      "name": "木箱A（通れない）",
+      "z2": "B:220"
+    },
+    "C": {
+      "name": "木箱C（廃墟。通れない）",
+      "z2": "B:222"
+    },
+    "p": {
+      "name": "壺A（廃墟。通れない）",
+      "z2": "B:223"
+    },
+    "P": {
+      "name": "壺B（通れない）",
+      "z2": "B:231"
+    },
+    "t": {
+      "name": "テーブル（廃墟。通れない）",
+      "z2": "B:243"
+    },
+    "h": {
+      "name": "椅子（廃墟）",
+      "z2": "B:251"
+    },
+    "l": {
+      "name": "ロープ（通れない）",
+      "z2": "B:234"
+    },
+    "g": {
+      "name": "土砂A（通れない）",
+      "z2": "B:216"
+    },
+    "j": {
+      "name": "鉄格子（上）",
+      "z2": "B:244"
+    },
+    "J": {
+      "name": "鉄格子（下）",
+      "z2": "B:252"
+    },
+    "y": {
+      "name": "粗末なベッド（通れない）",
+      "z2": "C:150"
+    },
+    "Y": {
+      "name": "むしろの寝床",
+      "z2": "C:151"
+    },
+    "z": {
+      "name": "倒れた棚（通れない）",
+      "z2": "C:192"
+    },
+    "Z": {
+      "name": "本棚A（下。通れない）",
+      "z2": "C:205"
+    },
+    "n": {
+      "name": "椅子（Dungeon_C）",
+      "z2": "C:157"
+    },
+    "N": {
+      "name": "テーブル（Dungeon_C）",
+      "z2": "C:149"
+    },
+    "f": {
+      "name": "積まれた木箱（通れない）",
+      "z2": "C:228"
+    },
+    "F": {
+      "name": "積まれた木箱B",
+      "z2": "C:229"
+    },
+    "v": {
+      "name": "クローゼット（通れない）",
+      "z2": "C:178"
+    },
+    "V": {
+      "name": "チェスト（通れない）",
+      "z2": "C:176"
+    },
+    "a": {
+      "name": "線路（横）",
+      "z2": "C:105"
+    },
+    "A": {
+      "name": "線路（縦）",
+      "z2": "C:104"
+    },
+    "d": {
+      "name": "燭台（通れない）",
+      "z2": "E:186"
+    },
+    "D": {
+      "name": "長机（教会机。通れない）",
+      "z2": "E:193"
+    },
+    "i": {
+      "name": "紙の束（通れない）",
+      "z2": "E:80"
+    },
+    "m": {
+      "name": "巻物の棚（通れない）",
+      "z2": "D:185"
+    },
+    "M": {
+      "name": "焼けた書架（通れない）",
+      "z2": "D:175"
+    },
+    "s": {
+      "name": "散った紙（通れない）",
+      "z2": "E:72"
+    },
+    "S": {
+      "name": "積んだ本（通れない）",
+      "z2": "E:68"
+    },
+    "T": {
+      "name": "書見台（通れない）",
+      "z2": "E:194"
+    },
+    "Q": {
+      "name": "女神像（通れない）",
+      "z2": "E:177"
+    }
+  },
+  "stamps": [],
+  "note": "<hai_tone:17,0,-34,68>",
+  "bgm": {
+    "name": "Castle1",
+    "volume": 55,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Clock",
+    "volume": 30,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "DecorativeTile1",
+    "battleback2Name": "Room2"
+  },
+  "chars": {},
+  "scatter": [
+    {
+      "on": ".",
+      "tiles": [
+        "B:32",
+        "B:33"
+      ],
+      "rate": 0.08,
+      "seed": 810
+    },
+    {
+      "on": ";",
+      "tiles": [
+        "B:32",
+        "B:33",
+        "B:120"
+      ],
+      "rate": 0.08,
+      "seed": 811,
+      "solid": true
+    },
+    {
+      "on": ",",
+      "tiles": [
+        "B:32",
+        "B:33"
+      ],
+      "rate": 0.08,
+      "seed": 812
+    }
+  ],
+  "events": [
+    {
+      "name": "南の廊下（前庭へ）",
+      "type": "transfer",
+      "x": 28,
+      "y": 44,
+      "to": [
+        80,
+        18,
+        3,
+        "down"
+      ]
+    },
+    {
+      "name": "南の廊下（前庭へ）",
+      "type": "transfer",
+      "x": 29,
+      "y": 44,
+      "to": [
+        80,
+        19,
+        3,
+        "down"
+      ]
+    },
+    {
+      "name": "南の廊下（前庭へ）",
+      "type": "transfer",
+      "x": 30,
+      "y": 44,
+      "to": [
+        80,
+        20,
+        3,
+        "down"
+      ]
+    },
+    {
+      "name": "南の廊下（前庭へ）",
+      "type": "transfer",
+      "x": 31,
+      "y": 44,
+      "to": [
+        80,
+        21,
+        3,
+        "down"
+      ]
+    },
+    {
+      "name": "封じた書架の錠の戸",
+      "type": "raw",
+      "x": 30,
+      "y": 3,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door2",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鉄の戸に、数を三つ合わせる錠が付いている。"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "数を合わせる",
+                  "やめる"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "数を合わせる"
+              ]
+            },
+            {
+              "code": 103,
+              "indent": 1,
+              "parameters": [
+                403,
+                3
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                1,
+                403,
+                0,
+                429,
+                0
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 2,
+              "parameters": [
+                {
+                  "name": "Key",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 2,
+              "parameters": [
+                409,
+                409,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "錠が外れた。戸の向こうは、灯の無い書架だ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 250,
+              "indent": 2,
+              "parameters": [
+                {
+                  "name": "Buzzer1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "錠は動かない。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 409,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Door2",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Door1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                82,
+                20,
+                27,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "記憶 ディル 2",
+      "type": "text",
+      "x": 11,
+      "y": 5,
+      "note": "<hai_memory:7,2>",
+      "image": {
+        "tileId": "E:194"
+      },
+      "lines": [
+        [
+          "学者の書いたものを、清書するのが俺の仕事だった。",
+          "ある頃から、学者の字が大きくなりだした。一頁に一字とか。"
+        ],
+        [
+          "俺はそれも清書した。一頁に一字。きれいにな。",
+          "清書しなきゃよかったかって？　知らないよ。"
+        ]
+      ]
+    },
+    {
+      "name": "拾い物（写しの台帳）",
+      "type": "raw",
+      "x": 6,
+      "y": 9,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "tileId": "E:193"
+          },
+          "priorityType": 1,
+          "stepAnime": false,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "写字台の上に、厚い台帳が開いている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "同じ日付の行が、二つ並んでいる。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                424,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[229]写しの台帳を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "思念 R2-18 写字室の同輩",
+      "type": "text",
+      "x": 9,
+      "y": 11,
+      "note": "<hai_thought:R2-18><hai_clue:封じた書架の錠は 4・2・9（記録院の写字室）>",
+      "image": {
+        "characterName": "Damage1",
+        "characterIndex": 0,
+        "direction": 8,
+        "pattern": 1
+      },
+      "lines": [
+        "封じた書架の錠は、四、二、九。",
+        "写しを渡した日の数にしたんだと、学者が笑ってた。",
+        "笑ったのは、それが最後だったな。"
+      ]
+    },
+    {
+      "name": "写字台の書き付け",
+      "type": "text",
+      "x": 4,
+      "y": 9,
+      "lines": [
+        "紙切れに「封じた書架　錠は渡した日の数。声に出さぬこと」。"
+      ]
+    },
+    {
+      "name": "拾い物（鐘の古い記録）",
+      "type": "raw",
+      "x": 52,
+      "y": 8,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "tileId": "E:193"
+          },
+          "priorityType": 1,
+          "stepAnime": false,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "机の上の箱に、古い綴りが一冊。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "表紙に「鋳造の記」。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                425,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[121]鐘の古い記録を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "思念 R2-19 鐘の記録を写した老学者",
+      "type": "text",
+      "x": 49,
+      "y": 11,
+      "note": "<hai_thought:R2-19>",
+      "image": {
+        "characterName": "Damage2",
+        "characterIndex": 4,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "頂の鐘と四つの鐘は、森の人の歌を元に銘を作った。そう記録にある。",
+        "歌の訳を三度書いて、三度消した。",
+        "訳すと、歌が別のものになる。森の人は、そう言って訳させなかった。"
+      ]
+    },
+    {
+      "name": "思念 R2-20 迷った見習い",
+      "type": "text",
+      "x": 33,
+      "y": 23,
+      "note": "<hai_thought:R2-20>",
+      "image": {
+        "characterName": "Damage1",
+        "characterIndex": 1,
+        "direction": 6,
+        "pattern": 1
+      },
+      "lines": [
+        "書架の並びは、目録の順だと聞いた。目録は燃えた。",
+        "だから壁に手をついて歩けと、先輩が言った。",
+        "先輩も、手をついて歩いてた。"
+      ]
+    },
+    {
+      "name": "焼けた書架",
+      "type": "text",
+      "x": 51,
+      "y": 24,
+      "lines": [
+        "書架の半分が焦げている。焦げた所の本だけ、題が削ってある。"
+      ]
+    },
+    {
+      "name": "南の間の掲示",
+      "type": "text",
+      "x": 25,
+      "y": 35,
+      "lines": [
+        "掲示に「奥の書架、封鎖。院長の許しなき者、入るべからず」。",
+        "院長の名の所が、空いている。"
+      ]
+    },
+    {
+      "name": "赤い宝箱（封蝋の指輪）",
+      "type": "raw",
+      "x": 3,
+      "y": 40,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 128,
+              "indent": 0,
+              "parameters": [
+                424,
+                0,
+                0,
+                1,
+                false
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[145]封蝋の指輪を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（秘薬）",
+      "type": "raw",
+      "x": 4,
+      "y": 41,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                198,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[179]秘薬を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（霊水）",
+      "type": "raw",
+      "x": 55,
+      "y": 12,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                144,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]霊水を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（解毒草）",
+      "type": "raw",
+      "x": 3,
+      "y": 13,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                142,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]解毒草 ×2を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（鉄くず）",
+      "type": "raw",
+      "x": 42,
+      "y": 31,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Coin",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 125,
+              "indent": 0,
+              "parameters": [
+                0,
+                0,
+                50
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鉄くずを 50 手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（気付け薬）",
+      "type": "raw",
+      "x": 37,
+      "y": 5,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                143,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]気付け薬 ×2を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（毒消し）",
+      "type": "raw",
+      "x": 51,
+      "y": 34,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                197,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[177]毒消し ×2を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "紙魚（緑）",
+      "type": "raw",
+      "x": 24,
+      "y": 38,
+      "note": "<hai_enemy:427,green>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "インクの影（緑）",
+      "type": "raw",
+      "x": 20,
+      "y": 25,
+      "note": "<hai_enemy:428,green>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "黙読者（黄・往復）",
+      "type": "raw",
+      "x": 30,
+      "y": 6,
+      "note": "<hai_enemy:429,yellow>\n<hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 7,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 4,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "写字の手（黄）",
+      "type": "raw",
+      "x": 8,
+      "y": 25,
+      "note": "<hai_enemy:430,yellow>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 4,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "写字の手（黄）",
+      "type": "raw",
+      "x": 51,
+      "y": 22,
+      "note": "<hai_enemy:430,yellow>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 4,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 1,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 4,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "黙読者（黄）",
+      "type": "raw",
+      "x": 40,
+      "y": 17,
+      "note": "<hai_enemy:429,yellow>\n<hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 7,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "書架の番人（赤）",
+      "type": "raw",
+      "x": 23,
+      "y": 28,
+      "note": "<hai_enemy:431,red>\n<hai_enemy_chase:2>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 0,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "紙魚（緑）",
+      "type": "raw",
+      "x": 48,
+      "y": 10,
+      "note": "<hai_enemy:427,green>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    }
+  ]
+}

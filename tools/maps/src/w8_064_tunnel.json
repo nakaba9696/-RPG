@@ -1,0 +1,964 @@
+{
+  "_説明": "W8（#155）：荷運びの抜け道（docs/world.md 5.2・H22）。西の上り階段→063、東の閂の戸→033 営倉・監房（H22。スイッチ 404 で開く。033 の側の戸も同じスイッチ）。",
+  "mapId": 64,
+  "name": "荷運びの抜け道",
+  "displayName": "荷運びの抜け道",
+  "legend": "dungeon",
+  "tilesetId": 14,
+  "bgm": {
+    "name": "Dungeon7",
+    "volume": 60,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Drips",
+    "volume": 35,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Stone1",
+    "battleback2Name": "Stone1"
+  },
+  "deco": {
+    "1": {
+      "name": "石の柱B（下。通れない）",
+      "z2": "B:106"
+    },
+    "2": {
+      "name": "折れた石の柱（通れない）",
+      "z2": "B:114"
+    },
+    "3": {
+      "name": "石碑A（通れない）",
+      "z2": "B:64"
+    },
+    "4": {
+      "name": "壊れた像（通れない）",
+      "z2": "B:91"
+    },
+    "5": {
+      "name": "亀裂B（壁に）",
+      "z2": "B:187"
+    },
+    "7": {
+      "name": "壁の苔（壁に）",
+      "z2": "B:1"
+    },
+    "8": {
+      "name": "壁のツタ（壁に）",
+      "z2": "B:184"
+    },
+    "k": {
+      "name": "砂利A（通れる）",
+      "z2": "B:32"
+    },
+    "K": {
+      "name": "砂利B（通れる）",
+      "z2": "B:33"
+    },
+    "r": {
+      "name": "瓦礫A（通れない）",
+      "z2": "B:120"
+    },
+    "R": {
+      "name": "苔の瓦礫（通れない）",
+      "z2": "B:121"
+    },
+    "u": {
+      "name": "瓦礫D（土。通れない）",
+      "z2": "B:124"
+    },
+    "x": {
+      "name": "骸骨A（通れない）",
+      "z2": "B:242"
+    },
+    "X": {
+      "name": "骸骨B（通れない）",
+      "z2": "B:250"
+    },
+    "q": {
+      "name": "瓦礫の上の骸骨（通れない）",
+      "z2": "B:120",
+      "z3": "B:242"
+    },
+    "o": {
+      "name": "岩B（通れない）",
+      "z2": "B:41"
+    },
+    "e": {
+      "name": "端材（通れない）",
+      "z2": "B:125"
+    },
+    "w": {
+      "name": "蜘蛛の巣（壁に）",
+      "z2": "B:176"
+    },
+    "b": {
+      "name": "樽A（通れない）",
+      "z2": "B:238"
+    },
+    "B": {
+      "name": "樽B（廃墟。通れない）",
+      "z2": "B:239"
+    },
+    "c": {
+      "name": "木箱A（通れない）",
+      "z2": "B:220"
+    },
+    "C": {
+      "name": "木箱C（廃墟。通れない）",
+      "z2": "B:222"
+    },
+    "p": {
+      "name": "壺A（廃墟。通れない）",
+      "z2": "B:223"
+    },
+    "P": {
+      "name": "壺B（通れない）",
+      "z2": "B:231"
+    },
+    "t": {
+      "name": "テーブル（廃墟。通れない）",
+      "z2": "B:243"
+    },
+    "h": {
+      "name": "椅子（廃墟）",
+      "z2": "B:251"
+    },
+    "l": {
+      "name": "ロープ（通れない）",
+      "z2": "B:234"
+    },
+    "g": {
+      "name": "土砂A（通れない）",
+      "z2": "B:216"
+    },
+    "j": {
+      "name": "鉄格子（上）",
+      "z2": "B:244"
+    },
+    "J": {
+      "name": "鉄格子（下）",
+      "z2": "B:252"
+    },
+    "y": {
+      "name": "粗末なベッド（通れない）",
+      "z2": "C:150"
+    },
+    "Y": {
+      "name": "むしろの寝床",
+      "z2": "C:151"
+    },
+    "z": {
+      "name": "倒れた棚（通れない）",
+      "z2": "C:192"
+    },
+    "Z": {
+      "name": "本棚A（下。通れない）",
+      "z2": "C:205"
+    },
+    "n": {
+      "name": "椅子（Dungeon_C）",
+      "z2": "C:157"
+    },
+    "N": {
+      "name": "テーブル（Dungeon_C）",
+      "z2": "C:149"
+    },
+    "f": {
+      "name": "積まれた木箱（通れない）",
+      "z2": "C:228"
+    },
+    "F": {
+      "name": "積まれた木箱B",
+      "z2": "C:229"
+    },
+    "v": {
+      "name": "クローゼット（通れない）",
+      "z2": "C:178"
+    },
+    "V": {
+      "name": "チェスト（通れない）",
+      "z2": "C:176"
+    },
+    "a": {
+      "name": "線路（横）",
+      "z2": "C:105"
+    },
+    "A": {
+      "name": "線路（縦）",
+      "z2": "C:104"
+    },
+    "d": {
+      "name": "燭台（通れない）",
+      "z2": "E:186"
+    },
+    "D": {
+      "name": "長机（教会机。通れない）",
+      "z2": "E:193"
+    },
+    "i": {
+      "name": "紙の束（通れない）",
+      "z2": "E:80"
+    },
+    "m": {
+      "name": "巻物の棚（通れない）",
+      "z2": "D:185"
+    },
+    "M": {
+      "name": "焼けた書架（通れない）",
+      "z2": "D:175"
+    },
+    "s": {
+      "name": "散った紙（通れない）",
+      "z2": "E:72"
+    },
+    "S": {
+      "name": "積んだ本（通れない）",
+      "z2": "E:68"
+    },
+    "T": {
+      "name": "書見台（通れない）",
+      "z2": "E:194"
+    },
+    "Q": {
+      "name": "女神像（通れない）",
+      "z2": "E:177"
+    }
+  },
+  "stamps": [],
+  "note": "<hai_tone:-68,-68,-51,85>\n<hai_dark:4>",
+  "chars": {},
+  "scatter": [
+    {
+      "on": ",",
+      "tiles": [
+        "B:32",
+        "B:33"
+      ],
+      "rate": 0.1,
+      "seed": 640
+    }
+  ],
+  "events": [
+    {
+      "name": "上り階段（村の祠へ）",
+      "type": "transfer",
+      "x": 1,
+      "y": 6,
+      "to": [
+        63,
+        5,
+        10,
+        "right"
+      ]
+    },
+    {
+      "name": "閂の戸（営倉へ。H22）",
+      "type": "raw",
+      "x": 43,
+      "y": 6,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "突き当たりに、内から閂を掛けた戸がある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "閂には、営倉の焼き印。"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "閂を外す",
+                  "やめる"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "閂を外す"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Open2",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                404,
+                404,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "閂を外した。戸の向こうは、石の房の並ぶ廊下だ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 404,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 6,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                33,
+                8,
+                9,
+                6,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "閂の戸（営倉へ。H22）",
+      "type": "raw",
+      "x": 43,
+      "y": 7,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "突き当たりに、内から閂を掛けた戸がある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "閂には、営倉の焼き印。"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "閂を外す",
+                  "やめる"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "閂を外す"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Open2",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                404,
+                404,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "閂を外した。戸の向こうは、石の房の並ぶ廊下だ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 404,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 6,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                33,
+                8,
+                9,
+                6,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "思念 R2-13 荷車引き",
+      "type": "text",
+      "x": 13,
+      "y": 5,
+      "note": "<hai_thought:R2-13>",
+      "image": {
+        "characterName": "Damage2",
+        "characterIndex": 1,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "祠の分の麦を、この道で営倉へ運んだ。砦の兵の口に入る。",
+        "帰りの荷車には、営倉から出された者が乗る。",
+        "乗った者が祠の帳面に載ったかは、聞かなかった。"
+      ]
+    },
+    {
+      "name": "荷札",
+      "type": "text",
+      "x": 11,
+      "y": 5,
+      "lines": [
+        "木箱に荷札。「麦　祠より　営倉へ」。",
+        "裏に「戻り　二名」と書き足してある。"
+      ]
+    },
+    {
+      "name": "轍",
+      "type": "text",
+      "x": 12,
+      "y": 8,
+      "lines": [
+        "床石に、荷車の轍が深く刻まれている。東へ続く。"
+      ]
+    },
+    {
+      "name": "拾い物（油の壺）",
+      "type": "raw",
+      "x": 33,
+      "y": 10,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "tileId": "B:223"
+          },
+          "priorityType": 1,
+          "stepAnime": false,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "待避所の隅に、口を縛った油の壺。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                332,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]油の壺を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（苦い根）",
+      "type": "raw",
+      "x": 34,
+      "y": 11,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                199,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[189]苦い根 ×2を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "灰鼬（緑・往復）",
+      "type": "raw",
+      "x": 20,
+      "y": 10,
+      "note": "<hai_enemy:421,green>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 3,
+          "moveFrequency": 4,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "祠へ歩く者（黄）",
+      "type": "raw",
+      "x": 36,
+      "y": 6,
+      "note": "<hai_enemy:423,yellow>\n<hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 2,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    }
+  ]
+}
