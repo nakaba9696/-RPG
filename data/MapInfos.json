@@ -914,5 +914,8 @@ null,
 {"id":912,"expanded":false,"name":"T_ボスの試験場","order":29,"parentId":0,"scrollX":0,"scrollY":0},
 {"id":913,"expanded":false,"name":"T_施設","order":28,"parentId":0,"scrollX":0,"scrollY":0},
 {"id":914,"expanded":false,"name":"T_来歴","order":30,"parentId":0,"scrollX":0,"scrollY":0},
-{"id":915,"expanded":false,"name":"T_置き物の道具の見本","order":49,"parentId":0,"scrollX":0,"scrollY":0}
+{"id":915,"expanded":false,"name":"T_置き物の道具の見本","order":49,"parentId":0,"scrollX":0,"scrollY":0},
+{"id":916,"expanded":false,"name":"T_地下都市の見本","order":50,"parentId":0,"scrollX":0,"scrollY":0},
+{"id":917,"expanded":false,"name":"T_鋳物場の見本","order":51,"parentId":0,"scrollX":0,"scrollY":0},
+{"id":918,"expanded":false,"name":"T_頂の鐘楼の見本","order":52,"parentId":0,"scrollX":0,"scrollY":0}
 ]

@@ -1,0 +1,33 @@
+{
+  "_説明": "V4 の見本（T の帯 900–949 のうち 918 を V4 が使う）。製品のマップからは行けない。タイルセット 21、凡例 rampart、メモ欄・曲・戦闘の背景は tools/maps/looks.json の「山の頂の鐘楼」と同じ（tests/v_regions.mjs が見る）。",
+  "mapId": 918,
+  "name": "T_頂の鐘楼の見本",
+  "displayName": "頂の鐘楼の見本",
+  "legend": "rampart",
+  "tilesetId": 21,
+  "note": "<hai_tone:-17,-17,0,119>\n<hai_parallax:DarkClouds,1,0>\n<hai_ash:6>\n<hai_fog:60,0.6,0>",
+  "bgm": {
+    "name": "Scene8",
+    "volume": 55,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Wind5",
+    "volume": 45,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Clouds",
+    "battleback2Name": "Tower"
+  },
+  "chars": {
+    "S": {
+      "name": "テストの開始地点",
+      "as": "."
+    }
+  },
+  "events": []
+}
