@@ -1,5 +1,5 @@
 {
-  "_説明": "地域ごとの見た目の推し（V4。新しい世界「最後の鐘」）。W がマップを作るとき、文字マップの設定（tools/maps/src/<名前>.json）の tilesetId・legend・note・bgm・bgs・fields（戦闘の背景）に写す。中身の説明は docs/look.md 3 章。places の先頭がその地域の見本（tests/v_regions.mjs が sample のマップで撮る）。持ち主がテストプレイで決め直してよい。",
+  "_説明": "地域ごとの見た目の推し（V4・V5。新しい世界「最後の鐘」）。W がマップを作るとき、文字マップの設定（tools/maps/src/<名前>.json）の tilesetId・legend・note・bgm・bgs・fields（戦闘の背景）に写す。中身の説明は docs/look.md 3 章。places の先頭がその地域の見本（tests/v_regions.mjs が sample のマップで撮る）。持ち主がテストプレイで決め直してよい。",
   "regions": [
     {
       "key": "fort",
@@ -122,6 +122,73 @@
       "places": [
         { "maps": "015", "name": "山の頂の鐘楼", "tilesetId": 21, "legend": "rampart", "note": "<hai_tone:-17,-17,0,119>\n<hai_parallax:DarkClouds,1,0>\n<hai_ash:6>\n<hai_fog:60,0.6,0>", "bgm": { "name": "Scene8", "volume": 55 }, "bgs": { "name": "Wind5", "volume": 45 }, "battleback": ["Clouds", "Tower"] }
       ]
+    },
+    {
+      "key": "highway",
+      "name": "麦の街道と関所",
+      "maps": "110–116",
+      "sample": 920,
+      "places": [
+        { "maps": "110", "name": "関所の道（広い外。飢えの列の跡）", "tilesetId": 24, "legend": "highway", "note": "<hai_tone:-17,-17,-34,136>", "bgm": { "name": "Field1", "volume": 60 }, "bgs": { "name": "Wind2", "volume": 30 }, "battleback": ["Road1", "Grassland"] },
+        { "maps": "111", "name": "麦の村（夕べの会の集落）", "tilesetId": 24, "legend": "highway", "note": "<hai_tone:0,-9,-34,68>", "bgm": { "name": "Scene5", "volume": 55 }, "bgs": { "name": "Wind1", "volume": 20 }, "battleback": ["DirtField", "Grassland"] },
+        { "maps": "112", "name": "関所の塔", "tilesetId": 11, "legend": "dungeon", "note": "<hai_tone:-34,-34,-17,85>", "bgm": { "name": "Castle1", "volume": 55 }, "bgs": { "name": "Wind2", "volume": 25 }, "battleback": ["Castle2", "Castle2"] },
+        { "maps": "113", "name": "街道の祠", "tilesetId": 14, "legend": "dungeon", "note": "<hai_tone:-34,-51,-51,85>", "bgm": { "name": "Scene9", "volume": 50 }, "bgs": null, "battleback": ["Stone1", "Temple"] },
+        { "maps": "115・116", "name": "崖の小道・崖の上の見晴らし", "tilesetId": 24, "legend": "highway", "note": "<hai_tone:-17,-17,0,102>\n<hai_parallax:Mountains1,0,0>\n<hai_fog:50,0.3,0.05>", "bgm": { "name": "Field1", "volume": 55 }, "bgs": { "name": "Wind4", "volume": 40 }, "battleback": ["Wasteland", "Cliff"] }
+      ]
+    },
+    {
+      "key": "monastery",
+      "name": "鐘守の修道院",
+      "maps": "120–124",
+      "sample": 921,
+      "places": [
+        { "maps": "120", "name": "前庭と回廊", "tilesetId": 25, "legend": "monastery", "note": "<hai_tone:-34,-34,-17,85>", "bgm": { "name": "Scene3", "volume": 55 }, "bgs": { "name": "Wind1", "volume": 25 }, "battleback": ["Cobblestones1", "Temple"] },
+        { "maps": "121", "name": "写本室と食堂（写本係テオ）", "tilesetId": 25, "legend": "monastery", "note": "<hai_tone:9,-9,-34,51>", "bgm": { "name": "Scene3", "volume": 50 }, "bgs": { "name": "Fire1", "volume": 15 }, "battleback": ["Wood1", "Room2"] },
+        { "maps": "122", "name": "鐘守の塔", "tilesetId": 25, "legend": "monastery", "note": "<hai_tone:-34,-34,-17,102>", "bgm": { "name": "Castle3", "volume": 60 }, "bgs": { "name": "Wind3", "volume": 35 }, "battleback": ["DecorativeTile1", "Tower"] },
+        { "maps": "123", "name": "地下の納骨堂と石工の工房", "tilesetId": 25, "legend": "monastery", "note": "<hai_tone:-68,-68,-51,85>\n<hai_dark:4>", "bgm": { "name": "Dungeon3", "volume": 60 }, "bgs": { "name": "Drips", "volume": 35 }, "battleback": ["Stone1", "Temple"] },
+        { "maps": "124", "name": "裏の坂（記録院の南の坂へ）", "tilesetId": 24, "legend": "highway", "note": "<hai_tone:-17,-17,-17,102>", "bgm": { "name": "Field1", "volume": 55 }, "bgs": { "name": "Wind2", "volume": 30 }, "battleback": ["Road2", "Grassland"] }
+      ]
+    },
+    {
+      "key": "lair",
+      "name": "門叩きの縄張り",
+      "maps": "170–173",
+      "sample": 34,
+      "places": [
+        { "maps": "170", "name": "縄張りの縁（三つの戸口）", "tilesetId": 14, "legend": "dungeon", "note": "<hai_tone:-85,-85,-68,136>\n<hai_fog:90,0.1,0.02>\n<hai_dark:1.5>", "bgm": { "name": "Scene7", "volume": 55 }, "bgs": { "name": "Darkness", "volume": 40 }, "battleback": ["Smoke", "Smoke"] },
+        { "maps": "171", "name": "喰われた者の廊下", "tilesetId": 14, "legend": "dungeon", "note": "<hai_tone:-85,-85,-68,136>\n<hai_fog:60,0.05,0.05>\n<hai_dark:4>", "bgm": { "name": "Scene7", "volume": 55 }, "bgs": { "name": "Darkness", "volume": 40 }, "battleback": ["Smoke", "Smoke"] },
+        { "maps": "172", "name": "塊の間", "tilesetId": 14, "legend": "dungeon", "note": "<hai_tone:-68,-85,-51,119>\n<hai_fog:110,0.05,0>", "bgm": { "name": "Dungeon6", "volume": 65 }, "bgs": { "name": "Darkness", "volume": 30 }, "battleback": ["DemonicWorld", "DemonicWorld"] },
+        { "maps": "173", "name": "戻りの戸口", "tilesetId": 14, "legend": "dungeon", "note": "<hai_tone:-68,-68,-34,68>\n<hai_fog:40>", "bgm": { "name": "Scene2", "volume": 50 }, "bgs": { "name": "Darkness", "volume": 25 }, "battleback": null }
+      ]
+    },
+    {
+      "key": "heights",
+      "name": "境山の高み",
+      "maps": "180–183",
+      "sample": 918,
+      "places": [
+        { "maps": "180", "name": "灰の斜面（広い外）", "tilesetId": 21, "legend": "rampart", "note": "<hai_tone:-34,-34,-17,119>\n<hai_parallax:DarkClouds,1,0>\n<hai_ash:5>", "bgm": { "name": "Field4", "volume": 60 }, "bgs": { "name": "Wind5", "volume": 45 }, "battleback": ["Wasteland", "Cliff"] },
+        { "maps": "181", "name": "鐘守の宿坊（氷室を含む）", "tilesetId": 25, "legend": "monastery", "note": "<hai_tone:-26,-26,-34,85>", "bgm": { "name": "Scene4", "volume": 50 }, "bgs": { "name": "Wind4", "volume": 25 }, "battleback": ["Wood2", "Room1"] },
+        { "maps": "182", "name": "足場の番の間", "tilesetId": 21, "legend": "rampart", "note": "<hai_tone:-34,-34,-17,102>\n<hai_parallax:DarkClouds,1,0>\n<hai_ash:4>", "bgm": { "name": "Dungeon5", "volume": 60 }, "bgs": { "name": "Wind5", "volume": 40 }, "battleback": ["Fort2", "Tower"] },
+        { "maps": "183", "name": "鐘楼の根", "tilesetId": 21, "legend": "rampart", "note": "<hai_tone:-51,-51,-34,85>", "bgm": { "name": "Scene8", "volume": 50 }, "bgs": { "name": "Wind4", "volume": 35 }, "battleback": ["Stone2", "Tower"] }
+      ]
     }
-  ]
+  ],
+  "stamps": {
+    "_説明": "置き物のスタンプ（T10 の道具。tools/maps/README.md）。マップの設定の stamps に、左上の文字（at）を足して写す。tilesets はそのまま使えるタイルセット（B〜E の画像が同じ）。見本のマップ 920・921 が使う（tests/v_regions.mjs が同じかを見る）。",
+    "tent": {"name": "集落の天幕（天幕A。3×3。下の真ん中が入口）", "tilesets": [12, 15, 19, 20, 21, 24], "tiles": [["B:5", "B:6", "B:7"], ["B:13", "B:14", "B:15"], ["B:21", "B:22", "B:23"]]},
+    "tentRed": {"name": "夕べの会の天幕（天幕B。赤い屋根。3×3。下の真ん中が入口）", "tilesets": [12, 15, 19, 20, 21, 24], "tiles": [["B:29", "B:30", "B:31"], ["B:37", "B:38", "B:39"], ["B:45", "B:46", "B:47"]]},
+    "cart": {"name": "荷車（荷台は丸太の橋（横）、上に干し草と薪。2×1。荷車の絵は同梱に無いので代わり）", "tilesets": [12, 15, 19, 20, 21, 24], "tiles": [["B:81", "B:81"]], "upper": [["B:248", "B:170"]]},
+    "cartSacks": {"name": "捨てた荷車（荷台に麻袋と木箱。2×1）", "tilesets": [24], "tiles": [["B:81", "B:81"]], "upper": [["D:248", "D:224"]]},
+    "churchTable": {"name": "教会机（祭壇。3×2）", "tilesets": [25], "tiles": [["C:184", "C:185", "C:186"], ["C:192", "C:193", "C:194"]]},
+    "goddess": {"name": "鐘を抱く女の像（女神像で代用。1×2）", "tilesets": [25], "tiles": [["C:169"], ["C:177"]]},
+    "bookshelves": {"name": "写本の棚（本棚 3 つ。3×2）", "tilesets": [25], "tiles": [["B:157", "B:158", "B:159"], ["B:165", "B:166", "B:167"]]},
+    "coffin": {"name": "棺（納骨堂。1×2）", "tilesets": [25], "tiles": [["E:86"], ["E:94"]]},
+    "bellFrame": {"name": "空の鐘架（石の柱 2 本と台座。3×2。鐘の絵は同梱に無い）", "tilesets": [25], "tiles": [["B:24", null, "B:24"], ["B:32", "C:173", "B:32"]]}
+  },
+  "scatter": {
+    "_説明": "散らしの推し（マップの設定の scatter に写す。seed はマップごとに変えてよい）。",
+    "wheat": {"name": "麦畑の実った麦（凡例 highway の \" の上）", "on": "\"", "tiles": ["B:172", "B:172", "B:173"], "rate": 0.55, "solid": true},
+    "ash": {"name": "灰だまり（道と石畳に汚れ。z=1）", "on": ".:", "z": 1, "tiles": ["A2:15"], "rate": 0.08}
+  }
 }

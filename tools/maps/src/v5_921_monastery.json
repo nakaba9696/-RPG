@@ -1,0 +1,118 @@
+{
+  "_説明": "V5 の見本（T の帯 900–949 の空き 921）。製品のマップからは行けない。タイルセット 25、凡例 monastery、メモ欄・曲・戦闘の背景は tools/maps/looks.json の「鐘守の修道院」の先頭と同じ、スタンプは looks.json の stamps と同じ（tests/v_regions.mjs が見る）。左上が礼拝堂（祭壇・鐘を抱く像・空の鐘架）、右上が回廊と中庭、左下が写本室、右下が納骨堂。",
+  "mapId": 921,
+  "name": "T_修道院の見本",
+  "displayName": "鐘守の修道院の見本",
+  "legend": "monastery",
+  "tilesetId": 25,
+  "note": "<hai_tone:-34,-34,-17,85>",
+  "bgm": {
+    "name": "Scene3",
+    "volume": 55,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Wind1",
+    "volume": 25,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Cobblestones1",
+    "battleback2Name": "Temple"
+  },
+  "chars": {
+    "S": {
+      "name": "テストの開始地点",
+      "as": "."
+    }
+  },
+  "stamps": [
+    {
+      "at": "A",
+      "name": "教会机（祭壇。3×2）",
+      "tiles": [
+        [
+          "C:184",
+          "C:185",
+          "C:186"
+        ],
+        [
+          "C:192",
+          "C:193",
+          "C:194"
+        ]
+      ]
+    },
+    {
+      "at": "B",
+      "name": "鐘を抱く女の像（女神像で代用。1×2）",
+      "tiles": [
+        [
+          "C:169"
+        ],
+        [
+          "C:177"
+        ]
+      ]
+    },
+    {
+      "at": "C",
+      "name": "空の鐘架（石の柱 2 本と台座。3×2。鐘の絵は同梱に無い）",
+      "tiles": [
+        [
+          "B:24",
+          null,
+          "B:24"
+        ],
+        [
+          "B:32",
+          "C:173",
+          "B:32"
+        ]
+      ]
+    },
+    {
+      "at": "E",
+      "name": "写本の棚（本棚 3 つ。3×2）",
+      "tiles": [
+        [
+          "B:157",
+          "B:158",
+          "B:159"
+        ],
+        [
+          "B:165",
+          "B:166",
+          "B:167"
+        ]
+      ]
+    },
+    {
+      "at": "F",
+      "name": "棺（納骨堂。1×2）",
+      "tiles": [
+        [
+          "E:86"
+        ],
+        [
+          "E:94"
+        ]
+      ]
+    }
+  ],
+  "scatter": [
+    {
+      "on": ".",
+      "z": 1,
+      "tiles": [
+        "A2:15"
+      ],
+      "rate": 0.05,
+      "seed": 4
+    }
+  ],
+  "events": []
+}
