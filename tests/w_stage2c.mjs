@@ -272,7 +272,7 @@ await runTest(async () => {
     const summon = async (name) => {
       await go(HALL, CIRCLE.x, CIRCLE.y, 2);
       const text = (await talk([0, name])).join("\n");
-      check(text.includes(`${name}が目を覚ました。`), `召喚陣で${name}が目を覚まさない ` + JSON.stringify(text));
+      check(text.includes(`${name}が目を開けた。`), `召喚陣で${name}が目を覚まさない ` + JSON.stringify(text));
     };
 
     // ===== 1. 061 → 070 湿地・葦原 =====
@@ -282,7 +282,7 @@ await runTest(async () => {
     await game.shot("reeds-entrance");
     await go(REEDS, SIGN.x + 1, SIGN.y, 4);
     const lume2 = (await talk()).join("\n");
-    check(lume2.includes("北を指す板に「人間の村」") && lume2.includes("魚人の歌が呪いを呼んだ") && lume2.includes("ルメの記憶 2/4「転機」"),
+    check(lume2.includes("北を指す板に「人間の村」") && lume2.includes("魚人の歌が呪いを呼んだ") && lume2.includes("ゼリナの記憶 2/4「転機」"),
       "道標とルメの記憶 2 " + JSON.stringify(lume2));
     await go(REEDS, R29.x, R29.y + 1, 8);
     check((await talk()).join("").includes("回せば、また水は引く"), "R29 の本文");
@@ -322,7 +322,7 @@ await runTest(async () => {
     await arrive(VILLAGE, VILLAGE_ARRIVE.x, VILLAGE_ARRIVE.y);
     await game.shot("village-entrance");
     await go(VILLAGE, LUME1.x, LUME1.y + 1, 8);
-    check((await talk()).join("").includes("ルメの記憶 1/4「生い立ち」"), "ルメの記憶 1");
+    check((await talk()).join("").includes("ゼリナの記憶 1/4「生い立ち」"), "ルメの記憶 1");
     await go(VILLAGE, FANG.x, FANG.y + 1, 8);
     await talk();
     check((await items("i", ITEM.fang)) === 1 && (await hasLore("i", ITEM.fang)), "4 軒目の梁で牙の首飾り（来歴つき）が拾えない");
@@ -356,7 +356,7 @@ await runTest(async () => {
     check((await talk()).join("").includes("さん、いち、に"), "R31 の本文");
     check(await game.eval(() => Hai.Thoughts.hasNote("clue:R31")), "R31 の手がかりがメモに無い");
     await go(VILLAGE, LUME3.x, LUME3.y + 1, 8);
-    check((await talk()).join("").includes("ルメの記憶 3/4「罪か誇り」"), "ルメの記憶 3");
+    check((await talk()).join("").includes("ゼリナの記憶 3/4「罪か誇り」"), "ルメの記憶 3");
     await go(VILLAGE, STAKE.x, STAKE.y - 1, 2);
     check((await talk(["歌う", { number: 123 }])).join("").includes("違う歌のようだ"), "歌の錠に違う数で開いてしまう");
     check(!(await game.call("canPass", STAKE.x, STAKE.y - 1, 2)), "歌の錠を開ける前に板の道へ出られる");
@@ -370,9 +370,9 @@ await runTest(async () => {
     await game.shot("stage-entrance");
     await go(STAGE, LUME.x, LUME.y - 1, 2);
     const body = (await talk([], { 1: "lume-remains" })).join("\n");
-    check(body.includes("……ありがとう。聞いてくれて。") && body.includes("ルメの遺骸を拠点へ送った。"), "ルメの遺骸 " + JSON.stringify(body));
-    const lu = await game.eval(() => ({ sw134: $gameSwitches.value(134), memories: Hai.Companions.memories(8), complete: Hai.Companions.isComplete(8), sw144: $gameSwitches.value(144) }));
-    check(lu.sw134 && lu.memories.length === 4 && lu.complete && lu.sw144, "ルメの遺骸と記憶 4 つ（完全体）" + JSON.stringify(lu));
+    check(body.includes("……ありがとう。聞いてくれて。") && body.includes("名の壁の輪に置けば、この人を呼べる。"), "ルメの遺骸 " + JSON.stringify(body));
+    const lu = await game.eval(() => ({ sw134: $gameSwitches.value(134), memories: Hai.Companions.memories(8), complete: Hai.Companions.isComplete(8), var134: $gameVariables.value(134) }));
+    check(lu.sw134 && lu.memories.length === 4 && lu.complete && lu.var134 === 4, "ルメの遺骸と記憶 4 つ（完全体）" + JSON.stringify(lu));
     await go(STAGE, H27.x, H27.y + 1, 8);
     await inspectPlain();
     check(await game.eval(([x, y]) => Hai.HiddenPassage.isFound(x, y), [H27.x, H27.y]), "H27 の隠し扉が開かない");
@@ -382,8 +382,8 @@ await runTest(async () => {
     await go(STAGE, 13, 1, 8);
     await step(8);
     await arrive(VILLAGE, STAKE.x, STAKE.y - 1);
-    await summon("ルメ");
-    check(await game.eval(() => $gameParty.members().some(a => a.actorId() === 8) && $gameSwitches.value(139)), "ルメが加わらない");
+    await summon("ゼリナ");
+    check(await game.eval(() => $gameParty.members().some(a => a.actorId() === 8) && $gameSwitches.value(141)), "ルメが加わらない");
     console.log(`  沈んだ舞台：ルメの遺骸（記憶 ${JSON.stringify(lu.memories)}、完全体）・H27 → 歌い手の首飾り → 召喚陣でルメが加わった`);
 
     // ===== 4. 073 沼主の淵 =====

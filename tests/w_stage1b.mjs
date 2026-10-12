@@ -127,7 +127,7 @@ await runTest(async () => {
     const body = await talk([], { 0: "ordo-remains" });
     const bodyText = body.join("\n");
     check(bodyText.includes("この梁は俺を覚えている") && bodyText.includes("拠点の召喚陣で呼べそうだ"), "遺骸の本文 " + JSON.stringify(body));
-    check(bodyText.includes("オルドの遺骸を拠点へ送った。"), "遺骸を送った一行が無い " + JSON.stringify(body));
+    check(bodyText.includes("名の壁の輪に置けば、この人を呼べる。"), "遺骸を送った一行が無い " + JSON.stringify(body));
     const remains = await game.eval(([x, y]) => ({
       sw131: $gameSwitches.value(131), found: Hai.Companions.found(), memories: Hai.Companions.memories(5),
       read: Hai.Thoughts.isRead("R12"), gone: !$gameMap.eventsXy(x, y).some(e => e.characterName()),
@@ -141,12 +141,12 @@ await runTest(async () => {
     const summon = await talk([0, 0], { 2: "circle-celes", choice: "circle-choice" });
     const summonText = summon.join("\n");
     check(summonText.includes("見つけたのね") && summonText.includes("［魂を呼ぶ／並びを替える／やめる］"), "召喚陣の説明と選択肢 " + JSON.stringify(summon));
-    check(summonText.includes("オルドが目を覚ました。"), "オルドが目を覚まさない " + JSON.stringify(summon));
+    check(summonText.includes("ブルーノが目を開けた。"), "オルドが目を覚まさない " + JSON.stringify(summon));
     const party = await game.eval(() => ({
-      members: $gameParty.members().map(a => a.actorId()), sw113: $gameSwitches.value(113), sw136: $gameSwitches.value(136),
+      members: $gameParty.members().map(a => a.actorId()), sw113: $gameSwitches.value(113), sw138: $gameSwitches.value(138),
       count: $gameVariables.value(102),
     }));
-    check(JSON.stringify(party.members) === "[1,5]" && party.sw113 && party.sw136 && party.count === 1, "召喚の後のパーティと旗 " + JSON.stringify(party));
+    check(JSON.stringify(party.members) === "[1,5]" && party.sw113 && party.sw138 && party.count === 1, "召喚の後のパーティと旗 " + JSON.stringify(party));
     // 2 度目は説明なしで選択肢から
     const again = await talk([2]);
     check(again.length === 1 && again[0].includes("［魂を呼ぶ／並びを替える／やめる］"), "2 度目の召喚陣 " + JSON.stringify(again));

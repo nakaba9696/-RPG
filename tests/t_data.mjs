@@ -34,6 +34,18 @@ await runTest(async () => {
       `${name}: エディタの状態を除いても差分が残る`);
   }
 
+  // 薄い思念（<hai_faint>）に選択肢を置くと検査が落ちること（Map907 の F01 に選択肢を足した写し）
+  const withChoice = name => {
+    const json = readData(name);
+    if (name !== "Map907.json") return json;
+    const ev = json.events.find(e => e && /<hai_faint:F01>/.test(e.note));
+    const list = ev.pages[0].list;
+    list.splice(list.length - 1, 0, { code: 102, indent: 0, parameters: [["はい", "いいえ"], 1, 0, 2, 0] }, { code: 404, indent: 0, parameters: [] });
+    return json;
+  };
+  const faintProblems = checkAll({ readData: withChoice });
+  check(faintProblems.some(p => p.includes("薄い思念") && p.includes("Map907")), "薄い思念の選択肢を検査が見つけない:\n  " + faintProblems.join("\n  "));
+
   // 直下の package.json は MZ の書いた内容だけ（テストの npm 設定は tests/package.json に置く）
   const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, "package.json"), "utf8"));
   const extra = Object.keys(pkg).filter(k => !MZ_PACKAGE_KEYS.includes(k));

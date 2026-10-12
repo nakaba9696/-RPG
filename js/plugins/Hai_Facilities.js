@@ -1,108 +1,59 @@
 /*:
  * @target MZ
- * @plugindesc 拠点の施設：叡智のオーブと扉の台座、魂の間・創作者の厨房・保管ゲート・理知の間。
+ * @plugindesc 砦の部屋：生き残りが来たら開く。稽古場・食堂・倉・書庫。
  * @author 灰の王国
  * @orderAfter Hai_Items
  * @orderAfter Hai_Craft
  * @orderAfter Hai_Companions
  * @help
- * ■ 叡智のオーブと扉の台座
- *   叡智のオーブ（パラメータ「叡智のオーブ」のアイテム。既定 171）を扉の台座にはめると施設が開く。
- *   どの扉の台座にはめても、開くのは決まった順（魂の間 → 創作者の厨房 → 保管ゲート → 理知の間）。
- *   開いたら、その施設のスイッチ（既定 121〜124）を ON にし、変数（既定 103）にはめた数を入れる。
- *   台座のイベントは、碑文の「文章の表示」のあとにプラグインコマンド「台座」を置く。
- *   扉の開いたページは、出現条件をその施設のスイッチにして、場所移動を置く。
+ * ■ 部屋が開く
+ *   生き残りが砦に来たら、その場面のイベントでプラグインコマンド「部屋を開く」（open）を呼ぶ。
+ *   開いたら、その部屋のスイッチ（既定 121〜124）を ON にする。開く順は決まっていない。
+ *   崩れた扉のイベントは、1 ページ目にプラグインコマンド「崩れた扉」（door）を置く（閉じていれば一行出す）。
+ *   扉の開いたページは、出現条件をその部屋のスイッチにして、場所移動を置く。
+ *   （叡智のオーブと台座はやめた。古いマップの「台座」（pedestal）は「崩れた扉」と同じに動く。）
  *
  * ■ 魂
  *   戦闘に勝つと、倒した敵 1 体につき魂を 1（<hai_boss> の敵はパラメータ「ボスの魂」）得る。
  *   敵のメモ欄に <hai_soul:5> と書くと、その敵の魂の数を決められる。
- *   魂の間が開くまでも数は増える（勝利の文に出すのは、魂の間が開いてから）。
+ *   稽古場が開くまでも数は増える（勝利の文に出すのは、稽古場が開いてから）。
  *
- * ■ 施設（プラグインコマンド「施設を使う」）
- *   魂の間       仲間に魂を与えてレベルを 1 つ上げる（前に出ている仲間の最高レベルまで）
- *   創作者の厨房 Hai_Craft の合成の画面
- *   保管ゲート   Hai_Items の倉庫から引き出す・袋から預ける
- *   理知の間     倒したボスの一覧・読んだ残留思念の数（古代語の解読・王国全図は名前だけ）
+ * ■ 部屋（プラグインコマンド「部屋を使う」）
+ *   稽古場  控えの仲間に魂を与えてレベルを 1 つ上げる（前に出ている仲間の最高レベルまで）
+ *   食堂    Hai_Craft の合成の画面
+ *   倉      Hai_Items の倉庫から引き出す・袋から預ける
+ *   書庫    倒したボスの一覧・読んだ思念と戻った記憶の数（写しの読み比べは名前だけ）
  *
  * ■ 状態（セーブに入る）
  *   $gameSystem._hai.facilities = { opened: { soul: true }, souls: 12, bosses: [5] }
- *   古いセーブで無ければ、読むときにスイッチから開いた施設を写して作る。
+ *   古いセーブで無ければ、読むときにスイッチから開いた部屋を写して作る。
  *
  * ■ 窓口（window.Hai.Facilities）は docs/plugins/Hai_Facilities.md
  *
- * @param orbItemId
- * @text 叡智のオーブ
- * @desc 台座にはめるアイテム。
- * @type item
- * @default 171
- *
  * @param switches
- * @text 施設のスイッチ
- * @desc 魂の間・創作者の厨房・保管ゲート・理知の間の順に、開いたら ON にするスイッチ（カンマ区切り。0 で写さない）。
+ * @text 部屋のスイッチ
+ * @desc 稽古場・食堂・倉・書庫の順に、開いたら ON にするスイッチ（カンマ区切り。0 で写さない）。
  * @type string
  * @default 121,122,123,124
  *
- * @param orbVariable
- * @text はめた数の変数
- * @desc 台座にはめた叡智のオーブの数を入れる変数。0 で写さない。
- * @type variable
- * @default 103
- *
  * @param names
- * @text 施設の名前
- * @desc 開く順（カンマ区切り）。
+ * @text 部屋の名前
+ * @desc 稽古場・食堂・倉・書庫の順（カンマ区切り）。
  * @type string
- * @default 魂の間,創作者の厨房,保管ゲート,理知の間
+ * @default 稽古場,食堂,倉,書庫
  *
- * @param doors
- * @text 扉の場所
- * @desc 施設の扉がどこにあるか。開く順（カンマ区切り）。よその台座で開いたときの文に入る。
- * @type string
- * @default 北西,北東,南西,南東
- *
- * @param noOrbMessage
- * @text オーブが無いときの文
- * @type string
- * @default 台座には珠をはめるくぼみがある。叡智のオーブが要るようだ。
- *
- * @param askMessage
- * @text はめるか聞く文
- * @type string
- * @default 台座のくぼみに、叡智のオーブがはまりそうだ。
- *
- * @param insertText
- * @text はめる選択肢
- * @type string
- * @default はめる
- *
- * @param cancelText
- * @text やめる選択肢
- * @type string
- * @default やめる
- *
- * @param openHere
- * @text この扉が開いたときの文
- * @desc %1 が施設の名前。
- * @type string
- * @default 台座の珠が光り、扉が開いた。%1に入れる。
- *
- * @param openElsewhere
- * @text よその扉が開いたときの文
- * @desc %1 が施設の名前、%2 が扉の場所。
- * @type string
- * @default 台座の珠が光った。%2の扉（%1）の開く音がする。
- *
- * @param insertSe
- * @text はめたときの効果音
+ * @param openSe
+ * @text 部屋が開いたときの効果音
+ * @desc プラグインコマンド「部屋を開く」で新しく開いたとき。空にすると鳴らさない。
  * @type file
  * @dir audio/se/
- * @require 1
- * @default Saint3
+ * @default Open2
  *
  * @param closedMessage
- * @text 閉じた施設を使おうとしたときの文
+ * @text 閉じた部屋の文
+ * @desc 崩れた扉を調べたとき・閉じた部屋を使おうとしたとき。
  * @type string
- * @default 扉は閉ざされている。
+ * @default 扉が崩れて、瓦礫で塞がっている。
  *
  * @param bossSouls
  * @text ボスの魂
@@ -113,7 +64,7 @@
  *
  * @param soulMessage
  * @text 魂を得たときの文
- * @desc 戦闘に勝ったときの文。%1 が数。空にすると出さない。魂の間が開くまでは出さない。
+ * @desc 戦闘に勝ったときの文。%1 が数。空にすると出さない。稽古場が開くまでは出さない。
  * @type string
  * @default 魂を %1 手に入れた。
  *
@@ -126,7 +77,7 @@
  *
  * @param soulCapByBattle
  * @text 前の仲間に追いつくまで
- * @desc ON：前に出ている仲間の最高レベルまでしか上げられない（控えを追いつかせる施設にする）。
+ * @desc ON：前に出ている仲間の最高レベルまでしか上げられない（控えを追いつかせる部屋にする）。
  * @type boolean
  * @on 追いつくまで
  * @off 上限なし
@@ -139,71 +90,54 @@
  * @require 1
  * @default Up4
  *
- * @command pedestal
- * @text 台座
- * @desc 叡智のオーブを持っていれば「はめる？」と聞き、はめると次の施設を開く。持っていなければその旨の文。
+ * @command door
+ * @text 崩れた扉
+ * @desc 部屋が閉じていれば「扉が崩れて、瓦礫で塞がっている。」を出す。開いていれば何もしない。
  *
  * @arg door
- * @text どの扉の台座か
+ * @text どの部屋の扉か
  * @type select
- * @option 魂の間（北西）
+ * @option 稽古場
  * @value soul
- * @option 創作者の厨房（北東）
+ * @option 食堂
  * @value kitchen
- * @option 保管ゲート（南西）
+ * @option 倉
  * @value gate
- * @option 理知の間（南東）
- * @value lore
- * @default soul
- *
- * @command insert
- * @text オーブをはめる（演出なし）
- * @desc 叡智のオーブを 1 つ減らし、次の施設を開く。「台座」が内部で使う。
- *
- * @arg door
- * @text どの扉の台座か
- * @type select
- * @option 魂の間（北西）
- * @value soul
- * @option 創作者の厨房（北東）
- * @value kitchen
- * @option 保管ゲート（南西）
- * @value gate
- * @option 理知の間（南東）
- * @value lore
- * @default soul
- *
- * @command use
- * @text 施設を使う
- * @desc 施設の画面を開く（閉じていれば「扉は閉ざされている。」）。
- *
- * @arg facility
- * @text 施設
- * @type select
- * @option 魂の間
- * @value soul
- * @option 創作者の厨房
- * @value kitchen
- * @option 保管ゲート
- * @value gate
- * @option 理知の間
+ * @option 書庫
  * @value lore
  * @default soul
  *
  * @command open
- * @text 施設を開く（オーブなし）
- * @desc オーブを使わずに施設を開く（テスト・筋の都合で開けるとき）。
+ * @text 部屋を開く
+ * @desc 生き残りが砦に来たときに呼ぶ。部屋を開き、その部屋のスイッチを ON にする（文は出さない。効果音だけ）。
  *
  * @arg facility
- * @text 施設
+ * @text 部屋
  * @type select
- * @option 魂の間
+ * @option 稽古場
  * @value soul
- * @option 創作者の厨房
+ * @option 食堂
  * @value kitchen
- * @option 保管ゲート
+ * @option 倉
  * @value gate
- * @option 理知の間
+ * @option 書庫
+ * @value lore
+ * @default soul
+ *
+ * @command use
+ * @text 部屋を使う
+ * @desc 部屋の画面を開く（閉じていれば「扉が崩れて、瓦礫で塞がっている。」）。
+ *
+ * @arg facility
+ * @text 部屋
+ * @type select
+ * @option 稽古場
+ * @value soul
+ * @option 食堂
+ * @value kitchen
+ * @option 倉
+ * @value gate
+ * @option 書庫
  * @value lore
  * @default soul
  */
@@ -213,30 +147,20 @@
   const params = PluginManager.parameters(pluginName);
   const list = (s, d) => String(s ?? d).split(",").map(t => t.trim());
   const P = {
-    orbItemId: Number(params.orbItemId || 171),
     switches: list(params.switches, "121,122,123,124").map(Number),
-    orbVariable: Number(params.orbVariable ?? 103),
-    names: list(params.names, "魂の間,創作者の厨房,保管ゲート,理知の間"),
-    doors: list(params.doors, "北西,北東,南西,南東"),
-    noOrbMessage: params.noOrbMessage ?? "台座には珠をはめるくぼみがある。叡智のオーブが要るようだ。",
-    askMessage: params.askMessage ?? "台座のくぼみに、叡智のオーブがはまりそうだ。",
-    insertText: params.insertText || "はめる",
-    cancelText: params.cancelText || "やめる",
-    openHere: params.openHere ?? "台座の珠が光り、扉が開いた。%1に入れる。",
-    openElsewhere: params.openElsewhere ?? "台座の珠が光った。%2の扉（%1）の開く音がする。",
-    insertSe: params.insertSe ?? "Saint3",
-    closedMessage: params.closedMessage ?? "扉は閉ざされている。",
+    names: list(params.names, "稽古場,食堂,倉,書庫"),
+    openSe: params.openSe ?? "Open2",
+    closedMessage: params.closedMessage ?? "扉が崩れて、瓦礫で塞がっている。",
     bossSouls: Number(params.bossSouls ?? 10),
     soulMessage: params.soulMessage ?? "魂を %1 手に入れた。",
     soulCostRate: Math.max(1, Number(params.soulCostRate || 1)),
     soulCapByBattle: params.soulCapByBattle !== "false",
     soulSe: params.soulSe ?? "Up4",
   };
-  /** 開く順。 */
+  /** 部屋の鍵（稽古場・食堂・倉・書庫。鍵の名前は前の世界の名残り）。 */
   const KEYS = ["soul", "kitchen", "gate", "lore"];
   const indexOf = key => KEYS.indexOf(String(key));
   const nameOf = key => P.names[indexOf(key)] || String(key);
-  const doorOf = key => P.doors[indexOf(key)] || "";
   const playSe = name => name && AudioManager.playSe({ name, volume: 90, pitch: 100, pan: 0 });
 
   // ---------------------------------------------------------------------------
@@ -246,7 +170,7 @@
     $gameSystem._hai = $gameSystem._hai || {};
     let s = $gameSystem._hai.facilities;
     if (!s) {
-      // 古いセーブ：筋の旗（スイッチ）が入っていれば開いた扱いにする
+      // 古いセーブ：部屋のスイッチが入っていれば開いた扱いにする
       s = $gameSystem._hai.facilities = { opened: {}, souls: 0, bosses: [] };
       KEYS.forEach((key, i) => {
         if (P.switches[i] > 0 && $gameSwitches && $gameSwitches.value(P.switches[i])) s.opened[key] = true;
@@ -260,34 +184,21 @@
 
   const isOpen = key => !!state().opened[key];
   const opened = () => KEYS.filter(isOpen);
-  /** 次にはめたときに開く施設（すべて開いていれば null）。 */
-  const nextFacility = () => KEYS.find(key => !isOpen(key)) || null;
+  /** まだ閉じている部屋の鍵の一覧。 */
+  const closed = () => KEYS.filter(key => !isOpen(key));
 
   function syncFlags() {
     KEYS.forEach((key, i) => {
       if (P.switches[i] > 0) $gameSwitches.setValue(P.switches[i], isOpen(key));
     });
-    if (P.orbVariable > 0) $gameVariables.setValue(P.orbVariable, opened().length);
   }
 
-  /** オーブなしで施設を開く。新しく開いたら true。 */
+  /** 部屋を開く（生き残りが砦に来たとき）。新しく開いたら true。 */
   function open(key) {
     if (indexOf(key) < 0 || isOpen(key)) return false;
     state().opened[key] = true;
     syncFlags();
     return true;
-  }
-
-  const orbItem = () => $dataItems[P.orbItemId] || null;
-  const orbs = () => (orbItem() ? $gameParty.numItems(orbItem()) : 0);
-
-  /** 叡智のオーブを 1 つはめる。開いた施設の鍵（はめられなければ null）。door はどの台座か（今は順に影響しない）。 */
-  function insertOrb(door) {
-    const key = nextFacility();
-    if (!key || orbs() <= 0) return null;
-    $gameParty.loseItem(orbItem(), 1);
-    open(key);
-    return key;
   }
 
   // ---------------------------------------------------------------------------
@@ -335,7 +246,7 @@
     }
   };
 
-  /** 魂の間で上げられる上限のレベル（前に出ている仲間の最高レベル。上限なしなら最高レベル）。 */
+  /** 稽古場で上げられる上限のレベル（前に出ている仲間の最高レベル。上限なしなら最高レベル）。 */
   function soulCap(actor) {
     if (!P.soulCapByBattle) return actor.maxLevel();
     const top = Math.max(0, ...$gameParty.battleMembers().map(a => a.level));
@@ -354,34 +265,18 @@
   }
 
   // ---------------------------------------------------------------------------
-  // 台座（イベントの続きに選択肢と文を足す）
+  // 崩れた扉（閉じていれば一行）
   // ---------------------------------------------------------------------------
   const cmd = (code, parameters, indent = 0) => ({ code, indent, parameters });
   const textCmds = (lines, indent = 0) => [cmd(101, ["", 0, 0, 2, ""], indent), ...lines.map(l => cmd(401, [l], indent))];
 
-  function pedestalList(door) {
+  function doorList(door) {
     if (isOpen(door)) return [cmd(0, [])];
-    const key = nextFacility();
-    if (!key || orbs() <= 0) return [...textCmds([P.noOrbMessage]), cmd(0, [])];
-    const done = key === door ? P.openHere.format(nameOf(key)) : P.openElsewhere.format(nameOf(key), doorOf(key));
-    const choices = [P.insertText, P.cancelText];
-    return [
-      ...textCmds([P.askMessage]),
-      cmd(102, [choices, 1, 0, 2, 0]),
-      cmd(402, [0, P.insertText]),
-      cmd(250, [{ name: P.insertSe, volume: 90, pitch: 100, pan: 0 }], 1),
-      cmd(357, [pluginName, "insert", "オーブをはめる（演出なし）", { door }], 1),
-      ...textCmds([done], 1),
-      cmd(0, [], 1),
-      cmd(402, [1, P.cancelText]),
-      cmd(0, [], 1),
-      cmd(404, []),
-      cmd(0, []),
-    ];
+    return [...textCmds([P.closedMessage]), cmd(0, [])];
   }
 
   // ---------------------------------------------------------------------------
-  // 魂の間（仲間の一覧。決定で魂を与えてレベルを 1 つ上げる）
+  // 稽古場（仲間の一覧。決定で魂を与えてレベルを 1 つ上げる）
   // ---------------------------------------------------------------------------
   class Window_HaiSouls extends Window_MenuStatus {
     isCurrentItemEnabled() {
@@ -436,7 +331,7 @@
   }
 
   // ---------------------------------------------------------------------------
-  // 保管ゲート（倉庫から引き出す／袋から預ける）
+  // 倉（倉庫から引き出す／袋から預ける）
   // ---------------------------------------------------------------------------
   const Items = () => window.Hai && Hai.Items;
   /** 預けられる物：袋の中のアイテム（大事なもの・隠しアイテムを除く）・武器・防具。 */
@@ -571,7 +466,7 @@
   }
 
   // ---------------------------------------------------------------------------
-  // 理知の間（倒したボス・読んだ残留思念。古代語の解読・王国全図は名前だけ）
+  // 書庫（倒したボス・読んだ思念と戻った記憶。写しの読み比べは名前だけ）
   // ---------------------------------------------------------------------------
   function bossLines(enemyId) {
     const enemy = $dataEnemies[enemyId];
@@ -606,9 +501,8 @@
 
   const LORE = [
     { symbol: "bosses", name: "倒したボス" },
-    { symbol: "thoughts", name: "読んだ残留思念" },
-    { symbol: "glyphs", name: "古代語の解読" },
-    { symbol: "atlas", name: "王国全図" },
+    { symbol: "thoughts", name: "読んだ思念" },
+    { symbol: "copies", name: "写しの読み比べ" },
   ];
 
   function loreLines(symbol) {
@@ -617,11 +511,12 @@
       return ids.length ? ids.flatMap(bossLines) : ["まだ倒したボスはいない。"];
     }
     if (symbol === "thoughts") {
-      const notes = window.Hai && Hai.Thoughts ? Hai.Thoughts.notes().length : 0;
-      return [`読んだ残留思念　${readThoughts()}`, `メモ　${notes}`];
+      const th = window.Hai && Hai.Thoughts;
+      const notes = th ? th.notes().length : 0;
+      const faint = th && th.faintCount ? th.faintCount() : 0;
+      return [`読んだ思念　${readThoughts()}`, `戻った記憶　${faint}`, `メモ　${notes}`];
     }
-    if (symbol === "glyphs") return ["石板の文字は、まだ一つも読めない。"];
-    if (symbol === "atlas") return ["地図の紙は、まだ白いままだ。"];
+    if (symbol === "copies") return ["読み比べる写しは、まだ一冊もない。"];
     return [];
   }
 
@@ -670,7 +565,7 @@
   }
 
   // ---------------------------------------------------------------------------
-  // 施設の画面を開く
+  // 部屋の画面を開く
   // ---------------------------------------------------------------------------
   function openScene(key) {
     if (key === "soul") SceneManager.push(Scene_HaiSouls);
@@ -686,13 +581,11 @@
   // ---------------------------------------------------------------------------
   // プラグインコマンド
   // ---------------------------------------------------------------------------
-  PluginManager.registerCommand(pluginName, "pedestal", function(args) {
-    this.setupChild(pedestalList(String(args.door)), this._eventId);
-  });
-
-  PluginManager.registerCommand(pluginName, "insert", args => {
-    insertOrb(String(args.door));
-  });
+  function doorCommand(args) {
+    this.setupChild(doorList(String(args.door)), this._eventId);
+  }
+  PluginManager.registerCommand(pluginName, "door", doorCommand);
+  PluginManager.registerCommand(pluginName, "pedestal", doorCommand); // 古いマップ（叡智のオーブの台座）の名残り
 
   PluginManager.registerCommand(pluginName, "use", function(args) {
     const key = String(args.facility);
@@ -704,7 +597,7 @@
   });
 
   PluginManager.registerCommand(pluginName, "open", args => {
-    open(String(args.facility));
+    if (open(String(args.facility)) && P.openSe) playSe(P.openSe);
   });
 
   // ---------------------------------------------------------------------------
@@ -715,13 +608,10 @@
     params: P,
     KEYS,
     nameOf,
-    doorOf,
     isOpen,
     opened,
-    nextFacility,
+    closed,
     open,
-    orbs,
-    insertOrb,
     souls: () => state().souls,
     addSouls,
     soulsOf,

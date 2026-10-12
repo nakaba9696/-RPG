@@ -197,6 +197,65 @@ await runTest(async () => {
     await go(LOCKED.x - 1, LOCKED.y, 6);
     check(await step(6), "ロード後に開けた扉を通れない");
 
+    // ---- P11 会話できない薄い思念（<hai_faint>。試験場 Map907 の f・g）：画面が暗くなり、文章だけ（窓なし・真ん中）。
+    //      見終えると色調が戻り、戻った記憶の数（faintCount・変数 138）が 1 増える。読み直しても増えない
+    const FAINT = { map: 907, f: { x: 4, y: 9, id: "F01" }, g: { x: 8, y: 9, id: "F07" } };
+    const tone = () => game.eval(() => window.__game.ref("$gameScreen").tone().slice());
+    const faintVar = () => game.eval(() => window.__game.ref("$gameVariables").value(138));
+    await go(FAINT.f.x, FAINT.f.y + 1, 8, FAINT.map);
+    const baseTone = await tone();
+    check((await th("faintCount")) === 0 && (await faintVar()) === 0, "最初から記憶が戻っている");
+    const faintList = await th("thoughts", FAINT.map);
+    check(faintList.length === 2 && faintList.every(t => t.faint && !t.read), `thoughts(907) の薄い思念 ${JSON.stringify(faintList)}`);
+    await game.press("Enter");
+    await game.waitFor(() => {
+      const s = window.__game.ref("SceneManager")._scene;
+      return s._messageWindow && s._messageWindow.pause;
+    });
+    const scene = await game.eval(() => {
+      const g = window.__game;
+      const m = g.ref("$gameMessage");
+      return { tone: g.ref("$gameScreen").tone().slice(), background: m.background(), position: m.positionType(), face: m.faceName(), speaker: m.speakerName(), text: m.allText() };
+    });
+    await game.shot("faint");
+    check(scene.tone[3] >= 150 && scene.tone[0] <= -90, `薄い思念で画面が暗くならない ${JSON.stringify(scene.tone)}`);
+    check(scene.background === 2 && scene.position === 1 && scene.face === "" && scene.speaker === "", `薄い思念の窓 ${JSON.stringify(scene)}`);
+    check(scene.text.includes("耳を寄せている"), `薄い思念の本文 ${JSON.stringify(scene)}`);
+    await game.frames(12);
+    await game.press("Enter");
+    await game.waitFor(() => !window.__game.ref("$gameMap").isEventRunning());
+    await game.frames(3);
+    check(JSON.stringify(await tone()) === JSON.stringify(baseTone), `薄い思念のあと色調が戻らない ${JSON.stringify(await tone())}`);
+    check((await th("isRead", "F01")) && (await th("isFaint", "F01")), "F01 が既読・見た扱いにならない");
+    check((await th("faintCount")) === 1 && (await faintVar()) === 1, `戻った記憶の数 ${await th("faintCount")} / 変数 138 ${await faintVar()}`);
+    pages = await readAll();
+    check(pages[0].includes("（読んだ）") && (await th("faintCount")) === 1, `読み直しで記憶の数が増えた ${JSON.stringify(pages)}`);
+    // 「イベント処理の中断」で終わっても、暗いまま残らない
+    await go(FAINT.g.x, FAINT.g.y + 1, 8, FAINT.map);
+    await game.press("Enter");
+    await game.waitFor(() => window.__game.ref("$gameMessage").isBusy());
+    await game.eval(() => window.__game.ref("$gameMap")._interpreter.command115());
+    await game.waitFor(() => {
+      const s = window.__game.ref("SceneManager")._scene;
+      return s._messageWindow && s._messageWindow.pause;
+    });
+    await game.frames(12);
+    await game.press("Enter");
+    await game.waitFor(() => !window.__game.ref("$gameMap").isEventRunning());
+    await game.frames(3);
+    check(JSON.stringify(await tone()) === JSON.stringify(baseTone), `中断のあと色調が戻らない ${JSON.stringify(await tone())}`);
+    check((await th("faintCount")) === 2 && (await faintVar()) === 2, `2 つ目で記憶の数が 2 にならない ${await th("faintCount")}`);
+    // 古いセーブ（faint が無い）でも初期値で動く
+    const oldFaint = await game.eval(() => {
+      const t = window.__game.ref("$gameSystem")._hai.thoughts;
+      const keep = t.faint;
+      delete t.faint;
+      const r = { count: Hai.Thoughts.faintCount(), isFaint: Hai.Thoughts.isFaint("F01") };
+      t.faint = keep;
+      return r;
+    });
+    check(oldFaint.count === 0 && !oldFaint.isFaint, `古いセーブの初期値 ${JSON.stringify(oldFaint)}`);
+
     // ---- clearNotes（テスト用）
     await th("clearNotes");
     check((await th("notes")).length === 0, "clearNotes で消えない");

@@ -1,24 +1,26 @@
 /*:
  * @target MZ
- * @plugindesc 仲間：遺骸を見つけ、拠点の召喚陣で呼び戻す。控えの編成、記憶 4 断片と完全体。
+ * @plugindesc 仲間：遺骸か形見を見つけ、砦の名の壁で呼ぶ。控えの編成、記憶 4 断片と完全体。
  * @author 灰の王国
  * @help
- * 仲間は死者の霊。マップの遺骸を調べると拠点へ送られ、召喚陣で呼び戻すとパーティに加わる。
+ * 仲間は旅の途中で出会う見知らぬ死者の、意志の強い残留思念（7 人。アクター 5〜11）。
+ * マップの遺骸か形見を調べると見つけた扱いになり、砦の名の壁の輪で呼ぶとパーティに加わる。
  * 記憶の断片を 4 つ読むと「完全体」になり、固有の強技を覚える。
- * 本文（遺骸・記憶の文章）はイベントの「文章の表示」に書く（プラグインは本文を持たない）。
+ * 本文（遺骸・形見・記憶の文章）はイベントの「文章の表示」に書く（プラグインは本文を持たない）。
  *
  * イベントのメモ欄：
- *   <hai_remains:5>     アクター 5 の遺骸。調べ終えると「遺骸を拠点へ送った」→ 見つけた扱い、
- *                       セルフスイッチ A を ON。
+ *   <hai_remains:5>     アクター 5 の遺骸か形見。調べ終えると「名の壁の輪に置けば、この人を呼べる。」
+ *                       → 見つけた扱い、セルフスイッチ A を ON。
  *   <hai_memory:5,2>    アクター 5 の記憶の断片 2（1 生い立ち・2 転機・3 罪か誇り・4 臨終）。
  *                       読み終えると覚え、セルフスイッチ A を ON、メモ帳に「〜の記憶 2/4」。
  *                       4 つ揃うと完全体になり、強技を覚える。
  * アクターのメモ欄：
- *   <hai_wake:……>     召喚して目覚めたときの一言（無ければ出さない）。
+ *   <hai_wake:……>     呼んで目覚めたときの一言（初対面の言い方。無ければ出さない）。
  * スキルのメモ欄：
  *   <hai_complete:5>    アクター 5 が完全体で覚える強技（完全体のほかでは覚えない）。
+ *   <hai_user_state:193> 戦闘でこのスキルを使った者に、ステート 193 を付ける（檻破り）。
  * ステートのメモ欄：
- *   <hai_vow>           このステートの者が、味方全員への物理攻撃の身代わりになる（鉄の誓い）。
+ *   <hai_vow>           このステートの者が、味方全員への物理攻撃の身代わりになる（行軍）。
  *
  * 状態（セーブに入る）：
  *   $gameSystem._hai.companions = { found: { 5: true }, summoned: { 5: true }, memories: { 5: { 1: true } } }
@@ -31,7 +33,7 @@
  * @text 仲間のアクター
  * @desc 召喚できる仲間のアクター ID（カンマ区切り。並びが召喚の一覧の順）。
  * @type string
- * @default 5,6,7,8,9
+ * @default 5,6,7,8,9,10,11
  *
  * @param leaderActorId
  * @text 外せない主人公
@@ -47,10 +49,10 @@
  * @default 4
  *
  * @param remainsMessage
- * @text 遺骸を送ったときの文章
- * @desc %1 が仲間の名前。空にすると出さない。
+ * @text 遺骸か形見を見つけたときの文章
+ * @desc %1 が仲間の名前（使わなくてよい）。空にすると出さない。
  * @type string
- * @default %1の遺骸を拠点へ送った。
+ * @default 名の壁の輪に置けば、この人を呼べる。
  *
  * @param remainsSe
  * @text 遺骸を送ったときの効果音
@@ -95,14 +97,14 @@
  * @default Saint5
  *
  * @param summonPrompt
- * @text 召喚陣の問いかけ
+ * @text 名の壁の問いかけ
  * @type string
- * @default 召喚陣が淡く光っている。どの魂を呼び戻す？
+ * @default 名の壁の足元の輪が、淡く光っている。誰を呼ぶ？
  *
  * @param summonNone
- * @text 呼び戻せる魂がないとき
+ * @text 呼べる人がいないとき
  * @type string
- * @default 召喚陣は静まりかえっている。まだ呼び戻せる魂がない。
+ * @default 輪は暗いままだ。呼べる人の遺骸も形見も、まだ置いていない。
  *
  * @param summonCancel
  * @text 選ばないときの選択肢
@@ -110,7 +112,7 @@
  * @default やめる
  *
  * @param summonSe
- * @text 召喚の効果音
+ * @text 呼んだときの効果音
  * @type file
  * @dir audio/se/
  * @default Magic3
@@ -119,7 +121,7 @@
  * @text 目覚めの文章
  * @desc %1 が仲間の名前。
  * @type string
- * @default %1が目を覚ました。
+ * @default %1が目を開けた。
  *
  * @param partyHelp
  * @text 編成の画面の説明
@@ -134,23 +136,25 @@
  *
  * @param foundSwitchStart
  * @text 遺骸のスイッチ（先頭）
- * @desc 仲間の 1 人目の遺骸を見つけたら ON にするスイッチ。2 人目からは 1 つずつ後ろ。0 で使わない。
+ * @desc 仲間の 1 人目の遺骸か形見を見つけたら ON にするスイッチ。2 人目からは 1 つずつ後ろ（7 人で 131〜137）。0 で使わない。
  * @type switch
  * @default 131
  *
  * @param summonSwitchStart
  * @text 加入のスイッチ（先頭）
+ * @desc 7 人で 138〜144。0 で使わない。
  * @type switch
- * @default 136
+ * @default 138
  *
  * @param completeSwitchStart
  * @text 完全体のスイッチ（先頭）
+ * @desc 0 で使わない（既定）。完全体は「記憶の数の変数」が 4 以上かで見る（帯 131–150 に 7 人 × 3 が入らないため）。
  * @type switch
- * @default 141
+ * @default 0
  *
  * @param memoryVariableStart
  * @text 記憶の数の変数（先頭）
- * @desc 仲間ごとの読んだ記憶の数（0〜4）を入れる変数。0 で使わない。
+ * @desc 仲間ごとの読んだ記憶の数（0〜4）を入れる変数（7 人で 131〜137）。0 で使わない。
  * @type variable
  * @default 131
  *
@@ -161,15 +165,15 @@
  * @default 102
  *
  * @command summonMenu
- * @text 召喚陣
- * @desc 見つけた遺骸のうち、まだ呼び戻していない仲間を選んで呼び戻す。
+ * @text 名の壁で呼ぶ
+ * @desc 見つけた遺骸・形見のうち、まだ呼んでいない仲間を選んで呼ぶ。
  *
  * @command partyMenu
  * @text 編成
  * @desc 召喚した仲間を並べ替え・入れ替える画面を開く。
  *
  * @command summon
- * @text 仲間を呼び戻す（演出なし）
+ * @text 仲間を呼ぶ（演出なし）
  *
  * @arg actorId
  * @text アクター
@@ -181,10 +185,10 @@
   const pluginName = "Hai_Companions";
   const params = PluginManager.parameters(pluginName);
   const numList = s => String(s || "").split(",").map(Number).filter(n => n > 0);
-  const companionActors = numList(params.companionActors ?? "5,6,7,8,9");
+  const companionActors = numList(params.companionActors ?? "5,6,7,8,9,10,11");
   const leaderActorId = Number(params.leaderActorId ?? 1);
   const maxBattle = Number(params.maxBattleMembers || 4);
-  const remainsMessage = params.remainsMessage ?? "%1の遺骸を拠点へ送った。";
+  const remainsMessage = params.remainsMessage ?? "名の壁の輪に置けば、この人を呼べる。";
   const remainsSe = params.remainsSe ?? "Teleport";
   const fragmentNames = (params.fragmentNames || "生い立ち,転機,罪か誇り,臨終").split(",");
   const memoryNote = params.memoryNote || "%1の記憶 %2/4「%3」";
@@ -192,16 +196,16 @@
   const noteSe = params.noteSe ?? "Book1";
   const completeMessage = params.completeMessage ?? "\\C[6]%1の記憶がすべて戻った。%1は完全体になった！\\C[0]\\n強技「%2」を覚えた。";
   const completeSe = params.completeSe ?? "Saint5";
-  const summonPrompt = params.summonPrompt ?? "召喚陣が淡く光っている。どの魂を呼び戻す？";
-  const summonNone = params.summonNone ?? "召喚陣は静まりかえっている。まだ呼び戻せる魂がない。";
+  const summonPrompt = params.summonPrompt ?? "名の壁の足元の輪が、淡く光っている。誰を呼ぶ？";
+  const summonNone = params.summonNone ?? "輪は暗いままだ。呼べる人の遺骸も形見も、まだ置いていない。";
   const summonCancel = params.summonCancel || "やめる";
   const summonSe = params.summonSe ?? "Magic3";
-  const awakeMessage = params.awakeMessage ?? "%1が目を覚ました。";
+  const awakeMessage = params.awakeMessage ?? "%1が目を開けた。";
   const partyHelp = params.partyHelp ?? "入れ替える 2 人を順に選ぶ。上から %1 人が戦闘に出る（薄い字は控え）。";
   const partyRefuse = params.partyRefuse ?? "%1は控えに回せない。";
   const foundSwitchStart = Number(params.foundSwitchStart ?? 131);
-  const summonSwitchStart = Number(params.summonSwitchStart ?? 136);
-  const completeSwitchStart = Number(params.completeSwitchStart ?? 141);
+  const summonSwitchStart = Number(params.summonSwitchStart ?? 138);
+  const completeSwitchStart = Number(params.completeSwitchStart ?? 0);
   const memoryVariableStart = Number(params.memoryVariableStart ?? 131);
   const countVariable = Number(params.countVariable ?? 102);
   const FRAGMENTS = 4;
@@ -235,7 +239,7 @@
     return $dataSkills.find(s => s && s.meta && Number(s.meta.hai_complete) === Number(actorId)) || null;
   }
 
-  // 筋の旗（docs/world.md 8 章のスイッチ 131–145、変数 102・131–135）に写す
+  // 筋の旗（スイッチ 131–144、変数 102・131–137。docs/plugins/Hai_Companions.md）に写す
   function setFlag(start, actorId, value) {
     const i = companionActors.indexOf(Number(actorId));
     if (start > 0 && i >= 0) $gameSwitches.setValue(start + i, value);
@@ -263,7 +267,7 @@
     return true;
   }
 
-  /** 召喚陣に出す仲間：見つけた遺骸のうち、まだ呼び戻しておらず、パーティにもいない者。 */
+  /** 名の壁に出す仲間：見つけた遺骸・形見のうち、まだ呼んでおらず、パーティにもいない者。 */
   function summonable() {
     const s = state();
     const order = companionActors.concat(idsOf(s.found).filter(id => !companionActors.includes(id)));
@@ -326,7 +330,17 @@
   };
 
   // ---------------------------------------------------------------------------
-  // 鉄の誓い：<hai_vow> のステートの者が、味方への物理攻撃の身代わりになる
+  // <hai_user_state:N> のスキルを戦闘で使うと、使った者にステート N（檻破り：自分が狙われる）
+  // ---------------------------------------------------------------------------
+  const _Game_Battler_useItem = Game_Battler.prototype.useItem;
+  Game_Battler.prototype.useItem = function(item) {
+    _Game_Battler_useItem.apply(this, arguments);
+    const id = DataManager.isSkill(item) && item.meta ? Number(item.meta.hai_user_state || 0) : 0;
+    if (id > 0 && $dataStates[id] && $gameParty.inBattle()) this.addState(id);
+  };
+
+  // ---------------------------------------------------------------------------
+  // 行軍：<hai_vow> のステートの者が、味方への物理攻撃の身代わりになる
   // ---------------------------------------------------------------------------
   const hasVow = battler => battler.isAlive() && battler.states().some(st => st.meta && st.meta.hai_vow);
 
@@ -448,7 +462,7 @@
   };
 
   // ---------------------------------------------------------------------------
-  // 召喚陣（選択肢 → 暗転 → 目覚め）
+  // 名の壁（選択肢 → 暗転 → 目覚め）
   // ---------------------------------------------------------------------------
   function choiceLabel(actorId) {
     const actor = $gameActors.actor(actorId);
@@ -460,7 +474,7 @@
     const out = [];
     if (summonSe) out.push(seCmd(summonSe));
     out.push(cmd(221, []));
-    out.push(cmd(357, [pluginName, "summon", "仲間を呼び戻す（演出なし）", { actorId: String(actorId) }]));
+    out.push(cmd(357, [pluginName, "summon", "仲間を呼ぶ（演出なし）", { actorId: String(actorId) }]));
     out.push(cmd(230, [30]));
     out.push(cmd(222, []));
     out.push(...textCmds([awakeMessage.replace(/%1/g, actor.name())]));
@@ -569,17 +583,17 @@
   window.Hai = window.Hai || {};
   window.Scene_HaiParty = Scene_HaiParty;
   Hai.Companions = {
-    /** 遺骸を見つけた仲間のアクター ID の一覧。 */
+    /** 遺骸か形見を見つけた仲間のアクター ID の一覧。 */
     found: () => idsOf(state().found),
-    /** 召喚した仲間のアクター ID の一覧。 */
+    /** 呼んだ仲間のアクター ID の一覧。 */
     summoned: () => idsOf(state().summoned),
     /** その仲間の読んだ記憶の断片の番号（1〜4）の一覧。 */
     memories: actorId => idsOf(state().memories[actorId] || {}),
     /** 記憶が 4 つ揃って完全体か。 */
     isComplete,
-    /** 演出なしで呼び戻す（テスト用）。 */
+    /** 演出なしで呼ぶ（テスト用）。 */
     summon,
-    /** 召喚陣に出る仲間（見つけた・未召喚・パーティにいない）。 */
+    /** 名の壁に出る仲間（見つけた・まだ呼んでいない・パーティにいない）。 */
     summonable,
     /** 記憶の断片を覚える（演出なし。テスト用）。新しく覚えたら true。 */
     learnMemory,

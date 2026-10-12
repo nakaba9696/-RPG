@@ -5,8 +5,18 @@
   "displayName": "牢獄の間",
   "legend": "dungeon",
   "tilesetId": 11,
-  "bgm": {"name": "Castle2", "volume": 60, "pitch": 100, "pan": 0},
-  "bgs": {"name": "Drips", "volume": 35, "pitch": 100, "pan": 0},
+  "bgm": {
+    "name": "Castle2",
+    "volume": 60,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Drips",
+    "volume": 35,
+    "pitch": 100,
+    "pan": 0
+  },
   "note": "<hai_tone:-34,-34,-17,51>",
   "fields": {
     "specifyBattleback": true,
@@ -1240,37 +1250,12 @@
           "walkAnime": false,
           "list": [
             {
-              "code": 101,
-              "indent": 0,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                ""
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "台座の付いた石の扉。碑文が刻まれている。"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "「魂は量れる。量れるものは、与えることもできる」"
-              ]
-            },
-            {
               "code": 357,
               "indent": 0,
               "parameters": [
                 "Hai_Facilities",
-                "pedestal",
-                "台座",
+                "door",
+                "崩れた扉",
                 {
                   "door": "soul"
                 }
@@ -1280,7 +1265,7 @@
               "code": 657,
               "indent": 0,
               "parameters": [
-                "どの扉の台座か = soul"
+                "どの部屋の扉か = soul"
               ]
             },
             {
@@ -1355,37 +1340,12 @@
           "walkAnime": false,
           "list": [
             {
-              "code": 101,
-              "indent": 0,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                ""
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "台座の付いた石の扉。碑文が刻まれている。"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "「火と塩と根。生きるための術は、いつも台所から」"
-              ]
-            },
-            {
               "code": 357,
               "indent": 0,
               "parameters": [
                 "Hai_Facilities",
-                "pedestal",
-                "台座",
+                "door",
+                "崩れた扉",
                 {
                   "door": "kitchen"
                 }
@@ -1395,7 +1355,7 @@
               "code": 657,
               "indent": 0,
               "parameters": [
-                "どの扉の台座か = kitchen"
+                "どの部屋の扉か = kitchen"
               ]
             },
             {
@@ -1470,37 +1430,12 @@
           "walkAnime": false,
           "list": [
             {
-              "code": 101,
-              "indent": 0,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                ""
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "台座の付いた石の扉。碑文が刻まれている。"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "「持ちきれぬものは、置いていけ。門が覚えている」"
-              ]
-            },
-            {
               "code": 357,
               "indent": 0,
               "parameters": [
                 "Hai_Facilities",
-                "pedestal",
-                "台座",
+                "door",
+                "崩れた扉",
                 {
                   "door": "gate"
                 }
@@ -1510,7 +1445,7 @@
               "code": 657,
               "indent": 0,
               "parameters": [
-                "どの扉の台座か = gate"
+                "どの部屋の扉か = gate"
               ]
             },
             {
@@ -1585,37 +1520,12 @@
           "walkAnime": false,
           "list": [
             {
-              "code": 101,
-              "indent": 0,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                ""
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "台座の付いた石の扉。碑文が刻まれている。"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "「読めぬ文字は、まだ出会っていない言葉にすぎない」"
-              ]
-            },
-            {
               "code": 357,
               "indent": 0,
               "parameters": [
                 "Hai_Facilities",
-                "pedestal",
-                "台座",
+                "door",
+                "崩れた扉",
                 {
                   "door": "lore"
                 }
@@ -1625,7 +1535,7 @@
               "code": 657,
               "indent": 0,
               "parameters": [
-                "どの扉の台座か = lore"
+                "どの部屋の扉か = lore"
               ]
             },
             {
