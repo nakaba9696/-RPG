@@ -918,5 +918,7 @@ null,
 {"id":916,"expanded":false,"name":"T_地下都市の見本","order":50,"parentId":0,"scrollX":0,"scrollY":0},
 {"id":917,"expanded":false,"name":"T_鋳物場の見本","order":51,"parentId":0,"scrollX":0,"scrollY":0},
 {"id":918,"expanded":false,"name":"T_頂の鐘楼の見本","order":52,"parentId":0,"scrollX":0,"scrollY":0},
-{"id":919,"expanded":false,"name":"T_ためらう敵","order":53,"parentId":0,"scrollX":0,"scrollY":0}
+{"id":919,"expanded":false,"name":"T_ためらう敵","order":53,"parentId":0,"scrollX":0,"scrollY":0},
+{"id":920,"expanded":false,"name":"T_麦の街道の見本","order":64,"parentId":0,"scrollX":0,"scrollY":0},
+{"id":921,"expanded":false,"name":"T_修道院の見本","order":65,"parentId":0,"scrollX":0,"scrollY":0}
 ]

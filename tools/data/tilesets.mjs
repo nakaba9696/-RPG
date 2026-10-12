@@ -1,12 +1,12 @@
-// V2・V4：タイルセット 15–23 を data/Tilesets.json に書く（11–14 は V1 の tools/maps/src/v1_tilesets.mjs。ここでは触らない）。
-//   15–20 は V2 で作り、V4 で名前と用途を新しい世界「最後の鐘」の地域に読み替えた（画像と通行は V2 のまま）。21–23 は V4 で足した。
-//   node tools/data/tilesets.mjs           書く（15–23 だけ。ほかの番号は今のまま残す）
-//   node tools/data/tilesets.mjs --check   書かずに、今の Tilesets.json の 15–23 が生成物と同じかだけ見る
+// V2・V4・V5：タイルセット 15–25 を data/Tilesets.json に書く（11–14 は V1 の tools/maps/src/v1_tilesets.mjs。ここでは触らない）。
+//   15–20 は V2 で作り、V4 で名前と用途を新しい世界「最後の鐘」の地域に読み替えた（画像と通行は V2 のまま）。21–23 は V4、24・25 は V5 で足した。
+//   node tools/data/tilesets.mjs           書く（15–25 だけ。ほかの番号は今のまま残す）
+//   node tools/data/tilesets.mjs --check   書かずに、今の Tilesets.json の 15–25 が生成物と同じかだけ見る
 //
 // 作り方は V1 と同じ：MZ 同梱の画像を組み合わせ、通行（flags）は「その画像を使っている同梱のタイルセット 1–6」から区画ごとに写す。
 //   変えたのは 1 つだけ：A4 の壁の上面（kind 80–87・96–103・112–119 のうち「段差」でないもの）を、全部の形で 4 方向とも通れなくする。
 //   どれが段差かは img/tilesets/<A4 の画像>.txt の名前（Ledge …）で見る。理由と組み合わせの狙いは docs/look.md 2 章。
-// 何度走らせても同じ結果になる。持ち主がエディタで 15–23 を直したら、そちらが正本（--check で差を見てから上書きする）。
+// 何度走らせても同じ結果になる。持ち主がエディタで 15–25 を直したら、そちらが正本（--check で差を見てから上書きする）。
 import fs from "node:fs";
 import path from "node:path";
 import { ROOT, dataPath, readData, writeTable, formatTable, extendTable } from "./io.mjs";
@@ -72,7 +72,21 @@ export const TILESETS = [
     names: [...DUNGEON_A, "Dungeon_B", "Dungeon_C", "Inside_B", "Inside_C"],
     note: "古い鋳物場（Map090・091 の型の間・092・094）。A〜C はダンジョン（壁O（砦）A4:22/30・壁J（レンガ）A4:17/25、濃い床C（岩洞窟）A2:10＝炉の前の煤けた床、線路）。D＝内装の暖炉C（鉄）・大きな暖炉＝炉・かまど・鉄格子・はしご、E＝内装の金床・鎧のスタンド（型から出した鎧）・石像（鐘の型の代わり）・樽。研究所の側は 17。",
   },
+  // --- V5 で足した ---
+  {
+    id: 24,
+    name: "V_麦の街道と関所",
+    names: [...OUTSIDE_A, "Outside_B", "Outside_C", "Inside_B", "Inside_C"],
+    note: "麦の街道と関所（Map110・111・115・116）。A〜C は外観（畑A＝麦畑、道（草地）・石畳A＝王国の街道、建物A（城）＝関所の石壁、段差・壁A（石）＝崖道、テント＝飢えの列の野営、農作物・干し草・かかし・立て札＝道標、骸骨 C:24/25）。D＝内装の麻袋・積まれた木箱・樽・パン棚（麦の倉）・端材・倒れた棚・瓦礫、E＝内装の槍立て（関所の兵）・金の延べ棒（一握りは王のもの）・袋・石碑・開いた本（収税吏の帳面）・教会のシンボル。荷車の絵は同梱に無い（docs/look.md 2.7 のスタンプで代わりにする）。 <hai_hidden_tiles:D:20,D:11>",
+  },
+  {
+    id: 25,
+    name: "V_鐘守の修道院",
+    names: ["Inside_A1", "Outside_A2", "Outside_A3", "Inside_A4", "Inside_A5", "Inside_B", "Inside_C", "Dungeon_B", "Dungeon_C"],
+    note: "鐘守の修道院（Map120–124）と境山の高みの宿坊（181）。A2・A3 は外観（回廊の中庭の草地・石畳・苔・ひび割れ、屋根）、A1・A4・A5 は内装（水場、壁A・壁K（石）・内装壁A（石）、木の床・石畳・じゅうたん・階段）。B・C＝内装（本棚・簡易棚（本）・ステンドグラス・石の柱・麻袋／教会机・女神像・教会のシンボル・ベル・開いた本・石碑・台座・槍立て＝空の鐘架の代わり）、D＝ダンジョンの石像・壊れた像・骸骨・瓦礫・石の柱（納骨堂）、E＝ダンジョンの棺・装飾柱・本棚・ステンドグラス・カーテン（廃墟）。 <hai_hidden_tiles:D:183,D:26>",
+  },
 ];
+
 
 /** A4 の画像の壁の上面の添字（kind − 80）。上面は 0・2・4 行目（8 個ずつ）で、名前が Ledge（段差）のものは歩ける床なので除く。 */
 export function wallTopIndexes(a4Image) {
@@ -116,7 +130,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === path.join(ROOT, "tools"
   const next = buildAll(current);
   const same = formatTable(next) === fs.readFileSync(dataPath("Tilesets.json"), "utf8");
   if (process.argv.includes("--check")) {
-    console.log(same ? "Tilesets.json の 15–23 は tools/data/tilesets.mjs と同じ" : "Tilesets.json の 15–23 が tools/data/tilesets.mjs と違う");
+    console.log(same ? "Tilesets.json の 15–25 は tools/data/tilesets.mjs と同じ" : "Tilesets.json の 15–25 が tools/data/tilesets.mjs と違う");
     process.exit(same ? 0 : 1);
   }
   if (same) {
