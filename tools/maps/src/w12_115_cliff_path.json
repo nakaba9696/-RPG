@@ -1,0 +1,660 @@
+{
+  "_説明": "W12（#195）：崖の小道（docs/world.md 5.2 の 115、text.md 5.7 の 5-11）。寄り道。南の口→110 の北の崖道、下の岩棚・1 段目（^。坂）・2 段目（A。梯子）、崖の梁の小鐘（崖の小道の小鐘）、赤い宝箱（巡礼の杖）、思念 R5-03、北の口→116。この設定は node tools/maps/src/w12_data.mjs が書く。",
+  "mapId": 115,
+  "name": "崖の小道",
+  "displayName": "崖の小道",
+  "legend": "highway",
+  "tilesetId": 24,
+  "note": "<hai_tone:-17,-17,0,102>\n<hai_parallax:Mountains1,0,0>\n<hai_fog:50,0.3,0.05>",
+  "bgm": {
+    "name": "Field1",
+    "volume": 55,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Wind4",
+    "volume": 40,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Wasteland",
+    "battleback2Name": "Cliff"
+  },
+  "chars": {
+    "1": {
+      "name": "高台の上の着き場（石畳A。上にも石畳A を重ねて、まわりの K とつなぐ）",
+      "tiles": [
+        "A2:3",
+        "A2:3"
+      ]
+    },
+    "2": {
+      "name": "高台の上の着き場（道（草地）。上にも道を重ねて、まわりの P とつなぐ）",
+      "tiles": [
+        "A2:2",
+        "A2:2"
+      ]
+    },
+    "3": {
+      "name": "2 段目の上の着き場（道（草地）。上にも道を重ねて、まわりの Q とつなぐ）",
+      "tiles": [
+        "A2:2",
+        "A2:2"
+      ]
+    },
+    "K": {
+      "name": "高台の上の王国の街道（段差の上面に石畳A を重ねる）",
+      "as": "^",
+      "tiles": [
+        null,
+        "A2:3"
+      ]
+    },
+    "P": {
+      "name": "高台の上の土の道（段差の上面に道（草地）を重ねる）",
+      "as": "^",
+      "tiles": [
+        null,
+        "A2:2"
+      ]
+    },
+    "A": {
+      "name": "高台の 2 段目（段差B（土）の上面。下の 1 行に崖の側面が自動で付く）",
+      "ledge": {
+        "top": "A4:37",
+        "side": "A4:45",
+        "height": 1,
+        "level": 2
+      }
+    },
+    "Q": {
+      "name": "2 段目の上の土の道（段差の上面に道（草地）を重ねる）",
+      "as": "A",
+      "tiles": [
+        null,
+        "A2:2"
+      ]
+    },
+    "L": {
+      "name": "2 段目の側面の梯子（下は 1 段目の上面）",
+      "as": "^",
+      "tiles": [
+        null,
+        null,
+        "B:18"
+      ]
+    }
+  },
+  "scatter": [
+    {
+      "on": ",^A",
+      "tiles": [
+        "B:152",
+        "B:239"
+      ],
+      "rate": 0.05,
+      "seed": 11501
+    }
+  ],
+  "events": [
+    {
+      "name": "南の口（麦の街道へ）",
+      "type": "transfer",
+      "x": 4,
+      "y": 29,
+      "to": [
+        110,
+        4,
+        1,
+        2
+      ]
+    },
+    {
+      "name": "南の口（麦の街道へ）",
+      "type": "transfer",
+      "x": 5,
+      "y": 29,
+      "to": [
+        110,
+        5,
+        1,
+        2
+      ]
+    },
+    {
+      "name": "南の口（麦の街道へ）",
+      "type": "transfer",
+      "x": 6,
+      "y": 29,
+      "to": [
+        110,
+        6,
+        1,
+        2
+      ]
+    },
+    {
+      "name": "北の口（崖の上の見晴らしへ）",
+      "type": "transfer",
+      "x": 22,
+      "y": 0,
+      "to": [
+        116,
+        12,
+        14,
+        8
+      ]
+    },
+    {
+      "name": "北の口（崖の上の見晴らしへ）",
+      "type": "transfer",
+      "x": 23,
+      "y": 0,
+      "to": [
+        116,
+        13,
+        14,
+        8
+      ]
+    },
+    {
+      "name": "北の口（崖の上の見晴らしへ）",
+      "type": "transfer",
+      "x": 24,
+      "y": 0,
+      "to": [
+        116,
+        14,
+        14,
+        8
+      ]
+    },
+    {
+      "name": "拾い物（崖の小道の小鐘）",
+      "type": "raw",
+      "x": 35,
+      "y": 4,
+      "pages": [
+        {
+          "image": {
+            "tileId": "C:121"
+          },
+          "priorityType": 1,
+          "stepAnime": false,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "崖に打った梁に、鉤が一つ。手のひらほどの鐘が吊ってある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鐘に札。『返す先』。その先は、雨で滲んで読めない。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 128,
+              "indent": 0,
+              "parameters": [
+                1051,
+                0,
+                0,
+                1,
+                false
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[205]崖の小道の小鐘を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "赤い宝箱（巡礼の杖）",
+      "type": "raw",
+      "x": 16,
+      "y": 7,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 127,
+              "indent": 0,
+              "parameters": [
+                1051,
+                0,
+                0,
+                1,
+                false
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[101]巡礼の杖を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 2,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "思念 R5-03 崖を下りた巡礼",
+      "type": "text",
+      "x": 5,
+      "y": 7,
+      "note": "<hai_thought:R5-03>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "縄は四十尋。森の西の崖まで、一尋だけ足りない。",
+        "足りない一尋は、跳んだ。"
+      ]
+    },
+    {
+      "name": "墓標",
+      "type": "raw",
+      "x": 6,
+      "y": 5,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "小さな墓標。名の代わりに、鐘の形が刻んである。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（鉄くず）",
+      "type": "raw",
+      "x": 34,
+      "y": 17,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 125,
+              "indent": 0,
+              "parameters": [
+                0,
+                0,
+                120
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鉄くずを 120 手に入れた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "宝箱（薬草）",
+      "type": "raw",
+      "x": 3,
+      "y": 25,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                196,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]薬草×2を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "痩せ烏（緑）",
+      "type": "raw",
+      "x": 12,
+      "y": 23,
+      "note": "<hai_enemy:1054,green>\n<hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Nature",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 3,
+          "moveType": 1
+        }
+      ]
+    },
+    {
+      "name": "灰山羊（緑）",
+      "type": "raw",
+      "x": 24,
+      "y": 16,
+      "note": "<hai_enemy:601,green>\n<hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Nature",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 3,
+          "moveType": 1
+        }
+      ]
+    },
+    {
+      "name": "痩せ烏（緑）",
+      "type": "raw",
+      "x": 28,
+      "y": 6,
+      "note": "<hai_enemy:1054,green>\n<hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Nature",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 3,
+          "moveType": 1
+        }
+      ]
+    }
+  ]
+}

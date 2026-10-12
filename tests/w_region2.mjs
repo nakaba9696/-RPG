@@ -4,12 +4,12 @@
 //   → 見張り台 062：ノラの遺骸（記憶 4・スイッチ 132）・薄い思念 F06（記憶が戻る）・梁（鉤綱が無いと上れない）
 //   → 祠 063：生贄の帳面・ノラの記憶 2（4 つ揃って完全体）・祠の経典 → 西の戸 → 抜け道 064：H22 の閂（スイッチ 404）→ 営倉 033 と行き来
 //   → 060 のルッツに帳面を見せる（変数 401 = 2・スイッチ 402）→ アンネリーゼが砦へ（スイッチ 401・変数 103）
-//   → 生贄の祠の番：帳面で「名を呼ばれた」（ステート 421）、倒すと旗（スイッチ 405）と肩布、奥の戸 → 記録院 080 → データの検査が通る。
+//   → 生贄の祠の番：帳面で「名を呼ばれた」（ステート 421）、倒すと旗（スイッチ 405）と肩布、奥の戸 → 麦の街道 110（W12 で 080 から差し替え）→ データの検査が通る。
 // シンボル敵は検査の邪魔にならないよう、マップに入るたびに「倒した」ことにする（セルフスイッチ A）。
 import { launchGame, check, runTest } from "./lib.mjs";
 import { checkAll } from "../tools/data/check.mjs";
 
-const CHAPEL = 21, GATE = 60, SQUARE = 61, TOWER = 62, SHRINE = 63, TUNNEL = 64, CELLS = 33, COURT = 80;
+const CHAPEL = 21, GATE = 60, SQUARE = 61, TOWER = 62, SHRINE = 63, TUNNEL = 64, CELLS = 33, STREET = 110;
 const ITEM = { ledger: 421, scripture: 422, rationTag: 423 };
 const ARMOR = { doorShield: 421, ashShawl: 423 };
 const WEAPON = { hunterSpear: 421 };
@@ -237,7 +237,7 @@ await runTest(async () => {
     check(done && done.result === "done", "頼みごと「弟を連れて帰る」が終わらない " + JSON.stringify(done));
     console.log("  ルッツに帳面を見せる → アンネリーゼが砦へ・ルッツは鍛冶小屋");
 
-    // ===== 6. 生贄の祠の番 → 奥の戸 → 記録院 =====
+    // ===== 6. 生贄の祠の番 → 奥の戸 → 麦の街道（W12） =====
     await go(SHRINE, 13, 4, 8);
     check((await talk()).join("").includes("閂は、戸の外側にだけ"), "祠の番を越える前に奥の戸が開く");
     await go(SHRINE, 13, 6, 8);
@@ -305,9 +305,9 @@ await runTest(async () => {
     check(won.sw && won.shawl === 1 && won.result === 0, "祠の番を倒した後の旗と肩布 " + JSON.stringify(won));
     await go(SHRINE, 13, 4, 8);
     await step(8);
-    await arrive(COURT, 19, 27);
-    await game.shot("court-arrive");
-    console.log("  生贄の祠の番：名を呼ばれた（帳面）→ 倒す（スイッチ 405・肩布）→ 奥の戸で記録院へ");
+    await arrive(STREET, 2, 31);
+    await game.shot("street-arrive");
+    console.log("  生贄の祠の番：名を呼ばれた（帳面）→ 倒す（スイッチ 405・肩布）→ 奥の戸で麦の街道へ");
 
     // ===== 7. データの検査 =====
     const problems = checkAll();

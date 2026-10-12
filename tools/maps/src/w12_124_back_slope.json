@@ -1,0 +1,262 @@
+{
+  "_説明": "W12（#195）：裏の坂（docs/world.md 5.2 の 124、text.md 5.7 の 5-23）。西の口→120 の裏門、高台から坂を下りて北へ、北の坂→080 記録院・前庭の南。この設定は node tools/maps/src/w12_data.mjs が書く。",
+  "mapId": 124,
+  "name": "裏の坂",
+  "displayName": "修道院の裏の坂",
+  "legend": "highway",
+  "tilesetId": 24,
+  "note": "<hai_tone:-17,-17,-17,102>",
+  "bgm": {
+    "name": "Field1",
+    "volume": 55,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Wind2",
+    "volume": 30,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Road2",
+    "battleback2Name": "Grassland"
+  },
+  "chars": {
+    "1": {
+      "name": "高台の上の着き場（石畳A。上にも石畳A を重ねて、まわりの K とつなぐ）",
+      "tiles": [
+        "A2:3",
+        "A2:3"
+      ]
+    },
+    "2": {
+      "name": "高台の上の着き場（道（草地）。上にも道を重ねて、まわりの P とつなぐ）",
+      "tiles": [
+        "A2:2",
+        "A2:2"
+      ]
+    },
+    "K": {
+      "name": "高台の上の王国の街道（段差の上面に石畳A を重ねる）",
+      "as": "^",
+      "tiles": [
+        null,
+        "A2:3"
+      ]
+    },
+    "P": {
+      "name": "高台の上の土の道（段差の上面に道（草地）を重ねる）",
+      "as": "^",
+      "tiles": [
+        null,
+        "A2:2"
+      ]
+    }
+  },
+  "events": [
+    {
+      "name": "西の口（修道院の裏門へ）",
+      "type": "transfer",
+      "x": 0,
+      "y": 4,
+      "to": [
+        120,
+        58,
+        14,
+        4
+      ]
+    },
+    {
+      "name": "西の口（修道院の裏門へ）",
+      "type": "transfer",
+      "x": 0,
+      "y": 5,
+      "to": [
+        120,
+        58,
+        14,
+        4
+      ]
+    },
+    {
+      "name": "北の坂（記録院へ）",
+      "type": "transfer",
+      "x": 20,
+      "y": 0,
+      "to": [
+        80,
+        19,
+        27,
+        8
+      ]
+    },
+    {
+      "name": "北の坂（記録院へ）",
+      "type": "transfer",
+      "x": 21,
+      "y": 0,
+      "to": [
+        80,
+        20,
+        27,
+        8
+      ]
+    },
+    {
+      "name": "北の坂（記録院へ）",
+      "type": "transfer",
+      "x": 22,
+      "y": 0,
+      "to": [
+        80,
+        21,
+        27,
+        8
+      ]
+    },
+    {
+      "name": "北の坂（記録院へ）",
+      "type": "transfer",
+      "x": 23,
+      "y": 0,
+      "to": [
+        80,
+        21,
+        27,
+        8
+      ]
+    },
+    {
+      "name": "坂の足跡",
+      "type": "raw",
+      "x": 21,
+      "y": 6,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "坂の土に、足跡が一列。北の、記録院の方へ向いている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "戻ってくる向きの足跡は、一つも無い。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（毒消し）",
+      "type": "raw",
+      "x": 3,
+      "y": 11,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                197,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[177]毒消しを手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    }
+  ]
+}

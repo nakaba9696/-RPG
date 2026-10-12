@@ -2248,6 +2248,43 @@
           "moveFrequency": 3
         }
       ]
+    },
+    {
+      "name": "崖の縄（崖の上の見晴らしから）",
+      "type": "raw",
+      "x": 16,
+      "y": 17,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "崖の上から縄が一本垂れている。端は、手の届く高さより上で揺れている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ],
+      "note": ""
     }
   ]
 }
