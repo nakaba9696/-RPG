@@ -267,23 +267,57 @@ await runTest(async () => {
       check(Date.now() - t0 < 60_000, "牢番に話しかけても戦闘にならない");
     }
     check(await game.eval(id => $gameTroop.troop().id === id, WARDEN_TROOP), "牢番の敵グループではない");
+    const waitInput = async () => {
+      const t0 = Date.now();
+      for (;;) {
+        const st = await game.eval(() => {
+          const s = SceneManager._scene;
+          if (!(s instanceof Scene_Battle) || BattleManager.isBattleEnd() || BattleManager._escaped) return "end";
+          if ($gameMessage.isBusy()) return "message";
+          return BattleManager.isInputting() && s._partyCommandWindow.active ? "input" : "busy";
+        });
+        if (st === "end" || st === "input") return;
+        if (st === "message") await game.press("Enter");
+        else await game.frames(2);
+        check(Date.now() - t0 < 180_000, "入力の番にならない");
+      }
+    };
+    const turn = async plan => {
+      await game.call("setSpeed", FAST);
+      await game.eval(p => {
+        $gameParty.members().forEach((a, i) => {
+          if (!a.action(0) && a.canMove()) a.makeActions();
+          const act = a.action(0);
+          if (!a.canInput() || !act) return;
+          const want = p[i] || "guard";
+          if (want === "guard") act.setGuard();
+          else if (want === "attack") act.setAttack();
+          else if (want.item) act.setItem(want.item);
+          else act.setSkill(want.skill);
+          act.setTarget(want.target ?? 0);
+        });
+        BattleManager.startTurn();
+        SceneManager._scene.changeInputWindow();
+      }, plan);
+      await waitInput();
+      await game.call("setSpeed", 2);
+    };
+    const toMap = async () => {
+      await game.call("setSpeed", FAST);
+      await game.page.keyboard.down("Enter");
+      try {
+        await game.waitFor(() => window.__game.scene() === "Scene_Map", null, 120_000);
+      } finally {
+        await game.page.keyboard.up("Enter");
+        await game.call("setSpeed", 2);
+      }
+      await game.waitFor(() => !window.__game.isBusy());
+    };
+    await waitInput();
     await game.call("strengthenParty");
     await game.eval(() => $gameTroop.members().forEach(e => e.setHp(1)));
-    await game.call("setSpeed", FAST);
-    for (let i = 0; i < 6 && (await game.call("scene")) === "Scene_Battle"; i++) {
-      await game.waitFor(() => !(SceneManager._scene instanceof Scene_Battle) || BattleManager.isBattleEnd() || $gameMessage.isBusy() || (BattleManager.isInputting() && SceneManager._scene._partyCommandWindow.active), null, 120_000);
-      if (await game.eval(() => SceneManager._scene instanceof Scene_Battle && BattleManager.isInputting() && SceneManager._scene._partyCommandWindow.active)) {
-        await game.eval(() => {
-          $gameParty.members().forEach(a => { const act = a.action(0); if (a.canInput() && act) { act.setAttack(); act.setTarget(0); } });
-          BattleManager.startTurn();
-          SceneManager._scene.changeInputWindow();
-        });
-      } else await game.press("Enter");
-      await game.frames(10);
-    }
-    await game.page.keyboard.down("Enter");
-    try { await game.waitFor(() => window.__game.scene() === "Scene_Map", null, 120_000); } finally { await game.page.keyboard.up("Enter"); }
-    await game.call("setSpeed", 2);
+    for (let i = 0; i < 3 && (await game.eval(() => SceneManager._scene instanceof Scene_Battle && !$gameTroop.isAllDead())); i++) await turn(["attack", "attack", "attack", "attack"]);
+    await toMap();
     await finishEvent();
     const won = await game.eval(([s, k]) => ({ sw: $gameSwitches.value(s), key: $gameParty.numItems($dataItems[k]), result: Hai.Boss.lastResult() }), [SW.warden, ITEM.keyRing]);
     check(won.sw && won.key === 1 && won.result === 0, "牢番を倒した後の旗と鍵束 " + JSON.stringify(won));

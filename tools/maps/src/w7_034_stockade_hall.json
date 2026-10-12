@@ -274,6 +274,17 @@
       "z2": "C:176"
     }
   },
+  "scatter": [
+    {
+      "on": ".;",
+      "tiles": [
+        "B:32",
+        "B:33"
+      ],
+      "rate": 0.1,
+      "seed": 34
+    }
+  ],
   "events": [
     {
       "name": "上り口（監房へ）",
@@ -848,6 +859,41 @@
               ]
             },
             {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Thoughts",
+                "addNote",
+                "メモに足す",
+                {
+                  "text": "牢番の帳面「火を嫌う。灯を持って来るな」（営倉の廊下）",
+                  "id": "clue:wardenLog",
+                  "kind": "clue"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "text = 牢番の帳面「火を嫌う。灯を持って来るな」（営倉の廊下）"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "id = clue:wardenLog"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "kind = clue"
+              ]
+            },
+            {
               "code": 0,
               "indent": 0,
               "parameters": []
@@ -868,8 +914,7 @@
             }
           ]
         }
-      ],
-      "note": "<hai_clue:牢番の帳面「火を嫌う。灯を持って来るな」（営倉の廊下）>"
+      ]
     },
     {
       "name": "結界（営倉の控え）",
@@ -1771,8 +1816,8 @@
     {
       "name": "房の影（緑）",
       "type": "raw",
-      "x": 22,
-      "y": 4,
+      "x": 6,
+      "y": 24,
       "note": "<hai_enemy:331,green>",
       "pages": [
         {
