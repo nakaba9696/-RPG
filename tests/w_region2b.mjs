@@ -308,6 +308,7 @@ await runTest(async () => {
     await go(COURT, 24, 18, 8);
     const back = (await talk(["写しを返す"])).join("\n");
     check(back.includes("分からないので") && (await vr(VAR.copies)) === 2 && (await items("i", ITEM.twoCopies)) === 0, "イスメネに写しを返す（変数 402 = 2） " + JSON.stringify(back));
+    check(await game.eval(() => { const e = Hai.Notes.errand("copies"); return e && e.result === "done" && $gameVariables.value(163) === 1; }), "頼みごと「本物の写し」が終わらない");
     check((await sw(SW.ismene)) && (await sw(SW.lore)) && (await vr(VAR.survivors)) === survivors0 + 1, "イスメネが砦へ（スイッチ 407・書庫・変数 103）");
 
     // ===== 7. 森の療養小屋 023：ピピネル =====

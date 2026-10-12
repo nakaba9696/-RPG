@@ -15,6 +15,7 @@ MZ の既定の戦闘（ターン制、前方表示）の上に、**MZ の設定
 | ボスからの逃走 | プラグイン（`<hai_boss>`） |
 | おまかせ | プラグイン（パーティコマンド） |
 | ダメージの属性の色 | プラグイン（`Sprite_Damage` の alias） |
+| 主人公の技と「呑まれ」・仲間の呼びかけ（P12） | 別のプラグイン `Hai_Apostle`（[Hai_Apostle.md](Hai_Apostle.md)）。耐える戦いは `Hai_Boss` の `<hai_endure>` |
 
 ## 1. SP
 - MZ の TP を「SP」と呼ぶ（`System.json` の `terms.basic` の 6・7 番を「ＳＰ」「SP」。`optDisplayTp` は true のまま）。MP は攻撃魔法の資源として別に残る。

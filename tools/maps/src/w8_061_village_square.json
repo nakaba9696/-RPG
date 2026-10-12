@@ -755,6 +755,7 @@
                   "title": "弟を連れて帰る",
                   "who": "アンネリーゼ",
                   "stage": "1",
+                  "variableId": "161",
                   "text": "灰の信徒の集落（焼けた村の入口）にいるルッツを連れて帰る"
                 }
               ]
@@ -785,6 +786,13 @@
               "indent": 1,
               "parameters": [
                 "stage = 1"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 161"
               ]
             },
             {

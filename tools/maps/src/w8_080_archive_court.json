@@ -828,6 +828,7 @@
                   "title": "本物の写し",
                   "who": "イスメネ",
                   "stage": "1",
+                  "variableId": "163",
                   "text": "記録院の奥の二通りの写しを、イスメネに見せる"
                 }
               ]
@@ -858,6 +859,13 @@
               "indent": 2,
               "parameters": [
                 "stage = 1"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "variableId = 163"
               ]
             },
             {

@@ -9,6 +9,8 @@
  *   <hai_enemy:101,green>   敵グループ 101 と戦う緑（弱い）の敵。強さは green / yellow / red
  *   <hai_enemy_once>        勝ったら二度と出ない（ボス用）。無ければマップを出入りすると復活する
  *   <hai_enemy_chase:6>     この敵だけ追い始める距離を変える（0 で追わない）
+ *   <hai_enemy_hesitate>    主人公を見つけると、こちらを向いて一瞬止まってから追う（理由は出さない）。
+ *                           <hai_enemy_hesitate:40> で止まるフレーム数を変える
  *
  * ■ 動き
  *   ふだんはページの「自律移動」（固定・ランダム・近づく・カスタム）のとおりに動く。
@@ -30,7 +32,7 @@
  *   isSymbolEnemy(event)  シンボル敵か
  *   rankOf(event)         "green" / "yellow" / "red"（シンボル敵でなければ null）
  *   troopOf(event)        敵グループの ID
- *   state(event)          { chasing, flee, through, defeated }
+ *   state(event)          { chasing, flee, through, defeated, hesitate }
  *   canSeePlayer(event)   今プレイヤーを追える位置にいるか
  *   colorOf(rank)         その強さの色 [赤, 緑, 青, 強さ]
  *
@@ -55,6 +57,13 @@
  * @type number
  * @min 0
  * @default 180
+ *
+ * @param hesitateFrames
+ * @text ためらう時間
+ * @desc <hai_enemy_hesitate> の敵が、見つけてから追い始めるまで止まるフレーム数（60 で 1 秒）。
+ * @type number
+ * @min 0
+ * @default 30
  *
  * @param greenColor
  * @text 緑（弱い）の色
@@ -90,6 +99,7 @@
   const chaseRange = Number(params.chaseRange || 4);
   const chaseSpeed = Number(params.chaseSpeed || 3);
   const fleeFrames = Number(params.fleeFrames || 180);
+  const hesitateFrames = Number(params.hesitateFrames ?? 30);
   const parseColor = (text, fallback) => {
     const c = String(text || fallback).split(",").map(Number);
     return c.length === 4 && c.every(n => Number.isFinite(n)) ? c : fallback.split(",").map(Number);
@@ -109,17 +119,20 @@
     if (!tag || tag === true) return null;
     const [troop, rank] = String(tag).split(",").map(s => s.trim());
     const range = data.meta.hai_enemy_chase;
+    const hesitate = data.meta.hai_enemy_hesitate;
     return {
       troopId: Number(troop),
       rank: COLORS[rank] ? rank : "green",
       once: !!data.meta.hai_enemy_once,
       chaseRange: range === undefined || range === true ? chaseRange : Number(range),
+      hesitate: hesitate === undefined ? 0 : hesitate === true ? hesitateFrames : Math.max(0, Number(hesitate) || 0),
     };
   }
 
   // イベントごとの状態（Game_Event に置くので、$gameMap ごとセーブに入る）
   function stateOf(event) {
     if (!event._haiSymbol) event._haiSymbol = { chasing: false, flee: 0 };
+    if (event._haiSymbol.hesitate === undefined) event._haiSymbol.hesitate = 0; // 古いセーブ
     return event._haiSymbol;
   }
 
@@ -189,11 +202,13 @@
         flee: s.flee,
         through: event.isThrough(),
         defeated: isDefeated($gameMap.mapId(), event.eventId()),
+        hesitate: s.hesitate,
       };
     },
     canSeePlayer,
     colorOf: rank => (COLORS[rank] || NO_COLOR).slice(),
-    params: { chaseRange, chaseSpeed, fleeFrames },
+    hesitateOf: event => (infoOf(event) || {}).hesitate || 0,
+    params: { chaseRange, chaseSpeed, fleeFrames, hesitateFrames },
   };
 
   PluginManager.registerCommand(pluginName, "defeated", function() {
@@ -209,6 +224,7 @@
       const s = stateOf(event);
       s.flee = fleeFrames;
       s.chasing = false;
+      s.hesitate = 0;
       event.setMoveSpeed(s.baseSpeed || event._moveSpeed);
       event.setThrough(true);
     }
@@ -242,6 +258,7 @@
     const s = stateOf(this);
     s.baseSpeed = this._moveSpeed;
     s.chasing = false;
+    s.hesitate = 0;
     if (s.flee > 0) this.setThrough(true);
   };
 
@@ -281,7 +298,11 @@
         s.chasing = chase;
         this.setMoveSpeed(chase ? chaseSpeed : s.baseSpeed || this._moveSpeed);
         this.resetStopCount();
+        // 見つけるたびに、こちらを向いて一瞬止まる（見失ったら次に見つけたときもう一度）
+        s.hesitate = chase ? infoOf(this).hesitate : 0;
+        if (s.hesitate > 0) this.turnTowardPlayer();
       }
+      if (chase && s.hesitate > 0) return;
       if (chase) {
         this.moveTowardPlayer();
         return;
@@ -295,6 +316,11 @@
   Game_Event.prototype.update = function() {
     _Game_Event_update.apply(this, arguments);
     const s = this._haiSymbol;
+    // ためらっている間は止まったまま（止まっている時間も数え直すので、自律移動の頻度の待ちはそのあと）
+    if (s && s.hesitate > 0 && !$gameMap.isEventRunning()) {
+      s.hesitate -= 1;
+      this.resetStopCount();
+    }
     if (s && s.flee > 0 && !$gameMap.isEventRunning()) {
       if (s.flee > 1 || !$gamePlayer.pos(this.x, this.y)) s.flee -= 1;
       if (s.flee <= 0) {

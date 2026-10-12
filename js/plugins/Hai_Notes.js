@@ -1,12 +1,13 @@
 /*:
  * @target MZ
- * @plugindesc メモの画面（手がかり・扉・入手）と、手に入れたものの自動の記録。
+ * @plugindesc メモの画面（手がかり・扉・入手・頼みごと）と、手に入れたものの自動の記録。
  * @author 灰の王国
  * @help
  * メニューの「メモ」で、Hai_Thoughts のメモ帳を新しい順に、種類ごとに切り替えて並べる。
  *   手がかり … 残留思念の <hai_clue> など
  *   扉       … 鍵の要る扉（開けたものは薄く）
  *   入手     … 手に入れたもの（下の入手ログ）
+ *   頼みごと … 生き残り・今の勢力の人の連続した用事（下のプラグインコマンドで書く）
  * 一行を選ぶと、下の窓に書き留めた場所（マップ名 x,y）と時刻が出る。
  *
  * 入手ログ：アイテム・武器・防具・魔石（所持金）を手に入れたとき、
@@ -14,9 +15,13 @@
  * ショップの購入・売却と、装備の付け替えで戻ってきたものは記録しない。
  * 入手ログは新しいものから maxItemLog 件だけ残す。
  *
+ * 頼みごと：プラグインコマンド「頼みごとを進める」で一行を書き換え（段も変数に写せる）、
+ * 「頼みごとを終える」で印（終わった・途切れた・亡くなった）を付ける。文は W がイベントで書く。
+ *
  * 前提：Hai_Thoughts（メモ帳）。Hai_AutoMap があればマップの表示名をそこから引く。
  * 窓口 window.Hai.Notes：
  *   open()  logItem(item, amount)  logGold(amount)  suspend(fn)  itemLog()
+ *   errand(key)  errands()  setErrand({ key, title, who, stage, text, variableId })  endErrand(key, result, text)
  * 詳しくは docs/plugins/Hai_Notes.md。
  *
  * @param menuText
@@ -49,6 +54,98 @@
  * @desc %1 数、%2 通貨の単位、%3 マップ名。
  * @type string
  * @default 魔石 %1%2を手に入れた（%3）
+ *
+ * @param errandTab
+ * @text 頼みごとの種類の名前
+ * @type string
+ * @default 頼みごと
+ *
+ * @param errandFormat
+ * @text 頼みごとの一行
+ * @desc %1 筋の名前、%2 今の一行、%3 頼んだ人。
+ * @type string
+ * @default %1：%2
+ *
+ * @param markDone
+ * @text 印：終わった
+ * @type string
+ * @default 終わった
+ *
+ * @param markFailed
+ * @text 印：途切れた
+ * @type string
+ * @default 途切れた
+ *
+ * @param markDead
+ * @text 印：亡くなった
+ * @type string
+ * @default 亡くなった
+ *
+ * @command errand
+ * @text 頼みごとを進める
+ * @desc 頼みごとの一行を書く（同じキーがあれば書き換えて、いちばん新しい所へ）。
+ *
+ * @arg key
+ * @text キー
+ * @desc 頼みごとを見分ける名前（英数字）。例：brother
+ * @type string
+ * @default
+ *
+ * @arg title
+ * @text 筋の名前
+ * @desc 空なら前の名前のまま。
+ * @type string
+ * @default
+ *
+ * @arg who
+ * @text 頼んだ人
+ * @desc 空なら前のまま。
+ * @type string
+ * @default
+ *
+ * @arg stage
+ * @text 段
+ * @desc 1 から。0 なら前の段のまま。
+ * @type number
+ * @min 0
+ * @default 0
+ *
+ * @arg text
+ * @text 今の一行
+ * @type multiline_string
+ * @default
+ *
+ * @arg variableId
+ * @text 段を写す変数
+ * @desc 段をこの変数にも入れる（条件分岐用）。0 なら前のまま（はじめは写さない）。
+ * @type variable
+ * @default 0
+ *
+ * @command errandEnd
+ * @text 頼みごとを終える
+ * @desc 印を付けて、一覧で薄くする。
+ *
+ * @arg key
+ * @text キー
+ * @type string
+ * @default
+ *
+ * @arg result
+ * @text 終わり方
+ * @type select
+ * @option 終わった
+ * @value done
+ * @option 途切れた
+ * @value failed
+ * @option 亡くなった
+ * @value dead
+ * @default done
+ *
+ * @arg text
+ * @text 最後の一行
+ * @desc 空なら今の一行のまま。
+ * @type multiline_string
+ * @default
  */
 (() => {
   "use strict";
@@ -59,11 +156,19 @@
   const itemFormat = params.itemFormat || "%1を手に入れた（%2）";
   const itemsFormat = params.itemsFormat || "%1×%2を手に入れた（%3）";
   const goldFormat = params.goldFormat || "魔石 %1%2を手に入れた（%3）";
+  const errandTab = params.errandTab || "頼みごと";
+  const errandFormat = params.errandFormat || "%1：%2";
+  const MARKS = {
+    done: params.markDone || "終わった",
+    failed: params.markFailed || "途切れた",
+    dead: params.markDead || "亡くなった",
+  };
 
   const CATEGORIES = [
     { kind: "clue", name: "手がかり", empty: "まだ手がかりはない。" },
     { kind: "door", name: "扉", empty: "まだ鍵の要る扉はない。" },
     { kind: "item", name: "入手", empty: "まだ何も手に入れていない。" },
+    { kind: "errand", name: errandTab, empty: "まだ何も頼まれていない。" },
   ];
 
   const thoughts = () => (window.Hai && Hai.Thoughts) || null;
@@ -164,6 +269,82 @@
   };
 
   // ---------------------------------------------------------------------------
+  // 頼みごと（$gameSystem._hai.errands）
+  // ---------------------------------------------------------------------------
+  function errandState() {
+    $gameSystem._hai = $gameSystem._hai || {};
+    const s = ($gameSystem._hai.errands = $gameSystem._hai.errands || {});
+    s.list = s.list || [];
+    s.order = s.order || 0;
+    return s;
+  }
+
+  const findErrand = key => errandState().list.find(e => e.key === String(key)) || null;
+
+  /** 頼みごとを書く（無ければ足す）。書いたらその写し。 */
+  function setErrand(args) {
+    const key = String(args.key || "").trim();
+    if (!key) return null;
+    const s = errandState();
+    let e = findErrand(key);
+    if (!e) {
+      e = { key, title: "", who: "", stage: 0, text: "", result: "", variableId: 0 };
+      s.list.push(e);
+    }
+    if (args.title) e.title = String(args.title);
+    if (args.who) e.who = String(args.who);
+    if (Number(args.variableId) > 0) e.variableId = Number(args.variableId);
+    if (Number(args.stage) > 0) e.stage = Math.floor(Number(args.stage));
+    if (args.text) e.text = String(args.text);
+    e.result = "";
+    stamp(e);
+    if (e.variableId > 0) $gameVariables.setValue(e.variableId, e.stage);
+    return { ...e };
+  }
+
+  /** 頼みごとを終える（印を付ける）。終えたらその写し、無ければ null。 */
+  function endErrand(key, result, text) {
+    const e = findErrand(key);
+    if (!e) return null;
+    e.result = MARKS[result] ? result : "done";
+    if (text) e.text = String(text);
+    stamp(e);
+    return { ...e };
+  }
+
+  /** 書いた場所・時刻と、並びの順（いちばん新しくする）。 */
+  function stamp(e) {
+    const onMap = $gameMap && $gameMap.mapId() > 0;
+    e.mapId = onMap ? $gameMap.mapId() : 0;
+    e.x = onMap ? $gamePlayer.x : 0;
+    e.y = onMap ? $gamePlayer.y : 0;
+    e.time = $gameSystem.playtime();
+    e.order = ++errandState().order;
+  }
+
+  /** 一覧の行（書いた順。画面では新しい順に並べる）。 */
+  function errandRows() {
+    return errandState()
+      .list.slice()
+      .sort((a, b) => a.order - b.order)
+      .map(e => ({ ...e, kind: "errand", text: format(errandFormat, e.title, e.text, e.who) }));
+  }
+
+  PluginManager.registerCommand(pluginName, "errand", args => {
+    setErrand(args);
+  });
+
+  PluginManager.registerCommand(pluginName, "errandEnd", args => {
+    endErrand(args.key, args.result, args.text);
+  });
+
+  function rowsOf(kind) {
+    if (kind === "errand") return errandRows();
+    const th = thoughts();
+    return th && kind ? th.notes(kind) : [];
+  }
+
+  // ---------------------------------------------------------------------------
   // メモの画面
   // ---------------------------------------------------------------------------
   class Window_HaiNoteCategory extends Window_HorzCommand {
@@ -171,10 +352,8 @@
       return CATEGORIES.length;
     }
     makeCommandList() {
-      const th = thoughts();
       for (const c of CATEGORIES) {
-        const n = th ? th.notes(c.kind).length : 0;
-        this.addCommand(`${c.name}（${n}）`, c.kind);
+        this.addCommand(`${c.name}（${rowsOf(c.kind).length}）`, c.kind);
       }
     }
     update() {
@@ -206,8 +385,7 @@
       return (this._data && this._data[index]) || null;
     }
     refresh() {
-      const th = thoughts();
-      this._data = th && this._kind ? th.notes(this._kind).reverse() : [];
+      this._data = rowsOf(this._kind).reverse();
       super.refresh();
       if (!this._data.length) {
         const c = CATEGORIES.find(k => k.kind === this._kind);
@@ -220,13 +398,13 @@
       const note = this.item(index);
       if (!note) return;
       const rect = this.itemLineRect(index);
-      const done = note.kind === "door" && note.done;
-      this.changePaintOpacity(!done);
-      const tagW = done ? 120 : 0;
+      const mark = note.kind === "door" && note.done ? "開けた" : note.kind === "errand" && note.result ? MARKS[note.result] : "";
+      this.changePaintOpacity(!mark);
+      const tagW = mark ? 150 : 0;
       this.drawTextEx(note.text, rect.x, rect.y, rect.width - tagW);
-      if (done) {
-        this.changeTextColor(ColorManager.textColor(8));
-        this.drawText("開けた", rect.x + rect.width - tagW, rect.y, tagW, "right");
+      if (mark) {
+        this.changeTextColor(ColorManager.textColor(note.result === "dead" ? 2 : 8));
+        this.drawText(mark, rect.x + rect.width - tagW, rect.y, tagW, "right");
         this.resetTextColor();
       }
       this.changePaintOpacity(true);
@@ -238,7 +416,8 @@
         return;
       }
       const where = note.mapId ? `場所：${mapName(note.mapId)} ${note.x},${note.y}` : "場所：—";
-      this._helpWindow.setText(`${where}\n書き留めた時刻：${timeText(note.time)}`);
+      const who = note.kind === "errand" && note.who ? `頼んだ人：${note.who}　` : "";
+      this._helpWindow.setText(`${who}${where}\n書き留めた時刻：${timeText(note.time)}`);
     }
   }
 
@@ -311,6 +490,18 @@
     suspend(fn) {
       return suspend(fn, null, []);
     },
+    /** 頼みごと（キーで引く。写し）。無ければ null。 */
+    errand(key) {
+      const e = findErrand(key);
+      return e ? { ...e } : null;
+    },
+    /** 頼みごとの一覧（書いた順の写し）。 */
+    errands: () => errandRows(),
+    /** 頼みごとを書く（プラグインコマンド「頼みごとを進める」と同じ）。 */
+    setErrand,
+    /** 頼みごとを終える。result は "done" / "failed" / "dead"。 */
+    endErrand,
+    MARKS: { ...MARKS },
     /** 入手ログ（新しい順）。 */
     itemLog() {
       const th = thoughts();

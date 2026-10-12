@@ -157,8 +157,8 @@ await runTest(async () => {
     await go(SQUARE, 56, 20, 8);
     const anne = (await talk()).join("\n");
     check(anne.includes("ルッツ") && (await vr(VAR.brother)) === 1, "アンネリーゼの頼み（変数 401 = 1） " + JSON.stringify(anne));
-    const errand = await game.eval(() => (window.Hai && Hai.Notes && Hai.Notes.errand ? Hai.Notes.errand("brother") : "none"));
-    check(errand === "none" || (errand && errand.stage === 1), "頼みごと「弟を連れて帰る」が一覧に無い " + JSON.stringify(errand));
+    const errand = await game.eval(() => ({ e: Hai.Notes.errand("brother"), v: $gameVariables.value(161) }));
+    check(errand.e && errand.e.stage === 1 && errand.e.title === "弟を連れて帰る" && errand.v === 1, "頼みごと「弟を連れて帰る」が一覧に無い（変数 161） " + JSON.stringify(errand));
     await go(SQUARE, 31, 16, 8);
     check((await talk()).join("").includes("代わりに、その妹が"), "触れ書きのノラの記憶 3");
     await go(SQUARE, 13, 20, 8);
@@ -233,6 +233,8 @@ await runTest(async () => {
     check(anne2.includes("砦へ行く") && (await sw(SW.annelise)) && (await vr(VAR.survivors)) === survivors0 + 1, "アンネリーゼが砦へ（スイッチ 401・変数 103） " + JSON.stringify(anne2));
     await go(SQUARE, 54, 21, 8);
     check((await talk()).join("").includes("火を見てる"), "鍛冶小屋に戻ったルッツ");
+    const done = await game.eval(() => Hai.Notes.errand("brother"));
+    check(done && done.result === "done", "頼みごと「弟を連れて帰る」が終わらない " + JSON.stringify(done));
     console.log("  ルッツに帳面を見せる → アンネリーゼが砦へ・ルッツは鍛冶小屋");
 
     // ===== 6. 生贄の祠の番 → 奥の戸 → 記録院 =====
