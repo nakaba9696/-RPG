@@ -33,6 +33,7 @@ VISION.md 核 2「必須戦闘はボスだけ。ボスからも逃げられる�
 | `<hai_transform:197,30>` | HP 30% 以下になった**最初の行動の終わり**に敵 197 へ形態変化。**HP の割合を引き継ぐ**。何行でも書ける（段階ごとに 1 行） |
 | `<hai_weak_hint:雷>` | 雷（`System.json` の属性の名前か番号）の弱点を突かれた最初の 1 回に「〜は雷に弱いようだ。」。何行でも書ける |
 | `<hai_boss_switch:151>` | 倒したらスイッチ 151 を ON。何行でも書ける |
+| `<hai_endure:5>` | 耐える戦い（P12）：5 ターン目の終わりまで味方が立っていれば勝ち。倒さなくてよい |
 
 ### 形態変化
 - 形態変化の段は、**戦闘の頭の敵**（第一形態）のタグと、**今の形態**のタグの両方から読む。どちらに書いてもよい。1 つの段は 1 戦闘で 1 回だけ。
@@ -48,6 +49,16 @@ VISION.md 核 2「必須戦闘はボスだけ。ボスからも逃げられる�
 - メモ：`Hai.Thoughts` があれば `「試しの番人は雷に弱い。」`（ID `boss:<敵 ID>:<属性 ID>`、種類 `clue`）を 1 回だけ。U1 の手がかりのタブに出る。
 - 分かった弱点は `Hai.Boss.knownWeak(enemyId)`（属性 ID の配列。セーブに入る）。U1・P8（理知の間）の敵の情報の材料。
 - 状態異常の穴（眠りが効く・混乱が効く）のヒントはまだ無い（#71）。
+
+### 耐える戦い（P12、world.md 9.2 の頂）
+- 敵グループの誰かのメモ欄（第一形態か今の形態）に `<hai_endure:N>`。いくつもあれば大きい方。
+- ターンの頭に戦闘ログへ「残り N ターン」（パラメータ「耐える戦いの残りの表示」。このターンを含む数。空で出さない）。
+- **N ターン目の終わり**（ステートの切れる処理のあと）で、味方が全滅していなければ勝ち。文章「耐えきった。」（パラメータ。空で出さない）のあと、ふつうの勝ちの処理（経験値・ドロップ・撃破の旗・`<hai_boss_switch>`）。
+- それより前に敵を全部倒せば、ふつうに勝つ。倒させたくなければ、敵の HP を大きくするか、ステート「不死身」を付ける。
+- `<hai_boss>` があれば逃げられる（P4）。逃がしたくないときは `<hai_boss>` を外して「戦闘の処理」で逃走不可にする。
+- ターンごとの場面（薄い思念が一つずつ浮かぶ）は、敵グループのバトルイベント（条件「ターン」）で書く。最後のターンは `Hai.Boss.endureLeft() === 1` でも見られる。
+- 窓口：`Hai.Boss.endureTurns()`（N。耐える戦いでなければ 0）、`endureLeft()`（残り）、`endured()`（耐えきって勝ちの処理に入ったか）。
+- 試し：Enemies・Troops 183「P12_耐える戦いの試し」（`<hai_endure:5>`。`tools/maps/src/p12_data.mjs`）。テストは `tests/p_apostle.mjs`。
 
 ## プラグインコマンド「ボス戦」（`bossBattle`）
 話しかけて始める型のボス（W1 の看守長の型）に使う。
@@ -127,6 +138,7 @@ P4 が作った見本（Enemies/Troops 161、技 169・170・179・180）の行�
 | `currentBoss()` | 今の戦闘のボス（`Game_Enemy`、いなければ `null`） |
 | `actionCount(enemyId, hpRate)` | タグから決まる 1 ターンの行動の回数（タグが無ければ 0） |
 | `transforms(enemyId)` | その敵の形態変化の段 `[{ from, to, rate }]` |
+| `endureTurns()`・`endureLeft()`・`endured()` | 耐える戦いのターン数・残り（今のターンを含む）・耐えきったか |
 
 ## パラメータ
 | 名前 | 表示名 | 既定 |
@@ -136,6 +148,8 @@ P4 が作った見本（Enemies/Troops 161、技 169・170・179・180）の行�
 | `hintMessage` | 弱点のヒントの文章 | `%1は%2に弱いようだ。` |
 | `hintNote` | 弱点のメモ | `%1は%2に弱い。`（空にするとメモに残さない） |
 | `weakRate` | 弱点とみなす有効度 | 1.50 |
+| `endureFormat` | 耐える戦いの残りの表示 | `残り %1 ターン`（空にすると出さない） |
+| `endureMessage` | 耐えきったときの文章 | `耐えきった。`（空にすると出さない） |
 
 ## 状態（セーブに入る）
 ```js
@@ -146,6 +160,7 @@ $gameSystem._hai.boss = { defeated: { 196: true }, weak: { 196: [4] }, lastResul
 ## 中身（alias したところ）
 - `Game_Enemy.prototype.setup`（形態の記録の初期化）・`makeActionTimes`（複数行動）
 - `BattleManager.displayStartMessages`（名前の 1 行）・`endAction`（形態変化）・`processVictory`（撃破の旗）
+- `BattleManager.initMembers`・`startTurn`（残りの表示）・`updateTurnEnd`・`checkBattleEnd`（耐える戦い）
 - `Game_Action.prototype.executeHpDamage`・`Window_BattleLog.prototype.displayActionResults`（弱点のヒント）
 
 ## 試験場（P7 の帯）

@@ -17,6 +17,8 @@
  *   <hai_weak_hint:雷>           雷の弱点を突かれた最初の 1 回に「〜は雷に弱いようだ。」。
  *                                Hai_Thoughts があればメモにも 1 行。何行でも書ける
  *   <hai_boss_switch:151>        倒したらスイッチ 151 を ON。何行でも書ける
+ *   <hai_endure:5>               耐える戦い：5 ターン目の終わりまで味方が立っていれば勝ち
+ *                                （倒さなくてよい。勝ちは撃破と同じ扱いで、撃破の旗も立つ）
  *
  * ■ プラグインコマンド「ボス戦」
  *   話しかけて始める型のボスに使う。逃走可・敗北不可（負けたら Hai_Defeat の全滅の処理）。
@@ -25,6 +27,7 @@
  *
  * ■ 窓口（window.Hai.Boss）
  *   isBoss(enemy)  defeated(troopId)  phase(enemy)  lastResult()  knownWeak(enemyId)
+ *   endureTurns()  endureLeft()  endured()
  *
  * @param nameFormat
  * @text 名前の表示
@@ -56,6 +59,18 @@
  * @type number
  * @decimals 2
  * @default 1.50
+ *
+ * @param endureFormat
+ * @text 耐える戦いの残りの表示
+ * @desc ターンの頭に戦闘ログへ出す。%1 が残りのターン数（このターンを含む）。空にすると出さない。
+ * @type string
+ * @default 残り %1 ターン
+ *
+ * @param endureMessage
+ * @text 耐えきったときの文章
+ * @desc 勝ちの文章の前に出す。空にすると出さない。
+ * @type string
+ * @default 耐えきった。
  *
  * @command bossBattle
  * @text ボス戦
@@ -106,6 +121,8 @@
   const hintMessage = params.hintMessage || "%1は%2に弱いようだ。";
   const hintNote = params.hintNote ?? "%1は%2に弱い。";
   const weakRate = Number(params.weakRate || 1.5);
+  const endureFormat = params.endureFormat ?? "残り %1 ターン";
+  const endureMessage = params.endureMessage ?? "耐えきった。";
 
   // ---------------------------------------------------------------- 状態（$gameSystem._hai.boss）
   function state() {
@@ -173,6 +190,27 @@
     return tagValues(data, "hai_boss_switch").map(Number).filter(n => n > 0);
   }
 
+  /** 耐える戦いのターン数（今の敵グループの <hai_endure> のいちばん大きい値。無ければ 0）。 */
+  function endureTurns() {
+    if (!$gameParty.inBattle()) return 0;
+    let n = 0;
+    for (const enemy of $gameTroop.members()) {
+      for (const data of [enemy.enemy(), $dataEnemies[enemy._haiBossBase]]) {
+        const v = data && data.meta ? Number(data.meta.hai_endure) : 0;
+        if (v > n) n = Math.floor(v);
+      }
+    }
+    return n;
+  }
+
+  /** 残りのターン数（今のターンを含む）。耐える戦いでなければ 0。 */
+  function endureLeft() {
+    const n = endureTurns();
+    if (n <= 0) return 0;
+    const done = BattleManager._phase === "turn" ? $gameTroop.turnCount() - 1 : $gameTroop.turnCount();
+    return Math.max(0, n - done);
+  }
+
   function format(text, ...args) {
     return text.replace(/%(\d)/g, (s, n) => (args[n - 1] !== undefined ? args[n - 1] : s));
   }
@@ -194,6 +232,12 @@
     currentBoss: () => ($gameParty.inBattle() ? $gameTroop.members().find(e => isBoss(e)) || null : null),
     actionCount: (enemyId, hpRate = 1) => actionCount($dataEnemies[enemyId], hpRate),
     transforms: enemyId => transformsOf($dataEnemies[enemyId]),
+    /** 耐える戦いのターン数（耐える戦いでなければ 0）。 */
+    endureTurns,
+    /** 耐える戦いの残りのターン数（今のターンを含む）。 */
+    endureLeft,
+    /** 今の戦闘を耐えきったか（勝ちの処理に入ったら true）。 */
+    endured: () => !!BattleManager._haiEndured,
   };
 
   // ---------------------------------------------------------------- ボス戦（プラグインコマンド）
@@ -340,6 +384,43 @@
       this.push("wait");
       target._haiBossHintText = null;
     }
+  };
+
+  // ---------------------------------------------------------------- 耐える戦い
+  const _BattleManager_initMembers = BattleManager.initMembers;
+  BattleManager.initMembers = function() {
+    _BattleManager_initMembers.apply(this, arguments);
+    this._haiEndured = false;
+    this._haiEndureReached = false;
+  };
+
+  const _BattleManager_startTurn = BattleManager.startTurn;
+  BattleManager.startTurn = function() {
+    _BattleManager_startTurn.apply(this, arguments);
+    const left = endureLeft();
+    if (left > 0 && endureFormat && !this.isTpb()) {
+      this._logWindow.push("addText", format(endureFormat, left));
+      this._logWindow.push("wait");
+    }
+  };
+
+  // ターンの終わり（ステートの切れる処理のあと）に、決まったターン数に届いたかを見る
+  const _BattleManager_updateTurnEnd = BattleManager.updateTurnEnd;
+  BattleManager.updateTurnEnd = function() {
+    _BattleManager_updateTurnEnd.apply(this, arguments);
+    const n = endureTurns();
+    if (n > 0 && $gameTroop.turnCount() >= n && !$gameParty.isAllDead()) this._haiEndureReached = true;
+  };
+
+  const _BattleManager_checkBattleEnd = BattleManager.checkBattleEnd;
+  BattleManager.checkBattleEnd = function() {
+    if (this._phase && this._haiEndureReached && !this._haiEndured && !$gameParty.isAllDead() && !$gameParty.isEscaped()) {
+      this._haiEndured = true;
+      if (endureMessage) $gameMessage.add(endureMessage);
+      this.processVictory();
+      return true;
+    }
+    return _BattleManager_checkBattleEnd.apply(this, arguments);
   };
 
   // ---------------------------------------------------------------- 撃破の旗
