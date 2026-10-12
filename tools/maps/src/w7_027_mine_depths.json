@@ -1787,6 +1787,53 @@
           "moveFrequency": 3
         }
       ]
+    },
+    {
+      "name": "長屋の奥の下り口（骨の鍛冶場へ）",
+      "type": "raw",
+      "x": 2,
+      "y": 25,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "tileId": "B:31"
+          },
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                30,
+                4,
+                3,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
     }
   ]
 }
