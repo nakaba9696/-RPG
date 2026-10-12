@@ -399,8 +399,8 @@ function config(file, cfg) {
     chars: {},
     scatter: [
       { on: ".", z: 1, tiles: ["A2:15"], rate: 0.08, seed: 60 },
-      { on: ".", tiles: ["B:171", "B:239", "B:252", "D:32"], rate: 0.06, seed: 61 },
-      { on: ",", tiles: ["B:152", "B:153", "B:239"], rate: 0.12, seed: 62 },
+      { on: ".", tiles: ["B:171", "B:239", "B:252", "D:32", "B:152", "B:153"], rate: 0.14, seed: 61 },
+      { on: ",", tiles: ["B:152", "B:153", "B:239", "B:155"], rate: 0.2, seed: 62 },
       { on: ";", tiles: ["D:32", "D:33", "B:252"], rate: 0.12, seed: 63 },
     ],
     events,
@@ -551,10 +551,10 @@ function config(file, cfg) {
     chars: {},
     scatter: [
       { on: ".", z: 1, tiles: ["A2:15"], rate: 0.08, seed: 610 },
-      { on: ".", tiles: ["B:171", "B:239", "B:252", "D:32"], rate: 0.07, seed: 611 },
-      { on: ",", tiles: ["B:152", "B:153", "B:239", "B:160"], rate: 0.14, seed: 612 },
+      { on: ".", tiles: ["B:171", "B:239", "B:252", "D:32", "B:152", "B:153"], rate: 0.14, seed: 611 },
+      { on: ",", tiles: ["B:152", "B:153", "B:239", "B:160"], rate: 0.2, seed: 612 },
       { on: ";", tiles: ["D:32", "D:33", "B:252"], rate: 0.12, seed: 613 },
-      { on: ":", tiles: ["B:171", "D:32"], rate: 0.04, seed: 614 },
+      { on: ":", tiles: ["B:171", "D:32", "D:33"], rate: 0.08, seed: 614 },
       { on: "^", tiles: ["B:239", "B:171"], rate: 0.1, seed: 615 },
     ],
     events,
@@ -578,7 +578,7 @@ function config(file, cfg) {
       "こっちは山の方だ。村は、背中の方。",
       "振り向けないや。でも、火は上がった。",
     ], body("Damage1", 7, 8)),
-    faint("F06", "伝令の子", 15, 13, [
+    faint("F06", "伝令の子", 16, 11, [
       "砦の中庭。伝令の子が、地面に引いた線の上に立つ。",
       "隣に墓守がいる。子は「よーい」の前に駆け出した。",
       "墓守の足音が、最後の数歩でだけ遅くなる。",
@@ -1011,6 +1011,13 @@ function config(file, cfg) {
     ...[19, 20, 21, 22].map(x => transfer("南の戸（書架へ）", x, 29, [MAP.stacks, 30, 4], "down")),
     ...[19, 20, 21].map(x => transfer("北の戸（真名の間へ）", x, 0, ARRIVE.nameSouth, "up")),
     warp("封じた書架", 17, 4),
+    {
+      name: "角灯の明かり（自動）", type: "raw", x: 1, y: 1, note: "",
+      pages: [{ priorityType: 0, trigger: 4, list: [
+        ifItem(ITEM.lantern), ...plugin("Hai_MapTone", "dark", "暗がりの半径を変える", { radius: "5" }, 1), end(1), endIf(0),
+        { code: 214, indent: 0, parameters: [] }, end(0),
+      ] }],
+    },
     look("札", 22, 3, ["戸の脇に札が掛けてある。", "「この先の者に、声を出させるな。出させれば、読む」。"]),
     thought("R2-21", "封じた学者", 21, 25, [
       "書架を封じたのは私だ。奥の男を、ここから出さないために。",

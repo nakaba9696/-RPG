@@ -365,6 +365,68 @@
       ]
     },
     {
+      "name": "角灯の明かり（自動）",
+      "type": "raw",
+      "x": 1,
+      "y": 1,
+      "note": "",
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 4,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                8,
+                322
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_MapTone",
+                "dark",
+                "暗がりの半径を変える",
+                {
+                  "radius": "5"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "radius = 5"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 214,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "札",
       "type": "text",
       "x": 22,
