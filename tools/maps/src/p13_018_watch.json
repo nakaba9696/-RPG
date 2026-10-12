@@ -1,0 +1,141 @@
+{
+  "mapId": 18,
+  "name": "見張り台",
+  "parentId": 10,
+  "displayName": "見張り台",
+  "legend": "rampart",
+  "tilesetId": 21,
+  "bgm": {
+    "name": "Castle2",
+    "volume": 55,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Wind4",
+    "volume": 40,
+    "pitch": 100,
+    "pan": 0
+  },
+  "note": "<hai_tone:-34,-34,-17,85>\n<hai_parallax:DarkClouds,1,0>\n<hai_ash:3>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Fort2",
+    "battleback2Name": "Fort2"
+  },
+  "_説明": "P13（#189）：見張り台（docs/world.md 4.3・look.md の 018。グィドが来ると開く）。烽火の台を調べると、訪れたマップの地図が隅まで埋まる（Hai_Facilities の use watch）。開いている間、結界の転送の行き先が増える。出口は南の下り階段 (8,12) → 010 の見張り台の扉の前 (17,9)。019 の見張り台の扉 (16,6) からも来る。この設定は p13_data.mjs が書く。",
+  "chars": {
+    "<": {
+      "name": "下り階段（010 へ）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "D:26"
+      ]
+    }
+  },
+  "deco": {
+    "Z": {
+      "name": "胸壁の刻み（壁の亀裂）",
+      "z2": "D:35"
+    },
+    "f": {
+      "name": "烽火の台（石のかまど）",
+      "z2": "B:147"
+    },
+    "p": {
+      "name": "倒れた槍立て",
+      "z2": "E:183"
+    },
+    "r": {
+      "name": "瓦礫",
+      "z2": "D:120"
+    },
+    "a": {
+      "name": "鎧の亡骸（鎧のスタンド）",
+      "z2": "E:160"
+    }
+  },
+  "scatter": [
+    {
+      "on": ".",
+      "z": 1,
+      "tiles": [
+        "A2:15"
+      ],
+      "rate": 0.12,
+      "seed": 1810
+    },
+    {
+      "on": ".",
+      "tiles": [
+        "D:32",
+        "D:33"
+      ],
+      "rate": 0.05,
+      "seed": 1811
+    }
+  ],
+  "events": [
+    {
+      "name": "出口（黒鉄の砦へ）",
+      "type": "transfer",
+      "x": 8,
+      "y": 12,
+      "to": [
+        10,
+        17,
+        9,
+        "down"
+      ]
+    },
+    {
+      "name": "烽火の台",
+      "type": "raw",
+      "x": 8,
+      "y": 5,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Facilities",
+                "use",
+                "部屋を使う",
+                {
+                  "facility": "watch"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "部屋 = watch"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "胸壁の刻み",
+      "type": "text",
+      "x": 3,
+      "y": 1,
+      "lines": [
+        "胸壁に、刃物で刻んだ線が並んでいる。",
+        "五本ごとに横線。数えると、六十一。"
+      ]
+    }
+  ]
+}

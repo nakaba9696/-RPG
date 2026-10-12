@@ -2742,7 +2742,7 @@
       ]
     },
     {
-      "name": "療養所の扉（崩れている）",
+      "name": "療養所の扉",
       "type": "raw",
       "x": 44,
       "y": 8,
@@ -2750,29 +2750,76 @@
         {
           "image": {
             "characterName": "!Door1",
-            "characterIndex": 0,
+            "characterIndex": 2,
             "direction": 2,
-            "pattern": 0
+            "pattern": 1
           },
           "priorityType": 1,
           "walkAnime": false,
           "list": [
             {
-              "code": 101,
+              "code": 357,
               "indent": 0,
               "parameters": [
-                "",
-                0,
-                0,
-                2,
-                ""
+                "Hai_Facilities",
+                "door",
+                "崩れた扉",
+                {
+                  "door": "infirmary"
+                }
               ]
             },
             {
-              "code": 401,
+              "code": 657,
               "indent": 0,
               "parameters": [
-                "扉が崩れて、瓦礫で塞がっている。"
+                "どの部屋の扉か = infirmary"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 125,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 2,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                16,
+                8,
+                11,
+                8,
+                0
               ]
             },
             {
@@ -2785,7 +2832,7 @@
       ]
     },
     {
-      "name": "鍛冶場の扉（崩れている）",
+      "name": "鍛冶場の扉",
       "type": "raw",
       "x": 42,
       "y": 36,
@@ -2793,29 +2840,76 @@
         {
           "image": {
             "characterName": "!Door1",
-            "characterIndex": 0,
+            "characterIndex": 2,
             "direction": 2,
-            "pattern": 0
+            "pattern": 1
           },
           "priorityType": 1,
           "walkAnime": false,
           "list": [
             {
-              "code": 101,
+              "code": 357,
               "indent": 0,
               "parameters": [
-                "",
-                0,
-                0,
-                2,
-                ""
+                "Hai_Facilities",
+                "door",
+                "崩れた扉",
+                {
+                  "door": "smithy"
+                }
               ]
             },
             {
-              "code": 401,
+              "code": 657,
               "indent": 0,
               "parameters": [
-                "扉が崩れて、瓦礫で塞がっている。"
+                "どの部屋の扉か = smithy"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 126,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 2,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                17,
+                8,
+                11,
+                8,
+                0
               ]
             },
             {
@@ -2828,7 +2922,7 @@
       ]
     },
     {
-      "name": "見張り台の扉（崩れている）",
+      "name": "見張り台の扉",
       "type": "raw",
       "x": 17,
       "y": 8,
@@ -2836,29 +2930,76 @@
         {
           "image": {
             "characterName": "!Door1",
-            "characterIndex": 0,
+            "characterIndex": 2,
             "direction": 2,
-            "pattern": 0
+            "pattern": 1
           },
           "priorityType": 1,
           "walkAnime": false,
           "list": [
             {
-              "code": 101,
+              "code": 357,
               "indent": 0,
               "parameters": [
-                "",
-                0,
-                0,
-                2,
-                ""
+                "Hai_Facilities",
+                "door",
+                "崩れた扉",
+                {
+                  "door": "watch"
+                }
               ]
             },
             {
-              "code": 401,
+              "code": 657,
               "indent": 0,
               "parameters": [
-                "扉が崩れて、瓦礫で塞がっている。"
+                "どの部屋の扉か = watch"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 127,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Door1",
+            "characterIndex": 2,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                18,
+                8,
+                11,
+                8,
+                0
               ]
             },
             {

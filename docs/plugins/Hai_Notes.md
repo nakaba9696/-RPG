@@ -33,6 +33,20 @@
   一行を選ぶと、下の窓に「頼んだ人：〜　場所：〜」と時刻。
 - 状態：`$gameSystem._hai.errands = { list: [{ key, title, who, stage, text, result, variableId, mapId, x, y, time, order }], order }`（セーブに入る。古いセーブで無ければ空で作る）。
   Hai_Thoughts のメモ帳には入れない（手がかりのように数が増えるものではなく、一行を書き換えるため）。
+- **筋の表**（P13 #189。パラメータ `errandBook`）：world.md 7.3 の 8 本。表にある `key` なら、初めて書くときに名前・頼んだ人・変数を表から入れる（コマンドに書いた欄が勝つ）。W は `key`・`stage`・`text` だけ書けばよい。
+
+  | key | 筋 | 頼んだ人 | 変数 |
+  |---|---|---|---|
+  | `brother` | 弟を連れて帰る | アンネリーゼ | 161 |
+  | `summitTools` | 頂の道具 | アデル | 162 |
+  | `copies` | 本物の写し | イスメネ | 163 |
+  | `name` | 名を返す | 名無し | 164 |
+  | `prisonBell` | 営倉の鐘を売る | マルゴ | 165 |
+  | `outsiders` | 外に残された者 | ミルレーネ | 166 |
+  | `doorSong` | 扉の外の歌（W9） | 村の長 | 501 |
+  | `scaffold` | 足場の木（W12 が中身を書く） | テオ | 176 |
+
+  `brother`・`copies`・`name`・`outsiders`・`doorSong` は今あるイベントの key のまま。`summitTools`・`prisonBell`・`scaffold` は P13 で決めた（まだイベントが無い）。変数 176 の名前は「頼みごと:足場の木」（`p13_data.mjs`）。
 - 例（アンネリーゼの「弟を連れて帰る」）：
   1. 頼まれたとき：`errand`（key `brother`、title「弟を連れて帰る」、who「アンネリーゼ」、stage 1、text、variableId 161）
   2. 帳面を見せたとき：`errand`（key `brother`、stage 2、text）
@@ -49,6 +63,7 @@
 | `errandTab` | `頼みごと` | 頼みごとの種類の名前 |
 | `errandFormat` | `%1：%2` | 頼みごとの一行。%1 筋の名前、%2 今の一行、%3 頼んだ人 |
 | `markDone`・`markFailed`・`markDead` | `終わった`・`途切れた`・`亡くなった` | 終えた印 |
+| `errandBook` | 上の筋の表（`key:筋の名前:頼んだ人:変数` をカンマ区切り） | 頼みごとの筋の表 |
 
 ## 窓口（`window.Hai.Notes`）
 | 関数 | 中身 |
@@ -61,6 +76,7 @@
 | `errands()` | 頼みごとの一覧（書いた順の写し。`text` は一覧の一行） |
 | `setErrand({ key, title, who, stage, text, variableId })`・`endErrand(key, result, text)` | プラグインコマンドと同じ |
 | `CATEGORIES` | `["clue", "door", "item", "errand"]`（タブの並び） |
+| `ERRANDS` / `errandBook(key)` / `stageOf(key)` | 筋の表（8 本。写し） / その 1 本（無ければ `null`） / 今の段（まだなら 0） |
 
 シーンのクラスは `window.Scene_HaiNotes`。
 

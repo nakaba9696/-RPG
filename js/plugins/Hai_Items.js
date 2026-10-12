@@ -43,6 +43,7 @@
  *   takeFromStorage(kind, id, n) 倉庫から袋へ n 個（上限まで）出す。出した数を返す
  *   putToStorage(kind, id, n)    袋から倉庫へ n 個入れる。入れた数を返す
  *   maxOf(item) / roomFor(item)  上限 / あと何個袋に入るか（一点ものは装備中の分も数える）
+ *   addItemMaxRule(fn)  消耗品の上限（itemMax）に fn() の数を足す（P13 の療養所。<hai_max> の物には足さない）
  *   isUnique(item) / canSell(item) / canDiscard(item)
  *   isBoss(enemyId) / dropsEquipment(enemyId) / fixedDrops(enemyId)  ドロップの判定
  *   itemOf(kind, id) / kindOf(item)  種類と ID ⇔ データ（kind は item/weapon/armor か i/w/a）
@@ -167,13 +168,16 @@
   // 上限
   // ---------------------------------------------------------------------------
   const isUnique = item => !!(item && item.meta && item.meta.hai_unique);
+  // 消耗品の上限に足す数（ほかのプラグインが足す。P13 の療養所）。関数は毎回呼ぶ（セーブの状態から数を出す）
+  const maxBonusRules = [];
+  const itemMaxBonus = () => maxBonusRules.reduce((n, fn) => n + Math.max(0, Number(fn()) || 0), 0);
   function maxOf(item) {
     if (!item) return MZ_MAX;
     if (isUnique(item)) return 1;
     const tag = item.meta && item.meta.hai_max;
     if (tag !== undefined && tag !== true && Number(tag) > 0) return Number(tag);
     if (DataManager.isItem(item)) {
-      return item.itypeId === 1 && item.consumable && P.itemMax > 0 ? P.itemMax : MZ_MAX;
+      return item.itypeId === 1 && item.consumable && P.itemMax > 0 ? P.itemMax + itemMaxBonus() : MZ_MAX;
     }
     return P.equipMax > 0 ? P.equipMax : MZ_MAX;
   }
@@ -457,6 +461,8 @@
     putToStorage,
     maxOf,
     roomFor,
+    addItemMaxRule: fn => typeof fn === "function" && maxBonusRules.push(fn),
+    itemMaxBonus,
     isUnique,
     canSell,
     canDiscard,

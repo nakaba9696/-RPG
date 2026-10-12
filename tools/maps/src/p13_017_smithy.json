@@ -1,0 +1,182 @@
+{
+  "mapId": 17,
+  "name": "鍛冶場",
+  "parentId": 10,
+  "displayName": "鍛冶場",
+  "legend": "dungeon",
+  "tilesetId": 11,
+  "bgm": {
+    "name": "Castle2",
+    "volume": 60,
+    "pitch": 100,
+    "pan": 0
+  },
+  "note": "<hai_tone:-17,-26,-43,34>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Stone2",
+    "battleback2Name": "Room1"
+  },
+  "chars": {
+    "#": {
+      "name": "砦の壁（壁O（砦）。下が床なら側面、ほかは上面）",
+      "wall": {
+        "top": "A4:22",
+        "side": "A4:30",
+        "height": 2
+      }
+    },
+    ".": {
+      "name": "石畳（石畳A）",
+      "tiles": [
+        "A5:20"
+      ]
+    }
+  },
+  "_説明": "P13（#189）：鍛冶場（docs/world.md 4.3・mapdesign.md 4 章。アンネリーゼが来ると開く）。金床を調べると、一点ものの装備を魂で鍛え直す・鉄切り鋏を打つ（Hai_Facilities の use smithy。鋏はスイッチ 313）。出口は南 (8,12) → 010 の鍛冶場の扉の前 (42,37)。この設定は p13_data.mjs が書く。",
+  "deco": {
+    "4": {
+      "name": "水桶",
+      "z2": "E:150"
+    },
+    "Z": {
+      "name": "貼り紙（打ち印の板）",
+      "z2": "D:216"
+    },
+    "&": {
+      "name": "金床",
+      "z2": "E:148"
+    },
+    "i": {
+      "name": "鉄くず",
+      "z2": "E:151"
+    },
+    "n": {
+      "name": "壊れた樽",
+      "z2": "D:237"
+    },
+    "N": {
+      "name": "樽",
+      "z2": "D:212"
+    },
+    "M": {
+      "name": "麻袋",
+      "z2": "D:249"
+    },
+    "h": {
+      "name": "端材",
+      "z2": "D:220"
+    }
+  },
+  "stamps": [
+    {
+      "at": "F",
+      "name": "炉（大きな暖炉 3×2）",
+      "tiles": [
+        [
+          "D:189",
+          "D:190",
+          "D:191"
+        ],
+        [
+          "D:197",
+          "D:198",
+          "D:199"
+        ]
+      ]
+    },
+    {
+      "at": "?",
+      "name": "剣立て（1×2）",
+      "tiles": [
+        [
+          "E:174"
+        ],
+        [
+          "E:182"
+        ]
+      ]
+    }
+  ],
+  "scatter": [
+    {
+      "on": ".",
+      "z": 1,
+      "tiles": [
+        "A2:15"
+      ],
+      "rate": 0.04,
+      "seed": 1710
+    },
+    {
+      "on": ".",
+      "tiles": [
+        "B:32",
+        "B:33"
+      ],
+      "rate": 0.05,
+      "seed": 1711
+    }
+  ],
+  "events": [
+    {
+      "name": "出口（黒鉄の砦へ）",
+      "type": "transfer",
+      "x": 8,
+      "y": 12,
+      "to": [
+        10,
+        42,
+        37,
+        "down"
+      ]
+    },
+    {
+      "name": "金床",
+      "type": "raw",
+      "x": 8,
+      "y": 6,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Facilities",
+                "use",
+                "部屋を使う",
+                {
+                  "facility": "smithy"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "部屋 = smithy"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "打ち印の板",
+      "type": "text",
+      "x": 12,
+      "y": 2,
+      "lines": [
+        "壁に板が打ちつけてある。鍛冶の打ち印が二十ほど焼き付けてある。",
+        "下の段の三つは、焼きが浅い。"
+      ]
+    }
+  ]
+}

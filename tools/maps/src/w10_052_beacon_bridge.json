@@ -520,6 +520,25 @@
               "code": 357,
               "indent": 0,
               "parameters": [
+                "Hai_Facilities",
+                "open",
+                "部屋を開く",
+                {
+                  "facility": "watch"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "部屋 = watch"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
                 "Hai_Thoughts",
                 "addNote",
                 "メモに足す",

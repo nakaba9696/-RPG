@@ -781,6 +781,7 @@ const guido = {
         cmd(221, []),
         switchOn(SW.guido),
         addVar(FLAG.survivors, 1),
+        ...plugin("Hai_Facilities", "open", "部屋を開く", { facility: "watch" }, 0, { facility: "部屋" }), // 見張り台（P13 #189）
         ...addNote("guido:fort", "グィドが砦へ（吊り橋と烽火台）"),
         selfOn(),
         cmd(222, []),

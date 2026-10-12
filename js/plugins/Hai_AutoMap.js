@@ -19,7 +19,7 @@
  *
  * 窓口 window.Hai.AutoMap：
  *   visited(mapId)  visitedCount(mapId)  isVisited(x, y, mapId)  markVisited(mapId, x, y)
- *   clear(mapId)  mapName(mapId)  cellKind(x, y)  marks()  foundPassages(mapId)  open()
+ *   clear(mapId)  revealVisited()  mapName(mapId)  cellKind(x, y)  marks()  foundPassages(mapId)  open()
  * 詳しくは docs/plugins/Hai_AutoMap.md。
  *
  * @param mapKey
@@ -524,6 +524,14 @@
     markVisited(mapId, x, y) {
       if (Number(mapId) !== $gameMap.mapId()) return false;
       return setCells([[Number(x), Number(y)]]) > 0;
+    },
+    /** 記録のあるマップ（訪れたマップ）を全部、隅まで通ったことにする（P13 の見張り台の全図）。埋めたマップの数。 */
+    revealVisited() {
+      const all = state();
+      const ids = Object.keys(all).filter(id => all[id] && all[id].w > 0 && all[id].h > 0);
+      for (const id of ids) all[id].v = encode(new Uint8Array(all[id].w * all[id].h).fill(1));
+      cache = null;
+      return ids.length;
     },
     /** 記録を消す（省略で今のマップ）。 */
     clear(mapId) {

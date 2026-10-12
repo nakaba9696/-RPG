@@ -413,7 +413,7 @@ function config(file, cfg) {
 {
   const anneliseFort = [
     ...errandEnd({ key: "brother", result: "done", text: "アンネリーゼは砦へ。ルッツは村の鍛冶小屋の火を見ている" }, 1),
-    ...toFort(SW.annelise, null, 1),
+    ...toFort(SW.annelise, "smithy", 1),
     ...say(["アンネリーゼは金槌を腰に差して、村の南へ出ていった。"], "", 1),
   ];
   const events = [
@@ -743,7 +743,7 @@ function config(file, cfg) {
           ...say(["おや、人の子かえ。婆の小屋に客とは、珍しいのう。", "婆はピピネルじゃ。見た目で笑うたら、薬に苦い根を足すぞ。"], "ピピネル"),
           ...say(["熱の薬、傷の薬、眠る薬。たいていの薬は、ここで煎じられる。", "森の内へ戻る薬は、無い。門が閉じてからずっと、無い。"], "ピピネル"),
           ...say(["砦の炉に火が入ったと？　……ほう。火の入る所には、怪我人が出る。", "行ってやろう。薬草の籠を背負うてな。帳面は、置いていく。"], "ピピネル"),
-          ...toFort(SW.pipinel, null),
+          ...toFort(SW.pipinel, "infirmary"),
           ...say(["ピピネルは籠を背負って、森の道を砦の方へ歩いていった。"]),
           end(0),
         ] },

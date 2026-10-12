@@ -988,6 +988,25 @@
               ]
             },
             {
+              "code": 357,
+              "indent": 3,
+              "parameters": [
+                "Hai_Facilities",
+                "open",
+                "部屋を開く",
+                {
+                  "facility": "smithy"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 3,
+              "parameters": [
+                "facility = smithy"
+              ]
+            },
+            {
               "code": 123,
               "indent": 3,
               "parameters": [
@@ -1111,6 +1130,25 @@
                 1,
                 0,
                 1
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 3,
+              "parameters": [
+                "Hai_Facilities",
+                "open",
+                "部屋を開く",
+                {
+                  "facility": "smithy"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 3,
+              "parameters": [
+                "facility = smithy"
               ]
             },
             {

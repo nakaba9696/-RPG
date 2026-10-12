@@ -119,7 +119,7 @@ const sysFile = dataPath("System.json");
 const system = JSON.parse(fs.readFileSync(sysFile, "utf8"));
 while (system.switches.length <= 130) system.switches.push("");
 while (system.variables.length <= 130) system.variables.push("");
-for (let id = 121; id <= 130; id++) system.switches[id] = SWITCHES[id] ?? "";
+for (let id = 121; id <= 124; id++) system.switches[id] = SWITCHES[id] ?? ""; // 125–127 は P13（p13_data.mjs）
 if (system.variables[103] === "叡智のオーブの数") system.variables[103] = "";
 outputs.push({ file: sysFile, text: JSON.stringify(system) });
 

@@ -102,6 +102,7 @@ $gameSystem._hai.warp = {
 | `visit(mapId, eventId)` | **今のマップ**の結界を訪れたことにする（文章は出さない。メモは足す）。覚えたらその写し、結界でなければ `null` |
 | `destinations()` | 今の転送の一覧 `[{name, mapId, eventId, x, y, d, home}]`（拠点が先頭、いまの所は除く） |
 | `warpTo(index)` | `destinations()` の `index` 番へ転送する（効果音と場所移動の予約。できたら `true`） |
+| `addSource(fn)` | ほかのプラグインが行き先を足す（P13 の見張り台）。`fn()` は `[{name, mapId, x, y, d}]`。一覧の後ろに足し（同じ名前は重ねない）、着く所はその座標のまま（`exact: true`） |
 | `openMenu(eventId?)` | その結界（省略で目の前か足元の結界）の選択肢を出す。イベントが動いていればしない（`false`） |
 
 ## 中身（alias したところ）

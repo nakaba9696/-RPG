@@ -117,7 +117,7 @@ await runTest(async () => {
       $gameParty._actors = [1]; // 初期パーティ（System.json）に左右されないように主人公だけにする
       $gamePlayer.refresh();
     });
-    check((await F("opened")).length === 0 && JSON.stringify(await F("closed")) === '["soul","kitchen","gate","lore"]', "最初から部屋が開いている");
+    check((await F("opened")).length === 0 && JSON.stringify(await F("closed")) === '["soul","kitchen","gate","lore","infirmary","smithy","watch"]', "最初から部屋が開いている");
     check((await game.eval(() => ["soul", "kitchen", "gate", "lore"].map(k => Hai.Facilities.nameOf(k)).join())) === "稽古場,食堂,倉,書庫", "部屋の名前");
     const api = await game.eval(() => Object.keys(Hai.Facilities));
     check(!api.some(k => /orb|insert|next/i.test(k)), "窓口に叡智のオーブの名残りがある " + JSON.stringify(api));
@@ -162,7 +162,7 @@ await runTest(async () => {
     }
     check(JSON.stringify(await F("opened")) === '["soul","kitchen","gate","lore"]', "4 部屋 " + JSON.stringify(await F("opened")));
     check(JSON.stringify(await switches()) === "[true,true,true,true]", "スイッチ 121〜124 " + JSON.stringify(await switches()));
-    check((await F("closed")).length === 0 && !(await F("open", "soul")), "開いた部屋がまた開いた");
+    check(JSON.stringify(await F("closed")) === '["infirmary","smithy","watch"]' && !(await F("open", "soul")), "開いた部屋がまた開いた"); // 新しい 3 部屋は p_rooms
     await go(TEST_MAP, 8, 5, 8);
     await game.shot("test-map-all-open");
 
@@ -336,7 +336,7 @@ await runTest(async () => {
       return r;
     });
     check(old.opened.length === 4 && old.souls === 0 && old.bosses.length === 0, "古いセーブ（スイッチ ON）" + JSON.stringify(old));
-    check(old.none.length === 0 && old.closed === 4 && old.added === 3, "古いセーブ（スイッチ OFF）" + JSON.stringify(old));
+    check(old.none.length === 0 && old.closed === 7 && old.added === 3, "古いセーブ（スイッチ OFF）" + JSON.stringify(old));
     // 閉じた部屋を使おうとすると「扉が崩れて、瓦礫で塞がっている。」
     await go(ROOM.soul.map, ROOM.soul.use.x, ROOM.soul.use.y + 1, 8);
     pages = await talk();
