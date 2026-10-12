@@ -1,0 +1,33 @@
+{
+  "_説明": "V4 の見本（T の帯 900–949 のうち 917 を V4 が使う）。製品のマップからは行けない。タイルセット 23、凡例 foundry、メモ欄・曲・戦闘の背景は tools/maps/looks.json の「搬入口・型の間・鐘の型の部屋」と同じ（tests/v_regions.mjs が見る）。",
+  "mapId": 917,
+  "name": "T_鋳物場の見本",
+  "displayName": "鋳物場の見本",
+  "legend": "foundry",
+  "tilesetId": 23,
+  "note": "<hai_tone:0,-34,-68,68>",
+  "bgm": {
+    "name": "Dungeon5",
+    "volume": 60,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Fire2",
+    "volume": 20,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Fort1",
+    "battleback2Name": "Fort2"
+  },
+  "chars": {
+    "S": {
+      "name": "テストの開始地点",
+      "as": "."
+    }
+  },
+  "events": []
+}

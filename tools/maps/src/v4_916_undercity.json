@@ -1,0 +1,33 @@
+{
+  "_説明": "V4 の見本（T の帯 900–949 のうち 916 を V4 が使う）。製品のマップからは行けない。タイルセット 22、凡例 undercity、メモ欄・曲・戦闘の背景は tools/maps/looks.json の「井戸の縦穴・扉の内側の村（地下の灯がある）」と同じ（tests/v_regions.mjs が見る）。",
+  "mapId": 916,
+  "name": "T_地下都市の見本",
+  "displayName": "地下都市の見本",
+  "legend": "undercity",
+  "tilesetId": 22,
+  "note": "<hai_tone:-34,-43,-51,68>",
+  "bgm": {
+    "name": "Dungeon7",
+    "volume": 55,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Drips",
+    "volume": 30,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Cobblestones3",
+    "battleback2Name": "Town5"
+  },
+  "chars": {
+    "S": {
+      "name": "テストの開始地点",
+      "as": "."
+    }
+  },
+  "events": []
+}

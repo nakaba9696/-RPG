@@ -1,10 +1,10 @@
-// V1：タイルセット 11–30（V の帯）を data/Tilesets.json に書く。
+// V1：タイルセット 11–14 を data/Tilesets.json に書く（V4 で名前と用途を新しい世界「最後の鐘」の地域に読み替えた。画像と通行は V1 のまま）。
 //   node tools/maps/src/v1_tilesets.mjs           書く（11–30 の自分の分だけ。ほかの番号は触らない）
 //   node tools/maps/src/v1_tilesets.mjs --check   書かずに、今の Tilesets.json と同じかだけ見る
 //
 // 作り方：MZ 同梱の画像を組み合わせ、通行（flags）は「その画像を使っている同梱のタイルセット 1–6」から区画ごとに写す。
 //   ☆・茂み・梯子・カウンター・地形タグは、同梱の設定がそのまま入る（エディタで画像を選んだときと同じ状態を、手で選び直さずに作る）。
-//   変えたのは下の `tweaks` だけ（理由は docs/look.md）。
+//   変えたのは下の `tweaks` だけ（理由は docs/look.md 2.3）。
 // 持ち主がエディタでタイルセットを直したら、そちらが正本（このスクリプトで上書きしない。上書きするときは --check で差を見てから）。
 import { readData, writeTable, formatTable, extendTable } from "../../data/io.mjs";
 import fs from "node:fs";
@@ -36,30 +36,30 @@ const DUNGEON_WALL_TOPS = [0, 1, 2, 3, 4, 5, 6, 7, 16, 17, 18, 19, 20, 21, 22, 2
 export const TILESETS = [
   {
     id: 11,
-    name: "V_牢獄の間（拠点）",
+    name: "V_黒鉄の砦",
     names: [...DUNGEON, "Inside_B", "Inside_C"],
-    note: "拠点「牢獄の間」（Map010–019）。A〜C はダンジョン（凡例 dungeon がそのまま使える）。D＝内装の家具（寝台・鏡・本棚）、E＝内装の小物（開いた本＝書見台、水桶）。",
+    note: "拠点 黒鉄の砦の内郭と部屋（Map010–014・016・017）。A〜C はダンジョン（凡例 dungeon がそのまま使える。壁は壁O（砦）A4:22/30）。D＝内装の家具（寝台・暖炉＝炉・食卓・本棚・かまど）、E＝内装の小物（鎧のスタンド・金床＝鍛冶場・開いた本・水桶）。",
     tweaks: ["wallTopsBlocked"],
   },
   {
     id: 12,
-    name: "V_巡礼の森",
+    name: "V_霧の森",
     names: [...OUTSIDE, "Dungeon_B", "Dungeon_C"],
-    note: "巡礼の森（Map020–021）。A〜C は外観（木・墓・坑道入口）。D＝ダンジョンの石像・折れた柱・骸骨（聖女像は D の女神像）、E＝棺・魔法陣。 <hai_hidden_tiles:D:183,D:26>",
+    note: "霧の森と古い礼拝堂（Map020–024）。A〜C は外観（木・枯れ木・墓・坑道入口）。D＝ダンジョンの石像（鐘を抱く女の像は D の女神像）・折れた柱・骸骨（鐘の騎士の亡骸）、E＝棺・魔法陣・装飾柱（廃墟）。霧は <hai_fog>。 <hai_hidden_tiles:D:183,D:26>",
     tweaks: [],
   },
   {
     id: 13,
-    name: "V_廃坑",
+    name: "V_鉄の坑道",
     names: [...DUNGEON, "Outside_C", "Inside_B"],
-    note: "廃坑（Map026–028）。A〜C はダンジョン（線路・壁の補強材・つるはし）。D＝坑道入口・瓦礫・骸骨、E＝むしろの寝床・粗末なベッド・樽（捕虜の寝床）。",
+    note: "鉄の坑道（Map026–032）と骨拾いの洞（Map053）。A〜C はダンジョン（線路・壁の補強材・つるはし。床は土 A2:0、壁は壁A（土洞窟）A4:0/8）。D＝坑道入口・瓦礫・骸骨（狩人の成れの果て）、E＝むしろの寝床・粗末なベッド・樽（坑夫の詰め所）・暖炉（使徒狩りの鍛冶場の跡）。",
     tweaks: ["wallTopsBlocked"],
   },
   {
     id: 14,
-    name: "V_地下牢",
+    name: "V_砦の営倉",
     names: [...DUNGEON, "Inside_B", "Inside_C"],
-    note: "地下牢（Map033–036）と礼拝堂の地下納骨所（Map022）。A〜C はダンジョン（鉄格子・骸骨）。D＝粗末なベッド・鉄格子、E＝鞭・斧・水桶・開いた本（看守の日誌）。",
+    note: "砦の営倉（Map033–037）、納骨所（Map022）、村の祠と荷運びの抜け道（Map063–064）。A〜C はダンジョン（鉄格子・骸骨、壁は壁I（石）A4:16/24）。D＝粗末なベッド・鉄格子・肖像画、E＝鞭・斧・水桶・開いた本（牢番の帳面）・鎧のスタンド。",
     tweaks: ["wallTopsBlocked"],
   },
 ];
