@@ -10,6 +10,10 @@ import { REGION, DIRS, parseMeta, stairsDest, keyOf, itemsGiven, makeMapModel, c
 import { listSources, readSource, findChars } from "../maps/build.mjs";
 import { W_BAND_MAX } from "./extend-system.mjs";
 
+// 薄い思念の一言（docs/world.md 3.5・6.5）：コモンイベント 201 を呼ぶ。相棒の司祭の薄い思念（W11 が置く）の ID は F12 で、201 は呼ばない（P13 #189）
+const FAINT_LINE_COMMON = 201;
+const FAINT_PRIEST = "F12";
+
 export const TABLES = [
   "Actors.json", "Animations.json", "Armors.json", "Classes.json", "CommonEvents.json", "Enemies.json",
   "Items.json", "Skills.json", "States.json", "Tilesets.json", "Troops.json", "Weapons.json",
@@ -143,10 +147,15 @@ export function checkAll({ dataDir = DATA_DIR, readData, pluginsText, bands = re
       if (!(ev.x >= 0 && ev.x < map.width && ev.y >= 0 && ev.y < map.height)) problems.push(`${at}: 座標 (${ev.x},${ev.y}) が地図の外`);
       ev.pages.forEach((p, k) => checkList(p.list, `${at} pages[${k}]`, problems));
       // 会話できない薄い思念（Hai_Thoughts の <hai_faint>）には、選択肢・数値入力・アイテム選択を置かない（docs/world.md 6.5）
-      if (parseMeta(ev.note || "").hai_faint !== undefined) {
+      const faint = parseMeta(ev.note || "").hai_faint;
+      if (faint !== undefined) {
         ev.pages.forEach((p, k) => {
           if ((p.list || []).some(c => [102, 103, 104].includes(c.code))) problems.push(`${at} pages[${k}]: 薄い思念（<hai_faint>）に選択肢・数値入力・アイテム選択がある（会話できない思念）`);
         });
+        // 製品のマップの薄い思念は、記憶が戻ったときの一言（コモンイベント 201）を呼ぶ。相棒の司祭（F12。W11）だけは呼ばない（P13 #189・text.md 7-11）
+        const callsLine = ev.pages.some(p => (p.list || []).some(c => c.code === 117 && Number(c.parameters[0]) === FAINT_LINE_COMMON));
+        if (id < 900 && String(faint) === FAINT_PRIEST && callsLine) problems.push(`${at}: 相棒の司祭の薄い思念（${FAINT_PRIEST}）がコモンイベント ${FAINT_LINE_COMMON} を呼んでいる（一言は W11 が場面に書く）`);
+        if (id < 900 && String(faint) !== FAINT_PRIEST && !callsLine) problems.push(`${at}: 薄い思念（<hai_faint>）がコモンイベント ${FAINT_LINE_COMMON}（記憶が戻ったときの一言）を呼んでいない`);
       }
     });
   }

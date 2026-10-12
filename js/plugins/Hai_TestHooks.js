@@ -116,7 +116,7 @@
       items: [["item", 321], ["item", 322], ["armor", 321]], // 牢番の鍵束・鐘番の角灯・見張り塔の小鐘
     },
     village: { // 焼けた村（祠の番）、ノラ、アンネリーゼ、ピピネル（森の療養小屋）。地域五と記録院の手前
-      switches: [401, 405, 411], variables: { 401: 2 }, companions: [6],
+      switches: [401, 405, 411], variables: { 401: 2 }, companions: [6], facilities: ["smithy", "infirmary"], // 鍛冶場・療養所（P13）
     },
     archive: { // 地域五と記録院（学者・記録院の鐘）、ディル、イスメネ（書庫）。W12 が地域五の旗を足す
       requires: ["village"], switches: [102, 406, 407], companions: [7], facilities: ["lore"],
@@ -125,7 +125,7 @@
       switches: [103, 107, 503, 504], companions: [8, 9],
     },
     foundry: { // 境山の古道（鉤綱・グィド）と鋳物場（研究者の娘・鋳物場の鐘・親鐘の舌）、ベルトラン、トゥーラ、城壁の東門
-      switches: [104, 174, 312, 602, 605, 614, 617], companions: [10, 11],
+      switches: [104, 174, 312, 602, 605, 614, 617], companions: [10, 11], facilities: ["watch"], // 見張り台（P13）
       items: [["item", 602], ["item", 606]], // 鉤綱・親鐘の舌
     },
   };

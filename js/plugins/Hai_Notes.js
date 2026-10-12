@@ -17,11 +17,13 @@
  *
  * 頼みごと：プラグインコマンド「頼みごとを進める」で一行を書き換え（段も変数に写せる）、
  * 「頼みごとを終える」で印（終わった・途切れた・亡くなった）を付ける。文は W がイベントで書く。
+ * 筋の表（パラメータ「頼みごとの筋」。world.md 7.3 の 8 本）にある key なら、名前・頼んだ人・変数を省いてよい。
  *
  * 前提：Hai_Thoughts（メモ帳）。Hai_AutoMap があればマップの表示名をそこから引く。
  * 窓口 window.Hai.Notes：
  *   open()  logItem(item, amount)  logGold(amount)  suspend(fn)  itemLog()
  *   errand(key)  errands()  setErrand({ key, title, who, stage, text, variableId })  endErrand(key, result, text)
+ *   ERRANDS  errandBook(key)  stageOf(key)
  * 詳しくは docs/plugins/Hai_Notes.md。
  *
  * @param menuText
@@ -66,6 +68,12 @@
  * @type string
  * @default %1：%2
  *
+ * @param errandBook
+ * @text 頼みごとの筋
+ * @desc key:筋の名前:頼んだ人:段を写す変数 をカンマで区切る（world.md 7.3 の 8 本）。表にある key は「頼みごとを進める」で名前・頼んだ人・変数を省ける。
+ * @type string
+ * @default brother:弟を連れて帰る:アンネリーゼ:161,summitTools:頂の道具:アデル:162,copies:本物の写し:イスメネ:163,name:名を返す:名無し:164,prisonBell:営倉の鐘を売る:マルゴ:165,outsiders:外に残された者:ミルレーネ:166,doorSong:扉の外の歌:村の長:501,scaffold:足場の木:テオ:176
+ *
  * @param markDone
  * @text 印：終わった
  * @type string
@@ -87,7 +95,7 @@
  *
  * @arg key
  * @text キー
- * @desc 頼みごとを見分ける名前（英数字）。例：brother
+ * @desc 頼みごとを見分ける名前（英数字）。筋の表の 8 本：brother・summitTools・copies・name・prisonBell・outsiders・doorSong・scaffold
  * @type string
  * @default
  *
@@ -158,6 +166,17 @@
   const goldFormat = params.goldFormat || "魔石 %1%2を手に入れた（%3）";
   const errandTab = params.errandTab || "頼みごと";
   const errandFormat = params.errandFormat || "%1：%2";
+  /** 頼みごとの筋の表（world.md 7.3 の 8 本。並びは表の順）。 */
+  const ERRANDS = String(
+    params.errandBook ||
+      "brother:弟を連れて帰る:アンネリーゼ:161,summitTools:頂の道具:アデル:162,copies:本物の写し:イスメネ:163,name:名を返す:名無し:164," +
+        "prisonBell:営倉の鐘を売る:マルゴ:165,outsiders:外に残された者:ミルレーネ:166,doorSong:扉の外の歌:村の長:501,scaffold:足場の木:テオ:176"
+  )
+    .split(",")
+    .map(t => t.trim().split(":"))
+    .filter(a => a[0])
+    .map(([key, title = "", who = "", variableId = 0]) => ({ key, title, who, variableId: Number(variableId) || 0 }));
+  const bookOf = key => ERRANDS.find(b => b.key === String(key)) || null;
   const MARKS = {
     done: params.markDone || "終わった",
     failed: params.markFailed || "途切れた",
@@ -288,7 +307,9 @@
     const s = errandState();
     let e = findErrand(key);
     if (!e) {
-      e = { key, title: "", who: "", stage: 0, text: "", result: "", variableId: 0 };
+      // 筋の表にあれば、名前・頼んだ人・変数を表から入れる（コマンドに書いた欄が勝つ）
+      const b = bookOf(key) || {};
+      e = { key, title: b.title || "", who: b.who || "", stage: 0, text: "", result: "", variableId: b.variableId || 0 };
       s.list.push(e);
     }
     if (args.title) e.title = String(args.title);
@@ -502,6 +523,18 @@
     /** 頼みごとを終える。result は "done" / "failed" / "dead"。 */
     endErrand,
     MARKS: { ...MARKS },
+    /** 頼みごとの筋の表（world.md 7.3 の 8 本。写し）。 */
+    ERRANDS: ERRANDS.map(b => ({ ...b })),
+    /** 筋の表の 1 本（写し）。無ければ null。 */
+    errandBook(key) {
+      const b = bookOf(key);
+      return b ? { ...b } : null;
+    },
+    /** 頼みごとの今の段（まだ頼まれていなければ 0）。 */
+    stageOf(key) {
+      const e = findErrand(key);
+      return e ? e.stage : 0;
+    },
     /** 入手ログ（新しい順）。 */
     itemLog() {
       const th = thoughts();

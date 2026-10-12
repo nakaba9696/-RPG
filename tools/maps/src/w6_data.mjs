@@ -47,7 +47,6 @@ const IMG = {
   shano: { characterName: "People1", characterIndex: 2, direction: DOWN, pattern: 1 }, // シャノ（仮。P8 の試験場と同じ）
   doorShut: { characterName: "!Door1", characterIndex: 2, direction: DOWN, pattern: 1 }, // 木の扉（閉じている・崩れている）
   doorOpen: { characterName: "!Door1", characterIndex: 2, direction: UP, pattern: 1 },
-  rubbleDoor: { characterName: "!Door1", characterIndex: 0, direction: DOWN, pattern: 0 }, // 板の扉（崩れて塞がっている）
   ironShut: { characterName: "!Door1", characterIndex: 0, direction: DOWN, pattern: 2 }, // 鉄の扉
   ironOpen: { characterName: "!Door1", characterIndex: 0, direction: UP, pattern: 2 },
   chest: { characterName: "!Chest", characterIndex: 0, direction: DOWN, pattern: 0 },
@@ -61,7 +60,7 @@ const SW = {
   bellPrison: 101, bellArchive: 102, bellWater: 103, bellFoundry: 104, bellsAll: 105,
   thirdScene: 106, metMirlene: 107, lastClimax: 108, summitGate: 109, nameBack: 110,
   woke: 111, hearth: 112, nameWall: 113, ironDoor: 114,
-  facility: { soul: 121, kitchen: 122, gate: 123, lore: 124 }, // P8 の旗（読むだけ）
+  facility: { soul: 121, kitchen: 122, gate: 123, lore: 124, infirmary: 125, smithy: 126, watch: 127 }, // P8・P13 の旗（読むだけ）
   writing: 171, shano: 172, footprints: 173, eastGate: 174,
 };
 const VAR = { bells: 101, companions: 102, survivors: 103, faint: 138 };
@@ -86,8 +85,7 @@ const P = {
   shanoSeat: [22, 30], // 食卓
   gateDents: [24, 1], // 外門への階段の脇の壁
   ironDoor: [25, 36], // 南の廊下の鉄扉
-  doors: { soul: [40, 8], lore: [33, 8], kitchen: [5, 36], gate: [10, 36] },
-  shut: { infirmary: [44, 8], smithy: [42, 36], watch: [17, 8] },
+  doors: { soul: [40, 8], lore: [33, 8], kitchen: [5, 36], gate: [10, 36], infirmary: [44, 8], smithy: [42, 36], watch: [17, 8] }, // 後ろの 3 つは P13
 };
 // 部屋（011–014）：南の出口 (8,12)、着く所 (8,11)。010 の扉の前へ戻る
 const ROOM_ARRIVE = [8, 11];
@@ -335,9 +333,11 @@ const ROOMS = {
   kitchen: { mapId: 12, name: "食堂" },
   gate: { mapId: 13, name: "倉" },
   lore: { mapId: 14, name: "書庫" },
+  infirmary: { mapId: 16, name: "療養所" }, // P13（#189）
+  smithy: { mapId: 17, name: "鍛冶場" },
+  watch: { mapId: 18, name: "見張り台" },
 };
-const roomDoor = key => {
-  const [x, y] = P.doors[key];
+const roomDoor = (key, [x, y] = P.doors[key]) => {
   const room = ROOMS[key];
   return {
     name: `${room.name}の扉`,
@@ -357,14 +357,6 @@ const roomDoor = key => {
     ],
   };
 };
-// 新しい 3 部屋（療養所・鍛冶場・見張り台）は扉だけ（world.md 4.3。開く仕組みは P の後の issue）
-const shutDoor = (name, [x, y]) => ({
-  name: `${name}の扉（崩れている）`,
-  type: "raw",
-  x,
-  y,
-  pages: [{ image: IMG.rubbleDoor, priorityType: 1, walkAnime: false, list: [...say(["扉が崩れて、瓦礫で塞がっている。"]), END] }],
-});
 
 const ironDoor = {
   name: "営倉への鉄扉",
@@ -487,9 +479,10 @@ const keepEvents = [
   roomDoor("lore"),
   roomDoor("kitchen"),
   roomDoor("gate"),
-  shutDoor("療養所", P.shut.infirmary),
-  shutDoor("鍛冶場", P.shut.smithy),
-  shutDoor("見張り台", P.shut.watch),
+  // 新しい 3 部屋（P13 #189。world.md 4.3：ピピネル・アンネリーゼ・グィドが来ると開く）
+  roomDoor("infirmary"),
+  roomDoor("smithy"),
+  roomDoor("watch"),
   ironDoor,
 ];
 if (keepEvents[SHANO_HIDE_ID - 1] !== shanoHide) throw new Error("シャノ（柱の陰）の ID がずれた");
@@ -771,7 +764,7 @@ const rampartConfig = {
   ],
   events: [
     { name: "砦の中へ（下り階段）", type: "transfer", at: "<", to: [KEEP, ...RAMPART_FROM_KEEP, "down"] },
-    shutDoor("見張り台", [16, 6]),
+    roomDoor("watch", [16, 6]), // 城壁の上からも見張り台へ（P13。出口は 010 の見張り台の扉の前）
     {
       name: "東門",
       type: "raw",
@@ -826,7 +819,8 @@ outputs.push({ file: sysFile, text: JSON.stringify(system) });
 // ---------------------------------------------------------------------------
 // CommonEvents 201：記憶が戻ったときの一言（docs/world.md 3.5）
 //   薄い思念（<hai_faint>）のイベントの最後から呼ぶ。初めて見たとき（そのイベントのセルフスイッチ A が OFF）だけ、
-//   戻った記憶の数（変数 138。この思念の分はまだ数えていない）で一言を変える。1 つ目・4 つ目・7 つ目だけ。
+//   戻った記憶の数（変数 138。この思念の分はまだ数えていない）で一言を変える。1 つ目・4 つ目と、7 つ目から先で名前が戻っていない間（スイッチ 110 OFF）。
+//   薄い思念は 11 ＋相棒の司祭（world.md 6.5。P13 #189）。司祭（<hai_faint:F12>。W11）は 201 を呼ばない（一言は text.md 5.5 の e のあとに W11 が書く）。
 // ---------------------------------------------------------------------------
 const commons = readData("CommonEvents.json");
 const emptyCommon = id => ({ id, list: [END], name: "", switchId: 1, trigger: 0 });
@@ -846,8 +840,12 @@ commons[COMMON.memoryLine] = {
     ...say(["墓守の帳面。全部、同じ手だ"], "\\N[1]", 2),
     cmd(0, [], 2),
     cmd(412, [], 1),
-    cmd(111, [1, VAR.faint, 0, 6, 0], 1),
-    ...say(["名前のところだけ、思い出せない。"], "", 2),
+    // 7 つ目から先は数ではなく「名前が戻っていない間」（スイッチ 110 OFF。P13 #189・text.md 7-11）
+    cmd(111, [1, VAR.faint, 0, 6, 1], 1),
+    cmd(111, [0, SW.nameBack, 1], 2),
+    ...say(["名前のところだけ、思い出せない。"], "", 3),
+    cmd(0, [], 3),
+    cmd(412, [], 2),
     cmd(0, [], 2),
     cmd(412, [], 1),
     cmd(0, [], 1),

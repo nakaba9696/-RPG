@@ -64,6 +64,7 @@ VISION.md 核 7「消耗品は所持上限が小さい（強いものほど少�
 | `takeFromStorage(kind, id, n)` | 倉庫から袋へ n 個（上限まで）。出した数 |
 | `putToStorage(kind, id, n)` | 袋から倉庫へ n 個。入れた数 |
 | `maxOf(item)` / `roomFor(item)` | 上限 / あと何個袋に入るか（一点ものは装備中も数える） |
+| `addItemMaxRule(fn)` / `itemMaxBonus()` | 消耗品の上限（`itemMax`）に `fn()` の数を足す関数を登録する（P13 の療養所。`<hai_max>`・一点ものには足さない） / 今足している数 |
 | `isUnique(item)` / `canSell(item)` / `canDiscard(item)` | 一点ものか / 売れるか / 捨てられるか |
 | `isBoss(enemyId)` / `dropsEquipment(enemyId)` / `fixedDrops(enemyId)` | ドロップの判定（`fixedDrops` は `[{ kind, id, n }]`） |
 | `itemOf(kind, id)` / `kindOf(item)` | 種類と ID ⇔ データ（`kind` は `i`/`w`/`a` でもよい） |

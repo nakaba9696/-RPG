@@ -11,6 +11,8 @@
  *   <hai_enemy_chase:6>     この敵だけ追い始める距離を変える（0 で追わない）
  *   <hai_enemy_hesitate>    主人公を見つけると、こちらを向いて一瞬止まってから追う（理由は出さない）。
  *                           <hai_enemy_hesitate:40> で止まるフレーム数を変える
+ *   <hai_enemy_shade:一行>  声だけの影（P13）。姿が薄く（パラメータ「影の不透明度」）、追わない。
+ *                           触れると戦闘。倒すと「一行」を窓なしで画面の真ん中に出す（値を省くと何も出さない）
  *
  * ■ 動き
  *   ふだんはページの「自律移動」（固定・ランダム・近づく・カスタム）のとおりに動く。
@@ -35,6 +37,7 @@
  *   state(event)          { chasing, flee, through, defeated, hesitate }
  *   canSeePlayer(event)   今プレイヤーを追える位置にいるか
  *   colorOf(rank)         その強さの色 [赤, 緑, 青, 強さ]
+ *   isShade(event) / shadeVoice(event)  声だけの影か / 倒したときの一行（無ければ ""）
  *
  * @param chaseRange
  * @text 追い始める距離
@@ -64,6 +67,14 @@
  * @type number
  * @min 0
  * @default 30
+ *
+ * @param shadeOpacity
+ * @text 影の不透明度
+ * @desc <hai_enemy_shade> の敵の絵の不透明度（0〜255）。
+ * @type number
+ * @min 0
+ * @max 255
+ * @default 96
  *
  * @param greenColor
  * @text 緑（弱い）の色
@@ -100,6 +111,7 @@
   const chaseSpeed = Number(params.chaseSpeed || 3);
   const fleeFrames = Number(params.fleeFrames || 180);
   const hesitateFrames = Number(params.hesitateFrames ?? 30);
+  const shadeOpacity = Math.max(0, Math.min(255, Number(params.shadeOpacity ?? 96)));
   const parseColor = (text, fallback) => {
     const c = String(text || fallback).split(",").map(Number);
     return c.length === 4 && c.every(n => Number.isFinite(n)) ? c : fallback.split(",").map(Number);
@@ -120,11 +132,15 @@
     const [troop, rank] = String(tag).split(",").map(s => s.trim());
     const range = data.meta.hai_enemy_chase;
     const hesitate = data.meta.hai_enemy_hesitate;
+    const shade = data.meta.hai_enemy_shade;
     return {
       troopId: Number(troop),
       rank: COLORS[rank] ? rank : "green",
       once: !!data.meta.hai_enemy_once,
-      chaseRange: range === undefined || range === true ? chaseRange : Number(range),
+      // 声だけの影は追わない（<hai_enemy_chase> があっても）
+      chaseRange: shade !== undefined ? 0 : range === undefined || range === true ? chaseRange : Number(range),
+      shade: shade !== undefined,
+      voice: shade === undefined || shade === true ? "" : String(shade).trim(),
       hesitate: hesitate === undefined ? 0 : hesitate === true ? hesitateFrames : Math.max(0, Number(hesitate) || 0),
     };
   }
@@ -174,12 +190,17 @@
   }
 
   // 接触したときに実行する命令：ページの命令（あれば）→ 戦闘 → 勝ったら消える／逃げたらすり抜ける
-  function battleList(pageList, troopId) {
+  // 声だけの影は、勝ったあとに一行の声を残す（窓なし・画面の真ん中）
+  function battleList(pageList, troopId, voice = "") {
     const head = (pageList || []).slice(0, -1);
+    const voiceCmds = voice
+      ? [{ code: 101, indent: 1, parameters: ["", 0, 2, 1, ""] }, { code: 401, indent: 1, parameters: [voice] }]
+      : [];
     return head.concat([
       { code: 301, indent: 0, parameters: [0, troopId, true, false] },
       { code: 601, indent: 0, parameters: [] },
       { code: 357, indent: 1, parameters: [pluginName, "defeated", "勝ったとき（自動で使う）", {}] },
+      ...voiceCmds,
       { code: 0, indent: 1, parameters: [] },
       { code: 602, indent: 0, parameters: [] },
       { code: 357, indent: 1, parameters: [pluginName, "escaped", "逃げたとき（自動で使う）", {}] },
@@ -208,7 +229,9 @@
     canSeePlayer,
     colorOf: rank => (COLORS[rank] || NO_COLOR).slice(),
     hesitateOf: event => (infoOf(event) || {}).hesitate || 0,
-    params: { chaseRange, chaseSpeed, fleeFrames, hesitateFrames },
+    isShade: event => !!(infoOf(event) || {}).shade,
+    shadeVoice: event => (infoOf(event) || {}).voice || "",
+    params: { chaseRange, chaseSpeed, fleeFrames, hesitateFrames, shadeOpacity },
   };
 
   PluginManager.registerCommand(pluginName, "defeated", function() {
@@ -260,13 +283,14 @@
     s.chasing = false;
     s.hesitate = 0;
     if (s.flee > 0) this.setThrough(true);
+    if (infoOf(this).shade) this.setOpacity(shadeOpacity); // 声だけの影は姿が薄い
   };
 
   const _Game_Event_list = Game_Event.prototype.list;
   Game_Event.prototype.list = function() {
     const list = _Game_Event_list.apply(this, arguments);
     const info = infoOf(this);
-    return info && list && this.isTriggerIn([0, 1, 2]) ? battleList(list, info.troopId) : list;
+    return info && list && this.isTriggerIn([0, 1, 2]) ? battleList(list, info.troopId, info.voice) : list;
   };
 
   // すり抜けている間は戦闘にならない

@@ -1,6 +1,6 @@
 /*:
  * @target MZ
- * @plugindesc 砦の部屋：生き残りが来たら開く。稽古場・食堂・倉・書庫。
+ * @plugindesc 砦の部屋：生き残りが来たら開く。稽古場・食堂・倉・書庫・療養所・鍛冶場・見張り台。
  * @author 灰の王国
  * @orderAfter Hai_Items
  * @orderAfter Hai_Craft
@@ -8,7 +8,7 @@
  * @help
  * ■ 部屋が開く
  *   生き残りが砦に来たら、その場面のイベントでプラグインコマンド「部屋を開く」（open）を呼ぶ。
- *   開いたら、その部屋のスイッチ（既定 121〜124）を ON にする。開く順は決まっていない。
+ *   開いたら、その部屋のスイッチ（既定 121〜127）を ON にする。開く順は決まっていない。
  *   崩れた扉のイベントは、1 ページ目にプラグインコマンド「崩れた扉」（door）を置く（閉じていれば一行出す）。
  *   扉の開いたページは、出現条件をその部屋のスイッチにして、場所移動を置く。
  *   （叡智のオーブと台座はやめた。古いマップの「台座」（pedestal）は「崩れた扉」と同じに動く。）
@@ -23,6 +23,9 @@
  *   食堂    Hai_Craft の合成の画面
  *   倉      Hai_Items の倉庫から引き出す・袋から預ける
  *   書庫    倒したボスの一覧・読んだ思念と戻った記憶の数（写しの読み比べは名前だけ）
+ *   療養所  全員の状態異常を治す。開いている間、消耗品の所持上限が 1 つ増える（Hai_Items）
+ *   鍛冶場  一点ものの装備を魂で鍛え直す（能力が上がる）。鉄切り鋏を打つ（スイッチ 313 を ON）
+ *   見張り台  訪れたマップの地図を隅まで埋める（Hai_AutoMap）。開いている間、転送の行き先が増える（Hai_Warp）
  *
  * ■ 状態（セーブに入る）
  *   $gameSystem._hai.facilities = { opened: { soul: true }, souls: 12, bosses: [5] }
@@ -32,15 +35,15 @@
  *
  * @param switches
  * @text 部屋のスイッチ
- * @desc 稽古場・食堂・倉・書庫の順に、開いたら ON にするスイッチ（カンマ区切り。0 で写さない）。
+ * @desc 稽古場・食堂・倉・書庫・療養所・鍛冶場・見張り台の順に、開いたら ON にするスイッチ（カンマ区切り。0 で写さない。足りない分は既定）。
  * @type string
- * @default 121,122,123,124
+ * @default 121,122,123,124,125,126,127
  *
  * @param names
  * @text 部屋の名前
- * @desc 稽古場・食堂・倉・書庫の順（カンマ区切り）。
+ * @desc 稽古場・食堂・倉・書庫・療養所・鍛冶場・見張り台の順（カンマ区切り。足りない分は既定）。
  * @type string
- * @default 稽古場,食堂,倉,書庫
+ * @default 稽古場,食堂,倉,書庫,療養所,鍛冶場,見張り台
  *
  * @param openSe
  * @text 部屋が開いたときの効果音
@@ -90,6 +93,85 @@
  * @require 1
  * @default Up4
  *
+ * @param infirmaryMessage
+ * @text 療養所の文
+ * @desc 療養所で休んだとき。
+ * @type string
+ * @default 寝台で休んだ。体の障りが抜けた。
+ *
+ * @param infirmarySe
+ * @text 療養所の効果音
+ * @type file
+ * @dir audio/se/
+ * @require 1
+ * @default Recovery
+ *
+ * @param infirmaryItemMax
+ * @text 療養所で増える所持上限
+ * @desc 療養所が開いている間、消耗品の所持上限（Hai_Items の itemMax）に足す数。
+ * @type number
+ * @min 0
+ * @default 1
+ *
+ * @param forgeCost
+ * @text 鍛え直しに要る魂
+ * @desc 1 回目にこの数、2 回目に 2 倍……（回数 × この数）。
+ * @type number
+ * @min 0
+ * @default 20
+ *
+ * @param forgeMax
+ * @text 鍛え直せる回数
+ * @desc 一点ものの装備 1 つにつき。
+ * @type number
+ * @min 1
+ * @default 2
+ *
+ * @param forgeRate
+ * @text 1 回で上がる割合
+ * @desc 装備の能力（0 でないもの）がこの割合（%）だけ上がる。少なくとも 1。
+ * @type number
+ * @min 1
+ * @default 20
+ *
+ * @param forgeSe
+ * @text 鍛え直したときの効果音
+ * @type file
+ * @dir audio/se/
+ * @require 1
+ * @default Hammer
+ *
+ * @param shearsItem
+ * @text 鉄切り鋏のアイテム
+ * @desc 鍛冶場で打つ。持っているとスイッチ「鉄切り鋏のスイッチ」が ON（拾い屋の頭の店で買ったときも）。
+ * @type item
+ * @default 1001
+ *
+ * @param shearsSwitch
+ * @text 鉄切り鋏のスイッチ
+ * @desc 鉄格子のイベント（W）が見るスイッチ。
+ * @type switch
+ * @default 313
+ *
+ * @param watchMessage
+ * @text 見張り台の文
+ * @desc 烽火の台から見渡したとき。
+ * @type string
+ * @default 歩いた土地を見渡した。地図の隅まで埋まった。
+ *
+ * @param watchSe
+ * @text 見張り台の効果音
+ * @type file
+ * @dir audio/se/
+ * @require 1
+ * @default Wind1
+ *
+ * @param watchDestinations
+ * @text 見張り台で増える転送の行き先
+ * @desc 名前:マップID:x:y:向き をカンマで区切る。見張り台が開いていて、そのマップを訪れていれば結界の転送の一覧に出る。
+ * @type string
+ * @default 霧の森の門:20:35:47:8,焼けた村の入口:60:47:18:4,霧の湖の石段:70:22:1:2,境山の古道の口:50:1:18:6
+ *
  * @command door
  * @text 崩れた扉
  * @desc 部屋が閉じていれば「扉が崩れて、瓦礫で塞がっている。」を出す。開いていれば何もしない。
@@ -105,6 +187,12 @@
  * @value gate
  * @option 書庫
  * @value lore
+ * @option 療養所
+ * @value infirmary
+ * @option 鍛冶場
+ * @value smithy
+ * @option 見張り台
+ * @value watch
  * @default soul
  *
  * @command open
@@ -122,6 +210,12 @@
  * @value gate
  * @option 書庫
  * @value lore
+ * @option 療養所
+ * @value infirmary
+ * @option 鍛冶場
+ * @value smithy
+ * @option 見張り台
+ * @value watch
  * @default soul
  *
  * @command use
@@ -139,6 +233,12 @@
  * @value gate
  * @option 書庫
  * @value lore
+ * @option 療養所
+ * @value infirmary
+ * @option 鍛冶場
+ * @value smithy
+ * @option 見張り台
+ * @value watch
  * @default soul
  */
 (() => {
@@ -146,9 +246,15 @@
   const pluginName = "Hai_Facilities";
   const params = PluginManager.parameters(pluginName);
   const list = (s, d) => String(s ?? d).split(",").map(t => t.trim());
+  /** 部屋の鍵（稽古場・食堂・倉・書庫・療養所・鍛冶場・見張り台。前の 4 つの名前は前の世界の名残り）。 */
+  const KEYS = ["soul", "kitchen", "gate", "lore", "infirmary", "smithy", "watch"];
+  const DEFAULT_SWITCHES = [121, 122, 123, 124, 125, 126, 127];
+  const DEFAULT_NAMES = ["稽古場", "食堂", "倉", "書庫", "療養所", "鍛冶場", "見張り台"];
+  // plugins.js の値が 4 部屋の頃のままでも、足りない分は既定で埋める
+  const fill = (given, defaults) => defaults.map((d, i) => (given[i] !== undefined && given[i] !== "" ? given[i] : d));
   const P = {
-    switches: list(params.switches, "121,122,123,124").map(Number),
-    names: list(params.names, "稽古場,食堂,倉,書庫"),
+    switches: fill(list(params.switches, DEFAULT_SWITCHES.join()), DEFAULT_SWITCHES).map(Number),
+    names: fill(list(params.names, DEFAULT_NAMES.join()), DEFAULT_NAMES),
     openSe: params.openSe ?? "Open2",
     closedMessage: params.closedMessage ?? "扉が崩れて、瓦礫で塞がっている。",
     bossSouls: Number(params.bossSouls ?? 10),
@@ -156,9 +262,23 @@
     soulCostRate: Math.max(1, Number(params.soulCostRate || 1)),
     soulCapByBattle: params.soulCapByBattle !== "false",
     soulSe: params.soulSe ?? "Up4",
+    infirmaryMessage: params.infirmaryMessage ?? "寝台で休んだ。体の障りが抜けた。",
+    infirmarySe: params.infirmarySe ?? "Recovery",
+    infirmaryItemMax: Number(params.infirmaryItemMax ?? 1),
+    forgeCost: Math.max(0, Number(params.forgeCost ?? 20)),
+    forgeMax: Math.max(1, Number(params.forgeMax || 2)),
+    forgeRate: Math.max(1, Number(params.forgeRate || 20)),
+    forgeSe: params.forgeSe ?? "Hammer",
+    shearsItem: Number(params.shearsItem ?? 1001),
+    shearsSwitch: Number(params.shearsSwitch ?? 313),
+    watchMessage: params.watchMessage ?? "歩いた土地を見渡した。地図の隅まで埋まった。",
+    watchSe: params.watchSe ?? "Wind1",
+    watchDestinations: String(params.watchDestinations ?? "霧の森の門:20:35:47:8,焼けた村の入口:60:47:18:4,霧の湖の石段:70:22:1:2,境山の古道の口:50:1:18:6")
+      .split(",")
+      .map(t => t.trim().split(":"))
+      .filter(a => a.length >= 4 && a[0])
+      .map(([name, mapId, x, y, d]) => ({ name, mapId: Number(mapId), x: Number(x), y: Number(y), d: Number(d) || 2 })),
   };
-  /** 部屋の鍵（稽古場・食堂・倉・書庫。鍵の名前は前の世界の名残り）。 */
-  const KEYS = ["soul", "kitchen", "gate", "lore"];
   const indexOf = key => KEYS.indexOf(String(key));
   const nameOf = key => P.names[indexOf(key)] || String(key);
   const playSe = name => name && AudioManager.playSe({ name, volume: 90, pitch: 100, pan: 0 });
@@ -171,7 +291,7 @@
     let s = $gameSystem._hai.facilities;
     if (!s) {
       // 古いセーブ：部屋のスイッチが入っていれば開いた扱いにする
-      s = $gameSystem._hai.facilities = { opened: {}, souls: 0, bosses: [] };
+      s = $gameSystem._hai.facilities = { opened: {}, souls: 0, bosses: [], forged: {} };
       KEYS.forEach((key, i) => {
         if (P.switches[i] > 0 && $gameSwitches && $gameSwitches.value(P.switches[i])) s.opened[key] = true;
       });
@@ -179,6 +299,7 @@
     s.opened = s.opened || {};
     s.souls = Number(s.souls) || 0;
     if (!Array.isArray(s.bosses)) s.bosses = [];
+    if (!s.forged || typeof s.forged !== "object") s.forged = {}; // P13 より前のセーブ
     return s;
   }
 
@@ -200,6 +321,120 @@
     syncFlags();
     return true;
   }
+
+  // ---------------------------------------------------------------------------
+  // 療養所（状態異常を治す・消耗品の所持上限を足す）
+  // ---------------------------------------------------------------------------
+  /** パーティ全員（控えも）の状態異常を治す（戦闘不能は除く）。治した数。 */
+  function cure() {
+    let n = 0;
+    for (const actor of $gameParty.members()) {
+      for (const st of actor.states()) {
+        if (st.id === actor.deathStateId()) continue;
+        actor.removeState(st.id);
+        n++;
+      }
+    }
+    return n;
+  }
+  const itemMaxBonus = () => ($gameSystem && isOpen("infirmary") ? Math.max(0, P.infirmaryItemMax) : 0);
+
+  // ---------------------------------------------------------------------------
+  // 鍛冶場（一点ものの装備を魂で鍛え直す・鉄切り鋏）
+  // ---------------------------------------------------------------------------
+  const isEquipItem = item => !!item && (DataManager.isWeapon(item) || DataManager.isArmor(item));
+  const equipKey = item => (DataManager.isWeapon(item) ? "w:" : "a:") + item.id;
+  const isForgeable = item => isEquipItem(item) && !!(item.meta && item.meta.hai_unique);
+  const equipOf = (kind, id) => (String(kind).startsWith("w") ? $dataWeapons : $dataArmors)[Number(id)] || null;
+  const forgedLevel = item => (isForgeable(item) ? Number(state().forged[equipKey(item)]) || 0 : 0);
+  const forgeCostOf = item => P.forgeCost * (forgedLevel(item) + 1);
+  const canForge = item => isForgeable(item) && forgedLevel(item) < P.forgeMax && state().souls >= forgeCostOf(item);
+
+  /** 鍛え直す（魂を払って回数を 1 つ増やす）。鍛え直したら true。 */
+  function forge(item) {
+    if (!canForge(item)) return false;
+    const s = state();
+    s.souls -= forgeCostOf(item);
+    s.forged[equipKey(item)] = forgedLevel(item) + 1;
+    for (const actor of $gameParty.members()) actor.refresh();
+    return true;
+  }
+
+  /** 鍛え直した分の能力（0 でない能力が forgeRate% × 回数。少なくとも 1）。 */
+  function forgeBonus(item, paramId) {
+    const n = forgedLevel(item);
+    const base = item.params[paramId];
+    if (n <= 0 || !(base > 0)) return 0;
+    return Math.max(1, Math.ceil((base * P.forgeRate * n) / 100));
+  }
+
+  /** 鍛え直せる物：袋と、パーティの誰かが装備している一点もの（同じ物は 1 つ）。 */
+  function forgeables() {
+    const out = [];
+    const add = item => {
+      if (isForgeable(item) && !out.includes(item)) out.push(item);
+    };
+    $gameParty.equipItems().forEach(add);
+    for (const actor of $gameParty.members()) actor.equips().forEach(add);
+    return out;
+  }
+
+  const _Game_Actor_paramPlus = Game_Actor.prototype.paramPlus;
+  Game_Actor.prototype.paramPlus = function(paramId) {
+    let value = _Game_Actor_paramPlus.apply(this, arguments);
+    if ($gameSystem && $gameSystem._hai && $gameSystem._hai.facilities) {
+      for (const item of this.equips()) if (item) value += forgeBonus(item, paramId);
+    }
+    return value;
+  };
+
+  const shearsItem = () => $dataItems[P.shearsItem] || null;
+  /** 鉄切り鋏を打つ（持っていなければ袋に 1 つ）。打ったら true。 */
+  function makeShears() {
+    const item = shearsItem();
+    if (!item || $gameParty.hasItem(item)) return false;
+    $gameParty.gainItem(item, 1);
+    return true;
+  }
+  // 鉄切り鋏を手に入れたら（鍛冶場でも店でも）、鉄格子のイベントが見るスイッチを ON
+  const _Game_Party_gainItem = Game_Party.prototype.gainItem;
+  Game_Party.prototype.gainItem = function(item) {
+    _Game_Party_gainItem.apply(this, arguments);
+    if (item && item === shearsItem() && P.shearsSwitch > 0 && this.hasItem(item)) $gameSwitches.setValue(P.shearsSwitch, true);
+  };
+
+  // ---------------------------------------------------------------------------
+  // 見張り台（訪れたマップの全図・転送の行き先）
+  // ---------------------------------------------------------------------------
+  /** 訪れたマップの地図を隅まで埋める（Hai_AutoMap）。埋めたマップの数。 */
+  function reveal() {
+    const am = window.Hai && Hai.AutoMap;
+    return am && am.revealVisited ? am.revealVisited() : 0;
+  }
+  function isVisitedMap(mapId) {
+    const am = window.Hai && Hai.AutoMap;
+    if (am) return am.visitedCount(mapId) > 0;
+    const rec = $gameSystem._hai && $gameSystem._hai.automap;
+    return !!(rec && rec[mapId]);
+  }
+  /** 見張り台が開いていれば増える転送の行き先（訪れたマップのものだけ）。 */
+  function watchDestinations() {
+    if (!$gameSystem || !isOpen("watch")) return [];
+    return P.watchDestinations.filter(d => $dataMapInfos[d.mapId] && isVisitedMap(d.mapId)).map(d => ({ ...d }));
+  }
+
+  // ほかのプラグイン（並びが後ろのものも）に窓口を足すのは、全部が読み終わってから
+  const _Scene_Boot_start = Scene_Boot.prototype.start;
+  Scene_Boot.prototype.start = function() {
+    _Scene_Boot_start.apply(this, arguments);
+    if (window.Hai && Hai.Items && Hai.Items.addItemMaxRule && !Scene_Boot._haiFacilitiesHooked) {
+      Hai.Items.addItemMaxRule(itemMaxBonus);
+    }
+    if (window.Hai && Hai.Warp && Hai.Warp.addSource && !Scene_Boot._haiFacilitiesHooked) {
+      Hai.Warp.addSource(watchDestinations);
+    }
+    Scene_Boot._haiFacilitiesHooked = true;
+  };
 
   // ---------------------------------------------------------------------------
   // 魂
@@ -565,10 +800,81 @@
   }
 
   // ---------------------------------------------------------------------------
+  // 鍛冶場の画面（一点ものの一覧。決定で魂を払って鍛え直す）
+  // ---------------------------------------------------------------------------
+  class Window_HaiForge extends Window_Selectable {
+    initialize(rect) {
+      super.initialize(rect);
+      this._data = [];
+      this.refresh();
+    }
+    maxItems() {
+      return this._data.length;
+    }
+    item() {
+      return this._data[this.index()] || null;
+    }
+    isCurrentItemEnabled() {
+      return canForge(this.item());
+    }
+    refresh() {
+      this._data = forgeables();
+      super.refresh();
+    }
+    drawItem(index) {
+      const item = this._data[index];
+      if (!item) return;
+      const rect = this.itemLineRect(index);
+      const n = forgedLevel(item);
+      this.changePaintOpacity(canForge(item));
+      this.drawItemName(item, rect.x, rect.y, rect.width - 360);
+      const text = n >= P.forgeMax ? `鍛え直し ${n}/${P.forgeMax}　これ以上は鍛えられない` : `鍛え直し ${n}/${P.forgeMax}　魂 ${forgeCostOf(item)}`;
+      this.drawText(text, rect.x, rect.y, rect.width, "right");
+      this.changePaintOpacity(true);
+    }
+    drawAllItems() {
+      super.drawAllItems();
+      if (this.maxItems() === 0) {
+        const rect = this.itemLineRect(0);
+        this.changePaintOpacity(false);
+        this.drawText("鍛え直せる一点ものを持っていない。", rect.x, rect.y, rect.width);
+        this.changePaintOpacity(true);
+      }
+    }
+  }
+
+  class Scene_HaiForge extends Scene_MenuBase {
+    create() {
+      super.create();
+      this.createHelpWindow();
+      const top = this.mainAreaTop();
+      this._listWindow = new Window_HaiForge(new Rectangle(0, top, Graphics.boxWidth, this.mainAreaHeight()));
+      this._listWindow.setHandler("ok", this.onOk.bind(this));
+      this._listWindow.setHandler("cancel", this.popScene.bind(this));
+      this.addWindow(this._listWindow);
+      this._listWindow.select(0);
+      this._listWindow.activate();
+      this.refreshHelp();
+    }
+    refreshHelp() {
+      this._helpWindow.setText(`手持ちの魂 ${state().souls}\n一点ものの装備を鍛え直すと、能力が上がる（${P.forgeMax} 回まで）。`);
+    }
+    onOk() {
+      if (forge(this._listWindow.item())) playSe(P.forgeSe);
+      this._listWindow.refresh();
+      this.refreshHelp();
+      this._listWindow.activate();
+    }
+  }
+
+  // ---------------------------------------------------------------------------
   // 部屋の画面を開く
   // ---------------------------------------------------------------------------
   function openScene(key) {
     if (key === "soul") SceneManager.push(Scene_HaiSouls);
+    else if (key === "smithy") SceneManager.push(Scene_HaiForge);
+    else if (key === "infirmary") cure();
+    else if (key === "watch") reveal();
     else if (key === "kitchen") {
       if (window.Hai && Hai.Craft) Hai.Craft.open();
     } else if (key === "gate") {
@@ -587,10 +893,38 @@
   PluginManager.registerCommand(pluginName, "door", doorCommand);
   PluginManager.registerCommand(pluginName, "pedestal", doorCommand); // 古いマップ（叡智のオーブの台座）の名残り
 
+  const seCmd = (name, indent = 0) => cmd(250, [{ name, volume: 90, pitch: 100, pan: 0 }], indent);
+  const scriptCmd = (text, indent = 0) => cmd(355, [text], indent);
+
+  /** 療養所・鍛冶場・見張り台を使ったときの命令（文と選択肢があるので、画面ではなくイベントで流す）。 */
+  function useList(key) {
+    if (key === "infirmary") {
+      return [seCmd(P.infirmarySe), scriptCmd("Hai.Facilities.cure();"), ...textCmds([P.infirmaryMessage]), cmd(0, [])];
+    }
+    if (key === "watch") {
+      return [seCmd(P.watchSe), scriptCmd("Hai.Facilities.reveal();"), ...textCmds([P.watchMessage]), cmd(0, [])];
+    }
+    if (key === "smithy") {
+      const shears = shearsItem();
+      const withShears = !!shears && !$gameParty.hasItem(shears);
+      const choices = ["鍛え直す", ...(withShears ? [`${shears.name}を打つ`] : []), "やめる"];
+      const out = [cmd(102, [choices, choices.length - 1, 0, 2, 0]), cmd(402, [0, choices[0]]), scriptCmd('Hai.Facilities.openScene("smithy");', 1), cmd(0, [], 1)];
+      if (withShears) {
+        out.push(cmd(402, [1, choices[1]]), seCmd(P.forgeSe, 1), scriptCmd("Hai.Facilities.makeShears();", 1));
+        out.push(...textCmds([`\\I[${shears.iconIndex}]${shears.name}を手に入れた。`], 1), cmd(0, [], 1));
+      }
+      out.push(cmd(402, [choices.length - 1, choices[choices.length - 1]]), cmd(0, [], 1), cmd(404, []), cmd(0, []));
+      return out;
+    }
+    return null;
+  }
+
   PluginManager.registerCommand(pluginName, "use", function(args) {
     const key = String(args.facility);
     if (!isOpen(key)) {
       this.setupChild([...textCmds([P.closedMessage]), cmd(0, [])], this._eventId);
+    } else if (useList(key)) {
+      this.setupChild(useList(key), this._eventId);
     } else {
       openScene(key);
     }
@@ -621,10 +955,22 @@
     raise,
     bosses: () => state().bosses.slice(),
     recordBoss,
+    cure,
+    itemMaxBonus,
+    forgeables: () => forgeables().map(item => ({ kind: DataManager.isWeapon(item) ? "weapon" : "armor", id: item.id, level: forgedLevel(item) })),
+    forgedLevel: (kind, id) => forgedLevel(equipOf(kind, id)),
+    forgeCost: (kind, id) => forgeCostOf(equipOf(kind, id)),
+    canForge: (kind, id) => canForge(equipOf(kind, id)),
+    forge: (kind, id) => forge(equipOf(kind, id)),
+    forgeBonus: (kind, id, paramId) => (equipOf(kind, id) ? forgeBonus(equipOf(kind, id), Number(paramId)) : 0),
+    makeShears,
+    reveal,
+    watchDestinations,
     loreLines,
     openScene,
     Scene_HaiSouls,
     Scene_HaiGate,
     Scene_HaiLore,
+    Scene_HaiForge,
   };
 })();

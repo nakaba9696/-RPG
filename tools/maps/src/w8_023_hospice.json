@@ -265,6 +265,25 @@
               ]
             },
             {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Facilities",
+                "open",
+                "部屋を開く",
+                {
+                  "facility": "infirmary"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "facility = infirmary"
+              ]
+            },
+            {
               "code": 123,
               "indent": 0,
               "parameters": [

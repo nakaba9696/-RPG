@@ -60,6 +60,7 @@
 | `isVisited(x, y, mapId?)` | そのマスを通ったか |
 | `markVisited(mapId, x, y)` | そのマス 1 つを通ったことにする（テスト用。今のマップだけ）。新しく記録したら `true` |
 | `clear(mapId?)` | そのマップの記録を消す |
+| `revealVisited()` | 記録のあるマップ（訪れたマップ）を全部、隅まで通ったことにする（P13 の見張り台の全図）。埋めたマップの数 |
 | `mapName(mapId?)` | マップの表示名（訪れたマップは覚えた表示名、無ければエディタの名前）。`Hai_Notes` が使う |
 | `cellKind(x, y)` | 今のマップのそのマスの描き方：`"none"`・`"floor"`・`"wall"`・`"hidden"` |
 | `marks()` | 今のマップの印 `[{ type: "unread"\|"read"\|"door"\|"doorOpen"\|"drop", x, y }]` |

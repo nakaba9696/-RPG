@@ -1,0 +1,187 @@
+{
+  "mapId": 16,
+  "name": "療養所",
+  "parentId": 10,
+  "displayName": "療養所",
+  "legend": "dungeon",
+  "tilesetId": 11,
+  "bgm": {
+    "name": "Castle2",
+    "volume": 60,
+    "pitch": 100,
+    "pan": 0
+  },
+  "note": "<hai_tone:-17,-26,-43,34>",
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Stone2",
+    "battleback2Name": "Room1"
+  },
+  "chars": {
+    "#": {
+      "name": "砦の壁（壁O（砦）。下が床なら側面、ほかは上面）",
+      "wall": {
+        "top": "A4:22",
+        "side": "A4:30",
+        "height": 2
+      }
+    },
+    ".": {
+      "name": "石畳（石畳A）",
+      "tiles": [
+        "A5:20"
+      ]
+    }
+  },
+  "_説明": "P13（#189）：療養所（docs/world.md 4.3。ピピネルが来ると開く）。奥の寝台を調べると全員の状態異常が治る（Hai_Facilities の use infirmary）。開いている間、消耗品の所持上限が 1 つ増える。出口は南 (8,12) → 010 の療養所の扉の前 (44,9)。この設定は p13_data.mjs が書く。",
+  "deco": {
+    "4": {
+      "name": "水桶",
+      "z2": "E:150"
+    },
+    "Z": {
+      "name": "貼り紙（寝台の札）",
+      "z2": "D:216"
+    },
+    "h": {
+      "name": "端材",
+      "z2": "D:220"
+    },
+    "N": {
+      "name": "樽",
+      "z2": "D:212"
+    }
+  },
+  "stamps": [
+    {
+      "at": "B",
+      "name": "粗末な寝台（1×2）",
+      "tiles": [
+        [
+          "D:171"
+        ],
+        [
+          "D:179"
+        ]
+      ]
+    },
+    {
+      "at": "S",
+      "name": "薬棚（雑貨棚）",
+      "tiles": [
+        [
+          "D:153"
+        ],
+        [
+          "D:161"
+        ]
+      ]
+    },
+    {
+      "at": "T",
+      "name": "薬棚（雑貨棚）",
+      "tiles": [
+        [
+          "D:154"
+        ],
+        [
+          "D:162"
+        ]
+      ]
+    },
+    {
+      "at": "U",
+      "name": "薬棚（雑貨棚）",
+      "tiles": [
+        [
+          "D:155"
+        ],
+        [
+          "D:163"
+        ]
+      ]
+    }
+  ],
+  "scatter": [
+    {
+      "on": ".",
+      "z": 1,
+      "tiles": [
+        "A2:15"
+      ],
+      "rate": 0.04,
+      "seed": 1610
+    },
+    {
+      "on": ".",
+      "tiles": [
+        "B:32",
+        "B:33"
+      ],
+      "rate": 0.05,
+      "seed": 1611
+    }
+  ],
+  "events": [
+    {
+      "name": "出口（黒鉄の砦へ）",
+      "type": "transfer",
+      "x": 8,
+      "y": 12,
+      "to": [
+        10,
+        44,
+        9,
+        "down"
+      ]
+    },
+    {
+      "name": "療養所の寝台",
+      "type": "raw",
+      "x": 8,
+      "y": 4,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Facilities",
+                "use",
+                "部屋を使う",
+                {
+                  "facility": "infirmary"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "部屋 = infirmary"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "寝台の札",
+      "type": "text",
+      "x": 4,
+      "y": 2,
+      "lines": [
+        "壁に木の札。",
+        "「熱のある者は窓の側。咳の者は戸の側。」",
+        "札の下に、寝台の数だけ釘が打ってある。釘は九本。"
+      ]
+    }
+  ]
+}

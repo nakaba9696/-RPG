@@ -28,6 +28,7 @@
  *   visit(mapId, eventId)  今のマップの結界を訪れたことにする（覚えたらその写し、結界でなければ null）
  *   destinations()         今の転送の一覧 [{name, mapId, eventId, x, y, home}]（拠点が先頭、いまの所は除く）
  *   warpTo(index)          destinations() の index 番へ転送する（場所移動を予約。できたら true）
+ *   addSource(fn)          ほかのプラグインが行き先を足す（fn() は [{name, mapId, x, y, d}]。P13 の見張り台）
  *   openMenu(eventId?)     その結界（省略で目の前か足元の結界）の選択肢を出す（できたら true）
  *
  * @param homeName
@@ -195,6 +196,7 @@
     return Hai.Defeat.home();
   }
 
+  const sources = []; // addSource で足した、行き先を返す関数
   function destinations() {
     const h = here();
     const home = homeOf();
@@ -207,6 +209,13 @@
       if (home && v.name === homeName) continue;
       out.push({ name: v.name, mapId: v.mapId, eventId: v.eventId, x: v.x, y: v.y, d: 2, home: false });
     }
+    // ほかのプラグインが足す行き先（P13 の見張り台）。着く所はその座標のまま（結界の 1 マス下にしない）
+    for (const source of sources) {
+      for (const e of source() || []) {
+        if (!e || out.some(o => o.name === e.name)) continue;
+        out.push({ name: String(e.name), mapId: Number(e.mapId), eventId: 0, x: Number(e.x), y: Number(e.y), d: Number(e.d) || 2, home: false, exact: true });
+      }
+    }
     return out;
   }
 
@@ -218,8 +227,9 @@
     const dest = destinations()[Number(index)];
     if (!dest || $gamePlayer.isTransferring()) return false;
     playSe(warpSe);
-    $gameTemp._haiWarpLanding = dest.home ? null : { mapId: dest.mapId, eventId: dest.eventId };
-    $gamePlayer.reserveTransfer(dest.mapId, dest.x, dest.home ? dest.y : dest.y + 1, dest.d, 0);
+    const exact = dest.home || dest.exact;
+    $gameTemp._haiWarpLanding = exact ? null : { mapId: dest.mapId, eventId: dest.eventId };
+    $gamePlayer.reserveTransfer(dest.mapId, dest.x, exact ? dest.y : dest.y + 1, dest.d, 0);
     return true;
   }
 
@@ -395,6 +405,10 @@
       return destinations().map(d => ({ ...d }));
     },
     warpTo,
+    /** 転送の一覧に行き先を足す関数を登録する。fn() は [{name, mapId, x, y, d}]（着く所はその座標のまま）。 */
+    addSource(fn) {
+      if (typeof fn === "function") sources.push(fn);
+    },
     /** その結界（省略で目の前か足元の結界）の選択肢を出す。 */
     openMenu(eventId) {
       const event = eventId ? $gameMap.event(Number(eventId)) : nearbyWarp();
