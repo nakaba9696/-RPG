@@ -17,6 +17,7 @@ import { fileURLToPath } from "node:url";
 import { readData, formatTable, dataPath, extendTable } from "../../data/io.mjs";
 import { SRC_DIR } from "../build.mjs";
 import { POINTS, MAPS, drawAll } from "./w9_maps.mjs";
+import { withThirdScene, lairDoorEvents } from "./w11_parts.mjs"; // W11（#191）：鐘番の思念の 2 ページ目と霧の戸口
 
 drawAll();
 const check = process.argv.includes("--check");
@@ -1191,9 +1192,10 @@ CONFIGS.push(config("w9_104_bell_deep", BELL, "水底の鐘の間", "bell", [
   ev.transfer("南の口（扉の番の間へ）", B4.exitS, [WARDEN_ROOM, G3.arriveDoor[0], G3.arriveDoor[1], "down"]),
   bellRope,
   ev.text("札掛け", B4.board, ["札掛けの釘は四本。", "札の掛かっていた跡が、四つとも同じ高さまで水に濡れている。"], { image: { tileId: "B:177" } }),
-  ev.thought("R3-23", "水底の鐘番", B4.r326, ["夕べになっても、頂の鐘は聞こえなかった。水の底だから、と思った。", "上の者が知らせに来るのを待った。誰も下りてこなかった。", "札には日付だけ書いた。鳴らしたかは、水が引いてから書く。", "水は、膝から胸まで来た。筆は、札掛けの下に浮いている。"]),
+  withThirdScene(ev.thought("R3-23", "水底の鐘番", B4.r326, ["夕べになっても、頂の鐘は聞こえなかった。水の底だから、と思った。", "上の者が知らせに来るのを待った。誰も下りてこなかった。", "札には日付だけ書いた。鳴らしたかは、水が引いてから書く。", "水は、膝から胸まで来た。筆は、札掛けの下に浮いている。"])),
+  ...lairDoorEvents("south"), // 鐘の間の口の霧の戸口（W11）
 ], {
-  about: "W9（#157）：水底の鐘の間（world.md 5.1・8.1。鐘の綱は W7 の 036 と同じ形：スイッチ 103 ON・変数 101 に 1 足す・4 以上ならスイッチ 105 ON）。南の控え（5..21, 13..20）は W11 が門叩きの塊を置ける空き。鐘の綱に W11 への注釈。鐘の絵は仮。",
+  about: "W9（#157）：水底の鐘の間（world.md 5.1・8.1。鐘の綱は W7 の 036 と同じ形：スイッチ 103 ON・変数 101 に 1 足す・4 以上ならスイッチ 105 ON）。鐘の間の口に W11 の霧の戸口（門叩きの縄張り 170 へ）、鐘番の思念の 2 ページ目は 3 つ目の場面（W11。w11_parts.mjs）。鐘の綱に W11 への注釈。鐘の絵は仮。",
   chars: DUNGEON_CHARS, deco: DUNGEON_DECO, stamps: DUNGEON_STAMPS,
 }));
 

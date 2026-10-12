@@ -9,6 +9,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { readData } from "../../data/io.mjs";
 import { ITEM, WEAPON, ARMOR, TROOP, SW, VAR, FLAG } from "./w8_data.mjs";
+import { withThirdScene, lairDoorEvents } from "./w11_parts.mjs"; // W11（#191）：鐘番の思念の 2 ページ目と霧の戸口
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const check = process.argv.includes("--check");
@@ -1153,11 +1154,11 @@ function config(file, cfg) {
       ],
     },
     look("札掛け", 18, 4, ["札掛けの釘は四本。札の掛かっていた跡が、四つとも同じ色に焼けている。"], { tileId: "B:178" }),
-    thought("R2-25", "記録院の鐘番", 9, 8, [
+    withThirdScene(thought("R2-25", "記録院の鐘番", 9, 8, [
       "夕べ。頂の鐘、鳴らず。こちらも鳴らさず。札にそう書いた。",
       "書いたあとで、写しの件を思い出した。明朝、と書き足した。",
       "朝は来なかった。札は、釘に掛かったままだ。",
-    ], { image: body("Damage2", 5, 8) }),
+    ], { image: body("Damage2", 5, 8) })),
     {
       name: "帰りの転送陣（砦へ）", type: "raw", x: 17, y: 8, note: "",
       pages: [
@@ -1174,9 +1175,10 @@ function config(file, cfg) {
       ["どっちを渡したか、確かめる気になれば、確かめられた。", "確かめないことにした。それだけだよ。"],
     ], { tileId: "E:194" }),
     look("空いた床", 17, 14, ["控えの床の真ん中だけ、灰が積もっていない。"]),
+    ...lairDoorEvents("west"), // 鐘の間の口の霧の戸口（W11）
   ];
   config("w8_084_archive_bell", {
-    _説明: "W8（#155）：記録院の鐘の間（docs/world.md 3.6・3.7・8.1）。鐘の綱（スイッチ 102・変数 101 に 1 足す・4 以上ならスイッチ 105。注釈に W11 の足し場所）、当番の札（記録院）、帰りの転送陣（鳴らしたあと。010 の炉の南へ）。南の控えは W11 の門叩きの塊の置き場所（ディルの記憶 3 の写字台のほかは空けてある）。",
+    _説明: "W8（#155）：記録院の鐘の間（docs/world.md 3.6・3.7・8.1）。鐘の綱（スイッチ 102・変数 101 に 1 足す・4 以上ならスイッチ 105。注釈に W11 の足し場所）、当番の札（記録院）、帰りの転送陣（鳴らしたあと。010 の炉の南へ）。鐘の間の口に W11 の霧の戸口（門叩きの縄張り 170 へ）、鐘番の思念の 2 ページ目は 3 つ目の場面（W11。w11_parts.mjs）。",
     mapId: 84, name: "記録院の鐘の間", displayName: "記録院の鐘の間", ...LIBRARY_BASE,
     note: "<hai_tone:-68,-68,-34,68>",
     bgm: { name: "Scene2", volume: 55, pitch: 100, pan: 0 }, bgs: { name: "Darkness", volume: 25, pitch: 100, pan: 0 },

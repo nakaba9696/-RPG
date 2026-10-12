@@ -1,0 +1,336 @@
+{
+  "_説明": "W11（#191）：戻りの戸口（docs/world.md 3.7）。北の霧の戸口から、入った戸口の鐘の間（鐘の間の側）へ。スイッチ 702〜704。 この設定は node tools/maps/src/w11_data.mjs が書く。",
+  "mapId": 173,
+  "name": "戻りの戸口",
+  "displayName": "戻りの戸口",
+  "legend": "dungeon",
+  "tilesetId": 14,
+  "note": "<hai_tone:-68,-68,-34,68>\n<hai_fog:40>",
+  "bgm": {
+    "name": "Scene2",
+    "volume": 50,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Darkness",
+    "volume": 25,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {},
+  "chars": {
+    ";": {
+      "name": "床の汚れ",
+      "as": ".",
+      "tiles": [
+        null,
+        "A2:15"
+      ]
+    },
+    "h": {
+      "name": "見えない通路（石の壁に見えて通れる。影なし。リージョン 251）",
+      "as": "=",
+      "region": 251,
+      "shadow": false
+    }
+  },
+  "deco": {
+    "1": {
+      "name": "石の柱B（下。通れない）",
+      "z2": "B:106"
+    },
+    "2": {
+      "name": "折れた石の柱（通れない）",
+      "z2": "B:114"
+    },
+    "5": {
+      "name": "亀裂B（壁に）",
+      "z2": "B:187"
+    },
+    "7": {
+      "name": "壁の苔（壁に）",
+      "z2": "B:1"
+    },
+    "k": {
+      "name": "砂利A（通れる）",
+      "z2": "B:32"
+    },
+    "K": {
+      "name": "砂利B（通れる）",
+      "z2": "B:33"
+    },
+    "r": {
+      "name": "瓦礫A（通れない）",
+      "z2": "B:120"
+    },
+    "x": {
+      "name": "骸骨A（通れない）",
+      "z2": "B:242"
+    },
+    "X": {
+      "name": "骸骨B（通れない）",
+      "z2": "B:250"
+    },
+    "q": {
+      "name": "瓦礫の上の骸骨（通れない）",
+      "z2": "B:120",
+      "z3": "B:242"
+    },
+    "w": {
+      "name": "蜘蛛の巣（壁に）",
+      "z2": "B:176"
+    }
+  },
+  "scatter": [
+    {
+      "on": ".",
+      "z": 1,
+      "tiles": [
+        "A2:15"
+      ],
+      "rate": 0.06,
+      "seed": 1731
+    },
+    {
+      "on": ".",
+      "tiles": [
+        "B:32",
+        "B:33"
+      ],
+      "rate": 0.05,
+      "seed": 1732
+    }
+  ],
+  "events": [
+    {
+      "name": "南の口（塊の間へ）",
+      "type": "transfer",
+      "x": 13,
+      "y": 14,
+      "to": [
+        172,
+        20,
+        2,
+        2
+      ]
+    },
+    {
+      "name": "戻りの戸口（入った戸口の鐘の間へ）",
+      "type": "raw",
+      "x": 13,
+      "y": 2,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "directionFix": true,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "霧の向こうに、鐘の間の灯が見える。綱が一本、垂れている。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Fog1",
+                  "volume": 80,
+                  "pitch": 70,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                102,
+                1
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                702,
+                702,
+                0
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 1,
+              "parameters": [
+                0,
+                84,
+                13,
+                9,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                0,
+                103,
+                1
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 2,
+              "parameters": [
+                703,
+                703,
+                0
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 2,
+              "parameters": [
+                0,
+                104,
+                13,
+                11,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 2,
+              "parameters": [
+                0,
+                104,
+                1
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 3,
+              "parameters": [
+                704,
+                704,
+                0
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 3,
+              "parameters": [
+                0,
+                94,
+                13,
+                12,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "擦れる音",
+      "type": "text",
+      "x": 17,
+      "y": 6,
+      "lines": [
+        "霧の奥から、鐘の綱の擦れる音がする。"
+      ]
+    }
+  ]
+}

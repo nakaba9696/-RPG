@@ -326,7 +326,7 @@ await runTest(async () => {
 
     // ===== 8. 鋳物場の鐘 094（4 つ目の鐘にする）=====
     await game.shot("bell-room");
-    await game.eval(id => $gameVariables.setValue(id, 3), VAR.bells);
+    await game.eval(id => { $gameVariables.setValue(id, 3); $gameSwitches.setValue(106, true); }, VAR.bells); // 3 つ目の場面（スイッチ 106。W11）は済んだ扱い
     await go(BELL, 13, 8, 8);
     const ring = (await talk(["綱を引く"])).join("\n");
     check(ring.includes("鐘が鳴る"), "鐘を鳴らす場面 " + JSON.stringify(ring));
