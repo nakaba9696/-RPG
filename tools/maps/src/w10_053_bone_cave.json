@@ -1,0 +1,921 @@
+{
+  "_説明": "W10（#156）：骨拾いの洞（docs/world.md 1.4・2.3・5.2・6.3。前の世界の見張りの洞の形を使う）。西の洞の口→052、骨拾い（使徒。取り引き：名札三つ→ベルトランの形見の骨の剣（スイッチ 611）、鉄くず百→取り引きの帳面（スイッチ 612））、骨の塔。骨拾いは戦わない。この設定は node tools/maps/src/w10_data.mjs が書く。",
+  "mapId": 53,
+  "name": "骨拾いの洞",
+  "displayName": "骨拾いの洞",
+  "legend": "dungeon",
+  "tilesetId": 13,
+  "note": "<hai_tone:-68,-68,-51,68>\n<hai_dark:4>",
+  "bgm": {
+    "name": "Dungeon5",
+    "volume": 60,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Drips",
+    "volume": 40,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "RockCave",
+    "battleback2Name": "RockCave"
+  },
+  "deco": {
+    "1": {
+      "name": "大きな骸骨（左上）",
+      "z2": "B:240"
+    },
+    "2": {
+      "name": "大きな骸骨（右上）",
+      "z2": "B:241"
+    },
+    "3": {
+      "name": "大きな骸骨（左下）",
+      "z2": "B:248"
+    },
+    "4": {
+      "name": "大きな骸骨（右下）",
+      "z2": "B:249"
+    },
+    "x": {
+      "name": "骸骨",
+      "z2": "B:242"
+    },
+    "X": {
+      "name": "骸骨B",
+      "z2": "B:250"
+    },
+    "k": {
+      "name": "砂利",
+      "z2": "B:32"
+    },
+    "r": {
+      "name": "瓦礫",
+      "z2": "B:120"
+    }
+  },
+  "events": [
+    {
+      "name": "西の洞の口（吊り橋へ）",
+      "type": "transfer",
+      "x": 0,
+      "y": 6,
+      "to": [
+        52,
+        48,
+        8,
+        "left"
+      ]
+    },
+    {
+      "name": "西の洞の口（吊り橋へ）",
+      "type": "transfer",
+      "x": 0,
+      "y": 7,
+      "to": [
+        52,
+        48,
+        8,
+        "left"
+      ]
+    },
+    {
+      "name": "骨拾い",
+      "type": "raw",
+      "x": 13,
+      "y": 5,
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 3,
+            "direction": 4,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                612,
+                1
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                0,
+                611,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "骨の塔の陰に、痩せた長い姿がしゃがんでいる。鳥のような頭が、こちらを向いた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "骨拾いは、頭を深く下げた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "骨拾い"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "生きておられる方。ようこそ。骨を拾っております。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "取り引きを、なさいますか。"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "剣のこと",
+                  "帳面のこと",
+                  "やめる"
+                ],
+                2,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "剣のこと"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                0,
+                611,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "骨拾い"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "剣は、お渡しいたしました。一本。鞘も一つ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "骨拾い"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "塔の三段目、左から七本目に、剣を立てた男の骨がございます。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "剣はわたくしが預かっております。名札を三つで、お渡しいたします。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 2,
+              "parameters": [
+                12,
+                "$gameParty.numItems($dataItems[328]) >= 3"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 3,
+              "parameters": [
+                [
+                  "名札を三つ渡す",
+                  "やめる"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 3,
+              "parameters": [
+                0,
+                "名札を三つ渡す"
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 4,
+              "parameters": [
+                328,
+                1,
+                0,
+                3
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "骨拾い"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "三つ。確かに。名の字も、三つとも欠けておりません。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 4,
+              "parameters": [
+                611,
+                611,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "骨拾いは塔から剣を一本抜き、鞘ごと地面に置いた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 3,
+              "parameters": [
+                1,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "骨拾い"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "名札は、ただいま三つに足りておりません。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "帳面のこと"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                0,
+                612,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "骨拾い"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "帳面は、お持ちください。中身は、わたくしが覚えております。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "骨拾い"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "取り引きの帳面でございます。お見せするお代は、鉄くず百。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 2,
+              "parameters": [
+                7,
+                100,
+                0
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 3,
+              "parameters": [
+                [
+                  "百払う",
+                  "やめる"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 3,
+              "parameters": [
+                0,
+                "百払う"
+              ]
+            },
+            {
+              "code": 125,
+              "indent": 4,
+              "parameters": [
+                1,
+                0,
+                100
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "骨拾い"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "百。確かに。写しはございません。お持ちください。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 4,
+              "parameters": [
+                {
+                  "name": "Book1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 4,
+              "parameters": [
+                608,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 4,
+              "parameters": [
+                612,
+                612,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "\\I[228]取り引きの帳面を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 3,
+              "parameters": [
+                1,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "骨拾い"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "百、足りておりません。お待ちしております。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                2,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "形見 ベルトランの骨の剣（遺骸）",
+      "type": "raw",
+      "x": 9,
+      "y": 8,
+      "note": "<hai_remains:10><hai_memory:10,4>",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 611,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Weapon",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鞘に収めた骨の剣。柄に、人の手の形の擦れ跡。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鞘の口に、折りたたんだ紙が挟まっている。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "洞の前まで来た。剣を杖にして立っている。座ったら、もう立てねえ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "骨拾いのやつが、頭を下げて待ってる。気の長い奴だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "描きたい絵が一枚あったんだがな。山と、橋と、手前に誰か。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "誰を描くかは、決めてなかった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 611,
+            "switch1Valid": true,
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "骨の塔",
+      "type": "text",
+      "x": 10,
+      "y": 6,
+      "lines": [
+        "骨を積んだ塔。積み方に、決まりがあるらしい。",
+        "段ごとに、骨の太さが揃えてある。"
+      ]
+    },
+    {
+      "name": "思念 R4-09 骨を買いに来た帝国の使い",
+      "type": "text",
+      "x": 6,
+      "y": 8,
+      "note": "<hai_thought:R4-09>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "使いの役だ。骨を十二本、受け取って帰る。それだけ。",
+        "化け物が丁寧に頭を下げるので、こちらも下げた。",
+        "帰ってから、上官に叱られた。下げた数まで、帳面につけてあったそうだ。"
+      ]
+    },
+    {
+      "name": "拾い物（鉄くず）",
+      "type": "raw",
+      "x": 14,
+      "y": 9,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 125,
+              "indent": 0,
+              "parameters": [
+                0,
+                0,
+                40
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鉄くずを 40 手に入れた。"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    }
+  ]
+}

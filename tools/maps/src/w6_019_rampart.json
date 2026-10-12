@@ -196,24 +196,31 @@
             "pattern": 1
           },
           "priorityType": 1,
+          "trigger": 1,
           "walkAnime": false,
           "list": [
             {
-              "code": 101,
+              "code": 250,
               "indent": 0,
               "parameters": [
-                "",
-                0,
-                0,
-                2,
-                ""
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
               ]
             },
             {
-              "code": 401,
+              "code": 201,
               "indent": 0,
               "parameters": [
-                "東門の閂は外れている。"
+                0,
+                54,
+                20,
+                6,
+                2,
+                0
               ]
             },
             {

@@ -1,0 +1,812 @@
+{
+  "_説明": "W10（#156）：古い鋳物場・搬入口（docs/world.md 2.2・5.2・6.4）。北西の地下壕の石段→051、東の口→091、線路と荷の積み場、帳場（トゥーラの記憶 2・搬入の名簿）、帳場の奥の見えない通路の先の物置。この設定は node tools/maps/src/w10_data.mjs が書く。",
+  "mapId": 90,
+  "name": "鋳物場・搬入口",
+  "displayName": "古い鋳物場",
+  "legend": "foundry",
+  "tilesetId": 23,
+  "note": "<hai_tone:0,-34,-68,68>",
+  "bgm": {
+    "name": "Dungeon5",
+    "volume": 60,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Fire2",
+    "volume": 20,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Fort1",
+    "battleback2Name": "Fort2"
+  },
+  "deco": {
+    "c": {
+      "name": "木箱（通れない）",
+      "z2": "B:220"
+    },
+    "k": {
+      "name": "樽（通れない）",
+      "z2": "B:238"
+    },
+    "q": {
+      "name": "鉄くず（通れない）",
+      "z2": "E:151"
+    },
+    "x": {
+      "name": "骸骨（通れない）",
+      "z2": "B:242"
+    },
+    "r": {
+      "name": "瓦礫（通れない）",
+      "z2": "B:120"
+    },
+    "a": {
+      "name": "型から出した鎧（通れない）",
+      "z2": "E:160"
+    },
+    "n": {
+      "name": "金床（通れない）",
+      "z2": "E:148"
+    },
+    "w": {
+      "name": "水桶（通れない）",
+      "z2": "E:150"
+    },
+    "o": {
+      "name": "かまど（通れない）",
+      "z2": "D:200"
+    }
+  },
+  "scatter": [
+    {
+      "on": ".",
+      "tiles": [
+        "B:32",
+        "B:33"
+      ],
+      "rate": 0.08,
+      "seed": 9001
+    }
+  ],
+  "events": [
+    {
+      "name": "地下壕の石段（帝国の陣跡へ）",
+      "type": "transfer",
+      "x": 8,
+      "y": 2,
+      "to": [
+        51,
+        10,
+        4,
+        "down"
+      ]
+    },
+    {
+      "name": "東の口（型の間へ）",
+      "type": "transfer",
+      "x": 39,
+      "y": 14,
+      "to": [
+        91,
+        1,
+        21,
+        "right"
+      ]
+    },
+    {
+      "name": "東の口（型の間へ）",
+      "type": "transfer",
+      "x": 39,
+      "y": 15,
+      "to": [
+        91,
+        1,
+        21,
+        "right"
+      ]
+    },
+    {
+      "name": "東の口（型の間へ）",
+      "type": "transfer",
+      "x": 39,
+      "y": 16,
+      "to": [
+        91,
+        1,
+        21,
+        "right"
+      ]
+    },
+    {
+      "name": "記憶 トゥーラ 2",
+      "type": "text",
+      "x": 7,
+      "y": 27,
+      "note": "<hai_memory:11,2>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 4,
+        "pattern": 1
+      },
+      "lines": [
+        "帝国の兵が村に来た。食べ物が出る仕事がある、ってさ。",
+        "弟と妹の分まで出るのか、って聞いた。出る、って言った。",
+        "だから来た。ここの名簿に、あたしの名前、自分で書いたんだぞ。",
+        "書いた字、まだ下手だろ。"
+      ]
+    },
+    {
+      "name": "拾い物（骨拾いの荷札）",
+      "type": "raw",
+      "x": 30,
+      "y": 6,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "積み場の床に、荷の札が落ちている。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                607,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[197]骨拾いの荷札を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "搬入の名簿",
+      "type": "text",
+      "x": 5,
+      "y": 27,
+      "lines": [
+        "帳場の壁に、名簿が釘で留めてある。",
+        "上の方は大人の字。下の方は、子どもの字が増えていく。",
+        "名の横に、どれも番号が書き足してある。"
+      ]
+    },
+    {
+      "name": "線路の終わり",
+      "type": "text",
+      "x": 36,
+      "y": 17,
+      "lines": [
+        "線路は東の口で曲がり、型の間へ続いている。",
+        "車止めに、荷車が一台、鎖でつないである。"
+      ]
+    },
+    {
+      "name": "積み場の木箱",
+      "type": "text",
+      "x": 27,
+      "y": 5,
+      "lines": [
+        "木箱の焼き印は「研究所」。中身は空で、藁だけが残っている。"
+      ]
+    },
+    {
+      "name": "思念 R4-11 荷を下ろした男",
+      "type": "text",
+      "x": 20,
+      "y": 16,
+      "note": "<hai_thought:R4-11>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "荷を下ろす。数える。上に知らせる。それだけだ。",
+        "箱の中身は見るな、と言われた。見なかった。",
+        "一箱、泣いていた。それも数に入れた。"
+      ]
+    },
+    {
+      "name": "思念 R4-12 研究所の門番",
+      "type": "text",
+      "x": 30,
+      "y": 24,
+      "note": "<hai_thought:R4-12>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "子どもが三人、手をつないで入っていった。",
+        "門番の仕事は、出ていく者を止めることだ。入る者は止めない。",
+        "誰も出てこなかったので、仕事が無かった。"
+      ]
+    },
+    {
+      "name": "宝箱（毒消し）",
+      "type": "raw",
+      "x": 34,
+      "y": 24,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                197,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]毒消し×2を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "宝箱（鉄くず）",
+      "type": "raw",
+      "x": 25,
+      "y": 7,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 125,
+              "indent": 0,
+              "parameters": [
+                0,
+                0,
+                150
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鉄くずを 150 手に入れた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "宝箱（ハイポーション）",
+      "type": "raw",
+      "x": 13,
+      "y": 28,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                8,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]ハイポーション×2を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "拾い物（鉄くず）",
+      "type": "raw",
+      "x": 16,
+      "y": 21,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 125,
+              "indent": 0,
+              "parameters": [
+                0,
+                0,
+                40
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鉄くずを 40 手に入れた。"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "煤鼠（緑）",
+      "type": "raw",
+      "x": 14,
+      "y": 15,
+      "note": "<hai_enemy:607,green>\n<hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Nature",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 3,
+          "moveType": 1
+        }
+      ]
+    },
+    {
+      "name": "煤鼠（緑）",
+      "type": "raw",
+      "x": 30,
+      "y": 20,
+      "note": "<hai_enemy:607,green>\n<hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Nature",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 3,
+          "moveType": 1
+        }
+      ]
+    },
+    {
+      "name": "鋳くず（緑）",
+      "type": "raw",
+      "x": 28,
+      "y": 6,
+      "note": "<hai_enemy:608,green>\n<hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 3,
+          "moveType": 1
+        }
+      ]
+    },
+    {
+      "name": "失敗作（黄・往復）",
+      "type": "raw",
+      "x": 10,
+      "y": 23,
+      "note": "<hai_enemy:609,yellow>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveFrequency": 4,
+          "moveType": 3,
+          "moveRoute": {
+            "list": [
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 3,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 2,
+                "parameters": []
+              },
+              {
+                "code": 0,
+                "parameters": []
+              }
+            ],
+            "repeat": true,
+            "skippable": true,
+            "wait": false
+          }
+        }
+      ]
+    }
+  ]
+}

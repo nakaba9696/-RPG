@@ -1,0 +1,552 @@
+{
+  "_説明": "W10（#156）：鐘の型の部屋（docs/world.md 5.2・6.4・7.3、docs/mapdesign.md 4 章の古言の碑の扉）。北の口→091、親鐘と四つの鐘の型、トゥーラの記憶 3、鋳物場の鐘鉄（アデルの頼み「頂の道具」の鉄。渡す所は W6 か P）、古言の碑の扉（ディル）の奥の赤い宝箱。この設定は node tools/maps/src/w10_data.mjs が書く。",
+  "mapId": 92,
+  "name": "鐘の型の部屋",
+  "displayName": "鐘の型の部屋",
+  "legend": "foundry",
+  "tilesetId": 23,
+  "note": "<hai_tone:0,-34,-68,68>",
+  "bgm": {
+    "name": "Dungeon5",
+    "volume": 60,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Fire2",
+    "volume": 20,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Fort1",
+    "battleback2Name": "Fort2"
+  },
+  "deco": {
+    "c": {
+      "name": "木箱（通れない）",
+      "z2": "B:220"
+    },
+    "k": {
+      "name": "樽（通れない）",
+      "z2": "B:238"
+    },
+    "q": {
+      "name": "鉄くず（通れない）",
+      "z2": "E:151"
+    },
+    "x": {
+      "name": "骸骨（通れない）",
+      "z2": "B:242"
+    },
+    "r": {
+      "name": "瓦礫（通れない）",
+      "z2": "B:120"
+    },
+    "a": {
+      "name": "型から出した鎧（通れない）",
+      "z2": "E:160"
+    },
+    "n": {
+      "name": "金床（通れない）",
+      "z2": "E:148"
+    },
+    "w": {
+      "name": "水桶（通れない）",
+      "z2": "E:150"
+    },
+    "o": {
+      "name": "かまど（通れない）",
+      "z2": "D:200"
+    }
+  },
+  "stamps": [
+    {
+      "at": "鐘",
+      "name": "鐘（台座の上に小さな鐘。仮の絵。look.md 2.2）",
+      "tiles": [
+        [
+          "E:173"
+        ]
+      ],
+      "upper": [
+        [
+          "E:121"
+        ]
+      ]
+    },
+    {
+      "at": "大",
+      "name": "親鐘の型（台座。仮の絵）",
+      "tiles": [
+        [
+          "E:173"
+        ]
+      ],
+      "upper": [
+        [
+          "E:121"
+        ]
+      ]
+    }
+  ],
+  "scatter": [
+    {
+      "on": ".",
+      "tiles": [
+        "B:32",
+        "B:33"
+      ],
+      "rate": 0.08,
+      "seed": 9201
+    }
+  ],
+  "events": [
+    {
+      "name": "北の口（型の間へ）",
+      "type": "transfer",
+      "x": 12,
+      "y": 0,
+      "to": [
+        91,
+        18,
+        43,
+        "up"
+      ]
+    },
+    {
+      "name": "北の口（型の間へ）",
+      "type": "transfer",
+      "x": 13,
+      "y": 0,
+      "to": [
+        91,
+        18,
+        43,
+        "up"
+      ]
+    },
+    {
+      "name": "北の口（型の間へ）",
+      "type": "transfer",
+      "x": 14,
+      "y": 0,
+      "to": [
+        91,
+        18,
+        43,
+        "up"
+      ]
+    },
+    {
+      "name": "記憶 トゥーラ 3",
+      "type": "text",
+      "x": 6,
+      "y": 12,
+      "note": "<hai_memory:11,3>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 4,
+        "pattern": 1
+      },
+      "lines": [
+        "檻のちびどもの飯、あたしが分けてた。でかいのが多く取ると泣くからな。",
+        "骨を移された次の日から、腕が熱くて、力が倍になった。",
+        "檻の格子、曲がるんじゃねえかって思った。曲がった。",
+        "ちびどもには、まだ出るなって言った。先に、道を見てくる。"
+      ]
+    },
+    {
+      "name": "拾い物（鋳物場の鐘鉄）",
+      "type": "raw",
+      "x": 16,
+      "y": 13,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "型の脇に、白っぽい鉄の棒が束ねて立てかけてある。一本だけ、切り取られずに残っている。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                610,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[209]鋳物場の鐘鉄を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "親鐘の型",
+      "type": "text",
+      "x": 12,
+      "y": 8,
+      "lines": [
+        "真ん中の台に、大きな鐘の型。外側の型は割られ、内側の型だけが残る。",
+        "内側の型に、銘の字が彫ってある。半分は古い字、半分は新しい字。"
+      ]
+    },
+    {
+      "name": "四つの鐘の型",
+      "type": "text",
+      "x": 10,
+      "y": 7,
+      "lines": [
+        "親鐘の型を囲んで、小さな鐘の型が四つ。",
+        "四つとも、外側の型が割られている。中身は運び出されたあとだ。"
+      ]
+    },
+    {
+      "name": "古言の碑の扉",
+      "type": "raw",
+      "x": 21,
+      "y": 8,
+      "pages": [
+        {
+          "image": {
+            "tileId": "B:177"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                7,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "扉の代わりに、字を刻んだ石の板が嵌めてある。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ディル"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "……ああ、これか。読むだけなら読めるよ。訳さないけどな"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "ディルが短い音を三つ口にすると、石の板が横に滑った。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Open3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 1,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "扉の代わりに、字を刻んだ石の板が嵌めてある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "字は読めない。読める者がいれば。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "赤い宝箱（鋳型の槌）",
+      "type": "raw",
+      "x": 23,
+      "y": 8,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 127,
+              "indent": 0,
+              "parameters": [
+                602,
+                0,
+                0,
+                1,
+                false
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[104]鋳型の槌を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 2,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "思念 R4-16 鋳物師",
+      "type": "text",
+      "x": 18,
+      "y": 12,
+      "note": "<hai_thought:R4-16>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "銘を彫り直すなら、型から作り直すのが筋だ。そう言った。",
+        "教会の人は、一晩でいい、と言った。舌だけ持って来させる、と。",
+        "一晩で済む仕事なら、こんなに型は要らない。"
+      ]
+    },
+    {
+      "name": "割れた型の山",
+      "type": "text",
+      "x": 4,
+      "y": 5,
+      "lines": [
+        "割った型の破片の山。破片の内側に、溶けた鉄の筋が残る。"
+      ]
+    }
+  ]
+}
