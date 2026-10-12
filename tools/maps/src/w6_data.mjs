@@ -786,7 +786,8 @@ const rampartConfig = {
       pages: [
         { image: { characterName: "!$Gate1", characterIndex: 0, direction: DOWN, pattern: 1 }, priorityType: 1, walkAnime: false,
           list: [...say(["大きな門。押すと、隙間から灰が流れこんでくる。", "門の向こうは灰と霧で、一歩先も見えない。"]), END] },
-        { conditions: { switch1Id: SW.bellsAll, switch1Valid: true }, image: { characterName: "!$Gate1", characterIndex: 0, direction: UP, pattern: 1 }, priorityType: 1, walkAnime: false,
+        // W11（#191）：開くのは最後の地域の山場を越えて 4 つ目の鐘を鳴らしたとき（スイッチ 109。084・094・104 の霧の戸口が立てる）。行き先 180 は W14
+        { conditions: { switch1Id: SW.summitGate, switch1Valid: true }, image: { characterName: "!$Gate1", characterIndex: 0, direction: UP, pattern: 1 }, priorityType: 1, walkAnime: false,
           list: [...say(["門の向こうの灰が引いている。山道が上へ続いている。"]), END] },
       ],
     },

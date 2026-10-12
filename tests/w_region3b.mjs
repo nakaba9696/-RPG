@@ -273,7 +273,7 @@ await runTest(async () => {
     await step(8);
     await arrive(BELL, B4.arriveS[0], B4.arriveS[1]);
     await game.shot("bell-deep");
-    await game.eval(id => $gameVariables.setValue(id, 3), VAR.bellCount);
+    await game.eval(id => { $gameVariables.setValue(id, 3); $gameSwitches.setValue(106, true); }, VAR.bellCount); // 3 つ目の場面（スイッチ 106。W11）は済んだ扱い
     const ring = await look(BELL, B4.rope[0], B4.rope[1] + 1, 8, ["綱を引く"]);
     const bell = await game.eval(([a, b, c, t]) => ({ rung: $gameSwitches.value(a), count: $gameVariables.value(b), all: $gameSwitches.value(c), tag: $gameParty.numItems($dataItems[t]) }), [SW.bellWater, VAR.bellCount, SW.bellsAll, ITEM.dutyTag]);
     check(ring.includes("輪が幾重にも") && bell.rung && bell.count === 4 && bell.all && bell.tag === 1, "水底の鐘（スイッチ 103・変数 101・4 つ目でスイッチ 105・当番の札） " + JSON.stringify(bell));

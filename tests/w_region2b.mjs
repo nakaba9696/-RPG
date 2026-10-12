@@ -287,7 +287,7 @@ await runTest(async () => {
     const m3 = (await talk()).join("\n");
     check(m3.includes("確かめないことにした") && m3.includes("完全体"), "ディルの記憶 3 で完全体にならない " + JSON.stringify(m3));
     // ほかの三つを鳴らした後の 4 つ目として鳴らす（4 つ目でスイッチ 105）
-    await game.eval(v => $gameVariables.setValue(v, 3), VAR.bellCount);
+    await game.eval(v => { $gameVariables.setValue(v, 3); $gameSwitches.setValue(106, true); }, VAR.bellCount); // 3 つ目の場面（スイッチ 106。W11）は済んだ扱い
     await go(BELL_ROOM, 13, 8, 8);
     const ring = (await talk(["綱を引く"])).join("\n");
     check(ring.includes("鐘が鳴る"), "鐘を鳴らす場面 " + JSON.stringify(ring));

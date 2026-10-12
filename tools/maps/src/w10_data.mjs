@@ -14,6 +14,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { readData, formatTable, dataPath, extendTable } from "../../data/io.mjs";
 import { SRC_DIR } from "../build.mjs";
+import { withThirdScene, lairDoorEvents } from "./w11_parts.mjs"; // W11（#191）：鐘番の思念の 2 ページ目と霧の戸口
 
 const check = process.argv.includes("--check");
 const outputs = []; // [{ file, text }]
@@ -1519,7 +1520,7 @@ const labConfig = {
 
 // ===========================================================================
 // 094 鋳物場の鐘の間（27×26）：鋳物場の鐘（スイッチ 104・変数 101・4 以上でスイッチ 105）、当番の札、調律師の音叉。
-//   手前の間は W11 が「門叩きが抱えた思いの塊」を置く空き（docs/world.md 3.7）
+//   鐘の間の口に W11 の霧の戸口（門叩きの縄張り 170 へ。塊は 172。docs/world.md 3.7）と、鐘番の思念の 2 ページ目（3 つ目の場面。tools/maps/src/w11_parts.mjs）
 // ===========================================================================
 const bellRope = {
   name: "鋳物場の鐘の綱", type: "raw", x: 13, y: 7,
@@ -1563,20 +1564,17 @@ const bellEvents = [
   ...exits("南の口（研究所の奥へ）", [[12, 25], [13, 25], [14, 25]], MAP.lab, DAUGHTER[0], DAUGHTER[1] - 2, "down"),
   bellRope,
   pickup("調律師の音叉", [16, 7], [gainArmor(ARMOR.tuningFork), ...say(["\\I[145]調律師の音叉を手に入れた！"])], ["鐘の脚の陰に、布の包み。中に、二股の小さな鉄。"]),
-  thought("R4-18", "鋳物場の鐘番", [8, 8], [
+  withThirdScene(thought("R4-18", "鋳物場の鐘番", [8, 8], [
     "夕べ、と札に書いた。数を書こうとしたら、墨が流れた。手の汗だ。",
     "炉は冷えているのに、廊下の方が熱い。扉の下から、火の明かりが差してくる。",
     "札を拭いて、もう一度書こうとした。そこまでだ。",
-  ]),
+  ])),
   text("札掛け", [18, 4], ["札掛けの釘は四本。", "札の掛かっていた跡が、四つとも同じ色に焼けている。"]),
-  {
-    name: "W11 の置き場（門叩きが抱えた思いの塊）", type: "raw", x: 13, y: 18,
-    pages: [{ priorityType: 0, list: [comment("W11：門叩きが抱えた思いの塊をここに置く（docs/world.md 3.7。最後の地域が鋳物場になったとき）"), END] }],
-  },
+  ...lairDoorEvents("east"), // 鐘の間の口の霧の戸口（W11。門叩きの塊は縄張り 172 に置いた）
   text("手前の間の煤", [9, 19], ["床の煤に、足跡が無い。", "風も無いのに、煤が一方へ流れた跡がある。鐘の間の方へ。"]),
 ];
 const bellConfig = {
-  _説明: "W10（#156）：鋳物場の鐘の間（docs/world.md 5.1・8.1）。南の口→093。手前の間（W11 が門叩きの塊を置く空き）、鐘の間：綱を引くと鋳物場の鐘が鳴る（スイッチ 104・変数 101 に 1 足す・4 以上ならスイッチ 105。W7 の 036 と同じ形）、当番の札（鋳物場）、調律師の音叉。この設定は node tools/maps/src/w10_data.mjs が書く。",
+  _説明: "W10（#156）：鋳物場の鐘の間（docs/world.md 5.1・8.1）。南の口→093。鐘の間の口に W11 の霧の戸口（門叩きの縄張り 170 へ。w11_parts.mjs）、鐘番の思念の 2 ページ目は 3 つ目の場面（W11）、鐘の間：綱を引くと鋳物場の鐘が鳴る（スイッチ 104・変数 101 に 1 足す・4 以上ならスイッチ 105。W7 の 036 と同じ形）、当番の札（鋳物場）、調律師の音叉。この設定は node tools/maps/src/w10_data.mjs が書く。",
   mapId: MAP.bell, name: "鋳物場の鐘の間", displayName: "鋳物場の鐘の間", ...FOUNDRY_LOOK,
   note: "<hai_tone:-68,-68,-34,68>",
   bgm: { name: "Scene2", volume: 55, pitch: 100, pan: 0 },

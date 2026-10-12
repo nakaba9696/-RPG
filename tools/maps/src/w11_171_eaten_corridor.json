@@ -1,0 +1,1246 @@
+{
+  "_説明": "W11（#191）：喰われた者の廊下（docs/world.md 3.7）。東西の廊下が四本、間の口は二つずつ（片方に声だけの影、もう片方は回り道。C2–C3 と北の間の前には見えない通路）。影の声はその地域で読んだ思念の一行（c。スイッチ 711–722）。彫り刀の音が近づく。北の間（ボスの控え・結界）→ 172。 この設定は node tools/maps/src/w11_data.mjs が書く。",
+  "mapId": 171,
+  "name": "喰われた者の廊下",
+  "displayName": "喰われた者の廊下",
+  "legend": "dungeon",
+  "tilesetId": 14,
+  "note": "<hai_tone:-85,-85,-68,136>\n<hai_fog:60,0.05,0.05>\n<hai_dark:4>",
+  "bgm": {
+    "name": "Scene7",
+    "volume": 55,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Darkness",
+    "volume": 40,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Smoke",
+    "battleback2Name": "Smoke"
+  },
+  "chars": {
+    ";": {
+      "name": "床の汚れ",
+      "as": ".",
+      "tiles": [
+        null,
+        "A2:15"
+      ]
+    },
+    "h": {
+      "name": "見えない通路（石の壁に見えて通れる。影なし。リージョン 251）",
+      "as": "=",
+      "region": 251,
+      "shadow": false
+    }
+  },
+  "deco": {
+    "1": {
+      "name": "石の柱B（下。通れない）",
+      "z2": "B:106"
+    },
+    "2": {
+      "name": "折れた石の柱（通れない）",
+      "z2": "B:114"
+    },
+    "5": {
+      "name": "亀裂B（壁に）",
+      "z2": "B:187"
+    },
+    "7": {
+      "name": "壁の苔（壁に）",
+      "z2": "B:1"
+    },
+    "k": {
+      "name": "砂利A（通れる）",
+      "z2": "B:32"
+    },
+    "K": {
+      "name": "砂利B（通れる）",
+      "z2": "B:33"
+    },
+    "r": {
+      "name": "瓦礫A（通れない）",
+      "z2": "B:120"
+    },
+    "x": {
+      "name": "骸骨A（通れない）",
+      "z2": "B:242"
+    },
+    "X": {
+      "name": "骸骨B（通れない）",
+      "z2": "B:250"
+    },
+    "q": {
+      "name": "瓦礫の上の骸骨（通れない）",
+      "z2": "B:120",
+      "z3": "B:242"
+    },
+    "w": {
+      "name": "蜘蛛の巣（壁に）",
+      "z2": "B:176"
+    }
+  },
+  "scatter": [
+    {
+      "on": ".",
+      "z": 1,
+      "tiles": [
+        "A2:15"
+      ],
+      "rate": 0.06,
+      "seed": 1711
+    },
+    {
+      "on": ".",
+      "tiles": [
+        "B:32",
+        "B:33"
+      ],
+      "rate": 0.05,
+      "seed": 1712
+    }
+  ],
+  "events": [
+    {
+      "name": "南の口（縄張りの縁へ）",
+      "type": "transfer",
+      "x": 25,
+      "y": 39,
+      "to": [
+        170,
+        25,
+        2,
+        2
+      ]
+    },
+    {
+      "name": "北の口（塊の間へ）",
+      "type": "transfer",
+      "x": 25,
+      "y": 0,
+      "to": [
+        172,
+        20,
+        28,
+        8
+      ]
+    },
+    {
+      "name": "結界（喰われた者の廊下）",
+      "type": "raw",
+      "x": 28,
+      "y": 2,
+      "note": "<hai_warp:喰われた者の廊下>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "影の声の旗（自動）",
+      "type": "raw",
+      "x": 0,
+      "y": 0,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 4,
+          "list": [
+            {
+              "code": 108,
+              "indent": 0,
+              "parameters": [
+                "W11：その地域が縄張り（鐘が鳴っていない）で、その思念を読んでいれば、廊下の声だけの影を出す（スイッチ 711–722）"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "const last = !$gameSwitches.value(102) ? \"west\" : !$gameSwitches.value(103) ? \"south\" : !$gameSwitches.value(104) ? \"east\" : \"\";"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "const T = {\"711\":[\"west\",\"R2-01\"],\"712\":[\"west\",\"R2-18\"],\"713\":[\"west\",\"R2-22\"],\"714\":[\"west\",\"R2-25\"],\"715\":[\"south\",\"R3-19\"],\"716\":[\"south\",\"R3-20\"],\"717\":[\"south\",\"R3-14\"],\"718\":[\"south\",\"R3-23\"],\"719\":[\"east\",\"R4-13\"],\"720\":[\"east\",\"R4-11\"],\"721\":[\"east\",\"R4-01\"],\"722\":[\"east\",\"R4-18\"]};"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "for (const id in T) $gameSwitches.setValue(Number(id), T[id][0] === last && Hai.Thoughts.isRead(T[id][1]));"
+              ]
+            },
+            {
+              "code": 214,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "声だけの影（記録院 R2-01）",
+      "type": "raw",
+      "x": 5,
+      "y": 26,
+      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:戸を三度、叩かれた。去年の秋に祠へ行った娘の声だった。>",
+      "pages": [
+        {
+          "conditions": {
+            "switch1Id": 711,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 2,
+          "moveType": 0,
+          "moveFrequency": 5,
+          "moveSpeed": 3
+        }
+      ]
+    },
+    {
+      "name": "声だけの影（記録院 R2-18）",
+      "type": "raw",
+      "x": 25,
+      "y": 17,
+      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:二冊のうち一冊を、使いに渡したのは私です。急かされましたので。>",
+      "pages": [
+        {
+          "conditions": {
+            "switch1Id": 712,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 2,
+          "moveType": 0,
+          "moveFrequency": 5,
+          "moveSpeed": 3
+        }
+      ]
+    },
+    {
+      "name": "声だけの影（記録院 R2-22）",
+      "type": "raw",
+      "x": 44,
+      "y": 10,
+      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:書いた。札の字が、私の字ではない。>",
+      "pages": [
+        {
+          "conditions": {
+            "switch1Id": 713,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 2,
+          "moveType": 0,
+          "moveFrequency": 5,
+          "moveSpeed": 3
+        }
+      ]
+    },
+    {
+      "name": "声だけの影（記録院 R2-25）",
+      "type": "raw",
+      "x": 25,
+      "y": 4,
+      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:朝は来なかった。札は、釘に掛かったままだ。>",
+      "pages": [
+        {
+          "conditions": {
+            "switch1Id": 714,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 2,
+          "moveType": 0,
+          "moveFrequency": 5,
+          "moveSpeed": 3
+        }
+      ]
+    },
+    {
+      "name": "声だけの影（水底 R3-19）",
+      "type": "raw",
+      "x": 5,
+      "y": 27,
+      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:札を持っとる子から順だと。わしの札は、朝に孫に持たせた。>",
+      "pages": [
+        {
+          "conditions": {
+            "switch1Id": 715,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 2,
+          "moveType": 0,
+          "moveFrequency": 5,
+          "moveSpeed": 3
+        }
+      ]
+    },
+    {
+      "name": "声だけの影（水底 R3-20）",
+      "type": "raw",
+      "x": 25,
+      "y": 18,
+      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:扉にさわったら、中で、だれかがぼくの名前で泣いてた。>",
+      "pages": [
+        {
+          "conditions": {
+            "switch1Id": 716,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 2,
+          "moveType": 0,
+          "moveFrequency": 5,
+          "moveSpeed": 3
+        }
+      ]
+    },
+    {
+      "name": "声だけの影（水底 R3-14）",
+      "type": "raw",
+      "x": 44,
+      "y": 11,
+      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:四百は、札の無い者だ。並ぶなとは、誰も言わなかった。>",
+      "pages": [
+        {
+          "conditions": {
+            "switch1Id": 717,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 2,
+          "moveType": 0,
+          "moveFrequency": 5,
+          "moveSpeed": 3
+        }
+      ]
+    },
+    {
+      "name": "声だけの影（水底 R3-23）",
+      "type": "raw",
+      "x": 25,
+      "y": 5,
+      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:水は、膝から胸まで来た。筆は、札掛けの下に浮いている。>",
+      "pages": [
+        {
+          "conditions": {
+            "switch1Id": 718,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 2,
+          "moveType": 0,
+          "moveFrequency": 5,
+          "moveSpeed": 3
+        }
+      ]
+    },
+    {
+      "name": "声だけの影（鋳物場 R4-13）",
+      "type": "raw",
+      "x": 5,
+      "y": 28,
+      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:ぼくは、いち、に、さん、ってかぞえてる。姉ちゃんが行ってから、ずっと。>",
+      "pages": [
+        {
+          "conditions": {
+            "switch1Id": 719,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 2,
+          "moveType": 0,
+          "moveFrequency": 5,
+          "moveSpeed": 3
+        }
+      ]
+    },
+    {
+      "name": "声だけの影（鋳物場 R4-11）",
+      "type": "raw",
+      "x": 25,
+      "y": 19,
+      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:一箱、泣いていた。それも数に入れた。>",
+      "pages": [
+        {
+          "conditions": {
+            "switch1Id": 720,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 2,
+          "moveType": 0,
+          "moveFrequency": 5,
+          "moveSpeed": 3
+        }
+      ]
+    },
+    {
+      "name": "声だけの影（鋳物場 R4-01）",
+      "type": "raw",
+      "x": 44,
+      "y": 12,
+      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:隣の奴に聞いた。おまえの名は何だ、と。隣の奴も、知らなかった。>",
+      "pages": [
+        {
+          "conditions": {
+            "switch1Id": 721,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 2,
+          "moveType": 0,
+          "moveFrequency": 5,
+          "moveSpeed": 3
+        }
+      ]
+    },
+    {
+      "name": "声だけの影（鋳物場 R4-18）",
+      "type": "raw",
+      "x": 25,
+      "y": 6,
+      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:札を拭いて、もう一度書こうとした。そこまでだ。>",
+      "pages": [
+        {
+          "conditions": {
+            "switch1Id": 722,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 2,
+          "moveType": 0,
+          "moveFrequency": 5,
+          "moveSpeed": 3
+        }
+      ]
+    },
+    {
+      "name": "声だけの影（C2–C3 の西の口）",
+      "type": "raw",
+      "x": 5,
+      "y": 18,
+      "note": "<hai_enemy:702,yellow><hai_enemy_shade>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 2,
+          "moveType": 0,
+          "moveFrequency": 5,
+          "moveSpeed": 3
+        }
+      ]
+    },
+    {
+      "name": "声だけの影（C1）",
+      "type": "raw",
+      "x": 15,
+      "y": 32,
+      "note": "<hai_enemy:701,green><hai_enemy_shade>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3,
+          "moveSpeed": 3
+        }
+      ]
+    },
+    {
+      "name": "声だけの影（C3）",
+      "type": "raw",
+      "x": 35,
+      "y": 14,
+      "note": "<hai_enemy:701,green><hai_enemy_shade>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3,
+          "moveSpeed": 3
+        }
+      ]
+    },
+    {
+      "name": "彫り刀の音（C2） 1",
+      "type": "raw",
+      "x": 35,
+      "y": 22,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "壁の向こうで、刃が石を掻く音がした。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                705,
+                705,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 705,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "彫り刀の音（C2） 2",
+      "type": "raw",
+      "x": 35,
+      "y": 23,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "壁の向こうで、刃が石を掻く音がした。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                705,
+                705,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 705,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "彫り刀の音（C2） 3",
+      "type": "raw",
+      "x": 35,
+      "y": 24,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "壁の向こうで、刃が石を掻く音がした。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                705,
+                705,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 705,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "彫り刀の音（C3） 1",
+      "type": "raw",
+      "x": 15,
+      "y": 13,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "掻く音が近い。一画ずつ、間を置いて。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                706,
+                706,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 706,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "彫り刀の音（C3） 2",
+      "type": "raw",
+      "x": 15,
+      "y": 14,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "掻く音が近い。一画ずつ、間を置いて。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                706,
+                706,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 706,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "彫り刀の音（C3） 3",
+      "type": "raw",
+      "x": 15,
+      "y": 15,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "掻く音が近い。一画ずつ、間を置いて。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                706,
+                706,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 706,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "彫り刀の音（C4） 1",
+      "type": "raw",
+      "x": 35,
+      "y": 7,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "音が止んだ。北の方で、何かが脈を打つ音がする。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                707,
+                707,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 707,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "彫り刀の音（C4） 2",
+      "type": "raw",
+      "x": 35,
+      "y": 8,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "音が止んだ。北の方で、何かが脈を打つ音がする。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                707,
+                707,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 707,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "彫り刀の音（C4） 3",
+      "type": "raw",
+      "x": 35,
+      "y": 9,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "音が止んだ。北の方で、何かが脈を打つ音がする。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                707,
+                707,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 707,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "戸板の列",
+      "type": "text",
+      "x": 10,
+      "y": 31,
+      "lines": [
+        "壁ぎわに、戸板が何枚も立てかけてある。",
+        "どれも内側に、爪の跡。"
+      ]
+    },
+    {
+      "name": "宝箱（薬草）",
+      "type": "raw",
+      "x": 4,
+      "y": 32,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                196,
+                0,
+                0,
+                3
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]薬草×3を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "宝箱（毒消し）",
+      "type": "raw",
+      "x": 45,
+      "y": 14,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                197,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[177]毒消し×2を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    }
+  ]
+}

@@ -329,7 +329,7 @@
         },
         {
           "conditions": {
-            "switch1Id": 105,
+            "switch1Id": 109,
             "switch1Valid": true
           },
           "image": {
