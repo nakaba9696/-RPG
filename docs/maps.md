@@ -596,6 +596,7 @@ R1（#76）の指摘（#106〜#108）と、アイテムの置き場所（`docs/o
 - 設定（イベント・凡例の上書き・スタンプ）とデータベース（帯 501–600）は `node tools/maps/src/w9_data.mjs`。どちらも `--check` で一致を見る。
 - 地図は `node tools/maps/build.mjs w9_070_mist_lake w9_071_lake_house w9_072_sunken_pier w9_073_lake_pool w9_074_isle w9_100_sewer_upper w9_101_sluice w9_102_gate_front w9_103_gate_keeper w9_104_bell_deep w9_105_well_shaft`。
 - 見た目は `tools/maps/looks.json` の lake・undercity のまま。テストは `tests/w_region3.mjs`（湖）・`tests/w_region3b.mjs`（地下）。
+- 文は文3（#175）で [docs/text.md](text.md) 5.3 に沿って書き直した（思念・記憶・来歴・布告・ボスの言葉・ミルレーネと村の長の会話）。直す所は `w9_data.mjs` の文字列だけで、イベントの流れ・旗・座標は W9 のまま。
 
 | ID | 名前 | 大きさ | タイルセット | 下書き | 中身 |
 |---|---|---|---|---|---|

@@ -206,11 +206,11 @@ await runTest(async () => {
     console.log("  葦原：道標・R3-01・触れ書き・霧の壁（小鐘で引く。スイッチ 501）");
 
     // ===== 2. 舟小屋と舟着き：ゼリナの記憶 2・3、乗船名簿、舟着きの杭（櫂なし） =====
-    check((await look(LAKE, L.zelina2[0], L.zelina2[1] + 1, 8)).includes("三年で舟が一艘"), "ゼリナの記憶 2");
+    check((await look(LAKE, L.zelina2[0], L.zelina2[1] + 1, 8)).includes("舟が一艘"), "ゼリナの記憶 2");
     await look(LAKE, L.ledgerArk[0], L.ledgerArk[1] + 1, 8);
     check((await items("i", ITEM.arkList)) === 1, "方舟の乗船名簿が手に入らない");
     check((await look(LAKE, L.zelina3[0], L.zelina3[1] + 1, 8)).includes("二十六"), "ゼリナの記憶 3");
-    check((await look(LAKE, L.r302[0], L.r302[1] + 1, 8)).includes("袖を引いた"), "R3-02");
+    check((await look(LAKE, L.r302[0], L.r302[1] + 1, 8)).includes("籠だけ受け取って"), "R3-02");
     const stand = [L.dockBoat[0], L.dockBoat[1] - 1];
     check((await look(LAKE, stand[0], stand[1], 2)).includes("漕ぐ物が無い"), "櫂が無いのに舟を出せる");
     check((await game.eval(() => Hai.Companions.memories(8))).join() === "2,3", "ゼリナの記憶 2・3 が数えられない");
@@ -230,7 +230,7 @@ await runTest(async () => {
     check((await items("i", ITEM.lampLedger)) === 1, "湖の灯の帳面が手に入らない");
     check((await look(HOUSE, H.zelina1[0] + 1, H.zelina1[1], 4)).includes("ただの石"), "ゼリナの記憶 1");
     const reed = await look(HOUSE, H.r306[0], H.r306[1] - 1, 2);
-    check(reed.includes("焦げた刈り跡") && (await game.eval(() => Hai.Thoughts.notes("clue").some(n => n.text.includes("焦げた葦")))), "葦刈りの思念と手がかり " + JSON.stringify(reed));
+    check(reed.includes("焦げた跡") && (await game.eval(() => Hai.Thoughts.notes("clue").some(n => n.text.includes("焦げた葦")))), "葦刈りの思念と手がかり " + JSON.stringify(reed));
     console.log("  湖の家：ミルレーネ（スイッチ 107・511）・取り決めの歌・灯の帳面・ゼリナの記憶 1・葦刈りの手がかり");
 
     // ===== 4. 沈んだ桟橋 072：ゼリナの遺骸・櫂・隠し扉のつけ帳 =====
