@@ -1,0 +1,578 @@
+{
+  "_説明": "W9（#157）：沈んだ桟橋（前の世界の沈んだ舞台の形。world.md 6.3 ゼリナの遺骸・6.4 ゼリナ 4・3.2 酒保のつけ帳）。北→071。遺骸の脇に櫂（舟が使える）。東の舟小屋の隠し扉の奥につけ帳。",
+  "mapId": 72,
+  "name": "沈んだ桟橋",
+  "displayName": "沈んだ桟橋",
+  "legend": "marsh",
+  "tilesetId": 15,
+  "note": "<hai_tone:-34,-17,0,68>\n<hai_fog:90,0.1,0>",
+  "bgm": {
+    "name": "Scene6",
+    "volume": 55,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Wave1",
+    "volume": 30,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "PoisonSwamp",
+    "battleback2Name": "Ruins3"
+  },
+  "deco": {
+    "k": {
+      "name": "草A",
+      "z2": "B:152"
+    },
+    "K": {
+      "name": "草B",
+      "z2": "B:153"
+    },
+    "l": {
+      "name": "枯れ草",
+      "z2": "B:239"
+    },
+    "i": {
+      "name": "舫いの杭（ビット。通れない）",
+      "z2": "B:130"
+    },
+    "舟": {
+      "name": "倒れた舟（仮の絵：倒木。通れない）",
+      "z2": "B:164"
+    },
+    "g": {
+      "name": "墓A（通れない）",
+      "z2": "B:142"
+    },
+    "G": {
+      "name": "墓B（通れない）",
+      "z2": "B:143"
+    },
+    "O": {
+      "name": "焚き火の跡（薪。通れない）",
+      "z2": "B:170"
+    },
+    "p": {
+      "name": "岩A（通れない）",
+      "z2": "B:159"
+    },
+    "b": {
+      "name": "樽（通れない）",
+      "z2": "B:141"
+    },
+    "v": {
+      "name": "桶（通れない）",
+      "z2": "B:145"
+    },
+    "z": {
+      "name": "壺（通れない）",
+      "z2": "B:144"
+    },
+    "c": {
+      "name": "木箱（通れない）",
+      "z2": "B:181"
+    },
+    "t": {
+      "name": "立て札（通れない）",
+      "z2": "B:137"
+    },
+    "x": {
+      "name": "骸骨（通れない）",
+      "z2": "D:242"
+    }
+  },
+  "stamps": [],
+  "events": [
+    {
+      "name": "北の板の道（湖の家へ）",
+      "type": "transfer",
+      "x": 13,
+      "y": 0,
+      "to": [
+        71,
+        40,
+        34,
+        "up"
+      ]
+    },
+    {
+      "name": "遺骸 ゼリナ",
+      "type": "raw",
+      "x": 12,
+      "y": 14,
+      "note": "<hai_remains:8><hai_memory:8,4>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "桟橋の端に、女が一人、湖の方を向いて座っている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "前掛けの紐に、鍵と算盤の珠が一つ下がっている。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "灯が、まだ見える。一つ、二つ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "子どもの数を数えとるつもりが、灯の数を数えとった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "十四。……十四。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "見えへんようになった。もう一回、最初から数えよか。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "拾い物（櫂）",
+      "type": "raw",
+      "x": 13,
+      "y": 13,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "遺骸の脇に、櫂が一本。柄に焼き印で「方舟」。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                501,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[107]櫂を手に入れた！"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                502,
+                502,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "これがあれば、湖の舟着きから舟を出せる。"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "切れた舫い綱",
+      "type": "text",
+      "x": 11,
+      "y": 13,
+      "lines": [
+        "杭に残った舫い綱。切り口は、まっすぐだ。"
+      ]
+    },
+    {
+      "name": "思念 R3-07 酒保の手伝いの兵",
+      "type": "text",
+      "x": 16,
+      "y": 7,
+      "note": "<hai_thought:R3-07><hai_clue:酒保のつけ帳は、舟小屋の奥の壁の中（沈んだ桟橋）>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "舟が出たあと、姐さんは桟橋に座って動かなかった。",
+        "砦に戻ろうと言ったら、つけの帳面を投げてよこした。「あんたが取り立て」やと。",
+        "帳面は舟小屋の奥の壁の中に隠した。取り立てる相手は、もう誰もいない。"
+      ]
+    },
+    {
+      "name": "樽",
+      "type": "text",
+      "x": 11,
+      "y": 5,
+      "lines": [
+        "樽の中に、塩漬けの魚の骨。蓋に「酒保　湖の家より」。"
+      ]
+    },
+    {
+      "name": "拾い物（酒保のつけ帳）",
+      "type": "raw",
+      "x": 22,
+      "y": 6,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "tileId": "E:177"
+          },
+          "priorityType": 1,
+          "stepAnime": false,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "壁の中の棚に、帳面が一冊。表紙に「つけ」。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                506,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[228]酒保のつけ帳を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "宝箱（霊水）",
+      "type": "raw",
+      "x": 22,
+      "y": 5,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                144,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]霊水を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "舟小屋の勘定台",
+      "type": "text",
+      "x": 20,
+      "y": 10,
+      "lines": [
+        "小さな勘定台。釘に、空の銭袋が下がっている。"
+      ]
+    },
+    {
+      "name": "沼蛭（緑）",
+      "type": "raw",
+      "x": 12,
+      "y": 9,
+      "note": "<hai_enemy:501,green><hai_enemy_chase:3><hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    }
+  ]
+}

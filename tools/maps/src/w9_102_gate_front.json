@@ -1,0 +1,1146 @@
+{
+  "_説明": "W9（#157）：地下都市の閉じた扉の前（暗がり 1.5、角灯で 5。world.md 2.3 王の布告と外に残された民・6.3 アンセルモの遺骸・6.4 アンセルモ 3・4・8.3 騎士長の日誌）。北→101、東→103。大扉は内側の村の長が閂を外すと 105 へ通じる（スイッチ 510）。",
+  "mapId": 102,
+  "name": "地下都市の閉じた扉の前",
+  "displayName": "閉じた扉の前",
+  "legend": "undercity",
+  "tilesetId": 22,
+  "note": "<hai_tone:-34,-34,-17,85>\n<hai_dark:1.5>",
+  "bgm": {
+    "name": "Dungeon7",
+    "volume": 55,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Darkness",
+    "volume": 35,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Cobblestones3",
+    "battleback2Name": "Town5"
+  },
+  "deco": {
+    "k": {
+      "name": "砂利A（通れる）",
+      "z2": "B:32"
+    },
+    "K": {
+      "name": "砂利B（通れる）",
+      "z2": "B:33"
+    },
+    "s": {
+      "name": "小さな芽（苔の芽。通れる）",
+      "z2": "B:36"
+    },
+    "r": {
+      "name": "瓦礫A（通れない）",
+      "z2": "B:120"
+    },
+    "x": {
+      "name": "骸骨A（通れない）",
+      "z2": "B:242"
+    },
+    "y": {
+      "name": "むしろの寝床（外に残された人の寝床の跡）",
+      "z2": "C:151"
+    },
+    "g": {
+      "name": "墓A（通れない）",
+      "z2": "E:142"
+    },
+    "G": {
+      "name": "墓B（通れない）",
+      "z2": "E:143"
+    },
+    "v": {
+      "name": "クローゼット（通れない）",
+      "z2": "C:178"
+    },
+    "N": {
+      "name": "テーブル（通れない）",
+      "z2": "C:149"
+    },
+    "n": {
+      "name": "椅子",
+      "z2": "C:157"
+    },
+    "w": {
+      "name": "井戸（通れない）",
+      "z2": "E:139"
+    },
+    "c": {
+      "name": "木箱（通れない）",
+      "z2": "E:181"
+    },
+    "f": {
+      "name": "石のかまど（通れない）",
+      "z2": "E:147"
+    },
+    "l": {
+      "name": "木製はしご（通れる）",
+      "z2": "B:5"
+    }
+  },
+  "stamps": [],
+  "events": [
+    {
+      "name": "角灯の明かり（自動）",
+      "type": "raw",
+      "x": 0,
+      "y": 0,
+      "note": "",
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 4,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                8,
+                322
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_MapTone",
+                "dark",
+                "暗がりの半径を変える",
+                {
+                  "radius": "5"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "radius = 5"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 214,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "北の廊下（水門へ）",
+      "type": "transfer",
+      "x": 21,
+      "y": 0,
+      "to": [
+        101,
+        29,
+        43,
+        "up"
+      ]
+    },
+    {
+      "name": "北の廊下（水門へ）",
+      "type": "transfer",
+      "x": 22,
+      "y": 0,
+      "to": [
+        101,
+        30,
+        43,
+        "up"
+      ]
+    },
+    {
+      "name": "東の廊下（扉の番の間へ）",
+      "type": "transfer",
+      "x": 43,
+      "y": 15,
+      "to": [
+        103,
+        1,
+        8,
+        "right"
+      ]
+    },
+    {
+      "name": "東の廊下（扉の番の間へ）",
+      "type": "transfer",
+      "x": 43,
+      "y": 16,
+      "to": [
+        103,
+        1,
+        9,
+        "right"
+      ]
+    },
+    {
+      "name": "結界（扉の番の控え）",
+      "type": "raw",
+      "x": 36,
+      "y": 17,
+      "note": "<hai_warp:扉の番の控え>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true
+        }
+      ]
+    },
+    {
+      "name": "閉じた大扉",
+      "type": "raw",
+      "x": 21,
+      "y": 26,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!$Gate1",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "見上げるほどの鉄の扉。外側の面は、爪の跡で白くなっている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "叩いても、音が奥へ吸われていくだけだ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 510,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!$Gate1",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "大扉が、人ひとり通れるだけ開いている。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                105,
+                7,
+                30,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "閉じた大扉（右）",
+      "type": "block",
+      "x": 22,
+      "y": 26
+    },
+    {
+      "name": "遺骸 アンセルモ",
+      "type": "raw",
+      "x": 19,
+      "y": 25,
+      "note": "<hai_remains:9><hai_memory:9,4>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 4,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "扉に背を預けて、太った男が座っている。司祭の帯は、酒の染みだらけだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "扉の外側の面は爪の跡だらけだが、男の背中のあたりだけ、跡が無い。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "名前を一人ずつ呼んで、弔いの歌を一節ずつ。これで百と、えー、いくつだったかの。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "扉の内から、子どもの笑う声が聞こえよった。札の子かの。笑っとるなら上等じゃ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "次の名は、と。……喉が鳴らん。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "誰か、続きを歌っといてくれ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "扉の爪の跡",
+      "type": "text",
+      "x": 24,
+      "y": 26,
+      "lines": [
+        "扉の継ぎ目に、爪の跡。高い所の跡と、低い所の跡がある。"
+      ]
+    },
+    {
+      "name": "記憶 アンセルモ 3",
+      "type": "text",
+      "x": 38,
+      "y": 14,
+      "note": "<hai_memory:9,3>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "扉が閉まる日、わしの懐には内へ入る札が一枚あった。司祭の分じゃ。",
+        "列の外で、女の子が一人、泣きもせんで立っとった。札を首に掛けてやった。",
+        "それで、わしは外。内の連中に言いたいことは山ほどあったが、まあ、歌で言うたらええ。"
+      ]
+    },
+    {
+      "name": "拾い物（騎士長の日誌）",
+      "type": "raw",
+      "x": 38,
+      "y": 4,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "tileId": "C:149"
+          },
+          "priorityType": 1,
+          "stepAnime": false,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "机の上に、革の日誌。三つの封蝋の欠片が挟まっている。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                504,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[230]騎士長の日誌を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 1,
+          "image": {
+            "tileId": "C:149"
+          }
+        }
+      ]
+    },
+    {
+      "name": "騎士団の盾",
+      "type": "text",
+      "x": 36,
+      "y": 3,
+      "lines": [
+        "壁に、黒鉄の砦の騎士団の印を刻んだ盾が一枚。",
+        "裏に、列の警護の当番が十二人。名は、九つまで消してある。"
+      ]
+    },
+    {
+      "name": "宝箱（霊水）",
+      "type": "raw",
+      "x": 40,
+      "y": 3,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                144,
+                0,
+                0,
+                2
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]霊水×2を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "石を積んだ墓",
+      "type": "text",
+      "x": 2,
+      "y": 12,
+      "lines": [
+        "石を積んだだけの墓が並ぶ。積んだ石の数が、墓ごとに違う。"
+      ]
+    },
+    {
+      "name": "拾い物（弔いの名簿）",
+      "type": "raw",
+      "x": 2,
+      "y": 15,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "tileId": "E:177"
+          },
+          "priorityType": 1,
+          "stepAnime": false,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "石の上に、紐で綴じた紙の束。名前ばかりが、細かい字で並んでいる。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                508,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[231]弔いの名簿を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "思念 R3-18 弔いを手伝った男",
+      "type": "text",
+      "x": 3,
+      "y": 17,
+      "note": "<hai_thought:R3-18>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "司祭のおっさんの歌は、うまいのか下手なのか分からなかった。",
+        "聞いた者は、みんな泣いた。泣かせるのがうまい、が正しいな。",
+        "おれの番の歌は、途中までしか聞けなかった。"
+      ]
+    },
+    {
+      "name": "思念 R3-19 扉を叩いた男",
+      "type": "text",
+      "x": 12,
+      "y": 10,
+      "note": "<hai_thought:R3-19>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "扉を三度叩いた。内の者は答えないことになっている。知っていた。",
+        "知っていて、叩いた。女房の名を呼んで、叩いた。",
+        "四日めに、叩くのをやめた。"
+      ]
+    },
+    {
+      "name": "思念 R3-20 札の無い子ら",
+      "type": "text",
+      "x": 28,
+      "y": 18,
+      "note": "<hai_thought:R3-20>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "札は、王さまの紋が焼いてある板。持ってる子と、持ってない子がいた。",
+        "持ってない子で、鬼ごっこをした。扉にさわった子が、鬼。",
+        "鬼が、いつまでも決まらなかった。"
+      ]
+    },
+    {
+      "name": "思念 R3-21 番を見ていた女",
+      "type": "text",
+      "x": 8,
+      "y": 21,
+      "note": "<hai_thought:R3-21><hai_clue:扉の番は、雷の晩に扉の陰へ下がった（閉じた扉の前）>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "番の鎧は、水を吸って光っていた。",
+        "雷の鳴った晩、番は扉の陰に引っ込んで、動かなかった。鉄が鳴るのを嫌うんだ。",
+        "あいつも、扉の内には入れてもらえなかった。"
+      ]
+    },
+    {
+      "name": "思念 R3-22 読み上げを聞いた男",
+      "type": "text",
+      "x": 35,
+      "y": 23,
+      "note": "<hai_thought:R3-22><hai_clue:扉の番は、王の布告の削られた所で読み上げが止まる（閉じた扉の前）>",
+      "image": {
+        "characterName": "!Flame",
+        "characterIndex": 5,
+        "direction": 2,
+        "pattern": 1
+      },
+      "lines": [
+        "番は、布告を読み上げるのが役目だった。日に三度、同じ文を。",
+        "削られた下の半分を、番は覚えていない。読み上げるたびに、そこで止まる。",
+        "止まっている間は、槍の先が下がっている。"
+      ]
+    },
+    {
+      "name": "苔の床",
+      "type": "text",
+      "x": 6,
+      "y": 24,
+      "lines": [
+        "広場の隅の床だけ、苔が厚い。壁の継ぎ目から、湿った風。"
+      ],
+      "priorityType": 0
+    },
+    {
+      "name": "宝箱（秘薬）",
+      "type": "raw",
+      "x": 7,
+      "y": 28,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                198,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[179]秘薬を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "拾い物（薬草）",
+      "type": "raw",
+      "x": 16,
+      "y": 12,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                196,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]薬草を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "扉の外の者（黄）",
+      "type": "raw",
+      "x": 14,
+      "y": 11,
+      "note": "<hai_enemy:508,yellow><hai_enemy_chase:4>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "扉の外の者（黄）",
+      "type": "raw",
+      "x": 30,
+      "y": 13,
+      "note": "<hai_enemy:508,yellow><hai_enemy_chase:4>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "扉の外の者（黄・往復）",
+      "type": "raw",
+      "x": 25,
+      "y": 21,
+      "note": "<hai_enemy:508,yellow><hai_enemy_chase:4>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "白い蛭（緑）",
+      "type": "raw",
+      "x": 9,
+      "y": 17,
+      "note": "<hai_enemy:507,green><hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "白い蛭（緑）",
+      "type": "raw",
+      "x": 34,
+      "y": 9,
+      "note": "<hai_enemy:507,green><hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "moveSpeed": 3,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3
+        }
+      ]
+    }
+  ]
+}
