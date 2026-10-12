@@ -8,6 +8,7 @@ import { fileURLToPath } from "node:url";
 import { ROOT, DATA_DIR, readData as readDataFile, mapFileName } from "./io.mjs";
 import { REGION, DIRS, parseMeta, stairsDest, keyOf, itemsGiven, makeMapModel, canTouch, reachWorld } from "./reach.mjs";
 import { listSources, readSource, findChars } from "../maps/build.mjs";
+import { W_BAND_MAX } from "./extend-system.mjs";
 
 export const TABLES = [
   "Actors.json", "Animations.json", "Armors.json", "Classes.json", "CommonEvents.json", "Enemies.json",
@@ -101,6 +102,8 @@ export function checkAll({ dataDir = DATA_DIR, readData, pluginsText, bands = re
   const system = readData("System.json");
   for (const key of ["switches", "variables"]) {
     if (!Array.isArray(system[key]) || system[key][0] !== "") problems.push(`System.json: ${key} の 0 番目は ""`);
+    // W の帯 1001–1500 まで名前の欄があること（T12）。エディタの「最大数」が小さいまま保存すると切り詰められる
+    else if (system[key].length <= W_BAND_MAX) problems.push(`System.json: ${key} が ${system[key].length - 1} 番まで（${W_BAND_MAX} 番まで要る。node tools/data/extend-system.mjs で伸ばし、エディタの「最大数」を ${W_BAND_MAX} に上げる）`);
   }
 
   // エディタの状態（EDITOR_STATE）は値を問わない。数であることだけ見る（エディタは数しか書かない）

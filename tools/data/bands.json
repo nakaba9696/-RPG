@@ -11,7 +11,7 @@
   "lanes": {
     "owner": { "switches": [[1, 20]], "maps": [[1, 9]], "database": [[1, 100]], "commonEvents": [[1, 100]], "actors": [[1, 4]], "tilesets": [[1, 10]] },
     "P": { "switches": [[21, 100]], "maps": [], "database": [[101, 200]], "commonEvents": [[101, 200]], "actors": [], "tilesets": [] },
-    "W": { "switches": [[101, 900]], "maps": [[10, 899]], "database": [[201, 800]], "commonEvents": [[201, 800]], "actors": [[5, 49]], "tilesets": [] },
+    "W": { "switches": [[101, 900], [1001, 1500]], "maps": [[10, 899]], "database": [[201, 800], [1001, 1500]], "commonEvents": [[201, 800], [1001, 1500]], "actors": [[5, 49]], "tilesets": [] },
     "V": { "switches": [[901, 950]], "maps": [], "database": [[801, 900]], "commonEvents": [[801, 900]], "actors": [], "tilesets": [[11, 30]] },
     "U": { "switches": [[901, 950]], "maps": [], "database": [[901, 950]], "commonEvents": [[901, 950]], "actors": [], "tilesets": [] },
     "T": { "switches": [[951, 999]], "maps": [[900, 949]], "database": [[951, 999]], "commonEvents": [[951, 999]], "actors": [[90, 99]], "tilesets": [] },
@@ -46,8 +46,14 @@
     "W8": { "switches": [[401, 500]], "maps": [[60, 64], [80, 84]], "database": [[401, 500]], "commonEvents": [[401, 500]] },
     "W9": { "switches": [[501, 600]], "maps": [[70, 74], [100, 105]], "database": [[501, 600]], "commonEvents": [[501, 600]] },
     "W10": { "switches": [[601, 700]], "maps": [[50, 54], [90, 94]], "database": [[601, 700]], "commonEvents": [[601, 700]] },
-    "W11": { "switches": [[701, 800]], "maps": [[15, 15]], "database": [[701, 800]], "commonEvents": [[701, 800]] },
-    "V4": {}
+    "W11": { "switches": [[701, 800]], "maps": [[170, 173], [84, 84], [94, 94], [104, 104]], "database": [[701, 800]], "commonEvents": [[701, 800]] },
+    "V4": {},
+    "T12": { "switches": [], "maps": [], "database": [], "commonEvents": [[961, 970]] },
+    "P13": { "switches": [[125, 127], [176, 176]], "maps": [], "database": [[1001, 1050]], "commonEvents": [[1001, 1050]] },
+    "V5": { "maps": [[919, 920]], "tilesets": [[24, 25]] },
+    "W12": { "switches": [[1051, 1100]], "maps": [[110, 116], [120, 124], [20, 20], [63, 63], [80, 80]], "database": [[1051, 1100]], "commonEvents": [[1051, 1100]] },
+    "W13": { "switches": [[1101, 1150]], "maps": [[30, 32], [26, 27]], "database": [[1101, 1150]], "commonEvents": [[1101, 1150]] },
+    "W14": { "switches": [[1151, 1200]], "maps": [[180, 183], [15, 15], [10, 10], [19, 19], [54, 54]], "database": [[1151, 1200]], "commonEvents": [[1151, 1200]] }
   },
   "testMaps": [900, 949]
 }

@@ -6,6 +6,7 @@
 | `check.mjs` | 整合の検査。`checkAll()` が問題の一覧（文字列の配列）を返す。空なら合格 |
 | `reach.mjs` | マップの到達性（プレイヤーが歩いて行けるマス）の計算（T2） |
 | `bands.json` | ID の帯（`docs/ROADMAP.md` の「ID の帯」と「割り当て表」の写し。T2） |
+| `extend-system.mjs` | `System.json` の `switches`・`variables` を `""` で伸ばす（既定 1500 番まで。W の帯 1001–1500 のため。T12）。`node tools/data/extend-system.mjs [番号]` |
 
 ```bash
 node tools/data/check.mjs     # 単独で走らせる（問題があれば一覧を出して終了コード 1）
@@ -18,6 +19,7 @@ node tests/t_reach.mjs        # 到達性などの検査が、わざと壊した
 
 | 検査 | 見ること | 出る文の例 |
 |---|---|---|
+| `System.json` の名前の配列（T12） | `switches`・`variables` の 0 番目が `""`、1500 番まである（エディタの「最大数」が小さいまま保存すると切り詰められる） | `System.json: switches が 700 番まで（1500 番まで要る。…）` |
 | 表の形（T1） | 0 番目が `null`、`id` が添字と同じ、空（`null`）の項目が無い | `Items.json[5]: id が 6（添字と同じであること）` |
 | イベントの命令（T1） | `list` が `code: 0`・`indent: 0` で終わる、`indent` が飛ばない | `data/Map902.json events[4]「赤い宝箱」 pages[0]: list が …で終わっていない` |
 | マップの対応（T1） | `MapInfos.json` と `MapNNN.json` が 1 対 1、`data` の長さ、`tilesetId`、イベントが地図の中 | `data/Map905.json: MapInfos.json に 905 番の要素がない` |
