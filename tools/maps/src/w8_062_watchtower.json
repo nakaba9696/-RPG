@@ -1,0 +1,734 @@
+{
+  "_説明": "W8（#155）：村の見張り台の上（docs/world.md 6.3・6.4・6.5）。ノラの遺骸と記憶 4、薄い思念 F06 伝令の子、屋根の梁（鉤綱。スイッチ 312）の外套。",
+  "mapId": 62,
+  "name": "村の見張り台",
+  "displayName": "村の見張り台",
+  "legend": "village",
+  "tilesetId": 19,
+  "note": "<hai_tone:-34,-34,-34,136>\n<hai_parallax:DarkClouds,1,0>\n<hai_ash:3>",
+  "bgm": {
+    "name": "Field3",
+    "volume": 65,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Wind2",
+    "volume": 40,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "DirtField",
+    "battleback2Name": "Ruins1"
+  },
+  "deco": {
+    "1": {
+      "name": "石の柱（下。通れない）",
+      "z2": "D:105"
+    },
+    "2": {
+      "name": "壊れた像（通れない）",
+      "z2": "D:91"
+    },
+    "7": {
+      "name": "砂利（通れる）",
+      "z2": "D:32"
+    },
+    "k": {
+      "name": "草A（通れる）",
+      "z2": "B:152"
+    },
+    "K": {
+      "name": "草B（通れる）",
+      "z2": "B:153"
+    },
+    "f": {
+      "name": "花（通れる）",
+      "z2": "B:160"
+    },
+    "s": {
+      "name": "小石（通れる）",
+      "z2": "B:171"
+    },
+    "l": {
+      "name": "枯れ草（通れる）",
+      "z2": "B:239"
+    },
+    "L": {
+      "name": "落ち葉（通れる）",
+      "z2": "B:252"
+    },
+    "g": {
+      "name": "墓A（通れない）",
+      "z2": "B:142"
+    },
+    "G": {
+      "name": "墓B（通れない）",
+      "z2": "B:143"
+    },
+    "r": {
+      "name": "瓦礫（通れない）",
+      "z2": "D:120"
+    },
+    "R": {
+      "name": "苔の瓦礫（通れない）",
+      "z2": "D:121"
+    },
+    "x": {
+      "name": "骸骨（通れない）",
+      "z2": "D:242"
+    },
+    "X": {
+      "name": "骸骨B（通れない）",
+      "z2": "D:250"
+    },
+    "q": {
+      "name": "瓦礫の上の骸骨（通れない）",
+      "z2": "D:120",
+      "z3": "D:242"
+    },
+    "b": {
+      "name": "樽（通れない）",
+      "z2": "B:141"
+    },
+    "c": {
+      "name": "木箱（通れない）",
+      "z2": "B:181"
+    },
+    "C": {
+      "name": "木箱の上の壺（通れない）",
+      "z2": "B:181",
+      "z3": "B:144"
+    },
+    "p": {
+      "name": "壺（通れない）",
+      "z2": "B:144"
+    },
+    "w": {
+      "name": "薪（通れない）",
+      "z2": "B:170"
+    },
+    "t": {
+      "name": "枯れ木（通れない）",
+      "z2": "B:240"
+    },
+    "o": {
+      "name": "倒木（通れない）",
+      "z2": "B:164"
+    },
+    "O": {
+      "name": "石のかまど（通れない）",
+      "z2": "B:147"
+    },
+    "i": {
+      "name": "桶（通れない）",
+      "z2": "B:145"
+    },
+    "H": {
+      "name": "干し草（通れない）",
+      "z2": "B:248"
+    },
+    "v": {
+      "name": "立て札（通れない）",
+      "z2": "B:137"
+    },
+    "z": {
+      "name": "壺B（通れない）",
+      "z2": "B:144"
+    },
+    "h": {
+      "name": "苔の切り株（通れない）",
+      "z2": "B:243"
+    },
+    "a": {
+      "name": "石碑（通れない）",
+      "z2": "C:32"
+    },
+    "u": {
+      "name": "壊れた台座（通れない）",
+      "z2": "C:76"
+    },
+    "m": {
+      "name": "折れた石の柱（通れない）",
+      "z2": "C:17"
+    },
+    "d": {
+      "name": "穴（通れない）",
+      "z2": "B:169"
+    },
+    "n": {
+      "name": "シダ（通れない）",
+      "z2": "B:246"
+    }
+  },
+  "stamps": [],
+  "chars": {
+    "^": {
+      "name": "屋根の梁（段差B（土）の上面。鉤綱で上る）",
+      "ledge": {
+        "top": "A4:37",
+        "side": "A4:45",
+        "height": 1
+      }
+    }
+  },
+  "scatter": [
+    {
+      "on": ";",
+      "tiles": [
+        "D:32",
+        "D:33",
+        "B:252",
+        "B:171"
+      ],
+      "rate": 0.12,
+      "seed": 620
+    }
+  ],
+  "events": [
+    {
+      "name": "下り口（村の広場へ）",
+      "type": "transfer",
+      "x": 12,
+      "y": 16,
+      "to": [
+        61,
+        9,
+        8,
+        "down"
+      ]
+    },
+    {
+      "name": "下り口（村の広場へ）",
+      "type": "transfer",
+      "x": 13,
+      "y": 16,
+      "to": [
+        61,
+        9,
+        8,
+        "down"
+      ]
+    },
+    {
+      "name": "下り口（村の広場へ）",
+      "type": "transfer",
+      "x": 14,
+      "y": 16,
+      "to": [
+        61,
+        9,
+        8,
+        "down"
+      ]
+    },
+    {
+      "name": "遺骸 ノラ",
+      "type": "raw",
+      "x": 13,
+      "y": 6,
+      "note": "<hai_remains:6><hai_memory:6,4>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 7,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "薪の山の前に、犬の耳の娘が座っている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "手に、火打ち石を握ったまま。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "村の方ではなく、山の方を向いている。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "上がった！　火、上がったよ！"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "これで、村へ帰る道が見える。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "あれ。足、動かないや。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "こっちは山の方だ。村は、背中の方。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "振り向けないや。でも、火は上がった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "薄い思念 F06 伝令の子",
+      "type": "raw",
+      "x": 16,
+      "y": 11,
+      "note": "<hai_faint:F06>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "砦の中庭。伝令の子が、地面に引いた線の上に立つ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "隣に墓守がいる。子は「よーい」の前に駆け出した。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "墓守の足音が、最後の数歩でだけ遅くなる。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "子は息を切らして、勝った、と叫んだ。"
+              ]
+            },
+            {
+              "code": 117,
+              "indent": 0,
+              "parameters": [
+                201
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "思念 R2-10 夜番の年寄り",
+      "type": "text",
+      "x": 6,
+      "y": 11,
+      "note": "<hai_thought:R2-10>",
+      "image": {
+        "characterName": "Damage2",
+        "characterIndex": 0,
+        "direction": 6,
+        "pattern": 1
+      },
+      "lines": [
+        "見張り台で火を上げるのは、村へ戻る者の目印だ。",
+        "そういう決まりだった。戻る者がいなくなって、誰も上げなくなった。",
+        "あの晩、誰かが上げた。わしは寝床で、見なかったことにした。"
+      ]
+    },
+    {
+      "name": "薪の山",
+      "type": "text",
+      "x": 11,
+      "y": 5,
+      "lines": [
+        "薪の山の上半分だけが燃えて、炭になっている。"
+      ]
+    },
+    {
+      "name": "北の眺め",
+      "type": "text",
+      "x": 9,
+      "y": 5,
+      "lines": [
+        "柵の向こうに、灰をかぶった谷。",
+        "谷の先の山の上に、塔の影が一つ。"
+      ]
+    },
+    {
+      "name": "屋根の梁（鉤綱で上る）",
+      "type": "raw",
+      "x": 19,
+      "y": 8,
+      "note": "",
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                312,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "鉤綱を梁に掛けて上った。梁に、煤けた外套が掛かっている。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Move3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 128,
+              "indent": 1,
+              "parameters": [
+                426,
+                0,
+                0,
+                1,
+                false
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "\\I[135]見張りの外套を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 1,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "見張り台の屋根の梁に、外套が引っかかっている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "綱を掛ければ、上れそうだ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "梁には、もう何も掛かっていない。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "宝箱（毒消し）",
+      "type": "raw",
+      "x": 5,
+      "y": 6,
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                197,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[177]毒消しを手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
