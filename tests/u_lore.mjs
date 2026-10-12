@@ -2,7 +2,7 @@
 //   来歴つきの消耗品・大事なもの・短剣を宝箱から拾う → 初めての物に一言の知らせ・遺物の記録に載る（来歴の無い石は載らない）→
 //   倉庫行き（上限 1 の丸薬の 2 つ目）でも記録される → アイテムの画面で一覧に印・説明の窓の案内 →
 //   R キーで来歴の窓（6 行が 4 行＋2 行のページ送り）→ 説明の窓を押しても開く → 使って消える →
-//   メモの画面の 4 つ目「遺物」に残っていて「手放した」・読める・並びの切り替え → 装備の画面の欄からも読める →
+//   メモの画面の 5 つ目「遺物」に残っていて「手放した」・読める・並びの切り替え → 装備の画面の欄からも読める →
 //   セーブ・ページの読み直し・ロードで残る → 古いセーブ（記録の欄が無い）でも壊れない。
 import { launchGame, check, runTest } from "./lib.mjs";
 
@@ -252,7 +252,7 @@ await runTest(async () => {
     await game.waitScene("Scene_Map");
     await game.waitIdle();
 
-    // ---- 遺物の記録（メモの画面の 4 つ目の種類）
+    // ---- 遺物の記録（メモの画面の 5 つ目の種類）
     await game.press("Escape");
     await game.waitScene("Scene_Menu");
     await game.waitIdle();
@@ -262,8 +262,8 @@ await runTest(async () => {
     await game.waitScene("Scene_HaiNotes");
     await game.waitIdle();
     const tabs = await game.eval(() => window.__game.ref("SceneManager")._scene._categoryWindow._list.map(c => c.name));
-    check(tabs.length === 4 && tabs[3] === "遺物（4）", `メモの画面の種類 ${JSON.stringify(tabs)}`);
-    for (let i = 0; i < 3; i++) await game.press("ArrowRight");
+    check(tabs.length === 5 && tabs[4] === "遺物（4）", `メモの画面の種類 ${JSON.stringify(tabs)}`); // 手がかり・扉・入手・頼みごと（P12）・遺物
+    for (let i = 0; i < 4; i++) await game.press("ArrowRight");
     await game.waitFor(() => window.__game.ref("SceneManager")._scene._categoryWindow.currentSymbol() === "haiLore");
     await game.frames(3);
     check(await game.eval(() => {

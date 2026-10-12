@@ -914,5 +914,9 @@ null,
 {"id":912,"expanded":false,"name":"T_ボスの試験場","order":29,"parentId":0,"scrollX":0,"scrollY":0},
 {"id":913,"expanded":false,"name":"T_施設","order":28,"parentId":0,"scrollX":0,"scrollY":0},
 {"id":914,"expanded":false,"name":"T_来歴","order":30,"parentId":0,"scrollX":0,"scrollY":0},
-{"id":915,"expanded":false,"name":"T_置き物の道具の見本","order":49,"parentId":0,"scrollX":0,"scrollY":0}
+{"id":915,"expanded":false,"name":"T_置き物の道具の見本","order":49,"parentId":0,"scrollX":0,"scrollY":0},
+null,
+null,
+null,
+{"id":919,"expanded":false,"name":"T_ためらう敵","order":50,"parentId":0,"scrollX":0,"scrollY":0}
 ]
