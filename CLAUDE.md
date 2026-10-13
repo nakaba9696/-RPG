@@ -10,6 +10,13 @@
 - ゲームの手本は Fanastasis だが、固有名詞・台詞・素材は使わない。すべて自作する（絵と音は MZ 同梱の素材と自作のもの）。
 - UI の文言・コメント・PR の説明は日本語。コミットや PR にモデル名を書かない。
 
+## 知恵袋（持ち主のゲーム全部の共通の手順書。持ち主の決定 2026-10-13）
+- 知恵袋は **nakaba9696/KnowledgeBase**（非公開）。手順書の正本は `skills/<分野>/SKILL.md`。
+- 仕事を始めるときに `mcp__claude-code-remote__add_repo`（owner `nakaba9696`、repo `KnowledgeBase`、access `"read"`）でセッションにつなぎ、返ってきた clone 先に clone してから、仕事の分野の `skills/<分野>/SKILL.md` を読む。どの仕事でも `skills/session-ops/SKILL.md` は読む。つなぐのを断られたら、その理由をそのまま配り役か持ち主に伝える（別の方法で読まない）。
+- 分野の例：文を書く・直す → `novel`（通し読みは `novel/read-through.md`）、物語の組み立て → `story-structure`、人物 → `characters`、仕組み・地図 → `game-design`、テスト・CI → `testing-ci`、運用 → `session-ops`。
+- このゲームの CLAUDE.md・VISION.md・docs/ と食い違ったら、**このゲームの決まりが勝つ**。
+- 知恵袋に書き足すのは配り役だけ。子は書かない（持ち主の指摘で一般化できるものは、PR の説明に書いて配り役に渡す）。
+
 ## 誰が何を触るか
 - **クラウドの子セッションは MZ のエディタを開けない。** 触れるのは `js/plugins/*.js`、`js/plugins.js`（追記だけ）、`data/*.json`、`tools/`、`tests/`、`.github/`、`docs/`。
   どれを書き換えてよいかはレーンと ID の帯で決まる（[docs/ROADMAP.md](docs/ROADMAP.md)）。
