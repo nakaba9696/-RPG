@@ -5,7 +5,7 @@
 //   4. Map010 の開いた扉に触れると部屋のマップへ。部屋の出口で Map010 の扉の前へ戻る。
 //   5. 戦闘の勝利で魂が増える（勝利の文に「魂を N 手に入れた」）。ボスを倒すと書庫の一覧に入る。
 //   6. 稽古場：魂を与えてレベルを 1 つ上げる（前に出ている仲間の最高レベルまで）。
-//   7. 食堂：合成の画面で作る。 8. 倉：預ける・引き出す。 9. 書庫：倒したボスと読んだ思念・戻った記憶。
+//   7. 食堂：合成の画面で作る。 8. 倉：預ける・引き出す。 9. 書庫：倒したボスと読んだ思念・戻った記憶・写しの読み比べ（P15。スイッチ 179・1057）。
 //   10. セーブ → 読み直し → ロードで残る。 11. 古いセーブ（_hai.facilities が無い）で壊れない。
 import { launchGame, check, runTest } from "./lib.mjs";
 
@@ -320,7 +320,32 @@ await runTest(async () => {
     await game.press("ArrowDown");
     await game.frames(6);
     const lore3 = await game.eval(() => SceneManager._scene._pageWindow.lines());
-    check(lore3[0].includes("写し"), "写しの読み比べ " + JSON.stringify(lore3));
+    check(JSON.stringify(lore3) === '["読み比べる写しは、まだ一冊もない。"]', "写しの読み比べ（まだ） " + JSON.stringify(lore3));
+    // P15：014 で読み比べた（スイッチ 179）→ 灰色・茶色の二冊。テオの三通り目（スイッチ 1057）→ 三通り目を足す（中身は書かない）
+    const copies = on => game.eval(on => {
+      $gameSwitches.setValue(179, on[0]);
+      $gameSwitches.setValue(1057, on[1]);
+      const w = SceneManager._scene._pageWindow;
+      w.refresh();
+      const lines = w.lines();
+      // 窓に収まるか（制御文字を除いた幅）・行が窓の高さに収まるか
+      const over = lines.filter(l => w.textSizeEx(l).width > w.innerWidth);
+      return { lines, over, fits: lines.length * w.lineHeight() <= w.innerHeight };
+    }, on);
+    const two = await copies([true, false]);
+    check(two.lines.join("/") === "\\C[16]灰色の写し\\C[0]/　灰色の方の、終わりの近くに、一行。/　「鳴る音に、その日の者を乗せよ」/\\C[16]茶色の写し\\C[0]/　茶色の方には、無い行。/\\C[16]イスメネ\\C[0]/　どちらが本物かは、書きません。分からないので。まだ",
+      "灰色・茶色の二冊 " + JSON.stringify(two.lines));
+    check(two.over.length === 0 && two.fits, "写しの読み比べが窓からはみ出す " + JSON.stringify(two));
+    await game.shot("lore-copies");
+    const three = await copies([true, true]);
+    check(three.lines.slice(5, 8).join("/") === "\\C[16]三通り目\\C[0]/　テオの紙。/　「どこに置いたかは、写しておきませんでした」" && three.lines[9] === "　どれが本物かは、書きません。分からないので。まだ" && three.lines.length === 10,
+      "三通り目を足す " + JSON.stringify(three.lines));
+    check(three.over.length === 0 && three.fits, "三通り目が窓からはみ出す " + JSON.stringify(three));
+    await game.shot("lore-copies-third");
+    const thirdOnly = await copies([false, true]);
+    check(thirdOnly.lines[0] === "\\C[16]三通り目\\C[0]" && !thirdOnly.lines.some(l => l.includes("乗せよ")), "三通り目だけ " + JSON.stringify(thirdOnly.lines));
+    const none = await copies([false, false]);
+    check(JSON.stringify(none.lines) === '["読み比べる写しは、まだ一冊もない。"]', "スイッチを戻すと、まだ " + JSON.stringify(none.lines));
     await closeScene();
 
     // ---- 10. セーブ → 読み直し → ロード

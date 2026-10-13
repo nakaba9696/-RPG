@@ -22,7 +22,8 @@
  *   稽古場  控えの仲間に魂を与えてレベルを 1 つ上げる（前に出ている仲間の最高レベルまで）
  *   食堂    Hai_Craft の合成の画面
  *   倉      Hai_Items の倉庫から引き出す・袋から預ける
- *   書庫    倒したボスの一覧・読んだ思念と戻った記憶の数・拾った言い残し（写しの読み比べは名前だけ）
+ *   書庫    倒したボスの一覧・読んだ思念と戻った記憶の数・拾った言い残し・写しの読み比べ
+ *           「読み比べのスイッチ」が ON なら灰色・茶色の二冊、「三通り目のスイッチ」が ON ならテオの紙を並べる（P15）
  *           「朝の砦のスイッチ」が ON の間、「読んだ思念」の見出しは「送った人」になる（P14）
  *   療養所  全員の状態異常を治す。開いている間、消耗品の所持上限が 1 つ増える（Hai_Items）
  *   鍛冶場  一点ものの装備を魂で鍛え直す（能力が上がる）。鉄切り鋏を打つ（スイッチ 313 を ON）
@@ -184,6 +185,18 @@
  * @type string
  * @default 送った人
  *
+ * @param copiesSwitch
+ * @text 読み比べのスイッチ
+ * @desc ON なら、書庫の「写しの読み比べ」に灰色・茶色の二冊を出す（014 の二つ目の書見台で読み比べた。0 で出さない）。
+ * @type switch
+ * @default 179
+ *
+ * @param thirdCopySwitch
+ * @text 三通り目のスイッチ
+ * @desc ON なら、書庫の「写しの読み比べ」に三通り目（テオの紙）を足す（121 のテオで見た。0 で出さない）。
+ * @type switch
+ * @default 1057
+ *
  * @command door
  * @text 崩れた扉
  * @desc 部屋が閉じていれば「扉が崩れて、瓦礫で塞がっている。」を出す。開いていれば何もしない。
@@ -292,6 +305,8 @@
       .map(([name, mapId, x, y, d]) => ({ name, mapId: Number(mapId), x: Number(x), y: Number(y), d: Number(d) || 2 })),
     morningSwitch: Number(params.morningSwitch ?? 1165),
     sentTitle: params.sentTitle || "送った人",
+    copiesSwitch: Number(params.copiesSwitch ?? 179),
+    thirdCopySwitch: Number(params.thirdCopySwitch ?? 1057),
   };
   const indexOf = key => KEYS.indexOf(String(key));
   const nameOf = key => P.names[indexOf(key)] || String(key);
@@ -779,8 +794,33 @@
       const list = th && th.legacies ? th.legacies() : [];
       return list.flatMap(l => [`\\C[16]${l.speaker}\\C[0]`, `　${l.text}`]);
     }
-    if (symbol === "copies") return ["読み比べる写しは、まだ一冊もない。"];
+    if (symbol === "copies") return copiesLines();
     return [];
+  }
+
+  // 写しの読み比べ（P15。文は場面表 docs/story/scenes/02-region2-region5.md の 3-28・3-29）。
+  // 「乗せよ」の一行は 014 の書庫でだけ読ませてよい（world.md 10 章）。三通り目の行の中身は、どこにも書かない。
+  const COPIES = [
+    "\\C[16]灰色の写し\\C[0]",
+    "　灰色の方の、終わりの近くに、一行。",
+    "　「鳴る音に、その日の者を乗せよ」",
+    "\\C[16]茶色の写し\\C[0]",
+    "　茶色の方には、無い行。",
+  ];
+  const THIRD_COPY = [
+    "\\C[16]三通り目\\C[0]",
+    "　テオの紙。",
+    "　「どこに置いたかは、写しておきませんでした」",
+  ];
+  // 最後にイスメネの記録の一行（三通り目を見ていれば「どれが」。3-29 の返すときの行）
+  const ISMENE = "\\C[16]イスメネ\\C[0]";
+  const NOT_WRITTEN = { two: "　どちらが本物かは、書きません。分からないので。まだ", three: "　どれが本物かは、書きません。分からないので。まだ" };
+  const switchOn = id => id > 0 && $gameSwitches.value(id);
+  function copiesLines() {
+    const two = switchOn(P.copiesSwitch);
+    const third = switchOn(P.thirdCopySwitch);
+    if (!two && !third) return ["読み比べる写しは、まだ一冊もない。"];
+    return [...(two ? COPIES : []), ...(third ? THIRD_COPY : []), ISMENE, third ? NOT_WRITTEN.three : NOT_WRITTEN.two];
   }
 
   class Window_HaiLoreCommand extends Window_Command {

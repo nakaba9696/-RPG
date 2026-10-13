@@ -1,4 +1,4 @@
-// U4（#96）のデータベースの項目を書く。何度走らせても同じ結果になる（自分の帯 941–945 だけを書き直す）。
+// U4（#96）のデータベースの項目を書く。何度走らせても同じ結果になる（自分の帯 941–945 のうち、使う 941–944 だけを書き直す）。
 //   node tools/maps/src/u4_data.mjs           書く
 //   node tools/maps/src/u4_data.mjs --check   書かずに、今の data/ と同じかだけ見る（違えば終了コード 1）
 // 書くもの：Items 941–944、Weapons 941（来歴の試験場 Map914 で使う。製品から使わない）
@@ -6,7 +6,7 @@
 import fs from "node:fs";
 import { readData, formatTable, dataPath, extendTable } from "../../data/io.mjs";
 
-const BAND = [941, 945];
+const BAND = [941, 944]; // 945 は空き。P13 が 945–1000 を空の項目（scope 0）で埋めたので触らない（P15 #250）
 const check = process.argv.includes("--check");
 
 /** 帯を空にしてから項目を置く（帯より前の隙間は空の項目で埋める。帯の後ろのほかの項目は残す）。 */
