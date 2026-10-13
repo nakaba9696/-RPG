@@ -15,7 +15,7 @@ import { fileURLToPath } from "node:url";
 import { readData, formatTable, dataPath, extendTable } from "../../data/io.mjs";
 import { SRC_DIR } from "../build.mjs";
 import * as W14 from "./w14_parts.mjs"; // 終盤（W14 #234）：010 の三つ目の鐘の夜・出立（イベント ID 71–）、019 の頂への門・東の眺め
-import { fortTableEvents, FORT_SWITCH_NAMES } from "./w17_parts.mjs"; // W17（#233）：砦の食卓の場面（イベント ID 61–70・スイッチ 180–185）
+import { fortTableEvents, FORT_SWITCH_NAMES, HALL_SCENE_IDS } from "./w17_parts.mjs"; // W17（#233）：砦の食卓の場面（イベント ID 61–70・スイッチ 180–185）
 
 const check = process.argv.includes("--check");
 const outputs = []; // [{ file, text }]
@@ -198,11 +198,12 @@ const shanoHide = {
     { priorityType: 0 },
     { conditions: { switch1Id: SW.hearth, switch1Valid: true }, image: { ...IMG.shano, direction: LEFT }, priorityType: 1 },
     { conditions: { switch1Id: SW.shano, switch1Valid: true }, priorityType: 0 },
-    // W15（#231）：営倉の鐘のあとは梁の上（柱の陰と同じ所。梁の下に立って話す。梁の上の絵は持ち主か V）
+    // W15（#231）：営倉の鐘のあとは梁の上（柱の陰と同じ所。梁の上の絵は持ち主か V）
+    // W18（#258。R2 気になる 21）：隣のマスから調べて話せるように、通常キャラと同じ（真下に乗らないと話せなかった）
     {
       conditions: { switch1Id: SW.shano, switch1Valid: true, switch2Id: SW.bellPrison, switch2Valid: true },
       image: { ...IMG.shano, direction: DOWN },
-      priorityType: 2,
+      priorityType: 1,
       list: [...say(["見てた？　さっき梁の上まで登った。", "鉄の留め金、三つ取れた"], "シャノ"), ...say(["下は、人が多い"], "シャノ"), END],
     },
   ],
@@ -289,6 +290,22 @@ const shanoScene = indent => [
   cmd(230, [20], indent),
   ...say(["見てた？　おれ、椅子に座るの、久しぶり"], "シャノ", indent),
 ];
+// 炉で休む（W18 #258。持-7）：Hai_Warp の選択肢を子の命令として出し、その「休む」（全回復 314 のある分岐）の終わりに
+// SP の全快と一行を差し込む。結界の選択肢は Hai_Warp が毎回作るので、データには持てない
+const script = (lines, indent = 0) => lines.map((l, i) => cmd(i === 0 ? 355 : 655, [l], indent));
+const hearthRest = script([
+  "// 砦の炉：結界の選択肢（Hai_Warp の open）。「休む」で SP も戻す（Hai_Battle の recoverSp）",
+  'PluginManager.callCommand(this, "Hai_Warp", "open", {});',
+  "const list = this._childInterpreter ? this._childInterpreter._list : [];",
+  "const rest = list.findIndex(c => c.code === 314);",
+  "if (rest >= 0) {",
+  "  const ind = list[rest].indent;",
+  "  let end = rest + 1;",
+  "  while (end < list.length && !(list[end].code === 0 && list[end].indent === ind)) end++;",
+  '  list.splice(end, 0, { code: 357, indent: ind, parameters: ["Hai_Battle", "recoverSp", "SP を全快", { actorId: "0" }] },',
+  '    { code: 101, indent: ind, parameters: ["", 0, 0, 2, ""] }, { code: 401, indent: ind, parameters: ["SP が戻った。"] });',
+  "}",
+]);
 const hearth = {
   name: "砦の炉",
   type: "raw",
@@ -324,7 +341,8 @@ const hearth = {
       directionFix: true,
       stepAnime: true,
       // 結界でないイベントから「結界を開く」：イベントの名前で、休む・記録する・転送する（Hai_Warp）。行き先の先頭は拠点（この炉の前）
-      list: [...plugin("Hai_Warp", "open", "結界を開く"), END],
+      // W18（#258。持-7）：「休む」の中に SP の全快（Hai_Battle の recoverSp）と「SP が戻った。」を足す。全回復（314）は SP を戻さない
+      list: [...hearthRest, END],
     },
   ],
 };
@@ -430,10 +448,10 @@ const ring = {
 function w16KeepEvents() {
   const { sw, joined, extSw, twoCopies, actor } = W16;
   /** 一度だけの自動実行（条件のスイッチと、隊にいるアクター） */
-  const once = (id, name, [x, y], conditions, list) => ({
+  const once = (id, name, [x, y], conditions, list, trigger = 3) => ({
     id, name, type: "raw", x, y,
     pages: [
-      { conditions, priorityType: 0, trigger: 3, list: [...list, selfOn(), END] },
+      { conditions, priorityType: 0, trigger, list: [...list, selfOn(), END] },
       { conditions: { ...conditions, selfSwitchCh: "A", selfSwitchValid: true }, priorityType: 0 },
     ],
   });
@@ -484,7 +502,7 @@ function w16KeepEvents() {
     { switch1Id: sw.noraNamed, switch1Valid: true, switch2Id: extSw.firstBowl, switch2Valid: true, actorId: actor.nora, actorValid: true }, [
       ...say(["ノラの前を、ヴォルフラムの腕が通った。", "何も置かれなかった。"]),
       ...say(["あたしの分、無いの？　あっちのは？"], "ノラ"),
-    ]);
+    ], 0); // 大広間の見張りが始める（W18 #258。R2 困る 6）
   const dilTable = once(60, "食卓（ディルの夜）", [48, 39],
     { switch1Id: sw.dilNamed, switch1Valid: true, switch2Id: extSw.firstBowl, switch2Valid: true, actorId: actor.dil, actorValid: true }, [
       ...say(["ディルは、先に盛った一椀の向かいに座った。"]),
@@ -492,9 +510,9 @@ function w16KeepEvents() {
       ifSw(extSw.annelise),
       ...say(["三十と二十で、五十。いや、四十。あれ"], "アンネリーゼ", 1),
       ...say(["五十だよ"], "ディル", 1),
-      ...say(["アンネリーゼには聞こえなかった。"], "", 1),
+      ...say(["アンネリーゼは、指を折り直した。"], "", 1), // 「〜には聞こえなかった」の型を続けない（W18 #258。R2 7 章の癖）
       end(1), ENDIF(),
-    ]);
+    ], 0); // 大広間の見張りが始める（W18 #258）
   return [noraNamed, dilNamed, yardFire, noraTable, dilTable];
 }
 
@@ -907,6 +925,29 @@ const eveningCount = {
   ],
 };
 
+// W18（#258。R2 困る 6）：大広間の見張り（並列）。主人公が大広間 (17..33,26..33) にいて、ほかのイベントが動いていないとき、
+// 食卓・梁の場面（ノラとディルの夜 59・60、W17 の 61・66–69）のうち出せる最初のものを始める。
+// 前は自動実行で、名の壁の輪で仲間を呼んだ直後に中庭や名の壁の前で出ていた。名の壁では名乗り（45・56・57・63・64）だけが出る
+const HALL = { x: [17, 33], y: [26, 33] };
+const HALL_IDS = [59, 60, ...HALL_SCENE_IDS];
+const hallWatch = {
+  id: 100, name: "W18 大広間の見張り（並列。食卓の場面を始める）", type: "raw", x: 49, y: 2,
+  pages: [{
+    priorityType: 0, trigger: 4,
+    list: [
+      ...script([
+        `// 大広間 (${HALL.x.join("..")},${HALL.y.join("..")}) に入ったら、食卓の場面（${HALL_IDS.join("・")}）のうち出せる最初のものを始める`,
+        "const p = $gamePlayer;",
+        `if (!$gameMap.isEventRunning() && p.x >= ${HALL.x[0]} && p.x <= ${HALL.x[1]} && p.y >= ${HALL.y[0]} && p.y <= ${HALL.y[1]}) {`,
+        `  const scene = [${HALL_IDS.join(", ")}].map(id => $gameMap.event(id)).find(e => e && e.page() && e.page().list.length > 1);`, // 条件に合うページが無いと page() は無い（list() は例外）
+        "  if (scene) scene.start();",
+        "}",
+      ]),
+      END,
+    ],
+  }],
+};
+
 const keepEvents = [
   opening, // 1
   shanoHide, // 2（SHANO_HIDE_ID）
@@ -1028,8 +1069,10 @@ const keepEvents = [
     zelina: [29, 28], // 炉から三つ目、壁の側の席（ヴォルフラムの先に盛る一椀の席。東の卓の椅子）
     tula: [30, 28], // ゼリナの隣
     beam: [29, 26], // 梁の下（W15 で梁の上のシャノを (30,26) にしたので、その脇。(29,27) はシャノが炉の場面で歩く道）
-    auto1: [18, 26], auto2: [19, 26], auto3: [20, 26], auto4: [33, 26], auto5: [33, 32], auto6: [32, 32], auto7: [18, 32], // 自動の場面（見えない）
+    // 自動の場面（見えない）。61・66–69 は大広間の見張りが始める（W18 #258。置き場所は前のまま：動かすと床の散らしが変わる）
+    auto1: [18, 26], auto2: [19, 26], auto3: [20, 26], auto4: [33, 26], auto5: [33, 32], auto6: [32, 32], auto7: [18, 32],
   }).map(([id, e]) => ({ ...e, id })),
+  hallWatch, // 100（W18 #258）
 ];
 if (keepEvents[SHANO_HIDE_ID - 1] !== shanoHide) throw new Error("シャノ（柱の陰）の ID がずれた");
 // 配られた番号に置く（tools/maps の "id"。ほかの子が 56– を足しても動かない）

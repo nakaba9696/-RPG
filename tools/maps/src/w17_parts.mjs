@@ -105,13 +105,17 @@ export function withZelinaLedger(event) {
 // ---------------------------------------------------------------------------
 // 010 砦の食卓（台本 4・17・23）。イベント ID 61–70（配り役の割り当て）
 // ---------------------------------------------------------------------------
-const FLAG = { prisonBell: 101, wolfram: 306, shano: 172, pipinel: 411, guido: 602 };
+const FLAG = { prisonBell: 101, wolfram: 306, shano: 172, pipinel: 411, guido: 602, bowlUp: 116, bowlFilled: 1151 }; // 116 は W6・1151 は W14 の帯（読むだけ）
 const ITEM_TONGUE = 606;
 const IMG = {
   zelina: { characterName: "Actor1", characterIndex: 7, direction: 2, pattern: 1 },
   tula: { characterName: "Actor2", characterIndex: 2, direction: 2, pattern: 1 },
 };
-const auto = (cond, list) => ({ conditions: cond, priorityType: 0, trigger: 3, list: [...list, END] });
+// 大広間の場面（W18 #258。R2 困る 6）：自動実行にせず、大広間の見張り（w6_data.mjs の並列のイベント）が、主人公が大広間にいるときに始める。
+// 名の壁の輪で仲間を呼んだ直後に、食卓や梁の場面が中庭や名の壁の前で出ないように。トリガーは決定ボタン（見張りが start() で始める。大広間の中の見えないマスに乗って押しても、同じ場面が出るだけ）
+const hall = (cond, list) => ({ conditions: cond, priorityType: 0, trigger: 0, list: [...list, END] });
+/** 大広間の見張りが始める場面の ID（61–70 のうち）。順に見て、最初に出せるものを始める */
+export const HALL_SCENE_IDS = [61, 66, 67, 68, 69];
 const done = id => ({ conditions: { switch1Id: id, switch1Valid: true }, priorityType: 0 });
 const onSw = (a, b) => ({ switch1Id: a, switch1Valid: true, ...(b ? { switch2Id: b, switch2Valid: true } : {}) });
 
@@ -124,7 +128,7 @@ export function fortTableEvents(seats) {
   return [
     // 61 ゼリナの椀（台本 4）。141 ON・ヴォルフラムが砦にいる。010 に入ったとき一度
     ev(61, "W17 ゼリナの椀（自動）", seats.auto1, [
-      auto(onSw(JOINED.zelina, FLAG.wolfram), [
+      hall(onSw(JOINED.zelina, FLAG.wolfram), [
         ...say(["座れ！"], "ヴォルフラム"),
         ...say(["最初の一椀を、炉から三つ目の壁の側の席に置いた。"]),
         ...say(["誰のぶんかは知らん。家の決まりだ"], "ヴォルフラム"),
@@ -141,7 +145,22 @@ export function fortTableEvents(seats) {
     ev(62, "W17 ゼリナ（食卓）", seats.zelina, [
       { priorityType: 0 },
       { conditions: onSw(JOINED.zelina), image: IMG.zelina, priorityType: 1, list: [
-        ...say(["あの椀、伏せたままやな。誰か来るんか"], "ゼリナ"), END,
+        // 伏せた椀を起こしてある（スイッチ 116）なら、伏せたままとは言わない（W18 #258。R2 困る 9）
+        ifSwitch(FLAG.bowlUp),
+        ...say(["あの椀、起きとるな。誰か来るんか"], "ゼリナ", 1), close(1),
+        cmd(411, []),
+        ...say(["あの椀、伏せたままやな。誰か来るんか"], "ゼリナ", 1), close(1),
+        ENDIF(), END,
+      ] },
+      // 三つ目の鐘の夜に椀へ飯が盛られたあと（1151。W14 の帯。106 のあとにしか ON にならない）：
+      // 一度目はゼリナの夢（場面表 04 の 2.2。セルフスイッチ B）、以後は差し替えの一言（W18 #258。R2 困る 9・7 章 04:130）
+      { conditions: onSw(JOINED.zelina, FLAG.bowlFilled), image: IMG.zelina, priorityType: 1, list: [
+        ifSelf("B", false),
+        ...say(["舟の金、まだ足りへん夢を見た", "起きたら、十四人分の椀が並んどった。", "……勘定は合うとる。なんで足りへんのやろな"], "ゼリナ", 1),
+        selfOn("B", 1), close(1),
+        cmd(411, []),
+        ...say(["奥の椀にも、盛ってあるな"], "ゼリナ", 1), close(1),
+        ENDIF(), END,
       ] },
     ]),
     // 63 トゥーラの背負子（台本 17）。輪で呼んだ直後、親鐘の舌を持っているとき
@@ -179,7 +198,7 @@ export function fortTableEvents(seats) {
     // 66 ピピネル（台本 17）。143 ON・411 ON。療養所の戸から出て、ベルトランの席の前で止まる
     ev(66, "W17 ベルトランとピピネル（自動）", seats.auto4, [
       { priorityType: 0 },
-      { conditions: onSw(JOINED.beltran, FLAG.pipinel), priorityType: 0, trigger: 3, list: [
+      { conditions: onSw(JOINED.beltran, FLAG.pipinel), priorityType: 0, trigger: 0, list: [
         ...say(["酒くさいのう、ここ"], "ピピネル"),
         ...say(["ベルトランは口を開けた。酒の話をするときの顔だった。", "薬草の束で、ピピネルの袖が持ち上がった。袖の下に、古い傷。", "肩から肘へ、斜めに。刃の傷だった。"]),
         ...say(["……生きてたのか"], "ベルトラン"),
@@ -191,7 +210,7 @@ export function fortTableEvents(seats) {
     // 67 トゥーラとシャノ（台本 17）。144 ON・シャノが砦にいる。夜（010 に入ったとき）一度
     ev(67, "W17 トゥーラとシャノ（自動）", seats.auto5, [
       { priorityType: 0 },
-      { conditions: onSw(JOINED.tula, FLAG.shano), priorityType: 0, trigger: 3, list: [
+      { conditions: onSw(JOINED.tula, FLAG.shano), priorityType: 0, trigger: 0, list: [
         ...say(["見てた？　今日は留め金が五つ。重かった"], "シャノ"),
         ...say(["帰りは軽い、って頭が言うんだ。", "拾い屋はみんな言う。意味は知らねえ"], "シャノ"),
         ...say(["……誰に教わった、それ"], "トゥーラ"),
@@ -207,7 +226,7 @@ export function fortTableEvents(seats) {
     // 68 ゼリナとアンセルモ（台本 23）。141・142 が両方 ON で一度
     ev(68, "W17 ゼリナとアンセルモ（自動）", seats.auto6, [
       { priorityType: 0 },
-      { conditions: onSw(JOINED.zelina, JOINED.anselmo), priorityType: 0, trigger: 3, list: [
+      { conditions: onSw(JOINED.zelina, JOINED.anselmo), priorityType: 0, trigger: 0, list: [
         ...say(["お前さん、酒保の人かの。舟の"], "アンセルモ"),
         ...say(["舟の。あんたは、扉の"], "ゼリナ"),
         ...say(["二人はそれきり、しばらく黙った。炉の火が鳴った。"]),
@@ -224,12 +243,12 @@ export function fortTableEvents(seats) {
     // 69 グィドの数え歌（台本 23）。602 ON（グィドが砦にいる）で、142 ON のとき一度。窓の所（見張り台の戸の脇）
     ev(69, "W17 グィドの数え歌（自動）", seats.auto7, [
       { priorityType: 0 },
-      { conditions: onSw(FLAG.guido, JOINED.anselmo), priorityType: 0, trigger: 3, list: [
+      { conditions: onSw(FLAG.guido, JOINED.anselmo), priorityType: 0, trigger: 0, list: [
         ...say(["ひとつ、戸の外。ふたつ、扉の前"], "グィド"),
         ...say(["指が三本目を折った。声は無かった。"]),
         ...say(["よっつ。まあ、明日にしよう"], "グィド"),
         ...say(["三つ目は、歌わんのか"], "アンセルモ"),
-        ...say(["三つ目は、じいさんが言うなと。なんでかは、わからんよ"], "グィド"),
+        ...say(["三つ目は、飛ばす。じいさんも、飛ばしとった"], "グィド"), // 052 の一言と同じにしない（W18 #258。R2 気になる 24）
         ...say(["ええ爺さんじゃ"], "アンセルモ"),
         swOn(W17_SW.guidoRhyme), END,
       ] },

@@ -61,6 +61,7 @@ export const FLAG = {
   bells: 101, bellsAll: 105, scene3: 106, metMirlene: 107, summitGate: 109,
   bruno: 138, nora: 139, dil: 140, zelina: 141, anselmo: 142, beltran: 143, tura: 144, // 加入（P11）
   adel: 121, wolfram: 122, lore: 124, shano: 172, // 生き残り（P8・W6）
+  bowlUp: 116, // 食卓:伏せた椀を起こしてある（W6）
   copiesErrand: 163, outsidersErrand: 166, // 頼みごと（P12）
   timber: 1055, // 頼みごと「足場の木」：ソレンヌに渡した（W12）
 };
@@ -112,7 +113,12 @@ const bowlScene = {
       list: [
         comment("W14：場面表 2.1。以後、伏せた椀（N4-1 の椀のイベント）は「飯が盛られている」のページ（スイッチ 1151）"),
         ...say(["この椀は、触らん"], N.wolfram),
-        ...say(["ヴォルフラムは、椀を起こした。"]),
+        // 序で椀を起こしておいた（スイッチ 116）なら、起こさない（W18 #258。R2 困る 9）
+        ifSwitch(FLAG.bowlUp),
+        ...say(["ヴォルフラムは、起きている椀を取った。"], "", 1),
+        end(1), ELSE(0),
+        ...say(["ヴォルフラムは、椀を起こした。"], "", 1),
+        end(1), ENDIF(0),
         ...say(["先に盛る。家の決まりだ"], N.wolfram),
         ...say(["飯が盛られた。湯気が立った。", "ヴォルフラムは椀を元の席に置いて、", "自分の席へ戻った。"]),
         switchOn(SW.bowlFilled),

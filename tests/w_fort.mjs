@@ -29,6 +29,20 @@ await runTest(async () => {
     check(system.switches[id] === name, `スイッチ ${id} の名前「${system.switches[id]}」`);
   }
   check(system.variables[103] === "生き残りの数", `変数 103 の名前「${system.variables[103]}」`);
+  // W18（#258）：グィドの一言を 052 と同じにしない（R2 気になる 24）、ディルの夜は「〜には聞こえなかった」でなく動作の行（7 章の癖）
+  const textOf = e => e.pages.flatMap(p => p.list.filter(c => c.code === 401).map(c => c.parameters[0])).join("\n");
+  check(!textOf(ev("W17 グィドの数え歌（自動）")).includes("じいさんが言うなと"), "010 のグィドが 052 と同じ一言");
+  check(!textOf(ev("食卓（ディルの夜）")).includes("には聞こえなかった"), "ディルの夜に「〜には聞こえなかった」が残っている");
+  // 食卓・梁の場面は自動実行でなく、大広間の見張り（並列）が始める（R2 困る 6）
+  for (const name of ["食卓（ノラの夜）", "食卓（ディルの夜）", "W17 ゼリナの椀（自動）", "W17 ベルトランとピピネル（自動）", "W17 トゥーラとシャノ（自動）", "W17 ゼリナとアンセルモ（自動）", "W17 グィドの数え歌（自動）"]) {
+    check(ev(name).pages.every(p => p.trigger !== 3), `${name} が自動実行のまま（大広間の外でも出る）`);
+  }
+  check(ev("W18 大広間の見張り（並列。食卓の場面を始める）").pages[0].trigger === 4, "大広間の見張りが並列でない");
+  // 職業名（持-6。番号は変えない）
+  const classes = JSON.parse(fs.readFileSync(path.join(ROOT, "data", "Classes.json"), "utf8"));
+  for (const [id, name] of [[1, "使徒狩り"], [2, "写字生"], [3, "司祭"], [4, "鐘の騎士"], [5, "獣人"], [7, "酒保"], [10, "墓守"]]) {
+    check(classes[id].name === name, `職業 ${id} の名前「${classes[id].name}」`);
+  }
   // 前の世界の砦の物（セレス・オーブ・ユエル）が残っていない
   const keepText = JSON.stringify(keep);
   for (const old of ["セレス", "オーブ", "ユエル", "牢獄の間", "魔石"]) check(!keepText.includes(old), `Map010 に前の世界の「${old}」が残っている`);
@@ -177,11 +191,13 @@ await runTest(async () => {
     check(await game.eval(id => !!window.__game.ref("$gameMap").event(id).characterName(), home.id), "会ったあと食卓にシャノがいない");
     await game.shot("shano-at-table");
 
-    // 炉の火（結界の選択肢）：休むで全回復
-    await game.eval(() => window.__game.ref("$gameActors").actor(1).setHp(1));
+    // 炉の火（結界の選択肢）：休むで全回復。SP も戻り、「SP が戻った。」が出る（W18 #258。持-7）
+    await game.eval(() => { const a = window.__game.ref("$gameActors").actor(1); a.setHp(1); a.setTp(0); });
     const rest = await investigate(hearth.x, hearth.y + 1, 8);
     check(has(rest, "砦の炉が静かに光っている。") && has(rest, "休む"), `炉の結界の選択肢 ${JSON.stringify(rest)}`);
     check(await game.eval(() => { const a = window.__game.ref("$gameActors").actor(1); return a.hp === a.mhp; }), "休むで回復しない");
+    check(await game.eval(() => { const a = window.__game.ref("$gameActors").actor(1); return a.tp === a.maxTp(); }), "休むで SP が戻らない");
+    check(rest.at(-1) === "SP が戻った。", `休んだあとの最後の一行 ${JSON.stringify(rest)}`);
 
     // 食卓のシャノに話しかける
     const talk = await investigate(home.x, home.y + 1, 8);
@@ -212,6 +228,46 @@ await runTest(async () => {
     const dark = await investigate(ring.x, ring.y - 1, 2);
     check(has(dark, "輪は暗いままだ"), `呼べる人がいない輪 ${JSON.stringify(dark)}`);
     check(await switchOn(113), "スイッチ 113（名の壁を調べた）が ON でない");
+
+    // ---- 8b. W18（#258。R2 困る 6）：輪で仲間を呼んだ直後は名乗りだけ。食卓の場面は大広間に入ってから
+    const setSw = (id, on = true) => game.eval(([i, v]) => window.__game.ref("$gameSwitches").setValue(i, v), [id, on]);
+    await setSw(117); // 先に盛る一椀
+    await game.eval(() => window.__game.ref("$gameParty").addActor(6)); // ノラ
+    await setSw(139); // 加入:ノラ（輪で呼んだ）
+    await game.waitFor(() => window.__game.ref("$gameMessage").isBusy());
+    const named = await readMessages();
+    check(has(named, "ノラ。狩りの家の、上の娘") && !has(named, "ヴォルフラムの腕"), `輪のあとのノラ ${JSON.stringify(named)}`);
+    await game.frames(30);
+    check(!(await game.eval(() => window.__game.ref("$gameMap").isEventRunning())) && !(await messageBusy()), "名の壁の前で食卓の場面が出た");
+    await game.call("transfer", KEEP, 21, 28, 2); // 大広間の食卓の脇
+    await game.waitFor(() => window.__game.ref("$gameMessage").isBusy());
+    const noraTable = await readMessages("hall-nora");
+    check(has(noraTable, "ノラの前を、ヴォルフラムの腕が通った。") && has(noraTable, "あっちのは？"), `大広間のノラの夜 ${JSON.stringify(noraTable)}`);
+    await game.frames(30);
+    check(!(await messageBusy()), "ノラの夜が二度出た");
+
+    // 梁の上のシャノ（営倉の鐘のあと）：隣のマスから調べて話せる（R2 気になる 21）
+    await setSw(101);
+    const beam = await investigate(ev("シャノ（柱の陰）").x, ev("シャノ（柱の陰）").y + 1, 8, "beam-shano");
+    check(has(beam, "梁の上まで登った"), `梁の上のシャノ ${JSON.stringify(beam)}`);
+
+    // 伏せた椀を起こしてある（116）：ゼリナは「伏せたまま」と言わず、三つ目の鐘の夜にヴォルフラムは椀を起こさない（R2 困る 9）
+    await setSw(116);
+    await setSw(141); // 加入:ゼリナ
+    const zelina = ev("W17 ゼリナ（食卓）");
+    const z1 = await investigate(zelina.x, zelina.y - 1, 2);
+    check(has(z1, "あの椀、起きとるな") && !has(z1, "伏せたまま"), `起こしてある椀のゼリナ ${JSON.stringify(z1)}`);
+    await setSw(122); // ヴォルフラムが砦にいる（食堂）
+    await setSw(106); // 三つ目の鐘の場面
+    await game.waitFor(() => window.__game.ref("$gameMessage").isBusy());
+    const filled = await readMessages("bowl-filled");
+    check(has(filled, "ヴォルフラムは、起きている椀を取った。") && !has(filled, "椀を起こした。") && has(filled, "飯が盛られた。"), `起こしてある椀に飯が盛られる ${JSON.stringify(filled)}`);
+    check(await switchOn(1151), "椀に飯が盛られたあとスイッチ 1151 が ON でない");
+    // ゼリナの夢（場面表 04 の 2.2。7 章 04:130）：1151 のあと一度だけ。以後は差し替えの一言
+    const dream = await investigate(zelina.x, zelina.y - 1, 2);
+    check(has(dream, "舟の金、まだ足りへん夢を見た") && has(dream, "なんで足りへんのやろな"), `ゼリナの夢 ${JSON.stringify(dream)}`);
+    const z2 = await investigate(zelina.x, zelina.y - 1, 2);
+    check(has(z2, "奥の椀にも、盛ってあるな") && !has(z2, "夢を見た") && !has(z2, "伏せたまま"), `夢のあとのゼリナ ${JSON.stringify(z2)}`);
 
     // ---- 9. 営倉への鉄扉：表からは開かない。向こう側から閂を外した（スイッチ 114）あとは営倉（033）へ
     const iron = ev("営倉への鉄扉");
