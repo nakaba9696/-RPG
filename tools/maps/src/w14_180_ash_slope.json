@@ -1,0 +1,880 @@
+{
+  "_説明": "W14（#234）：灰の斜面（docs/world.md 5.2・docs/story/scenes/04-climax.md 4.4）。南西の門（019 の頂への門から）、段 1（使徒狩りの野営の跡）、段 2（ソレンヌ、西の崖の縁＝054 への縄。片側の近道）、段 3、北の宿坊の門 → 181。灰（<hai_ash>）。 この設定は node tools/maps/src/w14_data.mjs が書く。",
+  "mapId": 180,
+  "name": "境山の高み・灰の斜面",
+  "displayName": "灰の斜面",
+  "legend": "rampart",
+  "tilesetId": 21,
+  "note": "<hai_tone:-34,-34,-17,119>\n<hai_parallax:DarkClouds,1,0>\n<hai_ash:5>",
+  "bgm": {
+    "name": "Field4",
+    "volume": 60,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Wind5",
+    "volume": 45,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Wasteland",
+    "battleback2Name": "Cliff"
+  },
+  "deco": {
+    "a": {
+      "name": "鎧の亡骸（鎧のスタンド）",
+      "z2": "E:160"
+    },
+    "x": {
+      "name": "骸骨",
+      "z2": "D:242"
+    },
+    "r": {
+      "name": "瓦礫",
+      "z2": "D:120"
+    },
+    "p": {
+      "name": "倒れた槍立て",
+      "z2": "E:183"
+    },
+    "b": {
+      "name": "壊れた像",
+      "z2": "D:91"
+    }
+  },
+  "scatter": [
+    {
+      "on": ",.",
+      "z": 1,
+      "tiles": [
+        "A2:15"
+      ],
+      "rate": 0.05,
+      "seed": 1801
+    }
+  ],
+  "events": [
+    {
+      "name": "南西の門（城壁の上へ）",
+      "type": "transfer",
+      "x": 9,
+      "y": 47,
+      "to": [
+        19,
+        41,
+        7,
+        2
+      ]
+    },
+    {
+      "name": "北の門（鐘守の宿坊へ）",
+      "type": "transfer",
+      "x": 35,
+      "y": 2,
+      "to": [
+        181,
+        25,
+        38,
+        8
+      ]
+    },
+    {
+      "name": "結界（灰の斜面）",
+      "type": "raw",
+      "x": 12,
+      "y": 44,
+      "note": "<hai_warp:灰の斜面>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "ソレンヌ（灰の斜面）",
+      "type": "raw",
+      "x": 50,
+      "y": 24,
+      "pages": [
+        {
+          "image": {
+            "characterName": "People4",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                1055,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ソレンヌ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "きみか。長は先に上った。わたしは足場の木を運ぶ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "段の数は、長が数えてある"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "きみは、鳴らしに来たのか"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ソレンヌ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "きみか。長は先に上った。わたしは、あとから上る。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "足場は、二百年前のままだそうだ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "きみは、鳴らしに来たのか"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "ソレンヌは斜面を上りはじめた。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                1055,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "木の束が、灰に細い筋を引いた。筋は、すぐに消えた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 221,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                1153,
+                1153,
+                0
+              ]
+            },
+            {
+              "code": 222,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 1153,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "使徒狩りの野営の跡（火床）",
+      "type": "raw",
+      "x": 44,
+      "y": 40,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "石を組んだ火床。火は消してある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "消した灰は黒く、降る灰は白い。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "火床の脇の石に、刃で刻んだ字。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "「ここから上は、骨拾いの縄張りだ。狩らない」"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                143,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ベルトラン"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "……狩らねえ、か"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "俺が死んだのは、この下だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "洞の前で、剣を杖にして。ここまでは、上がらなかった"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "崖の縁（東門の外へ下りる縄）",
+      "type": "raw",
+      "x": 6,
+      "y": 30,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "directionFix": true,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "崖の下に、東門の外の山道が見える。縄が一本、垂れている。"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "縄を下りる",
+                  "やめる"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "縄を下りる"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                1167,
+                1167,
+                0
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 1,
+              "parameters": [
+                0,
+                54,
+                10,
+                7,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "やめる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "石工の亡骸（緑）",
+      "type": "raw",
+      "x": 24,
+      "y": 45,
+      "note": "<hai_enemy:1153,green>\n<hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3,
+          "moveSpeed": 3
+        }
+      ]
+    },
+    {
+      "name": "石工の亡骸（緑）",
+      "type": "raw",
+      "x": 36,
+      "y": 27,
+      "note": "<hai_enemy:1153,green>\n<hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3,
+          "moveSpeed": 3
+        }
+      ]
+    },
+    {
+      "name": "石工の亡骸（黄）",
+      "type": "raw",
+      "x": 57,
+      "y": 30,
+      "note": "<hai_enemy:1154,yellow>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 2,
+          "moveType": 0,
+          "moveFrequency": 3,
+          "moveSpeed": 3
+        }
+      ]
+    },
+    {
+      "name": "石工の亡骸（緑）",
+      "type": "raw",
+      "x": 30,
+      "y": 9,
+      "note": "<hai_enemy:1153,green>\n<hai_enemy_hesitate>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 2,
+          "moveType": 1,
+          "moveFrequency": 3,
+          "moveSpeed": 3
+        }
+      ]
+    },
+    {
+      "name": "宝箱（秘薬）",
+      "type": "raw",
+      "x": 62,
+      "y": 36,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                198,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[179]秘薬を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "宝箱（鉄くず）",
+      "type": "raw",
+      "x": 8,
+      "y": 12,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 125,
+              "indent": 0,
+              "parameters": [
+                0,
+                0,
+                180
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鉄くずを 180 手に入れた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "宝箱（薬草）",
+      "type": "raw",
+      "x": 60,
+      "y": 12,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Chest1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                196,
+                0,
+                0,
+                3
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\I[176]薬草×3を手に入れた！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "walkAnime": false
+        }
+      ]
+    }
+  ]
+}

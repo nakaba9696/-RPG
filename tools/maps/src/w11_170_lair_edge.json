@@ -897,7 +897,7 @@
                 0,
                 0,
                 2,
-                "写字生の声"
+                ""
               ]
             },
             {
@@ -905,42 +905,6 @@
               "indent": 1,
               "parameters": [
                 "戸を開けておくれ。中で、待っている。"
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 1,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                "学者の声"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 1,
-              "parameters": [
-                "同胞よ。拾ったものは、喰うものだ。"
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 1,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                "写字生の声"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 1,
-              "parameters": [
-                "あの夜は、よく喰えた。お前の分も残しておいた。"
               ]
             },
             {
@@ -970,7 +934,7 @@
                 0,
                 0,
                 2,
-                "年寄りの声"
+                ""
               ]
             },
             {
@@ -978,42 +942,6 @@
               "indent": 2,
               "parameters": [
                 "戸を叩いておるのは、わしじゃ。開けておくれ。"
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 2,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                "水番の声"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 2,
-              "parameters": [
-                "同胞よ。拾ったものは、喰うものだ。"
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 2,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                "年寄りの声"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 2,
-              "parameters": [
-                "あの夜は、よく喰えた。お前の分も残しておいた。"
               ]
             },
             {
@@ -1043,51 +971,52 @@
                 0,
                 0,
                 2,
-                "檻の子の声"
+                ""
               ]
             },
             {
               "code": 401,
               "indent": 3,
               "parameters": [
-                "戸を開けて。いち、に、さん、で開けて。"
+                "戸を開けておくれ。中で、待っている。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 3,
+              "parameters": [
+                0,
+                144,
+                0
               ]
             },
             {
               "code": 101,
-              "indent": 3,
+              "indent": 4,
               "parameters": [
                 "",
                 0,
                 0,
                 2,
-                "下士官の声"
+                "トゥーラ"
               ]
             },
             {
               "code": 401,
-              "indent": 3,
+              "indent": 4,
               "parameters": [
-                "同胞よ。拾ったものは、喰うものだ。"
+                "兄貴。今の声、知ってる。檻の隣の"
               ]
             },
             {
-              "code": 101,
-              "indent": 3,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                "檻の子の声"
-              ]
+              "code": 0,
+              "indent": 4,
+              "parameters": []
             },
             {
-              "code": 401,
+              "code": 412,
               "indent": 3,
-              "parameters": [
-                "あの夜は、よく喰えた。お前の分も残しておいた。"
-              ]
+              "parameters": []
             },
             {
               "code": 0,
@@ -1108,6 +1037,176 @@
               "code": 412,
               "indent": 2,
               "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "同胞よ。拾ったものは、喰うものだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "あの夜は、よく喰えた。お前の分も残しておいた。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "戸を開けて。いち、に、さん、で開けて。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "呼んでやろうか。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "……三十一。お前は、いつも一つ多い。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "名は来なかった。声は遠のいた。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                143,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ベルトラン"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "お前、今の、誰の声だ"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                0,
+                138,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "あなた。今の声、知っている人ですか"
+              ]
             },
             {
               "code": 0,
@@ -1238,7 +1337,7 @@
                 0,
                 0,
                 2,
-                "写字生の声"
+                ""
               ]
             },
             {
@@ -1246,42 +1345,6 @@
               "indent": 1,
               "parameters": [
                 "戸を開けておくれ。中で、待っている。"
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 1,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                "学者の声"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 1,
-              "parameters": [
-                "同胞よ。拾ったものは、喰うものだ。"
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 1,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                "写字生の声"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 1,
-              "parameters": [
-                "あの夜は、よく喰えた。お前の分も残しておいた。"
               ]
             },
             {
@@ -1311,7 +1374,7 @@
                 0,
                 0,
                 2,
-                "年寄りの声"
+                ""
               ]
             },
             {
@@ -1319,42 +1382,6 @@
               "indent": 2,
               "parameters": [
                 "戸を叩いておるのは、わしじゃ。開けておくれ。"
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 2,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                "水番の声"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 2,
-              "parameters": [
-                "同胞よ。拾ったものは、喰うものだ。"
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 2,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                "年寄りの声"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 2,
-              "parameters": [
-                "あの夜は、よく喰えた。お前の分も残しておいた。"
               ]
             },
             {
@@ -1384,51 +1411,52 @@
                 0,
                 0,
                 2,
-                "檻の子の声"
+                ""
               ]
             },
             {
               "code": 401,
               "indent": 3,
               "parameters": [
-                "戸を開けて。いち、に、さん、で開けて。"
+                "戸を開けておくれ。中で、待っている。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 3,
+              "parameters": [
+                0,
+                144,
+                0
               ]
             },
             {
               "code": 101,
-              "indent": 3,
+              "indent": 4,
               "parameters": [
                 "",
                 0,
                 0,
                 2,
-                "下士官の声"
+                "トゥーラ"
               ]
             },
             {
               "code": 401,
-              "indent": 3,
+              "indent": 4,
               "parameters": [
-                "同胞よ。拾ったものは、喰うものだ。"
+                "兄貴。今の声、知ってる。檻の隣の"
               ]
             },
             {
-              "code": 101,
-              "indent": 3,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                "檻の子の声"
-              ]
+              "code": 0,
+              "indent": 4,
+              "parameters": []
             },
             {
-              "code": 401,
+              "code": 412,
               "indent": 3,
-              "parameters": [
-                "あの夜は、よく喰えた。お前の分も残しておいた。"
-              ]
+              "parameters": []
             },
             {
               "code": 0,
@@ -1449,6 +1477,176 @@
               "code": 412,
               "indent": 2,
               "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "同胞よ。拾ったものは、喰うものだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "あの夜は、よく喰えた。お前の分も残しておいた。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "戸を開けて。いち、に、さん、で開けて。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "呼んでやろうか。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "……三十一。お前は、いつも一つ多い。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "名は来なかった。声は遠のいた。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                143,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ベルトラン"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "お前、今の、誰の声だ"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                0,
+                138,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "あなた。今の声、知っている人ですか"
+              ]
             },
             {
               "code": 0,
@@ -1579,7 +1777,7 @@
                 0,
                 0,
                 2,
-                "写字生の声"
+                ""
               ]
             },
             {
@@ -1587,42 +1785,6 @@
               "indent": 1,
               "parameters": [
                 "戸を開けておくれ。中で、待っている。"
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 1,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                "学者の声"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 1,
-              "parameters": [
-                "同胞よ。拾ったものは、喰うものだ。"
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 1,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                "写字生の声"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 1,
-              "parameters": [
-                "あの夜は、よく喰えた。お前の分も残しておいた。"
               ]
             },
             {
@@ -1652,7 +1814,7 @@
                 0,
                 0,
                 2,
-                "年寄りの声"
+                ""
               ]
             },
             {
@@ -1660,42 +1822,6 @@
               "indent": 2,
               "parameters": [
                 "戸を叩いておるのは、わしじゃ。開けておくれ。"
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 2,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                "水番の声"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 2,
-              "parameters": [
-                "同胞よ。拾ったものは、喰うものだ。"
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 2,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                "年寄りの声"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 2,
-              "parameters": [
-                "あの夜は、よく喰えた。お前の分も残しておいた。"
               ]
             },
             {
@@ -1725,51 +1851,52 @@
                 0,
                 0,
                 2,
-                "檻の子の声"
+                ""
               ]
             },
             {
               "code": 401,
               "indent": 3,
               "parameters": [
-                "戸を開けて。いち、に、さん、で開けて。"
+                "戸を開けておくれ。中で、待っている。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 3,
+              "parameters": [
+                0,
+                144,
+                0
               ]
             },
             {
               "code": 101,
-              "indent": 3,
+              "indent": 4,
               "parameters": [
                 "",
                 0,
                 0,
                 2,
-                "下士官の声"
+                "トゥーラ"
               ]
             },
             {
               "code": 401,
-              "indent": 3,
+              "indent": 4,
               "parameters": [
-                "同胞よ。拾ったものは、喰うものだ。"
+                "兄貴。今の声、知ってる。檻の隣の"
               ]
             },
             {
-              "code": 101,
-              "indent": 3,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                "檻の子の声"
-              ]
+              "code": 0,
+              "indent": 4,
+              "parameters": []
             },
             {
-              "code": 401,
+              "code": 412,
               "indent": 3,
-              "parameters": [
-                "あの夜は、よく喰えた。お前の分も残しておいた。"
-              ]
+              "parameters": []
             },
             {
               "code": 0,
@@ -1790,6 +1917,176 @@
               "code": 412,
               "indent": 2,
               "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "同胞よ。拾ったものは、喰うものだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "あの夜は、よく喰えた。お前の分も残しておいた。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "戸を開けて。いち、に、さん、で開けて。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "呼んでやろうか。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "……三十一。お前は、いつも一つ多い。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "名は来なかった。声は遠のいた。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                143,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ベルトラン"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "お前、今の、誰の声だ"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                0,
+                138,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "あなた。今の声、知っている人ですか"
+              ]
             },
             {
               "code": 0,

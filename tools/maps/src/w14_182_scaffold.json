@@ -1,0 +1,468 @@
+{
+  "_説明": "W14（#234）：足場の番の間（場面表 4.6）。ボス 足場の番（Enemies・Troops 1151。宿帳を持っていれば戦いの頭に「一晩のみ」States 1151）。倒すとスイッチ 1154、北の口 → 183。 この設定は node tools/maps/src/w14_data.mjs が書く。",
+  "mapId": 182,
+  "name": "境山の高み・足場の番の間",
+  "displayName": "足場の番の間",
+  "legend": "rampart",
+  "tilesetId": 21,
+  "note": "<hai_tone:-34,-34,-17,102>\n<hai_parallax:DarkClouds,1,0>\n<hai_ash:4>",
+  "bgm": {
+    "name": "Dungeon5",
+    "volume": 60,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Wind5",
+    "volume": 40,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Fort2",
+    "battleback2Name": "Tower"
+  },
+  "deco": {
+    "a": {
+      "name": "鎧の亡骸（鎧のスタンド）",
+      "z2": "E:160"
+    },
+    "x": {
+      "name": "骸骨",
+      "z2": "D:242"
+    },
+    "r": {
+      "name": "瓦礫",
+      "z2": "D:120"
+    },
+    "p": {
+      "name": "倒れた槍立て",
+      "z2": "E:183"
+    },
+    "b": {
+      "name": "壊れた像",
+      "z2": "D:91"
+    }
+  },
+  "scatter": [
+    {
+      "on": ",.",
+      "z": 1,
+      "tiles": [
+        "A2:15"
+      ],
+      "rate": 0.05,
+      "seed": 1821
+    }
+  ],
+  "events": [
+    {
+      "name": "南の口（鐘守の宿坊へ）",
+      "type": "transfer",
+      "x": 13,
+      "y": 18,
+      "to": [
+        181,
+        25,
+        1,
+        2
+      ]
+    },
+    {
+      "name": "足場の番（ボス）",
+      "type": "raw",
+      "x": 13,
+      "y": 4,
+      "pages": [
+        {
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "directionFix": true,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "石段の上に、背の高い影。二十二人分の影が重なっている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "手に鑿と槌。影は一列になって段を上り、段の上で一つに重なる。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "夜明けまでに。段を外せ。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                139,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ノラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "あんた、あたしが先！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                141,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゼリナ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "重いわ。木、三晩分も担いどるんやろ、あんた"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                8,
+                1151
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "指図の写しを、影の前にかざした。「一晩のみ」"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "影の槌が、止まった。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "三晩。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                1171,
+                1171,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Boss",
+                "bossBattle",
+                "ボス戦",
+                {
+                  "troopId": "1151",
+                  "escapeMapId": "182",
+                  "escapeX": "13",
+                  "escapeY": "15",
+                  "escapeDirection": "8"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "troopId = 1151"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "escapeMapId = 182"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "escapeX = 13"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "escapeY = 15"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "escapeDirection = 8"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "Hai.Boss.lastResult() === 0"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Collapse4",
+                  "volume": 80,
+                  "pitch": 80,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "影は段の上で、灰になった。灰は黒く、降る灰は白い。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 1154,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "北の口（鐘楼の根へ）",
+      "type": "raw",
+      "x": 13,
+      "y": 0,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "段の上を、影がふさいでいる。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 1154,
+            "switch1Valid": true
+          },
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Move1",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                183,
+                20,
+                28,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

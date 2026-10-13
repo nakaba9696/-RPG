@@ -1,0 +1,497 @@
+{
+  "_説明": "W14（#234）：鐘楼の根（場面表 4.7）。綱の巻き上げ（石工の工具 Items 1152 で直す。スイッチ 1155）、石工の工具、隊の最後の野営の跡、結界。北の石段 → 015（頂。W14 の後半）。 この設定は node tools/maps/src/w14_data.mjs が書く。",
+  "mapId": 183,
+  "name": "境山の高み・鐘楼の根",
+  "displayName": "鐘楼の根",
+  "legend": "rampart",
+  "tilesetId": 21,
+  "note": "<hai_tone:-51,-51,-34,85>",
+  "bgm": {
+    "name": "Scene8",
+    "volume": 50,
+    "pitch": 100,
+    "pan": 0
+  },
+  "bgs": {
+    "name": "Wind4",
+    "volume": 35,
+    "pitch": 100,
+    "pan": 0
+  },
+  "fields": {
+    "specifyBattleback": true,
+    "battleback1Name": "Stone2",
+    "battleback2Name": "Tower"
+  },
+  "deco": {
+    "a": {
+      "name": "鎧の亡骸（鎧のスタンド）",
+      "z2": "E:160"
+    },
+    "x": {
+      "name": "骸骨",
+      "z2": "D:242"
+    },
+    "r": {
+      "name": "瓦礫",
+      "z2": "D:120"
+    },
+    "p": {
+      "name": "倒れた槍立て",
+      "z2": "E:183"
+    },
+    "b": {
+      "name": "壊れた像",
+      "z2": "D:91"
+    }
+  },
+  "scatter": [
+    {
+      "on": ",.",
+      "z": 1,
+      "tiles": [
+        "A2:15"
+      ],
+      "rate": 0.05,
+      "seed": 1831
+    }
+  ],
+  "events": [
+    {
+      "name": "南の口（足場の番の間へ）",
+      "type": "transfer",
+      "x": 20,
+      "y": 29,
+      "to": [
+        182,
+        13,
+        1,
+        2
+      ]
+    },
+    {
+      "name": "綱の巻き上げ",
+      "type": "raw",
+      "x": 20,
+      "y": 8,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "directionFix": true,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                8,
+                1152
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "歯を直した。綱が、上まで通った。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Hammer",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                1155,
+                1155,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                0,
+                142,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アンセルモ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "お前さん。綱を直すと、上で吊れるようになる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "太い綱が巻き上げに掛かっている。綱は硬く、歯は錆びている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "歯が一つだけ、新しい。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 1155,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "directionFix": true,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "歯を直した。綱が、上まで通った。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "石工の工具",
+      "type": "raw",
+      "x": 23,
+      "y": 9,
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other1",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "巻き上げの脇に、石工の工具。"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "name": "Item3",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 126,
+              "indent": 0,
+              "parameters": [
+                1152,
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "\\C[6]メモ：\\C[0]石工の工具を手に入れた！"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "隊の最後の野営の跡",
+      "type": "raw",
+      "x": 9,
+      "y": 20,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "隊の最後の野営の跡。火は焚いていない。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "石に「一晩」と刻んである。刻みの下に、別の手で「三」。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "結界（鐘楼の根）",
+      "type": "raw",
+      "x": 30,
+      "y": 20,
+      "note": "<hai_warp:鐘楼の根>",
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "walkAnime": false,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "床の石の輪が、光っている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "頂への石段",
+      "type": "raw",
+      "x": 20,
+      "y": 1,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 1,
+          "list": [
+            {
+              "code": 108,
+              "indent": 0,
+              "parameters": [
+                "W14：015 山の頂の鐘楼への場所移動は、頂と結末（W14 の後半の PR）で足す"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "石段は、上へ続いていた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
