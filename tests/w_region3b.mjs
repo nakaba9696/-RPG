@@ -274,9 +274,12 @@ await runTest(async () => {
     await arrive(BELL, B4.arriveS[0], B4.arriveS[1]);
     await game.shot("bell-deep");
     await game.eval(id => { $gameVariables.setValue(id, 3); $gameSwitches.setValue(106, true); }, VAR.bellCount); // 3 つ目の場面（スイッチ 106。W11）は済んだ扱い
+    // W20（#264。R2 気になる 11）：札を得る前の札掛けは「札は一枚。」（084 と同じ）。得たあとは出ない
+    check((await look(BELL, B4.board[0], B4.board[1] + 1, 8)).includes("札は一枚。"), "札を得る前の札掛けに「札は一枚。」が無い");
     const ring = await look(BELL, B4.rope[0], B4.rope[1] + 1, 8, ["綱を引く"]);
     const bell = await game.eval(([a, b, c, t]) => ({ rung: $gameSwitches.value(a), count: $gameVariables.value(b), all: $gameSwitches.value(c), tag: $gameParty.numItems($dataItems[t]) }), [SW.bellWater, VAR.bellCount, SW.bellsAll, ITEM.dutyTag]);
     check(ring.includes("輪が幾重にも") && bell.rung && bell.count === 4 && bell.all && bell.tag === 1, "水底の鐘（スイッチ 103・変数 101・4 つ目でスイッチ 105・当番の札） " + JSON.stringify(bell));
+    check(!(await look(BELL, B4.board[0], B4.board[1] + 1, 8)).includes("札は一枚。"), "札を得たあとも札掛けに「札は一枚。」が出る");
     const note = await game.eval(id => $dataMap.events.find(e => e && e.name === "水底の鐘の綱").pages[0].list.some(c => c.code === 108 && c.parameters[0].startsWith("W11")), 0);
     check(note, "鐘の綱に W11 への注釈が無い");
     console.log("  扉の番（布告で迷う・スイッチ 504・衛兵の兜）→ 水底の鐘（スイッチ 103・変数 101 = 4・スイッチ 105・当番の札）");
@@ -288,6 +291,13 @@ await runTest(async () => {
     await game.shot("well-village");
     const elder1 = await look(WELL, WL.elder[0], WL.elder[1] + 1, 8);
     check(elder1.includes("扉の外で夜ごとに歌") && (await vr(VAR.songTask)) === 1, "村の長の頼み " + JSON.stringify(elder1));
+    check(elder1.split("ただのう。").length === 2 && elder1.includes("それにのう。言い伝えに"), "村の長の続く頁が両方「ただのう。」で始まる（R2 気になる 15） " + JSON.stringify(elder1));
+    // W20（#264。P16 #256 の気づき）：見せないと変数 501 は 3（見せなかった）のまま。頼みごとの段も 3
+    const elderNo = await look(WELL, WL.elder[0], WL.elder[1] + 1, 8, ["見せない"]);
+    const no = await game.eval(id => ({ v: $gameVariables.value(id), e: Hai.Notes.errand("doorSong") }), VAR.songTask);
+    check(elderNo.includes("まあ、ええ") && no.v === 3 && no.e && no.e.stage === 3 && !(await sw(SW.gateOpened)), "名簿を見せない（変数 501 = 3・段 3） " + JSON.stringify(no));
+    check(!(await look(WELL, WL.elder[0], WL.elder[1] + 1, 8)).includes("閂は外したまま"), "見せなかったのに、長が「閂は外したまま」と言う");
+    await game.eval(id => $gameVariables.setValue(id, 1), VAR.songTask); // 見せる道も見るため、頼まれた段に戻す
     const elder2 = await look(WELL, WL.elder[0], WL.elder[1] + 1, 8, ["名簿を見せる"]);
     check(elder2.includes("閂を外そう") && (await sw(SW.gateOpened)) && (await vr(VAR.songTask)) === 2 && (await items("i", ITEM.dirge)) === 0, "名簿を見せて大扉の閂（スイッチ 510） " + JSON.stringify(elder2));
     await look(WELL, WL.gateInner[0], WL.gateInner[1] - 1, 2);

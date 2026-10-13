@@ -515,7 +515,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "\\I[128]戸板の盾を手に入れた！"
+                "\\I[128]戸板の盾を手に入れた。"
               ]
             },
             {
@@ -1102,7 +1102,7 @@
               "code": 401,
               "indent": 1,
               "parameters": [
-                "\\I[146]くじの木札を手に入れた！"
+                "\\I[146]くじの木札を手に入れた。"
               ]
             },
             {
@@ -1346,7 +1346,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "\\I[197]配給札を手に入れた！"
+                "\\I[197]配給札を手に入れた。"
               ]
             },
             {
@@ -2729,7 +2729,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "\\I[176]薬草 ×2を手に入れた！"
+                "\\I[176]薬草×2を手に入れた。"
               ]
             },
             {
@@ -2836,7 +2836,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "鉄くずを 30 手に入れた！"
+                "鉄くずを 30 手に入れた。"
               ]
             },
             {
@@ -2932,7 +2932,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "\\I[189]苦い根を手に入れた！"
+                "\\I[189]苦い根を手に入れた。"
               ]
             },
             {
@@ -3028,7 +3028,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "\\I[179]秘薬を手に入れた！"
+                "\\I[179]秘薬を手に入れた。"
               ]
             },
             {
@@ -3318,7 +3318,7 @@
       "type": "raw",
       "x": 40,
       "y": 23,
-      "note": "<hai_enemy:432,green>\n<hai_enemy_shade:おねえちゃん、三つしか叩かなかったよ。おかあ>\n<hai_enemy_once>\n<hai_enemy_bell:102>",
+      "note": "<hai_enemy:432,green>\n<hai_enemy_shade:おねえちゃん、三つしか叩かなかったよ。おかあ>\n<hai_enemy_shade_quiet>\n<hai_enemy_once>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "priorityType": 0,
@@ -3438,6 +3438,33 @@
               "indent": 0,
               "parameters": [
                 "影は、長くはもたなかった。崩れるときに、声が落ちた。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_SymbolEnemy",
+                "shadeVoice",
+                "影の声を出す",
+                {
+                  "eventId": "39",
+                  "speaker": "焼けた村の子"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "eventId = 39"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "speaker = 焼けた村の子"
               ]
             },
             {

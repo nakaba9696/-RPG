@@ -419,7 +419,8 @@ const EPILOGUE = {
   w8_060_burnt_gate: [laterLook("灰の信徒（集落）", [15, 11], {}, ["灰の祈りと夕べの数を、同じ夕べにする家が出てきた。"])],
   w7_026_iron_mine: [laterLook("営倉の鐘を売る（マルゴ）", [20, 30], { variableId: 165, variableValid: true, variableValue: 1 }, ["マルゴは営倉の鐘を売るのをやめ、鐘守の名札を売りはじめた。"])],
   w9_071_lake_house: [laterLook("外に残された者（灯の帳面）", [26, 10], { switch2Id: 512, switch2Valid: true }, ["灯の帳面の点の横に、開いた門の絵。"])],
-  w9_102_gate_front: [laterLook("扉の外の歌（大扉）", [20, 26], { variableId: 501, variableValid: true, variableValue: 2 }, ["大扉が、夕べの間だけ開く。"])],
+  // 名簿を見せた＝スイッチ 510（閂を外した）。変数 501 は 3 が「見せなかった」なので、ページの条件（≧）では見ない（W20 #264）
+  w9_102_gate_front: [laterLook("扉の外の歌（大扉）", [20, 26], { switch2Id: 510, switch2Valid: true }, ["大扉が、夕べの間だけ開く。"])],
   p13_018_watch: [laterLook("足場の木（見張り台）", [7, 5], { switch2Id: SW.sorenneAlive, switch2Valid: true }, ["ソレンヌが、足場の木を薪にして火を焚いている。"])],
 };
 // 021 礼拝堂（列の最後の席）：ブルーノの遺骸の跡と巡礼に、朝の砦のページ
