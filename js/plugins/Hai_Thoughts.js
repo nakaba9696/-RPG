@@ -28,6 +28,12 @@
  * 窓口 window.Hai.Thoughts：
  *   isRead(id)  markRead(id)  notes(kind)  addNote(note)  hasNote(id)  removeNote(id)  clearNotes()
  *   unreadCount(mapId)  thoughts(mapId)  isFaint(id)  faintCount()
+ *   legacies()  legacyTable()  faintLine(id)
+ *
+ * 言い残し（P14）：夜の戸で拾った言い残しは、パラメータ「言い残し」の表（スイッチ ID・話し手・一行）に持つ。
+ *   W はそのスイッチを ON にするだけ。ON の行が書庫の「言い残し」と legacies() に出る（表の順）。
+ * 薄い思念のあとの固有の一言（P14）：パラメータ「薄い思念のあとの一言」に書いた思念（F09 など）は、
+ *   そのイベントの中のコモンイベント「数の一言」の呼び出しを、初めて見たときだけ固有の一言に差し替える。
  * 詳しくは docs/plugins/Hai_Thoughts.md。
  *
  * @param readMark
@@ -91,6 +97,30 @@
  * @min 0
  * @default 30
  *
+ * @param legacies
+ * @text 言い残し
+ * @desc 夜の戸で拾う言い残し。スイッチが ON になったものを書庫の「言い残し」に出す（表の順）。
+ * @type struct<Legacy>[]
+ * @default ["{\"switchId\":\"314\",\"speaker\":\"木樵の女房\",\"text\":\"薪、三束。戸の脇に置いといたよ\"}","{\"switchId\":\"413\",\"speaker\":\"焼けた村の子\",\"text\":\"おねえちゃん、三つしか叩かなかったよ。おかあ\"}","{\"switchId\":\"1061\",\"speaker\":\"列に並んだ女\",\"text\":\"名を呼ばれて、この子が笑った。初めてだ\"}","{\"switchId\":\"620\",\"speaker\":\"名無し兵\",\"text\":\"顔は覚えている。たぶん\"}"]
+ *
+ * @param faintLines
+ * @text 薄い思念のあとの一言
+ * @desc 思念 ID:一言 を ; で区切る。その思念のあとのコモンイベント「数の一言」を、この一言（名前は主人公）に差し替える。
+ * @type string
+ * @default F09:……一つ多い
+ *
+ * @param faintLineEvent
+ * @text 数の一言のコモンイベント
+ * @desc 薄い思念のあとに呼ぶ、記憶の数で変わる一言のコモンイベント。
+ * @type common_event
+ * @default 201
+ *
+ * @param faintLineSpeaker
+ * @text 固有の一言の話し手
+ * @desc 名前の欄に出す文字（制御文字が使える）。
+ * @type string
+ * @default \N[1]
+ *
  * @command addNote
  * @text メモを足す
  * @desc メモ帳に一行足す（同じ ID は二度足さない）。場所はこのイベントの座標。
@@ -136,6 +166,23 @@
  * @command clearNotes
  * @text メモを全部消す（テスト用）
  */
+/*~struct~Legacy:
+ * @param switchId
+ * @text スイッチ
+ * @desc このスイッチが ON なら拾った扱い（W が夜の戸で ON にする）。
+ * @type switch
+ * @default 0
+ *
+ * @param speaker
+ * @text 話し手
+ * @type string
+ * @default
+ *
+ * @param text
+ * @text 一行
+ * @type string
+ * @default
+ */
 (() => {
   "use strict";
   const pluginName = "Hai_Thoughts";
@@ -150,6 +197,30 @@
   const faintVariable = Number(params.faintVariable ?? 138);
   const faintTone = String(params.faintTone || "-102,-102,-85,170").split(",").map(Number);
   const faintFrames = Number(params.faintFrames ?? 30);
+  const parseJson = (text, fallback) => {
+    try {
+      return JSON.parse(text);
+    } catch (e) {
+      return fallback;
+    }
+  };
+  const LEGACY_DEFAULT = [
+    { switchId: 314, speaker: "木樵の女房", text: "薪、三束。戸の脇に置いといたよ" },
+    { switchId: 413, speaker: "焼けた村の子", text: "おねえちゃん、三つしか叩かなかったよ。おかあ" },
+    { switchId: 1061, speaker: "列に並んだ女", text: "名を呼ばれて、この子が笑った。初めてだ" },
+    { switchId: 620, speaker: "名無し兵", text: "顔は覚えている。たぶん" },
+  ];
+  const legacyRows = (params.legacies === undefined ? LEGACY_DEFAULT : parseJson(params.legacies, []))
+    .map(row => (typeof row === "string" ? parseJson(row, {}) : row || {}))
+    .map(row => ({ switchId: Number(row.switchId || 0), speaker: String(row.speaker || ""), text: String(row.text || "") }))
+    .filter(row => row.switchId > 0 && row.text);
+  const faintLines = {};
+  for (const pair of String(params.faintLines ?? "F09:……一つ多い").split(";")) {
+    const i = pair.indexOf(":");
+    if (i > 0 && pair.slice(i + 1).trim()) faintLines[pair.slice(0, i).trim()] = pair.slice(i + 1).trim();
+  }
+  const faintLineEvent = Number(params.faintLineEvent ?? 201);
+  const faintLineSpeaker = params.faintLineSpeaker ?? "\\N[1]";
 
   const KINDS = ["clue", "door", "item", "memory"]; // memory は P6（Hai_Companions）の記憶の断片
 
@@ -321,9 +392,28 @@
     return out;
   }
 
+  /**
+   * 薄い思念のあとの固有の一言：コモンイベント「数の一言」の呼び出しを、初めて見たときだけの一言に差し替える
+   * （コモンイベントの頭の「セルフスイッチ A が OFF」と同じ条件）。
+   */
+  function lineFor(c, line) {
+    if (c.code !== 117 || c.parameters[0] !== faintLineEvent) return [c];
+    const i = c.indent;
+    return [
+      cmd(111, [2, "A", 1], i),
+      cmd(101, ["", 0, 0, 2, faintLineSpeaker], i + 1),
+      cmd(401, [line], i + 1),
+      cmd(0, [], i + 1),
+      cmd(412, [], i),
+    ];
+  }
+
   /** 薄い思念：暗くする → 文章（窓なし・顔なし・名前なし・真ん中）→ 戻す。 */
-  function faintList(list) {
-    const out = list.map(c => (c.code === 101 ? cmd(101, ["", 0, 2, 1, ""], c.indent) : c));
+  function faintList(list, id) {
+    const line = faintLines[id];
+    const plain = list.map(c => (c.code === 101 ? cmd(101, ["", 0, 2, 1, ""], c.indent) : c));
+    // 固有の一言はコモンイベントと同じ窓（下・名前あり）で出すので、窓なしにしたあとで差し替える
+    const out = line && faintLineEvent > 0 ? plain.flatMap(c => lineFor(c, line)) : plain;
     const end = out.pop();
     return [
       cmd(357, [pluginName, "faintBegin", "薄い思念の始め（内部）", {}]),
@@ -390,7 +480,7 @@
         const fresh = clues.filter(c => !findNote(c.id));
         list = thoughtList(list, isRead(thoughtId), fresh.map(c => c.text));
         const faint = isFaintEvent(event);
-        if (faint) list = faintList(list);
+        if (faint) list = faintList(list, thoughtId);
         haiInfo = { type: "thought", id: thoughtId, faint, clues: fresh, x: event.x, y: event.y };
       } else if (lock && isClosedDoor(event)) {
         const opened = !!lock.item && $gameParty.hasItem(lock.item);
@@ -513,6 +603,12 @@
       markRead(id);
       return markFaint(id);
     },
+    /** 拾った言い残し（スイッチが ON のもの）[{ switchId, speaker, text }]。パラメータの表の順。 */
+    legacies: () => legacyRows.filter(r => $gameSwitches.value(r.switchId)).map(r => ({ ...r })),
+    /** 言い残しの表のすべて（拾ったかは heard）。 */
+    legacyTable: () => legacyRows.map(r => ({ ...r, heard: $gameSwitches.value(r.switchId) })),
+    /** 薄い思念のあとの固有の一言（無ければ ""）。 */
+    faintLine: id => faintLines[String(id)] || "",
     /** そのマップの思念の一覧 [{ id, x, y, read, faint? }]。訪れていないマップは []。 */
     thoughts(mapId) {
       return thoughtsOf(mapId === undefined ? $gameMap.mapId() : Number(mapId));

@@ -111,8 +111,7 @@ const ACTORS = {
   5: {
     name: "ブルーノ", nickname: "鐘の騎士団の騎士", classId: 4, initialLevel: 3,
     profile: "鐘の騎士団の騎士。大きな体で、祈りの文句を数のように唱える。\n味方をかばい、物理を受けると反撃する盾。",
-    // <hai_down>：戦闘不能になったときの一言（W15 #231 が書いた。P14 #230 が読む）
-    note: "<hai_wake:……礼拝堂は、まだですか。あなたは、どこの隊の方です>\n<hai_down:……数えてください>",
+    note: "<hai_wake:……礼拝堂は、まだですか。あなたは、どこの隊の方です>\n<hai_down:……数えてください>", // <hai_down> は P14（倒れたときの一言）
     traits: [{ code: 62, dataId: 2, value: 1 }, { code: 22, dataId: 6, value: 0.3 }, { code: 23, dataId: 0, value: 2 }],
   },
   6: {

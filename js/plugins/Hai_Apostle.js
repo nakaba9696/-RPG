@@ -24,9 +24,16 @@
  *   戦闘ログには「ブルーノ「あなた！」」のように、仲間の呼び方で出る。
  *   言葉はプラグインコマンド「呼びかけの言葉を変える」で変えられる（セーブに入る）。
  *
+ * ■ 耐える戦いの命令（P14）
+ *   「耐える戦いの命令」が ON なら、耐える戦い（Hai_Boss の <hai_endure>）の間、
+ *   技を使う者の命令は「耐える」（防御）と「呼ぶ」の二つだけになる。
+ *   「呼ぶ」は、連れている仲間（呼びかけの言葉を持つ者）が順番に、技を使う者を呼ぶ。
+ *   呼ばれると呑まれが「呼びかけで減る量」だけ減り、呑まれのステートが外れる（呼びかけと同じ）。
+ *
  * ■ 窓口（window.Hai.Apostle）
  *   isLearned()  engulf(actorId)  addEngulf(actor, n)  isEngulfed(actor)
  *   callWord(actorId)  setCallWord(actorId, word)  canCall(actor)  callTarget()
+ *   isEndureBattle()  nextCaller()  usesEndureCommands()  setEndureCommands(on)
  *
  * @param actorId
  * @text 技を使う者
@@ -85,7 +92,7 @@
  * @text 呼びかけの言葉
  * @desc アクター ID:言葉 をカンマで区切る（world.md 11 章の呼び方）。書いた仲間だけが呼びかけられる。
  * @type string
- * @default 5:あなた！,6:あんた！,7:おい、あんた。,8:あんた！,9:お前さん！,10:おい、お前！,11:兄貴！
+ * @default 5:あなた！　数えてください。いち、に、さん,6:あんた！　あんた、顔が灰色！,7:あんた、読めてるか,8:あんた！　戻り,9:お前さん。わしの数え歌を。ひとつ、戸の外,10:お前！　手が自分のじゃなくなる前に、止めろ！,11:兄貴！　馬鹿、戻れ！
  *
  * @param callFormat
  * @text 呼びかけの一行
@@ -103,6 +110,26 @@
  * @desc 技を使う者の呑まれをこの変数にも入れる（バトルイベントの条件用）。0 で写さない。
  * @type variable
  * @default 167
+ *
+ * @param endureCommands
+ * @text 耐える戦いの命令
+ * @desc ON なら、耐える戦いの間、技を使う者の命令を「耐える」と「呼ぶ」の二つだけにする。
+ * @type boolean
+ * @on 二つだけにする
+ * @off ふだんの命令
+ * @default true
+ *
+ * @param endureGuardName
+ * @text 「耐える」の名前
+ * @desc 耐える戦いの防御の命令の名前。
+ * @type string
+ * @default 耐える
+ *
+ * @param endureCallName
+ * @text 「呼ぶ」の名前
+ * @desc 耐える戦いで、仲間に呼んでもらう命令の名前。
+ * @type string
+ * @default 呼ぶ
  *
  * @command setCallWord
  * @text 呼びかけの言葉を変える
@@ -144,6 +171,9 @@
   const callFormat = params.callFormat || "%1「%2」";
   const gaugeLabel = params.gaugeLabel ?? "呑";
   const engulfVariable = Number(params.engulfVariable || 0);
+  const endureCommands = String(params.endureCommands ?? "true") !== "false";
+  const endureGuardName = params.endureGuardName || "耐える";
+  const endureCallName = params.endureCallName || "呼ぶ";
   const defaultWords = {};
   for (const pair of String(params.callWords ?? "").split(",")) {
     const i = pair.indexOf(":");
@@ -217,6 +247,26 @@
     if (isEngulfed(target)) target.removeState(engulfState);
   }
 
+  /** 耐える戦い（Hai_Boss の <hai_endure>）の最中か。 */
+  const isEndureBattle = () => $gameParty.inBattle() && !!window.Hai.Boss && Hai.Boss.endureTurns() > 0;
+
+  /** 「呼ぶ」で呼べる仲間（連れている者のうち、生きていて言葉を持つ者。技を使う者は除く）。 */
+  const callers = () => $gameParty.members().filter(a => a.isAlive() && canCall(a));
+
+  /** 次に呼ぶ仲間（呼ぶたびに隊の順で一人ずつ回る）。いなければ null。 */
+  function nextCaller(advance = false) {
+    const list = callers();
+    if (!list.length) return null;
+    const i = (BattleManager._haiCallTurn || 0) % list.length;
+    if (advance) BattleManager._haiCallTurn = i + 1;
+    return list[i];
+  }
+
+  /** 耐える戦いの命令を使うか（setEndureCommands で上書きした値。無ければパラメータ）。 */
+  const usesEndureCommands = () => (typeof state().endureCommands === "boolean" ? state().endureCommands : endureCommands);
+
+  const isEndureCommander = actor => usesEndureCommands() && !!actor && actor.actorId() === apostleId && isEndureBattle();
+
   function resetEngulf(actorId) {
     if (actorId > 0) {
       setEngulf(actorId, 0);
@@ -242,6 +292,16 @@
     canCall,
     callTarget,
     resetEngulf,
+    isEndureBattle,
+    /** 次に「呼ぶ」で呼ぶ仲間（Game_Actor。いなければ null）。 */
+    nextCaller: () => nextCaller(false),
+    /** 耐える戦いの命令を使うか。 */
+    usesEndureCommands,
+    /** 耐える戦いの命令を切り替える（true / false。null でパラメータに戻す。セーブに入る）。 */
+    setEndureCommands(on) {
+      if (typeof on === "boolean") state().endureCommands = on;
+      else delete state().endureCommands;
+    },
   };
 
   PluginManager.registerCommand(pluginName, "setCallWord", args => {
@@ -303,6 +363,7 @@
   BattleManager.setup = function() {
     resetEngulf(0);
     for (const a of $gameParty.members()) a._haiEngulfPending = false;
+    this._haiCallTurn = 0;
     _BattleManager_setup.apply(this, arguments);
   };
 
@@ -322,19 +383,28 @@
     }
   };
 
+  // 技を使う者が使う呼びかけは「呼ぶ」：仲間が順番に呼ぶ（ログはその仲間の名前と言葉）
   const _Window_BattleLog_displayAction = Window_BattleLog.prototype.displayAction;
   Window_BattleLog.prototype.displayAction = function(subject, item) {
-    const word = isCallSkill(item) && subject.isActor() ? callWord(subject.actorId()) : "";
+    let speaker = subject;
+    if (isCallSkill(item) && subject.isActor() && subject.actorId() === apostleId) speaker = nextCaller(true);
+    const word = isCallSkill(item) && speaker && speaker.isActor() ? callWord(speaker.actorId()) : "";
     if (!word) {
       _Window_BattleLog_displayAction.apply(this, arguments);
       return;
     }
-    this.push("addText", callFormat.format(subject.name(), word));
+    this.push("addText", callFormat.format(speaker.name(), word));
     this.push("wait");
   };
 
   const _Window_ActorCommand_makeCommandList = Window_ActorCommand.prototype.makeCommandList;
   Window_ActorCommand.prototype.makeCommandList = function() {
+    if (isEndureCommander(this._actor)) {
+      // 耐える戦い：命令は「耐える」と「呼ぶ」だけ
+      this.addCommand(endureGuardName, "guard", this._actor.canGuard());
+      this.addCommand(endureCallName, "haiEndureCall", !!nextCaller() && callSkill > 0);
+      return;
+    }
     _Window_ActorCommand_makeCommandList.apply(this, arguments);
     if (this._actor && canCall(this._actor) && callTarget()) {
       this.addCommand(callCommand, "haiCall", this._actor.canUse($dataSkills[callSkill]));
@@ -345,6 +415,20 @@
   Scene_Battle.prototype.createActorCommandWindow = function() {
     _Scene_Battle_createActorCommandWindow.apply(this, arguments);
     this._actorCommandWindow.setHandler("haiCall", this.commandHaiCall.bind(this));
+    this._actorCommandWindow.setHandler("haiEndureCall", this.commandHaiEndureCall.bind(this));
+  };
+
+  // 「呼ぶ」：技を使う者が自分に呼びかけのスキルを使う（ログは仲間の声。上の displayAction）
+  Scene_Battle.prototype.commandHaiEndureCall = function() {
+    const action = BattleManager.inputtingAction();
+    const actor = BattleManager.actor();
+    if (!action || !actor || !nextCaller()) {
+      this._actorCommandWindow.activate();
+      return;
+    }
+    action.setSkill(callSkill);
+    action.setTarget(actor.index());
+    this.selectNextCommand();
   };
 
   Scene_Battle.prototype.commandHaiCall = function() {
