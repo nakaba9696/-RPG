@@ -8,12 +8,14 @@
  *
  * イベントのメモ欄：
  *   <hai_thought:R04>        残留思念。ID は docs/world.md 4.6 の番号か任意の文字列。
- *                            読み終えたら既読にし、セルフスイッチ A を ON にする。
+ *                            読み終えたら既読にし、セルフスイッチ A を ON にする（文章の窓が一度閉じてから。
+ *                            窓が出る前・閉じる前に割り込まれて終わったときは既読にしない）。
  *                            既読の思念は、もう一度調べると本文の頭に「（読んだ）」が付く。
  *   <hai_faint:F01>          会話できない薄い思念（墓守の記憶のありか）。<hai_thought> の代わりに書く。
  *                            調べると画面が暗くなり、文章だけが窓なしで出る。見終えると既読・セルフスイッチ A、
  *                            初めて見たときだけ「戻った記憶の数」を 1 増やす（変数にも写す）。
  *                            会話・選択肢は置かない（tools/data/check.mjs が見る）。
+ *                            コモンイベント「数の一言」の呼び出しより後ろの文章（仲間の行）は、名前と窓を残す。
  *   <hai_clue:テキスト>      読み終えたとき、メモ帳にこの一行を足す（同じものは二度足さない）。
  *                            1 つのイベントに何個でも書ける。
  *   <hai_locked:坑道の鍵>    施錠扉。セルフスイッチ A が OFF の間、調べると
@@ -408,10 +410,17 @@
     ];
   }
 
-  /** 薄い思念：暗くする → 文章（窓なし・顔なし・名前なし・真ん中）→ 戻す。 */
+  /**
+   * 薄い思念：暗くする → 文章（窓なし・顔なし・名前なし・真ん中）→ 戻す。
+   * コモンイベント「数の一言」の呼び出しより後ろの文章（仲間の行）は、名前と窓をそのまま残す。
+   */
   function faintList(list, id) {
     const line = faintLines[id];
-    const plain = list.map(c => (c.code === 101 ? cmd(101, ["", 0, 2, 1, ""], c.indent) : c));
+    let after = false;
+    const plain = list.map(c => {
+      if (c.code === 117 && c.parameters[0] === faintLineEvent) after = true;
+      return c.code === 101 && !after ? cmd(101, ["", 0, 2, 1, ""], c.indent) : c;
+    });
     // 固有の一言はコモンイベントと同じ窓（下・名前あり）で出すので、窓なしにしたあとで差し替える
     const out = line && faintLineEvent > 0 ? plain.flatMap(c => lineFor(c, line)) : plain;
     const end = out.pop();
@@ -466,7 +475,8 @@
   };
 
   // マップのイベントが始まるとき（depth 0、そのイベントの今のページの list）だけ手を入れる。
-  // 読み終えたときの処理は this._haiThought に覚えて terminate で行う（中断しても読み終えた扱い）。
+  // 読み終えたときの処理は this._haiThought に覚えて terminate で行う。思念は、文章の窓が一度でも
+  // 閉じたあとなら中断しても読み終えた扱いにし、窓を閉じる前に終わったら既読にしない。
   const _Game_Interpreter_setup = Game_Interpreter.prototype.setup;
   Game_Interpreter.prototype.setup = function(list, eventId) {
     let haiInfo = null;
@@ -481,7 +491,7 @@
         list = thoughtList(list, isRead(thoughtId), fresh.map(c => c.text));
         const faint = isFaintEvent(event);
         if (faint) list = faintList(list, thoughtId);
-        haiInfo = { type: "thought", id: thoughtId, faint, clues: fresh, x: event.x, y: event.y };
+        haiInfo = { type: "thought", id: thoughtId, faint, clues: fresh, x: event.x, y: event.y, seen: false };
       } else if (lock && isClosedDoor(event)) {
         const opened = !!lock.item && $gameParty.hasItem(lock.item);
         const noteId = `door:${mapId},${eventId}`;
@@ -496,9 +506,20 @@
     this._haiThought = haiInfo;
   };
 
+  // 文章（と選択肢）の窓が閉じるのを待ち終えたら、思念を「見た」にする
+  const _Game_Interpreter_updateWaitMode = Game_Interpreter.prototype.updateWaitMode;
+  Game_Interpreter.prototype.updateWaitMode = function() {
+    const info = this._haiThought;
+    const message = this._waitMode === "message";
+    const waiting = _Game_Interpreter_updateWaitMode.apply(this, arguments);
+    if (message && !waiting && info && info.type === "thought") info.seen = true;
+    return waiting;
+  };
+
   function finish(interpreter, info) {
     const mapId = interpreter._mapId;
     if (info.type === "thought") {
+      if (info.seen === false) return; // 文章の窓が閉じる前に終わった（割り込まれた）ので読んでいない。古いセーブの欄なしは読んだ扱い
       markRead(info.id);
       if (info.faint) markFaint(info.id);
       $gameSelfSwitches.setValue([mapId, interpreter._eventId, "A"], true);
