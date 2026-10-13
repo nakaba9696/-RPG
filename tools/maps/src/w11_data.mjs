@@ -74,6 +74,8 @@ export const TROOP = { shade: 701, thickShade: 702, mass: 703 };
 export const SW = { mass: 701, backWest: 702, backSouth: 703, backEast: 704, knife1: 705, knife2: 706, knife3: 707, voice: 708, shadeFirst: 711 };
 // P の帯（使うだけ）：使徒の力（P12）、拾い物（P9）、鐘番の角灯（W7）
 const APOSTLE_SWITCH = 162;
+// 加入（P11。読むだけ）：W14 が場面表 3.3〜3.7 の仲間の一言に使う
+const FLAG_BRUNO = 138, FLAG_NORA = 139, FLAG_DIL = 140, FLAG_ZELINA = 141, FLAG_ANSELMO = 142, FLAG_BELTRAN = 143, FLAG_TURA = 144;
 const ITEM = { herb: 196, antidote: 197, elixir: 198, bitterRoot: 199, mossAsh: 200, lantern: 322 };
 const ITEM_NAME = { 196: ["薬草", 176], 197: ["毒消し", 177], 198: ["秘薬", 179], 199: ["苦い根", 189] };
 const PRIEST_FAINT = "F12";
@@ -85,7 +87,7 @@ const PRIEST_FAINT = "F12";
 const LOCAL = {
   west: {
     person: { name: "ゲンサイ", image: IMG.gensai, xy: [5, 18], lines: [["夜が長うなった。経典どおりや。", "わしの灯は、ここまでや。ほな、帰って灰の祈りをするわ。"]] },
-    voices: [["写字生の声", "戸を開けておくれ。中で、待っている。"], ["学者の声", "同胞よ。拾ったものは、喰うものだ。"], ["写字生の声", "あの夜は、よく喰えた。お前の分も残しておいた。"]],
+    voice: "戸を開けておくれ。中で、待っている。", // 一つ目の声（写字生）。場面表 3.3
     lines: [
       ["R2-01", "戸を三度、叩かれた。去年の秋に祠へ行った娘の声だった。"],
       ["R2-18", "二冊のうち一冊を、使いに渡したのは私です。急かされましたので。"],
@@ -97,7 +99,7 @@ const LOCAL = {
   },
   south: {
     person: { name: "村の長", image: IMG.elder, xy: [23, 33], lamp: [22, 33], lines: [["村の決まりは変えん。叩く音には、答えん。", "じゃが、叩く音が増えたでのう。灯を一つ、置きに来たんじゃ。"]] },
-    voices: [["年寄りの声", "戸を叩いておるのは、わしじゃ。開けておくれ。"], ["水番の声", "同胞よ。拾ったものは、喰うものだ。"], ["年寄りの声", "あの夜は、よく喰えた。お前の分も残しておいた。"]],
+    voice: "戸を叩いておるのは、わしじゃ。開けておくれ。", // 一つ目の声（外の民）
     lines: [
       ["R3-19", "札を持っとる子から順だと。わしの札は、朝に孫に持たせた。"],
       ["R3-20", "扉にさわったら、中で、だれかがぼくの名前で泣いてた。"],
@@ -109,7 +111,7 @@ const LOCAL = {
   },
   east: {
     person: { name: "骨拾い", image: IMG.bonePicker, xy: [45, 18], lines: [["生きておられる方。数が合いません。昨夜は十一、今夜は十四。", "増えております。"]], after: ["骨拾いは、頭を深く下げた。"] },
-    voices: [["檻の子の声", "戸を開けて。いち、に、さん、で開けて。"], ["下士官の声", "同胞よ。拾ったものは、喰うものだ。"], ["檻の子の声", "あの夜は、よく喰えた。お前の分も残しておいた。"]],
+    voice: "戸を開けておくれ。中で、待っている。", // 一つ目の声（檻の子）
     lines: [
       ["R4-13", "ぼくは、いち、に、さん、ってかぞえてる。姉ちゃんが行ってから、ずっと。"],
       ["R4-11", "一箱、泣いていた。それも数に入れた。"],
@@ -130,7 +132,7 @@ REGION_KEYS.forEach((key, r) => [0, 1, 2, 3].forEach(slot => { SHADE_SWITCH[`${k
 const LORE = {
   "刃の欠けた彫り刀": {
     desc: ["攻撃が上がる。墓掘りの使う、短い彫り刀。", "刃の先が欠けている。"],
-    lore: ["柄に、酒の染みと、蝋の跡。", "刃の欠けは石を彫った跡。", "柄の革の巻き方は、司祭の結び方。"],
+    lore: ["柄に、蝋の跡と、墨の染み。", "刃の欠けは石を彫った跡。", "柄の革の巻き方は、司祭の結び方。"], // W14：場面表 章末 2（相棒の印から酒を外す）
   },
 };
 for (const [name, { desc, lore }] of Object.entries(LORE)) {
@@ -467,7 +469,18 @@ function events170() {
   // 門叩きの声（text.md 4.14・5.5 の b。広間へ入る三つの通りのどれかを踏むと一度だけ。声を次々に替える）
   ev.push(...strip("門叩きの声", E170.voice, SW.voice, [
     ...knock(0, 60),
-    ...byLastRegion(Object.fromEntries(REGION_KEYS.map(key => [key, ind => LOCAL[key].voices.flatMap(([who, line]) => say([line], who, ind))]))),
+    // W14（#234）：場面表 3.3。姿は見せない。名前なし。声ごとに窓を分ける。一つ目の声は地域で替え、二つ目・三つ目と相棒の声は同じ
+    ...byLastRegion(Object.fromEntries(REGION_KEYS.map(key => [key, ind => [
+      ...say([LOCAL[key].voice], "", ind),
+      ...(key === "east" ? [ifSwitch(FLAG_TURA, true, ind), ...say(["兄貴。今の声、知ってる。檻の隣の"], "トゥーラ", ind + 1), end(ind + 1), ENDIF(ind)] : []),
+    ]]))),
+    ...say(["同胞よ。拾ったものは、喰うものだ。", "あの夜は、よく喰えた。お前の分も残しておいた。"]),
+    ...say(["戸を開けて。いち、に、さん、で開けて。"]),
+    ...say(["呼んでやろうか。", "……三十一。お前は、いつも一つ多い。"]),
+    ...say(["名は来なかった。声は遠のいた。"]),
+    ifSwitch(FLAG_BELTRAN, true), ...say(["お前、今の、誰の声だ"], "ベルトラン", 1), end(1),
+    ELSE(), ifSwitch(FLAG_BRUNO, true, 1), ...say(["あなた。今の声、知っている人ですか"], "ブルーノ", 2), end(2), ENDIF(1), end(1),
+    ENDIF(),
   ]));
   ev.push(
     exitTo("北の口（喰われた者の廊下へ）", E170.exitN, [LAIR_MAP.corridor, 25, 38, UP]),
@@ -524,6 +537,11 @@ function draw171() {
 }
 // 影の置き場（地域ごとに 1 マス：記録院・水底・鋳物場の順）
 const SLOTS171 = [[[5, 26], [5, 27], [5, 28]], [[25, 17], [25, 18], [25, 19]], [[44, 10], [44, 11], [44, 12]], [[25, 4], [25, 5], [25, 6]]];
+// 夜の戸で拾った言い残し（W14 #234、場面表 3.4。N4-2・N4-3 の夜の戸の旗。読むだけ）。その地域が縄張りで、言い残しを拾っていれば廊下に影が一体
+const LEGACY = [
+  { key: "west", flag: 413, sw: 1168, who: "焼けた村の子", line: "おねえちゃん、三つしか叩かなかったよ。おかあ", at: [40, 23] },
+  { key: "east", flag: 620, sw: 1169, who: "名無し兵", line: "顔は覚えている。たぶん", at: [28, 32] },
+];
 const E171 = { entry: [25, 39], exitN: [25, 0], arriveFromMass: [25, 1], ward: [28, 2] };
 function events171() {
   const ev = [
@@ -539,6 +557,9 @@ function events171() {
           `const last = ${REGION_KEYS.map(k => `!$gameSwitches.value(${REGIONS[k].bell}) ? "${k}" : `).join("")}"";`,
           `const T = ${JSON.stringify(Object.fromEntries(REGION_KEYS.flatMap(k => [0, 1, 2, 3].map(s => [SHADE_SWITCH[`${k}:${s}`], [k, LOCAL[k].lines[s][0]]]))))};`,
           `for (const id in T) $gameSwitches.setValue(Number(id), T[id][0] === last && Hai.Thoughts.isRead(T[id][1]));`,
+          // W14（#234）：場面表 3.4。夜の戸で拾った言い残し（記録院の側＝焼けた村の子 413、鋳物場の側＝名無し兵 620）
+          `const L = ${JSON.stringify(Object.fromEntries(LEGACY.map(l => [l.sw, [l.key, l.flag]])))};`,
+          `for (const id in L) $gameSwitches.setValue(Number(id), L[id][0] === last && $gameSwitches.value(L[id][1]));`,
         ].join("\n")),
         cmd(214, []), END,
       ] }],
@@ -551,13 +572,17 @@ function events171() {
       ev.push(shade(`声だけの影（${REGIONS[key].label} ${id}）`, cells[REGION_KEYS.indexOf(key)], { troop: TROOP.thickShade, rank: "yellow", voice: line, once: true, cond: SHADE_SWITCH[`${key}:${slot}`] }));
     });
   }
+  for (const l of LEGACY) ev.push(shade(`声だけの影（言い残し ${l.who}）`, l.at, { troop: TROOP.thickShade, rank: "yellow", voice: l.line, once: true, cond: l.sw }));
   ev.push(
     shade("声だけの影（C2–C3 の西の口）", [5, 18], { troop: TROOP.thickShade, rank: "yellow" }),
     shade("声だけの影（C1）", [15, 32], { random: true }),
     shade("声だけの影（C3）", [35, 14], { random: true }),
     // 相棒の司祭の彫り刀の音が近づく（world.md 5.2 の 171）
     ...strip("彫り刀の音（C2）", [[35, 22], [35, 23], [35, 24]], SW.knife1, say(["壁の向こうで、刃が石を掻く音がした。"])),
-    ...strip("彫り刀の音（C3）", [[15, 13], [15, 14], [15, 15]], SW.knife2, say(["掻く音が近い。一画ずつ、間を置いて。"])),
+    ...strip("彫り刀の音（C3）", [[15, 13], [15, 14], [15, 15]], SW.knife2, [
+      ...say(["掻く音が近い。一画ずつ、間を置いて。"]),
+      ifSwitch(FLAG_BRUNO, true), ...say(["あなた。刃の音です。石を、彫っています"], "ブルーノ", 1), end(1), ENDIF(), // W14：場面表 3.4
+    ]),
     ...strip("彫り刀の音（C4）", [[35, 7], [35, 8], [35, 9]], SW.knife3, say(["音が止んだ。北の方で、何かが脈を打つ音がする。"])),
     text("戸板の列", [10, 31], ["壁ぎわに、戸板が何枚も立てかけてある。", "どれも内側に、爪の跡。"]),
     chestItem([4, 32], ITEM.herb, 3),
@@ -582,6 +607,20 @@ function draw172() {
   for (const [x, y] of [[17, 12], [23, 13], [20, 16], [16, 18], [24, 18]]) g.set(x, y, ";");
   return { g, d };
 }
+// 名前が戻ったあとの仲間の反応（場面表 3.6。連れている仲間のうち二人まで。上から順。ブルーノは何も言わない）
+//   トゥーラ・ゼリナはいれば出る。ベルトラン・ディル・アンセルモ・ノラは、上の二人がどちらも出ていないときに、上から二人まで
+function companionsOnName() {
+  const s = id => `$gameSwitches.value(${id})`;
+  const first = [[FLAG_TURA, "トゥーラ", "兄貴。……兄貴は、兄貴でいいよな"], [FLAG_ZELINA, "ゼリナ", "つけ帳、書き直さなあかん"]];
+  const rest = [[FLAG_BELTRAN, "ベルトラン", "呼びにくい名じゃねえな。短くていい"], [FLAG_DIL, "ディル", "読める名だ"], [FLAG_ANSELMO, "アンセルモ", "名簿の一行、埋まったのう"], [FLAG_NORA, "ノラ", "あんた、名前あったんだ！"]];
+  const out = [];
+  for (const [id, who, line] of first) out.push(ifSwitch(id, true), ...say([line], who, 1), end(1), ENDIF());
+  rest.forEach(([id, who, line], i) => {
+    const before = rest.slice(0, i).map(([b]) => `(${s(b)} ? 1 : 0)`).join(" + ") || "0";
+    out.push(ifScript(`!${s(FLAG_TURA)} && !${s(FLAG_ZELINA)} && ${s(id)} && ${before} < 2`), ...say([line], who, 1), end(1), ENDIF());
+  });
+  return out;
+}
 const MASS_AT = [20, 10];
 const PRIEST_AT = [20, 8]; // 塊の上の端（塊の絵は大きい）。崩したあと、そこに相棒の司祭の薄い思念
 const MASS_ESCAPE = [LAIR_MAP.mass, 20, 24, UP];
@@ -601,7 +640,10 @@ function events172() {
     ...bossBattle(TROOP.mass, MASS_ESCAPE),
     ifScript("Hai.Boss.lastResult() === 0"),
     se("Collapse3", 1, 80, 80),
-    ...say(["塊が崩れる。抱えられていた声が、一つずつ床に落ちて消えた。", "灰色の中から、彫り刀を握った手が一本、上へ伸びた。"], "", 1),
+    // W14（#234）：場面表 3.5（崩れたあとの文）
+    ...say(["塊が崩れる。灰色の殻が、壁ぎわに積もった。", "殻の中から、小さな明かりが漏れた。", "明かりは床を這わず、東の壁へ向かって流れた。", "壁を抜けていった。一つ、また一つ。"], "", 1),
+    ifSwitch(FLAG_TURA, true, 1), ...say(["行った"], "トゥーラ", 2), end(2), ENDIF(1),
+    ...say(["灰色の中から、彫り刀を握った手が一本、", "上へ伸びた。"], "", 1),
     end(1),
     ENDIF(),
     END,
@@ -616,11 +658,13 @@ function events172() {
         { conditions: { switch1Id: SW.mass, switch1Valid: true }, priorityType: 0 },
         // 名前が戻る（相棒の司祭の薄い思念がスイッチ 110 を立てたあと。名前の欄を「ルカ」に・スイッチ 108）
         { conditions: { switch1Id: FLAG.nameBack, switch1Valid: true }, priorityType: 0, trigger: 3,
+          // W14（#234）：場面表 3.6。名前の変更は思念の中（「ルカ」のあと）。主人公の一言は置かない。音は止めたまま
           list: [
             wait(30),
-            ...say(["思念は、その一言を置いて消えた。"]),
-            cmd(320, [1, "ルカ"]),
-            ...say(["最後の一画は、あの夜のままだ。"], "\\N[1]"),
+            ...say(["刃の欠けた彫り刀が、床に落ちている。"]),
+            ...companionsOnName(),
+            ...say(["呼ばれてしまったか。"]),
+            ...say(["声は遠のき、戻らなかった。霧が、北の口から薄れていく。"]),
             switchOn(FLAG.climax),
             selfOn("A"),
             END,
@@ -642,7 +686,13 @@ function events172() {
       pages: [
         { conditions: { switch1Id: SW.mass, switch1Valid: true }, image: IMG.faint, priorityType: 1,
           list: [
-            ...say(["墓所の壁に、相棒が刃を当てている。灯は一つ。", "彫り刀を持つ手が、最後の一画の手前で止まる。戸を叩く音が、三度。", "振り返った顔が、こちらを見て、口を動かす。", "「ルカ」"]),
+            // W14（#234）：場面表 3.6（A の場面。司祭の目から。戸は見ない）。「ルカ」の前に BGM・BGS を止め、無音のまま名前を戻す
+            ...say(["墓所。棺の前で、墓守が眠っている。", "壁に彫る。四つの鐘を鳴らして。", "それから、山の頂の鐘楼へ。", "刃の先が欠けた。構わない。"]),
+            ...say(["戸が、三度叩かれた。", "戸の向こうから、声がする。", "わたしの名を呼んでいる。", "墓守の声だ。眠っているのに。"]),
+            ...say(["手を止めた。戸は見ない。", "眠っている方へ、向き直る。"]),
+            cmd(242, [1]), cmd(246, [1]), wait(60),
+            ...say(["「ルカ」"], "", 0, { background: 2, position: 1 }),
+            cmd(320, [1, "ルカ"]),
             switchOn(FLAG.nameBack),
             END,
           ] },

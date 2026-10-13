@@ -834,6 +834,128 @@
               "parameters": []
             },
             {
+              "code": 108,
+              "indent": 1,
+              "parameters": [
+                "W14：鳴ったあとの一行（場面表 1.1・3.7）。三つ目ならブルーノの一言、四つ目なら指の一行"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                1,
+                101,
+                0,
+                3,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 2,
+              "parameters": [
+                0,
+                138,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "あなた。……三十です"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "墓守の指が、もう一本、動いた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                1,
+                101,
+                0,
+                4,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "指が、もう一本、動いた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
               "code": 123,
               "indent": 1,
               "parameters": [
@@ -1298,14 +1420,39 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "運びこまれてくる。外門の番、帳場の娘、教官。一人ずつ、まだ息がある。"
+                "運びこまれてくる。外門の番、帳場の娘、教官。"
               ]
             },
             {
               "code": 401,
               "indent": 0,
               "parameters": [
-                "息が止まるたび、思いが流れこんでくる。喰えば、楽になる。体がそう言う。"
+                "一人ずつ、まだ息がある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "息が止まるたび、思いが流れこんでくる。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                2,
+                1,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "喰えば、楽になる。体がそう言う。"
               ]
             },
             {
@@ -1330,7 +1477,14 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "外門の番には、一緒に数えた夜を。帳場の娘には、つけの帳面の夜を。"
+                "外門の番には、一緒に数えた夜を。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "帳場の娘には、つけの帳面の夜を。"
               ]
             },
             {
@@ -1344,14 +1498,39 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "相棒が、壁に向かって何かを彫りはじめた。刃の音が、戸を叩く音に混ざる。"
+                "数える。二十八、二十九、三十。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                2,
+                1,
+                ""
               ]
             },
             {
               "code": 401,
               "indent": 0,
               "parameters": [
-                "最後の一人に渡し終えて、目を閉じた。"
+                "相棒が、壁に向かって何かを彫りはじめた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "刃の音が、戸を叩く音に混ざる。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "三十一人目は、まだ来ない。目を閉じた。"
               ]
             },
             {
@@ -1379,7 +1558,7 @@
                 0,
                 0,
                 2,
-                "\\N[1]"
+                ""
               ]
             },
             {
@@ -1837,6 +2016,147 @@
               "indent": 3,
               "parameters": [
                 "kind = clue"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                141,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゼリナ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "あんた、水に落ちたんか。顔が濡れとる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                0,
+                142,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アンセルモ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "お前さん。今の、聞こえたかの"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 2,
+              "parameters": [
+                0,
+                144,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "トゥーラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "兄貴。今の音、山の方だったぞ"
               ]
             },
             {
@@ -2705,6 +3025,43 @@
               "parameters": [
                 "砦の方角、城壁の上で、東の塔の門が開く音がした。"
               ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                144,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "トゥーラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "兄貴。開いた"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 121,

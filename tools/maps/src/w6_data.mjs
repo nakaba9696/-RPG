@@ -14,6 +14,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { readData, formatTable, dataPath, extendTable } from "../../data/io.mjs";
 import { SRC_DIR } from "../build.mjs";
+import * as W14 from "./w14_parts.mjs"; // 終盤（W14 #234）：010 の三つ目の鐘の夜・出立（イベント ID 71–）、019 の頂への門・東の眺め
 import { fortTableEvents, FORT_SWITCH_NAMES } from "./w17_parts.mjs"; // W17（#233）：砦の食卓の場面（イベント ID 61–70・スイッチ 180–185）
 
 const check = process.argv.includes("--check");
@@ -1033,6 +1034,8 @@ const keepEvents = [
 if (keepEvents[SHANO_HIDE_ID - 1] !== shanoHide) throw new Error("シャノ（柱の陰）の ID がずれた");
 // 配られた番号に置く（tools/maps の "id"。ほかの子が 56– を足しても動かない）
 [table, bowl, wolframFort, afterRing, brunoSeat, margo, ...pickers, adeleSeat, adeleLecture, served].forEach((e, i) => { e.id = 42 + i; });
+writing.pages.push(W14.writingNightPage(writing.pages[0].list)); // W14：三つ目の鐘の夜の書き付け（場面表 2.4）
+keepEvents.push(...W14.keepEvents()); // W14：ID 71–（場面表 2.1・2.3・4.1）
 
 // 置き物（.deco.txt の文字）。Dungeon_B＝B、Dungeon_C＝C、Inside_B＝D、Inside_C＝E（タイルセット 11）
 const FORT_WALL = { name: "砦の壁（壁O（砦）。下が床なら側面、ほかは上面）", wall: { top: "A4:22", side: "A4:30", height: 2 } };
@@ -1344,7 +1347,7 @@ const rampartConfig = {
           list: [...say(["大きな門。押すと、隙間から灰が流れこんでくる。", "門の向こうは灰と霧で、一歩先も見えない。"]), END] },
         // W11（#191）：開くのは最後の地域の山場を越えて 4 つ目の鐘を鳴らしたとき（スイッチ 109。084・094・104 の霧の戸口が立てる）。行き先 180 は W14
         { conditions: { switch1Id: SW.summitGate, switch1Valid: true }, image: { characterName: "!$Gate1", characterIndex: 0, direction: UP, pattern: 1 }, priorityType: 1, walkAnime: false,
-          list: [...say(["門の向こうの灰が引いている。山道が上へ続いている。"]), END] },
+          list: W14.summitGateList() }, // W14：触れると 180 灰の斜面へ（場面表 4.3）
       ],
     },
     {
@@ -1354,6 +1357,7 @@ const rampartConfig = {
         // 鳴らした鐘の数＋一の灯（W15 #231。010 の崩れた壁の隙間と同じ）
         { conditions: { variableId: VAR.bells, variableValid: true, variableValue: 1 }, priorityType: 1,
           list: lampsByBells(n => say(["東に、山の頂。塔の影が雲を突いている。", `影の下に、灯が${n}。`, "灰は、そちらから降ってくる。"], "", 1)) },
+        { ...W14.eastViewPage, priorityType: 1 }, // W14：四つ目のあと、シャノが砦にいるとき（場面表 4.2）。W15 の灯のページより強い
       ],
     },
     eveningCount,

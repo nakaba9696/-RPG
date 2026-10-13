@@ -18,6 +18,7 @@ import { readData, formatTable, dataPath, extendTable } from "../../data/io.mjs"
 import { SRC_DIR } from "../build.mjs";
 import { POINTS, MAPS, drawAll } from "./w9_maps.mjs";
 import { withThirdScene, lairDoorEvents } from "./w11_parts.mjs"; // W11（#191）：鐘番の思念の 2 ページ目と霧の戸口
+import { ringAfter } from "./w14_parts.mjs"; // W14（#234）：鐘の綱の鳴ったあとの一行
 import { aside, withBell, W17_SW, W17_SWITCH_NAMES, nightDoorStart, nightDoorEnd } from "./w17_parts.mjs"; // W17（#233）：原作の反映（仲間の一言・夜の戸・数え歌）
 
 drawAll();
@@ -1272,6 +1273,7 @@ const bellRope = ev.raw("水底の鐘の綱", B4.rope, [
         ifVar(FLAG.bellCount, 4, 1),
         swOn(FLAG.bellsAll, 1),
         close(1), ENDIF(),
+        ...ringAfter(0), // W14：鳴ったあとの一行（三つ目・四つ目）
         selfOn(),
         ...say(["壁の札掛けに、当番の札が一枚だけ残っている。"]),
         se("Item3"),

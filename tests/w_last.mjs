@@ -203,7 +203,9 @@ await runTest(async () => {
     await go(EDGE, 36, 20, 4);
     await step(4);
     const voice = (await talk([], false)).join("\n");
-    check(voice.includes("檻の子の声：") && voice.includes("同胞よ。拾ったものは、喰うものだ。") && voice.includes("お前の分も残しておいた"), "門叩きの声（地域の死者の声で。text.md 5.5 の b） " + JSON.stringify(voice));
+    // W14（#234）：場面表 3.3 に差し替えた（名前なし・声ごとに窓・最後に相棒の声）
+    check(voice.includes("戸を開けておくれ。中で、待っている。") && voice.includes("同胞よ。拾ったものは、喰うものだ。") && voice.includes("お前の分も残しておいた") &&
+      voice.includes("……三十一。お前は、いつも一つ多い。") && !voice.includes("の声："), "門叩きの声（地域の死者の声と相棒の声。場面表 3.3） " + JSON.stringify(voice));
     check(await sw(SW.voice), "門叩きの声のスイッチ 708");
     // 北の細い口の影は、広間の北西の見えない通路で避けられる
     await go(EDGE, 18, 12, 8);
@@ -244,8 +246,9 @@ await runTest(async () => {
     check(won.includes("塊が崩れる") && (await sw(SW.mass)) && (await game.eval(() => Hai.Boss.lastResult())) === 0, "塊を倒す（スイッチ 701） " + JSON.stringify(won));
     await go(MASS, 20, 9, 8);
     const priest = (await talk()).join("\n");
-    check(priest.includes("最後の一画の手前で止まる") && priest.includes("「ルカ」"), "相棒の司祭の薄い思念（F12） " + JSON.stringify(priest));
-    check(priest.includes("最後の一画は、あの夜のままだ。"), "名前が戻ったあとの主人公の一言 " + JSON.stringify(priest));
+    // W14（#234）：場面表 3.6 に差し替えた（司祭の目から。戸は見ない。主人公の一言は置かない。門叩きの退き）
+    check(priest.includes("眠っている方へ、向き直る。") && priest.includes("「ルカ」") && priest.includes("刃の欠けた彫り刀が、床に落ちている。"), "相棒の司祭の薄い思念（F12） " + JSON.stringify(priest));
+    check(!priest.includes("最後の一画は、あの夜のままだ。") && priest.includes("呼ばれてしまったか。"), "名前が戻ったあと、主人公の一言は無く門叩きが退く " + JSON.stringify(priest));
     const named = await game.eval(([n, c, v]) => ({ name: $gameActors.actor(1).name(), nameBack: $gameSwitches.value(n), climax: $gameSwitches.value(c), faint: $gameVariables.value(v), f12: Hai.Thoughts.isFaint("F12") }), [SW.nameBack, SW.climax, VAR.faint]);
     check(named.name === "ルカ" && named.nameBack && named.climax && named.f12 && named.faint === faint0 + 1, "名前が戻る（ルカ・スイッチ 110・108・戻った記憶の数） " + JSON.stringify(named));
     await go(MASS, 20, 11, 8);
