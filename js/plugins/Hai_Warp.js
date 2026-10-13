@@ -23,11 +23,17 @@
  *
  * セーブ：メニューからのセーブは MZ の既定のまま（どこでもできる）。
  *
+ * 記録を作る（P14）：結末のイベントからプラグインコマンド「記録を作る」（saveRecord）で、記録「朝の砦」を自動で作る。
+ *   空いている枠に書く（いちばん新しい記録＝頂の手前の記録は上書きしない）。空きが無ければ、いちばん新しい記録を除いた
+ *   いちばん古い枠に書く。ロードすると、そのコマンドの次から続く。記録の一覧には「ファイル N」の横に名前が出る。
+ *
  * 窓口（window.Hai.Warp）
  *   visited()              訪れた結界 [{mapId, eventId, x, y, name}]（写し。訪れた順）
  *   visit(mapId, eventId)  今のマップの結界を訪れたことにする（覚えたらその写し、結界でなければ null）
  *   destinations()         今の転送の一覧 [{name, mapId, eventId, x, y, home}]（拠点が先頭、いまの所は除く）
  *   warpTo(index)          destinations() の index 番へ転送する（場所移動を予約。できたら true）
+ *   recordSlot()           「記録を作る」が書く枠の番号（書ける枠が無ければ -1）
+ *   saveRecord(label)      今の状態を記録として書く（Promise。書いた枠の番号で解決する）
  *   addSource(fn)          ほかのプラグインが行き先を足す（fn() は [{name, mapId, x, y, d}]。P13 の見張り台）
  *   openMenu(eventId?)     その結界（省略で目の前か足元の結界）の選択肢を出す（できたら true）
  *
@@ -104,9 +110,24 @@
  * @dir audio/se
  * @default Teleport
  *
+ * @param recordFormat
+ * @text 記録の名前の形
+ * @desc 「記録を作る」で作った記録を、記録の一覧に出す形。%1 が名前。
+ * @type string
+ * @default 「%1」
+ *
  * @command open
  * @text 結界を開く
  * @desc このイベントで結界の選択肢（休む・記録する・転送する・やめる）を出す。<hai_warp> のイベントなら訪れたことにもする。
+ *
+ * @command saveRecord
+ * @text 記録を作る
+ * @desc 今の状態を、空いている枠に記録する（いちばん新しい記録は上書きしない）。結末のあとの「朝の砦」用。
+ *
+ * @arg label
+ * @text 記録の名前
+ * @type string
+ * @default 朝の砦
  */
 (() => {
   "use strict";
@@ -127,6 +148,7 @@
   const visitSe = text("visitSe", "Saint3");
   const restSe = text("restSe", "Recovery");
   const warpSe = text("warpSe", "Teleport");
+  const recordFormat = text("recordFormat", "「%1」");
 
   // ---------------------------------------------------------------------------
   // 状態（$gameSystem._hai.warp。セーブに入る）
@@ -377,6 +399,55 @@
   });
 
   // ---------------------------------------------------------------------------
+  // 記録を作る（P14。朝の砦）
+  // ---------------------------------------------------------------------------
+  /** 書く枠：空き → 無ければ、いちばん新しい記録を除いたいちばん古い枠。オートセーブの枠（0）は使わない。 */
+  function recordSlot() {
+    const empty = DataManager.emptySavefileId();
+    if (empty > 0) return empty;
+    const latest = DataManager.latestSavefileId();
+    let best = -1;
+    for (let id = 1; id < DataManager.maxSavefiles(); id++) {
+      const info = DataManager.savefileInfo(id);
+      if (id === latest || !info) continue;
+      if (best < 0 || info.timestamp < DataManager.savefileInfo(best).timestamp) best = id;
+    }
+    return best;
+  }
+
+  /** 今の状態を記録として書く。Promise（書いた枠の番号。書けなければ -1）。 */
+  function saveRecord(label) {
+    const id = recordSlot();
+    if (id <= 0) return Promise.resolve(-1);
+    $gameSystem.setSavefileId(id);
+    $gameSystem.onBeforeSave();
+    const name = String(label || "");
+    return DataManager.saveGame(id).then(() => {
+      const info = DataManager.savefileInfo(id);
+      if (info && name) {
+        info.haiLabel = name;
+        DataManager.saveGlobalInfo();
+      }
+      return id;
+    });
+  }
+
+  PluginManager.registerCommand(pluginName, "saveRecord", function(args) {
+    // 中身（$gameMap の実行中のイベント）はその場で写されるので、写す間だけ「次の命令」を指しておく
+    // （ロードしたとき、このコマンドをもう一度実行して記録を作り直さないように）
+    this._index++;
+    saveRecord(args.label ?? "朝の砦").catch(e => console.warn("Hai_Warp: 記録を作れなかった", e));
+    this._index--;
+  });
+
+  const _Window_SavefileList_drawTitle = Window_SavefileList.prototype.drawTitle;
+  Window_SavefileList.prototype.drawTitle = function(savefileId, x, y) {
+    _Window_SavefileList_drawTitle.apply(this, arguments);
+    const info = DataManager.savefileInfo(savefileId);
+    if (info && info.haiLabel) this.drawText(recordFormat.replace("%1", info.haiLabel), x + 180, y, 240);
+  };
+
+  // ---------------------------------------------------------------------------
   // 窓口
   // ---------------------------------------------------------------------------
   /** 目の前か足元の結界のイベント。 */
@@ -405,6 +476,8 @@
       return destinations().map(d => ({ ...d }));
     },
     warpTo,
+    recordSlot,
+    saveRecord,
     /** 転送の一覧に行き先を足す関数を登録する。fn() は [{name, mapId, x, y, d}]（着く所はその座標のまま）。 */
     addSource(fn) {
       if (typeof fn === "function") sources.push(fn);

@@ -32,6 +32,9 @@
  *   メモ欄の色調に「縄張りの色調の差」を足し、霧の濃さに「縄張りの霧」を足す（霧の無いマップにも薄い霧が出る）。
  *   地域は $gameSystem に持つ（セーブに入る）。「lairReset」で戻す（4 つ目の鐘のあと）。マップのメモ欄は書き換えない。
  *
+ * 灰を止める（P14）：頂の三十のあと、プラグインコマンド「灰を止める」（stopAsh）で、どのマップの <hai_ash> も降らなくなる
+ *   （$gameSystem に持つのでセーブに入る。「ash」で変えた強さも無視する）。パラメータ「灰が止むスイッチ」が ON の間も同じ。
+ *
  * 暗がりは、画面の 1/4 の大きさの絵（中心が透明な黒）を 1 回だけ描き、4 倍に拡大してプレイヤーに付いて動かす。
  * 毎フレームの描き直しはしない（半径・濃さ・画面の大きさが変わったときだけ描き直す）。
  *
@@ -70,6 +73,12 @@
  * @min 0
  * @max 255
  * @default 50
+ *
+ * @param ashStopSwitch
+ * @text 灰が止むスイッチ
+ * @desc ON の間、どのマップの <hai_ash> も降らない（朝の砦。0 で使わない）。
+ * @type switch
+ * @default 1165
  *
  * @command dark
  * @text 暗がりの半径を変える
@@ -116,6 +125,14 @@
  * @command ashReset
  * @text 降る灰をメモ欄の値に戻す
  *
+ * @command stopAsh
+ * @text 灰を止める
+ * @desc 頂の三十のあと。これから先、どのマップの <hai_ash> も降らない（セーブに入る）。
+ *
+ * @command resumeAsh
+ * @text 灰を戻す
+ * @desc 「灰を止める」を取り消す（試し用）。
+ *
  * @command lair
  * @text 縄張りの地域を決める
  * @desc 門叩きが縄張りを広げた地域（3 つ目の鐘のあと、まだ鳴っていない地域）。その地域のマップの色調が暗くなり、霧が出る。
@@ -152,6 +169,7 @@
     .split(",")
     .map(s => Number(s.trim()) || 0);
   const lairFog = Number(params.lairFog ?? 50);
+  const ashStopSwitch = Number(params.ashStopSwitch ?? 1165);
 
   /** 「名前:始め-終わり,…;…」→ { 名前: [[始め, 終わり], …] } */
   function parseAreas(text) {
@@ -256,6 +274,12 @@
     }
   }
 
+  /** 灰が止んだか（P14）。 */
+  function isAshStopped() {
+    if (!$gameSystem) return false;
+    return !!state().ashStopped || (ashStopSwitch > 0 && !!$gameSwitches && $gameSwitches.value(ashStopSwitch));
+  }
+
   window.Hai = window.Hai || {};
   Hai.MapTone = {
     parseTone,
@@ -277,7 +301,7 @@
     },
     /** 今のマップの降る灰 { power }（無ければ null）。プラグインコマンドで変えた強さを含む。 */
     ash() {
-      if (!$gameMap || !$dataMap) return null;
+      if (!$gameMap || !$dataMap || isAshStopped()) return null;
       const override = $gameMap._haiAshPower;
       if (override === undefined || override === null) return parseAsh($dataMap.meta);
       return override > 0 ? { power: override } : null;
@@ -302,7 +326,9 @@
     },
     /** 今のマップが縄張りになった地域か（色調と霧が足されているか）。 */
     lairHere: () => !!lairHere(),
-    params: { darkOpacity, darkSoftness, lairAreas, lairTone, lairFog },
+    /** 灰が止んだか（「灰を止める」のあとか、灰が止むスイッチが ON）。 */
+    isAshStopped: () => isAshStopped(),
+    params: { darkOpacity, darkSoftness, lairAreas, lairTone, lairFog, ashStopSwitch },
   };
 
   PluginManager.registerCommand(pluginName, "dark", args => {
@@ -322,6 +348,12 @@
   });
   PluginManager.registerCommand(pluginName, "ashReset", () => {
     $gameMap._haiAshPower = null;
+  });
+  PluginManager.registerCommand(pluginName, "stopAsh", () => {
+    state().ashStopped = true;
+  });
+  PluginManager.registerCommand(pluginName, "resumeAsh", () => {
+    delete state().ashStopped;
   });
   PluginManager.registerCommand(pluginName, "lair", args => {
     const area = String(args.area || "").trim();
