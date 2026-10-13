@@ -15,10 +15,17 @@
  *   - 戦闘：ログの待ち（messageSpeed）を半分に、アニメーションを 2 倍の速さにする。
  *   押していないときは通常の速さ。OFF でも MZ の既定の早送り（戦闘ログの待ちを 3 倍で減らす）は残る。
  *
+ * 結末を見た（P14。二周目の早送り）
+ *   記録をまたぐ全体の旗。「結末のスイッチ」（既定 1159）が ON になると立ち、config.rmmzsave に入る
+ *   （どの記録をロードしても、ニューゲームでも残る）。プラグインコマンド「結末を見た」でも立つ。
+ *   頂の三十で「早送り」の選択肢を出すかは、条件分岐のスクリプト Hai.Comfort.endingSeen() で読む。
+ *
  * 窓口（window.Hai.Comfort）
  *   get(name)              "instantText" / "fastForward" の今の値
  *   set(name, value)       値を変える（ConfigManager に入る。保存は ConfigManager.save()）
  *   isFastForward()        いま早送り中か（ON で、キーを押し続けている）
+ *   endingSeen()           結末を見たことがあるか（記録をまたぐ）
+ *   markEndingSeen()       結末を見た旗を立てる（config に保存する）
  *
  * @param instantText
  * @text 瞬間表示の名前
@@ -43,6 +50,16 @@
  * @min 1
  * @max 4
  * @default 2
+ *
+ * @param endingSwitch
+ * @text 結末のスイッチ
+ * @desc このスイッチが ON になったら「結末を見た」の旗を立てる（記録をまたぐ）。0 で見ない。
+ * @type switch
+ * @default 1159
+ *
+ * @command markEndingSeen
+ * @text 結末を見た
+ * @desc 記録をまたぐ「結末を見た」の旗を立てる（結末のスイッチを ON にしても立つ）。
  */
 (() => {
   "use strict";
@@ -52,6 +69,7 @@
   const fastForwardName = String(params.fastForward || "早送り");
   const battleWaitRate = Math.max(1, Math.min(100, Number(params.battleWaitRate || 50))) / 100;
   const animationRate = Math.max(1, Math.floor(Number(params.animationRate || 2)));
+  const endingSwitch = Number(params.endingSwitch ?? 1159);
 
   // 窓口の名前 → ConfigManager の欄
   const KEYS = { instantText: "haiInstantText", fastForward: "haiFastForward" };
@@ -62,12 +80,14 @@
   // ---------------------------------------------------------------------------
   ConfigManager.haiInstantText = DEFAULTS.haiInstantText;
   ConfigManager.haiFastForward = DEFAULTS.haiFastForward;
+  ConfigManager.haiEndingSeen = false; // 結末を見た（記録をまたぐ全体の旗。オプションの画面には出さない）
 
   const _ConfigManager_makeData = ConfigManager.makeData;
   ConfigManager.makeData = function() {
     const config = _ConfigManager_makeData.apply(this, arguments);
     config.haiInstantText = this.haiInstantText;
     config.haiFastForward = this.haiFastForward;
+    config.haiEndingSeen = this.haiEndingSeen;
     return config;
   };
 
@@ -76,6 +96,7 @@
     _ConfigManager_applyData.apply(this, arguments);
     this.haiInstantText = this.readFlag(config, "haiInstantText", DEFAULTS.haiInstantText);
     this.haiFastForward = this.readFlag(config, "haiFastForward", DEFAULTS.haiFastForward);
+    this.haiEndingSeen = this.readFlag(config, "haiEndingSeen", false);
   };
 
   const _Window_Options_addGeneralOptions = Window_Options.prototype.addGeneralOptions;
@@ -172,6 +193,33 @@
   };
 
   // ---------------------------------------------------------------------------
+  // 結末を見た（P14）
+  // ---------------------------------------------------------------------------
+  function markEndingSeen() {
+    if (ConfigManager.haiEndingSeen) return false;
+    ConfigManager.haiEndingSeen = true;
+    ConfigManager.save();
+    return true;
+  }
+
+  const _Game_Switches_setValue = Game_Switches.prototype.setValue;
+  Game_Switches.prototype.setValue = function(switchId, value) {
+    _Game_Switches_setValue.apply(this, arguments);
+    if (endingSwitch > 0 && switchId === endingSwitch && value) markEndingSeen();
+  };
+
+  // 結末のあとの記録をロードしたときも立てる（旗の無い config で遊んだ記録）
+  const _DataManager_extractSaveContents = DataManager.extractSaveContents;
+  DataManager.extractSaveContents = function() {
+    _DataManager_extractSaveContents.apply(this, arguments);
+    if (endingSwitch > 0 && $gameSwitches.value(endingSwitch)) markEndingSeen();
+  };
+
+  PluginManager.registerCommand(pluginName, "markEndingSeen", () => {
+    markEndingSeen();
+  });
+
+  // ---------------------------------------------------------------------------
   // 窓口
   // ---------------------------------------------------------------------------
   function keyOf(name) {
@@ -192,5 +240,10 @@
     },
     /** いま早送り中か。 */
     isFastForward,
+    /** 結末を見たことがあるか（記録をまたぐ。今の記録で結末のスイッチが ON でも true）。 */
+    endingSeen: () => !!ConfigManager.haiEndingSeen || (endingSwitch > 0 && !!$gameSwitches && $gameSwitches.value(endingSwitch)),
+    /** 結末を見た旗を立てる。新しく立てたら true。 */
+    markEndingSeen,
+    params: { endingSwitch },
   };
 })();
