@@ -88,6 +88,63 @@
   "stamps": [],
   "events": [
     {
+      "name": "W17 アンセルモの一言（自動）",
+      "type": "raw",
+      "x": 0,
+      "y": 0,
+      "note": "",
+      "pages": [
+        {
+          "conditions": {
+            "actorId": 9,
+            "actorValid": true
+          },
+          "priorityType": 0,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アンセルモ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "内は、こうなっとったか"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
       "name": "南の口（水門へ）",
       "type": "transfer",
       "x": 24,
@@ -205,6 +262,49 @@
               "indent": 1,
               "parameters": [
                 "王さまは、民を守った。扉は、その日の日没に閉じた。村では、そう教える"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "村の長"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "ただのう。わしの代になってから、"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "扉の外で、戸を叩く音が増えた。三度ずつ。夜に"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "村の長"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "村の者には言うておらん"
               ]
             },
             {
@@ -472,6 +572,78 @@
               ]
             },
             {
+              "code": 111,
+              "indent": 3,
+              "parameters": [
+                0,
+                519,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "閂は三本のはずだった。いちばん上の一本が、受けから外れている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "長はそれを見て、何も言わなかった。残りの二本を外した。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "長は三本の閂を、手で持ち上げて外した。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 3,
+              "parameters": []
+            },
+            {
               "code": 126,
               "indent": 3,
               "parameters": [
@@ -547,6 +719,61 @@
               "parameters": [
                 "text = 弔いの名簿を見せた。村の長は大扉の閂を外した（扉の内の村）"
               ]
+            },
+            {
+              "code": 111,
+              "indent": 3,
+              "parameters": [
+                4,
+                9,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アンセルモ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "ひとことで、ええんじゃ。……遅い"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "それから、アンセルモは笑った。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 3,
+              "parameters": []
             },
             {
               "code": 0,
@@ -831,6 +1058,186 @@
               "parameters": [
                 "閂の上に、子どもの字で「あけない」。"
               ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                2,
+                "B",
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゼリナ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "字は書けるんやな。うちの名簿の子らも、書けたやろか"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 2,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 519,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "!$Gate1",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 0
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "大扉の内側。太い閂が三本、渡してある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "いちばん上の一本が、受けから外れている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "閂の上に、子どもの字で「あけない」。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                2,
+                "B",
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゼリナ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "字は書けるんやな。うちの名簿の子らも、書けたやろか"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 2,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 0,
@@ -1173,6 +1580,13 @@
               "indent": 0,
               "parameters": [
                 "井戸番の女が、もう一杯、と言う。墓守は袖をまくって、また一から数えはじめる。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "女は、墓守の指を見ている。三十で桶が届き、指が、もう一本折れる。"
               ]
             },
             {

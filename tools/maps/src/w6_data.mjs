@@ -14,6 +14,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { readData, formatTable, dataPath, extendTable } from "../../data/io.mjs";
 import { SRC_DIR } from "../build.mjs";
+import { fortTableEvents, FORT_SWITCH_NAMES } from "./w17_parts.mjs"; // W17（#233）：砦の食卓の場面（イベント ID 61–70・スイッチ 180–185）
 
 const check = process.argv.includes("--check");
 const outputs = []; // [{ file, text }]
@@ -65,6 +66,7 @@ const SW = {
 };
 const VAR = { bells: 101, companions: 102, survivors: 103, faint: 138 };
 const SWITCH_NAMES = {
+  ...FORT_SWITCH_NAMES, // 180–185（W17）
   101: "鐘:営倉", 102: "鐘:記録院", 103: "鐘:水底", 104: "鐘:鋳物場", 105: "鐘:四つ鳴った",
   106: "3つ目の鐘の場面", 107: "ミルレーネに会った", 108: "最後の地域の山場", 109: "頂への門:開", 110: "名前が戻った",
   111: "目覚めた", 112: "炉に火を入れた", 113: "名の壁を調べた", 114: "営倉の鉄扉:開",
@@ -484,6 +486,13 @@ const keepEvents = [
   roomDoor("smithy"),
   roomDoor("watch"),
   ironDoor,
+  // W17（#233）：砦の食卓の場面（台本 docs/story/scenes/03-region3-region4.md の 4・17・23）。ID 61–70（配り役の割り当て）
+  ...fortTableEvents({
+    zelina: [29, 28], // 炉から三つ目、壁の側の席（ヴォルフラムの先に盛る一椀の席。東の卓の椅子）
+    tula: [30, 28], // ゼリナの隣
+    beam: [23, 30], // 梁の下（シャノの席 (22,30) の脇）
+    auto1: [18, 26], auto2: [19, 26], auto3: [20, 26], auto4: [33, 26], auto5: [33, 32], auto6: [32, 32], auto7: [18, 32], // 自動の場面（見えない）
+  }).map(([id, e]) => ({ ...e, id })),
 ];
 if (keepEvents[SHANO_HIDE_ID - 1] !== shanoHide) throw new Error("シャノ（柱の陰）の ID がずれた");
 

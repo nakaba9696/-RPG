@@ -293,17 +293,128 @@
     },
     {
       "name": "方舟の触れ書き",
-      "type": "text",
+      "type": "raw",
       "x": 19,
       "y": 10,
-      "lines": [
-        "杭に打ち付けた板。騎士団の触れ書き。",
-        "「方舟。札を持つ者、夕べに舟着きへ。子と、その母を先に」",
-        "「その母を」の上に、別の墨で線が一本。"
-      ],
-      "image": {
-        "tileId": "B:138"
-      }
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "tileId": "B:138"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "杭に打ち付けた板。騎士団の触れ書き。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "「方舟。札を持つ者、夕べに舟着きへ。子と、その母を先に」"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "「その母を」の上に、別の墨で線が一本。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                7,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                2,
+                "B",
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ディル"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "四十人分の札で、十四人の舟か。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "記録院なら、刷った方が首だな"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 2,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "思念 R3-01 札を刷った兵",
@@ -1074,6 +1185,43 @@
               ]
             },
             {
+              "code": 111,
+              "indent": 2,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "……鈴が、逃げました"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 2,
+              "parameters": []
+            },
+            {
               "code": 121,
               "indent": 2,
               "parameters": [
@@ -1321,6 +1469,43 @@
               "parameters": [
                 "鈴の音が、それを追って湖の方へ離れていった。"
               ]
+            },
+            {
+              "code": 111,
+              "indent": 2,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "……鈴が、逃げました"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 2,
+              "parameters": []
             },
             {
               "code": 121,
@@ -1572,6 +1757,43 @@
               ]
             },
             {
+              "code": 111,
+              "indent": 2,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "……鈴が、逃げました"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 2,
+              "parameters": []
+            },
+            {
               "code": 121,
               "indent": 2,
               "parameters": [
@@ -1819,6 +2041,43 @@
               "parameters": [
                 "鈴の音が、それを追って湖の方へ離れていった。"
               ]
+            },
+            {
+              "code": 111,
+              "indent": 2,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "……鈴が、逃げました"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 2,
+              "parameters": []
             },
             {
               "code": 121,
@@ -2231,21 +2490,131 @@
     },
     {
       "name": "思念 R3-02 舟から降ろされた男",
-      "type": "text",
+      "type": "raw",
       "x": 63,
       "y": 14,
       "note": "<hai_thought:R3-02>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "籠を担いで舟に乗った。酒保の女が、籠だけ受け取って、俺を降ろした。",
-        "子どもが十四。大人は漕ぎ手の二人だけだと。",
-        "籠には、俺の娘の靴が入っていた。娘は乗っていた。",
-        "岸で数えた。灯が見えなくなるまでに、三十を九回。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "籠を担いで舟に乗った。酒保の女が、籠だけ受け取って、俺を降ろした。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "子どもが十四。大人は漕ぎ手の二人だけだと。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "籠には、俺の娘の靴が入っていた。娘は乗っていた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "岸で数えた。灯が見えなくなるまでに、三十を九回。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                7,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                2,
+                "B",
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ディル"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "九回。二百七十。舟が遅いのか、目がいいのか"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 2,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
       ]
     },
     {
@@ -3214,12 +3583,110 @@
     },
     {
       "name": "刻みの杭",
-      "type": "text",
+      "type": "raw",
       "x": 72,
       "y": 53,
-      "lines": [
-        "杭に、刃物の刻みが十四。子どもの背の高さに揃えて刻んである。",
-        "いちばん下の刻みの横に、小さな字で「ついた」。"
+      "note": "",
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "杭に、刃物の刻みが十四。子どもの背の高さに揃えて刻んである。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "いちばん下の刻みの横に、小さな字で「ついた」。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                2,
+                "B",
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゼリナ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "人の村て、どこや"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 2,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
       ]
     },
     {
@@ -3325,7 +3792,7 @@
       "type": "raw",
       "x": 12,
       "y": 36,
-      "note": "<hai_enemy:501,green><hai_enemy_chase:3><hai_enemy_hesitate>",
+      "note": "<hai_enemy:501,green><hai_enemy_chase:3><hai_enemy_hesitate><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -3347,7 +3814,7 @@
       "type": "raw",
       "x": 15,
       "y": 34,
-      "note": "<hai_enemy:501,green><hai_enemy_chase:3><hai_enemy_hesitate>",
+      "note": "<hai_enemy:501,green><hai_enemy_chase:3><hai_enemy_hesitate><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -3369,7 +3836,7 @@
       "type": "raw",
       "x": 9,
       "y": 41,
-      "note": "<hai_enemy:501,green><hai_enemy_chase:3><hai_enemy_hesitate>",
+      "note": "<hai_enemy:501,green><hai_enemy_chase:3><hai_enemy_hesitate><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -3391,7 +3858,7 @@
       "type": "raw",
       "x": 36,
       "y": 12,
-      "note": "<hai_enemy:502,green><hai_enemy_hesitate>",
+      "note": "<hai_enemy:502,green><hai_enemy_hesitate><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -3413,7 +3880,7 @@
       "type": "raw",
       "x": 44,
       "y": 4,
-      "note": "<hai_enemy:502,green><hai_enemy_hesitate>",
+      "note": "<hai_enemy:502,green><hai_enemy_hesitate><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -3435,7 +3902,7 @@
       "type": "raw",
       "x": 16,
       "y": 21,
-      "note": "<hai_enemy:503,yellow><hai_enemy_chase:5>",
+      "note": "<hai_enemy:503,yellow><hai_enemy_chase:5><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -3457,7 +3924,7 @@
       "type": "raw",
       "x": 6,
       "y": 50,
-      "note": "<hai_enemy:503,yellow><hai_enemy_chase:5>",
+      "note": "<hai_enemy:503,yellow><hai_enemy_chase:5><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -3479,7 +3946,7 @@
       "type": "raw",
       "x": 58,
       "y": 10,
-      "note": "<hai_enemy:504,yellow>",
+      "note": "<hai_enemy:504,yellow><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -3501,7 +3968,7 @@
       "type": "raw",
       "x": 27,
       "y": 21,
-      "note": "<hai_enemy:505,red><hai_enemy_chase:3>",
+      "note": "<hai_enemy:505,red><hai_enemy_chase:3><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -3523,7 +3990,7 @@
       "type": "raw",
       "x": 72,
       "y": 49,
-      "note": "<hai_enemy:504,yellow>",
+      "note": "<hai_enemy:504,yellow><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
