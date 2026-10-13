@@ -4,7 +4,7 @@
 //   node tools/maps/src/w15_story.mjs --check   書かずに、今のファイルと同じかだけ見る（違えば終了コード 1）
 // 何度走らせても同じ結果になる（直すイベントは名前で引いて中身を丸ごと置き換え、足すイベントは名前で引いて無ければ末尾に足す）。
 // 直すもの：
-//   020 R1-01 の切り方、夜の戸（木樵の小屋の土間・声だけの影・言い残し L1-01）
+//   020 R1-01 の切り方、夜の戸（木樵の小屋の土間・声だけの影。言い残しはスイッチ 314 で P14 の表が出す）
 //   021 巡礼の切り方と二ページ目、鐘鳴りの籠手の調べた文
 //   024 ヴォルフラムの切り方
 //   026 拾い屋の見張り（五行を二行に・二ページ目を削除）、アデル（「……」を一つに・ブルーノの二行・頼みごと「頂の道具」）、昇降機のブルーノの一行
@@ -148,27 +148,12 @@ upsert(forest, {
     },
   ],
 });
-// 言い残し：影を倒したら既読に（Hai_Thoughts。頂の二十八で読む。書庫の見出し「言い残し」は P の器）
-const shadeBeaten = `$gameMap.events().some(e => e.event().name === "${SHADE_NAME}" && $gameSelfSwitches.value([$gameMap.mapId(), e.eventId(), "A"]))`;
-upsert(forest, {
-  name: "言い残し（木樵の女房）", type: "raw", x: 0, y: 0,
-  pages: [
-    { priorityType: 0 },
-    {
-      conditions: { switch1Id: SW.nightDoor, switch1Valid: true }, priorityType: 0, trigger: 4,
-      list: [
-        cmd(111, [12, shadeBeaten]),
-        ...plugin("Hai_Thoughts", "markRead", "思念を既読にする", { id: "L1-01" }, 1),
-        ...plugin("Hai_Thoughts", "addNote", "メモに足す", { text: `言い残し：${WIFE_LINE}（木樵の小屋）`, id: "L1-01", kind: "clue" }, 1),
-        selfOn("A", 1),
-        ...ENDIF(),
-        cmd(230, [10]),
-        END,
-      ],
-    },
-    { conditions: { switch1Id: SW.nightDoor, switch1Valid: true, selfSwitchCh: "A", selfSwitchValid: true }, priorityType: 0 },
-  ],
-});
+// 言い残しは P14 の Hai_Thoughts の表（スイッチ 314 の行）が持つ。W は答えたときにスイッチ 314 を立てるだけ（文を二か所に書かない）。
+// 前の版で足した見張りのイベントは消す
+{
+  const i = forest.events.findIndex(e => e.name === "言い残し（木樵の女房）");
+  if (i >= 0) forest.events.splice(i, 1);
+}
 
 // ===========================================================================
 // 021 古い礼拝堂
