@@ -309,6 +309,11 @@ await runTest(async () => {
     check(lore2[0].startsWith("読んだ思念") && lore2[1].startsWith("戻った記憶"), "読んだ思念・戻った記憶の数 " + JSON.stringify(lore2));
     await game.press("ArrowDown");
     await game.frames(6);
+    // P14：言い残し（拾っていなければ何も並ばない）。中身は p_hooks で見る
+    const legacy = await game.eval(() => SceneManager._scene._pageWindow.lines());
+    check(Array.isArray(legacy) && legacy.length === 0, "拾っていない言い残しが出た " + JSON.stringify(legacy));
+    await game.press("ArrowDown");
+    await game.frames(6);
     const lore3 = await game.eval(() => SceneManager._scene._pageWindow.lines());
     check(lore3[0].includes("写し"), "写しの読み比べ " + JSON.stringify(lore3));
     await closeScene();

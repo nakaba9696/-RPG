@@ -37,6 +37,7 @@
 | `lairAreas` | 縄張りの地域 | `west:60-64,80-84,110-124;south:70-74,100-105;east:50-54,90-94` | 地域の名前とマップ ID の範囲（`名前:始め-終わり,…` を `;` で区切る）。west＝西の谷と麦の街道・修道院（記録院の鐘）、south＝南の水（水底の鐘）、east＝東の山（鋳物場の鐘）。推しの理由は [../look.md](../look.md) 3.4 |
 | `lairTone` | 縄張りの色調の差 | `-51,-51,-34,51` | 縄張りになった地域で、メモ欄の色調に足す値 |
 | `lairFog` | 縄張りの霧 | 50 | 縄張りになった地域で、霧の濃さに足す値（0 で足さない） |
+| `ashStopSwitch` | 灰が止むスイッチ | 1165 | ON の間、どのマップの `<hai_ash>` も降らない（朝の砦。W14 が作るスイッチ。0 で使わない。P14） |
 
 ## プラグインコマンド
 | コマンド | 引数 | 中身 |
@@ -49,12 +50,15 @@
 | `ashReset`「降る灰をメモ欄の値に戻す」 | なし | |
 | `lair`「縄張りの地域を決める」 | `area`（`west`・`south`・`east`） | 3 つ目の鐘のあと、まだ鳴っていない地域を門叩きの縄張りにする（W11 のイベントから）。その地域のマップの色調が暗くなり、霧が出る。セーブに入る（`$gameSystem._hai.mapTone.lair`） |
 | `lairReset`「縄張りを消す」 | なし | 4 つ目の鐘を鳴らして門叩きが退いたとき |
+| `stopAsh`「灰を止める」 | なし | 頂の三十のあと（04-climax 5.8、P14）。これから先、どのマップの `<hai_ash>` も降らない。`ash` で変えた強さも無視する。セーブに入る（`$gameSystem._hai.mapTone.ashStopped`） |
+| `resumeAsh`「灰を戻す」 | なし | `stopAsh` を取り消す（試し用） |
 
 イベントの命令では `357` に `["Hai_MapTone", "dark", "暗がりの半径を変える", {"radius": "2"}]`。
 
 ## 状態
 - `$gameSystem._hai.mapTone.applied`：このプラグインが今掛けている色調（無ければ `null`）。セーブに入る。古いセーブには無いので、読むときに作る。
 - `$gameSystem._hai.mapTone.lair`：縄張りになった地域の名前（無ければ `null` か無い）。セーブに入る。
+- `$gameSystem._hai.mapTone.ashStopped`：「灰を止める」のあと `true`（無ければ降る）。セーブに入る。
 - `$gameMap._haiDarkRadius`：プラグインコマンドで変えた暗がりの半径（`null` ならメモ欄のまま）。マップに入るたびに `null` に戻る。
 - `$gameMap._haiFogDensity`・`$gameMap._haiAshPower`：プラグインコマンドで変えた霧の濃さ・灰の強さ（同上）。
 
@@ -64,12 +68,13 @@
 | `dark()` | 今のマップの暗がり `{ radius, opacity }`（無ければ `null`）。コマンドで変えた値を含む |
 | `appliedTone()` | このプラグインが掛けている色調（無ければ `null`） |
 | `fog()` | 今のマップの霧 `{ density, sx, sy }`（無ければ `null`）。コマンドで変えた値を含む |
-| `ash()` | 今のマップの降る灰 `{ power }`（無ければ `null`）。コマンドで変えた値を含む |
+| `ash()` | 今のマップの降る灰 `{ power }`（無ければ `null`）。コマンドで変えた値を含む。灰が止んでいれば `null` |
+| `isAshStopped()` | 灰が止んだか（`stopAsh` のあとか、灰が止むスイッチが ON。P14） |
 | `parseTone(meta)`・`parseParallax(meta)`・`parseDark(meta)`・`parseFog(meta)`・`parseAsh(meta)` | メモ欄（`$dataMap.meta`）からタグを読む |
 | `areaOf(mapId)` | そのマップの地域の名前（`lairAreas`。どこにも入らなければ `null`） |
 | `lair()` | 縄張りになった地域の名前（無ければ `null`） |
 | `lairHere()` | 今のマップが縄張りになった地域か |
-| `params` | `{ darkOpacity, darkSoftness, lairAreas, lairTone, lairFog }` |
+| `params` | `{ darkOpacity, darkSoftness, lairAreas, lairTone, lairFog, ashStopSwitch }` |
 
 ## W レーンがマップに雰囲気を付ける手順
 1. [../look.md](../look.md) の 2 章でタイルセットを選び、文字マップの設定（`tools/maps/src/<名前>.json`）に `"legend"` と `"tilesetId"` を書く（A〜C がダンジョンの 11・13・14・17・18・22・23 は凡例 `dungeon` がそのまま使える。24 は `highway`、25 は `monastery`）。

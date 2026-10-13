@@ -14,6 +14,7 @@ VISION.md の核 5「仲間は死者の霊。遺骸を見つけ、拠点で呼�
 | `<hai_remains:5>` | 遺骸か形見のイベント | アクター 5 の遺骸か形見（ベルトランは形見の骨の剣） |
 | `<hai_memory:5,2>` | 記憶の断片のイベント | アクター 5 の記憶の 2 番目（1 生い立ち・2 転機・3 罪か誇り・4 臨終） |
 | `<hai_wake:……>` | アクター（`Actors.json`） | 呼んで目覚めたときの一言（顔と名前つきで出す。無ければ出さない。`>` は書けない）。**初対面の言い方**（6.6） |
+| `<hai_down:……>` | アクター（`Actors.json`） | 戦闘で倒れたときの一言（P14）。戦闘ログの「〜は倒れた。」のあとに「ブルーノ「……数えてください」」（`downFormat`）。今はブルーノ（5）だけ（scenes/01 の十三）。`>` は書けない |
 | `<hai_complete:5>` | スキル（`Skills.json`） | アクター 5 が完全体で覚える強技。**完全体のほかでは覚えない**（職業の習得表・レベルアップ・イベントの「スキルの増減」でも覚えない） |
 | `<hai_user_state:193>` | スキル（`Skills.json`） | 戦闘でこのスキルを使った者に、ステート 193 を付ける（檻破り：味方を起こし、自分が狙われる）。戦闘の外では付けない |
 | `<hai_vow>` | ステート（`States.json`） | このステートの者が、味方への物理攻撃の身代わりになる（行軍） |
@@ -124,6 +125,7 @@ list を「プラグインコマンド Hai_Companions → 名の壁で呼ぶ」�
 | `maxBattleMembers` | 戦闘に出る人数 | 4 |
 | `remainsMessage`・`remainsSe` | 遺骸か形見を見つけたときの文章・効果音 | `名の壁の輪に置けば、この人を呼べる。`・Teleport |
 | `fragmentNames` | 記憶の断片の名前 | `生い立ち,転機,罪か誇り,臨終` |
+| `downFormat` | 倒れたときの一言の形（`%1` 名前、`%2` 一言） | `%1「%2」` |
 | `memoryNote`・`memoryMessage`・`noteSe` | 記憶のメモの一行・本文の後の行・効果音 | `%1の記憶 %2/4「%3」`・`\C[6]メモ：\C[0]%1`・Book1 |
 | `completeMessage`・`completeSe` | 完全体の知らせ・効果音 | `…%1は完全体になった！…\n強技「%2」を覚えた。`・Saint5 |
 | `summonPrompt`・`summonNone`・`summonCancel`・`summonSe`・`awakeMessage` | 名の壁の文言・効果音 | 上の「プラグインコマンド」・`%1が目を開けた。` |
@@ -142,6 +144,7 @@ list を「プラグインコマンド Hai_Companions → 名の壁で呼ぶ」�
 | `learnMemory(actorId, n)` | 記憶を覚える（演出・メモなし。テスト用） |
 | `canSwap(i, j)` | 編成でこの 2 人を入れ替えられるか |
 | `completeSkill(actorId)` | 完全体で覚える強技（`$dataSkills` の要素か `null`） |
+| `downLine(actorId)` | 倒れたときの一言（`<hai_down>`。無ければ `""`。P14） |
 | `maxBattleMembers` | 戦闘に出る人数（数。関数ではない） |
 
 ## 状態（セーブに入る）
