@@ -632,7 +632,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "\\I[205]見張り塔の小鐘を手に入れた！"
+                "\\I[205]見張り塔の小鐘を手に入れた。"
               ]
             },
             {
@@ -798,7 +798,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "\\I[176]気付け薬を手に入れた！"
+                "\\I[176]気付け薬を手に入れた。"
               ]
             },
             {
@@ -935,7 +935,7 @@
               "code": 401,
               "indent": 1,
               "parameters": [
-                "\\I[197]砦の名札を手に入れた！"
+                "\\I[197]砦の名札を手に入れた。"
               ]
             },
             {
@@ -1087,7 +1087,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "\\I[177]毒消し×2を手に入れた！"
+                "\\I[177]毒消し×2を手に入れた。"
               ]
             },
             {
@@ -1183,7 +1183,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "\\I[179]秘薬を手に入れた！"
+                "\\I[179]秘薬を手に入れた。"
               ]
             },
             {
@@ -1296,7 +1296,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "薬草を手に入れた！"
+                "薬草を手に入れた。"
               ]
             },
             {
@@ -1404,7 +1404,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "\\I[176]霊水を手に入れた！"
+                "\\I[176]霊水を手に入れた。"
               ]
             },
             {
@@ -1712,7 +1712,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "\\I[176]薬草×2を手に入れた！"
+                "\\I[176]薬草×2を手に入れた。"
               ]
             },
             {
@@ -1825,7 +1825,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "薬草を手に入れた！"
+                "薬草を手に入れた。"
               ]
             },
             {
@@ -1913,7 +1913,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "苦い根を手に入れた！"
+                "苦い根を手に入れた。"
               ]
             },
             {
@@ -2001,7 +2001,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "薬草を手に入れた！"
+                "薬草を手に入れた。"
               ]
             },
             {
@@ -2588,7 +2588,7 @@
       "type": "raw",
       "x": 38,
       "y": 38,
-      "note": "<hai_enemy:336,yellow><hai_enemy_once><hai_enemy_shade:薪、三束。戸の脇に置いといたよ>",
+      "note": "<hai_enemy:336,yellow><hai_enemy_once><hai_enemy_shade:薪、三束。戸の脇に置いといたよ><hai_enemy_shade_quiet>",
       "pages": [
         {
           "priorityType": 0
@@ -2609,6 +2609,142 @@
           "moveType": 0,
           "moveFrequency": 5,
           "moveSpeed": 3
+        }
+      ]
+    },
+    {
+      "name": "夜の戸の後（自動）",
+      "type": "raw",
+      "x": 0,
+      "y": 0,
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 314,
+            "switch1Valid": true
+          },
+          "priorityType": 0,
+          "trigger": 4,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "$gameSelfSwitches.value([20, 46, \"A\"])"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 1,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 314,
+            "switch1Valid": true,
+            "selfSwitchCh": "B",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "影は、土間の上で崩れた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "灰が、戸板の下まで流れた。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_SymbolEnemy",
+                "shadeVoice",
+                "影の声を出す",
+                {
+                  "eventId": "46",
+                  "speaker": "木樵の女房"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "eventId = 46"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "speaker = 木樵の女房"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "C",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "C",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
         }
       ]
     }

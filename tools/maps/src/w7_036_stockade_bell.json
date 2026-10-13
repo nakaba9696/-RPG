@@ -772,7 +772,7 @@
               "code": 401,
               "indent": 3,
               "parameters": [
-                "\\I[196]当番の札（営倉）を手に入れた！"
+                "\\I[196]当番の札（営倉）を手に入れた。"
               ]
             },
             {
@@ -1301,7 +1301,7 @@
               "code": 401,
               "indent": 3,
               "parameters": [
-                "\\I[196]当番の札（営倉）を手に入れた！"
+                "\\I[196]当番の札（営倉）を手に入れた。"
               ]
             },
             {
@@ -1510,15 +1510,95 @@
     },
     {
       "name": "札掛け",
-      "type": "text",
+      "type": "raw",
       "x": 18,
       "y": 4,
-      "image": {
-        "tileId": "B:178"
-      },
-      "lines": [
-        "札掛けの釘は四本。",
-        "札の掛かっていた跡が、四つとも同じ色に焼けている。"
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "tileId": "B:178"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "札掛けの釘は四本。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "札の掛かっていた跡が、四つとも同じ色に焼けている。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                8,
+                323
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "札は一枚。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
       ]
     },
     {

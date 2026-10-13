@@ -50,7 +50,7 @@ const shift = (list, by) => list.map(c => ({ ...c, indent: c.indent + by }));
 const BRUNO = 5; // アクター 5（パーティにいる）
 const KEEPER = "\\N[1]"; // 墓守（主人公の一行）
 const SW = { bellPrison: 101, bellFirst: 310, nightDoor: 314 };
-const VAR = { bells: 101, survivors: 103, prisonBell: 165, bellIron: 301 };
+const VAR = { bells: 101, survivors: 103, faint: 138, prisonBell: 165, bellIron: 301 };
 const ITEM = { dutyTag: 323, graveLedger: 326, archiveTag: 429 };
 const TROOP = { nightShade: 336 };
 const ENEMY_BELL = `<hai_enemy_bell:${SW.bellPrison}>`; // 鳴らした地域の敵は追わず、東を向いて止まる（P14 #230）
@@ -139,7 +139,8 @@ upsert(forest, {
 // 声だけの影（W11 の 701 と同じ型）。答えたら出る。一度きり。倒すと一行の声を残す（Hai_SymbolEnemy）
 upsert(forest, {
   name: SHADE_NAME, type: "raw", x: SHADE.x, y: SHADE.y,
-  note: `<hai_enemy:${TROOP.nightShade},yellow><hai_enemy_once><hai_enemy_shade:${WIFE_LINE}>`,
+  // W19（#263。R2 気になる 12）：倒しても一行を出さない（<hai_enemy_shade_quiet>）。一行は下の「夜の戸の後（自動）」が、崩れる文のあとに話し手の名つきで出す
+  note: `<hai_enemy:${TROOP.nightShade},yellow><hai_enemy_once><hai_enemy_shade:${WIFE_LINE}><hai_enemy_shade_quiet>`,
   pages: [
     { priorityType: 0 },
     {
@@ -149,6 +150,32 @@ upsert(forest, {
     },
   ],
 });
+// W19（#263。R2 気になる 12）：影を倒したあと「崩れる → 声（話し手の名つき）」の順に出す（P17 #257 の shadeVoice。060 の夜の戸の後と同じ作り）。
+// 影の勝ちはセルフスイッチ A（Hai_SymbolEnemy）なので、並列のページで見て自分の B を立て、B で自動実行。出し終えたら C。
+// 置き場所は地図の左上の木 (0,0)（散らしの床でないマス。散らしの乱数の並びを変えない）
+{
+  const shadeId = forest.events.findIndex(e => e.name === SHADE_NAME) + 1;
+  upsert(forest, {
+    name: "夜の戸の後（自動）", type: "raw", x: 0, y: 0,
+    pages: [
+      { priorityType: 0 },
+      {
+        conditions: { switch1Id: SW.nightDoor, switch1Valid: true }, priorityType: 0, trigger: 4,
+        list: [cmd(111, [12, `$gameSelfSwitches.value([20, ${shadeId}, "A"])`]), selfOn("B", 1), ...ENDIF(), END],
+      },
+      {
+        conditions: { switch1Id: SW.nightDoor, switch1Valid: true, selfSwitchCh: "B", selfSwitchValid: true }, priorityType: 0, trigger: 3,
+        list: [
+          ...say(["影は、土間の上で崩れた。", "灰が、戸板の下まで流れた。"]),
+          ...plugin("Hai_SymbolEnemy", "shadeVoice", "影の声を出す", { eventId: String(shadeId), speaker: "木樵の女房" }),
+          selfOn("C"),
+          END,
+        ],
+      },
+      { conditions: { selfSwitchCh: "C", selfSwitchValid: true }, priorityType: 0 },
+    ],
+  });
+}
 // 言い残しは P14 の Hai_Thoughts の表（スイッチ 314 の行）が持つ。W は答えたときにスイッチ 314 を立てるだけ（文を二か所に書かない）。
 // 前の版で足した見張りのイベントは消す
 {
@@ -286,9 +313,18 @@ const gate = load("w7_028_mine_gate");
   }
   const f03 = ev(gate, "薄い思念 F03 坑夫の頭");
   const list = f03.pages[0].list;
-  const call = list.findIndex(c => c.code === 117);
+  const call = list.findIndex(c => c.code === 117 || (c.code === 111 && c.parameters[0] === 1 && c.parameters[1] === VAR.faint));
   f03.pages[0].list = [
-    ...list.slice(0, call + 1),
+    ...list.slice(0, call),
+    // W19（#263。R2 気になる 16）：四つ目の一言「墓守の帳面。全部、同じ手だ」（コモン 201）は、墓守の帳面（022）を持っているときだけ。
+    // 四つ目でなければ今のまま呼ぶ（一言の中身はコモン 201 が数で分ける）
+    ifVar(VAR.faint, 3),
+    ifItem(ITEM.graveLedger, 1),
+    cmd(117, [201], 2),
+    ...ENDIF(1),
+    ...ELSE(),
+    cmd(117, [201], 1),
+    ...ENDIF(),
     ifBruno(),
     ifItem(ITEM.graveLedger, 1),
     ...say(["あなたの、帳面ですか"], "ブルーノ", 2),
@@ -326,7 +362,9 @@ const cells = load("w7_033_stockade_cells");
         {
           conditions: { switch1Id: SW.bellPrison, switch1Valid: true }, priorityType: 0, trigger: 1,
           list: [
-            ...say(["房の影が、三つ、廊下に出ている。", "三つとも、同じ方を向いて立っている。"]),
+            // W19（#263。R2 気になる 22）：下り口の近くに影は見えないので、今見えている物でなく、通ってきた影のことにした
+            //（影を置くと散らしの床が変わる。場面表 十四 の二行の直し）
+            ...say(["追ってくる足音が、無い。", "途中の影は、どれも同じ方を向いて立っていた。"]),
             ifBruno(),
             ...say(["追って、来ません"], "ブルーノ", 1),
             ...say(["あの、みんな、"], "ブルーノ", 1),
@@ -383,7 +421,7 @@ const bellRoom = load("w7_036_stockade_bell");
     ...say(["壁の札掛けに、当番の札が一枚だけ残っている。"]),
     se("Item3"),
     cmd(126, [ITEM.dutyTag, 0, 0, 1]),
-    ...say(["\\I[196]当番の札（営倉）を手に入れた！"]),
+    ...say(["\\I[196]当番の札（営倉）を手に入れた。"]),
     // 記録院の札を先に持っているとき（scenes/02 の 3-27。084 側の三行と同じ）
     ifItem(ITEM.archiveTag),
     ...say(["営倉の札と、並べた。", "日付は、同じだった。"], "", 1),

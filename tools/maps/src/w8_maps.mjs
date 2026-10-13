@@ -920,6 +920,10 @@ const afterShade = (name, mapId, shadeId, answered, legacy, lines, legacyId) => 
     look("小屋の裏の小石", 24, 6, ["小石が積んである。数えると、帳面の印の無い名と同じ数。"]),
     look("寝台", 16, 5, ["寝台の藁は干したばかり。誰も寝ていない。"]),
   ];
+  // W19（#263。R2 気になる 26）：拾い物の表記を「薬草×2を手に入れた。」の形に。give() はほかの地図も使うので、023 の分だけここで直す
+  for (const e of events) for (const p of e.pages || []) for (const c of p.list || []) {
+    if (c.code === 401) c.parameters[0] = c.parameters[0].replace(/ ×(\d)/, "×$1").replace(/を手に入れた！$/, "を手に入れた。");
+  }
   config("w8_023_hospice", {
     _説明: "W8（#155）：森の療養小屋（docs/world.md 5.2・7.1）。ピピネル（話すと砦へ。スイッチ 411・生き残りの数）、療養小屋の帳面、湧き水（全回復）。西の林→021（W7 の東の白い花の先）。",
     mapId: 23, name: "森の療養小屋", displayName: "森の療養小屋",
