@@ -259,7 +259,7 @@ await runTest(async () => {
     check(has(back, "ブルーノ「……その巻き方は、違います") && has(back, "アデル「今のは試し"), "アデルの講義 " + JSON.stringify(back));
     check((await autorun()).length === 0, "自動実行がくり返す");
     await game.shot("after-bell");
-    await go(KEEP, 30, 26, 8);
+    await go(KEEP, 30, 27, 8); // 梁の上のシャノ (30,26) の隣から話す（W18 #258。前は真下のマスに乗らないと話せなかった）
     const beam = await talk();
     check(has(beam, "梁の上まで登った") && has(beam, "下は、人が多い"), "梁の上のシャノ " + JSON.stringify(beam));
     await game.eval(id => $gameParty.gainItem($dataItems[id], 1), ITEM.bellIron);
