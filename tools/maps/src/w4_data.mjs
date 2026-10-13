@@ -11,6 +11,11 @@ import path from "node:path";
 import { readData, formatTable, dataPath, extendTable } from "../../data/io.mjs";
 
 const check = process.argv.includes("--check");
+
+// 引退（P15 #250）：前の世界の生成。帯は新しい世界の w8_data.mjs・w9_data.mjs が書き直したので、走らせると今の data/ を壊す。
+// 書かずに、--check でも何も見ずに終える（どの生成をどの順で走らせ直しても data/ が今と同じになるように）。中身は控えとして残す。
+console.log("引退: tools/maps/src/w4_data.mjs（前の世界の生成。何も書かない）");
+process.exit(0);
 const outputs = []; // [{ file, text }]
 const writeTable = (name, array) => outputs.push({ file: dataPath(name), text: formatTable(array) });
 
