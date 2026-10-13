@@ -498,6 +498,9 @@ const bowl = {
   pages: [
     { image: IMG.bowlDown, priorityType: 1, list: bowlList },
     { conditions: { switch1Id: SW.bowlUp, switch1Valid: true }, image: IMG.bowlUp, priorityType: 1, list: bowlList },
+    // 1151 のページ（W14 の頼み。場面表 04 の 2.1：三つ目の鐘の夜から毎晩盛られる。スイッチ 1151 は W14 の帯で、読むだけ）
+    { conditions: { switch1Id: 1151, switch1Valid: true }, image: IMG.bowlUp, priorityType: 1,
+      list: [...say(["奥の席の椀に、飯が盛られている。", "椀の底の印は、飯の下で見えない。"]), END] },
   ],
 };
 
