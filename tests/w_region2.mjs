@@ -13,7 +13,7 @@ const CHAPEL = 21, GATE = 60, SQUARE = 61, TOWER = 62, SHRINE = 63, TUNNEL = 64,
 const ITEM = { ledger: 421, scripture: 422, rationTag: 423 };
 const ARMOR = { doorShield: 421, ashShawl: 423 };
 const WEAPON = { hunterSpear: 421 };
-const SW = { annelise: 401, brotherHome: 402, h22: 404, shrineBoss: 405, noraFound: 132 };
+const SW = { annelise: 401, brotherHome: 402, h22: 404, shrineBoss: 405, nightDoorAnswered: 412, nightDoorLegacy: 413, noraFound: 132 };
 const VAR = { brother: 401, survivors: 103 };
 const NORA = 6, BOSS_TROOP = 441, NAMED = 421;
 const FAST = 16;
@@ -53,6 +53,7 @@ await runTest(async () => {
       return moved;
     }
     /** 決定キーで調べ、イベントが終わるまで文章を読み進める。選択肢は choices の順に選ぶ。数値入力は numbers の順に入れる。 */
+    const spoken = []; // 出た文章の［名前, 本文］（W20：話し手の名を見る）
     async function talk(choices = [], press = true, numbers = []) {
       const queue = choices.slice();
       const nums = numbers.slice();
@@ -73,10 +74,12 @@ await runTest(async () => {
             choice: !!(w && w._choiceListWindow.active && w._choiceListWindow.isOpen()),
             number: !!(w && w._numberInputWindow.active && w._numberInputWindow.isOpen()),
             text: $gameMessage.allText(),
+            speaker: $gameMessage.speakerName(),
             choices: $gameMessage.choices(),
           };
         });
         if (!st.running) break;
+        spoken.push([st.speaker, st.text]);
         if (st.choice) {
           pages.push(st.text + "［" + st.choices.join("／") + "］");
           const q = queue.shift() ?? 0;
@@ -143,6 +146,22 @@ await runTest(async () => {
     check(shield.includes("戸板") && (await items("a", ARMOR.doorShield)) === 1, "入口の家で戸板の盾が手に入らない " + JSON.stringify(shield));
     await go(GATE, 39, 26, 4);
     check((await talk()).join("").includes("戸に背中をつけて"), "R2-01 の本文");
+    // W20（#264。R2 気になる 12）：夜の戸の影を倒したあとは「崩れる → 声（話し手の名つき）」の順。影は倒しても自分では一行を出さない
+    await go(GATE, 42, 23, 8);
+    const shadeId = await game.eval(() => $gameMap.events().find(e => e.event().name === "声だけの影（焼けた村の子）").eventId());
+    await game.eval(id => $gameSelfSwitches.setValue([60, id, "A"], false), shadeId); // calm() が倒した扱いにした影を戻す
+    const door = (await talk(["答える"])).join("\n");
+    check(door.includes("おかあ、戸、こたえていい？") && door.includes("声の形だった") && !door.includes("崩れる") && (await sw(SW.nightDoorAnswered)), "夜の戸で答える（スイッチ 412） " + JSON.stringify(door));
+    check(await game.eval(id => Hai.SymbolEnemy.isShadeQuiet($gameMap.event(id)), shadeId), "夜の戸の影に <hai_enemy_shade_quiet> が無い");
+    spoken.length = 0;
+    await game.eval(id => $gameSelfSwitches.setValue([60, id, "A"], true), shadeId); // 影を倒したことにする
+    await game.waitFor(() => $gameMap.isEventRunning());
+    await talk([], false);
+    const iFall = spoken.findIndex(([, t]) => t.includes("崩れるときに、声が落ちた"));
+    const iVoice = spoken.findIndex(([n, t]) => n === "焼けた村の子" && t.includes("おねえちゃん、三つしか叩かなかったよ。おかあ"));
+    const iLedger = spoken.findIndex(([, t]) => t.includes("届けた相手の欄は、空けた"));
+    check(iFall >= 0 && iVoice > iFall && iLedger > iVoice && (await sw(SW.nightDoorLegacy)) && (await game.eval(() => Hai.Thoughts.isRead("L2-01"))),
+      "夜の戸の後は「崩れる → 声（焼けた村の子）→ 帳面」の順・スイッチ 413・L2-01 " + JSON.stringify(spoken));
     await go(GATE, 28, 25, 8);
     check((await talk()).join("").includes("追い込み"), "ノラの記憶 1");
     await go(GATE, 12, 29, 8);
@@ -243,10 +262,18 @@ await runTest(async () => {
     await go(SHRINE, 13, 6, 8);
     await game.press("Enter");
     const t0 = Date.now();
+    const before = [];
     while ((await game.call("scene")) !== "Scene_Battle") {
-      if (await game.eval(() => $gameMessage.isBusy())) { await game.frames(12); await game.press("Enter"); } else await game.frames(2);
+      if (await game.eval(() => $gameMessage.isBusy())) {
+        await game.frames(12);
+        const t = await game.eval(() => $gameMessage.allText());
+        if (before[before.length - 1] !== t) before.push(t);
+        await game.press("Enter");
+      } else await game.frames(2);
       check(Date.now() - t0 < 60_000, "祠の番に話しかけても戦闘にならない");
     }
+    // W20（#264。R2 気になる 13）：「番の口が、止まった。」は戦いの頭の頁だけ（戦いの前の読み上げでは出さない）
+    check(before.some(t => t.includes("イーダ。印、済")) && !before.some(t => t.includes("番の口が、止まった。")), "戦いの前の読み上げ " + JSON.stringify(before));
     check(await game.eval(id => $gameTroop.troop().id === id, BOSS_TROOP), "祠の番の敵グループではない");
     const waitInput = async () => {
       const t0 = Date.now();

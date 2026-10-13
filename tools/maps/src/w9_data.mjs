@@ -488,7 +488,7 @@ function gainLines(kind, id, n, indent = 0) {
   const code = { i: 126, w: 127, a: 128 }[kind];
   const params = kind === "i" ? [id, 0, 0, n] : [id, 0, 0, n, false];
   const label = n > 1 ? `${item.name}×${n}` : item.name;
-  return [cmd(code, params, indent), ...say([`\\I[${item.iconIndex}]${label}を手に入れた！`], "", indent)];
+  return [cmd(code, params, indent), ...say([`\\I[${item.iconIndex}]${label}を手に入れた。`], "", indent)]; // 「薬草×2を手に入れた。」の形（W20 #264。R2 気になる 26）
 }
 
 const ev = {};
@@ -1097,7 +1097,8 @@ CONFIGS.push(config("w9_101_sluice", SLUICE, "地下水道・水門", "sewer", [
     after: zelinaQueue("R3-14"),
   }),
   ev.chest("水番の長靴", S1.swChest, ["a", ARMOR.boots, 1]),
-  ev.floor("苔の床", S1.hint, ["南の壁ぎわの床だけ、苔が厚い。壁に、影が落ちていない所がある。"]),
+  // 100・101・102 の手がかりを同じ型にしない（W20 #264。R2 気になる 23）：100 は苔と風、101 は水の行き先、102 は煉瓦の目地
+  ev.floor("水の吸い込み", S1.hint, ["足もとの水が、南の壁の下へ細く吸い込まれていく。", "壁の向こうで、水の落ちる音がする。"]),
   ev.chest("秘薬", S1.hiddenChest, ["i", ITEM.elixir, 1]),
   ev.pickup("砦の名札", [S1.desk[0], S1.desk[1] + 1], ["札場の机の下に、木の名札が一つ落ちている。", "黒鉄の砦の兵の名札だ。"], ["i", ITEM.nameTag, 1]), // W17：宝箱 (33,0) を札場の机の下の拾い物に
   ev.chest("油の壺", S1.neChest, ["i", ITEM.oil, 2]),
@@ -1206,7 +1207,7 @@ CONFIGS.push(config("w9_102_gate_front", GATE, "閉じた扉の前", "gate", [
   }),
   ev.thought("R3-21", "番を見ていた女", G2.r322, ["番の鎧は、水を吸って光っていた。", "雷の晩、番は扉の陰に引っこんで、朝まで動かなかった。鉄の鳴る音を嫌う。", "あいつも、扉の内には入れてもらえなかった。札は、持っていたのに。"], { clues: ["扉の番は、雷の晩に扉の陰へ下がった。鉄の鳴る音を嫌う（閉じた扉の前）"] }),
   ev.thought("R3-22", "読み上げを聞いた男", G2.r323, ["番は、布告を読み上げるのが役目だった。日に三度、同じ文を。", "削られた下の半分を、番は覚えていない。読み上げるたびに、そこで止まる。", "止まっている間は、槍の先が下がっている。"], { clues: ["扉の番は、王の布告の削られた所で読み上げが止まる（閉じた扉の前）"] }),
-  ev.floor("苔の床", G2.hint, ["広場の隅の床だけ、苔が厚い。壁の継ぎ目から、湿った風。"]),
+  ev.floor("新しい目地", G2.hint, ["南の壁の煉瓦が、一列だけ新しい。", "目地を、指でかき出した跡がある。"]),
   ev.chest("秘薬", G2.hiddenChest, ["i", ITEM.elixir, 1]),
   ev.pickup("薬草", G2.pickup, [], ["i", ITEM.herb, 1]),
   ev.enemy("扉の外の者", [14, 11], TROOP.outsider, "yellow", { image: IMG.monster(4), chase: 4 }),
@@ -1287,7 +1288,12 @@ const bellRope = ev.raw("水底の鐘の綱", B4.rope, [
 CONFIGS.push(config("w9_104_bell_deep", BELL, "水底の鐘の間", "bell", [
   ev.transfer("南の口（扉の番の間へ）", B4.exitS, [WARDEN_ROOM, G3.arriveDoor[0], G3.arriveDoor[1], "down"]),
   bellRope,
-  ev.text("札掛け", B4.board, ["札掛けの釘は四本。", "札の掛かっていた跡が、四つとも同じ高さまで水に濡れている。"], { image: { tileId: "B:177" } }),
+  // 札を得る前は「札は一枚。」（084 と同じ。W20 #264。R2 気になる 11）
+  ev.raw("札掛け", B4.board, [{ image: { tileId: "B:177" }, priorityType: 1, list: [
+    ...say(["札掛けの釘は四本。", "札の掛かっていた跡が、四つとも同じ高さまで水に濡れている。"]),
+    ifItem(ITEM.dutyTag), close(1), ELSE(), ...say(["札は一枚。"], "", 1), close(1), ENDIF(),
+    END,
+  ] }]),
   withThirdScene(ev.thought("R3-23", "水底の鐘番", B4.r326, ["夕べになっても、頂の鐘は聞こえなかった。水の底だから、と思った。", "上の者が知らせに来るのを待った。誰も下りてこなかった。", "札には日付だけ書いた。鳴らしたかは、水が引いてから書く。", "水は、膝から胸まで来た。筆は、札掛けの下に浮いている。"])),
   ...lairDoorEvents("south"), // 鐘の間の口の霧の戸口（W11）
 ], {
@@ -1307,7 +1313,8 @@ const elderTalk = [
   ...say(["ここは扉の内の村じゃ。わしらの爺さまの爺さまが、王さまの布告で下りてきた", "王さまは、民を守った。扉は、その日の日没に閉じた。村では、そう教える"], ELDER, 1),
   ...say(["ただのう。わしの代になってから、", "扉の外で、戸を叩く音が増えた。三度ずつ。夜に"], ELDER, 1), // W17（台本 20）
   ...say(["村の者には言うておらん"], ELDER, 1),
-  ...say(["ただのう。言い伝えに、扉の外で夜ごとに歌が聞こえた、というのがある", "布告にも、村の決まりにも、歌のことは無い。誰が歌っておったのか", "わしは、それが知りたい。歌うた者の名が、分かるものならのう"], ELDER, 1),
+  // 前の頁と頭を「ただのう。」で重ねない（W20 #264。R2 気になる 15）
+  ...say(["それにのう。言い伝えに、扉の外で夜ごとに歌が聞こえた、というのがある", "布告にも、村の決まりにも、歌のことは無い。誰が歌っておったのか", "わしは、それが知りたい。歌うた者の名が、分かるものならのう"], ELDER, 1),
   cmd(122, [VAR.songTask, VAR.songTask, 0, 0, 1], 1),
   swOn(SW.askedSong, 1),
   ...errand({ key: "doorSong", title: "扉の外の歌", who: ELDER, stage: "1", text: "扉の外で夜ごとに歌っていた者を探す（扉の内の村の長）", variableId: String(VAR.songTask) }, 1),
@@ -1338,8 +1345,9 @@ const elderTalk = [
         ...say(["それから、アンセルモは笑った。"]),
       ])],
     [...say(["そうかね。まあ、ええ"], ELDER),
-      cmd(122, [VAR.songTask, VAR.songTask, 0, 0, 3]),
-      ...errand({ key: "doorSong", stage: "2", text: "名簿は見せなかった（扉の内の村）" })],
+      // 変数 501 は 3（見せなかった）のまま残す。errand は段を変数 501 に写すので、段も 3 にそろえる（W20 #264。P16 #256 の気づき）
+      ...errand({ key: "doorSong", stage: "3", text: "名簿は見せなかった（扉の内の村）" }),
+      cmd(122, [VAR.songTask, VAR.songTask, 0, 0, 3])],
   ], 2),
   cmd(115, [], 2),
   close(2), ENDIF(1),

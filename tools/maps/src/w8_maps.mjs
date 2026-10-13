@@ -69,15 +69,18 @@ const plugin = (pluginName, command, label, args, indent = 0) => [
 const note = (text, id, indent = 0, kind = "clue") => plugin("Hai_Thoughts", "addNote", "メモに足す", { text, id, kind }, indent);
 const errand = (args, indent = 0) => plugin("Hai_Notes", "errand", "頼みごとを進める", args, indent);
 const errandEnd = (args, indent = 0) => plugin("Hai_Notes", "errandEnd", "頼みごとを終える", args, indent);
-/** 物を渡す（効果音・入手の文） */
+/** 物を渡す（効果音・入手の文）。入手の文は「薬草×2を手に入れた。」の形（W20 #264。R2 気になる 26。ROADMAP の決め）。
+ *  023 は W19 の範囲なので、023 の間だけ前の形（oldGot）のまま */
+let oldGot = false;
 function give(kind, id, n = 1, indent = 0) {
-  if (kind === "gold") return [se("Coin", indent), { code: 125, indent, parameters: [0, 0, n] }, ...say([`鉄くずを ${n} 手に入れた！`], "", indent)];
+  const mark = oldGot ? "！" : "。";
+  if (kind === "gold") return [se("Coin", indent), { code: 125, indent, parameters: [0, 0, n] }, ...say([`鉄くずを ${n} 手に入れた${mark}`], "", indent)];
   const e = TABLE[kind][id];
   if (!e || !e.name) throw new Error(`${kind} ${id} が無い`);
   const params = kind === "item" ? [id, 0, 0, n] : [id, 0, 0, n, false];
   return [
     { code: CODE[kind], indent, parameters: params },
-    ...say([`\\I[${e.iconIndex}]${e.name}${n > 1 ? ` ×${n}` : ""}を手に入れた！`], "", indent),
+    ...say([`\\I[${e.iconIndex}]${e.name}${n > 1 ? `${oldGot ? " " : ""}×${n}` : ""}を手に入れた${mark}`], "", indent),
   ];
 }
 const choice = (labels, cancel = labels.length - 1, indent = 0) => ({ code: 102, indent, parameters: [labels, cancel, 0, 2, 0] });
@@ -293,9 +296,10 @@ function config(file, cfg) {
 // 060 焼けた村・入口
 // ===========================================================================
 // 夜の戸（W16。場面表 0.1・1-11）：R2-01 を読んであれば、戸を叩かれる。答えると声だけの影（432）が土間に出る。
-//   影は Hai_SymbolEnemy の <hai_enemy_shade:言い残し>（倒すと言い残しを窓なしで出す）。倒したあと「夜の戸の後（自動）」が
+//   影は Hai_SymbolEnemy の <hai_enemy_shade:言い残し> と <hai_enemy_shade_quiet>（倒しても一行を出さない）。倒したあと「夜の戸の後（自動）」が
+//   「崩れた」の文 → 言い残し（shadeVoice。話し手の名つき）の順に出し（W20 #264。R2 気になる 12・場面表 1-11）、
 //   言い残しを既読（L2-01）にし、帳面の一行を出して、スイッチ 413 を立てる（N4-4 が頂で読む）
-const SHADE_BURNT = { name: "声だけの影（焼けた村の子）", x: 40, y: 23, voice: "おねえちゃん、三つしか叩かなかったよ。おかあ" };
+const SHADE_BURNT = { name: "声だけの影（焼けた村の子）", x: 40, y: 23, voice: "おねえちゃん、三つしか叩かなかったよ。おかあ", speaker: "焼けた村の子" };
 const nightDoorBurnt = {
   name: "内から打ち付けた戸", type: "raw", x: 42, y: 22, note: "",
   pages: [
@@ -332,21 +336,25 @@ const nightDoorBurnt = {
 /** 声だけの影（夜の戸で答えると出る。一度きり）。地域二の敵なので <hai_enemy_bell> も付ける */
 const shadeEvent = ({ name, x, y, voice }, troopId, answered) => ({
   name, type: "raw", x, y,
-  note: [`<hai_enemy:${troopId},green>`, `<hai_enemy_shade:${voice}>`, "<hai_enemy_once>", `<hai_enemy_bell:${FLAG.archiveBell}>`].join("\n"),
+  note: [`<hai_enemy:${troopId},green>`, `<hai_enemy_shade:${voice}>`, "<hai_enemy_shade_quiet>", "<hai_enemy_once>", `<hai_enemy_bell:${FLAG.archiveBell}>`].join("\n"),
   pages: [
     { priorityType: 0, list: [end(0)] },
     { conditions: { switch1Id: answered, switch1Valid: true }, image: body("Monster", 5), priorityType: 1, trigger: 2, moveType: 0, list: [end(0)] }, // W11 の影と同じ絵
   ],
 });
 /** 影を倒したあと（影のセルフスイッチ A）：一度だけ。並列で見張って、自動実行で文を出す */
-const afterShade = (name, mapId, shadeId, answered, legacy, lines, legacyId) => ({
+const afterShade = (name, mapId, shadeId, answered, legacy, lines, legacyId, speaker) => ({
   name, type: "raw", x: 0, y: 0, note: "",
   pages: [
     { priorityType: 0, list: [end(0)] },
     { conditions: { switch1Id: answered, switch1Valid: true }, priorityType: 0, trigger: 4,
       list: [ifScript(`$gameSelfSwitches.value([${mapId}, ${shadeId}, "A"])`), selfOn("B", 1), end(1), endIf(0), end(0)] },
     { conditions: { switch1Id: answered, switch1Valid: true, selfSwitchCh: "B", selfSwitchValid: true }, priorityType: 0, trigger: 3,
-      list: [...say(lines.shade), ...markRead(legacyId), ...say(lines.ledger), swOn(legacy), end(0)] },
+      list: [
+        ...say(lines.shade),
+        ...plugin("Hai_SymbolEnemy", "shadeVoice", "影の声を出す", { eventId: String(shadeId), speaker }),
+        ...markRead(legacyId), ...say(lines.ledger), swOn(legacy), end(0),
+      ] },
     { conditions: { switch1Id: legacy, switch1Valid: true }, priorityType: 0, list: [end(0)] },
   ],
 });
@@ -494,7 +502,7 @@ const afterShade = (name, mapId, shadeId, answered, legacy, lines, legacyId) => 
   events.push(afterShade("夜の戸の後（自動）", MAP.gate, events.findIndex(e => e.name === SHADE_BURNT.name) + 1, SW.nightDoorAnswered, SW.nightDoorLegacy, {
     shade: ["影は、長くはもたなかった。崩れるときに、声が落ちた。"],
     ledger: ["墓守は帳面の最後の頁に、炭で一行書いた。", "届けた相手の欄は、空けた。"],
-  }, "L2-01"));
+  }, "L2-01", SHADE_BURNT.speaker));
   config("w8_060_burnt_gate", {
     _説明: "W8（#155）：焼けた村・入口（docs/world.md 5.1・5.2・7.3）。東の焼けた道→021、北の道→061。入口の家（戸板の盾）、ノラの家（記憶 1）、畑の盛り土（ノラ）、配給の小屋、灰の信徒の今の集落（ゲンサイ・ルッツ）。",
     mapId: 60, name: "焼けた村・入口", displayName: "焼けた村", ...VILLAGE_BASE,
@@ -745,11 +753,11 @@ const afterShade = (name, mapId, shadeId, answered, legacy, lines, legacyId) => 
   const bossFight = [
     ...say(["戸の前に、灰色の肩布の大きな影が立っている。", "手に帳面。指が、行を一つずつ辿っている。"]),
     ...say(["差し出す者を、逃がすな。名は、揃っている。"], "生贄の祠の番"),
-    // W16（場面表 1-9）：帳面を持っていれば、戦いの前に最後の名を読み上げる（頭の頁は「番の口が止まった」）
+    // W16（場面表 1-9）：帳面を持っていれば、戦いの前に最後の名を読み上げる（頭の頁は「番の口が止まった」）。
+    //   「番の口が、止まった。」は戦いの頭の頁（敵グループ 441）だけに出す（W20 #264。R2 気になる 13：前と頭で二度出ていた）
     ifItem(ITEM.sacrificeLedger),
     ...say(["番の口が止まらない。墓守は帳面を開いた。"], "", 1),
     ...say(["狩りの家、下の娘、イーダ。印、済"], ME, 1),
-    ...say(["番の口が、止まった。"], "", 1),
     ifActor(6, 1), ...say(["イーダ"], "ノラ", 2), end(2), endIf(1),
     end(1), endIf(0),
     ...plugin("Hai_Boss", "bossBattle", "ボス戦", { troopId: String(TROOP.shrineWarden), escapeMapId: String(MAP.shrine), escapeX: "13", escapeY: "15", escapeDirection: "2" }),
@@ -883,6 +891,7 @@ const afterShade = (name, mapId, shadeId, answered, legacy, lines, legacyId) => 
 // 023 森の療養小屋（W7 の帯のマップ。地域二の中身なので W8 が作る。形は前の世界の看取りの小屋のまま）
 // ===========================================================================
 {
+  oldGot = true; // 入手の文は前の形のまま（W19 の範囲）
   const events = [
     ...[6, 7, 8].map(y => transfer("西の林（古い礼拝堂へ）", 0, y, AT.chapelFromHospice, "left")),
     {
@@ -946,6 +955,7 @@ const afterShade = (name, mapId, shadeId, answered, legacy, lines, legacyId) => 
     scatter: [{ on: ".", tiles: ["B:152", "B:153", "B:160", "B:171", "B:252"], rate: 0.12, seed: 230 }],
     events,
   });
+  oldGot = false;
 }
 
 // ===========================================================================
@@ -987,7 +997,7 @@ const afterShade = (name, mapId, shadeId, answered, legacy, lines, legacyId) => 
           ...say(["あなた、記録にない方です。記録します。", "わたしはイスメネ。ここの書庫番です。受付の帳面は、毎朝わたしが書きます。"], "イスメネ", 2),
           ...say(["奥の書架は封じてあります。封じた人の名は、記録にあります。本人はいません。", "その奥の真名の間に、学者が一人。まだ読んでいます。読んでいる、と記録にあります。"], "イスメネ", 2),
           ...say(["一つ、頼めますか。奥に、銘の写しが二通りあるはずです。", "どちらが本物か、わたしは知りません。まだ。見つけたら、見せてください。"], "イスメネ", 2),
-          ifActor(5, 2), ...say(["はい"], "ブルーノ", 3), ...say(["イスメネには聞こえなかった。", "イスメネは帳面に、もう一行書いた。"], "", 3), end(3), endIf(2),
+          ifActor(5, 2), ...say(["はい"], "ブルーノ", 3), ...say(["イスメネは帳面に、もう一行書いた。"], "", 3) /* 「〜には聞こえなかった」の型を続けない（W20 #264。R2 7 章の癖） */, end(3), endIf(2),
           varSet(VAR.copies, 1, 2),
           ...errand({ key: "copies", title: "本物の写し", who: "イスメネ", stage: "1", variableId: "163", text: "記録院の奥の二通りの写しを、イスメネに見せる" }, 2),
           end(2),

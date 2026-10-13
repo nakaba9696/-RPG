@@ -156,8 +156,10 @@ await runTest(async () => {
     await arrive(r.to.mapId, r.to.x, r.to.y);
     await game.call("setSpeed", MAP_SPEED);
     check((await vr(VAR.bells)) === 2 && !(await sw(SW.scene3)), "旗の束 bells2：鐘 2 つ・3 つ目の場面はまだ");
+    await game.eval(() => Hai.Thoughts.markRead("R3-23")); // 鐘番の思念を先に読んだ扱い（W20 #264。R2 困る 5）
     await go(WATER_BELL, 13, 8, 8);
     const scene = (await talk(["綱を引く"])).join("\n");
+    check(scene.includes("水は、膝から胸まで来た") && !scene.includes("（読んだ）"), "3 つ目の場面の途中の鐘番の思念に「（読んだ）」が付く " + JSON.stringify(scene).slice(0, 600));
     check(scene.includes("輪が幾重にも") && scene.includes("喰わない。代わりに、自分のものを一つ渡す。") && scene.includes("……喰わないために、預けたのか"),
       "水底の鐘を 3 つ目に鳴らすと、鐘番の思念のあとに 3 つ目の場面 " + JSON.stringify(scene).slice(0, 600));
     check(scene.includes("鋳物場の方角だ"), "まだ鳴っていない鋳物場の方角から戸を叩く音 " + JSON.stringify(scene).slice(-300));

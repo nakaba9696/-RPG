@@ -284,6 +284,8 @@ await runTest(async () => {
     await step(6);
     await arrive(HALL, 1, 21);
     await game.shot("hall-arrive");
+    // W20（#264。R2 気になる 27）：南の廊下の出口 (17..19,44) は真ん中も通れる（岩の飾りをどけた）
+    check(await game.eval(() => [17, 18, 19].every(x => $gameMap.isPassable(x, 43, 2) && $gameMap.isPassable(x, 44, 8))), "南の廊下の出口の真ん中 (18,44) が通れない");
     await go(HALL, 56, 5, 6);
     check(!(await step(6)), "綱を引く前に研究所の門を通れた");
     await finishEvent();
@@ -327,12 +329,17 @@ await runTest(async () => {
     // ===== 8. 鋳物場の鐘 094（4 つ目の鐘にする）=====
     await game.shot("bell-room");
     await game.eval(id => { $gameVariables.setValue(id, 3); $gameSwitches.setValue(106, true); }, VAR.bells); // 3 つ目の場面（スイッチ 106。W11）は済んだ扱い
+    // W20（#264。R2 気になる 11）：札を得る前の札掛けは「札は一枚。」（084 と同じ）。得たあとは出ない
+    await go(BELL, 18, 5, 8);
+    check((await talk()).join("").includes("札は一枚。"), "札を得る前の札掛けに「札は一枚。」が無い");
     await go(BELL, 13, 8, 8);
     const ring = (await talk(["綱を引く"])).join("\n");
     check(ring.includes("鐘が鳴る"), "鐘を鳴らす場面 " + JSON.stringify(ring));
     const bell = await game.eval(([a, b, c, t]) => ({ rung: $gameSwitches.value(a), count: $gameVariables.value(b), all: $gameSwitches.value(c), tag: $gameParty.numItems($dataItems[t]) }), [SW.bellFoundry, VAR.bells, SW.bellsAll, ITEM.dutyTag]);
     check(bell.rung && bell.count === 4 && bell.all && bell.tag === 1, "鋳物場の鐘（スイッチ 104・変数 101・4 つでスイッチ 105・当番の札） " + JSON.stringify(bell));
     check((await talk()).join("").includes("小さく震えて"), "鳴らした後の鐘の文章");
+    await go(BELL, 18, 5, 8);
+    check(!(await talk()).join("").includes("札は一枚。"), "札を得たあとも札掛けに「札は一枚。」が出る");
     await go(BELL, 16, 8, 8);
     await talk();
     check((await items("a", ARMOR.fork)) === 1, "調律師の音叉");
