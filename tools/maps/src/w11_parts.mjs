@@ -118,16 +118,25 @@ function sceneList() {
  * 鐘番の思念（type: "text" の 1 ページ）を 3 ページにする。
  *   1 ページ目：今のまま／2 ページ目：鳴らした数が 3 以上で自動実行（思念の本文のあと 3 つ目の場面）／3 ページ目：スイッチ 106 のあと（今のまま）。
  * 思念のタグ（<hai_thought>）はそのまま。Hai_Thoughts はどのページでも既読にする。
+ * 2 ページ目の自動実行には「（読んだ）」を付けない（W20 #264。R2 困る 5）：Hai_Thoughts は既読の思念の list の最初の 401 に印を付けるので、
+ *   本文を「まだ読んでいない」と「読んだ」の二つの分岐に置く。印は前の分岐（既読のときは通らない）に付き、読んだときは後ろの分岐の印なしの本文が出る。
  */
 export function withThirdScene(spec) {
   const blocks = Array.isArray(spec.lines[0]) ? spec.lines : [spec.lines];
   const body = blocks.flatMap(block => say(block));
+  const bodyIn = indent => blocks.flatMap(block => say(block, "", indent));
+  const id = /<hai_thought:([^>]+)>/.exec(spec.note || "")?.[1];
+  if (!id) throw new Error(`鐘番の思念に <hai_thought> が無い：${spec.name}`);
+  const unmarked = [
+    cmd(111, [12, `!Hai.Thoughts.isRead(${JSON.stringify(id)})`]), ...bodyIn(1), end(1),
+    ELSE(0), ...bodyIn(1), end(1), ENDIF(0),
+  ];
   const base = { image: spec.image, priorityType: 1 };
   return {
     name: spec.name, type: "raw", x: spec.x, y: spec.y, note: spec.note,
     pages: [
       { ...base, list: [...body, END] },
-      { ...base, conditions: { variableId: FLAG.bells, variableValid: true, variableValue: 3 }, trigger: 3, list: [...body, ...sceneList(), END] },
+      { ...base, conditions: { variableId: FLAG.bells, variableValid: true, variableValue: 3 }, trigger: 3, list: [...unmarked, ...sceneList(), END] },
       { ...base, conditions: { switch1Id: FLAG.scene3, switch1Valid: true }, list: [...body, END] },
     ],
   };

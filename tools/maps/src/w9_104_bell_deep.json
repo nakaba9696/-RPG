@@ -576,7 +576,7 @@
               "code": 401,
               "indent": 1,
               "parameters": [
-                "\\I[196]当番の札（水底）を手に入れた！"
+                "\\I[196]当番の札（水底）を手に入れた。"
               ]
             },
             {
@@ -648,16 +648,96 @@
     },
     {
       "name": "札掛け",
-      "type": "text",
+      "type": "raw",
       "x": 18,
       "y": 4,
-      "lines": [
-        "札掛けの釘は四本。",
-        "札の掛かっていた跡が、四つとも同じ高さまで水に濡れている。"
-      ],
-      "image": {
-        "tileId": "B:177"
-      }
+      "note": "",
+      "pages": [
+        {
+          "image": {
+            "tileId": "B:177"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "札掛けの釘は四本。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "札の掛かっていた跡が、四つとも同じ高さまで水に濡れている。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                8,
+                505
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "札は一枚。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "思念 R3-23 水底の鐘番",
@@ -737,8 +817,16 @@
           "trigger": 3,
           "list": [
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
+              "parameters": [
+                12,
+                "!Hai.Thoughts.isRead(\"R3-23\")"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
               "parameters": [
                 "",
                 0,
@@ -749,31 +837,90 @@
             },
             {
               "code": 401,
-              "indent": 0,
+              "indent": 1,
               "parameters": [
                 "夕べになっても、頂の鐘は聞こえなかった。水の底だから、と思った。"
               ]
             },
             {
               "code": 401,
-              "indent": 0,
+              "indent": 1,
               "parameters": [
                 "上の者が知らせに来るのを待った。誰も下りてこなかった。"
               ]
             },
             {
               "code": 401,
-              "indent": 0,
+              "indent": 1,
               "parameters": [
                 "札には日付だけ書いた。鳴らしたかは、水が引いてから書く。"
               ]
             },
             {
               "code": 401,
-              "indent": 0,
+              "indent": 1,
               "parameters": [
                 "水は、膝から胸まで来た。筆は、札掛けの下に浮いている。"
               ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "夕べになっても、頂の鐘は聞こえなかった。水の底だから、と思った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "上の者が知らせに来るのを待った。誰も下りてこなかった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "札には日付だけ書いた。鳴らしたかは、水が引いてから書く。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "水は、膝から胸まで来た。筆は、札掛けの下に浮いている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 108,

@@ -479,10 +479,11 @@ const chestEvent = (name, [x, y], gainList, gotText, red = false) => ({
     { conditions: { selfSwitchCh: "A", selfSwitchValid: true }, image: red ? IMG.redChestOpen : IMG.chestOpen, priorityType: 1, walkAnime: false },
   ],
 });
-const chestItem = (name, xy, id, n, icon) => chestEvent(name, xy, [gainItem(id, n)], `\\I[${icon}]${name}${n > 1 ? `×${n}` : ""}を手に入れた！`);
+// 入手の文は「薬草×2を手に入れた。」の形（W20 #264。R2 気になる 26。ROADMAP の決め）
+const chestItem = (name, xy, id, n, icon) => chestEvent(name, xy, [gainItem(id, n)], `\\I[${icon}]${name}${n > 1 ? `×${n}` : ""}を手に入れた。`);
 const chestGold = (xy, n) => chestEvent("鉄くず", xy, [gainGold(n)], `鉄くずを ${n} 手に入れた。`);
-const chestArmor = (name, xy, id, icon, red = false) => chestEvent(name, xy, [gainArmor(id)], `\\I[${icon}]${name}を手に入れた！`, red);
-const chestWeapon = (name, xy, id, icon, red = false) => chestEvent(name, xy, [gainWeapon(id)], `\\I[${icon}]${name}を手に入れた！`, red);
+const chestArmor = (name, xy, id, icon, red = false) => chestEvent(name, xy, [gainArmor(id)], `\\I[${icon}]${name}を手に入れた。`, red);
+const chestWeapon = (name, xy, id, icon, red = false) => chestEvent(name, xy, [gainWeapon(id)], `\\I[${icon}]${name}を手に入れた。`, red);
 // 拾える物（光る点。調べると拾って消える）
 const pickup = (name, [x, y], gainList, lines, extra = []) => ({
   name: `拾い物（${name}）`, type: "raw", x, y,
@@ -492,7 +493,7 @@ const pickup = (name, [x, y], gainList, lines, extra = []) => ({
     { conditions: { selfSwitchCh: "A", selfSwitchValid: true }, priorityType: 0 },
   ],
 });
-const pickItem = (name, xy, id, n, icon, lines = []) => pickup(name, xy, [gainItem(id, n), ...say([`\\I[${icon}]${name}${n > 1 ? `×${n}` : ""}を手に入れた！`])], lines);
+const pickItem = (name, xy, id, n, icon, lines = []) => pickup(name, xy, [gainItem(id, n), ...say([`\\I[${icon}]${name}${n > 1 ? `×${n}` : ""}を手に入れた。`])], lines);
 const pickGold = (xy, n, lines = []) => pickup("鉄くず", xy, [gainGold(n), ...say([`鉄くずを ${n} 手に入れた。`])], lines);
 const warp = (name, [x, y]) => ({
   name: `結界（${name}）`, type: "raw", x, y, note: `<hai_warp:${name}>`,
@@ -780,13 +781,13 @@ const campEvents = [
           ]),
           ...say(["字は、三行目から急に崩れている。"]),
           se("Item3"), gainItem(ITEM.soldierLetter), selfOn(),
-          ...say(["\\I[192]名無し兵の手紙を手に入れた！"]),
+          ...say(["\\I[192]名無し兵の手紙を手に入れた。"]),
           END,
         ] },
       { conditions: { selfSwitchCh: "A", selfSwitchValid: true }, priorityType: 1, list: [...say(["焚き火の跡の脇に、帝国の兵の骸。膝の上は空だ。"]), END] },
     ],
   },
-  chestEvent("鉤綱", [46, 22], [gainItem(ITEM.grapple), switchOn(FLAG.grapple)], "\\I[234]鉤綱を手に入れた！"),
+  chestEvent("鉤綱", [46, 22], [gainItem(ITEM.grapple), switchOn(FLAG.grapple)], "\\I[234]鉤綱を手に入れた。"),
   text("援軍の荷車", [44, 23], ["荷車の札は「後発」。荷は綱と油と、乾いた麦。", "麦の袋は、一つも開けていない。"]),
   chestArmor("帝国の小盾", [45, 28], ARMOR.imperialShield, 128),
   pickItem("砦の名札", [40, 7], ITEM.nameTag, 1, 197, ["見張りの高台の隅に、木の名札が落ちている。", "黒鉄の砦の兵の名札だ。紐が、帝国の結び方で結び直してある。"]),
@@ -844,11 +845,11 @@ const guido = {
         ...say(["三つ目は、じいさんが言うなと。なんでかは、わからんよ"], "グィド"),
         ...say(["陣跡の地下壕か。鍵なら、家の手紙の箱の底にあった。", "爺さまの、そのまた爺さまの頃からだ。わしは開けたことがない。持ってけ"], "グィド"),
         se("Key", 0), gainItem(ITEM.bunkerKey),
-        ...say(["\\I[195]地下壕の鍵を手に入れた！"]),
+        ...say(["\\I[195]地下壕の鍵を手に入れた。"]),
         ...say(["家に古い手紙があってな。宛名が無い。読める字で、一枚だけ。あんた、読むか。", "宛名の無い手紙と対だと、爺さまは言ってた。どっちがどっちかは、わからんよ"], "グィド"),
         gainItem(ITEM.guidoLetter),
         switchOn(SW.loverName),
-        ...say(["\\I[193]グィドの家の手紙を手に入れた！"]),
+        ...say(["\\I[193]グィドの家の手紙を手に入れた。"]),
         ...say(["帝国は悪くない、と爺さまは言ってた。爺さまは名前を二つ持ってて、どっちで呼んでも返事をした"], "グィド"),
         ...say(["砦に火が入ったなら、灯の番が要るだろう。油は三樽ある。一樽、背負っていく。", "明日にしよう、と言いたいところだがな。灯のことは、明日にしない"], "グィド"),
         cmd(221, []),
@@ -876,7 +877,7 @@ const rockBearer = {
         ifScript("Hai.Boss.lastResult() === 0", 1),
         ...say(["岩背負いは背の岩ごと崩れ、動かなくなった。", "割れた岩の欠片が、足もとに転がってきた。"], "", 2),
         se("Item3", 2), gainArmor(ARMOR.backStone, 2),
-        ...say(["\\I[147]背の岩の欠片を手に入れた！"], "", 2),
+        ...say(["\\I[147]背の岩の欠片を手に入れた。"], "", 2),
         end(2),
         ENDIF(1),
         end(1),
@@ -992,7 +993,7 @@ const bonePicker = {
       cmd(125, [1, 0, 100], 4),
       ...say(["百。確かに。写しはございません。わたくしは隠しません。お持ちください。"], "骨拾い", 4),
       se("Book1", 4), gainItem(ITEM.tradeLedger, 1, 4), switchOn(SW.ledgerRead, 4),
-      ...say(["\\I[228]取り引きの帳面を手に入れた！"], "", 4),
+      ...say(["\\I[228]取り引きの帳面を手に入れた。"], "", 4),
       end(4),
       when(1, "やめる", 3),
       end(4),
@@ -1234,7 +1235,7 @@ const tulaRemains = {
           "背負子に彫っといた。かえりは、かるい。",
         ]),
         se("Item3"), gainItem(ITEM.tongue),
-        ...say(["\\I[209]親鐘の舌を手に入れた！"]),
+        ...say(["\\I[209]親鐘の舌を手に入れた。"]),
         ...say(["舌だ。頂の鐘の"], "\\N[1]"), // W17（台本 10）
         END,
       ] },
@@ -1420,7 +1421,7 @@ const hallEvents = [
           cmd(402, [1, "やめる"]), cmd(0, [], 1),
           cmd(404, []), END] }],
   },
-  chestEvent("番号の腕輪", [54, 27], [gainArmor(ARMOR.numberBand)], "\\I[146]番号の腕輪を手に入れた！", true),
+  chestEvent("番号の腕輪", [54, 27], [gainArmor(ARMOR.numberBand)], "\\I[146]番号の腕輪を手に入れた。", true),
   chestArmor("型師の前掛け", [30, 36], ARMOR.moldApron, 136),
   pickItem("砦の名札", [49, 2], ITEM.nameTag, 1, 197, ["門の前の窪みに、木の名札が一つ。紐は、子どもの手で結び直してある。"]),
   chestItem("秘薬", [12, 3 + 5], ITEM.elixir, 1, 176),
@@ -1533,7 +1534,7 @@ const labRecord = {
         ...say(["「四十番。骨の移し、耐えず」", "「黒鉄の砦の墓守。死者と話すとの噂。年を取らない。要観察」", "「四十一番。骨の移し、耐えず」", "名の欄が番号でないのは、その一行だけだ。"]),
         ...say(["最後の頁。「教会の彫り直しにより境消滅。研究は継続」", "その下は、白い。"]),
         se("Book1"), gainItem(ITEM.labReport), selfOn(),
-        ...say(["\\I[229]研究所の報告の写しを手に入れた！"]),
+        ...say(["\\I[229]研究所の報告の写しを手に入れた。"]),
         ...addNote("clue:daughter", "研究者の娘は光を嫌う（研究所の報告の写し）"),
         ifVar(VAR.nameless, 1, 0),
         ...errand(2, "研究所の報告の写しを、名無しに（鋳物場の南西の小部屋）", 1),
@@ -1647,7 +1648,7 @@ const bellRope = {
         selfOn("A", 1),
         ...say(["壁の札掛けに、当番の札が一枚だけ残っている。"], "", 1),
         se("Item3", 1), gainItem(ITEM.dutyTag, 1, 1),
-        ...say(["\\I[196]当番の札（鋳物場）を手に入れた！"], "", 1),
+        ...say(["\\I[196]当番の札（鋳物場）を手に入れた。"], "", 1),
         end(1),
         when(1, "やめる"),
         end(1),
@@ -1661,13 +1662,18 @@ const bellRope = {
 const bellEvents = [
   ...exits("南の口（研究所の奥へ）", [[12, 25], [13, 25], [14, 25]], MAP.lab, DAUGHTER[0], DAUGHTER[1] - 2, "down"),
   bellRope,
-  pickup("調律師の音叉", [16, 7], [gainArmor(ARMOR.tuningFork), ...say(["\\I[145]調律師の音叉を手に入れた！"])], ["鐘の脚の陰に、布の包み。中に、二股の小さな鉄。"]),
+  pickup("調律師の音叉", [16, 7], [gainArmor(ARMOR.tuningFork), ...say(["\\I[145]調律師の音叉を手に入れた。"])], ["鐘の脚の陰に、布の包み。中に、二股の小さな鉄。"]),
   withThirdScene(thought("R4-18", "鋳物場の鐘番", [8, 8], [
     "夕べ、と札に書いた。数を書こうとしたら、墨が流れた。手の汗だ。",
     "炉は冷えているのに、廊下の方が熱い。扉の下から、火の明かりが差してくる。",
     "札を拭いて、もう一度書こうとした。そこまでだ。",
   ])),
-  text("札掛け", [18, 4], ["札掛けの釘は四本。", "札の掛かっていた跡が、四つとも同じ色に焼けている。"]),
+  // 札を得る前は「札は一枚。」（084 と同じ。W20 #264。R2 気になる 11）
+  { name: "札掛け", type: "raw", x: 18, y: 4, pages: [{ priorityType: 1, list: [
+    ...say(["札掛けの釘は四本。", "札の掛かっていた跡が、四つとも同じ色に焼けている。"]),
+    ifItem(ITEM.dutyTag), end(1), ELSE(), ...say(["札は一枚。"], "", 1), end(1), ENDIF(),
+    END,
+  ] }] },
   ...lairDoorEvents("east"), // 鐘の間の口の霧の戸口（W11。門叩きの塊は縄張り 172 に置いた）
   text("手前の間の煤", [9, 19], ["床の煤に、足跡が無い。", "風も無いのに、煤が一方へ流れた跡がある。鐘の間の方へ。"]),
 ];

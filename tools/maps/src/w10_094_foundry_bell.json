@@ -540,7 +540,7 @@
               "code": 401,
               "indent": 1,
               "parameters": [
-                "\\I[196]当番の札（鋳物場）を手に入れた！"
+                "\\I[196]当番の札（鋳物場）を手に入れた。"
               ]
             },
             {
@@ -683,7 +683,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "\\I[145]調律師の音叉を手に入れた！"
+                "\\I[145]調律師の音叉を手に入れた。"
               ]
             },
             {
@@ -781,8 +781,16 @@
           "trigger": 3,
           "list": [
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
+              "parameters": [
+                12,
+                "!Hai.Thoughts.isRead(\"R4-18\")"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
               "parameters": [
                 "",
                 0,
@@ -793,24 +801,76 @@
             },
             {
               "code": 401,
-              "indent": 0,
+              "indent": 1,
               "parameters": [
                 "夕べ、と札に書いた。数を書こうとしたら、墨が流れた。手の汗だ。"
               ]
             },
             {
               "code": 401,
-              "indent": 0,
+              "indent": 1,
               "parameters": [
                 "炉は冷えているのに、廊下の方が熱い。扉の下から、火の明かりが差してくる。"
               ]
             },
             {
               "code": 401,
-              "indent": 0,
+              "indent": 1,
               "parameters": [
                 "札を拭いて、もう一度書こうとした。そこまでだ。"
               ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "夕べ、と札に書いた。数を書こうとしたら、墨が流れた。手の汗だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "炉は冷えているのに、廊下の方が熱い。扉の下から、火の明かりが差してくる。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "札を拭いて、もう一度書こうとした。そこまでだ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 108,
@@ -1700,12 +1760,91 @@
     },
     {
       "name": "札掛け",
-      "type": "text",
+      "type": "raw",
       "x": 18,
       "y": 4,
-      "lines": [
-        "札掛けの釘は四本。",
-        "札の掛かっていた跡が、四つとも同じ色に焼けている。"
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "札掛けの釘は四本。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "札の掛かっていた跡が、四つとも同じ色に焼けている。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                8,
+                605
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "札は一枚。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
       ]
     },
     {
