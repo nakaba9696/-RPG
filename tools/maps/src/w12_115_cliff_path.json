@@ -262,6 +262,43 @@
               ]
             },
             {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "見張り塔の鐘と、同じ形です。中の数は、四つ少ない"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
               "code": 0,
               "indent": 0,
               "parameters": []
@@ -596,7 +633,7 @@
       "type": "raw",
       "x": 12,
       "y": 23,
-      "note": "<hai_enemy:1054,green>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:1054,green>\n<hai_enemy_hesitate>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -618,7 +655,7 @@
       "type": "raw",
       "x": 24,
       "y": 16,
-      "note": "<hai_enemy:601,green>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:601,green>\n<hai_enemy_hesitate>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -640,7 +677,7 @@
       "type": "raw",
       "x": 28,
       "y": 6,
-      "note": "<hai_enemy:1054,green>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:1054,green>\n<hai_enemy_hesitate>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {

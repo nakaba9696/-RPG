@@ -65,12 +65,32 @@ const SW = {
   writing: 171, shano: 172, footprints: 173, eastGate: 174,
 };
 const VAR = { bells: 101, companions: 102, survivors: 103, faint: 138 };
+// W16（#232）：第二章の砦の場面（010 のイベント 56–60・014 のイベント 5–6。docs/story/scenes/02-region2-region5.md 1-6・1-12・3-25・3-28・3-29）
+const W16 = {
+  sw: { noraNamed: 175, fireTalk: 177, dilNamed: 178, compared: 179 },
+  joined: { nora: 139, dil: 140 }, // 加入（P11）
+  extSw: { annelise: 401, ismene: 407, adele: 307, firstBowl: 117, teoCompared: 1057 }, // 使うだけ（W8・W7・W15・W12）
+  copiesVar: 402, // 頼み:写し（W8。1 頼まれた・2 イスメネに返した）
+  twoCopies: 426, // 二通りの写し（W8）
+  actor: { bruno: 5, nora: 6, dil: 7 },
+};
+const ME = "\\N[1]"; // 主人公（名前の欄は「墓守」）
+const ifActor = (id, indent = 0) => cmd(111, [4, id, 0], indent);
+const ifSw = (id, on = true, indent = 0) => cmd(111, [0, id, on ? 0 : 1], indent);
+const ifItem = (id, indent = 0) => cmd(111, [8, id], indent);
+const ifSelf = (ch, on = true, indent = 0) => cmd(111, [2, ch, on ? 0 : 1], indent);
+const selfOn = (ch = "A", indent = 0) => cmd(123, [ch, 0], indent);
+const ELSE = (indent = 0) => cmd(411, [], indent);
+const ENDIF = (indent = 0) => cmd(412, [], indent);
+const end = indent => cmd(0, [], indent);
 const SWITCH_NAMES = {
   ...FORT_SWITCH_NAMES, // 180–185（W17）
   101: "鐘:営倉", 102: "鐘:記録院", 103: "鐘:水底", 104: "鐘:鋳物場", 105: "鐘:四つ鳴った",
   106: "3つ目の鐘の場面", 107: "ミルレーネに会った", 108: "最後の地域の山場", 109: "頂への門:開", 110: "名前が戻った",
   111: "目覚めた", 112: "炉に火を入れた", 113: "名の壁を調べた", 114: "営倉の鉄扉:開",
   171: "墓所の書き付けを読んだ", 172: "シャノが砦にいる", 173: "灰の足跡を見た", 174: "城壁の東門:開",
+  // W16（#232。docs/story/scenes/02-region2-region5.md）
+  175: "砦:ノラが名乗った", 177: "砦:中庭の火の話を聞いた", 178: "砦:ディルが名乗った", 179: "書庫:写しの読み比べをした",
 };
 const VARIABLE_NAMES = { 101: "鳴らした鐘の数", 103: "生き残りの数" };
 const COMMON = { memoryLine: 201 };
@@ -329,6 +349,174 @@ const ring = {
   ],
 };
 
+// ---------------------------------------------------------------------------
+// W16（#232。docs/story/scenes/02-region2-region5.md）：名の壁のあとのノラとディル、中庭の火、食卓のノラとディル
+//   自動実行のイベントは絵が無いので、南の壁の行（y 39）に置く。番号は 56–60（id を書く。tools/maps/README.md）
+// ---------------------------------------------------------------------------
+function w16KeepEvents() {
+  const { sw, joined, extSw, twoCopies, actor } = W16;
+  /** 一度だけの自動実行（条件のスイッチと、隊にいるアクター） */
+  const once = (id, name, [x, y], conditions, list) => ({
+    id, name, type: "raw", x, y,
+    pages: [
+      { conditions, priorityType: 0, trigger: 3, list: [...list, selfOn(), END] },
+      { conditions: { ...conditions, selfSwitchCh: "A", selfSwitchValid: true }, priorityType: 0 },
+    ],
+  });
+  const noraNamed = once(56, "ノラの一言（名の壁）", [45, 39], { switch1Id: joined.nora, switch1Valid: true }, [
+    ...say(["ノラ。狩りの家の、上の娘", "あんた、足、速い？　あたしの後ろ、付いてこられる？"], "ノラ"),
+    ifActor(actor.bruno), ...say(["僕は、無理です"], "ブルーノ", 1), end(1), ENDIF(),
+    switchOn(sw.noraNamed),
+  ]);
+  const dilNamed = once(57, "ディルの一言（名の壁）", [46, 39], { switch1Id: joined.dil, switch1Valid: true }, [
+    ...say(["ディル。記録院の写字生"], "ディル"),
+    ifItem(twoCopies),
+    ...say(["あんた、読めないのに写しを持ってるのか", "あんたが持ってろ。俺は、確かめないことにしてる"], "ディル", 1),
+    ifActor(actor.nora, 1), ...say(["何を！"], "ノラ", 2), end(2), ENDIF(1),
+    end(1), ENDIF(),
+    ...say(["本の話は、あとでだ。", "あんた、字は読めるのか。", "読めるなら、港の荷札から始めろ"], "ディル"),
+    switchOn(sw.dilNamed),
+  ]);
+  const yardFire = {
+    id: 58, name: "中庭の火", type: "raw", x: 29, y: 17,
+    pages: [
+      { priorityType: 0 },
+      {
+        conditions: { switch1Id: extSw.annelise, switch1Valid: true },
+        image: { characterName: "!Flame", characterIndex: 0, direction: DOWN, pattern: 1 }, priorityType: 1, stepAnime: true,
+        list: [
+          ifSelf("A", false),
+          ...say(["中庭に、火が焚いてある。アンネリーゼが薪を足した。"], "", 1),
+          ifSw(extSw.adele, true, 1), ...say(["いい？　火は、夜は落とすものなの。油が無いんだから"], "アデル", 2), end(2), ENDIF(1),
+          ...say(["落とさねえ。帰ってくるのがいる"], "アンネリーゼ", 1),
+          // アデルが砦にいなければ、問いは地の文（場面表 1-12）
+          ifSw(extSw.adele, true, 1), ...say(["誰が"], "アデル", 2), end(2), ELSE(1), ...say(["誰が"], "", 2), end(2), ENDIF(1),
+          ...say(["知らねえ。うちは昔から、そうしてる"], "アンネリーゼ", 1),
+          ...say(["火は、門の方を照らしている。"], "", 1),
+          ifActor(actor.nora, 1), ...say(["ノラが火の前に座り、薪を取ろうとした。", "手は、薪を通った。"], "", 2), end(2), ENDIF(1),
+          switchOn(sw.fireTalk, 1), selfOn("A", 1),
+          end(1),
+          ELSE(),
+          ...say(["中庭の火。アンネリーゼが毎晩、落とさずにいる。"], "", 1),
+          end(1),
+          ENDIF(),
+          END,
+        ],
+      },
+    ],
+  };
+  // 食卓：N4-1 の「先に盛る一椀」（スイッチ 117。W15）の行のあと、その仲間が隊にいる夜に一度だけ
+  const noraTable = once(59, "食卓（ノラの夜）", [47, 39],
+    { switch1Id: sw.noraNamed, switch1Valid: true, switch2Id: extSw.firstBowl, switch2Valid: true, actorId: actor.nora, actorValid: true }, [
+      ...say(["ノラの前を、ヴォルフラムの腕が通った。", "何も置かれなかった。"]),
+      ...say(["あたしの分、無いの？　あっちのは？"], "ノラ"),
+    ]);
+  const dilTable = once(60, "食卓（ディルの夜）", [48, 39],
+    { switch1Id: sw.dilNamed, switch1Valid: true, switch2Id: extSw.firstBowl, switch2Valid: true, actorId: actor.dil, actorValid: true }, [
+      ...say(["ディルは、先に盛った一椀の向かいに座った。"]),
+      ...say(["誰の分だ、あれ"], "ディル"),
+      ifSw(extSw.annelise),
+      ...say(["三十と二十で、五十。いや、四十。あれ"], "アンネリーゼ", 1),
+      ...say(["五十だよ"], "ディル", 1),
+      ...say(["アンネリーゼには聞こえなかった。"], "", 1),
+      end(1), ENDIF(),
+    ]);
+  return [noraNamed, dilNamed, yardFire, noraTable, dilTable];
+}
+
+// W16（#232。場面表 3-28・3-29）：書庫の二つ目の書見台と、イスメネ（書庫）。番号は 5–6
+//   読み比べ（スイッチ 179）・写しを返す（変数 402 = 2）・返したあとで持ち出す（変数 402 = 1 に戻す）
+//   「乗せよ」の一行はこのイベントだけに置く（world.md 10 章の禁止語の表。014 は許されている）
+function w16ArchiveEvents() {
+  const { sw, extSw, twoCopies, copiesVar, actor } = W16;
+  const ifVar = (id, value, indent = 0) => cmd(111, [1, id, 0, value, 0], indent);
+  const lose = (indent = 0) => cmd(126, [twoCopies, 1, 0, 1], indent);
+  const gain = (indent = 0) => cmd(126, [twoCopies, 0, 0, 1], indent);
+  const setCopies = (value, indent = 0) => cmd(122, [copiesVar, copiesVar, 0, 0, value], indent);
+  const errandEnd = (indent = 0) => plugin("Hai_Notes", "errandEnd", "頼みごとを終える", { key: "copies", result: "done", text: "二通りの写しはイスメネの書架に戻った" }, indent);
+  const compare = indent => [
+    ...say(["その二冊。封じた書架の、写しですね"], "イスメネ", indent),
+    cmd(102, [["二つの書見台に並べる", "まだ"], 1, 0, 2, 0], indent),
+    cmd(402, [0, "二つの書見台に並べる"], indent),
+    ...say(["イスメネは灰色を一つ目の書見台に、", "茶色を二つ目に置いた。", "終わりの近くの頁を、二冊とも開いた。"], "", indent + 1),
+    ifActor(actor.dil, indent + 1),
+    ...say(["ディルが、席を外した。戸口まで歩いて、止まった。"], "", indent + 2),
+    ...say(["俺は読まない。あんたが読め"], "ディル", indent + 2),
+    end(indent + 2), ENDIF(indent + 1),
+    ...say(["灰色の方の、終わりの近くに、一行。", "茶色の方には、無い行。", "「鳴る音に、その日の者を乗せよ」", "意味は、取れなかった。"], "", indent + 1),
+    ...say(["受け取りました。記録します。", "どちらが本物かは、書きません。分からないので。まだ"], "イスメネ", indent + 1),
+    ...say(["二冊は、書見台の上に置いたままになった。", "二つ目の書見台は、しまわれなかった。"], "", indent + 1),
+    switchOn(sw.compared, indent + 1),
+    end(indent + 1),
+    cmd(402, [1, "まだ"], indent), end(indent + 1),
+    cmd(404, [], indent),
+  ];
+  const giveBack = indent => [
+    ...say(["写しは、書見台に。それとも、まだ持ち出しますか"], "イスメネ", indent),
+    cmd(102, [["返す", "持っている"], 1, 0, 2, 0], indent),
+    cmd(402, [0, "返す"], indent),
+    lose(indent + 1), setCopies(2, indent + 1),
+    ...say(["イスメネは二冊を、前と同じ所に置いた。"], "", indent + 1),
+    ifSw(extSw.teoCompared, true, indent + 1),
+    ...say(["記録します。三通り目、と", "どれが本物かは、書きません。分からないので。まだ"], "イスメネ", indent + 2), end(indent + 2),
+    ELSE(indent + 1),
+    ...say(["記録します。どちらが本物かは、書きません。まだ"], "イスメネ", indent + 2), end(indent + 2),
+    ENDIF(indent + 1),
+    ...errandEnd(indent + 1),
+    end(indent + 1),
+    cmd(402, [1, "持っている"], indent), end(indent + 1),
+    cmd(404, [], indent),
+  ];
+  const takeOut = indent => [
+    ...say(["写しを、持ち出しますか"], "イスメネ", indent),
+    cmd(102, [["持ち出す", "やめる"], 1, 0, 2, 0], indent),
+    cmd(402, [0, "持ち出す"], indent),
+    gain(indent + 1), setCopies(1, indent + 1),
+    ...say(["墓守は二冊を外套の内に入れた。"], "", indent + 1),
+    ...say(["持ち出し、と書きます。", "戻る日は、書きません。知らないので"], "イスメネ", indent + 1),
+    end(indent + 1),
+    cmd(402, [1, "やめる"], indent), end(indent + 1),
+    cmd(404, [], indent),
+  ];
+  const stand = {
+    id: 5, name: "二つ目の書見台", type: "raw", x: 11, y: 6,
+    pages: [
+      { priorityType: 0 },
+      { conditions: { switch1Id: extSw.ismene, switch1Valid: true }, image: { tileId: "D:116" }, priorityType: 1,
+        list: [...say(["書見台が二つ、出してある。", "一つはイスメネの。もう一つは。"]), ...say(["知りません。まだ"], "イスメネ"), END] },
+    ],
+  };
+  const ismene = {
+    id: 6, name: "イスメネ（書庫）", type: "raw", x: 13, y: 6,
+    pages: [
+      { priorityType: 0 },
+      {
+        conditions: { switch1Id: extSw.ismene, switch1Valid: true },
+        image: { characterName: "People1", characterIndex: 3, direction: LEFT, pattern: 1 }, priorityType: 1,
+        list: [
+          ifItem(twoCopies),
+          ifSw(sw.compared, false, 1), ...compare(2), end(2),
+          ELSE(1), ...giveBack(2), end(2),
+          ENDIF(1),
+          end(1),
+          ELSE(),
+          ifVar(copiesVar, 2, 1),
+          ifSw(extSw.teoCompared, false, 2), ...takeOut(3), end(3),
+          ELSE(2), ...say(["記録します。三通り目、と"], "イスメネ", 3), end(3),
+          ENDIF(2),
+          end(2),
+          ELSE(1), ...say(["記録します"], "イスメネ", 2), end(2),
+          ENDIF(1),
+          end(1),
+          ENDIF(),
+          END,
+        ],
+      },
+    ],
+  };
+  return [stand, ismene];
+}
+
 // 部屋の扉（Hai_Facilities）：1 ページ目は崩れた扉、2 ページ目（部屋のスイッチ）は開いた扉で、触れると部屋へ
 const ROOMS = {
   soul: { mapId: 11, name: "稽古場" },
@@ -486,6 +674,8 @@ const keepEvents = [
   roomDoor("smithy"),
   roomDoor("watch"),
   ironDoor,
+  // W16（#232）：イベント 56–60（配り役が割り振った番号。41 までは W6、42–55 は第一章の子）
+  ...w16KeepEvents(),
   // W17（#233）：砦の食卓の場面（台本 docs/story/scenes/03-region3-region4.md の 4・17・23）。ID 61–70（配り役の割り当て）
   ...fortTableEvents({
     zelina: [29, 28], // 炉から三つ目、壁の側の席（ヴォルフラムの先に盛る一椀の席。東の卓の椅子）
@@ -735,6 +925,7 @@ const ROOM_CONFIGS = {
       useRoom("lore", "書見台", [9, 6]),
       text("湿った本", [4, 3], ["棚の本は、湿気で一つの塊になっている。背の字は読めない。"]),
       text("目録の写し", [13, 9], ["書庫の目録の写し。棚の番号と、本の名。", "途中から、本の名の代わりに「濡れて読めず」が続く。"]),
+      ...w16ArchiveEvents(), // W16（#232）：イベント 5–6
     ],
   }),
 };

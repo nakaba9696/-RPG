@@ -564,7 +564,336 @@
               "code": 401,
               "indent": 0,
               "parameters": [
+                "板に、拳の跡が三つ、縦に並ぶ。古いものだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
                 "板の釘は錆びている。一本だけ、頭が光っている。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "Hai.Thoughts.isRead(\"R5-01\")"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Knock",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 230,
+              "indent": 1,
+              "parameters": [
+                30
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Knock",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 230,
+              "indent": 1,
+              "parameters": [
+                30
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Knock",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 230,
+              "indent": 1,
+              "parameters": [
+                40
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "列に並んだ女"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "入れておくれ。娘の分を、納めに来た"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "戸の前には、誰もいない。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "列に並んだ女"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "入れておくれ"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 1,
+              "parameters": [
+                [
+                  "答える",
+                  "答えない"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 1,
+              "parameters": [
+                0,
+                "答える"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "\\N[1]"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "ここにいる"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "板に、黒いものが溜まった。声の形。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 2,
+              "parameters": [
+                1060,
+                1060,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 1,
+              "parameters": [
+                1,
+                "答えない"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "音は、三度で止んだ。板の釘が、一本だけ光っている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 1060,
+            "switch1Valid": true
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "関所の兵の詰め所。戸は外から板を打ちつけてある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "板に、拳の跡が三つ、縦に並ぶ。古いものだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "板の釘は錆びている。一本だけ、頭が光っている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 1061,
+            "switch1Valid": true
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "板は、外から打ってある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "中に誰がいたのかは、分からない。"
               ]
             },
             {
@@ -578,16 +907,86 @@
     },
     {
       "name": "捨てた荷",
-      "type": "text",
+      "type": "raw",
       "x": 16,
       "y": 29,
-      "lines": [
-        "街道の脇に、荷が列の形のまま捨ててある。荷の口は、どれも西を向いている。",
-        "荷を数えると三十四。踏み固めた足跡は、関所の方へ、その何倍も続いている。"
-      ],
-      "image": {
-        "tileId": "D:248"
-      }
+      "pages": [
+        {
+          "image": {
+            "tileId": "D:248"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "街道の脇に、荷が列の形のまま捨ててある。荷の口は、どれも西を向いている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "荷を数えると三十四。踏み固めた足跡は、関所の方へ、その何倍も続いている。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                6,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ノラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "三十四！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "配給札の束",
@@ -821,19 +1220,96 @@
     },
     {
       "name": "思念 R5-01 列に並んだ女",
-      "type": "text",
+      "type": "raw",
       "x": 33,
       "y": 34,
       "note": "<hai_thought:R5-01>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "関所で麦を一握り納めた。娘の分は、娘が自分で納めろと役人が言った。",
-        "札は、わたしの首に一枚きり。娘の手の中には、麦が四粒。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "関所で麦を一握り納めた。娘の分は、娘が自分で納めろと役人が言った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "札は、わたしの首に一枚きり。娘の手の中には、麦が四粒。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "ブルーノが自分の手を見た。握って、開いた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "四粒は、入りそうだった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
       ]
     },
     {
@@ -1565,7 +2041,7 @@
       "type": "raw",
       "x": 17,
       "y": 31,
-      "note": "<hai_enemy:1053,green>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:1053,green>\n<hai_enemy_hesitate>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -1587,7 +2063,7 @@
       "type": "raw",
       "x": 30,
       "y": 31,
-      "note": "<hai_enemy:1053,green>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:1053,green>\n<hai_enemy_hesitate>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -1609,7 +2085,7 @@
       "type": "raw",
       "x": 22,
       "y": 43,
-      "note": "<hai_enemy:1054,green>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:1054,green>\n<hai_enemy_hesitate>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -1631,7 +2107,7 @@
       "type": "raw",
       "x": 48,
       "y": 22,
-      "note": "<hai_enemy:1055,yellow>",
+      "note": "<hai_enemy:1055,yellow>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -1696,7 +2172,7 @@
       "type": "raw",
       "x": 61,
       "y": 30,
-      "note": "<hai_enemy:1055,yellow>",
+      "note": "<hai_enemy:1055,yellow>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -1718,7 +2194,7 @@
       "type": "raw",
       "x": 62,
       "y": 42,
-      "note": "<hai_enemy:1059,red>\n<hai_enemy_chase:2>",
+      "note": "<hai_enemy:1059,red>\n<hai_enemy_chase:2>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -1732,6 +2208,241 @@
           "trigger": 2,
           "moveFrequency": 3,
           "moveType": 0
+        }
+      ]
+    },
+    {
+      "name": "麻袋の跡",
+      "type": "raw",
+      "x": 22,
+      "y": 22,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "Hai.Thoughts.isRead(\"F10\")"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "小屋の奥の床に、畳んだ麻袋の形の跡。三つ分。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "角が、揃っている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "声だけの影（列に並んだ女）",
+      "type": "raw",
+      "x": 27,
+      "y": 14,
+      "note": "<hai_enemy:1060,green>\n<hai_enemy_shade:名を呼ばれて、この子が笑った。初めてだ>\n<hai_enemy_once>\n<hai_enemy_bell:102>",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 1060,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 2,
+          "moveType": 0
+        }
+      ]
+    },
+    {
+      "name": "夜の戸の後（自動）",
+      "type": "raw",
+      "x": 0,
+      "y": 0,
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 1060,
+            "switch1Valid": true
+          },
+          "priorityType": 0,
+          "trigger": 4,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "$gameSelfSwitches.value([110, 33, \"A\"])"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 1,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 1060,
+            "switch1Valid": true,
+            "selfSwitchCh": "B",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "影は、子どもの背の高さに手を添える形のまま、崩れた。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Thoughts",
+                "markRead",
+                "思念を既読にする",
+                {
+                  "id": "L5-01"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "id = L5-01"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "光っていた釘の頭が、灰で曇った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "墓守は帳面に、炭で一行書いた。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                1061,
+                1061,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 1061,
+            "switch1Valid": true
+          },
+          "priorityType": 0
         }
       ]
     }

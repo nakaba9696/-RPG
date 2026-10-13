@@ -87,10 +87,18 @@ const ifVar = (id, value, cmp = 0, indent = 0) => ({ code: 111, indent, paramete
 const ifItem = (id, indent = 0) => ({ code: 111, indent, parameters: [8, id] });
 const ifActor = (actorId, indent = 0) => ({ code: 111, indent, parameters: [4, actorId, 0] });
 const ifScript = (expr, indent = 0) => ({ code: 111, indent, parameters: [12, expr] });
+const ifSelf = (ch, on = true, indent = 0) => ({ code: 111, indent, parameters: [2, ch, on ? 0 : 1] });
+const ifRead = (id, indent = 0) => ifScript(`Hai.Thoughts.isRead("${id}")`, indent);
 const orElse = (indent = 0) => ({ code: 411, indent, parameters: [] });
 const endIf = (indent = 0) => ({ code: 412, indent, parameters: [] });
 const move = (mapId, x, y, dir = 0, indent = 0) => ({ code: 201, indent, parameters: [0, mapId, x, y, dir, 0] });
 const DIR = { down: 2, left: 4, right: 6, up: 8 };
+const ME = "\\N[1]"; // 主人公（名前の欄は「墓守」）
+const wait = (frames, indent = 0) => ({ code: 230, indent, parameters: [frames] });
+/** 夜の戸：板を叩く音を三度（文は出さない） */
+const knock3 = (indent = 0) => [se("Knock", indent), wait(30, indent), se("Knock", indent), wait(30, indent), se("Knock", indent), wait(40, indent)];
+/** 言い残し（docs/story/scenes/02-region2-region5.md 0.1。既読の ID。器は P の legacy） */
+const markRead = (id, indent = 0) => plugin("Hai_Thoughts", "markRead", "思念を既読にする", { id }, indent);
 const IMG = {
   chest: { characterName: "!Chest", characterIndex: 0, direction: 2, pattern: 0 },
   redChest: { characterName: "!Chest", characterIndex: 1, direction: 2, pattern: 0 },
@@ -109,32 +117,39 @@ const body = (sheet, index, direction = 2) => ({ characterName: sheet, character
 /** 調べると一行か二行出る物 */
 export const look = (name, x, y, lines, image) => ({ name, type: "text", x, y, ...(image ? { image } : {}), lines });
 /** 残留思念（docs/plugins/Hai_Thoughts.md） */
-export function thought(id, who, x, y, lines, { clue = [], image = body("Damage1", 5, 8) } = {}) {
-  return { name: `思念 ${id} ${who}`, type: "text", x, y, note: `<hai_thought:${id}>` + clue.map(c => `<hai_clue:${c}>`).join(""), image, lines };
+export function thought(id, who, x, y, lines, { clue = [], image = body("Damage1", 5, 8), after = [] } = {}) {
+  const note = `<hai_thought:${id}>` + clue.map(c => `<hai_clue:${c}>`).join("");
+  if (after.length) return { name: `思念 ${id} ${who}`, type: "raw", x, y, note, pages: [{ image, priorityType: 1, list: [...say(lines), ...after, end(0)] }] };
+  return { name: `思念 ${id} ${who}`, type: "text", x, y, note, image, lines };
 }
 /** 記憶の断片（docs/plugins/Hai_Companions.md） */
-export function memory(actorId, n, who, x, y, lines, image = IMG.memory) {
-  return { name: `記憶 ${who} ${n}`, type: "text", x, y, note: `<hai_memory:${actorId},${n}>`, image, lines };
+export function memory(actorId, n, who, x, y, lines, image = IMG.memory, after = []) {
+  const note = `<hai_memory:${actorId},${n}>`;
+  if (after.length) {
+    const blocks = Array.isArray(lines[0]) ? lines : [lines];
+    return { name: `記憶 ${who} ${n}`, type: "raw", x, y, note, pages: [{ image, priorityType: 1, list: [...blocks.flatMap(b => say(b)), ...after, end(0)] }] };
+  }
+  return { name: `記憶 ${who} ${n}`, type: "text", x, y, note, image, lines };
 }
 /** 宝箱（kind: item/weapon/armor/gold） */
-export function chest(x, y, kind, id, n = 1, { red = false, label } = {}) {
+export function chest(x, y, kind, id, n = 1, { red = false, label, pre = [] } = {}) {
   const what = kind === "gold" ? "鉄くず" : TABLE[kind][id].name;
   const img = red ? IMG.redChest : IMG.chest;
   return {
     name: `${red ? "赤い宝箱" : "宝箱"}（${label || what}）`, type: "raw", x, y, note: "",
     pages: [
-      { image: img, priorityType: 1, trigger: 0, walkAnime: false, list: [se("Chest1"), ...give(kind, id, n), selfOn(), end(0)] },
+      { image: img, priorityType: 1, trigger: 0, walkAnime: false, list: [...(pre.length ? say(pre) : []), se("Chest1"), ...give(kind, id, n), selfOn(), end(0)] },
       { conditions: { selfSwitchCh: "A", selfSwitchValid: true }, image: { ...img, direction: 8 }, priorityType: 1, walkAnime: false, list: [end(0)] },
     ],
   };
 }
 /** 拾い物（光る点か、置物の絵）。pre の文のあとに渡す。after は渡したあとの命令 */
-export function pickup(name, x, y, kind, id, pre = [], { n = 1, image = IMG.glint, after = [], note: memo = "" } = {}) {
+export function pickup(name, x, y, kind, id, pre = [], { n = 1, image = IMG.glint, after = [], mid = [], note: memo = "" } = {}) {
   return {
     name: `拾い物（${name}）`, type: "raw", x, y, note: memo,
     pages: [
       { image, priorityType: 1, stepAnime: !!image.characterName && image.characterName.startsWith("!Other"), walkAnime: false,
-        list: [...(pre.length ? say(pre) : []), se("Item1"), ...give(kind, id, n), ...after, selfOn(), end(0)] },
+        list: [...(pre.length ? say(pre) : []), ...mid, se("Item1"), ...give(kind, id, n), ...after, selfOn(), end(0)] },
       { conditions: { selfSwitchCh: "A", selfSwitchValid: true }, priorityType: 0, list: [end(0)] },
     ],
   };
@@ -142,9 +157,11 @@ export function pickup(name, x, y, kind, id, pre = [], { n = 1, image = IMG.glin
 /** シンボル敵（docs/plugins/Hai_SymbolEnemy.md）。route は移動ルートの命令の番号の列（1 下・2 左・3 右・4 上） */
 export function enemy(name, x, y, troopId, rank, image, { type = 1, speed = 3, freq = 3, route = null, chase = null, hesitate = false } = {}) {
   const note = `<hai_enemy:${troopId},${rank}>` + (chase !== null ? `\n<hai_enemy_chase:${chase}>` : "") + (hesitate ? "\n<hai_enemy_hesitate>" : "");
+  // 鳴らした地域の敵は追わず、東を向いて止まる（P の旗。地域二は記録院の鐘。場面表 0.2。W16）
+  const bell = `\n<hai_enemy_bell:${FLAG.archiveBell}>`;
   const page = { image, priorityType: 1, moveSpeed: speed, trigger: 2, moveType: route ? 3 : type, moveFrequency: route ? 4 : freq };
   if (route) page.moveRoute = { list: [...route.map(code => ({ code, parameters: [] })), { code: 0, parameters: [] }], repeat: true, skippable: true, wait: false };
-  return { name, type: "raw", x, y, note, pages: [page] };
+  return { name, type: "raw", x, y, note: note + bell, pages: [page] };
 }
 const back = (steps, there) => [...there, ...there.map(c => ({ 1: 4, 4: 1, 2: 3, 3: 2 })[c])].slice(0, steps);
 /** 往復（同じ道を行って戻る） */
@@ -169,18 +186,18 @@ export const warp = (label, x, y) => ({
   pages: [{ image: IMG.warp, priorityType: 1, trigger: 0, stepAnime: true, list: [end(0)] }],
 });
 /** 薄い思念（docs/plugins/Hai_Thoughts.md の <hai_faint>）。最後に W6 のコモンイベント 201（記憶が戻ったときの一言） */
-export function faint(id, who, x, y, lines) {
+export function faint(id, who, x, y, lines, after = []) {
   return {
     name: `薄い思念 ${id} ${who}`, type: "raw", x, y, note: `<hai_faint:${id}>`,
-    pages: [{ image: IMG.faint, priorityType: 1, stepAnime: true, list: [...say(lines), { code: 117, indent: 0, parameters: [201] }, end(0)] }],
+    pages: [{ image: IMG.faint, priorityType: 1, stepAnime: true, list: [...say(lines), ...after, { code: 117, indent: 0, parameters: [201] }, end(0)] }],
   };
 }
 /** 遺骸（docs/plugins/Hai_Companions.md）。臨終の記憶と同じイベント */
-export function remains(actorId, who, x, y, look, last, image) {
+export function remains(actorId, who, x, y, look, last, image, after = []) {
   return {
     name: `遺骸 ${who}`, type: "raw", x, y, note: `<hai_remains:${actorId}><hai_memory:${actorId},4>`,
     pages: [
-      { image, priorityType: 1, trigger: 0, list: [...say(look), ...say(last), end(0)] },
+      { image, priorityType: 1, trigger: 0, list: [...say(look), ...say(last), ...after, end(0)] },
       { conditions: { selfSwitchCh: "A", selfSwitchValid: true }, priorityType: 0, list: [end(0)] },
     ],
   };
@@ -273,6 +290,64 @@ function config(file, cfg) {
 // ===========================================================================
 // 060 焼けた村・入口
 // ===========================================================================
+// 夜の戸（W16。場面表 0.1・1-11）：R2-01 を読んであれば、戸を叩かれる。答えると声だけの影（432）が土間に出る。
+//   影は Hai_SymbolEnemy の <hai_enemy_shade:言い残し>（倒すと言い残しを窓なしで出す）。倒したあと「夜の戸の後（自動）」が
+//   言い残しを既読（L2-01）にし、帳面の一行を出して、スイッチ 413 を立てる（N4-4 が頂で読む）
+const SHADE_BURNT = { name: "声だけの影（焼けた村の子）", x: 40, y: 23, voice: "おねえちゃん、三つしか叩かなかったよ。おかあ" };
+const nightDoorBurnt = {
+  name: "内から打ち付けた戸", type: "raw", x: 42, y: 22, note: "",
+  pages: [
+    { priorityType: 1, list: [
+      ifRead("R2-01"),
+      ...knock3(1),
+      ifScript(`$gameParty.hasItem($dataArmors[${ARMOR.doorShield}], true)`, 1),
+      ...say(["戸口の枠に、戸板の盾を立てた。凹みが三つ、外を向く。"], "", 2), end(2),
+      orElse(1),
+      ...say(["戸口の枠に、板を打ち付けた跡だけがある。"], "", 2), end(2),
+      endIf(1),
+      ...say(["戸板の向こうに、足音は無い。"], "", 1),
+      ...say(["おかあ、戸、こたえていい？"], "焼けた村の子", 1),
+      choice(["答える", "答えない"], 1, 1),
+      when(0, "答える", 1),
+      ...say(["いい"], ME, 2),
+      ...say(["凹みの所に、黒いものが溜まった。声の形だった。"], "", 2),
+      swOn(SW.nightDoorAnswered, 2),
+      end(2),
+      when(1, "答えない", 1),
+      ...say(["音は、三度で止んだ。朝まで、二度目は来なかった。"], "", 2),
+      end(2),
+      choiceEnd(1),
+      end(1),
+      orElse(0),
+      ...say(["戸口に、内側から板が打ち付けてあった跡。", "釘は外から抜かれていない。中から抜いてある。"], "", 1),
+      end(1),
+      endIf(0), end(0),
+    ] },
+    { conditions: { switch1Id: SW.nightDoorAnswered, switch1Valid: true }, priorityType: 1, list: [...say(["戸板の向こうに、足音は無い。"]), end(0)] },
+    { conditions: { switch1Id: SW.nightDoorLegacy, switch1Valid: true }, priorityType: 1, list: [...say(["戸口の板の跡。凹みは、三つのままだ。"]), end(0)] },
+  ],
+};
+/** 声だけの影（夜の戸で答えると出る。一度きり）。地域二の敵なので <hai_enemy_bell> も付ける */
+const shadeEvent = ({ name, x, y, voice }, troopId, answered) => ({
+  name, type: "raw", x, y,
+  note: [`<hai_enemy:${troopId},green>`, `<hai_enemy_shade:${voice}>`, "<hai_enemy_once>", `<hai_enemy_bell:${FLAG.archiveBell}>`].join("\n"),
+  pages: [
+    { priorityType: 0, list: [end(0)] },
+    { conditions: { switch1Id: answered, switch1Valid: true }, image: body("Monster", 5), priorityType: 1, trigger: 2, moveType: 0, list: [end(0)] }, // W11 の影と同じ絵
+  ],
+});
+/** 影を倒したあと（影のセルフスイッチ A）：一度だけ。並列で見張って、自動実行で文を出す */
+const afterShade = (name, mapId, shadeId, answered, legacy, lines, legacyId) => ({
+  name, type: "raw", x: 0, y: 0, note: "",
+  pages: [
+    { priorityType: 0, list: [end(0)] },
+    { conditions: { switch1Id: answered, switch1Valid: true }, priorityType: 0, trigger: 4,
+      list: [ifScript(`$gameSelfSwitches.value([${mapId}, ${shadeId}, "A"])`), selfOn("B", 1), end(1), endIf(0), end(0)] },
+    { conditions: { switch1Id: answered, switch1Valid: true, selfSwitchCh: "B", selfSwitchValid: true }, priorityType: 0, trigger: 3,
+      list: [...say(lines.shade), ...markRead(legacyId), ...say(lines.ledger), swOn(legacy), end(0)] },
+    { conditions: { switch1Id: legacy, switch1Valid: true }, priorityType: 0, list: [end(0)] },
+  ],
+});
 {
   const [sx, sy] = [ARRIVE.squareSouth[1], ARRIVE.squareSouth[2]];
   const events = [
@@ -281,20 +356,23 @@ function config(file, cfg) {
     warp("焼けた村の入口", 44, 20),
     look("道標", 45, 15, ["焼けた杭に板が打ち付けてある。「この先　村」。", "村の字の下に、刃物で小さく「こたえるな」。"], { tileId: "B:137" }),
     // 入口の家
-    pickup("戸板の盾", 41, 24, "armor", ARMOR.doorShield, ["戸口の脇に、戸板が一枚立てかけてある。", "裏に、取っ手が打ち付けてある。"], { image: { tileId: "B:180" } }),
+    pickup("戸板の盾", 41, 24, "armor", ARMOR.doorShield, ["戸口の脇に、戸板が一枚立てかけてある。", "表に、拳ほどの凹みが三つ、縦に並ぶ。", "裏に、取っ手。その脇に子どもの字で「こたえない」。"], {
+      image: { tileId: "B:180" },
+      mid: [ifActor(5), ...say(["盾、ですね。取っ手の革は新しいです"], "ブルーノ", 1), end(1), endIf(0)],
+    }),
     thought("R2-01", "戸を開けなかった母親", 38, 26, [
       "戸を三度、叩かれた。去年の秋に祠へ行った娘の声だった。",
       "朝まで、戸に背中をつけて座ってた。",
       "叩く音は、三度で止んだ。夜明けの前だった。",
       "戸板の裏に、下の子が何か書いてる。読んでいない。",
     ], { image: body("Damage1", 5, 4) }),
-    look("内から打ち付けた戸", 42, 22, ["戸口に、内側から板が打ち付けてあった跡。", "釘は外から抜かれていない。中から抜いてある。"]),
+    nightDoorBurnt,
     // ノラの家
     memory(6, 1, "ノラ", 28, 24, [
       ["うちは狩りの家。父さんが弓で、あたしは追い込み！", "藪を走って、獲物を父さんの前に追い出すの。", "村でいちばん速かったよ。大人よりも！"],
       ["妹はのろくてさ。いっつも後ろで、待ってよって。", "待ってやればよかったな。", "あたし、走るのだけは上手かったんだ。"],
     ]),
-    look("焼けた寝台", 31, 26, ["寝台が二つ並んでいる。小さい方の枕元に、木彫りの兎。", "大きい方は、窓の下に寄せてある。"]),
+    look("焼けた寝台", 31, 26, ["寝台が二つ並んでいる。", "小さい方の枕元に、木彫りの兎。耳が片方、欠けている。", "大きい方は、窓の下に寄せてある。", "窓の桟は外れたままだ。"]),
     // 畑と盛り土（ノラ）
     {
       name: "畑の盛り土（ノラ）", type: "raw", x: 12, y: 28, note: "",
@@ -305,7 +383,9 @@ function config(file, cfg) {
           ...say(["ここ、何か埋まってる！　布の匂い。……うちの布だ。"], "ノラ", 1),
           se("Sand", 1, 80), ...give("armor", ARMOR.lotTag, 1, 1), selfOn("A", 1), end(1),
           orElse(0),
-          ...say(["畑の真ん中に、小さな盛り土がある。墓ではない。", "鼻の利く者なら、何が埋まっているか分かりそうだ。"], "", 1), end(1),
+          ...say(["畑の真ん中に、小さな盛り土がある。墓ではない。", "鼻の利く者なら、何が埋まっているか分かりそうだ。"], "", 1),
+          ifActor(5, 1), ...say(["ここの家の人、呼べますか。", "礼拝堂で、僕を呼んでくれたように"], "ブルーノ", 2), end(2), endIf(1),
+          end(1),
           endIf(0), end(0),
         ] },
         { conditions: { selfSwitchCh: "A", selfSwitchValid: true }, image: { tileId: "B:169" }, priorityType: 1, list: [...say(["掘り返した土が、もう乾いている。"]), end(0)] },
@@ -328,10 +408,12 @@ function config(file, cfg) {
       name: "ゲンサイ", type: "raw", x: 11, y: 9, note: "",
       pages: [{ image: body("People4", 6, 2), priorityType: 1, list: [
         ifVar(VAR.brother, 3),
-        ...say(["ルッツは自分で決めたんよ。あんたも見とったやろ。", "ほな。灰の祈りは夕べにやる。粥の椀は、一つ多めに出しとく。"], "ゲンサイ", 1), end(1),
+        ...say(["ルッツは自分で決めたんよ。あんたも見とったやろ。", "ほな。灰の祈りは夕べにやる。"], "ゲンサイ", 1), end(1),
         orElse(0),
         ...say(["ほな、あんたが砦の火の人か。鐘を鳴らして回っとると聞いたで。", "鐘なあ。鳴らしたら、しばらくは夜が静かや。しばらくは、な。"], "ゲンサイ", 1),
-        ...say(["二百年前もそうやった。わしの経典には、そう書いてある。", "わしらは戸を閉めへん。叩かれたら、開ける。それで終わる苦しみもある。"], "ゲンサイ", 1),
+        ifActor(5, 1), ...say(["鐘は、神の音です"], "ブルーノ", 2), ...say(["ゲンサイには聞こえなかった。"], "", 2), end(2), endIf(1),
+        ...say(["二百年前もそうやった。", "わしの経典には、そう書いてある"], "ゲンサイ", 1),
+        ...say(["わしらは戸を閉めへん。叩かれたら、開ける。それで終わる苦しみもある。"], "ゲンサイ", 1),
         ...say(["ゆっくりしていき。堪忍な、出せるもんは灰の粥だけや。"], "ゲンサイ", 1), end(1),
         endIf(0), end(0),
       ] }],
@@ -340,15 +422,25 @@ function config(file, cfg) {
       name: "ルッツ（アンネリーゼの弟）", type: "raw", x: 16, y: 11, note: "",
       pages: [
         { image: body("People3", 2, 4), priorityType: 1, list: [
+          ifSelf("B", false),
+          ...say(["ルッツが、椀に粥を一つ多めに足した。"], "", 1),
+          ...say(["一つ多めに出しとくんが、ここの決まりだし"], "ルッツ", 1),
+          selfOn("B", 1), end(1),
+          endIf(0),
           ifVar(VAR.brother, 1),
           ...say(["姉ちゃんに言われて来たんだろ。顔で分かるし。", "おれは帰らない。灰の祈りは、こわくないけど。"], "ルッツ", 1),
           ifItem(ITEM.sacrificeLedger, 1),
           choice(["生贄の帳面を見せる", "ゲンサイと話す", "やめる"], 2, 2),
           when(0, "生贄の帳面を見せる", 2),
-          ...say(["……なんだよ、これ。"], "ルッツ", 3),
+          ...say(["なんだよ、これ"], "ルッツ", 3),
           ...say(["ルッツは帳面をめくり、ある行で指を止めた。"], "", 3),
-          ...say(["鍛冶の家。うちだし。下の娘、済。", "次の年も、鍛冶の家。済。司祭さまは、こういうの、言わなかったけど。"], "ルッツ", 3),
-          ...say(["……帰る。姉ちゃんの所に、帰る。"], "ルッツ", 3),
+          ...say(["鍛冶の家。うちだし。下の娘、済", "次の年も、鍛冶の家。済。", "司祭さまは、こういうの、言わなかったけど"], "ルッツ", 3),
+          ...say(["ルッツは最後の頁で、止まった。"], "", 3),
+          ...say(["印、無し", "……来なかった人が、いたのか"], "ルッツ", 3),
+          ifActor(6, 3), ...say(["ノラの足だけが、一歩、後ろに動いた。"], "", 4), end(4), endIf(3),
+          ...say(["帰る。姉ちゃんの所に、帰る"], "ルッツ", 3),
+          ...say(["ルッツは杓子をゲンサイに渡して、", "広場の方へ歩いていった。"], "", 3),
+          ...say(["ほな"], "ゲンサイ", 3),
           varSet(VAR.brother, 2, 3), swOn(SW.brotherHome, 3),
           ...errand({ key: "brother", stage: "2", text: "ルッツは村の広場の鍛冶小屋へ帰った" }, 3),
           { code: 221, indent: 3, parameters: [] }, selfOn("A", 3), { code: 222, indent: 3, parameters: [] },
@@ -394,7 +486,13 @@ function config(file, cfg) {
     enemy("煤けた鴉（黄・往復）", 31, 20, TROOP.crow, "yellow", body("Nature", 2), { route: patrol("right", 8) }),
     enemy("祠へ歩く者（黄）", 22, 12, TROOP.walker, "yellow", body("Evil", 6), { route: patrol("up", 6), speed: 2, hesitate: true }),
     enemy("焼け跡の番犬（黄・宝の番）", 39, 31, TROOP.scorchDog, "yellow", body("Monster", 3), { type: 0, chase: 3 }),
+    // 夜の戸（W16）
+    shadeEvent(SHADE_BURNT, TROOP.voiceShade, SW.nightDoorAnswered),
   ];
+  events.push(afterShade("夜の戸の後（自動）", MAP.gate, events.findIndex(e => e.name === SHADE_BURNT.name) + 1, SW.nightDoorAnswered, SW.nightDoorLegacy, {
+    shade: ["影は、長くはもたなかった。崩れるときに、声が落ちた。"],
+    ledger: ["墓守は帳面の最後の頁に、炭で一行書いた。", "届けた相手の欄は、空けた。"],
+  }, "L2-01"));
   config("w8_060_burnt_gate", {
     _説明: "W8（#155）：焼けた村・入口（docs/world.md 5.1・5.2・7.3）。東の焼けた道→021、北の道→061。入口の家（戸板の盾）、ノラの家（記憶 1）、畑の盛り土（ノラ）、配給の小屋、灰の信徒の今の集落（ゲンサイ・ルッツ）。",
     mapId: 60, name: "焼けた村・入口", displayName: "焼けた村", ...VILLAGE_BASE,
@@ -442,7 +540,7 @@ function config(file, cfg) {
       "祠守りに斬りかかった所で、後ろから腕を取られた。女の手だった。",
       "くじで行く娘の母親だと。使徒は来ず、村はその年も残った。",
       "槍は取り上げられた。銀三十は、もらっていない。",
-    ], { image: body("Damage2", 6, 6) }),
+    ], { image: body("Damage2", 6, 6), after: [ifActor(6), ...say(["あたしの母さん、何も言わなかった。", "帳面を読み上げられたとき"], "ノラ", 1), end(1), endIf(0)] }),
     thought("R2-06", "槍を預かった年寄り", 13, 19, [
       "使徒狩りの若いのが来て、くじを止めると言った。",
       "くじを止めたら、村が行く。あれには、それが分からん。",
@@ -536,7 +634,7 @@ function config(file, cfg) {
     chest(61, 39, "gold", 0, 60),
     chest(63, 41, "item", ITEM.elixir, 1),
     chest(47, 4, "item", ITEM.holyWater, 2),
-    chest(4, 40, "weapon", WEAPON.hunterSpear, 1, { red: true }),
+    chest(4, 40, "weapon", WEAPON.hunterSpear, 1, { red: true, pre: ["穂先は骨。柄の結び紐に、子どもの髪の房。", "柄の刻みは、狩りの数ではない。日の数だ。"] }),
     // 敵
     enemy("灰鼬（緑）", 10, 30, TROOP.weasels, "green", body("Monster", 0)),
     enemy("灰鼬（緑）", 25, 29, TROOP.weasels, "green", body("Monster", 0)),
@@ -545,6 +643,15 @@ function config(file, cfg) {
     enemy("祠へ歩く者（黄）", 21, 19, TROOP.walker, "yellow", body("Evil", 6), { route: patrol("down", 7), speed: 2, hesitate: true }),
     enemy("祠へ歩く者（黄）", 44, 37, TROOP.walker, "yellow", body("Evil", 6), { speed: 2, hesitate: true }),
     enemy("使徒狩りの亡骸（赤・畑の番）", 50, 6, TROOP.hunterCorpse, "red", body("Evil", 2, 2), { type: 0, chase: 2 }),
+    // W16（場面表 1-12）：ルッツが戻ったあと、鍛冶小屋の戸口に戸板（結末で N4-4 がこの戸板を使う）
+    {
+      name: "戸板（鍛冶小屋の戸口）", type: "raw", x: 55, y: 19, note: "",
+      pages: [
+        { priorityType: 0, list: [end(0)] },
+        { conditions: { switch1Id: SW.brotherHome, switch1Valid: true }, image: { tileId: "B:180" }, priorityType: 1,
+          list: [...say(["鍛冶小屋の戸口に、戸板が一枚立ててある。", "ルッツが、火の脇に置いたものだ。", "表の凹みが外を向いている。"]), end(0)] },
+      ],
+    },
   ];
   config("w8_061_village_square", {
     _説明: "W8（#155）：焼けた村・広場（docs/world.md 5.1・5.2・6.4・7.3）。南の道→060、見張り台の戸→062、祠の坂の上の戸口→063、水路の石段→070（W9）。アンネリーゼと弟の筋、ノラの記憶 3（触れ書き）、倒れた梁（トゥーラ）の先の倉、生け垣の奥の見えない通路の先（使徒狩りの投げ槍）。",
@@ -578,19 +685,31 @@ function config(file, cfg) {
       "あれ。足、動かないや。",
       "こっちは山の方だ。村は、背中の方。",
       "振り向けないや。でも、火は上がった。",
-    ], body("Damage1", 7, 8)),
+    ], body("Damage1", 7, 8), [ifActor(5), ...say(["……いち、に、さん"], "ブルーノ", 1), ...say(["ブルーノは三で止めた。指は、開いたままだった。"], "", 1), end(1), endIf(0)]),
     faint("F06", "伝令の子", 16, 11, [
       "見張り台から村の門まで、墓守と駆けっこをした。",
       "墓守は途中で転んだ。転ぶと決めてあった転び方だった。",
       "ぼくが勝った。賭けは、干し杏が三つ。",
       "墓守は四つくれた。一つは数え間違いだと言った。",
-    ]),
+    ], say(["墓守は右の手で三つ数え、四つ目を折った。"])),
     thought("R2-10", "夜番の年寄り", 6, 11, [
       "見張り台の火は、村へ戻る者の目印だ。そういう決まりだった。",
       "戻る者がいなくなって、誰も上げなくなった。薪だけは、十年分積んである。",
       "あの晩、誰かが上げた。わしは寝床で、見なかったことにした。",
     ], { image: body("Damage2", 0, 6) }),
-    look("薪の山", 11, 5, ["薪の山の上半分だけが燃えて、炭になっている。"]),
+    {
+      // W16（場面表 1-8）：ノラがいると一度だけ、火を上げた向きを自分で言う（スイッチ 414）
+      name: "薪の山", type: "raw", x: 11, y: 5, note: "",
+      pages: [{ priorityType: 1, list: [
+        ...say(["薪の山の上半分だけが燃えて、炭になっている。"]),
+        ifSelf("A", false), ifActor(6, 1),
+        ...say(["ノラが薪の山の前で、山の方を向いて立った。"], "", 2),
+        ...say(["ここで火、上げたんだ", "村の方、向いてなかったんだね。あたし", "道、照らしてたんだ。帰る道"], "ノラ", 2),
+        ...say(["炭は、山の方の半分だけが、深く焼けていた。"], "", 2),
+        swOn(SW.noraFire, 2), selfOn("A", 2), end(2),
+        endIf(1), end(1), endIf(0), end(0),
+      ] }],
+    },
     look("北の眺め", 9, 5, ["柵の向こうに、灰をかぶった谷。", "谷の先の山の上に、塔の影が一つ。"]),
     {
       name: "屋根の梁（鉤綱で上る）", type: "raw", x: 19, y: 8, note: "",
@@ -624,11 +743,19 @@ function config(file, cfg) {
   const bossFight = [
     ...say(["戸の前に、灰色の肩布の大きな影が立っている。", "手に帳面。指が、行を一つずつ辿っている。"]),
     ...say(["差し出す者を、逃がすな。名は、揃っている。"], "生贄の祠の番"),
+    // W16（場面表 1-9）：帳面を持っていれば、戦いの前に最後の名を読み上げる（頭の頁は「番の口が止まった」）
+    ifItem(ITEM.sacrificeLedger),
+    ...say(["番の口が止まらない。墓守は帳面を開いた。"], "", 1),
+    ...say(["狩りの家、下の娘、イーダ。印、済"], ME, 1),
+    ...say(["番の口が、止まった。"], "", 1),
+    ifActor(6, 1), ...say(["イーダ"], "ノラ", 2), end(2), endIf(1),
+    end(1), endIf(0),
     ...plugin("Hai_Boss", "bossBattle", "ボス戦", { troopId: String(TROOP.shrineWarden), escapeMapId: String(MAP.shrine), escapeX: "13", escapeY: "15", escapeDirection: "2" }),
     ifScript("Hai.Boss.lastResult() === 0"),
     ...say(["祠の番は、帳面の上に覆いかぶさるように崩れた。", "灰の中に、肩布が一枚残った。"], "", 1),
     se("Item1", 1), ...give("armor", ARMOR.ashShawl, 1, 1),
     ...say(["奥の戸の閂が、外れて落ちた。"], "", 1),
+    ...say(["奥の戸が開いて、麦の匂いの風が入ってきた。"], "", 1),
     end(1),
     endIf(0), end(0),
   ];
@@ -651,7 +778,10 @@ function config(file, cfg) {
           list: [se("Door1"), move(...STREET_FROM_SHRINE, DIR.right), end(0)] }, // W12：080 → 110 麦の街道
       ],
     },
-    pickup("生贄の帳面", 18, 6, "item", ITEM.sacrificeLedger, ["台の上に、灰で黒くなった帳面がある。", "一行に一つずつ、くじの月と、家と、「済」の印。"], {
+    pickup("生贄の帳面", 18, 6, "item", ITEM.sacrificeLedger, [
+      "台の上に、灰で黒くなった帳面がある。", "くじ。収めの月。鍛冶の家、下の娘。印、済。", "くじ。刈り入れの月。",
+      "狩りの家、上の娘、ノラ。印、無し。", "同じ月。狩りの家、下の娘、イーダ。印、済。", "頁は、そこで終わっている。",
+    ], {
       image: { tileId: "E:194" },
       after: note("生贄の帳面に、済の印が無い行が一つある（村の祠）", "clue:w8:ledger"),
     }),
@@ -674,6 +804,21 @@ function config(file, cfg) {
     ], { image: body("Damage2", 3, 4) }),
     look("戸の閂の受け", 15, 4, ["奥の戸の脇に、閂の受け金が打ってある。外側にだけ。"]),
     chest(6, 14, "item", ITEM.holyWater, 1),
+    {
+      // W16（場面表 1-9）：祭壇の脇の鐘の台。ブルーノとノラがいると掛け合い
+      name: "鐘の台", type: "raw", x: 11, y: 4, note: "",
+      pages: [{ priorityType: 1, list: [
+        ...say(["祭壇の脇に、鐘の台。台だけが残っている。"]),
+        ifScript("$gameParty.members().some(a => a.actorId() === 5) && $gameParty.members().some(a => a.actorId() === 6)"),
+        ...say(["ここの祠にも、鐘があったんですね。台だけ残ってる"], "ブルーノ", 1),
+        ...say(["鳴ってたよ！　夕べに三十。村のみんなで数えた"], "ノラ", 1),
+        ...say(["じゃあ、使徒は来なかった"], "ブルーノ", 1),
+        ...say(["来なかった。代わりに、あたしたちが山へ行った"], "ノラ", 1),
+        ...say(["……いち、に、さん"], "ブルーノ", 1),
+        ...say(["そう。その速さだった"], "ノラ", 1),
+        end(1), endIf(0), end(0),
+      ] }],
+    },
   ];
   config("w8_063_shrine", {
     _説明: "W8（#155）：村の祠（docs/world.md 2.3・5.5・6.4）。ボス 生贄の祠の番（弱み：生贄の帳面の最後の名。帳面を持って挑むと戦いの頭に見せる）、祠の経典、ノラの記憶 2、奥の戸→110 麦の街道（ボスのあと。W12 で 080 から差し替え）、西の戸→064。",
@@ -742,8 +887,10 @@ function config(file, cfg) {
       name: "ピピネル", type: "raw", x: 18, y: 6, note: "",
       pages: [
         { image: body("People1", 5, 2), priorityType: 1, list: [
+          ifActor(5), ...say(["叩くのは、まずいでしょうか。昼ですけど"], "ブルーノ", 1), end(1), endIf(0),
           ...say(["おや、人の子かえ。婆の小屋に客とは、珍しいのう。", "婆はピピネルじゃ。見た目で笑うたら、薬に苦い根を足すぞ。"], "ピピネル"),
           ...say(["熱の薬、傷の薬、眠る薬。たいていの薬は、ここで煎じられる。", "森の内へ戻る薬は、無い。門が閉じてからずっと、無い。"], "ピピネル"),
+          ...say(["杓子を回す腕の袖が、肘までめくれている。", "ピピネルは杓子を持ち替え、袖を手首まで下ろした。"]),
           ...say(["砦の炉に火が入ったと？　……ほう。火の入る所には、怪我人が出る。", "行ってやろう。薬草の籠を背負うてな。帳面は、置いていく。"], "ピピネル"),
           ...toFort(SW.pipinel, "infirmary"),
           ...say(["ピピネルは籠を背負って、森の道を砦の方へ歩いていった。"]),
@@ -752,7 +899,7 @@ function config(file, cfg) {
         { conditions: { selfSwitchCh: "A", selfSwitchValid: true }, priorityType: 0, list: [end(0)] },
       ],
     },
-    pickup("療養小屋の帳面", 17, 4, "item", ITEM.hospiceLedger, ["薬棚の下に、紐で綴じた帳面がある。", "表紙に、木の葉を三枚重ねた印。"], { image: { tileId: "D:185" } }),
+    pickup("療養小屋の帳面", 17, 4, "item", ITEM.hospiceLedger, ["薬棚の下に、紐で綴じた帳面がある。", "表紙に、木の葉を三枚重ねた印。", "頁をめくると、途中から印が無い。名は、その先も続く。"], { image: { tileId: "D:185" } }),
     thought("R2-14", "熱の下がらない男", 16, 7, [
       "ここで寝てた。熱が下がったら、帰っていいと言われた。",
       "帰る村は焼けたと、通りがかりの者に聞いた。",
@@ -834,6 +981,7 @@ function config(file, cfg) {
           ...say(["あなた、記録にない方です。記録します。", "わたしはイスメネ。ここの書庫番です。受付の帳面は、毎朝わたしが書きます。"], "イスメネ", 2),
           ...say(["奥の書架は封じてあります。封じた人の名は、記録にあります。本人はいません。", "その奥の真名の間に、学者が一人。まだ読んでいます。読んでいる、と記録にあります。"], "イスメネ", 2),
           ...say(["一つ、頼めますか。奥に、銘の写しが二通りあるはずです。", "どちらが本物か、わたしは知りません。まだ。見つけたら、見せてください。"], "イスメネ", 2),
+          ifActor(5, 2), ...say(["はい"], "ブルーノ", 3), ...say(["イスメネには聞こえなかった。", "イスメネは帳面に、もう一行書いた。"], "", 3), end(3), endIf(2),
           varSet(VAR.copies, 1, 2),
           ...errand({ key: "copies", title: "本物の写し", who: "イスメネ", stage: "1", variableId: "163", text: "記録院の奥の二通りの写しを、イスメネに見せる" }, 2),
           end(2),
@@ -848,7 +996,7 @@ function config(file, cfg) {
     memory(7, 1, "ディル", 4, 8, [
       ["港の倉の裏に、濡れて捨てられた本が積んであった。", "字はそれで覚えた。勘定は、荷札で覚えた。"],
       ["記録院の門で、一枚書いてみろと言われた。書いたら、入れた。", "それだけの話だよ。泣ける所は無い。"],
-    ], { tileId: "E:194" }),
+    ], { tileId: "E:194" }, [ifActor(6), ...say(["泣いてないよ！"], "ノラ", 1), end(1), endIf(0)]),
     thought("R2-15", "前の書庫番", 8, 10, [
       "古言の棚の目録は、私が作りました。棚は三つ。目録は一枚です。",
       "題だけを書きました。中の音は写しませんでした。写した者が前に二人、欠けましたので。",
@@ -865,7 +1013,7 @@ function config(file, cfg) {
         { image: { tileId: "B:66" }, priorityType: 1, list: [
           ifActor(7),
           ...say(["石の扉に、人の字でない線が刻んである。脇に、片仮名で短い音が三つ。"], "", 1),
-          ...say(["……読めるよ。読むだけならな。", "訳？　しない。訳すと、あんたも欠けるだろ。"], "ディル", 1),
+          ...say(["読めるよ。読むだけならな。", "訳？　しない。訳すと、あんたも欠けるだろ。"], "ディル", 1),
           ...say(["ディルが一行を、声に出さずに唇で辿った。石の扉が横へ滑った。"], "", 1),
           se("Open5", 1), swOn(SW.runeDoor, 1), end(1),
           orElse(0),
@@ -882,14 +1030,22 @@ function config(file, cfg) {
       "三人とも、写しの仕事で手が離せなかった。",
       "だから、ここに入れた物は、誰も出していない。",
     ], { image: body("Damage1", 0, 2) }),
-    look("受付の机", 23, 16, ["机の上に、来た人の名を書く帳面。今の日付の行に、一つだけ名がある。"]),
+    {
+      name: "受付の机", type: "raw", x: 23, y: 16, note: "",
+      pages: [
+        { priorityType: 1, list: [...say(["机の上に、来た人の名を書く帳面。今の日付の行に、一つだけ名がある。"]), end(0)] },
+        // W16（場面表 3-22）：イスメネと話したあと（変数 402 ≧ 1）
+        { conditions: { variableId: VAR.copies, variableValid: true, variableValue: 1 }, priorityType: 1,
+          list: [...say(["机の上に、来た人の名を書く帳面。今の日付の行に、一つだけ名がある。"]), ...say(["今の日付の行の、一つだけの名の下に、", "「砦の方」と書き足してある。"]), end(0)] },
+      ],
+    },
     look("書見台", 10, 22, ["書見台に、開いたままの本。頁の端に、指で付けた折り目が並ぶ。"]),
     look("女神の像", 19, 20, ["像の台座に「記す者は、忘れぬ者」。", "その下に、小さく削った跡。"]),
     look("閲覧の札", 3, 5, ["札に「声に出して読むこと、これを禁ず」。"]),
     chest(5, 14, "item", ITEM.mossAsh, 2),
     chest(14, 8, "gold", 0, 40),
     enemy("紙魚（緑）", 26, 9, TROOP.bookworms, "green", body("Monster", 6)),
-    enemy("インクの影（緑・往復）", 13, 19, TROOP.inkShades, "green", body("Evil", 0), { route: patrol("down", 5) }),
+    enemy("インクの影（緑・往復）", 13, 19, TROOP.inkShades, "green", body("Evil", 0), { route: patrol("down", 5) }),    look("小部屋の棚", 37, 16, ["棚に、鐘の記録の、歌い手の欄を写した頁が一枚。", "空白を、空白のまま写してある。"]), // W16（場面表 3-26）
   ];
   config("w8_080_archive_court", {
     _説明: "W8（#155）：記録院・前庭（docs/world.md 5.1・6.4・7.1・7.3）。イスメネ（真名を読んだ学者を越えたあとに話すと砦へ。書庫を開く。頼み「本物の写し」）、ディルの記憶 1、古言の碑の扉（ディル）、南→124 修道院の裏の坂（W12 で 063 から差し替え）、北→081。",
@@ -916,7 +1072,8 @@ function config(file, cfg) {
         when(0, "数を合わせる"),
         { code: 103, indent: 1, parameters: [VAR.lockAnswer, 3] },
         ifVar(VAR.lockAnswer, 429, 0, 1),
-        se("Key", 2), swOn(SW.lock, 2), ...say(["錠が外れた。戸の向こうは、灯の無い書架だ。"], "", 2), end(2),
+        se("Key", 2), swOn(SW.lock, 2), ...say(["錠が外れた。戸の向こうは、灯の無い書架だ。"], "", 2),
+        ...say(["中は暗い。角灯を掲げても、五歩先が見えない。"], "", 2), end(2),
         orElse(1),
         se("Buzzer1", 2), ...say(["錠は動かない。"], "", 2), end(2),
         endIf(1), end(1),
@@ -944,7 +1101,9 @@ function config(file, cfg) {
     ], { clue: ["封じた書架の錠は 4・2・9（記録院の写字室）"], image: body("Damage1", 0, 8) }),
     look("写字台の書き付け", 4, 9, ["紙切れに「封じた書架　錠は渡した日の数。声に出さぬこと」。"]),
     // 東の閲覧の小部屋
-    pickup("鐘の古い記録", 52, 8, "item", ITEM.bellRecord, ["机の上の箱に、古い綴りが一冊。", "表紙に「鋳造の記」。"], { image: { tileId: "E:193" } }),
+    pickup("鐘の古い記録", 52, 8, "item", ITEM.bellRecord, ["机の上の箱に、古い綴りが一冊。", "表紙に「鋳造の記」。"], {
+      image: { tileId: "E:193" }, after: [ifActor(5), ...say(["頂の鐘"], "ブルーノ", 1), end(1), endIf(0)],
+    }),
     thought("R2-19", "鐘の記録を写した老学者", 49, 11, [
       "鋳造の記を写した。歌い手の名を書く欄で、筆が止まった。",
       "森の人は、名を書くなと言った。歌が別の物になるからと。",
@@ -1023,7 +1182,14 @@ function config(file, cfg) {
         { code: 214, indent: 0, parameters: [] }, end(0),
       ] }],
     },
-    look("札", 22, 3, ["戸の脇に札が掛けてある。", "「この先の者に、声を出させるな。出させれば、読む」。"]),
+    {
+      name: "札", type: "raw", x: 22, y: 3, note: "",
+      pages: [{ priorityType: 1, list: [
+        ...say(["戸の脇に札が掛けてある。", "「この先の者に、声を出させるな。出させれば、読む」。"]),
+        ifActor(7), ...say(["書いたのは、隣の机の男の字だ。", "あいつ、字がきれいだった"], "ディル", 1), end(1), endIf(0), // W16（場面表 3-26）
+        end(0),
+      ] }],
+    },
     thought("R2-21", "封じた学者", 21, 25, [
       "書架を封じたのは私だ。奥の男を、ここから出さないために。",
       "あれは声に出すと読む。出させなければ、ただの男だ。",
@@ -1039,7 +1205,7 @@ function config(file, cfg) {
       "続きを書く。誰が読むか知らないけど。",
       "あと一行だよ。あと一行で、",
     ], body("Damage1", 0, 2)),
-    pickup("二通りの写し", 34, 8, "item", ITEM.twoCopies, ["男の腕から、二冊の写しが滑り落ちていた。", "灰色の表紙と、茶色の表紙。"], { image: { tileId: "D:189" } }),
+    pickup("二通りの写し", 34, 8, "item", ITEM.twoCopies, ["男の腕から、二冊の写しが滑り落ちている。", "灰色の表紙と、茶色の表紙。中身は、ほとんど同じ。", "違うのは、終わりの近くの一行。", "片方に有って、片方に無い。", "角灯の火では、その一行の字は小さすぎた。"], { image: { tileId: "D:189" } }),
     pickup("学者の手記", 35, 12, "item", ITEM.scholarNotes, ["棚の下に、手記が一冊。後ろの頁ほど字が大きい。"], { image: { tileId: "D:189" } }),
     pickup("刻印の写し", 32, 21, "item", ITEM.sealCopy, ["床に、四つに折った紙。開くと、炭で擦り写した線。"], { image: IMG.glint }),
     thought("R2-22", "読んだ学者", 30, 19, [
@@ -1082,6 +1248,7 @@ function config(file, cfg) {
     ifScript("Hai.Boss.lastResult() === 0"),
     ...say(["学者は開いた本の上に突っ伏した。唇は、まだ少し動いていた。", "本に、革の栞が挟まっている。"], "", 1),
     se("Item1", 1), ...give("armor", ARMOR.bookmark, 1, 1),
+    ifActor(7, 1), ...say(["ディルは頁を一枚取って、伏せた。"], "", 2), ...say(["清書は、俺だよ。この字"], "ディル", 2), end(2), endIf(1), // W16（場面表 3-26）
     ...say(["北の戸の向こうで、何かが低く唸った。鐘の胴のような音。"], "", 1),
     end(1),
     endIf(0), end(0),
@@ -1141,12 +1308,31 @@ function config(file, cfg) {
     selfOn("A", 1),
     ...say(["壁の札掛けに、当番の札が一枚だけ残っている。"], "", 1),
     se("Item3", 1), ...give("item", ITEM.dutyTag, 1, 1),
+    // W16（場面表 3-27）：営倉の札（Items 323）と並べると「同じ日だ」（スイッチ 415。036 の側は W15）
+    ifItem(ITEM.prisonTag, 1),
+    ...say(["営倉の札と、並べた。", "日付は、同じだった。"], "", 2),
+    ...say(["同じ日だ"], ME, 2),
+    swOn(SW.sameDay, 2), end(2),
+    orElse(1),
+    ...say(["札の日付を、墓守は覚えておいた。"], "", 2), end(2),
+    endIf(1),
     end(1),
     when(1, "やめる"), end(1),
     choiceEnd(0), end(0),
   ];
   const events = [
-    ...[12, 13, 14].map(x => transfer("南の戸（真名の間へ）", x, 20, ARRIVE.nameNorth, "down")),
+    // 南の戸：鐘を鳴らしたあと、ノラがいれば一度だけ（W16。場面表 3-27。P14 の東を向いて止まる旗が入ったので置く）。一度きりの印は 1 番の戸のセルフスイッチ B
+    ...[12, 13, 14].map(x => ({
+      name: "南の戸（真名の間へ）", type: "raw", x, y: 20, note: "",
+      pages: [{ priorityType: 0, trigger: 1, list: [
+        ifScript(`$gameSwitches.value(${FLAG.archiveBell}) && $gameParty.members().some(a => a.actorId() === 6) && !$gameSelfSwitches.value([${MAP.bellRoom}, 1, "B"])`),
+        ...say(["また、あっち向いてる！"], "ノラ", 1),
+        ...say(["書架の間の亡骸たちが、東を向いて止まっている。", "追ってこない。"], "", 1),
+        { code: 355, indent: 1, parameters: [`$gameSelfSwitches.setValue([${MAP.bellRoom}, 1, "B"], true);`] },
+        end(1), endIf(0),
+        se("Move1"), move(...ARRIVE.nameNorth, DIR.down), end(0),
+      ] }],
+    })),
     {
       name: "記録院の鐘の綱", type: "raw", x: 13, y: 7, note: "",
       pages: [
@@ -1154,7 +1340,14 @@ function config(file, cfg) {
         { conditions: { selfSwitchCh: "A", selfSwitchValid: true }, image: { tileId: "B:6" }, priorityType: 1, list: [...say(["鐘は、まだ小さく震えている。"]), end(0)] },
       ],
     },
-    look("札掛け", 18, 4, ["札掛けの釘は四本。札の掛かっていた跡が、四つとも同じ色に焼けている。"], { tileId: "B:178" }),
+    {
+      name: "札掛け", type: "raw", x: 18, y: 4, note: "",
+      pages: [{ image: { tileId: "B:178" }, priorityType: 1, list: [
+        ...say(["札掛けの釘は四本。札の掛かっていた跡が、四つとも同じ色に焼けている。"]),
+        ifItem(ITEM.dutyTag), end(1), orElse(0), ...say(["札は一枚。"], "", 1), end(1), endIf(0), // W16（場面表 3-27）
+        end(0),
+      ] }],
+    },
     withThirdScene(thought("R2-25", "記録院の鐘番", 9, 8, [
       "夕べ。頂の鐘、鳴らず。こちらも鳴らさず。札にそう書いた。",
       "書いたあとで、写しの件を思い出した。明朝、と書き足した。",
@@ -1174,7 +1367,7 @@ function config(file, cfg) {
     memory(7, 3, "ディル", 7, 13, [
       ["教会に渡す銘の写しを、俺が写した。二冊。", "一冊は書架に残す。一冊は教会へ。"],
       ["どっちを渡したか、確かめる気になれば、確かめられた。", "確かめないことにした。それだけだよ。"],
-    ], { tileId: "E:194" }),
+    ], { tileId: "E:194" }, [ifActor(7), ...say(["ディルは台の上の、灰の積もっていない所を見た。"], "", 1), ...say(["ここに、二冊置いてたんだな。俺は"], "ディル", 1), end(1), endIf(0)]),
     look("空いた床", 17, 14, ["控えの床の真ん中だけ、灰が積もっていない。"]),
     ...lairDoorEvents("west"), // 鐘の間の口の霧の戸口（W11）
   ];
