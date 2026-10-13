@@ -152,7 +152,12 @@
     cleared1: { label: "地域一まで済み", done: ["fort", "prison"], others: 0, to: "fort" },
     bells2: { label: "鐘 2 つ", done: ["fort", "prison"], others: 1, to: "next" },
     bells3: { label: "鐘 3 つ（3 つ目の場面のあと）", done: ["fort", "prison"], others: 2, switches: [SW_SCENE3], to: "last" },
-    bells4: { label: "四つ鳴った（終盤）", done: ["fort", "prison"], others: 3, switches: [SW_SCENE3, 108, 109], to: "summit" },
+    bells4: {
+      label: "四つ鳴った（終盤）", done: ["fort", "prison"], others: 3, to: "summit",
+      // 終盤の前に見ているはずの砦の自動実行（W16 の名乗り 56・57、W17 の 61・63・64・66–69）を見たことにする（砦に着いた所で長く止まらないように）
+      switches: [SW_SCENE3, 108, 109, 175, 178, 180, 181, 182, 183, 184, 185],
+      selfSwitches: [[10, 56, "A"], [10, 57, "A"], [10, 64, "A"]],
+    },
   };
   // 行き先の名前で呼んだときの束（その地域に入る前）と、足す地域
   const TARGETS = {
@@ -181,7 +186,7 @@
     let to = BUNDLES[name] ? bundle.to : name;
     if (to === "next") to = BELL_REGION[rest[0]];
     if (to === "last") to = "last_" + (rest[0] || "foundry");
-    return { bundle: bundleName, done, bells: ["prison"].concat(bells), switches: bundle.switches || [], to };
+    return { bundle: bundleName, done, bells: ["prison"].concat(bells), switches: bundle.switches || [], selfSwitches: bundle.selfSwitches || [], to };
   }
 
   function mapExists(mapId) {
@@ -222,6 +227,7 @@
     };
     plan.done.forEach(apply);
     for (const id of plan.switches) $gameSwitches.setValue(id, true);
+    for (const [mapId, eventId, ch] of plan.selfSwitches) $gameSelfSwitches.setValue([mapId, eventId, ch], true);
     const bells = BELL_SWITCHES.filter(id => $gameSwitches.value(id)).length;
     $gameVariables.setValue(BELL_COUNT_VARIABLE, bells);
     if (bells >= BELL_SWITCHES.length) $gameSwitches.setValue(SW_ALL_BELLS, true);
