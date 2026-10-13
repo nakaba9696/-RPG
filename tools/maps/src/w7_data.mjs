@@ -25,6 +25,7 @@ export const TROOP = {
   ashDogs: 321, ashCrow: 322, lostOne: 323, bellCorpse: 324, lostFlock: 325,
   mineRats: 326, boneEater: 327, hunter: 328, lampless: 329, boneArmor: 330,
   shade: 331, watchBeast: 332, roundsman: 333, chainHound: 334, warden: 335,
+  nightShade: 336, // W15（#231）：夜の戸の声だけの影（木樵の女房）
 };
 // スイッチ・変数（301–400。System.json に名前を書く）。world.md 4.4 の旗（W6 の帯）は使うだけ：
 //   スイッチ 101 営倉の鐘を鳴らした・変数 101 鳴らした鐘の数・スイッチ 114 営倉の鉄扉を開けた・スイッチ 151 ボス 牢番・変数 103 生き残りの数
@@ -32,6 +33,7 @@ export const TROOP = {
 export const SW = {
   fogCleared: 301, fogPath: 302, lift: 303, bigDoor: 304, ironDoor: 305, wolfram: 306, adele: 307,
   westDoor: 308, hallGate: 309, bellFirst: 310, statue: 311, grapple: 312, shears: 313,
+  nightDoor: 314, // W15（#231）：夜の戸（木樵）に答えた。P14 の言い残しの表が読む
 };
 export const VAR = { bellIronTask: 301, vespers: 302 };
 export const FLAG = { bellRung: 101, bellCount: 101, ironDoorFort: 114, wardenBoss: 151, survivors: 103 };
@@ -50,6 +52,7 @@ const SWITCH_NAMES = {
   311: "森:像の台の夕べの数",
   312: "道具:鉤綱（第2段階で手に入れたら ON）",
   313: "道具:鉄切り鋏（第2段階で手に入れたら ON）",
+  314: "夜の戸:木樵（答えた）",
 };
 const VARIABLE_NAMES = {
   301: "頼み:鐘鉄（0 未・1 受けた・2 渡した）",
@@ -266,6 +269,9 @@ const ENEMIES = [
   [332, "番の獣", "Wolfman", 250, [520, 0, 32, 20, 8, 12, 20, 10], 34, 24, [T.element(ELEMENT.fire, 1.5)], [attack, act(SKILL.packFang, 4)], noDrop],
   [333, "見回りの亡骸", "Captain", 180, [440, 0, 30, 22, 10, 14, 14, 10], 30, 22, [T.element(ELEMENT.fire, 1.5)], [onTurn(2, 1, 3), onTurn(P4.sleepClub, 2, 3), onTurn(1, 3, 3)], noDrop],
   [334, "鎖の番犬", "SF_Whitewolf", 300, [1600, 0, 38, 26, 8, 16, 30, 10], 90, 45, [T.attackTimes(1)], [attack, act(P4.chain, 3)], noDrop],
+  // W15（#231）：夜の戸の声だけの影（木樵の女房。020 の崩れた小屋）。W11 の 701 と同じ型（光に弱く闇に強い・物理を少し減らす）で、
+  // 強さは地域一のふつうの敵 1〜2 体分（迷い人と同じ程度。答えたことへの報いではなく、声を聞く場面）。数値は持ち主が調整する
+  [336, "声だけの影", "SF_Shadow", 0, [260, 20, 20, 12, 16, 16, 14, 10], 20, 15, [T.element(ELEMENT.light, 2), T.element(ELEMENT.dark, 0.5), T.physRate(0.85)], [attack, act(SKILL.mistWhisper, 2)], drop(1, ITEM.mossAsh, 4)],
 ];
 const WARDEN = 335;
 const wardenTraits = [T.physRate(0.7), T.element(ELEMENT.fire, 2), T.element(ELEMENT.ice, 0.5), T.stateRate(STATE.sleep, 0.5), T.stateRate(1, 0)];
@@ -308,6 +314,7 @@ const TROOPS = [
   [TROOP.roundsman, "W7_黄：見回りの亡骸", [333]],
   [TROOP.chainHound, "W7_赤：鎖の番犬", [334]],
   [TROOP.warden, "W7_ボス：牢番", [WARDEN]],
+  [TROOP.nightShade, "W7_黄：声だけの影（木樵の女房）", [336]],
 ];
 const troops = readData("Troops.json");
 clearBand(troops, emptyTroop);

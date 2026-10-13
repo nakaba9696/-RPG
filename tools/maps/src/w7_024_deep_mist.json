@@ -433,7 +433,14 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "三日前ここに置いて、薪を拾いに行って、戻ったらどこだか分からん！"
+                "三日前ここに置いて、薪を拾いに行って、"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "戻ったらどこだか分からん！"
               ]
             },
             {
@@ -467,7 +474,14 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "……横にあるな。ずっと横にあったか。そうか。"
+                "……横にあるな。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "ずっと横にあったか。そうか。"
               ]
             },
             {
@@ -492,7 +506,14 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "鍋はわしが担ぐ。お前は先を歩け！　わしは道を覚えん！"
+                "鍋はわしが担ぐ。お前は先を歩け！"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "わしは道を覚えん！"
               ]
             },
             {
@@ -510,7 +531,14 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "それと、これを持っとけ。孫に持たせとった護符だ。"
+                "それと、これを持っとけ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "孫に持たせとった護符だ。"
               ]
             },
             {
@@ -633,7 +661,14 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "ヴォルフラムは鍋を担いで、霧の中を砦の方へ歩いていった。"
+                "ヴォルフラムは鍋を担いで、"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "霧の中を砦の方へ歩いていった。"
               ]
             },
             {
@@ -1536,7 +1571,7 @@
       "type": "raw",
       "x": 18,
       "y": 15,
-      "note": "<hai_enemy:323,yellow>\n<hai_enemy_chase:6>",
+      "note": "<hai_enemy:323,yellow>\n<hai_enemy_chase:6>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -1558,7 +1593,7 @@
       "type": "raw",
       "x": 30,
       "y": 9,
-      "note": "<hai_enemy:323,yellow>\n<hai_enemy_chase:6>",
+      "note": "<hai_enemy:323,yellow>\n<hai_enemy_chase:6>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -1580,7 +1615,7 @@
       "type": "raw",
       "x": 7,
       "y": 22,
-      "note": "<hai_enemy:323,yellow>\n<hai_enemy_chase:5>",
+      "note": "<hai_enemy:323,yellow>\n<hai_enemy_chase:5>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -1602,7 +1637,7 @@
       "type": "raw",
       "x": 12,
       "y": 12,
-      "note": "<hai_enemy:322,yellow>",
+      "note": "<hai_enemy:322,yellow>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {

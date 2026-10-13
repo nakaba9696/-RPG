@@ -97,6 +97,11 @@ await runTest(async () => {
     await go(r.map, r.use.x, r.use.y + 1, 8);
     if (key !== "soul") await game.shot(`room-${key}`);
     await game.press("Enter");
+    // 食堂の大鍋は画面の前に二行の文章を出す（W15 #231）。文章を送ってから画面を待つ
+    for (let i = 0; i < 10 && (await game.call("scene")) === "Scene_Map"; i++) {
+      await game.frames(12);
+      if (await game.eval(() => $gameMessage.isBusy())) await game.press("Enter");
+    }
     await game.waitScene(sceneName);
     await game.waitFor(() => !window.__game.isBusy());
     await game.frames(6);
