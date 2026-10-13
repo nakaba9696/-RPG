@@ -830,7 +830,8 @@ const keepEvents = [
   served, // 52
 ];
 if (keepEvents[SHANO_HIDE_ID - 1] !== shanoHide) throw new Error("シャノ（柱の陰）の ID がずれた");
-if (keepEvents.indexOf(table) !== 41 || keepEvents.indexOf(served) !== 51) throw new Error("W15 のイベントが 42–52 に並んでいない");
+// 配られた番号に置く（tools/maps の "id"。ほかの子が 56– を足しても動かない）
+[table, bowl, wolframFort, afterRing, brunoSeat, margo, ...pickers, adeleSeat, adeleLecture, served].forEach((e, i) => { e.id = 42 + i; });
 
 // 置き物（.deco.txt の文字）。Dungeon_B＝B、Dungeon_C＝C、Inside_B＝D、Inside_C＝E（タイルセット 11）
 const FORT_WALL = { name: "砦の壁（壁O（砦）。下が床なら側面、ほかは上面）", wall: { top: "A4:22", side: "A4:30", height: 2 } };
