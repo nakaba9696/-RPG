@@ -5507,7 +5507,26 @@
               "code": 108,
               "indent": 0,
               "parameters": [
-                "P14：記録「朝の砦」を作る（プラグインコマンド。頂の手前の記録は残す）。結末を見た全体の旗（二周目の早送り）も P14"
+                "結末を見た全体の旗は、スイッチ 1159 が ON になると Hai_Comfort が立てる（P14）"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Warp",
+                "saveRecord",
+                "記録を作る",
+                {
+                  "label": "朝の砦"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "label = 朝の砦"
               ]
             },
             {

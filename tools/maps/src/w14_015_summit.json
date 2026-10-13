@@ -784,7 +784,7 @@
               "code": 108,
               "indent": 2,
               "parameters": [
-                "P14：耐える戦いの命令「耐える」「呼ぶ」は Hai_Apostle のパラメータ（P14 が入ってから確かめる）"
+                "耐える戦いの命令「耐える」「呼ぶ」は Hai_Apostle のパラメータ endureCommands（P14）"
               ]
             },
             {
@@ -1565,14 +1565,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -1792,14 +1785,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -1982,14 +1968,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -2228,14 +2207,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -2418,14 +2390,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -2590,14 +2555,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -2762,14 +2720,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -3161,14 +3112,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -3351,14 +3295,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -3523,14 +3460,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -3814,14 +3744,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -4004,14 +3927,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -4176,14 +4092,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -4467,14 +4376,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -4713,14 +4615,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -4903,14 +4798,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -5194,14 +5082,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -5384,14 +5265,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -5556,14 +5430,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -5847,14 +5714,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -6093,14 +5953,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -6283,14 +6136,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -6574,14 +6420,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -6820,14 +6659,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -7010,14 +6842,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -7391,14 +7216,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -7636,14 +7454,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -7881,14 +7692,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -8145,14 +7949,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -8390,14 +8187,7 @@
               "indent": 1,
               "parameters": [
                 12,
-                "$gameSwitches.value(1159)"
-              ]
-            },
-            {
-              "code": 108,
-              "indent": 2,
-              "parameters": [
-                "P14：結末を見た全体の旗（記録をまたぐ）。今はこの記録のスイッチ 1159 で見る"
+                "Hai.Comfort.endingSeen()"
               ]
             },
             {
@@ -8640,10 +8430,13 @@
               ]
             },
             {
-              "code": 108,
+              "code": 357,
               "indent": 0,
               "parameters": [
-                "P14：灰を止める（全マップの <hai_ash> を OFF。Hai_MapTone のプラグインコマンド。P14 が入ってから足す）"
+                "Hai_MapTone",
+                "stopAsh",
+                "灰を止める",
+                {}
               ]
             },
             {
