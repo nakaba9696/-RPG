@@ -732,6 +732,71 @@
               "parameters": []
             },
             {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                514,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                1,
+                101,
+                0,
+                3,
+                4
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ミルレーネ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "鐘が三つ鳴ったら、灯を頼める人を探すわ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "それまでは、ここにいるの"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
               "code": 101,
               "indent": 0,
               "parameters": [
@@ -900,6 +965,125 @@
               "parameters": [
                 "kind = clue"
               ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                0,
+                101,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 2,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 3,
+              "parameters": [
+                2,
+                "B",
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "……三つ目は、何と言うんです"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ミルレーネ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "歌わないことにしているの"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "営倉の九番の房の錠に、傷が無かったです"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 4,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
             },
             {
               "code": 0,
@@ -1577,7 +1761,7 @@
       "type": "raw",
       "x": 21,
       "y": 26,
-      "note": "<hai_enemy:501,green><hai_enemy_chase:3><hai_enemy_hesitate>",
+      "note": "<hai_enemy:501,green><hai_enemy_chase:3><hai_enemy_hesitate><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -1599,7 +1783,7 @@
       "type": "raw",
       "x": 27,
       "y": 28,
-      "note": "<hai_enemy:501,green><hai_enemy_chase:3><hai_enemy_hesitate>",
+      "note": "<hai_enemy:501,green><hai_enemy_chase:3><hai_enemy_hesitate><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -1621,7 +1805,7 @@
       "type": "raw",
       "x": 8,
       "y": 11,
-      "note": "<hai_enemy:502,green><hai_enemy_hesitate>",
+      "note": "<hai_enemy:502,green><hai_enemy_hesitate><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -1643,7 +1827,7 @@
       "type": "raw",
       "x": 40,
       "y": 11,
-      "note": "<hai_enemy:504,yellow>",
+      "note": "<hai_enemy:504,yellow><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -1665,7 +1849,7 @@
       "type": "raw",
       "x": 38,
       "y": 28,
-      "note": "<hai_enemy:503,yellow><hai_enemy_chase:4>",
+      "note": "<hai_enemy:503,yellow><hai_enemy_chase:4><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {

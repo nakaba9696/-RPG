@@ -132,21 +132,131 @@
     },
     {
       "name": "思念 R3-08 火打ち石の子",
-      "type": "text",
+      "type": "raw",
       "x": 7,
       "y": 5,
       "note": "<hai_thought:R3-08>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "姉ちゃんが刈って、おれが火をつける番だった。",
-        "火打ち石が、しめってた。三回うっても、つかなかった。",
-        "刈り跡の手前で、足をつかまれた。鎌は、おとした。",
-        "石は、まだにぎってる。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "姉ちゃんが刈って、おれが火をつける番だった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "火打ち石が、しめってた。三回うっても、つかなかった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "刈り跡の手前で、足をつかまれた。鎌は、おとした。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "石は、まだにぎってる。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                2,
+                "B",
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゼリナ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "坊ん。火は、うちがつけたる"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 2,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
       ]
     },
     {

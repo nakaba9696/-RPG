@@ -19,6 +19,7 @@ import { SRC_DIR } from "../build.mjs";
 import { POINTS, MAPS, drawAll } from "./w9_maps.mjs";
 import { withThirdScene, lairDoorEvents } from "./w11_parts.mjs"; // W11（#191）：鐘番の思念の 2 ページ目と霧の戸口
 import { ringAfter } from "./w14_parts.mjs"; // W14（#234）：鐘の綱の鳴ったあとの一行
+import { aside, withBell, W17_SW, W17_SWITCH_NAMES, nightDoorStart, nightDoorEnd } from "./w17_parts.mjs"; // W17（#233）：原作の反映（仲間の一言・夜の戸・数え歌）
 
 drawAll();
 const check = process.argv.includes("--check");
@@ -54,9 +55,9 @@ export const SW = {
 };
 export const VAR = { songTask: 501 };
 // world.md 4.4 の旗（W6 の帯）と P の帯：使うだけ
-export const FLAG = { bellWater: 103, bellsAll: 105, metMirlene: 107, bellCount: 101, outsidersErrand: 166, faint: 138 };
+export const FLAG = { prisonBell: 101, bellWater: 103, bellsAll: 105, metMirlene: 107, bellCount: 101, outsidersErrand: 166, faint: 138 };
 const COMMON_MEMORY_LINE = 201; // W6：記憶が戻ったときの一言
-const ACTOR = { zelina: 8, anselmo: 9 };
+const ACTOR = { bruno: 5, dil: 7, zelina: 8, anselmo: 9 };
 
 const SWITCH_NAMES = {
   501: "湖:霧の道が引いた（070）",
@@ -76,6 +77,7 @@ const SWITCH_NAMES = {
   515: "ボス:扉の番が布告を見た（戦いの頭に迷う）",
   516: "頼み:村の長に扉の外の歌のことを聞いた",
   517: "水道:廃水の管の格子の閂（101↔091。H35）",
+  ...W17_SWITCH_NAMES, // 518–521（W17）。620 は w10_data.mjs が書く
 };
 const VARIABLE_NAMES = {
   501: "頼み:扉の外の歌（0 未・1 聞いた・2 名簿を見せた・3 見せなかった）",
@@ -495,6 +497,10 @@ ev.text = (name, [x, y], lines, o = {}) => ({ name, type: "text", x, y, lines, .
 /** 床の手がかり（踏んで調べる。通り道をふさがない）。 */
 ev.floor = (name, xy, lines) => ev.text(name, xy, lines, { below: true });
 ev.raw = (name, [x, y], pages, note = "") => ({ name, type: "raw", x, y, note, pages });
+/** 調べると文章、そのあとに命令（W17：仲間の一言など）。 */
+ev.textThen = (name, xy, lines, after, o = {}) => ev.raw(name, xy, [
+  { ...(o.image ? { image: o.image } : {}), priorityType: o.below ? 0 : 1, list: [...pagesOf(lines), ...after, END] },
+], o.note || "");
 ev.transfer = (name, [x, y], to, o = {}) => ({ name, type: "transfer", x, y, to, ...o });
 ev.block = (name, [x, y]) => ({ name, type: "block", x, y });
 /** 宝箱。 */
@@ -528,7 +534,7 @@ ev.memory = (actorId, n, who, xy, lines, image = IMG.thought) => ({
 /** シンボル敵。 */
 ev.enemy = (name, xy, troop, color, o = {}) => ev.raw(`${name}（${{ green: "緑", yellow: "黄", red: "赤" }[color]}${o.kind ? "・" + o.kind : ""}）`, xy, [
   { image: o.image || IMG.monster(5), priorityType: 1, moveSpeed: o.speed ?? 3, trigger: 2, moveType: o.moveType ?? 1, moveFrequency: o.freq ?? 3 },
-], [`<hai_enemy:${troop},${color}>`, ...(o.chase !== undefined ? [`<hai_enemy_chase:${o.chase}>`] : []), ...(color === "green" ? ["<hai_enemy_hesitate>"] : [])].join(""));
+], withBell([`<hai_enemy:${troop},${color}>`, ...(o.chase !== undefined ? [`<hai_enemy_chase:${o.chase}>`] : []), ...(color === "green" ? ["<hai_enemy_hesitate>"] : [])].join(""), FLAG.bellWater)); // 鐘の旗は P14（#230）が読む
 /** 転送の結界（Hai_Warp）。 */
 ev.warp = (label, xy) => ev.raw(`結界（${label}）`, xy, [{ image: IMG.warp, priorityType: 1, stepAnime: true }], `<hai_warp:${label}>`);
 
@@ -678,6 +684,7 @@ const fogWall = (xy, i) => ev.raw(`霧の壁 ${i + 1}`, xy, [
         [se("Bell1", 0, 90, 120), cmd(230, [30]), se("Bell1", 0, 70, 120), cmd(230, [40]),
           ...plugin("Hai_MapTone", "fog", "霧の濃さを変える", { density: "90" }),
           ...say(["小鐘の音が、霧の中へ遠ざかっていく。", "鈴の音が、それを追って湖の方へ離れていった。"]),
+          ...aside(ACTOR.bruno, null, say(["……鈴が、逃げました"], "ブルーノ")),
           swOn(SW.fogPath)],
         [],
       ], 1),
@@ -701,7 +708,8 @@ CONFIGS.push(config("w9_070_mist_lake", LAKE, "霧の湖", "lake", [
   ev.transfer("南西の板の道（湖の家へ）", L.exitS2, [HOUSE, H.arriveN2[0], H.arriveN2[1], "down"]),
   ev.warp("霧の湖の入口", [25, 6]),
   ev.text("道標", L.sign, ["傾いた道標。「湖の家　南へ」。", "下の板に、刻み足した字。「霧の出た日は、灯を見て歩け」。"], { image: { tileId: "B:137" } }),
-  ev.text("方舟の触れ書き", L.notice, ["杭に打ち付けた板。騎士団の触れ書き。", "「方舟。札を持つ者、夕べに舟着きへ。子と、その母を先に」", "「その母を」の上に、別の墨で線が一本。"], { image: { tileId: "B:138" } }),
+  ev.textThen("方舟の触れ書き", L.notice, ["杭に打ち付けた板。騎士団の触れ書き。", "「方舟。札を持つ者、夕べに舟着きへ。子と、その母を先に」", "「その母を」の上に、別の墨で線が一本。"],
+    aside(ACTOR.dil, "B", say(["四十人分の札で、十四人の舟か。", "記録院なら、刷った方が首だな"], "ディル")), { image: { tileId: "B:138" } }),
   ev.thought("R3-01", "札を刷った兵", L.r301, ["方舟の札は四十枚。俺が刷った。舟に乗るのは十四人、と聞いた。", "数が合わんと言ったら、酒保の姐さんは「乗せてから数える」と。", "配るのは姐さんが自分でやった。俺は札に数を書いただけだ。", "余りの札は、酒保に戻ってこなかった。"]),
   ev.text("網小屋の干し網", L.netHut, ["梁から網が下がったまま。目に、乾いた葦の切れ端が絡まっている。"]),
   ev.chest("薬草", L.netChest, ["i", ITEM.herb, 2]),
@@ -723,14 +731,17 @@ CONFIGS.push(config("w9_070_mist_lake", LAKE, "霧の湖", "lake", [
   ev.chest("砦の名札", L.boatHouseChest, ["i", ITEM.nameTag, 1]),
   ev.pickup("鉄くず", L.pickup3, [], ["g", 0, 60]),
   ev.memory(ACTOR.zelina, 3, "ゼリナ", L.zelina3, ["舟は十四人で、もう縁まで沈んどった。大人が一人乗ったら、真ん中で沈む。", "うちが袖を引いて、降ろした。母親も、爺さんも。籠だけ受け取って。", "降ろした顔は全部覚えとる。数えたら、二十六。", "札の余りと、同じ数や。"]),
-  ev.thought("R3-02", "舟から降ろされた男", L.r302, ["籠を担いで舟に乗った。酒保の女が、籠だけ受け取って、俺を降ろした。", "子どもが十四。大人は漕ぎ手の二人だけだと。", "籠には、俺の娘の靴が入っていた。娘は乗っていた。", "岸で数えた。灯が見えなくなるまでに、三十を九回。"]),
+  ev.thought("R3-02", "舟から降ろされた男", L.r302, ["籠を担いで舟に乗った。酒保の女が、籠だけ受け取って、俺を降ろした。", "子どもが十四。大人は漕ぎ手の二人だけだと。", "籠には、俺の娘の靴が入っていた。娘は乗っていた。", "岸で数えた。灯が見えなくなるまでに、三十を九回。"], {
+    after: aside(ACTOR.dil, "B", say(["九回。二百七十。舟が遅いのか、目がいいのか"], "ディル")),
+  }),
   dock(["舟着きの杭（舟を出す）", "小島の岸の杭（舟を出す）", "向こう岸の杭（舟を出す）"][0], LAKE, LAKE_DOCKS, 0),
   // 小島の岸と向こう岸（舟でだけ）
   dock(["舟着きの杭（舟を出す）", "小島の岸の杭（舟を出す）", "向こう岸の杭（舟を出す）"][1], LAKE, LAKE_DOCKS, 1),
   ev.transfer("小島の石段（小島へ）", L.isleGate, [ISLE, IS.arrive[0], IS.arrive[1], "up"]),
   dock(["舟着きの杭（舟を出す）", "小島の岸の杭（舟を出す）", "向こう岸の杭（舟を出す）"][2], LAKE, LAKE_DOCKS, 2),
   ev.thought("R3-04", "舟を漕いだ兵", L.r304, ["子どもを十四、向こう岸に下ろした。数えて、数え直して、十四。", "東へ歩け、と言った。森の外を回れば、人の村に出る。", "舟を戻して大人を乗せるつもりで、櫂を取った。霧が来た。", "杭に、十四と刻んだ。それから、舟を出していない。"]),
-  ev.text("刻みの杭", [L.farPost[0], L.farPost[1] + 1], ["杭に、刃物の刻みが十四。子どもの背の高さに揃えて刻んである。", "いちばん下の刻みの横に、小さな字で「ついた」。"]),
+  ev.textThen("刻みの杭", [L.farPost[0], L.farPost[1] + 1], ["杭に、刃物の刻みが十四。子どもの背の高さに揃えて刻んである。", "いちばん下の刻みの横に、小さな字で「ついた」。"],
+    aside(ACTOR.zelina, "B", say(["人の村て、どこや"], "ゼリナ"))),
   ev.text("焚き火の跡", [L.farFire[0] - 1, L.farFire[1]], ["石を組んだ焚き火の跡。周りの土に、小さな足跡がいくつも。", "足跡は、東の葦の切れ目へ向かっている。"]),
   ev.chest("霊水", L.farChest, ["i", ITEM.holyWater, 2]),
   // 敵（7 章の型）
@@ -783,14 +794,26 @@ const mirleneTalk = [
   cmd(115, [], 2),
   close(2), ENDIF(1),
   close(1), ENDIF(),
-  // いつもの
+  // いつもの（W17：水門のことを伝えたあと、鐘が三つ鳴るまでは頭に一言）
+  ifSwitch(SW.toldMirlene),
+  ifVar(FLAG.bellCount, 3, 4, 1),
+  ...say(["鐘が三つ鳴ったら、灯を頼める人を探すわ。", "それまでは、ここにいるの"], MIR, 2),
+  close(2), ENDIF(1),
+  close(1), ENDIF(),
   ...say(["なにか、聞きたいことがあるの？"], MIR),
   ...choice(["歌を聞く", "灯のこと", "やめる"], 2, [
     [...say(["昔の歌よ。人に聞かせるのは、ずいぶん久しぶり"], MIR),
       se("Sound2", 0, 60, 80),
       cmd(101, ["", 0, 1, 1, ""]), ...["ひとつ　鐘は鳴る　ひとの戸口に", "ふたつ　鳴るかぎり　夜は越えぬ", "よっつ　戸を内より　ひらくときは", "　　　　この歌も　とどかぬ"].map(t => cmd(401, [t])),
       ...say(["みっつめは、歌わないことにしているの。", "人が約束を破って、鐘が黙った、という節よ"], MIR),
-      ...addNote("song:mirlene", "取り決めの歌「戸を内より　ひらくときは　この歌も　とどかぬ」（湖の家）")],
+      ...addNote("song:mirlene", "取り決めの歌「戸を内より　ひらくときは　この歌も　とどかぬ」（湖の家）"),
+      ifSwitch(FLAG.prisonBell), // 営倉の鐘が鳴っているとき
+      ...shift(aside(ACTOR.bruno, "B", [
+        ...say(["……三つ目は、何と言うんです"], "ブルーノ"),
+        ...say(["歌わないことにしているの"], MIR),
+        ...say(["営倉の九番の房の錠に、傷が無かったです"], "ブルーノ"),
+      ]), 1),
+      close(1), ENDIF()],
     [...say(["湖を渡る人が迷わないように、と言いつけられたの。やめる理由が、まだ無いの"], MIR),
       ...say(["一晩も欠かしていないわ。帳面は七十三冊目", "一冊目の日付は、聞かないでちょうだい"], MIR)],
     [],
@@ -853,7 +876,10 @@ CONFIGS.push(config("w9_072_sunken_pier", PIER, "沈んだ桟橋", "pier", [
   ev.text("切れた舫い綱", PI.rope, ["杭に残った舫い綱。切り口は、まっすぐだ。"]),
   ev.thought("R3-07", "酒保の手伝いの兵", PI.r307, ["舟が出たあと、姐さんは桟橋に座って動かなかった。", "砦に戻ろうと言ったら、つけの帳面を投げてよこした。「あんたが取り立てや」と。", "帳面は舟小屋の奥、壁の中に隠した。表紙の字は、姐さんのだ。"], { clues: ["酒保のつけ帳は、舟小屋の奥の壁の中（沈んだ桟橋）"] }),
   ev.text("樽", PI.crate, ["樽の中に、塩漬けの魚の骨。蓋に「酒保　湖の家より」。"]),
-  ev.pickup("酒保のつけ帳", PI.ledgerTab, ["壁の中の棚に、帳面が一冊。表紙に「つけ」。"], ["i", ITEM.tab, 1], { image: { tileId: "E:177" } }),
+  ev.pickup("酒保のつけ帳", PI.ledgerTab, ["壁の中の棚に、帳面が一冊。表紙に「つけ」。"], ["i", ITEM.tab, 1], {
+    image: { tileId: "E:177" },
+    after: aside(ACTOR.dil, null, say(["名の欄が空いてる。書き忘れか、書きたくなかったか。", "二百年ぶんで銀三枚なら、安い客だ"], "ディル")),
+  }),
   ev.chest("霊水", PI.hiddenChest, ["i", ITEM.holyWater, 1]),
   ev.text("舟小屋の勘定台", PI.booth, ["小さな勘定台。釘に、空の銭袋が下がっている。"]),
   ev.enemy("沼蛭", [12, 9], TROOP.leeches, "green", { image: IMG.monster(3), chase: 3 }),
@@ -870,7 +896,9 @@ CONFIGS.push(config("w9_073_lake_pool", POOL, "湖の淵", "pool", [
   ev.transfer("北の道（湖の家へ）", PO.exitN, [HOUSE, H.arriveSW[0], H.arriveSW[1], "up"]),
   ev.transfer("北の道（湖の家へ）", PO.exitN2, [HOUSE, H.arriveSW2[0], H.arriveSW2[1], "up"]),
   ev.warp("湖の淵の手前", PO.warp),
-  ev.thought("R3-08", "火打ち石の子", PO.r308, ["姉ちゃんが刈って、おれが火をつける番だった。", "火打ち石が、しめってた。三回うっても、つかなかった。", "刈り跡の手前で、足をつかまれた。鎌は、おとした。", "石は、まだにぎってる。"]),
+  ev.thought("R3-08", "火打ち石の子", PO.r308, ["姉ちゃんが刈って、おれが火をつける番だった。", "火打ち石が、しめってた。三回うっても、つかなかった。", "刈り跡の手前で、足をつかまれた。鎌は、おとした。", "石は、まだにぎってる。"], {
+    after: aside(ACTOR.zelina, "B", say(["坊ん。火は、うちがつけたる"], "ゼリナ")),
+  }),
   ev.text("焦げた刈り跡", PO.reedCut, ["淵の縁の葦が刈られている。切り口は焦げて、まだ青い。", "焦げた所だけ、泥に這った跡が無い。"]),
   ev.raw("沼主", PO.boss, [
     { image: IMG.marshLord, priorityType: 1, list: [
@@ -933,7 +961,9 @@ CONFIGS.push(config("w9_074_isle", ISLE, "小島", "lake", [
   ev.block("森の水門（右）", IS.gate2),
   ev.thought("R3-09", "門のこちらに残された母", IS.elf1, ["門は、歌が三つめの節に入ると同時に閉じました。わたしは、こちら側でした。", "内から、歌が聞こえておりました。三晩。娘の声も、その中にありました。", "四晩めに、わたしは同じ節を歌い返したのです。一度だけ。", "門は、根の一本ぶんも動きませんでした。"], { after: outsiderAfter }),
   ev.thought("R3-10", "人の村に嫁いだ調律師の妹", IS.elf2, ["調律師は皆、呼び戻されました。人には告げるな、と。", "わたしは人の村に嫁いでおりましたので、呼ばれませんでした。", "夫が門まで送ってくれたのです。門の前で待て、と言うて、村へ帰りました。", "村の方角に、灯が一つ、二つ。七つめで、数えるのをやめました。"], { after: outsiderAfter }),
-  ev.thought("R3-11", "歌を間違えた老人", IS.elf3, ["歌を知る者だけが、門を通れるのです。", "わしは三つめの節を、六十年、間違えて覚えておりました。", "門の前で一晩じゅう、歌い直しました。杖に一回ずつ刻みを。", "刻みは四十七。喉は、そこで止まりました。"], { after: outsiderAfter }),
+  ev.thought("R3-11", "歌を間違えた老人", IS.elf3, ["歌を知る者だけが、門を通れるのです。", "わしは三つめの節を、六十年、間違えて覚えておりました。", "門の前で一晩じゅう、歌い直しました。杖に一回ずつ刻みを。", "刻みは四十七。喉は、そこで止まりました。"], {
+    after: [...outsiderAfter, ...aside(ACTOR.zelina, "B", say(["……乗せる方も降ろす方も、数えるんやな"], "ゼリナ"))],
+  }),
   ev.text("苔むした石", IS.stone, ["平たい石に、点が刻んである。十ずつ束ねて、七つ。"]),
   ev.floor("踏み分け", IS.hint, ["茂みの根元が、一か所だけ踏み分けてある。"]),
   ev.chest("水門守の弓", IS.redChest, ["w", WEAPON.gateBow, 1], true),
@@ -948,6 +978,14 @@ CONFIGS.push(config("w9_074_isle", ISLE, "小島", "lake", [
 // ---------------------------------------------------------------------------
 // 100 地下水道・上流
 // ---------------------------------------------------------------------------
+// W17：R3-14 と R3-17 の両方を読んだとき（二つ目を初めて読んだとき）のゼリナの一言
+const zelinaQueue = other => [
+  cmd(111, [2, "A", 1]),
+  ifScript(`Hai.Thoughts.isRead("${other}")`, 1),
+  ...shift(aside(ACTOR.zelina, null, say(["千枚と聞いて、千四百並んだんやろ。", "……うちと同じや。数えてから、乗せたらよかった"], "ゼリナ")), 2),
+  close(2), ENDIF(1),
+  close(1), ENDIF(),
+];
 const WARDEN_POST = { mapId: 35, x: 3, y: 8 }; // 営倉の牢番の詰め所（W7）の西の扉の内側
 const FOUNDRY = { mapId: 91, x: 52, y: 37 }; // 鋳物場・型の間（W10 #156）の廃水の管 (52,38) の前
 const lanternAuto = ev.raw("角灯の明かり（自動）", [0, 0], [{
@@ -991,7 +1029,9 @@ CONFIGS.push(config("w9_100_sewer_upper", SEWER, "地下水道", "sewer", [
   ev.text("洞の壁", [20, 27], ["洞の壁に、水の跡の線が何本も。いちばん上の線は、天井に近い。"]),
   // 水が引くまで沈んでいる水門番の小屋
   ...S0.flood.map((xy, i) => flood(`沈んだ戸口 ${i + 1}`, xy, ["水が胸まで来ている。流れが速くて進めない。"])),
-  ev.thought("R3-14", "水を戻した水番", S0.r311, ["札は千枚と聞いた。列は三日。数えた頭は、千と四百。", "四百は、札の無い者だ。並ぶなとは、誰も言わなかった。", "三日めの夕方、扉の方で太鼓が鳴った。閉める合図だ。水を戻せ、と。", "戻した。輪を三十回。下の道には、まだ列の尻尾がいた。"]),
+  ev.thought("R3-14", "水を戻した水番", S0.r311, ["札は千枚と聞いた。列は三日。数えた頭は、千と四百。", "四百は、札の無い者だ。並ぶなとは、誰も言わなかった。", "三日めの夕方、扉の方で太鼓が鳴った。閉める合図だ。水を戻せ、と。", "戻した。輪を三十回。下の道には、まだ列の尻尾がいた。"], {
+    after: zelinaQueue("R3-17"),
+  }),
   ev.chest("油の壺", S0.keeperChest, ["i", ITEM.oil, 2]),
   ev.pickup("苦い根", S0.pickup1, [], ["i", ITEM.bitterRoot, 1]),
   ev.pickup("薬草", S0.pickup2, [], ["i", ITEM.herb, 1]),
@@ -1045,18 +1085,21 @@ CONFIGS.push(config("w9_101_sluice", SLUICE, "地下水道・水門", "sewer", [
   ev.raw("廃水の管の口（H35。鋳物場 091 へ）", S1.pipe, [
     { image: { tileId: "E:109" }, priorityType: 1, list: [
       ...say(["壁に、人がかがんで通れるほどの管の口。奥から、鉄の匂いの風が来る。", "口の格子に、こちら側から閂が掛かっている。"]),
-      ...choice(["閂を外す", "やめる"], 1, [[se("Open2"), swOn(SW.pipe), ...say(["閂を外した。管は、上の方へ続いている。"])], []]),
+      ...choice(["閂を外す", "やめる"], 1, [[se("Open2"), swOn(SW.pipe), ...say(["閂を外した。管は、上の方へ続いている。"]),
+        ...aside(ACTOR.zelina, null, say(["鉄の匂い。鋳物場て、鐘を鋳る所やろ。", "うちの壺の銀も、溶かしたら鐘になるんか"], "ゼリナ"))], []]),
       END,
     ] },
     { conditions: { switch1Id: SW.pipe, switch1Valid: true }, image: { tileId: "E:109" }, priorityType: 1, list: [
-      ...choice(["管をくぐる", "やめる"], 1, [[se("Move1"), transferCmd(FOUNDRY.mapId, FOUNDRY.x, FOUNDRY.y, UP)], []]), END,
+      ...choice(["管をくぐる", "やめる"], 1, [[...say(["管の途中で、下から水の音が上がってきた。"]), se("Move1"), transferCmd(FOUNDRY.mapId, FOUNDRY.x, FOUNDRY.y, UP)], []]), END,
     ] },
   ], "<hai_w9:H35。鋳物場 091（W10）の廃水の管 (52,38) とつながる。閂はこちら側（スイッチ 517）>"),
-  ev.thought("R3-17", "列を止めた兵", S1.r315, ["命令は、日没に列を止めろ、だった。", "日没の鐘は、鳴らなかった。自分の数で、日没を決めた。", "三十まで数えて、槍を横にした。槍の向こうに、まだ二百はいた。"]),
+  ev.thought("R3-17", "列を止めた兵", S1.r315, ["命令は、日没に列を止めろ、だった。", "日没の鐘は、鳴らなかった。自分の数で、日没を決めた。", "三十まで数えて、槍を横にした。槍の向こうに、まだ二百はいた。"], {
+    after: zelinaQueue("R3-14"),
+  }),
   ev.chest("水番の長靴", S1.swChest, ["a", ARMOR.boots, 1]),
   ev.floor("苔の床", S1.hint, ["南の壁ぎわの床だけ、苔が厚い。壁に、影が落ちていない所がある。"]),
   ev.chest("秘薬", S1.hiddenChest, ["i", ITEM.elixir, 1]),
-  ev.chest("砦の名札", S1.secretChest, ["i", ITEM.nameTag, 1]),
+  ev.pickup("砦の名札", [S1.desk[0], S1.desk[1] + 1], ["札場の机の下に、木の名札が一つ落ちている。", "黒鉄の砦の兵の名札だ。"], ["i", ITEM.nameTag, 1]), // W17：宝箱 (33,0) を札場の机の下の拾い物に
   ev.chest("油の壺", S1.neChest, ["i", ITEM.oil, 2]),
   ev.pickup("気付け薬", S1.pickup1, [], ["i", ITEM.smelling, 1]),
   ev.pickup("鉄くず", S1.pickup2, [], ["g", 0, 80]),
@@ -1077,6 +1120,28 @@ CONFIGS.push(config("w9_101_sluice", SLUICE, "地下水道・水門", "sewer", [
 // ---------------------------------------------------------------------------
 // 102 地下都市の閉じた扉の前（暗がり・アンセルモの遺骸）
 // ---------------------------------------------------------------------------
+// W17（台本 22）：夜の戸、二度目。アンセルモの遺骸を見たあとで、まだ答えていない（519 OFF）とき、叩いた音のあとに
+const gateList = [
+  ...say(["見上げるほどの鉄の扉。外側の面は、爪の跡で白くなっている。", "叩いても、音が奥へ吸われていくだけだ。"]),
+  ifSwitch(W17_SW.nightDoorGate, 0, false),
+  ifScript(`Hai.Companions.found().includes(${ACTOR.anselmo})`, 1),
+  ...shift([
+    ...nightDoorStart(),
+    ...say(["角灯を消すと、暗がりは完全だった。", "扉が、叩かれた。三度。外からではない。", "扉の向こう、内側から、小さな拳で。"]),
+    ...say(["そとのひと、まだいる？"]),
+    ...choice(["答える", "答えない"], 1, [
+      [...say(["いる"], "\\N[1]"),
+        se("Open2", 0, 70, 60), cmd(230, [40]),
+        ...say(["扉の内側で、閂が一つ動く音がした。", "鉄が鉄をこする、長い音だった。それきり、何も来なかった。", "影は出なかった。声も、二度目は無かった。"])],
+      [...say(["閂に手を置かなかった。音は、二度目は来なかった。"])],
+    ]),
+    swOn(W17_SW.nightDoorGate),
+    ...nightDoorEnd(),
+  ], 2),
+  close(2), ENDIF(1),
+  close(1), ENDIF(),
+  END,
+];
 CONFIGS.push(config("w9_102_gate_front", GATE, "閉じた扉の前", "gate", [
   lanternAuto,
   ev.transfer("北の廊下（水門へ）", G2.exitN, [SLUICE, S1.arriveS[0], S1.arriveS[1], "up"]),
@@ -1085,9 +1150,15 @@ CONFIGS.push(config("w9_102_gate_front", GATE, "閉じた扉の前", "gate", [
   ev.transfer("東の廊下（扉の番の間へ）", G2.exitE2, [WARDEN_ROOM, G3.arriveW2[0], G3.arriveW2[1], "right"]),
   ev.warp("扉の番の控え", G2.warp),
   ev.raw("閉じた大扉", G2.gate, [
-    { image: IMG.gate, priorityType: 1, list: [
-      ...say(["見上げるほどの鉄の扉。外側の面は、爪の跡で白くなっている。", "叩いても、音が奥へ吸われていくだけだ。"]), END,
+    { image: IMG.gate, priorityType: 1, list: gateList },
+    // W17：アンセルモが節を歌ったあと（520）、扉の内の数え歌を一度（521）
+    { conditions: { switch1Id: W17_SW.anselmoSang, switch1Valid: true }, image: IMG.gate, priorityType: 1, list: [
+      ...say(["扉の内側から、声が聞こえた。", "子どもの声で、何人かが揃って歌っている。", "ひとつ、戸の外。", "ふたつ、扉の前。"]),
+      ...say(["そこで一度、声が途切れた。笑い声が混じって、また続いた。", "よっつ、", "先は、聞き取れなかった。遊びの歌だった。", "足音が扉の鉄を通って、遠くなった。"]),
+      ...aside(ACTOR.anselmo, null, say(["中でも数えとるんか。三つ目を抜いてな"], "アンセルモ")),
+      swOn(W17_SW.doorRhyme), END,
     ] },
+    { conditions: { switch1Id: W17_SW.doorRhyme, switch1Valid: true }, image: IMG.gate, priorityType: 1, list: gateList },
     { conditions: { switch1Id: SW.gateOpened, switch1Valid: true }, image: IMG.gateOpen, priorityType: 1, trigger: 0,
       list: [...say(["大扉が、人ひとり通れるだけ開いている。"]), se("Move1"), transferCmd(WELL, WL.arriveGate[0], WL.arriveGate[1], UP), END] },
   ]),
@@ -1096,20 +1167,43 @@ CONFIGS.push(config("w9_102_gate_front", GATE, "閉じた扉の前", "gate", [
     { image: IMG.anselmo, priorityType: 1, list: [
       ...say(["扉に背を預けて、太った男が座っている。司祭の帯は、酒の染みだらけだ。", "扉の爪の跡は、男の背のあたりだけ無い。"]),
       ...say(["名を一つ呼んで、弔いの節を一つ。これで百と、えー、いくつじゃったかの。", "扉の内から、子どもの笑う声がする。札の子かの。笑っとるなら、上等じゃ。", "次の名は、と。喉が鳴らん。", "誰か、続きを歌っといてくれ。"]),
+      ...aside(ACTOR.zelina, null, say(["……こっち側にも、おったんやな。歌う人が"], "ゼリナ")),
       END,
     ] },
     { conditions: { selfSwitchCh: "A", selfSwitchValid: true }, priorityType: 0 },
   ], `<hai_remains:${ACTOR.anselmo}><hai_memory:${ACTOR.anselmo},4>`),
   ev.text("扉の爪の跡", G2.claw, ["扉の継ぎ目に、爪の跡。低い所の跡ほど、新しい。"]),
-  ev.memory(ACTOR.anselmo, 3, "アンセルモ", G2.anselmo3, ["扉が閉まる日、わしの懐に、内へ入る札が一枚あった。司祭の分じゃ。", "列の外に、女の子が一人。泣きもせんで立っとった。札を首に掛けてやった。", "それでわしは外。内の連中への文句は、歌に混ぜた。三番の節にな。", "子の名は、聞かんかった。"]),
-  ev.pickup("騎士長の日誌", G2.journal, ["机の上に、革の日誌。三つの封蝋の欠片が挟まっている。"], ["i", ITEM.journal, 1], { image: { tileId: "C:149" }, keepImage: { tileId: "C:149" } }),
+  ev.raw("記憶 アンセルモ 3", G2.anselmo3, [{ image: IMG.thought, priorityType: 1, list: [
+    ...say(["扉が閉まる日、わしの懐に、内へ入る札が一枚あった。司祭の分じゃ。", "列の外に、女の子が一人。泣きもせんで立っとった。札を首に掛けてやった。", "それでわしは外。内の連中への文句は、歌に混ぜた。三番の節にな。", "子の名は、聞かんかった。"]),
+    ...aside(ACTOR.anselmo, "B", say(["三番はな、お前さん。ひどい歌詞じゃ。", "司教さまが聞いたら、もう一度わしを追い出す"], "アンセルモ")),
+    END,
+  ] }], `<hai_memory:${ACTOR.anselmo},3>`),
+  ev.pickup("騎士長の日誌", G2.journal, ["机の上に、革の日誌。三つの封蝋の欠片が挟まっている。"], ["i", ITEM.journal, 1], {
+    image: { tileId: "C:149" }, keepImage: { tileId: "C:149" },
+    after: aside(ACTOR.bruno, null, say(["騎士長は、断ったんですね"], "ブルーノ")),
+  }),
   ev.text("騎士団の盾", [36, 3], ["壁に、黒鉄の砦の騎士団の印を刻んだ盾が一枚。", "裏に、列の警護の当番が十二人。名は、九つまで消してある。"]),
   ev.chest("霊水", G2.chest, ["i", ITEM.holyWater, 2]),
   ev.text("石を積んだ墓", G2.graves, ["石を積んだだけの墓が並ぶ。積んだ石の数が、墓ごとに違う。"]),
   ev.pickup("弔いの名簿", G2.listRoll, ["石の上に、紐で綴じた紙の束。名前ばかりが、細かい字で並んでいる。"], ["i", ITEM.dirge, 1], { image: { tileId: "E:177" } }),
   ev.thought("R3-18", "弔いを手伝った男", G2.r324, ["司祭のおっさんの歌は、うまいのか下手なのか分からなかった。", "聞いた者は、みんな泣いた。泣かせるのがうまい、が正しいな。", "おれの名は、名簿の七十いくつめだ。字が崩れだすあたりだ。"]),
   ev.thought("R3-19", "札を孫に持たせた年寄り", G2.r320, ["札を持っとる子から順だと。わしの札は、朝に孫に持たせた。", "戸の内で、孫が泣いとる。泣くな。戸は、もう叩かん。"]),
-  ev.thought("R3-20", "札の無い子ら", G2.r321, ["札は、王さまの紋が焼いてある板。持ってる子と、持ってない子がいた。", "持ってない子で、鬼ごっこをした。扉にさわった子が、鬼。", "扉にさわったら、中で、だれかがぼくの名前で泣いてた。", "ぼくが鬼。三回めも、ぼく。"]),
+  ev.thought("R3-20", "札の無い子ら", G2.r321, ["札は、王さまの紋が焼いてある板。持ってる子と、持ってない子がいた。", "持ってない子で、鬼ごっこをした。扉にさわった子が、鬼。", "扉にさわったら、中で、だれかがぼくの名前で泣いてた。", "ぼくが鬼。三回めも、ぼく。"], {
+    // W17（台本 24）：アンセルモが隊にいて、弔いの名簿を持っているとき一度（520）
+    after: [
+      ifSwitch(W17_SW.anselmoSang, 0, false),
+      ifItem(ITEM.dirge, 1),
+      ...shift(aside(ACTOR.anselmo, null, [
+        ...say(["アンセルモの手が、腹へ行って、止まった。", "名簿の束を出して、頁を繰った。名を一つ、指で押さえた。", "その名の横の数は、一だった。"]),
+        ...say(["一つしか、歌うとらん"], "アンセルモ"),
+        ...say(["アンセルモは、その名を声に出した。小さく。", "それから、節を一つ歌った。酒場の歌の調子ではなかった。", "子どもは、扉の方を向いたままだった。"]),
+        ...say(["二つ目、じゃ"], "アンセルモ"),
+        swOn(W17_SW.anselmoSang),
+      ]), 2),
+      close(2), ENDIF(1),
+      close(1), ENDIF(),
+    ],
+  }),
   ev.thought("R3-21", "番を見ていた女", G2.r322, ["番の鎧は、水を吸って光っていた。", "雷の晩、番は扉の陰に引っこんで、朝まで動かなかった。鉄の鳴る音を嫌う。", "あいつも、扉の内には入れてもらえなかった。札は、持っていたのに。"], { clues: ["扉の番は、雷の晩に扉の陰へ下がった。鉄の鳴る音を嫌う（閉じた扉の前）"] }),
   ev.thought("R3-22", "読み上げを聞いた男", G2.r323, ["番は、布告を読み上げるのが役目だった。日に三度、同じ文を。", "削られた下の半分を、番は覚えていない。読み上げるたびに、そこで止まる。", "止まっている間は、槍の先が下がっている。"], { clues: ["扉の番は、王の布告の削られた所で読み上げが止まる（閉じた扉の前）"] }),
   ev.floor("苔の床", G2.hint, ["広場の隅の床だけ、苔が厚い。壁の継ぎ目から、湿った風。"]),
@@ -1211,6 +1305,8 @@ const elderTalk = [
   ifVar(VAR.songTask, 1, 4),
   ...say(["扉は開けん。外の音には答えん。それが村の決まりじゃ。先に言うておくぞ", "あんた、下の水門から上がってきたのかね。水番の道は、とうに沈んだと聞いとった"], ELDER, 1),
   ...say(["ここは扉の内の村じゃ。わしらの爺さまの爺さまが、王さまの布告で下りてきた", "王さまは、民を守った。扉は、その日の日没に閉じた。村では、そう教える"], ELDER, 1),
+  ...say(["ただのう。わしの代になってから、", "扉の外で、戸を叩く音が増えた。三度ずつ。夜に"], ELDER, 1), // W17（台本 20）
+  ...say(["村の者には言うておらん"], ELDER, 1),
   ...say(["ただのう。言い伝えに、扉の外で夜ごとに歌が聞こえた、というのがある", "布告にも、村の決まりにも、歌のことは無い。誰が歌っておったのか", "わしは、それが知りたい。歌うた者の名が、分かるものならのう"], ELDER, 1),
   cmd(122, [VAR.songTask, VAR.songTask, 0, 0, 1], 1),
   swOn(SW.askedSong, 1),
@@ -1226,11 +1322,21 @@ const elderTalk = [
       ...say(["ここに、わしの家の名がある。爺さまの妹じゃ。札が一枚、足りなんだと"], ELDER),
       ...say(["横の数は、節の数か。この名で、歌うた者がおったか"], ELDER),
       ...say(["閂を外そう。わしの代で、一度きりじゃ。出る者がおっても、止めん"], ELDER),
+      // W17（台本 25）：夜の戸で答えていれば（519）、いちばん上の一本はもう外れている
+      ifSwitch(W17_SW.nightDoorGate),
+      ...say(["閂は三本のはずだった。いちばん上の一本が、受けから外れている。", "長はそれを見て、何も言わなかった。残りの二本を外した。"], "", 1),
+      close(1), ELSE(),
+      ...say(["長は三本の閂を、手で持ち上げて外した。"], "", 1),
+      close(1), ENDIF(),
       cmd(126, [ITEM.dirge, 1, 0, 1]),
       se("Door4"),
       swOn(SW.gateOpened),
       cmd(122, [VAR.songTask, VAR.songTask, 0, 0, 2]),
-      ...errandEnd({ key: "doorSong", result: "done", text: "弔いの名簿を見せた。村の長は大扉の閂を外した（扉の内の村）" })],
+      ...errandEnd({ key: "doorSong", result: "done", text: "弔いの名簿を見せた。村の長は大扉の閂を外した（扉の内の村）" }),
+      ...aside(ACTOR.anselmo, null, [
+        ...say(["ひとことで、ええんじゃ。……遅い"], "アンセルモ"),
+        ...say(["それから、アンセルモは笑った。"]),
+      ])],
     [...say(["そうかね。まあ、ええ"], ELDER),
       cmd(122, [VAR.songTask, VAR.songTask, 0, 0, 3]),
       ...errand({ key: "doorSong", stage: "2", text: "名簿は見せなかった（扉の内の村）" })],
@@ -1245,7 +1351,13 @@ const elderTalk = [
   ...say(["扉は開けん。それが村の決まりじゃ"], ELDER),
   END,
 ];
+const gateInnerAside = aside(ACTOR.zelina, "B", say(["字は書けるんやな。うちの名簿の子らも、書けたやろか"], "ゼリナ")); // W17（台本 20）
 CONFIGS.push(config("w9_105_well_shaft", WELL, "扉の内の村", "well", [
+  // W17（台本 25）：アンセルモが隊にいて、初めて 105 に入ったとき
+  ev.raw("W17 アンセルモの一言（自動）", [0, 0], [
+    { conditions: { actorId: ACTOR.anselmo, actorValid: true }, priorityType: 0, trigger: 3, list: [...say(["内は、こうなっとったか"], "アンセルモ"), selfOn(), END] },
+    { conditions: { selfSwitchCh: "A", selfSwitchValid: true }, priorityType: 0 },
+  ]),
   ev.transfer("南の口（水門へ）", WL.exitS, [SLUICE, S1.arriveN[0], S1.arriveN[1], "down"]),
   ev.transfer("南の口（水門へ）", WL.exitS2, [SLUICE, S1.arriveN2[0], S1.arriveN2[1], "down"]),
   ev.warp("扉の内の村", WL.warp),
@@ -1255,7 +1367,11 @@ CONFIGS.push(config("w9_105_well_shaft", WELL, "扉の内の村", "well", [
   ev.text("村の子", WL.child, ["扉の向こうって、なにがあるの？", "鬼ごっこの鬼になったら、扉にさわって帰ってくるんだよ"], { image: IMG.child, speaker: "村の子" }),
   ev.text("地下の灯", WL.lampPost, ["石の柱の上の灯。煤を払った跡が新しい。", "柱の根元に、灯した夜を数える刻み。四つで一束。"]),
   ev.raw("大扉の内側", WL.gateInner, [
-    { image: IMG.gate, priorityType: 1, list: [...say(["大扉の内側。太い閂が三本、渡してある。", "閂の上に、子どもの字で「あけない」。"]), END] },
+    { image: IMG.gate, priorityType: 1, list: [...say(["大扉の内側。太い閂が三本、渡してある。", "閂の上に、子どもの字で「あけない」。"]), ...gateInnerAside, END] },
+    // W17（台本 22）：夜の戸のあと（519）。閂を外す前
+    { conditions: { switch1Id: W17_SW.nightDoorGate, switch1Valid: true }, image: IMG.gate, priorityType: 1, list: [
+      ...say(["大扉の内側。太い閂が三本、渡してある。", "いちばん上の一本が、受けから外れている。", "閂の上に、子どもの字で「あけない」。"]), ...gateInnerAside, END,
+    ] },
     { conditions: { switch1Id: SW.gateOpened, switch1Valid: true }, image: IMG.gateOpen, priorityType: 1, list: [
       ...say(["閂の外れた大扉が、人ひとり通れるだけ開いている。"]), se("Move1"), transferCmd(GATE, G2.gateFront[0], G2.gateFront[1], UP), END,
     ] },
@@ -1276,7 +1392,7 @@ CONFIGS.push(config("w9_105_well_shaft", WELL, "扉の内の村", "well", [
     ] },
   ]),
   ev.raw("薄い思念 F09 井戸番の女", WL.faint, [{ image: IMG.faint, priorityType: 1, stepAnime: true, list: [
-    ...say(["井戸の綱を、墓守が一緒に引いている。", "墓守は小さく数を数える。三十で、桶が縁に届いた。二十九で届いた日は無い。", "井戸番の女が、もう一杯、と言う。墓守は袖をまくって、また一から数えはじめる。"]),
+    ...say(["井戸の綱を、墓守が一緒に引いている。", "墓守は小さく数を数える。三十で、桶が縁に届いた。二十九で届いた日は無い。", "井戸番の女が、もう一杯、と言う。墓守は袖をまくって、また一から数えはじめる。", "女は、墓守の指を見ている。三十で桶が届き、指が、もう一本折れる。"]),
     cmd(117, [COMMON_MEMORY_LINE]),
     END,
   ] }], "<hai_faint:F09>"),

@@ -141,21 +141,130 @@
     },
     {
       "name": "記憶 トゥーラ 3",
-      "type": "text",
+      "type": "raw",
       "x": 6,
       "y": 12,
       "note": "<hai_memory:11,3>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 4,
-        "pattern": 1
-      },
-      "lines": [
-        "檻のちびどもの飯、あたしが分けてた。でかいのが多く取ると泣くからな。",
-        "骨を移された次の日から、腕が熱くて、力が倍になった。",
-        "檻の格子、曲がるんじゃねえかって思った。曲がった。",
-        "ちびどもには、まだ出るなって言った。先に、道を見てくる。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 4,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "檻のちびどもの飯、あたしが分けてた。でかいのが多く取ると泣くからな。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "骨を移された次の日から、腕が熱くて、力が倍になった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "檻の格子、曲がるんじゃねえかって思った。曲がった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "ちびどもには、まだ出るなって言った。先に、道を見てくる。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                11,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                2,
+                "B",
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "トゥーラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "道、見に行ったきりだったな。あたし"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 2,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
       ]
     },
     {
@@ -259,12 +368,118 @@
     },
     {
       "name": "親鐘の型",
-      "type": "text",
+      "type": "raw",
       "x": 12,
       "y": 8,
-      "lines": [
-        "真ん中の台に、大きな鐘の型。外側の型は割られ、内側の型だけが残る。",
-        "内側の型に、銘を彫る所がある。字は、削りかけで止まっている。"
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "真ん中の台に、大きな鐘の型。外側の型は割られ、内側の型だけが残る。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "内側の型に、銘を彫る所がある。字は、削りかけで止まっている。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                8,
+                606
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "背の舌を下ろして、型の内側に合わせた。合った。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                4,
+                11,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "トゥーラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "兄貴。それ、戻しに行くのか。夜明けまでに"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
       ]
     },
     {

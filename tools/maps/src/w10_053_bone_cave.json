@@ -161,6 +161,70 @@
               "parameters": []
             },
             {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                2,
+                "B",
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゼリナ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "丁寧な化け物やな。……うちの客より、よっぽど丁寧や"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 2,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
               "code": 101,
               "indent": 0,
               "parameters": [
@@ -781,14 +845,14 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "描きたい絵が一枚あったんだがな。山と、橋と、手前に誰か。"
+                "子どもは、森の小屋へ運んだ。息があった。あとは婆さんがどうにかする。"
               ]
             },
             {
               "code": 401,
               "indent": 0,
               "parameters": [
-                "誰を描くかは、決めてなかった。"
+                "描きたい絵が一枚あったんだがな。山と、橋と、手前に誰か。"
               ]
             },
             {

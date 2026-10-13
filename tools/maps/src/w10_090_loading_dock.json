@@ -271,20 +271,130 @@
     },
     {
       "name": "思念 R4-11 荷を下ろした男",
-      "type": "text",
+      "type": "raw",
       "x": 20,
       "y": 16,
       "note": "<hai_thought:R4-11>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "荷を下ろす。数える。上に知らせる。それだけだ。",
-        "箱の中身は見るな、と言われた。見なかった。",
-        "一箱、泣いていた。それも数に入れた。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "荷を下ろす。数える。上に知らせる。それだけだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "箱の中身は見るな、と言われた。見なかった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "一箱、泣いていた。それも数に入れた。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                2,
+                "B",
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゼリナ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "……中身は見るな、か。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "うちは、籠の中を見てしもたけどな"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 2,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
       ]
     },
     {
@@ -649,7 +759,7 @@
       "type": "raw",
       "x": 14,
       "y": 15,
-      "note": "<hai_enemy:607,green>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:607,green>\n<hai_enemy_hesitate>\n<hai_enemy_bell:104>",
       "pages": [
         {
           "image": {
@@ -671,7 +781,7 @@
       "type": "raw",
       "x": 30,
       "y": 20,
-      "note": "<hai_enemy:607,green>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:607,green>\n<hai_enemy_hesitate>\n<hai_enemy_bell:104>",
       "pages": [
         {
           "image": {
@@ -693,7 +803,7 @@
       "type": "raw",
       "x": 28,
       "y": 6,
-      "note": "<hai_enemy:608,green>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:608,green>\n<hai_enemy_hesitate>\n<hai_enemy_bell:104>",
       "pages": [
         {
           "image": {
@@ -715,7 +825,7 @@
       "type": "raw",
       "x": 10,
       "y": 23,
-      "note": "<hai_enemy:609,yellow>",
+      "note": "<hai_enemy:609,yellow>\n<hai_enemy_bell:104>",
       "pages": [
         {
           "image": {

@@ -3309,6 +3309,1292 @@
       ]
     },
     {
+      "name": "W17 ゼリナの椀（自動）",
+      "type": "raw",
+      "x": 18,
+      "y": 26,
+      "note": "<hai_w17:台本 4。ヴォルフラムの先に盛る一椀（N4-1）の、ゼリナが来たときの場面>",
+      "pages": [
+        {
+          "conditions": {
+            "switch1Id": 141,
+            "switch1Valid": true,
+            "switch2Id": 306,
+            "switch2Valid": true
+          },
+          "priorityType": 0,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ヴォルフラム"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "座れ！"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "最初の一椀を、炉から三つ目の壁の側の席に置いた。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ヴォルフラム"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "誰のぶんかは知らん。家の決まりだ"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "シャノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "誰の"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ヴォルフラム"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "知らん！"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゼリナ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "……うちの前に置きよった"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "椀を指で向こうへ押した。椀は動かなかった。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゼリナ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "うちの分は、要らんで。うちは、飲ませる側や"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                180,
+                180,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 180,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ],
+      "id": 61
+    },
+    {
+      "name": "W17 ゼリナ（食卓）",
+      "type": "raw",
+      "x": 29,
+      "y": 28,
+      "note": "",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 141,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "Actor1",
+            "characterIndex": 7,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゼリナ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "あの椀、伏せたままやな。誰か来るんか"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ],
+      "id": 62
+    },
+    {
+      "name": "W17 トゥーラの背負子（自動）",
+      "type": "raw",
+      "x": 19,
+      "y": 26,
+      "note": "",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 144,
+            "switch1Valid": true,
+            "itemId": 606,
+            "itemValid": true
+          },
+          "priorityType": 0,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "トゥーラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "あたしはトゥーラ。兄貴、その背負子、あたしのだろ"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "墓守は背負子を下ろさなかった。舌が、まだ中にあった。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "トゥーラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "貸しといてやる。帰りに返せ"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                181,
+                181,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 181,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ],
+      "id": 63
+    },
+    {
+      "name": "W17 トゥーラとベルトラン（自動）",
+      "type": "raw",
+      "x": 20,
+      "y": 26,
+      "note": "",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 144,
+            "switch1Valid": true,
+            "switch2Id": 143,
+            "switch2Valid": true
+          },
+          "priorityType": 0,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "トゥーラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "おい、その剣。骨の剣だろ。売ったの誰だよ"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "ベルトランは答えなかった。トゥーラの腕を見て、黙った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "トゥーラは自分の腕を見て、袖を下ろした。"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "A",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ],
+      "id": 64
+    },
+    {
+      "name": "W17 トゥーラ（食卓）",
+      "type": "raw",
+      "x": 30,
+      "y": 28,
+      "note": "",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 144,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "Actor2",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                141,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゼリナ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "トゥーラちゃん。食べ。うちの分や"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "トゥーラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "子ども扱いすんな。食うけど"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 183,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ],
+      "id": 65
+    },
+    {
+      "name": "W17 ベルトランとピピネル（自動）",
+      "type": "raw",
+      "x": 33,
+      "y": 26,
+      "note": "",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 143,
+            "switch1Valid": true,
+            "switch2Id": 411,
+            "switch2Valid": true
+          },
+          "priorityType": 0,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ピピネル"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "酒くさいのう、ここ"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "ベルトランは口を開けた。酒の話をするときの顔だった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "薬草の束で、ピピネルの袖が持ち上がった。袖の下に、古い傷。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "肩から肘へ、斜めに。刃の傷だった。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ベルトラン"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "……生きてたのか"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ピピネル"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "おぬし。この席、誰ぞ座っとるのか。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "婆には見えんが、酒の匂いがする"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                182,
+                182,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 182,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ],
+      "id": 66
+    },
+    {
+      "name": "W17 トゥーラとシャノ（自動）",
+      "type": "raw",
+      "x": 33,
+      "y": 32,
+      "note": "",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 144,
+            "switch1Valid": true,
+            "switch2Id": 172,
+            "switch2Valid": true
+          },
+          "priorityType": 0,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "シャノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "見てた？　今日は留め金が五つ。重かった"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "シャノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "帰りは軽い、って頭が言うんだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "拾い屋はみんな言う。意味は知らねえ"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "トゥーラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "……誰に教わった、それ"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "シャノは背負子を柱に立て掛けて、梁へ登った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "椀には手を付けていなかった。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "トゥーラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "兄貴。あいつ、飯食ってない"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "\\N[1]"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "背負子の字と、同じだ"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "トゥーラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "寝ろ、馬鹿"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "梁の上で、シャノは寝返りを打った。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                183,
+                183,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 183,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ],
+      "id": 67
+    },
+    {
+      "name": "W17 ゼリナとアンセルモ（自動）",
+      "type": "raw",
+      "x": 32,
+      "y": 32,
+      "note": "",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 141,
+            "switch1Valid": true,
+            "switch2Id": 142,
+            "switch2Valid": true
+          },
+          "priorityType": 0,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アンセルモ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "お前さん、酒保の人かの。舟の"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゼリナ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "舟の。あんたは、扉の"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "二人はそれきり、しばらく黙った。炉の火が鳴った。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アンセルモ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "わしはな、札を一枚、持っとった。内へ入る札じゃ"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゼリナ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "うちは、籠を受け取った。籠だけ"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アンセルモ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "ほう"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゼリナ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "ほう、やあらへん"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゼリナ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "降ろした顔は、全部覚えとる。二十六"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アンセルモ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "わしは、札をやった子の名を聞かんかった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "……そっちの方が、楽じゃったからの"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                184,
+                184,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 184,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ],
+      "id": 68
+    },
+    {
+      "name": "W17 グィドの数え歌（自動）",
+      "type": "raw",
+      "x": 18,
+      "y": 32,
+      "note": "",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 602,
+            "switch1Valid": true,
+            "switch2Id": 142,
+            "switch2Valid": true
+          },
+          "priorityType": 0,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "グィド"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "ひとつ、戸の外。ふたつ、扉の前"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "指が三本目を折った。声は無かった。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "グィド"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "よっつ。まあ、明日にしよう"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アンセルモ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "三つ目は、歌わんのか"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "グィド"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "三つ目は、じいさんが言うなと。なんでかは、わからんよ"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アンセルモ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "ええ爺さんじゃ"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                185,
+                185,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 185,
+            "switch1Valid": true
+          },
+          "priorityType": 0
+        }
+      ],
+      "id": 69
+    },
+    {
+      "name": "W17 トゥーラ（梁の下）",
+      "type": "raw",
+      "x": 23,
+      "y": 30,
+      "note": "",
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 144,
+            "switch1Valid": true,
+            "switch2Id": 183,
+            "switch2Valid": true
+          },
+          "image": {
+            "characterName": "Actor2",
+            "characterIndex": 2,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "トゥーラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "寝ろ、馬鹿"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ],
+      "id": 70
+    },
+    {
       "id": 71,
       "name": "W14 伏せた椀に飯が盛られる（三つ目の鐘の夜。自動）",
       "type": "raw",
