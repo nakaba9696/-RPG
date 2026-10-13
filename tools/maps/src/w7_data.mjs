@@ -269,8 +269,9 @@ const ENEMIES = [
   [332, "番の獣", "Wolfman", 250, [520, 0, 32, 20, 8, 12, 20, 10], 34, 24, [T.element(ELEMENT.fire, 1.5)], [attack, act(SKILL.packFang, 4)], noDrop],
   [333, "見回りの亡骸", "Captain", 180, [440, 0, 30, 22, 10, 14, 14, 10], 30, 22, [T.element(ELEMENT.fire, 1.5)], [onTurn(2, 1, 3), onTurn(P4.sleepClub, 2, 3), onTurn(1, 3, 3)], noDrop],
   [334, "鎖の番犬", "SF_Whitewolf", 300, [1600, 0, 38, 26, 8, 16, 30, 10], 90, 45, [T.attackTimes(1)], [attack, act(P4.chain, 3)], noDrop],
-  // W15（#231）：夜の戸の声だけの影（木樵の女房。020 の崩れた小屋）。W11 の 701 と同じ型・数値（技 701 呼ぶ声、ドロップ 灰の苔）。数値は持ち主が調整する
-  [336, "声だけの影", "SF_Shadow", 0, [820, 40, 44, 26, 32, 30, 26, 10], 50, 30, [T.element(ELEMENT.light, 2), T.element(ELEMENT.dark, 0.5), T.physRate(0.85)], [attack, act(701, 3)], drop(1, ITEM.mossAsh, 4)],
+  // W15（#231）：夜の戸の声だけの影（木樵の女房。020 の崩れた小屋）。W11 の 701 と同じ型（光に弱く闇に強い・物理を少し減らす）で、
+  // 強さは地域一のふつうの敵 1〜2 体分（迷い人と同じ程度。答えたことへの報いではなく、声を聞く場面）。数値は持ち主が調整する
+  [336, "声だけの影", "SF_Shadow", 0, [260, 20, 20, 12, 16, 16, 14, 10], 20, 15, [T.element(ELEMENT.light, 2), T.element(ELEMENT.dark, 0.5), T.physRate(0.85)], [attack, act(SKILL.mistWhisper, 2)], drop(1, ITEM.mossAsh, 4)],
 ];
 const WARDEN = 335;
 const wardenTraits = [T.physRate(0.7), T.element(ELEMENT.fire, 2), T.element(ELEMENT.ice, 0.5), T.stateRate(STATE.sleep, 0.5), T.stateRate(1, 0)];
