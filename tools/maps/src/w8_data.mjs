@@ -20,7 +20,7 @@ export const ITEM = {
   // P9 の拾い物（P の帯。使うだけ）
   herb: 196, antidote: 197, elixir: 198, bitterRoot: 199, mossAsh: 200, sleepIncense: 141, salve: 142, smelling: 143, holyWater: 144,
   // W7 の物（使うだけ）
-  lantern: 322, oil: 332,
+  lantern: 322, oil: 332, prisonTag: 323,
 };
 export const WEAPON = { hunterSpear: 421 };
 export const ARMOR = { doorShield: 421, lotTag: 422, ashShawl: 423, sealRing: 424, bookmark: 425, watchCloak: 426 };
@@ -32,11 +32,13 @@ export const STATE = { named: 421, shut: 422 };
 export const ENEMY = {
   ashWeasel: 421, sootCrow: 422, walker: 423, scorchDog: 424, hunterCorpse: 425,
   bookworm: 427, inkShade: 428, silentReader: 429, copyist: 430, shelfWarden: 431,
+  voiceShade: 432, // W16（#232）：夜の戸の声だけの影（焼けた村の子）
   shrineWarden: 441, scholar: 442,
 };
 export const TROOP = {
   weasels: 421, crow: 422, walker: 423, scorchDog: 424, hunterCorpse: 425,
   bookworms: 427, inkShades: 428, silentReader: 429, copyist: 430, shelfWarden: 431,
+  voiceShade: 432,
   shrineWarden: 441, scholar: 442,
 };
 // スイッチ・変数（401–500。System.json に名前を書く）。world.md 4.4 の旗（W6 の帯）は使うだけ：
@@ -45,6 +47,8 @@ export const TROOP = {
 export const SW = {
   annelise: 401, brotherHome: 402, brotherStays: 403, h22: 404, shrineBoss: 405, scholarBoss: 406,
   ismene: 407, h31: 408, lock: 409, runeDoor: 410, pipinel: 411,
+  // W16（#232。docs/story/scenes/02-region2-region5.md）
+  nightDoorAnswered: 412, nightDoorLegacy: 413, noraFire: 414, sameDay: 415, dilThird: 416,
 };
 export const VAR = { brother: 401, copies: 402, lockAnswer: 403 };
 export const FLAG = { archiveBell: 102, allBells: 105, bellCount: 101, survivors: 103, grapple: 312 };
@@ -61,6 +65,11 @@ const SWITCH_NAMES = {
   409: "記録院:封じた書架の番号錠",
   410: "記録院:古言の碑の扉（ディル）",
   411: "生き残り:ピピネルが砦へ",
+  412: "夜の戸:焼けた村（答えた）",
+  413: "夜の戸:焼けた村 言い残し",
+  414: "焼けた村:ノラが火の向きを言った",
+  415: "記録院:同じ日だ",
+  416: "記録院:ディルが三通りを聞いた",
 };
 const VARIABLE_NAMES = {
   401: "頼み:弟（0 未・1 頼まれた・2 帳面を見せた・3 言い争った）",
@@ -330,6 +339,8 @@ const ENEMIES = [
   [ENEMY.inkShade, "インクの影", "Wraith", 220, [220, 20, 18, 14, 22, 18, 16, 10], 14, 10, [T.element(ELEMENT.light, 2), T.physRate(0.7)], [attack, act(SKILL.inkSpray, 4)], drop(1, ITEM.holyWater, 5)],
   [ENEMY.silentReader, "黙読者", "Sorcerer", 170, [420, 40, 22, 18, 28, 26, 14, 10], 30, 20, [T.element(ELEMENT.fire, 1.5), T.stateRate(ST.silence, 1.5)], [attack, act(SKILL.silentRead, 4)], noDrop],
   [ENEMY.copyist, "写字の手", "Lich", 120, [480, 0, 34, 20, 10, 16, 20, 10], 32, 22, [T.element(ELEMENT.fire, 1.5)], [attack, act(SKILL.copyHand, 4)], noDrop],
+  // 夜の戸の声だけの影（W16。W11 の 701 と同じ型で、強さは焼けた村のふつうの敵 1〜2 体分。言い残しはマップのイベントのメモ欄 <hai_enemy_shade:…>）
+  [ENEMY.voiceShade, "声だけの影", "SF_Shadow", 0, [420, 20, 28, 16, 20, 20, 16, 10], 28, 20, [T.element(ELEMENT.light, 2), T.element(ELEMENT.dark, 0.5), T.physRate(0.85)], [attack, act(SKILL.lotVoice, 3)], drop(1, ITEM.mossAsh, 4)],
   [ENEMY.shelfWarden, "書架の番人", "Stoneknight", 60, [1800, 0, 44, 34, 8, 20, 14, 10], 100, 55, [T.element(ELEMENT.thunder, 1.5), T.physRate(0.8)], [attack, act(SKILL.shelfFall, 4)], noDrop],
 ];
 const enemies = readData("Enemies.json");
@@ -375,6 +386,7 @@ const TROOPS = [
   [TROOP.silentReader, "W8_黄：黙読者", [ENEMY.silentReader]],
   [TROOP.copyist, "W8_黄：写字の手", [ENEMY.copyist]],
   [TROOP.shelfWarden, "W8_赤：書架の番人", [ENEMY.shelfWarden]],
+  [TROOP.voiceShade, "W8_緑：声だけの影（焼けた村の子）", [ENEMY.voiceShade]],
   [TROOP.shrineWarden, "W8_ボス：生贄の祠の番", [ENEMY.shrineWarden]],
   [TROOP.scholar, "W8_ボス：真名を読んだ学者", [ENEMY.scholar]],
 ];
@@ -392,16 +404,18 @@ const end = indent => ({ code: 0, indent, parameters: [] });
 const page0 = emptyTroop(0).pages[0];
 const turnPage = (a, b, span, list) => ({ ...page0, conditions: { ...page0.conditions, turnA: a, turnB: b, turnValid: true }, span, list });
 const hpPage = (hp, span, list) => ({ ...page0, conditions: { ...page0.conditions, enemyHp: hp, enemyIndex: 0, enemyValid: true }, span, list });
-// 祠の番：戦いの頭に帳面を持っていれば、最後の名を見せる（弱み）。同じ文をくり返す（docs/world.md 5.5）
+// 祠の番：帳面を持って挑むと「名を呼ばれた」で始まる（弱み）。最後の名の読み上げは戦いの前のマップのイベントに移した
+//   （W16。場面表 1-9）。頭の頁は「番の口が止まった」の形。同じ文をくり返す（docs/world.md 5.5）
 troops[TROOP.shrineWarden].pages = [
   turnPage(0, 0, 0, [
     { code: 111, indent: 0, parameters: [8, ITEM.sacrificeLedger] },
-    ...msg(1, "", ["帳面の最後の頁を開いて、番に向けた。", "印の無い名が一つ、灰の中で読めた。"]),
-    ...msg(1, "生贄の祠の番", ["……その名は、まだ、戻らぬ。", "戻らぬ。戻らぬ者を、待つ。"]),
+    ...msg(1, "", ["番の口が、止まった。"]),
     { code: 333, indent: 1, parameters: [0, 0, STATE.named] },
     end(1),
+    { code: 411, indent: 0, parameters: [] },
+    ...msg(1, "生贄の祠の番", ["差し出す者を、逃がすな。名は、揃っている。"]),
+    end(1),
     { code: 412, indent: 0, parameters: [] },
-    ...msg(0, "生贄の祠の番", ["差し出す者を、逃がすな。名は、揃っている。"]),
     end(0),
   ]),
   turnPage(3, 3, 1, [...msg(0, "生贄の祠の番", ["一人で、村が残る。一人で。"]), end(0)]),
@@ -415,7 +429,18 @@ troops[TROOP.shrineWarden].pages = [
 ];
 // 真名を読んだ学者：読むのをやめない。沈黙すると、唇だけが動き続ける
 troops[TROOP.scholar].pages = [
-  turnPage(0, 0, 0, [...msg(0, "", ["唇が、同じ一語の形に動いている。", "音は、まだ出ていない。"]), end(0)]),
+  // ディルがいれば、頭にディルの「頁を伏せろ」（W16。場面表 3-26。弱みの沈黙は今のまま）
+  turnPage(0, 0, 0, [
+    { code: 111, indent: 0, parameters: [4, 7, 0] },
+    ...msg(1, "ディル", ["頁を伏せろ"]),
+    ...msg(1, "", ["学者の口が、閉じた。声が出なかった。"]),
+    end(1),
+    { code: 411, indent: 0, parameters: [] },
+    ...msg(1, "", ["唇が、同じ一語の形に動いている。", "音は、まだ出ていない。"]),
+    end(1),
+    { code: 412, indent: 0, parameters: [] },
+    end(0),
+  ]),
   hpPage(50, 1, [
     { code: 111, indent: 0, parameters: [12, "$gameTroop.members()[0].isAlive()"] },
     ...msg(1, "", ["一語が、声になった。耳が、音を取り落とす。", "学者の目は、開いた頁の一行から動かない。"]),

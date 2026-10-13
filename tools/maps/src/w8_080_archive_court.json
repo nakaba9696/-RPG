@@ -806,6 +806,68 @@
               ]
             },
             {
+              "code": 111,
+              "indent": 2,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "はい"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "イスメネには聞こえなかった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "イスメネは帳面に、もう一行書いた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 2,
+              "parameters": []
+            },
+            {
               "code": 122,
               "indent": 2,
               "parameters": [
@@ -955,22 +1017,111 @@
     },
     {
       "name": "記憶 ディル 1",
-      "type": "text",
+      "type": "raw",
       "x": 4,
       "y": 8,
       "note": "<hai_memory:7,1>",
-      "image": {
-        "tileId": "E:194"
-      },
-      "lines": [
-        [
-          "港の倉の裏に、濡れて捨てられた本が積んであった。",
-          "字はそれで覚えた。勘定は、荷札で覚えた。"
-        ],
-        [
-          "記録院の門で、一枚書いてみろと言われた。書いたら、入れた。",
-          "それだけの話だよ。泣ける所は無い。"
-        ]
+      "pages": [
+        {
+          "image": {
+            "tileId": "E:194"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "港の倉の裏に、濡れて捨てられた本が積んであった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "字はそれで覚えた。勘定は、荷札で覚えた。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "記録院の門で、一枚書いてみろと言われた。書いたら、入れた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "それだけの話だよ。泣ける所は無い。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                6,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ノラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "泣いてないよ！"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
       ]
     },
     {
@@ -1064,7 +1215,7 @@
               "code": 401,
               "indent": 1,
               "parameters": [
-                "……読めるよ。読むだけならな。"
+                "読めるよ。読むだけならな。"
               ]
             },
             {
@@ -1393,11 +1544,97 @@
     },
     {
       "name": "受付の机",
-      "type": "text",
+      "type": "raw",
       "x": 23,
       "y": 16,
-      "lines": [
-        "机の上に、来た人の名を書く帳面。今の日付の行に、一つだけ名がある。"
+      "note": "",
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "机の上に、来た人の名を書く帳面。今の日付の行に、一つだけ名がある。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "variableId": 402,
+            "variableValid": true,
+            "variableValue": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "机の上に、来た人の名を書く帳面。今の日付の行に、一つだけ名がある。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "今の日付の行の、一つだけの名の下に、"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "「砦の方」と書き足してある。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
       ]
     },
     {
@@ -1636,7 +1873,7 @@
       "type": "raw",
       "x": 26,
       "y": 9,
-      "note": "<hai_enemy:427,green>",
+      "note": "<hai_enemy:427,green>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -1658,7 +1895,7 @@
       "type": "raw",
       "x": 13,
       "y": 19,
-      "note": "<hai_enemy:428,green>",
+      "note": "<hai_enemy:428,green>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -1724,6 +1961,16 @@
             "wait": false
           }
         }
+      ]
+    },
+    {
+      "name": "小部屋の棚",
+      "type": "text",
+      "x": 37,
+      "y": 16,
+      "lines": [
+        "棚に、鐘の記録の、歌い手の欄を写した頁が一枚。",
+        "空白を、空白のまま写してある。"
       ]
     }
   ]

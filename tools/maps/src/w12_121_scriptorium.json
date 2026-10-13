@@ -367,7 +367,7 @@
               "code": 401,
               "indent": 3,
               "parameters": [
-                "その二冊、記録院の写しですか？　……並べてみても、いいですか？"
+                "その二冊、記録院の写しですか？　並べてみても、いいですか？"
               ]
             },
             {
@@ -483,6 +483,56 @@
               "indent": 4,
               "parameters": [
                 "貼り紙は剥がしません。剥がしたら、どれが写しなのか分からなくなるので。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "テオは羽根の筆を一本取って、小さな紙に何かを写した。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "写し終えると、紙を折って、どこかにしまった。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "テオ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "写しておきました。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "どこに置いたかは、写しておきませんでした"
               ]
             },
             {
@@ -840,6 +890,20 @@
               ]
             },
             {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "中ほどに「鐘を黙らせし夜」の一行。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "その一行の上に、紙を貼って剥がした跡。"
+              ]
+            },
+            {
               "code": 250,
               "indent": 0,
               "parameters": [
@@ -1040,6 +1104,49 @@
           },
           "priorityType": 1,
           "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "棚",
+      "type": "raw",
+      "x": 35,
+      "y": 22,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "棚に、椀は無い。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "椀の形の、埃の無い輪だけが、十二ある。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
         }
       ]
     }

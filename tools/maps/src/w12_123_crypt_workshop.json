@@ -120,21 +120,102 @@
     },
     {
       "name": "思念 R5-05 反対した修道士",
-      "type": "text",
+      "type": "raw",
       "x": 9,
       "y": 28,
       "note": "<hai_thought:R5-05>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "会議で、反対の手を挙げたのは私だけだった。",
-        "金が先に来た。飢えの嘆願は、そのあとで束ねて読まれた。",
-        "翌朝から、納骨堂の当番になった。棺の数を数えるのが勤めだ。",
-        "議事録の反対の欄の名に線を引いたのは、私だ。墨は院長の机のを借りた。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "会議で、反対の手を挙げたのは私だけだった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "金が先に来た。飢えの嘆願は、そのあとで束ねて読まれた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "翌朝から、納骨堂の当番になった。棺の数を数えるのが勤めだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "議事録の反対の欄の名に線を引いたのは、私だ。墨は院長の机のを借りた。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                8,
+                1052
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "議事録の、線で消した名。線は、まっすぐだった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
       ]
     },
     {
@@ -398,6 +479,61 @@
               "indent": 2,
               "parameters": [
                 "text = 足場の木を一束背負った。麦の村のソレンヌの詰め所へ"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 2,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "僕が代わります。……いえ、はい。あなたが"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "木の端に、石段と同じ石工の印の焼き印があった。"
               ]
             },
             {
@@ -997,7 +1133,7 @@
       "type": "raw",
       "x": 8,
       "y": 9,
-      "note": "<hai_enemy:1057,green>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:1057,green>\n<hai_enemy_hesitate>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -1019,7 +1155,7 @@
       "type": "raw",
       "x": 40,
       "y": 30,
-      "note": "<hai_enemy:1057,green>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:1057,green>\n<hai_enemy_hesitate>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -1041,7 +1177,7 @@
       "type": "raw",
       "x": 33,
       "y": 27,
-      "note": "<hai_enemy:1056,yellow>",
+      "note": "<hai_enemy:1056,yellow>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -1063,7 +1199,7 @@
       "type": "raw",
       "x": 16,
       "y": 14,
-      "note": "<hai_enemy:1058,red>\n<hai_enemy_chase:2>",
+      "note": "<hai_enemy:1058,red>\n<hai_enemy_chase:2>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
