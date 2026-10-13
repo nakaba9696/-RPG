@@ -13,6 +13,8 @@
  *                           <hai_enemy_hesitate:40> で止まるフレーム数を変える
  *   <hai_enemy_shade:一行>  声だけの影（P13）。姿が薄く（パラメータ「影の不透明度」）、追わない。
  *                           触れると戦闘。倒すと「一行」を窓なしで画面の真ん中に出す（値を省くと何も出さない）
+ *   <hai_enemy_shade_quiet> 声だけの影を倒しても一行を出さない（P17）。一行は、あとのイベントで
+ *                           プラグインコマンド「影の声を出す」から話し手の名つきで出す（「崩れる → 声」の順にする用）
  *   <hai_enemy_bell:103>    東を向いて止まる（P14）。スイッチ 103（その地域の鐘）が ON なら追わず、
  *                           右（東）を向いて止まり、影と同じ薄さになる。触れると戦闘。説明の文は出さない。
  *                           マップのメモ欄に書くと、そのマップのシンボル敵すべてに付く（イベントのほうが優先）。
@@ -42,6 +44,7 @@
  *   canSeePlayer(event)   今プレイヤーを追える位置にいるか
  *   colorOf(rank)         その強さの色 [赤, 緑, 青, 強さ]
  *   isShade(event) / shadeVoice(event)  声だけの影か / 倒したときの一行（無ければ ""）
+ *   isShadeQuiet(event)   倒しても一行を出さない影か（<hai_enemy_shade_quiet>）
  *   bellSwitchOf(event)   東を向いて止まる旗のスイッチ ID（無ければ 0）
  *   isBellStopped(event)  今、東を向いて止まっているか
  *
@@ -113,6 +116,23 @@
  * @command escaped
  * @text 逃げたとき（自動で使う）
  * @desc このイベントをしばらくすり抜けにする。シンボル敵の戦闘のあとに自動で実行される。
+ *
+ * @command shadeVoice
+ * @text 影の声を出す
+ * @desc 声だけの影（このマップのイベント）の一行を、話し手の名つきの窓（下）で出す。窓が閉じるまで待つ。
+ *
+ * @arg eventId
+ * @text 影のイベント
+ * @desc <hai_enemy_shade:一行> を書いたイベントの ID（このマップ）。
+ * @type number
+ * @min 1
+ * @default 1
+ *
+ * @arg speaker
+ * @text 話し手
+ * @desc 名前の欄に出す文字。空にすると名前を出さない。
+ * @type string
+ * @default
  */
 (() => {
   "use strict";
@@ -154,6 +174,7 @@
       chaseRange: shade !== undefined ? 0 : range === undefined || range === true ? chaseRange : Number(range),
       shade: shade !== undefined,
       voice: shade === undefined || shade === true ? "" : String(shade).trim(),
+      quiet: shade !== undefined && !!data.meta.hai_enemy_shade_quiet,
       hesitate: hesitate === undefined ? 0 : hesitate === true ? hesitateFrames : Math.max(0, Number(hesitate) || 0),
     };
   }
@@ -260,6 +281,7 @@
     hesitateOf: event => (infoOf(event) || {}).hesitate || 0,
     isShade: event => !!(infoOf(event) || {}).shade,
     shadeVoice: event => (infoOf(event) || {}).voice || "",
+    isShadeQuiet: event => !!(infoOf(event) || {}).quiet,
     bellSwitchOf,
     isBellStopped,
     params: { chaseRange, chaseSpeed, fleeFrames, hesitateFrames, shadeOpacity, morningSwitch },
@@ -270,6 +292,18 @@
     if (this._mapId === $gameMap.mapId() && event) {
       $gameSelfSwitches.setValue([this._mapId, event.eventId(), SELF_SWITCH], true);
     }
+  });
+
+  // 声だけの影の一行を、話し手の名つきで出す（文章の表示と同じ形。前の窓が閉じてから呼ばれる）
+  PluginManager.registerCommand(pluginName, "shadeVoice", function(args) {
+    const voice = (infoOf($gameMap.event(Number(args.eventId))) || {}).voice || "";
+    if (!voice) return;
+    $gameMessage.setFaceImage("", 0);
+    $gameMessage.setBackground(0);
+    $gameMessage.setPositionType(2);
+    $gameMessage.setSpeakerName(String(args.speaker || ""));
+    $gameMessage.add(voice);
+    this.setWaitMode("message");
   });
 
   PluginManager.registerCommand(pluginName, "escaped", function() {
@@ -323,7 +357,7 @@
   Game_Event.prototype.list = function() {
     const list = _Game_Event_list.apply(this, arguments);
     const info = infoOf(this);
-    return info && list && this.isTriggerIn([0, 1, 2]) ? battleList(list, info.troopId, info.voice) : list;
+    return info && list && this.isTriggerIn([0, 1, 2]) ? battleList(list, info.troopId, info.quiet ? "" : info.voice) : list;
   };
 
   // すり抜けている間は戦闘にならない

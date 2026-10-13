@@ -12,6 +12,7 @@ VISION.md の核 2「戦闘は原則すべて任意」のためのプラグイ�
 | `<hai_enemy_chase:6>` | この敵だけ追い始める距離を変える（`0` で追わない）。省略でパラメータの「追い始める距離」 |
 | `<hai_enemy_hesitate>` | 弱い化け物のためらい（P12、world.md 3.2）。主人公を見つけると、こちらを向いて一瞬止まってから追う。理由は出さない。`<hai_enemy_hesitate:40>` で止まるフレーム数を変える（省略でパラメータ「ためらう時間」） |
 | `<hai_enemy_shade:一行>` | 声だけの影（P13、world.md 3.7・mapdesign.md 7 章）。下の「声だけの影」 |
+| `<hai_enemy_shade_quiet>` | 声だけの影を倒しても一行を出さない（P17）。下の「崩れる → 声の順に出す」 |
 | `<hai_enemy_bell:103>` | 東を向いて止まる（P14）。下の「東を向いて止まる」。マップのメモ欄にも書ける |
 
 ## 声だけの影（`<hai_enemy_shade>`。P13 #189）
@@ -22,6 +23,21 @@ VISION.md の核 2「戦闘は原則すべて任意」のためのプラグイ�
 - **倒すと一行の声を残す**：勝ったあと、タグの値の一行を窓なし・画面の真ん中に出す（`["", 0, 2, 1, ""]` の文章の表示。制御文字は使える。`>` は書けない）。値を省く（`<hai_enemy_shade>`）と何も出さない。
   何を言わせるかは W11（text.md 5.5 の c：その地域で読んだ思念の一行）。読んだかどうかで声を変えたいときは、影を出す・出さないをページの出現条件で分ける（影ごとに別のイベント）。
 - 復活はふつうの敵と同じ（`<hai_enemy_once>` が無ければマップに入り直すと戻り、倒すとまた同じ声を出す）。
+
+### 崩れる → 声の順に出す（`<hai_enemy_shade_quiet>` と「影の声を出す」。P17 #257）
+夜の戸の影（020・060・110）のように、倒したあとの自動のイベントで「影は…崩れた」を出してから、言い残しを**話し手の名つき**で出したいとき用（R2 気になる 12、場面表 1-11・2-14）。
+1. 影のメモ欄に `<hai_enemy_shade_quiet>` を足す（`<hai_enemy_shade:一行>` はそのまま。一行はここから読む）。倒しても一行を出さなくなる。
+2. 倒したあとのイベントで、崩れる文章のあとにプラグインコマンド **`shadeVoice`（影の声を出す）** を置く。引数は `eventId`（影のイベントの ID。同じマップ）と `speaker`（名前の欄。空なら名前なし）。
+   ふつうの文章の表示（顔なし・ふつうの窓・下・名前つき）と同じ形で一行を出し、窓が閉じるまで待つ。影を倒したあと（セルフスイッチ A が ON で消えていても）読める。
+```json
+{ "code": 101, "indent": 0, "parameters": ["", 0, 0, 2, ""] },
+{ "code": 401, "indent": 0, "parameters": ["影は、長くはもたなかった。崩れるときに、声が落ちた。"] },
+{ "code": 357, "indent": 0, "parameters": ["Hai_SymbolEnemy", "shadeVoice", "影の声を出す", { "eventId": "39", "speaker": "焼けた村の子" }] },
+{ "code": 657, "indent": 0, "parameters": ["影のイベント = 39"] },
+{ "code": 657, "indent": 0, "parameters": ["話し手 = 焼けた村の子"] }
+```
+- 話し手の名は、Hai_Thoughts の「言い残し」の表（`Hai.Thoughts.legacyTable()` の `speaker`）と揃える。
+- 影のイベントに一行が無い（`<hai_enemy_shade>` だけ）ときは何も出さない。
 
 ## 東を向いて止まる（`<hai_enemy_bell>`。P14 #230）
 鐘を鳴らした地域の敵は、追わずに東（右）を向いて止まる（world.md 8.2、scenes/01 の十四、04-climax 章末 1）。
@@ -83,6 +99,7 @@ VISION.md の核 2「戦闘は原則すべて任意」のためのプラグイ�
 | `state(event)` | `{ chasing, flee, through, defeated, hesitate }`（`hesitate` はためらいの残りフレーム。古いセーブで欄が無ければ 0） |
 | `hesitateOf(event)` | その敵のためらう時間（`<hai_enemy_hesitate>` が無ければ 0） |
 | `isShade(event)` / `shadeVoice(event)` | 声だけの影か / 倒したときの一行（無ければ `""`） |
+| `isShadeQuiet(event)` | 倒しても一行を出さない影か（`<hai_enemy_shade_quiet>`） |
 | `canSeePlayer(event)` | 今プレイヤーを追える（距離の内で、まっすぐ見える）か。東を向いて止まっている間は false |
 | `bellSwitchOf(event)` / `isBellStopped(event)` | 東を向いて止まる旗のスイッチ ID（無ければ 0）/ 今止まっているか |
 | `colorOf(rank)` | その強さの色 `[赤, 緑, 青, 強さ]` |
