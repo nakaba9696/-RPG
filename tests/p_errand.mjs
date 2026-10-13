@@ -1,5 +1,5 @@
-// P16（#253、R2 止まる 1）頼みごとの段を下げない：
-//   1. Hai.Notes.setErrand：今の段より小さい段は何も書き換えない（段・変数・文・終えた印）。同じ段・0（前のまま）は書ける
+// P16（#253、R2 止まる 1）頼みごと「外に残された者」（outsiders）の段を下げない：
+//   1. Hai.Notes.setErrand：段を下げない筋では、今の段より小さい段は何も書き換えない（段・変数・文・終えた印）。同じ段・0（前のまま）は書ける。ほかの筋は下げられる（prisonBell の 4 → 2）
 //   2. 074 小島で森の水門 (14,3) を先に開けてから思念 R3-09〜11 を読んでも「外に残された者」の段は 3（変数 166 も 3）
 //      → 071 のミルレーネに伝えると終わり → 010 の三つ目の鐘の夜にミルレーネが砦に来る（ev72、スイッチ 1152）
 //   3. 古いセーブの救い：終わったのに段 2・変数 166＝2 のセーブを読み込むと 3 にそろう
@@ -20,34 +20,40 @@ await runTest(async () => {
     const vr = id => game.eval(i => $gameVariables.value(i), id);
     const errand = () => game.eval(() => { const e = Hai.Notes.errand("outsiders"); return e && { stage: e.stage, result: e.result, text: e.text }; });
 
-    // ===== 1. setErrand は段を下げない =====
+    // ===== 1. setErrand：段を下げない筋（outsiders）は下げない、ほかの筋は下げてよい =====
     const unit = await game.eval(() => {
-      const N = Hai.Notes, out = {};
-      const st = () => { const e = N.errand("test16"); return { stage: e.stage, text: e.text, result: e.result, v: $gameVariables.value(1499) }; };
-      N.setErrand({ key: "test16", stage: 1, text: "一", variableId: 1499 });
-      N.setErrand({ key: "test16", stage: 3, text: "三" });
-      out.up = st();
+      const N = Hai.Notes, out = { noDown: N.noDown("outsiders"), free: N.noDown("prisonBell") };
+      const st = k => { const e = N.errand(k); return { stage: e.stage, text: e.text, result: e.result, v: $gameVariables.value(e.variableId) }; };
+      N.setErrand({ key: "outsiders", stage: 1, text: "一" });
+      N.setErrand({ key: "outsiders", stage: 3, text: "三" });
+      out.up = st("outsiders");
+      N.setErrand({ key: "outsiders", stage: 2, text: "二" });
+      out.down = st("outsiders");
+      N.setErrand({ key: "outsiders", stage: 3, text: "三の二" });
+      out.same = st("outsiders");
+      N.setErrand({ key: "outsiders", stage: 0, text: "段は前のまま" });
+      out.zero = st("outsiders");
+      N.endErrand("outsiders", "done");
+      N.setErrand({ key: "outsiders", stage: 2, text: "終えた後の二" });
+      out.afterDone = st("outsiders");
+      // 段を下げない筋でないもの（変数を写さない仮の key）は、これまでどおり下げられる
+      N.setErrand({ key: "test16", stage: 4, text: "四" });
       N.setErrand({ key: "test16", stage: 2, text: "二" });
-      out.down = st();
-      N.setErrand({ key: "test16", stage: 3, text: "三の二" });
-      out.same = st();
-      N.setErrand({ key: "test16", stage: 0, text: "段は前のまま" });
-      out.zero = st();
-      N.endErrand("test16", "done");
-      N.setErrand({ key: "test16", stage: 2, text: "終えた後の二" });
-      out.afterDone = st();
-      // 片づけ（ほかの検査に残さない）
+      out.other = N.errand("test16").stage;
+      // 片づけ（あとの通しに残さない）
       const s = $gameSystem._hai.errands;
-      s.list = s.list.filter(e => e.key !== "test16");
-      $gameVariables.setValue(1499, 0);
+      s.list = s.list.filter(e => e.key !== "outsiders" && e.key !== "test16");
+      $gameVariables.setValue(166, 0);
       return out;
     });
+    check(unit.noDown && !unit.free, "段を下げない筋が outsiders だけでない " + JSON.stringify(unit));
     check(unit.up.stage === 3 && unit.up.v === 3, "段が上がらない " + JSON.stringify(unit.up));
     check(unit.down.stage === 3 && unit.down.v === 3 && unit.down.text === "三", "小さい段で段・変数・文が戻る " + JSON.stringify(unit.down));
     check(unit.same.stage === 3 && unit.same.text === "三の二", "同じ段で文が書けない " + JSON.stringify(unit.same));
     check(unit.zero.stage === 3 && unit.zero.text === "段は前のまま", "段 0 で文が書けない " + JSON.stringify(unit.zero));
     check(unit.afterDone.result === "done" && unit.afterDone.stage === 3, "終えた後の小さい段で印が消える " + JSON.stringify(unit.afterDone));
-    console.log("  setErrand：小さい段は何もしない・同じ段と段 0 は書ける・終えた印は残る");
+    check(unit.other === 2, "段を下げない筋でないものが下げられない " + unit.other);
+    console.log("  setErrand：outsiders は小さい段で何もしない・同じ段と段 0 は書ける・終えた印は残る／ほかの筋は下げられる");
 
     // ===== 2. 074 で水門を先に開けてから思念を読む → 010 でミルレーネが来る =====
     async function arrive(m, x, y) {

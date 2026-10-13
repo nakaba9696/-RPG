@@ -23,8 +23,9 @@
  * 窓口 window.Hai.Notes：
  *   open()  logItem(item, amount)  logGold(amount)  suspend(fn)  itemLog()
  *   errand(key)  errands()  setErrand({ key, title, who, stage, text, variableId })  endErrand(key, result, text)
- *   ERRANDS  errandBook(key)  stageOf(key)  repairErrands()  DONE_STAGE
- * 段は下げない：今の段より小さい段の「頼みごとを進める」は何もしない（文・印も変えない）。
+ *   ERRANDS  errandBook(key)  stageOf(key)  noDown(key)  repairErrands()  DONE_STAGE
+ * 段を下げない筋（パラメータ「段を下げない筋」。既定 outsiders）では、今の段より小さい段の
+ * 「頼みごとを進める」は何もしない（文・印も変えない）。ほかの筋は段が上がり下がりしてよい（prisonBell の 4 → 2 など）。
  * 詳しくは docs/plugins/Hai_Notes.md。
  *
  * @param menuText
@@ -75,6 +76,12 @@
  * @type string
  * @default brother:弟を連れて帰る:アンネリーゼ:161,summitTools:頂の道具:アデル:162,copies:本物の写し:イスメネ:163,name:名を返す:名無し:164,prisonBell:営倉の鐘を売る:マルゴ:165,outsiders:外に残された者:ミルレーネ:166,doorSong:扉の外の歌:村の長:501,scaffold:足場の木:テオ:176
  *
+ * @param noDownKeys
+ * @text 段を下げない筋
+ * @desc key をカンマで区切る。ここにある筋は、今の段より小さい段の「頼みごとを進める」を何もしない（思念などが先の段を知らずに古い段を書くため）。
+ * @type string
+ * @default outsiders
+ *
  * @param markDone
  * @text 印：終わった
  * @type string
@@ -114,7 +121,7 @@
  *
  * @arg stage
  * @text 段
- * @desc 1 から。0 なら前の段のまま。今の段より小さいと、このコマンドは何もしない（段を下げない）。
+ * @desc 1 から。0 なら前の段のまま。「段を下げない筋」では、今の段より小さいと何もしない。
  * @type number
  * @min 0
  * @default 0
@@ -178,6 +185,12 @@
     .filter(a => a[0])
     .map(([key, title = "", who = "", variableId = 0]) => ({ key, title, who, variableId: Number(variableId) || 0 }));
   const bookOf = key => ERRANDS.find(b => b.key === String(key)) || null;
+  /** 段を下げない筋（P16 #253）。ほかの筋は段が上がり下がりする作りがある（prisonBell：4 取り引き → 2 鳴らした）。 */
+  const NO_DOWN = String(params.noDownKeys ?? "outsiders")
+    .split(",")
+    .map(t => t.trim())
+    .filter(Boolean);
+  const noDown = key => NO_DOWN.includes(String(key));
   const MARKS = {
     done: params.markDone || "終わった",
     failed: params.markFailed || "途切れた",
@@ -307,10 +320,10 @@
     if (!key) return null;
     const s = errandState();
     let e = findErrand(key);
-    // 段は下げない：今の段より小さい段が来たら、何も書き換えない（段・変数・文・印・並びのどれも）。
+    // 段を下げない筋：今の段より小さい段が来たら、何も書き換えない（段・変数・文・印・並びのどれも）。
     // 思念などが「先の段」を知らずに古い段を書いても、筋が戻らないように（R2 止まる 1）
     const stage = Math.floor(Number(args.stage) || 0);
-    if (e && stage > 0 && stage < e.stage) return { ...e };
+    if (e && stage > 0 && stage < e.stage && noDown(key)) return { ...e };
     if (!e) {
       // 筋の表にあれば、名前・頼んだ人・変数を表から入れる（コマンドに書いた欄が勝つ）
       const b = bookOf(key) || {};
@@ -563,6 +576,9 @@
       const b = bookOf(key);
       return b ? { ...b } : null;
     },
+    /** 段を下げない筋か（パラメータ「段を下げない筋」）。 */
+    noDown,
+    NO_DOWN: NO_DOWN.slice(),
     /** 古いセーブの段をそろえる（読み込みのときに自動。そろえた key の配列）。 */
     repairErrands,
     DONE_STAGE: { ...DONE_STAGE },
