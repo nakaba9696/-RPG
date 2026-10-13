@@ -1321,7 +1321,18 @@ const afterShade = (name, mapId, shadeId, answered, legacy, lines, legacyId) => 
     choiceEnd(0), end(0),
   ];
   const events = [
-    ...[12, 13, 14].map(x => transfer("南の戸（真名の間へ）", x, 20, ARRIVE.nameNorth, "down")),
+    // 南の戸：鐘を鳴らしたあと、ノラがいれば一度だけ（W16。場面表 3-27。P14 の東を向いて止まる旗が入ったので置く）。一度きりの印は 1 番の戸のセルフスイッチ B
+    ...[12, 13, 14].map(x => ({
+      name: "南の戸（真名の間へ）", type: "raw", x, y: 20, note: "",
+      pages: [{ priorityType: 0, trigger: 1, list: [
+        ifScript(`$gameSwitches.value(${FLAG.archiveBell}) && $gameParty.members().some(a => a.actorId() === 6) && !$gameSelfSwitches.value([${MAP.bellRoom}, 1, "B"])`),
+        ...say(["また、あっち向いてる！"], "ノラ", 1),
+        ...say(["書架の間の亡骸たちが、東を向いて止まっている。", "追ってこない。"], "", 1),
+        { code: 355, indent: 1, parameters: [`$gameSelfSwitches.setValue([${MAP.bellRoom}, 1, "B"], true);`] },
+        end(1), endIf(0),
+        se("Move1"), move(...ARRIVE.nameNorth, DIR.down), end(0),
+      ] }],
+    })),
     {
       name: "記録院の鐘の綱", type: "raw", x: 13, y: 7, note: "",
       pages: [
