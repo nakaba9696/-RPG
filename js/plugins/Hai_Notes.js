@@ -23,7 +23,9 @@
  * 窓口 window.Hai.Notes：
  *   open()  logItem(item, amount)  logGold(amount)  suspend(fn)  itemLog()
  *   errand(key)  errands()  setErrand({ key, title, who, stage, text, variableId })  endErrand(key, result, text)
- *   ERRANDS  errandBook(key)  stageOf(key)
+ *   ERRANDS  errandBook(key)  stageOf(key)  noDown(key)  repairErrands()  DONE_STAGE
+ * 段を下げない筋（パラメータ「段を下げない筋」。既定 outsiders）では、今の段より小さい段の
+ * 「頼みごとを進める」は何もしない（文・印も変えない）。ほかの筋は段が上がり下がりしてよい（prisonBell の 4 → 2 など）。
  * 詳しくは docs/plugins/Hai_Notes.md。
  *
  * @param menuText
@@ -74,6 +76,12 @@
  * @type string
  * @default brother:弟を連れて帰る:アンネリーゼ:161,summitTools:頂の道具:アデル:162,copies:本物の写し:イスメネ:163,name:名を返す:名無し:164,prisonBell:営倉の鐘を売る:マルゴ:165,outsiders:外に残された者:ミルレーネ:166,doorSong:扉の外の歌:村の長:501,scaffold:足場の木:テオ:176
  *
+ * @param noDownKeys
+ * @text 段を下げない筋
+ * @desc key をカンマで区切る。ここにある筋は、今の段より小さい段の「頼みごとを進める」を何もしない（思念などが先の段を知らずに古い段を書くため）。
+ * @type string
+ * @default outsiders
+ *
  * @param markDone
  * @text 印：終わった
  * @type string
@@ -113,7 +121,7 @@
  *
  * @arg stage
  * @text 段
- * @desc 1 から。0 なら前の段のまま。
+ * @desc 1 から。0 なら前の段のまま。「段を下げない筋」では、今の段より小さいと何もしない。
  * @type number
  * @min 0
  * @default 0
@@ -177,6 +185,12 @@
     .filter(a => a[0])
     .map(([key, title = "", who = "", variableId = 0]) => ({ key, title, who, variableId: Number(variableId) || 0 }));
   const bookOf = key => ERRANDS.find(b => b.key === String(key)) || null;
+  /** 段を下げない筋（P16 #253）。ほかの筋は段が上がり下がりする作りがある（prisonBell：4 取り引き → 2 鳴らした）。 */
+  const NO_DOWN = String(params.noDownKeys ?? "outsiders")
+    .split(",")
+    .map(t => t.trim())
+    .filter(Boolean);
+  const noDown = key => NO_DOWN.includes(String(key));
   const MARKS = {
     done: params.markDone || "終わった",
     failed: params.markFailed || "途切れた",
@@ -306,6 +320,10 @@
     if (!key) return null;
     const s = errandState();
     let e = findErrand(key);
+    // 段を下げない筋：今の段より小さい段が来たら、何も書き換えない（段・変数・文・印・並びのどれも）。
+    // 思念などが「先の段」を知らずに古い段を書いても、筋が戻らないように（R2 止まる 1）
+    const stage = Math.floor(Number(args.stage) || 0);
+    if (e && stage > 0 && stage < e.stage && noDown(key)) return { ...e };
     if (!e) {
       // 筋の表にあれば、名前・頼んだ人・変数を表から入れる（コマンドに書いた欄が勝つ）
       const b = bookOf(key) || {};
@@ -315,7 +333,7 @@
     if (args.title) e.title = String(args.title);
     if (args.who) e.who = String(args.who);
     if (Number(args.variableId) > 0) e.variableId = Number(args.variableId);
-    if (Number(args.stage) > 0) e.stage = Math.floor(Number(args.stage));
+    if (stage > 0) e.stage = stage;
     if (args.text) e.text = String(args.text);
     e.result = "";
     stamp(e);
@@ -350,6 +368,34 @@
       .sort((a, b) => a.order - b.order)
       .map(e => ({ ...e, kind: "errand", text: format(errandFormat, e.title, e.text, e.who) }));
   }
+
+  /**
+   * 終わったときにこの段まで来ているはずの頼みごと（古いセーブの救い）。
+   * 段を下げていたころのセーブで、終わったのに段（と変数）が下がったままのものを、読み込みのときにそろえる。
+   *   outsiders：水門を開けてから思念を読むと 3 → 2 に戻っていた。010 のミルレーネ（変数 166 ≧ 3）が出なくなる
+   */
+  const DONE_STAGE = { outsiders: 3 };
+
+  /** 古いセーブの段をそろえる。そろえた key の配列。 */
+  function repairErrands() {
+    const fixed = [];
+    for (const e of errandState().list) {
+      const min = DONE_STAGE[e.key];
+      if (!min || e.result !== "done") continue;
+      const v = e.variableId > 0 ? $gameVariables.value(e.variableId) : min;
+      if (e.stage >= min && v >= min) continue;
+      e.stage = Math.max(e.stage, min);
+      if (e.variableId > 0 && v < min) $gameVariables.setValue(e.variableId, min);
+      fixed.push(e.key);
+    }
+    return fixed;
+  }
+
+  const _Game_System_onAfterLoad = Game_System.prototype.onAfterLoad;
+  Game_System.prototype.onAfterLoad = function() {
+    _Game_System_onAfterLoad.apply(this, arguments);
+    repairErrands();
+  };
 
   PluginManager.registerCommand(pluginName, "errand", args => {
     setErrand(args);
@@ -530,6 +576,12 @@
       const b = bookOf(key);
       return b ? { ...b } : null;
     },
+    /** 段を下げない筋か（パラメータ「段を下げない筋」）。 */
+    noDown,
+    NO_DOWN: NO_DOWN.slice(),
+    /** 古いセーブの段をそろえる（読み込みのときに自動。そろえた key の配列）。 */
+    repairErrands,
+    DONE_STAGE: { ...DONE_STAGE },
     /** 頼みごとの今の段（まだ頼まれていなければ 0）。 */
     stageOf(key) {
       const e = findErrand(key);
