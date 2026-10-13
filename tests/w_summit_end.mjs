@@ -186,6 +186,9 @@ await runTest(async () => {
     await game.waitFor(id => $gameSwitches.value(id) || window.__game.scene() !== "Scene_Map", SW.endured, 30_000).catch(() => {});
     const endSt = await game.eval(id => ({ sw: $gameSwitches.value(id), scene: window.__game.scene(), map: $gameMap.mapId(), turn: $gameTroop.turnCount(), running: $gameMap.isEventRunning(), msg: $gameMessage.allText() }), SW.endured);
     check(endSt.sw, "耐えきった（1158） " + JSON.stringify(endSt));
+    // 夜の思いは味方に寄ってきて HP を削るが、倒しはしない（W21 #259。全員が防御していても減る）
+    const hps = await game.eval(() => $gameParty.battleMembers().map(a => ({ name: a.name(), hp: a.hp, mhp: a.mhp })));
+    check(hps.every(a => a.hp > 0) && hps.some(a => a.hp < a.mhp), "夜の思いで HP が減り、だれも倒れない " + JSON.stringify(hps));
     console.log("  015：着いた・銘・ルシアンを止める（1156・1166）・舌を吊る（1157）・耐える戦い（1158）", `（${Math.round((Date.now() - T0) / 1000)} 秒）`);
 
     // ===== 8. 綱（まだ・三十・三十一）→ 010 の結末の夜と朝 =====

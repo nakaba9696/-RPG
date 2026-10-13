@@ -66,7 +66,7 @@ const IMG = {
 // ID（W14 の帯 1151–1200）
 // ---------------------------------------------------------------------------
 const BAND = [1151, 1200];
-export const SKILL = { chisel: 1151, unstep: 1152, masonBlow: 1153, nightVoices: 1154 };
+export const SKILL = { chisel: 1151, unstep: 1152, masonBlow: 1153, nightVoices: 1154, nightStill: 1155 };
 export const STATE = { oneNight: 1151 };
 export const ENEMY = { scaffold: 1151, nightThoughts: 1152, mason: 1153 };
 export const TROOP = { scaffold: 1151, nightThoughts: 1152, mason: 1153, masons: 1154 };
@@ -146,9 +146,14 @@ put(skills, SKILL.masonBlow, enemySkill("槌を振る", {
   description: "槌で殴る。", animationId: 1, scope: 1, message1: "%1は、槌を振るった！",
   damage: { critical: false, elementId: -1, formula: "a.atk * 3 - b.def * 2", type: 1, variance: 20 },
 }), emptySkill);
+// 夜の思い（耐える戦い）の技。味方全員の最大 HP の 6〜9% を削る。ただし HP 1 は残す（減るが倒れない。W21 #259）
 put(skills, SKILL.nightVoices, enemySkill("寄ってくる顔", {
-  description: "群れが寄ってくる。", animationId: 59, scope: 8, message1: "%1が、寄ってきた。",
-  damage: { critical: false, elementId: -1, formula: "a.mat * 1 + 10", type: 1, variance: 20 },
+  description: "群れが寄ってくる。", animationId: 59, hitType: 0, scope: 2, message1: "%1が、寄ってきた。",
+  damage: { critical: false, elementId: 0, formula: "Math.min(b.hp - 1, Math.round(b.mhp * (0.06 + Math.random() * 0.03)))", type: 1, variance: 0 },
+}), emptySkill);
+// 夜の思いの最後のターン（バトルイベントが「影は、もう寄ってこなかった」を出すターン）の行動。何もしない
+put(skills, SKILL.nightStill, enemySkill("立ち止まる", {
+  description: "影は、もう寄ってこない。", hitType: 0, scope: 0, message1: "",
 }), emptySkill);
 writeTable("Skills.json", skills);
 
@@ -203,11 +208,13 @@ put(enemies, ENEMY.scaffold, {
   note: ["<hai_boss>", "<hai_boss_name:足場の番>", `<hai_boss_switch:${SW.scaffoldBoss}>`, "<hai_actions_low:2,50>", "<hai_drop:none>"].join("\n"),
 }, emptyEnemy);
 // 夜の思い（015。耐える戦い。倒せない・逃げられない。8 ターン耐えれば勝ち。場面表 5.5）
+const NIGHT_TURNS = 8;
 put(enemies, ENEMY.nightThoughts, {
   name: "夜の思い", battlerName: "SF_Shadow", battlerHue: 200, params: [999999, 0, 40, 999, 30, 999, 20, 10], exp: 0, gold: 0,
   traits: [...base, T.stateRate(1, 0)],
-  actions: [act(SKILL.nightVoices, 5)], dropItems: noDrop,
-  note: ["<hai_endure:8>", "<hai_drop:none>"].join("\n"),
+  // 最後のターン（行動の条件のターン数は 1 から数える）は寄ってこない
+  actions: [act(SKILL.nightVoices, 5), onTurn(SKILL.nightStill, NIGHT_TURNS, 0, 9)], dropItems: noDrop,
+  note: [`<hai_endure:${NIGHT_TURNS}>`, "<hai_drop:none>"].join("\n"),
 }, emptyEnemy);
 writeTable("Enemies.json", enemies);
 
