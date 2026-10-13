@@ -15,6 +15,7 @@ import { fileURLToPath } from "node:url";
 import { readData, formatTable, dataPath, extendTable } from "../../data/io.mjs";
 import { SRC_DIR } from "../build.mjs";
 import { STREET_FROM_SHRINE, SLOPE_FROM_COURT, COURT_FROM_SLOPE, SHRINE_FROM_STREET } from "./w12_parts.mjs";
+import { withZelinaLedger } from "./w17_parts.mjs"; // W17（#233）：111 の帳面にゼリナの読み上げ
 
 const check = process.argv.includes("--check");
 const outputs = []; // [{ file, text }]
@@ -697,10 +698,10 @@ const villageEvents = [
   ...[18, 19, 20].map(y => exit("西の口（麦の街道へ）", [0, y], AT.roadEast(y + 20), LEFT)),
   warp("麦の村", [4, 19]),
   sorenne,
-  text("家の帳面", [11, 10], [
+  withZelinaLedger(text("家の帳面", [11, 10], [ // W17（#233）：ゼリナが隊にいれば読み上げる（スイッチ 518）
     ["軒先の台に、家の帳面が開いたまま置いてある。", "始まりの頁に、太い字で『舟で着いた。十四』。", "その下に名が十四。一つだけ、線で消してある。"],
     ["次の頁から先は、会へ出した麦の袋の数ばかりが並ぶ。"],
-  ], { image: { tileId: "E:69" } }),
+  ], { image: { tileId: "E:69" } })),
   look("ヴォルフラムの家の戸", [9, 9], ["戸の脇に大鍋が伏せてある。鍋の底に、煤で大きく『わし』。"]),
   look("東の家の戸", [33, 9], ["戸は閉まっている。中で、粉を挽く石の音がする。"]),
   look("南の家の戸", [8, 26], ["戸の脇に、干した麦の束が吊ってある。束は三十。"]),

@@ -1208,6 +1208,50 @@
               ]
             },
             {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                4,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゼリナ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "鉄の匂い。鋳物場て、鐘を鋳る所やろ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "うちの壺の銀も、溶かしたら鐘になるんか"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
               "code": 0,
               "indent": 1,
               "parameters": []
@@ -1270,6 +1314,24 @@
               ]
             },
             {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "管の途中で、下から水の音が上がってきた。"
+              ]
+            },
+            {
               "code": 250,
               "indent": 1,
               "parameters": [
@@ -1327,20 +1389,141 @@
     },
     {
       "name": "思念 R3-17 列を止めた兵",
-      "type": "text",
+      "type": "raw",
       "x": 5,
       "y": 36,
       "note": "<hai_thought:R3-17>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "命令は、日没に列を止めろ、だった。",
-        "日没の鐘は、鳴らなかった。自分の数で、日没を決めた。",
-        "三十まで数えて、槍を横にした。槍の向こうに、まだ二百はいた。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "stepAnime": true,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "命令は、日没に列を止めろ、だった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "日没の鐘は、鳴らなかった。自分の数で、日没を決めた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "三十まで数えて、槍を横にした。槍の向こうに、まだ二百はいた。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                2,
+                "A",
+                1
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                12,
+                "Hai.Thoughts.isRead(\"R3-14\")"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 2,
+              "parameters": [
+                4,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゼリナ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "千枚と聞いて、千四百並んだんやろ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "……うちと同じや。数えてから、乗せたらよかった"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
       ]
     },
     {
@@ -1531,28 +1714,54 @@
       ]
     },
     {
-      "name": "宝箱（砦の名札）",
+      "name": "拾い物（砦の名札）",
       "type": "raw",
-      "x": 33,
-      "y": 0,
+      "x": 26,
+      "y": 6,
       "note": "",
       "pages": [
         {
           "image": {
-            "characterName": "!Chest",
-            "characterIndex": 0,
+            "characterName": "!Other1",
+            "characterIndex": 1,
             "direction": 2,
-            "pattern": 0
+            "pattern": 1
           },
           "priorityType": 1,
+          "stepAnime": true,
           "walkAnime": false,
           "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "札場の机の下に、木の名札が一つ落ちている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "黒鉄の砦の兵の名札だ。"
+              ]
+            },
             {
               "code": 250,
               "indent": 0,
               "parameters": [
                 {
-                  "name": "Chest1",
+                  "name": "Item1",
                   "volume": 90,
                   "pitch": 100,
                   "pan": 0
@@ -1607,14 +1816,7 @@
             "selfSwitchCh": "A",
             "selfSwitchValid": true
           },
-          "image": {
-            "characterName": "!Chest",
-            "characterIndex": 0,
-            "direction": 8,
-            "pattern": 0
-          },
-          "priorityType": 1,
-          "walkAnime": false
+          "priorityType": 0
         }
       ]
     },
@@ -1886,7 +2088,7 @@
       "type": "raw",
       "x": 6,
       "y": 14,
-      "note": "<hai_enemy:506,green><hai_enemy_chase:3><hai_enemy_hesitate>",
+      "note": "<hai_enemy:506,green><hai_enemy_chase:3><hai_enemy_hesitate><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -1908,7 +2110,7 @@
       "type": "raw",
       "x": 9,
       "y": 17,
-      "note": "<hai_enemy:506,green><hai_enemy_chase:3><hai_enemy_hesitate>",
+      "note": "<hai_enemy:506,green><hai_enemy_chase:3><hai_enemy_hesitate><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -1930,7 +2132,7 @@
       "type": "raw",
       "x": 24,
       "y": 11,
-      "note": "<hai_enemy:507,green><hai_enemy_hesitate>",
+      "note": "<hai_enemy:507,green><hai_enemy_hesitate><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -1952,7 +2154,7 @@
       "type": "raw",
       "x": 33,
       "y": 31,
-      "note": "<hai_enemy:507,green><hai_enemy_hesitate>",
+      "note": "<hai_enemy:507,green><hai_enemy_hesitate><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -1974,7 +2176,7 @@
       "type": "raw",
       "x": 30,
       "y": 6,
-      "note": "<hai_enemy:508,yellow><hai_enemy_chase:4>",
+      "note": "<hai_enemy:508,yellow><hai_enemy_chase:4><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -1996,7 +2198,7 @@
       "type": "raw",
       "x": 10,
       "y": 34,
-      "note": "<hai_enemy:508,yellow><hai_enemy_chase:4>",
+      "note": "<hai_enemy:508,yellow><hai_enemy_chase:4><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -2018,7 +2220,7 @@
       "type": "raw",
       "x": 41,
       "y": 20,
-      "note": "<hai_enemy:509,yellow><hai_enemy_chase:3>",
+      "note": "<hai_enemy:509,yellow><hai_enemy_chase:3><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -2040,7 +2242,7 @@
       "type": "raw",
       "x": 55,
       "y": 20,
-      "note": "<hai_enemy:510,red><hai_enemy_chase:3>",
+      "note": "<hai_enemy:510,red><hai_enemy_chase:3><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
@@ -2062,7 +2264,7 @@
       "type": "raw",
       "x": 50,
       "y": 38,
-      "note": "<hai_enemy:509,yellow><hai_enemy_chase:3>",
+      "note": "<hai_enemy:509,yellow><hai_enemy_chase:3><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {
