@@ -11,7 +11,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { readData, formatTable, dataPath, extendTable } from "../../data/io.mjs";
 import { SRC_DIR } from "../build.mjs";
-import { say, plugin, SW, VAR, ITEM, MAP, FLAG, ROPE_054, ROPE_180, ROPE_180_ARRIVE, SLOPE_ARRIVE } from "./w14_parts.mjs";
+import { say, plugin, SW, VAR, ITEM, MAP, FLAG, ROPE_054, ROPE_180, ROPE_180_ARRIVE, SLOPE_ARRIVE, patchLater } from "./w14_parts.mjs";
+import { draw015, events015, nightTroopPages, SUMMIT_SWITCH_NAMES, E015 } from "./w14_summit.mjs";
 
 const check = process.argv.includes("--check");
 const outputs = []; // [{ file, text }]
@@ -65,7 +66,7 @@ const IMG = {
 // ID（W14 の帯 1151–1200）
 // ---------------------------------------------------------------------------
 const BAND = [1151, 1200];
-export const SKILL = { chisel: 1151, unstep: 1152, masonBlow: 1153 };
+export const SKILL = { chisel: 1151, unstep: 1152, masonBlow: 1153, nightVoices: 1154 };
 export const STATE = { oneNight: 1151 };
 export const ENEMY = { scaffold: 1151, nightThoughts: 1152, mason: 1153 };
 export const TROOP = { scaffold: 1151, nightThoughts: 1152, mason: 1153, masons: 1154 };
@@ -145,6 +146,10 @@ put(skills, SKILL.masonBlow, enemySkill("槌を振る", {
   description: "槌で殴る。", animationId: 1, scope: 1, message1: "%1は、槌を振るった！",
   damage: { critical: false, elementId: -1, formula: "a.atk * 3 - b.def * 2", type: 1, variance: 20 },
 }), emptySkill);
+put(skills, SKILL.nightVoices, enemySkill("寄ってくる顔", {
+  description: "群れが寄ってくる。", animationId: 59, scope: 8, message1: "%1が、寄ってきた。",
+  damage: { critical: false, elementId: -1, formula: "a.mat * 1 + 10", type: 1, variance: 20 },
+}), emptySkill);
 writeTable("Skills.json", skills);
 
 // States（足場の番が宿帳の「一晩のみ」を見たとき、戦いの頭に付く。W9 の「迷い」と同じ形）
@@ -164,7 +169,7 @@ put(states, STATE.oneNight, {
 }, emptyState);
 writeTable("States.json", states);
 
-// Enemies・Troops（docs/world.md 5.5。数値は仮で、持ち主が調整する。夜の思い 1152 は頂と一緒に作る）
+// Enemies・Troops（docs/world.md 5.5。数値は仮で、持ち主が調整する）
 const emptyEnemy = id => ({
   id, actions: [{ conditionParam1: 0, conditionParam2: 0, conditionType: 0, rating: 5, skillId: 1 }],
   battlerHue: 0, battlerName: "",
@@ -197,6 +202,13 @@ put(enemies, ENEMY.scaffold, {
   dropItems: noDrop,
   note: ["<hai_boss>", "<hai_boss_name:足場の番>", `<hai_boss_switch:${SW.scaffoldBoss}>`, "<hai_actions_low:2,50>", "<hai_drop:none>"].join("\n"),
 }, emptyEnemy);
+// 夜の思い（015。耐える戦い。倒せない・逃げられない。8 ターン耐えれば勝ち。場面表 5.5）
+put(enemies, ENEMY.nightThoughts, {
+  name: "夜の思い", battlerName: "SF_Shadow", battlerHue: 200, params: [999999, 0, 40, 999, 30, 999, 20, 10], exp: 0, gold: 0,
+  traits: [...base, T.stateRate(1, 0)],
+  actions: [act(SKILL.nightVoices, 5)], dropItems: noDrop,
+  note: ["<hai_endure:8>", "<hai_drop:none>"].join("\n"),
+}, emptyEnemy);
 writeTable("Enemies.json", enemies);
 
 const emptyTroop = id => ({
@@ -213,6 +225,7 @@ for (const [id, name, members] of [
   [TROOP.mason, "W14_緑：石工の亡骸", [ENEMY.mason]],
   [TROOP.masons, "W14_黄：石工の亡骸×2", [ENEMY.mason, ENEMY.mason]],
   [TROOP.scaffold, "W14_ボス：足場の番", [ENEMY.scaffold]],
+  [TROOP.nightThoughts, "W14_耐える戦い：夜の思い", [ENEMY.nightThoughts]],
 ]) {
   const pos = row(members.length);
   put(troops, id, { name, members: members.map((enemyId, i) => ({ enemyId, ...pos[i], hidden: false })), pages: emptyTroop(id).pages }, emptyTroop);
@@ -223,6 +236,7 @@ troops[TROOP.scaffold].pages = [
   { ...page0, conditions: { ...page0.conditions, switchId: SW_SHOWED_LEDGER, switchValid: true }, span: 0,
     list: [cmd(333, [-1, 0, STATE.oneNight]), END] },
 ];
+troops[TROOP.nightThoughts].pages = nightTroopPages(page0);
 writeTable("Troops.json", troops);
 
 // System.json の名前（場面表 章末 1。1159 以降の旗は頂と結末で立てる）
@@ -251,6 +265,7 @@ const SWITCH_NAMES = {
   [SW.arrived]: "斜面:着いた",
   [SW_F11_SEEN]: "宿坊:F11 を見た",
 };
+Object.assign(SWITCH_NAMES, SUMMIT_SWITCH_NAMES);
 const VARIABLE_NAMES = { [VAR.notYet]: "頂:まだの回数", [VAR.pulls]: "頂:綱の回数" };
 
 // ---------------------------------------------------------------------------
@@ -266,8 +281,8 @@ class Grid {
   rect(x1, y1, x2, y2, ch) { for (let y = y1; y <= y2; y++) for (let x = x1; x <= x2; x++) this.set(x, y, ch); return this; }
   text() { return this.cells.map(r => r.join("")).join("\n") + "\n"; }
 }
-const LOOK = JSON.parse(fs.readFileSync(path.join(SRC_DIR, "..", "looks.json"), "utf8")).regions.find(r => r.key === "heights").places;
-const lookOf = mapId => LOOK.find(p => p.maps === String(mapId));
+const LOOK = JSON.parse(fs.readFileSync(path.join(SRC_DIR, "..", "looks.json"), "utf8")).regions.filter(r => r.key === "heights" || r.key === "summit").flatMap(r => r.places);
+const lookOf = mapId => LOOK.find(p => p.maps === String(mapId).padStart(mapId < 100 ? 3 : 0, "0"));
 // 置き物（重ね書き）。rampart（タイルセット 21：B＝Outside_B、C＝Outside_C、D＝Dungeon_B、E＝Inside_C）は 019 と同じ、monastery（25）は W12 と同じ
 const RAMPART_DECO = {
   a: { name: "鎧の亡骸（鎧のスタンド）", z2: "E:160" },
@@ -618,8 +633,8 @@ function events183() {
     {
       name: "頂への石段", type: "raw", x: E183.stairs[0], y: E183.stairs[1],
       pages: [{ priorityType: 0, trigger: 1, list: [
-        comment("W14：015 山の頂の鐘楼への場所移動は、頂と結末（W14 の後半の PR）で足す"),
         ...say(["石段は、上へ続いていた。"]),
+        se("Move1"), transfer(MAP.summit, E015.arrive[0], E015.arrive[1], UP),
         END,
       ] }],
     },
@@ -637,12 +652,15 @@ const MAPS = [
   ["w14_182_scaffold", 182, "境山の高み・足場の番の間", "足場の番の間", draw182, events182,
     "W14（#234）：足場の番の間（場面表 4.6）。ボス 足場の番（Enemies・Troops 1151。宿帳を持っていれば戦いの頭に「一晩のみ」States 1151）。倒すとスイッチ 1154、北の口 → 183。"],
   ["w14_183_bell_root", 183, "境山の高み・鐘楼の根", "鐘楼の根", draw183, events183,
-    "W14（#234）：鐘楼の根（場面表 4.7）。綱の巻き上げ（石工の工具 Items 1152 で直す。スイッチ 1155）、石工の工具、隊の最後の野営の跡、結界。北の石段 → 015（頂。W14 の後半）。"],
+    "W14（#234）：鐘楼の根（場面表 4.7）。綱の巻き上げ（石工の工具 Items 1152 で直す。スイッチ 1155）、石工の工具、隊の最後の野営の跡、結界。北の石段 → 015。"],
+  ["w14_015_summit", 15, "山の頂の鐘楼", "山の頂の鐘楼", () => draw015(Grid), events015,
+    "W14（#234）：山の頂の鐘楼（場面表 5 章）。親鐘の肌（銘）・口（舌を吊る）・綱（三十と三十一）、ルシアン、ソレンヌ、ミルレーネ（真の結末のとき）、頂の群れ（10）。舌を吊ると耐える戦い「夜の思い」（Troops 1152）。綱のあと 010 の結末の夜へ。"],
 ];
 const DECO_BY_LEGEND = { rampart: RAMPART_DECO, monastery: MONASTERY_DECO };
 const WALLS = new Set(["#", "=", "_", " "]);
 // 置き物の上に置いてよいイベント（置き物そのものを調べるもの）と、通れない文字の上に置いてよいイベント
 const ON_DECO = new Set(["宿帳（帳場の台）", "氷室の橇", "王家の使いの机"]);
+const ON_WALL = new Set(["親鐘の肌（銘）", "親鐘の口（舌を吊る）", "親鐘の綱"]); // 親鐘（鐘楼の石組み）の前の 1 行
 const ON_SOLID = new Set(["使徒狩りの野営の跡（火床）"]);
 for (const [name, mapId, mapName, displayName, draw, makeEvents, about] of MAPS) {
   const { g, d } = draw();
@@ -651,7 +669,7 @@ for (const [name, mapId, mapName, displayName, draw, makeEvents, about] of MAPS)
     if (ev.x === 0 && ev.y === 0) continue;
     const ch = g.get(ev.x, ev.y);
     if (ch === undefined) throw new Error(`${name}「${ev.name}」(${ev.x},${ev.y}) は地図の外`);
-    if (WALLS.has(ch)) throw new Error(`${name}「${ev.name}」(${ev.x},${ev.y}) が壁「${ch}」の上`);
+    if (WALLS.has(ch) && !ON_WALL.has(ev.name)) throw new Error(`${name}「${ev.name}」(${ev.x},${ev.y}) が壁「${ch}」の上`);
     if (ch === "f" && !ON_SOLID.has(ev.name)) throw new Error(`${name}「${ev.name}」(${ev.x},${ev.y}) が火床の上`);
     if (d.get(ev.x, ev.y) !== "." && !ON_DECO.has(ev.name)) throw new Error(`${name}「${ev.name}」(${ev.x},${ev.y}) に置き物「${d.get(ev.x, ev.y)}」`);
   }
@@ -663,6 +681,13 @@ for (const [name, mapId, mapName, displayName, draw, makeEvents, about] of MAPS)
     deco: DECO_BY_LEGEND[look0.legend],
     scatter: [{ on: floor, z: 1, tiles: ["A2:15"], rate: 0.05, seed: mapId * 10 + 1 }],
   })) });
+}
+
+// 朝の砦から（場面表 7.2・7.3）：W7 の地図の設定は手で書いた物なので、ここで足す（ほかのレーンの地図は、その生成スクリプトが W14.patchLater を呼ぶ）
+for (const name of ["w7_021_old_chapel", "w7_026_iron_mine"]) {
+  const cfg = JSON.parse(fs.readFileSync(srcPath(name), "utf8"));
+  patchLater(name, cfg);
+  outputs.push({ file: srcPath(name), text: sourceText(cfg) });
 }
 
 // System.json（スイッチ・変数 1151–1200 の名前）

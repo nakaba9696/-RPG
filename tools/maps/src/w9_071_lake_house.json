@@ -1865,6 +1865,58 @@
           "moveFrequency": 3
         }
       ]
+    },
+    {
+      "name": "W14 後日：外に残された者（灯の帳面）",
+      "type": "raw",
+      "x": 26,
+      "y": 10,
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 1165,
+            "switch1Valid": true,
+            "switch2Id": 512,
+            "switch2Valid": true
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 108,
+              "indent": 0,
+              "parameters": [
+                "W14：後日談の一行（場面表 7.3）"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "灯の帳面の点の横に、開いた門の絵。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
     }
   ]
 }

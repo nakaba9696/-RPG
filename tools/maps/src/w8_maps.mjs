@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url";
 import { readData } from "../../data/io.mjs";
 import { ITEM, WEAPON, ARMOR, TROOP, SW, VAR, FLAG } from "./w8_data.mjs";
 import { withThirdScene, lairDoorEvents } from "./w11_parts.mjs"; // W11（#191）：鐘番の思念の 2 ページ目と霧の戸口
-import { ringAfter } from "./w14_parts.mjs"; // W14（#234）：鐘の綱の鳴ったあとの一行
+import { ringAfter, patchLater } from "./w14_parts.mjs"; // W14（#234）：鐘の綱の鳴ったあとの一行
 import { STREET_FROM_SHRINE, SLOPE_FROM_COURT } from "./w12_parts.mjs"; // W12（#195）：063 祠の裏口と 080 南の坂の行き先
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -285,6 +285,7 @@ function config(file, cfg) {
   const read = ext => { const p = path.join(HERE, file + ext); return fs.existsSync(p) ? fs.readFileSync(p, "utf8") : ""; };
   const drawn = read(".txt") + read(".deco.txt");
   if (cfg.stamps) cfg = { ...cfg, stamps: cfg.stamps.filter(s => drawn.includes(s.at)) };
+  patchLater(file, cfg); // W14：朝の砦の後日談の一行（場面表 7.3）
   outputs.push({ file: path.join(HERE, file + ".json"), text: JSON.stringify(cfg, null, 2) + "\n" });
 }
 

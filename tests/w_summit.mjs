@@ -8,7 +8,7 @@ import { launchGame, check, runTest } from "./lib.mjs";
 import { checkAll } from "../tools/data/check.mjs";
 
 const KEEP = 10, RAMPART = 19, WATER_BELL = 104, SLOPE = 180, LODGE = 181, SCAFFOLD = 182, ROOT = 183, EAST_GATE = 54;
-const SW = { scene3: 106, metMirlene: 107, bowl: 1151, mirlene: 1152, sorenne: 1153, scaffold: 1154, rope: 1155, ropeDown: 1167, ismene: 1170, timber: 1055 };
+const SW = { scene3: 106, metMirlene: 107, bowl: 1151, mirlene: 1152, sorenne: 1153, scaffold: 1154, rope: 1155, lucien: 1156, tongue: 1157, endured: 1158, sorenneAlive: 1166, ropeDown: 1167, ismene: 1170, timber: 1055 };
 const VAR = { bells: 101, copies: 163, outsiders: 166, faint: 138 };
 const ITEM = { ledger: 1151, tools: 1152, twoCopies: 426 };
 const STATE_ONE_NIGHT = 1151;
@@ -46,7 +46,7 @@ await runTest(async () => {
       return moved;
     }
     /** 文章を読み進め、選択肢は choices の順に選ぶ。イベントが止まって 10 フレーム動かなければ終わり（自動実行が続くときも拾う）。 */
-    async function talk(choices = [], press = true) {
+    async function talk(choices = [], press = true, limit = 120_000) {
       const queue = choices.slice();
       if (press) await game.press("Enter");
       await game.waitFor(() => $gameMap.isEventRunning() || $gameMessage.isBusy() || window.__game.scene() !== "Scene_Map");
@@ -54,7 +54,7 @@ await runTest(async () => {
       const t0 = Date.now();
       let idle = 0;
       while (idle < 10) {
-        check(Date.now() - t0 < 120_000, "イベントが終わらない " + JSON.stringify(pages.slice(-3)));
+        check(Date.now() - t0 < limit, "イベントが終わらない " + JSON.stringify(pages.slice(-3)));
         const st = await game.eval(() => {
           const s = SceneManager._scene;
           const w = s && s._messageWindow;

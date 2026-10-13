@@ -12,6 +12,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { readData, formatTable, dataPath, extendTable } from "../../data/io.mjs";
 import { SRC_DIR } from "../build.mjs";
+import { patchLater } from "./w14_parts.mjs"; // W14（#234）：朝の砦の後日談の一行
 
 const check = process.argv.includes("--check");
 const outputs = []; // [{ file, text }]
@@ -153,7 +154,7 @@ const CONFIGS = {
     ],
   },
 };
-for (const [name, cfg] of Object.entries(CONFIGS)) outputs.push({ file: srcPath(name), text: sourceText(cfg) });
+for (const [name, cfg] of Object.entries(CONFIGS)) outputs.push({ file: srcPath(name), text: sourceText(patchLater(name, cfg)) }); // W14：後日談の一行（場面表 7.3）
 
 // ---------------------------------------------------------------------------
 // Items 1001–1050（1001 鉄切り鋏。ほかは空）。945–1000 は空で埋める（帯の先頭まで伸ばす）
