@@ -240,6 +240,8 @@ await runTest(async () => {
     // ブルーノを呼び、記録院の札を持って鳴らす
     await game.eval(id => { Hai.Companions.summon(5); $gameParty.gainItem($dataItems[id], 1); }, ITEM.archiveTag);
     check(await sw(SW.bruno), "ブルーノを呼んでもスイッチ 138 が立たない");
+    const named = await autorun(); // 輪のあとの名乗り（砦にいる間に呼んだので、すぐ出る）
+    check(has(named, "僕は、ブルーノといいます") && has(named, "たぶん、最後の"), "輪のあとの名乗り " + JSON.stringify(named));
     await go(BELL_ROOM, 13, 8, 8);
     const ring = await talk(["綱を引く"]);
     check(has(ring, "ブルーノ「これが、営倉の鐘ですか。") && has(ring, "鐘が鳴る。") && has(ring, "鳴らなかった。") && has(ring, "同じ日だ"), "ブルーノと鳴らす " + JSON.stringify(ring));
@@ -251,7 +253,7 @@ await runTest(async () => {
     await setVar(VAR.bellIron, 1);
     await go(KEEP, 25, 27, 8);
     const back = await autorun();
-    check(has(back, "僕は、ブルーノといいます"), "輪のあとの名乗り " + JSON.stringify(back));
+    check(!has(back, "僕は、ブルーノといいます"), "名乗りがくり返す " + JSON.stringify(back));
     check(has(back, "マルゴ「鳴らしたね") && has(back, "［店］") && (await sw(SW.margoTwice)), "マルゴ二度目（鋏の店） " + JSON.stringify(back));
     check((await errand("prisonBell")).result === "done", "頼みごと「営倉の鐘を売る」が終わらない");
     check(has(back, "ブルーノ「……その巻き方は、違います") && has(back, "アデル「今のは試し"), "アデルの講義 " + JSON.stringify(back));
