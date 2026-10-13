@@ -12,6 +12,9 @@
  * 調べる（決定ボタン・タッチ）
  *   訪れたことにしたうえで、選択肢「休む／記録する／転送する／やめる」を出す。
  *   休む：全回復。記録する：セーブ画面。転送する：訪れた結界の一覧（いまの所は除く）から選ぶ。
+ *   行き先が「一列で出す数」より多いときは、まず地域（パラメータ regions のマップ番号の帯）を選び、
+ *   次にその地域の結界を選ぶ（P18）。カーソルは今いる地域から始まる。地域の一覧で「戻る」を選ぶと地域へ戻る。
+ *   ほかのプラグインが足した行き先（見張り台の入口）は結界と混ぜず、別の見出し（sourceGroup）の下に出す。
  *   ほかに行き先が無いときは「転送する」を出さず、「まだ他の結界を知らない。」と出す。
  *   転送先は結界のイベントの 1 マス下（下が通れなければ結界の位置）。
  * 拠点
@@ -30,11 +33,13 @@
  * 窓口（window.Hai.Warp）
  *   visited()              訪れた結界 [{mapId, eventId, x, y, name}]（写し。訪れた順）
  *   visit(mapId, eventId)  今のマップの結界を訪れたことにする（覚えたらその写し、結界でなければ null）
- *   destinations()         今の転送の一覧 [{name, mapId, eventId, x, y, home}]（拠点が先頭、いまの所は除く）
+ *   destinations()         今の転送の一覧 [{name, mapId, eventId, x, y, home, group}]（拠点が先頭、いまの所は除く）
+ *   groups()               地域ごとのまとまり [{name, items: [destinations() の番号]}]（拠点は入れない。並びは regions の順）
+ *   regionOf(mapId)        マップの地域の名前（帯に無ければ otherGroup）
  *   warpTo(index)          destinations() の index 番へ転送する（場所移動を予約。できたら true）
  *   recordSlot()           「記録を作る」が書く枠の番号（書ける枠が無ければ -1）
  *   saveRecord(label)      今の状態を記録として書く（Promise。書いた枠の番号で解決する）
- *   addSource(fn)          ほかのプラグインが行き先を足す（fn() は [{name, mapId, x, y, d}]。P13 の見張り台）
+ *   addSource(fn)          ほかのプラグインが行き先を足す（fn() は [{name, mapId, x, y, d, group?}]。P13 の見張り台）
  *   openMenu(eventId?)     その結界（省略で目の前か足元の結界）の選択肢を出す（できたら true）
  *
  * @param homeName
@@ -110,6 +115,39 @@
  * @dir audio/se
  * @default Teleport
  *
+ * @param regions
+ * @text 地域（転送の一覧のまとまり）
+ * @desc 名前:最初のマップID-最後のマップID をカンマで区切る。並びが地域の一覧の順。
+ * @type string
+ * @default 砦:10-19,霧の森:20-25,鉄の坑道:26-32,営倉:33-49,境山の古道:50-59,焼けた村:60-69,霧の湖:70-79,記録院:80-89,鋳物場:90-99,地下水道:100-109,麦の街道:110-119,鐘守の修道院:120-129,門叩きの縄張り:170-179,境山の高み:180-189
+ *
+ * @param otherGroup
+ * @text 帯に無いマップの地域名
+ * @type string
+ * @default そのほか
+ *
+ * @param sourceGroup
+ * @text ほかのプラグインが足した行き先の見出し
+ * @desc 見張り台（Hai_Facilities）が足す入口など。結界とは混ぜずにこの見出しの下に出す。
+ * @type string
+ * @default 見張り台から見えた入口
+ *
+ * @param flatMax
+ * @text 一列で出す数
+ * @desc 行き先（拠点を含む）がこの数以下なら地域に分けずに一列で出す。
+ * @type number
+ * @default 8
+ *
+ * @param regionMessage
+ * @text 地域の中から選ぶときの文章
+ * @type string
+ * @default %1のどこへ転送する？
+ *
+ * @param backText
+ * @text 選択肢「戻る」
+ * @type string
+ * @default 戻る
+ *
  * @param recordFormat
  * @text 記録の名前の形
  * @desc 「記録を作る」で作った記録を、記録の一覧に出す形。%1 が名前。
@@ -149,6 +187,18 @@
   const restSe = text("restSe", "Recovery");
   const warpSe = text("warpSe", "Teleport");
   const recordFormat = text("recordFormat", "「%1」");
+  const otherGroup = text("otherGroup", "そのほか");
+  const sourceGroup = text("sourceGroup", "見張り台から見えた入口");
+  const flatMax = Number(params.flatMax || 8);
+  const regionMessage = text("regionMessage", "%1のどこへ転送する？");
+  const backText = text("backText", "戻る");
+  const regions = text("regions",
+    "砦:10-19,霧の森:20-25,鉄の坑道:26-32,営倉:33-49,境山の古道:50-59,焼けた村:60-69,霧の湖:70-79,記録院:80-89," +
+    "鋳物場:90-99,地下水道:100-109,麦の街道:110-119,鐘守の修道院:120-129,門叩きの縄張り:170-179,境山の高み:180-189")
+    .split(",")
+    .map(t => t.trim().match(/^(.+):(\d+)-(\d+)$/))
+    .filter(m => m)
+    .map(m => ({ name: m[1].trim(), from: Number(m[2]), to: Number(m[3]) }));
 
   // ---------------------------------------------------------------------------
   // 状態（$gameSystem._hai.warp。セーブに入る）
@@ -218,6 +268,18 @@
     return Hai.Defeat.home();
   }
 
+  /** マップの地域の名前（regions の帯。無ければ otherGroup）。 */
+  function regionOf(mapId) {
+    const r = regions.find(r => mapId >= r.from && mapId <= r.to);
+    return r ? r.name : otherGroup;
+  }
+
+  /** 結界の並び：地域（regions の順）→ マップ番号 → イベント番号。帯に無いマップは最後。 */
+  function regionRank(mapId) {
+    const i = regions.findIndex(r => mapId >= r.from && mapId <= r.to);
+    return i < 0 ? regions.length : i;
+  }
+
   const sources = []; // addSource で足した、行き先を返す関数
   function destinations() {
     const h = here();
@@ -226,18 +288,36 @@
     if (home && !(h && h.mapId === home.mapId)) {
       out.push({ name: homeName, mapId: home.mapId, eventId: 0, x: home.x, y: home.y, d: home.d || 2, home: true });
     }
-    for (const v of state().visited) {
-      if (h && v.mapId === h.mapId && v.eventId === h.eventId) continue;
-      if (home && v.name === homeName) continue;
-      out.push({ name: v.name, mapId: v.mapId, eventId: v.eventId, x: v.x, y: v.y, d: 2, home: false });
+    // 触れた結界だけ。地域ごとに並べる（訪れた順ではなく、地図の並び）
+    const visited = state().visited
+      .filter(v => !(h && v.mapId === h.mapId && v.eventId === h.eventId) && !(home && v.name === homeName))
+      .slice()
+      .sort((a, b) => regionRank(a.mapId) - regionRank(b.mapId) || a.mapId - b.mapId || a.eventId - b.eventId);
+    for (const v of visited) {
+      out.push({ name: v.name, mapId: v.mapId, eventId: v.eventId, x: v.x, y: v.y, d: 2, home: false, group: regionOf(v.mapId) });
     }
     // ほかのプラグインが足す行き先（P13 の見張り台）。着く所はその座標のまま（結界の 1 マス下にしない）
     for (const source of sources) {
       for (const e of source() || []) {
         if (!e || out.some(o => o.name === e.name)) continue;
-        out.push({ name: String(e.name), mapId: Number(e.mapId), eventId: 0, x: Number(e.x), y: Number(e.y), d: Number(e.d) || 2, home: false, exact: true });
+        out.push({
+          name: String(e.name), mapId: Number(e.mapId), eventId: 0, x: Number(e.x), y: Number(e.y), d: Number(e.d) || 2,
+          home: false, exact: true, group: e.group ? String(e.group) : sourceGroup,
+        });
       }
     }
+    return out;
+  }
+
+  /** 地域ごとのまとまり [{name, items}]（items は destinations() の番号）。拠点は入れない。結界の地域が先、足した行き先の見出しは後。 */
+  function groupsOf(dests) {
+    const out = [];
+    dests.forEach((d, i) => {
+      if (d.home) return;
+      let g = out.find(g => g.name === d.group);
+      if (!g) out.push((g = { name: d.group, items: [] }));
+      g.items.push(i);
+    });
     return out;
   }
 
@@ -290,6 +370,49 @@
     return out;
   }
 
+  const warpCmd = (j, indent) => cmd(355, [`Hai.Warp.warpTo(${j}); this.setWaitMode("transfer");`], indent);
+
+  /** 行き先を一列に出す命令（少ないとき）。 */
+  function flatCmds(dests, indent) {
+    const names = dests.map(d => d.name);
+    const body = [...textCmds([warpMessage], indent), cmd(102, [[...names, cancelText], names.length, 0, 2, 0], indent)];
+    names.forEach((n, j) => body.push(cmd(402, [j, n], indent), warpCmd(j, indent + 1), cmd(0, [], indent + 1)));
+    body.push(cmd(402, [names.length, cancelText], indent), cmd(0, [], indent + 1), cmd(404, [], indent));
+    return body;
+  }
+
+  const regionLabel = "hai_warp_regions";
+
+  /** 行き先を地域 → 結界の二段で出す命令（多いとき）。拠点は地域の一覧の先頭からそのまま選べる。 */
+  function groupedCmds(dests, indent) {
+    const homeIndex = dests.findIndex(d => d.home);
+    const groups = groupsOf(dests);
+    const top = [...(homeIndex >= 0 ? [{ text: dests[homeIndex].name, home: homeIndex }] : []), ...groups.map(g => ({ text: g.name, group: g }))];
+    const hereGroup = here() ? regionOf($gameMap.mapId()) : null;
+    const start = Math.max(0, top.findIndex(t => t.group && t.group.name === hereGroup));
+    const i1 = indent + 1;
+    const i2 = indent + 2;
+    const body = [cmd(118, [regionLabel], indent), ...textCmds([warpMessage], indent)];
+    body.push(cmd(102, [[...top.map(t => t.text), cancelText], top.length, start, 2, 0], indent));
+    top.forEach((t, j) => {
+      body.push(cmd(402, [j, t.text], indent));
+      if (t.group) {
+        const names = t.group.items.map(i => dests[i].name);
+        const back = names.length;
+        body.push(...textCmds([regionMessage.replace("%1", t.text)], i1));
+        body.push(cmd(102, [[...names, backText, cancelText], back, 0, 2, 0], i1));
+        t.group.items.forEach((di, k) => body.push(cmd(402, [k, names[k]], i1), warpCmd(di, i2), cmd(0, [], i2)));
+        body.push(cmd(402, [back, backText], i1), cmd(119, [regionLabel], i2), cmd(0, [], i2));
+        body.push(cmd(402, [back + 1, cancelText], i1), cmd(0, [], i2), cmd(404, [], i1));
+      } else {
+        body.push(warpCmd(t.home, i1));
+      }
+      body.push(cmd(0, [], i1));
+    });
+    body.push(cmd(402, [top.length, cancelText], indent), cmd(0, [], i1), cmd(404, [], indent));
+    return body;
+  }
+
   /** 選択肢の命令（最後の code 0 は含まない）。name は見出しの名前。 */
   function menuCmds(name) {
     const dests = destinations();
@@ -299,15 +422,7 @@
       { text: restText, body: [seCmd(restSe, 1), cmd(314, [0, 0], 1), ...(restMessage ? textCmds([restMessage], 1) : [])] },
       { text: saveText, body: [cmd(352, [], 1)] },
     ];
-    if (dests.length) {
-      const names = dests.map(d => d.name);
-      const body = [...textCmds([warpMessage], 1), cmd(102, [[...names, cancelText], names.length, 0, 2, 0], 1)];
-      names.forEach((n, j) => {
-        body.push(cmd(402, [j, n], 1), cmd(355, [`Hai.Warp.warpTo(${j}); this.setWaitMode("transfer");`], 2), cmd(0, [], 2));
-      });
-      body.push(cmd(402, [names.length, cancelText], 1), cmd(0, [], 2), cmd(404, [], 1));
-      items.push({ text: warpText, body });
-    }
+    if (dests.length) items.push({ text: warpText, body: dests.length > flatMax ? groupedCmds(dests, 1) : flatCmds(dests, 1) });
     items.push({ text: cancelText, body: [] });
     const out = [...textCmds(lines), cmd(102, [items.map(i => i.text), items.length - 1, 0, 2, 0])];
     items.forEach((item, i) => out.push(cmd(402, [i, item.text]), ...item.body, cmd(0, [], 1)));
@@ -475,6 +590,11 @@
     destinations() {
       return destinations().map(d => ({ ...d }));
     },
+    /** 地域ごとのまとまり [{name, items}]（items は destinations() の番号）。 */
+    groups() {
+      return groupsOf(destinations()).map(g => ({ name: g.name, items: g.items.slice() }));
+    },
+    regionOf: mapId => regionOf(Number(mapId)),
     warpTo,
     recordSlot,
     saveRecord,
