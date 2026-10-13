@@ -672,7 +672,7 @@
             "direction": 2,
             "pattern": 1
           },
-          "priorityType": 2,
+          "priorityType": 1,
           "list": [
             {
               "code": 101,
@@ -1721,13 +1721,80 @@
           "stepAnime": true,
           "list": [
             {
-              "code": 357,
+              "code": 355,
               "indent": 0,
               "parameters": [
-                "Hai_Warp",
-                "open",
-                "結界を開く",
-                {}
+                "// 砦の炉：結界の選択肢（Hai_Warp の open）。「休む」で SP も戻す（Hai_Battle の recoverSp）"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "PluginManager.callCommand(this, \"Hai_Warp\", \"open\", {});"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "const list = this._childInterpreter ? this._childInterpreter._list : [];"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "const rest = list.findIndex(c => c.code === 314);"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "if (rest >= 0) {"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "  const ind = list[rest].indent;"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "  let end = rest + 1;"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "  while (end < list.length && !(list[end].code === 0 && list[end].indent === ind)) end++;"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "  list.splice(end, 0, { code: 357, indent: ind, parameters: [\"Hai_Battle\", \"recoverSp\", \"SP を全快\", { actorId: \"0\" }] },"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "    { code: 101, indent: ind, parameters: [\"\", 0, 0, 2, \"\"] }, { code: 401, indent: ind, parameters: [\"SP が戻った。\"] });"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "}"
               ]
             },
             {
@@ -7119,7 +7186,7 @@
             "actorValid": true
           },
           "priorityType": 0,
-          "trigger": 3,
+          "trigger": 0,
           "list": [
             {
               "code": 101,
@@ -7211,7 +7278,7 @@
             "actorValid": true
           },
           "priorityType": 0,
-          "trigger": 3,
+          "trigger": 0,
           "list": [
             {
               "code": 101,
@@ -7309,7 +7376,7 @@
               "code": 401,
               "indent": 1,
               "parameters": [
-                "アンネリーゼには聞こえなかった。"
+                "アンネリーゼは、指を折り直した。"
               ]
             },
             {
@@ -7367,7 +7434,7 @@
             "switch2Valid": true
           },
           "priorityType": 0,
-          "trigger": 3,
+          "trigger": 0,
           "list": [
             {
               "code": 101,
@@ -7563,8 +7630,17 @@
           "priorityType": 1,
           "list": [
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
+              "parameters": [
+                0,
+                116,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
               "parameters": [
                 "",
                 0,
@@ -7575,10 +7651,157 @@
             },
             {
               "code": 401,
+              "indent": 1,
+              "parameters": [
+                "あの椀、起きとるな。誰か来るんか"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
               "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゼリナ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
               "parameters": [
                 "あの椀、伏せたままやな。誰か来るんか"
               ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 141,
+            "switch1Valid": true,
+            "switch2Id": 1151,
+            "switch2Valid": true
+          },
+          "image": {
+            "characterName": "Actor1",
+            "characterIndex": 7,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                2,
+                "B",
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゼリナ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "舟の金、まだ足りへん夢を見た"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "起きたら、十四人分の椀が並んどった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "……勘定は合うとる。なんで足りへんのやろな"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 1,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゼリナ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "奥の椀にも、盛ってあるな"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 0,
@@ -7891,7 +8114,7 @@
             "switch2Valid": true
           },
           "priorityType": 0,
-          "trigger": 3,
+          "trigger": 0,
           "list": [
             {
               "code": 101,
@@ -8030,7 +8253,7 @@
             "switch2Valid": true
           },
           "priorityType": 0,
-          "trigger": 3,
+          "trigger": 0,
           "list": [
             {
               "code": 101,
@@ -8234,7 +8457,7 @@
             "switch2Valid": true
           },
           "priorityType": 0,
-          "trigger": 3,
+          "trigger": 0,
           "list": [
             {
               "code": 101,
@@ -8449,7 +8672,7 @@
             "switch2Valid": true
           },
           "priorityType": 0,
-          "trigger": 3,
+          "trigger": 0,
           "list": [
             {
               "code": 101,
@@ -8538,7 +8761,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "三つ目は、じいさんが言うなと。なんでかは、わからんよ"
+                "三つ目は、飛ばす。じいさんも、飛ばしとった"
               ]
             },
             {
@@ -8639,6 +8862,68 @@
       "id": 70
     },
     {
+      "id": 100,
+      "name": "W18 大広間の見張り（並列。食卓の場面を始める）",
+      "type": "raw",
+      "x": 49,
+      "y": 2,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 4,
+          "list": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "// 大広間 (17..33,26..33) に入ったら、食卓の場面（59・60・61・66・67・68・69）のうち出せる最初のものを始める"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "const p = $gamePlayer;"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "if (!$gameMap.isEventRunning() && p.x >= 17 && p.x <= 33 && p.y >= 26 && p.y <= 33) {"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "  const scene = [59, 60, 61, 66, 67, 68, 69].map(id => $gameMap.event(id)).find(e => e && e.page() && e.page().list.length > 1);"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "  if (scene) scene.start();"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "}"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": 71,
       "name": "W14 伏せた椀に飯が盛られる（三つ目の鐘の夜。自動）",
       "type": "raw",
@@ -8684,8 +8969,17 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
+              "parameters": [
+                0,
+                116,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
               "parameters": [
                 "",
                 0,
@@ -8696,10 +8990,48 @@
             },
             {
               "code": 401,
+              "indent": 1,
+              "parameters": [
+                "ヴォルフラムは、起きている椀を取った。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
               "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
               "parameters": [
                 "ヴォルフラムは、椀を起こした。"
               ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 101,
