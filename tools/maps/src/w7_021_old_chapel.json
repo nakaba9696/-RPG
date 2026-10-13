@@ -868,6 +868,20 @@
               ]
             },
             {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "手の甲に、小指ほどの鐘。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "舌は布で巻いて結んである。"
+              ]
+            },
+            {
               "code": 250,
               "indent": 0,
               "parameters": [
@@ -1094,21 +1108,14 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "ああ、すみません。夕べの数は、途中で止めると一からなので。"
+                "ああ、すみません。"
               ]
             },
             {
               "code": 401,
               "indent": 0,
               "parameters": [
-                "長に言われて、騎士さまの鐘を集めに来ました。"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "布で巻いたまま持って帰るように、と。鳴らしてはいけないそうです。"
+                "夕べの数は、途中で止めると一からなので。"
               ]
             },
             {
@@ -1126,14 +1133,60 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "でも、一つも外れないんです。手の甲に縫い付けてあって。"
+                "長に言われて、騎士さまの鐘を集めに来ました。"
               ]
             },
             {
               "code": 401,
               "indent": 0,
               "parameters": [
-                "糸が、鎧の革を貫いてます。鋏は、三本折りました。"
+                "布で巻いたまま持って帰るように、と。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鳴らしてはいけないそうです。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "巡礼"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "でも、一つも外れないんです。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "手の甲に縫い付けてあって。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "糸が、鎧の革を貫いてます。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鋏は、三本折りました。"
               ]
             },
             {
@@ -1179,7 +1232,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "……十一、十二、十三。"
+                "十一、十二、十三。"
               ]
             },
             {
@@ -3233,7 +3286,7 @@
       "type": "raw",
       "x": 30,
       "y": 22,
-      "note": "<hai_enemy:324,yellow>",
+      "note": "<hai_enemy:324,yellow>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -3354,7 +3407,7 @@
       "type": "raw",
       "x": 47,
       "y": 32,
-      "note": "<hai_enemy:321,green>",
+      "note": "<hai_enemy:321,green>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -3376,7 +3429,7 @@
       "type": "raw",
       "x": 52,
       "y": 18,
-      "note": "<hai_enemy:322,yellow>",
+      "note": "<hai_enemy:322,yellow>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -3441,7 +3494,7 @@
       "type": "raw",
       "x": 10,
       "y": 13,
-      "note": "<hai_enemy:325,red>\n<hai_enemy_chase:3>",
+      "note": "<hai_enemy:325,red>\n<hai_enemy_chase:3>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -3463,7 +3516,7 @@
       "type": "raw",
       "x": 15,
       "y": 26,
-      "note": "<hai_enemy:323,yellow>\n<hai_enemy_chase:2>",
+      "note": "<hai_enemy:323,yellow>\n<hai_enemy_chase:2>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -3485,7 +3538,7 @@
       "type": "raw",
       "x": 33,
       "y": 9,
-      "note": "<hai_enemy:321,green>",
+      "note": "<hai_enemy:321,green>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {

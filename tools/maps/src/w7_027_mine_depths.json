@@ -1510,7 +1510,7 @@
       "type": "raw",
       "x": 24,
       "y": 12,
-      "note": "<hai_enemy:329,yellow>",
+      "note": "<hai_enemy:329,yellow>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -1567,7 +1567,7 @@
       "type": "raw",
       "x": 44,
       "y": 18,
-      "note": "<hai_enemy:329,yellow>",
+      "note": "<hai_enemy:329,yellow>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -1632,7 +1632,7 @@
       "type": "raw",
       "x": 26,
       "y": 37,
-      "note": "<hai_enemy:329,yellow>",
+      "note": "<hai_enemy:329,yellow>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -1705,7 +1705,7 @@
       "type": "raw",
       "x": 16,
       "y": 31,
-      "note": "<hai_enemy:327,green>",
+      "note": "<hai_enemy:327,green>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -1727,7 +1727,7 @@
       "type": "raw",
       "x": 34,
       "y": 28,
-      "note": "<hai_enemy:327,green>",
+      "note": "<hai_enemy:327,green>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -1749,7 +1749,7 @@
       "type": "raw",
       "x": 40,
       "y": 14,
-      "note": "<hai_enemy:330,red>\n<hai_enemy_chase:2>",
+      "note": "<hai_enemy:330,red>\n<hai_enemy_chase:2>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -1771,7 +1771,7 @@
       "type": "raw",
       "x": 24,
       "y": 18,
-      "note": "<hai_enemy:326,green>",
+      "note": "<hai_enemy:326,green>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {

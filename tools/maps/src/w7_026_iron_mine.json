@@ -732,6 +732,43 @@
               ]
             },
             {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "いち、に、さん、し"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
               "code": 201,
               "indent": 0,
               "parameters": [
@@ -796,7 +833,14 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "ここは頭の掘り場だよ。掘った鉄は頭のもの。拾った鉄も、頭のもの。"
+                "ここは頭の掘り場だよ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "掘った鉄は頭のもの。拾った鉄も、頭のもの"
               ]
             },
             {
@@ -814,99 +858,14 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "……あんたが拾う分には、うるさく言わない。"
+                "下の層には行かないほうがいい。"
               ]
             },
             {
               "code": 401,
               "indent": 0,
               "parameters": [
-                "子どもと年寄りからは取るなって、頭の決まりだから。"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "あんたはどっちでもないけど。まあ、いいよ。"
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 0,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                "拾い屋"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "下の層には行かないほうがいい。灯の無い連中がうろついてる。"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "頭は、営倉の鐘を外してこいって言うんだけどね。下を抜けた先だよ。"
-              ]
-            },
-            {
-              "code": 123,
-              "indent": 0,
-              "parameters": [
-                "A",
-                0
-              ]
-            },
-            {
-              "code": 0,
-              "indent": 0,
-              "parameters": []
-            }
-          ]
-        },
-        {
-          "conditions": {
-            "selfSwitchCh": "A",
-            "selfSwitchValid": true
-          },
-          "image": {
-            "characterName": "People3",
-            "characterIndex": 1,
-            "direction": 4,
-            "pattern": 1
-          },
-          "priorityType": 1,
-          "list": [
-            {
-              "code": 101,
-              "indent": 0,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                "拾い屋"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "鐘一つで、麦が三月分。頭はそう言ってる。"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "鳴らしたら麦はいくつになるのか、誰も知らない。"
+                "灯の無い連中がうろついてる"
               ]
             },
             {
@@ -1217,6 +1176,17 @@
               ]
             },
             {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "アデル"
+              ]
+            },
+            {
               "code": 401,
               "indent": 0,
               "parameters": [
@@ -1238,7 +1208,14 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "私は夕べの会の見習い。ここで、会に納める鉄を掘ってる。"
+                "私は夕べの会の見習い。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "ここで、会に納める鉄を掘ってる。"
               ]
             },
             {
@@ -1263,14 +1240,21 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "砦の炉に火が入った？　……誰が入れたの。"
+                "砦の炉に火が入った？　誰が入れたの。"
               ]
             },
             {
               "code": 401,
               "indent": 0,
               "parameters": [
-                "いい？　後輩の面倒を見るのも、先輩の務め。私も行く。"
+                "いい？　後輩の面倒を見るのも、先輩の務め。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "私も行く。"
               ]
             },
             {
@@ -1288,14 +1272,28 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "それと、頼みがあるの。下の層の長屋に、鐘鉄の塊が残ってるはず。"
+                "それと、頼みがあるの。"
               ]
             },
             {
               "code": 401,
               "indent": 0,
               "parameters": [
-                "会の長が欲しがってる。白っぽい鉄。見つけたら、砦の私に。"
+                "下の層の長屋に、鐘鉄の塊が残ってるはず。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "会の長が欲しがってる。白っぽい鉄。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "見つけたら、砦の私に。"
               ]
             },
             {
@@ -1342,6 +1340,41 @@
               "indent": 0,
               "parameters": [
                 "kind = clue"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Notes",
+                "errand",
+                "頼みごとを進める",
+                {
+                  "key": "summitTools",
+                  "stage": "1",
+                  "text": "鐘鉄の塊を、砦のアデルに（鉄の坑道・下層の長屋）"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "key = summitTools"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "stage = 1"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "text = 鐘鉄の塊を、砦のアデルに（鉄の坑道・下層の長屋）"
               ]
             },
             {
@@ -1418,6 +1451,61 @@
               "parameters": [
                 "アデルは鶴嘴を担いで、坑道を西へ出ていった。"
               ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "今の人、僕の隊の鐘の印を、槍に"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "いえ。なんでもないです"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 0,
@@ -2418,7 +2506,7 @@
       "type": "raw",
       "x": 22,
       "y": 21,
-      "note": "<hai_enemy:326,green>",
+      "note": "<hai_enemy:326,green>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -2483,7 +2571,7 @@
       "type": "raw",
       "x": 18,
       "y": 34,
-      "note": "<hai_enemy:326,green>",
+      "note": "<hai_enemy:326,green>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -2505,7 +2593,7 @@
       "type": "raw",
       "x": 10,
       "y": 40,
-      "note": "<hai_enemy:326,green>",
+      "note": "<hai_enemy:326,green>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -2527,7 +2615,7 @@
       "type": "raw",
       "x": 28,
       "y": 22,
-      "note": "<hai_enemy:327,green>",
+      "note": "<hai_enemy:327,green>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -2608,7 +2696,7 @@
       "type": "raw",
       "x": 44,
       "y": 9,
-      "note": "<hai_enemy:328,yellow>",
+      "note": "<hai_enemy:328,yellow>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -2673,7 +2761,7 @@
       "type": "raw",
       "x": 50,
       "y": 16,
-      "note": "<hai_enemy:328,yellow>",
+      "note": "<hai_enemy:328,yellow>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -2746,7 +2834,7 @@
       "type": "raw",
       "x": 45,
       "y": 22,
-      "note": "<hai_enemy:329,yellow>",
+      "note": "<hai_enemy:329,yellow>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
@@ -2811,7 +2899,7 @@
       "type": "raw",
       "x": 51,
       "y": 11,
-      "note": "<hai_enemy:330,red>\n<hai_enemy_chase:2>",
+      "note": "<hai_enemy:330,red>\n<hai_enemy_chase:2>\n<hai_enemy_bell:101>",
       "pages": [
         {
           "image": {
