@@ -2474,6 +2474,59 @@
           "moveFrequency": 3
         }
       ]
+    },
+    {
+      "name": "W14 後日：弟を連れて帰る（戸板の盾）",
+      "type": "raw",
+      "x": 53,
+      "y": 20,
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 1165,
+            "switch1Valid": true,
+            "variableId": 161,
+            "variableValid": true,
+            "variableValue": 2
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 108,
+              "indent": 0,
+              "parameters": [
+                "W14：後日談の一行（場面表 7.3）"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "戸板の盾の裏に、新しい字が一行足されている。ルッツの字。中身は読めない。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
     }
   ]
 }

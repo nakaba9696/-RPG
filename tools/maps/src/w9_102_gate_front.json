@@ -1142,6 +1142,59 @@
           "moveFrequency": 3
         }
       ]
+    },
+    {
+      "name": "W14 後日：扉の外の歌（大扉）",
+      "type": "raw",
+      "x": 20,
+      "y": 26,
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 1165,
+            "switch1Valid": true,
+            "variableId": 501,
+            "variableValid": true,
+            "variableValue": 2
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 108,
+              "indent": 0,
+              "parameters": [
+                "W14：後日談の一行（場面表 7.3）"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "大扉が、夕べの間だけ開く。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
     }
   ]
 }

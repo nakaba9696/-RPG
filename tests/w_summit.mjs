@@ -7,8 +7,8 @@
 import { launchGame, check, runTest } from "./lib.mjs";
 import { checkAll } from "../tools/data/check.mjs";
 
-const KEEP = 10, RAMPART = 19, WATER_BELL = 104, SLOPE = 180, LODGE = 181, SCAFFOLD = 182, ROOT = 183, EAST_GATE = 54;
-const SW = { scene3: 106, metMirlene: 107, bowl: 1151, mirlene: 1152, sorenne: 1153, scaffold: 1154, rope: 1155, ropeDown: 1167, ismene: 1170, timber: 1055 };
+const KEEP = 10, RAMPART = 19, WATER_BELL = 104, SLOPE = 180, LODGE = 181, SCAFFOLD = 182, ROOT = 183, EAST_GATE = 54, SUMMIT = 15;
+const SW = { scene3: 106, metMirlene: 107, bowl: 1151, mirlene: 1152, sorenne: 1153, scaffold: 1154, rope: 1155, lucien: 1156, tongue: 1157, endured: 1158, sorenneAlive: 1166, ropeDown: 1167, ismene: 1170, timber: 1055 };
 const VAR = { bells: 101, copies: 163, outsiders: 166, faint: 138 };
 const ITEM = { ledger: 1151, tools: 1152, twoCopies: 426 };
 const STATE_ONE_NIGHT = 1151;
@@ -252,6 +252,61 @@ await runTest(async () => {
     check(fix.includes("歯を直した。綱が、上まで通った。") && fix.includes("アンセルモ：お前さん。綱を直すと、上で吊れるようになる") && (await sw(SW.rope)), "綱を直す（1155） " + JSON.stringify(fix));
     await game.shot("bell-root");
     console.log("  183：石工の工具（Items 1152）・綱を直す（1155）", `（${Math.round((Date.now() - T0) / 1000)} 秒）`);
+
+    // ===== 7. 015 頂（場面表 5）：ルシアン・銘・舌を吊る・耐える戦い・三十・三十一 =====
+    await game.eval(() => { $gameVariables.setValue(162, 2); $gameVariables.setValue(163, 3); }); // 頂の道具と写しがそろった道（ルシアンが彫りはじめる）
+    await go(ROOT, 20, 2, 8);
+    await step(8);
+    const summit = (await talk([], false)).join("\n");
+    await arrive(SUMMIT, 20, 28);
+    check(summit.includes("親鐘。舌が無く、口は暗い。周りに、木の足場。") && summit.includes("ルシアン：あなたの連れは、何人です") && summit.includes("ブルーノ：……七人です"), "頂に着いた " + JSON.stringify(summit));
+    await game.shot("summit");
+    await go(SUMMIT, 18, 11, 8);
+    const ins = (await talk(["見ている", "手首を掴む"])).join("\n");
+    check(ins.includes("「鳴る音に、その日の者を乗せよ」") && ins.includes("ルシアンは、こちらを見た。鑿は止めなかった。") && ins.includes("ソレンヌ：長。木は、下ろす"), "銘とルシアンを止める " + JSON.stringify(ins));
+    check((await sw(SW.lucien)) && (await sw(SW.sorenneAlive)), "ルシアンを止めた（1156）・ソレンヌが生きている（1166）");
+    await go(SUMMIT, 20, 11, 8);
+    const hang = (await talk()).join("\n");
+    check(hang.includes("舌を吊った。綱を引いて、金具を上げた。") && hang.includes("「止まっていた」") && (await sw(SW.tongue)), "舌を吊る（1157） " + JSON.stringify(hang));
+    await game.waitFor(() => window.__game.scene() === "Scene_Battle", null, 60_000);
+    check(await game.eval(id => $gameTroop.troop().id === id, 1152), "耐える戦い「夜の思い」（Troops 1152）");
+    await game.shot("endure");
+    // 耐える：毎ターン全員が防御（8 ターン目の終わりで勝ち）
+    await game.call("strengthenParty");
+    for (let t = 0; t < 12 && (await game.eval(() => SceneManager._scene instanceof Scene_Battle && !BattleManager.isBattleEnd())); t++) {
+      await waitInput();
+      if (!(await game.eval(() => SceneManager._scene instanceof Scene_Battle && BattleManager.isInputting()))) break;
+      await game.call("setSpeed", FAST);
+      await game.eval(() => {
+        $gameParty.members().forEach(a => { if (!a.action(0) && a.canMove()) a.makeActions(); const act = a.action(0); if (a.canInput() && act) act.setGuard(); });
+        BattleManager.startTurn();
+        SceneManager._scene.changeInputWindow();
+      });
+    }
+    await game.page.keyboard.down("Enter");
+    try { await game.waitFor(() => window.__game.scene() === "Scene_Map", null, 120_000); } finally { await game.page.keyboard.up("Enter"); }
+    await game.call("setSpeed", MAP_SPEED);
+    check((await sw(SW.endured)) && (await game.eval(() => Hai.Boss.endured())), "耐えきった（1158）");
+    console.log("  015：着いた・銘・ルシアンを止める（1156・1166）・舌を吊る（1157）・耐える戦い（1158）", `（${Math.round((Date.now() - T0) / 1000)} 秒）`);
+
+    // ===== 8. 綱（まだ・三十・三十一）→ 010 の結末の夜と朝 =====
+    const rope = (await talk(["まだ", "引く", ...Array(30).fill("引く"), "もう一度、引く", "開ける"], false)).join("\n");
+    check(rope.includes("ゼリナ：まだ、って顔しとるな。あんた、勘定が長いわ"), "まだ（一周目の仲間の一言） " + JSON.stringify(rope).slice(0, 300));
+    check(rope.includes("一。") && rope.includes("ブルーノ：鳴りました。隊長、鳴りました") && rope.includes("三十。") && rope.includes("ゼリナ：十四人、着いたか見てくる"), "三十を一回ずつ " + JSON.stringify(rope).slice(0, 1500));
+    check(rope.includes("相棒は、鐘の音の中へ入っていった。") && rope.includes("三十一。") && rope.includes("音は、山の向こうで消えた。"), "三十のあと・三十一（夕べの数） " + JSON.stringify(rope).slice(-2000, -1000));
+    check(rope.includes("ソレンヌ：木は、下ろした。") && rope.includes("食卓が、いっせいに黙った。") && rope.includes("紐は、新しい。") && rope.includes("「ルカ！　爺ちゃんが、飯だって！」") && rope.includes("答えた。"),
+      "結末の夜と朝 " + JSON.stringify(rope).slice(-1200));
+    const ending = await game.eval(() => ({
+      map: $gameMap.mapId(), party: $gameParty._actors.slice(), pulls: $gameVariables.value(1152),
+      sw: [1159, 1160, 1161, 1162, 1163, 1165].map(i => $gameSwitches.value(i)),
+    }));
+    check(ending.map === KEEP && ending.party.join() === "1" && ending.pulls === 30 && ending.sw.join() === "true,true,false,true,true,true", "結末のあと（仲間は外れ・旗） " + JSON.stringify(ending));
+    await game.shot("morning");
+    await go(KEEP, 24, 19, 8);
+    check((await talk()).join("").includes("「三十のつぎって、なんだっけ」"), "中庭の子ども（朝の砦）");
+    await go(122, 19, 11, 8);
+    check((await talk()).join("").includes("ルシアンは、空の鐘架の前に座っている。"), "後日談の一行（122 空の鐘架）");
+    console.log("  綱：まだ・三十・三十一 → 結末の夜（戸を開けた）と朝（1159・1165）・中庭の子ども・後日談", `（${Math.round((Date.now() - T0) / 1000)} 秒）`);
 
     const problems = checkAll();
     check(problems.length === 0, "データの検査で問題 " + JSON.stringify(problems.slice(0, 5)));

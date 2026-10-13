@@ -755,6 +755,58 @@
           "moveType": 1
         }
       ]
+    },
+    {
+      "name": "W14 後日：頂の道具・本物の写し（空の鐘架）",
+      "type": "raw",
+      "x": 19,
+      "y": 10,
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 1165,
+            "switch1Valid": true,
+            "switch2Id": 1156,
+            "switch2Valid": true
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 108,
+              "indent": 0,
+              "parameters": [
+                "W14：後日談の一行（場面表 7.3）"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "ルシアンは、空の鐘架の前に座っている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
     }
   ]
 }

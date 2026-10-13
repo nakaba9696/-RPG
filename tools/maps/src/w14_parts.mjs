@@ -179,8 +179,139 @@ const ismeneSendoff = {
   ],
 };
 
+// ---------------------------------------------------------------------------
+// 結末の夜と朝（場面表 6・7.1。頂の綱のあと 010 の炉の前 (25,26) へ。スイッチ 1162 で自動）
+// ---------------------------------------------------------------------------
+const NIGHT_TONE = [-68, -68, -17, 0];
+const at = (x, y, d, indent = 0) => cmd(201, [0, 10, x, y, d, 2], indent); // 010 の中で立つ所を替える（暗転のあいだ）
+const fadeOut = (indent = 0) => cmd(221, [], indent);
+const fadeIn = (indent = 0) => cmd(222, [], indent);
+const survivorsAtTable = () => {
+  const s = id => `$gameSwitches.value(${id})`;
+  const any = [121, 122, 124, 125, 126, 127, FLAG.shano].map(s).join(" || ");
+  return [
+    ifScript(any),
+    ...say(["炉に火が入っている。誰かが先に入れていた。", "食卓に、生き残り。向かいの七つの席は空いていて、", "椀が一つずつ置いてある。"], "", 1),
+    ...when(i => ifSwitch(122, true, i), i => say(["座れ！　冷める！", "椀は十四ある。多ければ、明日食う"], N.wolfram, i), 1),
+    ...when(i => ifSwitch(121, true, i), i => say(["いい？　鐘はね、巻くの。鳴らなくなっても、巻くの", "……誰に言ってんだ、私"], "アデル", i), 1),
+    ...when(i => ifSwitch(127, true, i), i => say(["ひとつ、戸の外。ふたつ、扉の前。三つ目は、じいさんが言うなと", "山は、全部ある。明日も数える"], "グィド", i), 1),
+    ...when(i => ifSwitch(126, true, i), i => [
+      ...say(["外の火、落とさねえ。帰ってくるのがいる"], "アンネリーゼ", i),
+      ...when(j => ifSwitch(121, true, j), j => [...say(["誰が"], "アデル", j), ...say(["知らねえ。うちは昔から、そうしてる"], "アンネリーゼ", j)], i),
+    ], 1),
+    ...when(i => ifSwitch(124, true, i), i => say(["記録します。本日、写しの続き、届きました", "届けた人の名は、知りません。まだ"], N.ismene, i), 1),
+    ...when(i => ifSwitch(125, true, i), i => say(["行ったか"], "ピピネル", i), 1),
+    end(1),
+    ELSE(0),
+    ...say(["食卓に、椀が十四。誰も座っていない。"], "", 1),
+    end(1),
+    ENDIF(0),
+    ...say(["奥の椀に、飯が盛られている。", "ルカは、その前に座った。"]),
+  ];
+};
+function endingList() {
+  return [
+    comment("W14：場面表 6・7.1。頂の綱のあと（スイッチ 1162）。結末の夜 → 戸を叩く音 → （真の結末なら）墓所の壁と名の壁 → 朝"),
+    cmd(223, [NIGHT_TONE, 1, false]),
+    fadeIn(),
+    // 6.1 食卓
+    ...survivorsAtTable(),
+    // 6.2 戸を叩く音
+    wait(30),
+    se("Knock", 0, 70, 80), wait(18), se("Knock", 0, 70, 80), wait(18), se("Knock", 0, 70, 80), wait(30),
+    ...say(["食卓が、いっせいに黙った。"]),
+    ifSwitch(121, true),
+    ...say(["いち、に、さん", "数えたら、閉めるの。それが決まり"], "アデル", 1),
+    end(1), ELSE(0),
+    ...say(["誰も、立たなかった。"], "", 1),
+    end(1), ENDIF(0),
+    fadeOut(), at(25, 4, UP), fadeIn(),
+    ...say(["門の内側。拳ほどの凹みが三つ、縦に並んでいる。", "門の外で、もう一度。三度。", "声は、しない。"]),
+    ...say(["閂に手を置いた。夕べの数のあとに、アデルが掛ける閂だった。"]),
+    cmd(102, [["開ける", "開けない"], -1, 0, 2, 0]),
+    cmd(402, [0, "開ける"]),
+    se("Door2", 1),
+    ...say(["閂を外す。門が、内から開く。", "外に、誰もいない。灰は降っていない。", "段に、小さな真鍮の鈴。", "紐は、新しい。"], "", 1),
+    comment("物は増やさない。鈴は懐に入れた、の地の文だけ", 1),
+    ...say(["東の空に、塔の影。灯は、もう無い。"], "", 1),
+    switchOn(SW.doorOpened, 1),
+    end(1),
+    cmd(402, [1, "開けない"]),
+    ...say(["閂に手を置いたまま、三十を数えた。", "音は、二度目は来なかった。"], "", 1),
+    end(1),
+    cmd(404, []),
+    fadeOut(), at(25, 26, UP), fadeIn(),
+    ...when(i => ifSwitch(121, true, i), i => say(["閉めた？"], "アデル", i)),
+    ...when(i => ifSwitch(SW.doorOpened, true, i), i => say(["「開けてある」"], "", i)),
+    ...when(i => ifSwitch(122, true, i), i => say(["飯は朝だ！　寝ろ！"], N.wolfram, i)),
+    ...say(["奥の席に戻った。椀の飯は冷めていた。それを食った。"]),
+    // 6.3 墓所の壁と名の壁（真の結末だけ）
+    ifSwitch(SW.trueEnding, true),
+    fadeOut(1), at(7, 14, UP, 1), fadeIn(1),
+    ...say(["四つの鐘を鳴らして。それから、山の頂の鐘楼へ。", "最後の一画は、止まっている。", "懐から彫り刀を出した。刃の先が欠けている。", "柄の革の巻き方は、囲炉裏の向かいで見た結び方だ。"], "", 1),
+    se("Hammer", 1, 60, 120),
+    ...say(["刃を、止まっていた所に当てた。一画。", "字は、それで終わった。"], "", 1),
+    fadeOut(1), at(45, 14, UP, 1), fadeIn(1),
+    ...say(["削られては彫り直され、読めなくなった欄。", "そこに、二文字を彫った。深く。削らなかった。"], "", 1),
+    comment("018 見張り台（127 ON かつ 名を返すでイルゼの名を渡した道＝スイッチ 610）。場所は移さず文だけ", 1),
+    ...when(i => ifScript("$gameSwitches.value(127) && $gameSwitches.value(610)", i), i => say(["懐の手紙を二通、グィドの樽の上に置いた。", "宛名の無い方を、上にして。", "グィドは灯の油を足していて、振り向かなかった。"], "", i), 1),
+    switchOn(SW.nameCarved, 1),
+    end(1), ENDIF(0),
+    // 7.1 朝
+    fadeOut(),
+    cmd(223, [[0, 0, 0, 0], 1, false]),
+    wait(60),
+    ifSwitch(125, true),
+    at(11, 14, UP, 1), fadeIn(1),
+    ...say(["おぬし。立て。壁に背中をつけい", "刻みが一つ、足りんのじゃ。ずるいじゃろ"], "ピピネル", 1),
+    ...say(["壁に、刻みが一つ増える。"], "", 1),
+    end(1), ELSE(0),
+    at(11, 14, UP, 1), fadeIn(1),
+    ...say(["背比べの刻みの、いちばん上に、新しい刻みが一つ。", "誰が彫ったかは、分からない。"], "", 1),
+    end(1), ENDIF(0),
+    fadeOut(), at(25, 27, UP), fadeIn(),
+    ...say(["炉に火が入っている。", "食卓の椀が十四、伏せて干してある。"]),
+    ...when(i => ifSwitch(FLAG.shano, true, i), i => say(["見てた？　おれ、今日、下で寝た", "あと、おれ、鈴、蹴ってないかも"], N.shano, i)),
+    wait(40),
+    ...say(["「ルカ！　爺ちゃんが、飯だって！」"]),
+    wait(20),
+    ...say(["答えた。"]),
+    wait(30),
+    // 結末の画面（題と、短い曲）。記録「朝の砦」を作り、朝の砦から続ける
+    fadeOut(),
+    cmd(249, [{ name: "Musical1", volume: 80, pitch: 100, pan: 0 }]),
+    ...center(["最後の鐘"]),
+    switchOn(SW.endingSeen),
+    switchOn(SW.morning),
+    comment("結末を見た全体の旗は、スイッチ 1159 が ON になると Hai_Comfort が立てる（P14）"),
+    ...plugin("Hai_Warp", "saveRecord", "記録を作る", { label: "朝の砦" }), // P14：記録「朝の砦」（頂の手前の記録は残す）
+    fadeIn(),
+    END,
+  ];
+}
+const endingScene = {
+  id: 75, name: "W14 結末の夜と朝（自動）", type: "raw", x: 17, y: 27, // 場所移動を含むので、歩いて届く床に置く（見えない）
+  pages: [
+    { priorityType: 0 },
+    { conditions: { switch1Id: SW.endingNight, switch1Valid: true }, priorityType: 0, trigger: 3, list: endingList() },
+    { conditions: { switch1Id: SW.morning, switch1Valid: true }, priorityType: 0 },
+  ],
+};
+// 7.2 中庭の子ども（朝の砦から）
+const yardChild = {
+  id: 76, name: "W14 中庭の子ども（朝の砦）", type: "raw", x: 24, y: 18,
+  pages: [
+    { priorityType: 0 },
+    { conditions: { switch1Id: SW.morning, switch1Valid: true }, image: { characterName: "People1", characterIndex: 6, direction: DOWN, pattern: 1 }, priorityType: 1,
+      list: [...say(["中庭で、麦の村の子が数えている。", "「二十七、二十八、二十九、三十」", "「三十のつぎって、なんだっけ」"]), ...say(["ルカは答えなかった。"]), END] },
+  ],
+};
+
 /** 010 に足すイベント（ID 71 から） */
-export const keepEvents = () => [bowlScene, mirleneArrive, mirleneSeat, ismeneSendoff];
+export const keepEvents = () => [bowlScene, mirleneArrive, mirleneSeat, ismeneSendoff, endingScene, yardChild];
+/** 名を彫ったあと（場面表 6.3。以後の調べた文）：墓所の壁の書き付け・名の壁（墓守の欄）に足すページ */
+export const writingCarvedPage = { conditions: { switch1Id: SW.nameCarved, switch1Valid: true }, list: [...say(["最後の一画まで、彫ってある。"]), END] };
+export const nameWallCarvedPage = { conditions: { switch1Id: SW.nameCarved, switch1Valid: true }, list: [...say(["『ルカ』と彫ってある。削られていない。"]), END] };
 
 /** 2.4 墓所の壁の書き付けに足すページ（三つ目の鐘の夜から、名前が戻るまで。そのあとは 1 ページ目に戻る） */
 export const writingNightPage = (firstPageList) => ({
@@ -261,3 +392,52 @@ export const ropeAt054 = {
       ] },
   ],
 };
+
+// ---------------------------------------------------------------------------
+// 朝の砦から（場面表 7.2・7.3）：後日談の一行の調べる所と、021 の礼拝堂のページ。足した物は名前の頭の「W14 後日」とページの頭の注釈で見分ける
+// ---------------------------------------------------------------------------
+const MORNING = SW.morning;
+const LATER = "W14 後日";
+const MARK = "W14：朝の砦（場面表 7.2）";
+const laterLook = (label, [x, y], cond, lines) => ({
+  name: `${LATER}：${label}`, type: "raw", x, y,
+  pages: [
+    { priorityType: 0 },
+    { conditions: { switch1Id: MORNING, switch1Valid: true, ...cond }, priorityType: 1, list: [comment("W14：後日談の一行（場面表 7.3）"), ...say(lines), END] },
+  ],
+});
+const EPILOGUE = {
+  w8_061_village_square: [laterLook("弟を連れて帰る（戸板の盾）", [53, 20], { variableId: 161, variableValid: true, variableValue: 2 }, ["戸板の盾の裏に、新しい字が一行足されている。ルッツの字。中身は読めない。"])],
+  w10_052_beacon_bridge: [laterLook("名を返す（グィドの家）", [10, 9], { switch2Id: 610, switch2Valid: true }, ["宛名の無い手紙に、宛名が書いてある。"])],
+  w12_122_bell_tower: [laterLook("頂の道具・本物の写し（空の鐘架）", [19, 10], { switch2Id: SW.lucienStopped, switch2Valid: true }, ["ルシアンは、空の鐘架の前に座っている。"])],
+  w12_111_wheat_village: [laterLook("頂の道具・本物の写し（麦の村）", [8, 9], { switch2Id: SW.lucienStopped, switch2Valid: true }, ["夕べの数のあとに、戸を開けておく家が出てきた。"])],
+  w8_060_burnt_gate: [laterLook("灰の信徒（集落）", [15, 11], {}, ["灰の祈りと夕べの数を、同じ夕べにする家が出てきた。"])],
+  w7_026_iron_mine: [laterLook("営倉の鐘を売る（マルゴ）", [20, 30], { variableId: 165, variableValid: true, variableValue: 1 }, ["マルゴは営倉の鐘を売るのをやめ、鐘守の名札を売りはじめた。"])],
+  w9_071_lake_house: [laterLook("外に残された者（灯の帳面）", [26, 10], { switch2Id: 512, switch2Valid: true }, ["灯の帳面の点の横に、開いた門の絵。"])],
+  w9_102_gate_front: [laterLook("扉の外の歌（大扉）", [20, 26], { variableId: 501, variableValid: true, variableValue: 2 }, ["大扉が、夕べの間だけ開く。"])],
+  p13_018_watch: [laterLook("足場の木（見張り台）", [7, 5], { switch2Id: SW.sorenneAlive, switch2Valid: true }, ["ソレンヌが、足場の木を薪にして火を焚いている。"])],
+};
+// 021 礼拝堂（列の最後の席）：ブルーノの遺骸の跡と巡礼に、朝の砦のページ
+const CHAPEL_PAGES = {
+  "遺骸 ブルーノ": { conditions: { switch1Id: MORNING, switch1Valid: true }, priorityType: 1, list: [comment(MARK), ...say(["列の最後、大男の席だけが空いている。", "床に、灰が人の形に薄く残っている。", "手の甲のあった所に、小さな丸い跡。"]), END] },
+  "夕べの会の巡礼": { conditions: { switch1Id: MORNING, switch1Valid: true }, priorityType: 1, list: [comment(MARK), ...say(["騎士さまの鐘を集めに来たんです。……一つ、減ってます", "七。長には、七つと言います。鋏は、もう要らないかも"], "巡礼"), END] },
+};
+/** その地図の設定（cfg）に、後日談の一行と朝の砦のページを足す（前に足した物は消してから。何度呼んでも同じ） */
+export function patchLater(name, cfg) {
+  const events = EPILOGUE[name] || [];
+  const pages = name === "w7_021_old_chapel" ? CHAPEL_PAGES : {};
+  cfg.events = cfg.events.filter(e => !String(e.name).startsWith(LATER));
+  const used = new Set(cfg.events.map(e => `${e.x},${e.y}`));
+  for (const e of cfg.events) {
+    if (!pages[e.name]) continue;
+    if (e.type !== "raw") throw new Error(`${name}「${e.name}」は raw でない`);
+    e.pages = e.pages.filter(p => !(p.list && p.list[0] && p.list[0].code === 108 && p.list[0].parameters[0] === MARK));
+    e.pages.push(JSON.parse(JSON.stringify(pages[e.name])));
+  }
+  for (const e of events) {
+    if (used.has(`${e.x},${e.y}`)) throw new Error(`${name}「${e.name}」(${e.x},${e.y}) にもうイベントがある`);
+    cfg.events.push(JSON.parse(JSON.stringify(e)));
+  }
+  return cfg;
+}
+

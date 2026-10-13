@@ -14,6 +14,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { readData, formatTable, dataPath, extendTable } from "../../data/io.mjs";
 import { SRC_DIR } from "../build.mjs";
+import { patchLater } from "./w14_parts.mjs"; // W14（#234）：朝の砦の後日談の一行
 import { STREET_FROM_SHRINE, SLOPE_FROM_COURT, COURT_FROM_SLOPE, SHRINE_FROM_STREET } from "./w12_parts.mjs";
 
 const check = process.argv.includes("--check");
@@ -1259,7 +1260,7 @@ for (const [name, cfg] of Object.entries(CONFIGS)) {
     cfg.stamps = cfg.stamps.filter(st => all.includes(st.at));
     if (!cfg.stamps.length) delete cfg.stamps;
   }
-  outputs.push({ file: srcPath(name), text: sourceText(cfg) });
+  outputs.push({ file: srcPath(name), text: sourceText(patchLater(name, cfg)) }); // W14：後日談の一行（場面表 7.3）
 }
 
 // ---------------------------------------------------------------------------

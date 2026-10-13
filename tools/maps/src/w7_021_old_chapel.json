@@ -758,6 +758,59 @@
               "parameters": []
             }
           ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 1165,
+            "switch1Valid": true
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 108,
+              "indent": 0,
+              "parameters": [
+                "W14：朝の砦（場面表 7.2）"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "列の最後、大男の席だけが空いている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "床に、灰が人の形に薄く残っている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "手の甲のあった所に、小さな丸い跡。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
         }
       ]
     },
@@ -1127,6 +1180,52 @@
               "indent": 0,
               "parameters": [
                 "……十一、十二、十三。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 1165,
+            "switch1Valid": true
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 108,
+              "indent": 0,
+              "parameters": [
+                "W14：朝の砦（場面表 7.2）"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "巡礼"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "騎士さまの鐘を集めに来たんです。……一つ、減ってます"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "七。長には、七つと言います。鋏は、もう要らないかも"
               ]
             },
             {

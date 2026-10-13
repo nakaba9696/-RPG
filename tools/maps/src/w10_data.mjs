@@ -15,7 +15,7 @@ import { fileURLToPath } from "node:url";
 import { readData, formatTable, dataPath, extendTable } from "../../data/io.mjs";
 import { SRC_DIR } from "../build.mjs";
 import { withThirdScene, lairDoorEvents } from "./w11_parts.mjs"; // W11（#191）：鐘番の思念の 2 ページ目と霧の戸口
-import { ringAfter, ropeAt054 } from "./w14_parts.mjs"; // W14（#234）：鐘の綱の鳴ったあとの一行
+import { ringAfter, ropeAt054, patchLater } from "./w14_parts.mjs"; // W14（#234）：鐘の綱の鳴ったあとの一行
 
 const check = process.argv.includes("--check");
 const outputs = []; // [{ file, text }]
@@ -1623,7 +1623,7 @@ for (const [name, cfg] of Object.entries(CONFIGS)) {
     cfg.stamps = cfg.stamps.filter(st => all.includes(st.at));
     if (!cfg.stamps.length) delete cfg.stamps;
   }
-  outputs.push({ file: srcPath(name), text: sourceText(cfg) });
+  outputs.push({ file: srcPath(name), text: sourceText(patchLater(name, cfg)) }); // W14：後日談の一行（場面表 7.3）
 }
 
 // ---------------------------------------------------------------------------

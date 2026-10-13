@@ -1420,6 +1420,58 @@
           }
         }
       ]
+    },
+    {
+      "name": "W14 後日：名を返す（グィドの家）",
+      "type": "raw",
+      "x": 10,
+      "y": 9,
+      "pages": [
+        {
+          "priorityType": 0
+        },
+        {
+          "conditions": {
+            "switch1Id": 1165,
+            "switch1Valid": true,
+            "switch2Id": 610,
+            "switch2Valid": true
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 108,
+              "indent": 0,
+              "parameters": [
+                "W14：後日談の一行（場面表 7.3）"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "宛名の無い手紙に、宛名が書いてある。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
     }
   ]
 }

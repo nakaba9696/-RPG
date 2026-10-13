@@ -487,7 +487,12 @@ const keepEvents = [
   ironDoor,
 ];
 if (keepEvents[SHANO_HIDE_ID - 1] !== shanoHide) throw new Error("シャノ（柱の陰）の ID がずれた");
-writing.pages.push(W14.writingNightPage(writing.pages[0].list)); // W14：三つ目の鐘の夜の書き付け（場面表 2.4）
+writing.pages.push(W14.writingNightPage(writing.pages[0].list), W14.writingCarvedPage); // W14：三つ目の鐘の夜（場面表 2.4）と、名を彫ったあと（6.3）
+{ // W14：名を彫ったあとの墓守の欄（場面表 6.3）
+  const i = keepEvents.findIndex(e => e.name === "名の壁（墓守の欄）");
+  const e = keepEvents[i];
+  keepEvents[i] = { name: e.name, type: "raw", x: e.x, y: e.y, pages: [{ priorityType: 1, list: [...say(e.lines), END] }, { ...W14.nameWallCarvedPage, priorityType: 1 }] };
+}
 keepEvents.push(...W14.keepEvents()); // W14：ID 71–（場面表 2.1・2.3・4.1）
 
 // 置き物（.deco.txt の文字）。Dungeon_B＝B、Dungeon_C＝C、Inside_B＝D、Inside_C＝E（タイルセット 11）

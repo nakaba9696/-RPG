@@ -18,7 +18,7 @@ import { readData, formatTable, dataPath, extendTable } from "../../data/io.mjs"
 import { SRC_DIR } from "../build.mjs";
 import { POINTS, MAPS, drawAll } from "./w9_maps.mjs";
 import { withThirdScene, lairDoorEvents } from "./w11_parts.mjs"; // W11（#191）：鐘番の思念の 2 ページ目と霧の戸口
-import { ringAfter } from "./w14_parts.mjs"; // W14（#234）：鐘の綱の鳴ったあとの一行
+import { ringAfter, patchLater } from "./w14_parts.mjs"; // W14（#234）：鐘の綱の鳴ったあとの一行
 
 drawAll();
 const check = process.argv.includes("--check");
@@ -1347,7 +1347,7 @@ for (const { file, cfg } of CONFIGS) {
     seen.set(k, e.name);
   }
 }
-for (const { file, cfg } of CONFIGS) outputs.push({ file: path.join(SRC_DIR, file + ".json"), text: JSON.stringify(cfg, null, 2) + "\n" });
+for (const { file, cfg } of CONFIGS) outputs.push({ file: path.join(SRC_DIR, file + ".json"), text: JSON.stringify(patchLater(file, cfg), null, 2) + "\n" }); // W14：後日談の一行（場面表 7.3）
 
 const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 if (isMain) {
