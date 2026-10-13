@@ -52,7 +52,7 @@ VISION.md 核 6「拠点と、そこで開く部屋」のためのプラグイ�
 | 稽古場 | 011 | (8,6) 稽古の木人 | `Scene_HaiSouls`：パーティの一覧。決定で魂を与えてレベルを 1 つ上げる。要る魂は「今のレベル × `soulCostRate`（既定 1）」。上限は**前に出ている仲間（戦闘に出る 4 人）の最高レベル**（`soulCapByBattle`。控えを追いつかせる部屋） |
 | 食堂 | 012 | (8,3) 大鍋 | `Hai_Craft` の合成の画面（`Scene_HaiCraft`）をそのまま開く |
 | 倉 | 013 | (8,3) 札の下がった棚 | `Scene_HaiGate`：上で「引き出す／預ける」を選び、下の一覧で決定するたびに 1 つ動かす。引き出すのは袋の上限に空きがあるときだけ。預けられるのは袋のふつうのアイテム・武器・防具（大事なものは預けない） |
-| 書庫 | 014 | (9,6) 書見台 | `Scene_HaiLore`：倒したボス（名前と、属性・状態の「弱い／強い」）、読んだ思念・戻った記憶（薄い思念。`Hai_Thoughts.faintCount`）・メモの数。「写しの読み比べ」は名前だけ（中身は後の issue） |
+| 書庫 | 014 | (9,6) 書見台 | `Scene_HaiLore`：倒したボス（名前と、属性・状態の「弱い／強い」）、読んだ思念・戻った記憶（薄い思念。`Hai_Thoughts.faintCount`）・メモの数、拾った言い残し（`Hai.Thoughts.legacies()`。話し手と一行。P14）。「写しの読み比べ」は名前だけ（中身は後の issue）。見出しは「倒したボス・読んだ思念・言い残し・写しの読み比べ」の順。**朝の砦**（`morningSwitch`、既定 1165）が ON の間、「読んだ思念」の見出しは「送った人」（`sentTitle`） |
 | 療養所 | 016 | (8,4) 奥の寝台 | 画面ではなく文：効果音（`Recovery`）→ パーティ全員（控えも）の状態異常を治す（戦闘不能は除く）→「寝台で休んだ。体の障りが抜けた。」。**開いている間、消耗品の所持上限が 1 つ増える**（`Hai_Items` の `itemMax` に `infirmaryItemMax` を足す。`<hai_max>` の物には足さない） |
 | 鍛冶場 | 017 | (8,6) 金床 | 選択肢「鍛え直す／鉄切り鋏を打つ／やめる」（鋏を持っていれば「鍛え直す／やめる」）。鍛え直す → `Scene_HaiForge`：袋とパーティの装備の**一点もの**（`<hai_unique>`）の一覧。決定で魂を払って鍛え直す（回数 × `forgeCost`（既定 20）。1 つにつき `forgeMax`（既定 2）回まで）。1 回ごとに、0 でない能力が `forgeRate`%（既定 20%。少なくとも 1）上がる。鉄切り鋏を打つ → アイテム 1001 を 1 つ |
 | 見張り台 | 018 | (8,5) 烽火の台 | 画面ではなく文：効果音（`Wind1`）→ **訪れたマップの地図を隅まで埋める**（`Hai.AutoMap.revealVisited`）→「歩いた土地を見渡した。地図の隅まで埋まった。」。**開いている間、結界の転送の一覧に `watchDestinations` の行き先が増える**（訪れたマップのものだけ。`Hai.Warp.addSource`） |
@@ -85,7 +85,8 @@ VISION.md 核 6「拠点と、そこで開く部屋」のためのプラグイ�
 | `souls()` / `addSouls(n)` / `soulsOf(enemyId)` | 魂の数 / 足す（戻り値は足した後の数） / その敵を倒して得る魂 |
 | `soulCost(actorId)` / `soulCap(actorId)` / `canRaise(actorId)` / `raise(actorId)` | 稽古場：要る魂 / 上げられる上限のレベル / 上げられるか / 上げる（上げたら `true`） |
 | `bosses()` / `recordBoss(enemyId)` | 倒したボスの敵 ID の一覧 / 足す |
-| `loreLines(symbol)` | 書庫の右の窓に出す行（`bosses`・`thoughts`・`copies`） |
+| `loreLines(symbol)` | 書庫の右の窓に出す行（`bosses`・`thoughts`・`legacies`・`copies`） |
+| `loreName(symbol)` | 書庫の見出し（朝の砦では `thoughts` が「送った人」。P14） |
 | `openScene(key)` | 部屋の画面を開く（開いているかは見ない）。療養所は `cure()`、見張り台は `reveal()` だけ |
 | `cure()` | 療養所：全員の状態異常を治す（治した数） |
 | `itemMaxBonus()` | 療養所が開いていれば消耗品の上限に足す数（`Hai_Items` が呼ぶ） |
@@ -122,6 +123,7 @@ $gameSystem._hai.facilities = {
 | `infirmaryMessage`・`infirmarySe`・`infirmaryItemMax` | 療養所 | 寝台で休んだ。体の障りが抜けた。・Recovery・1 |
 | `forgeCost`・`forgeMax`・`forgeRate`・`forgeSe` | 鍛冶場の鍛え直し | 20・2・20・Hammer |
 | `shearsItem`・`shearsSwitch` | 鉄切り鋏 | 1001・313 |
+| `morningSwitch`・`sentTitle` | 書庫の見出し（P14） | 1165・送った人 |
 | `watchMessage`・`watchSe`・`watchDestinations` | 見張り台 | 歩いた土地を見渡した。地図の隅まで埋まった。・Wind1・`霧の森の門:20:35:47:8,焼けた村の入口:60:47:18:4,霧の湖の石段:70:22:1:2,境山の古道の口:50:1:18:6`（名前:マップ:x:y:向き。`Hai_TestHooks` の地域の入口と同じ所） |
 
 ## データ（P8 の帯。`node tools/maps/src/p8_data.mjs` が書く。`--check` で見るだけ）

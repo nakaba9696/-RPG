@@ -16,6 +16,7 @@
  *                       4 つ揃うと完全体になり、強技を覚える。
  * アクターのメモ欄：
  *   <hai_wake:……>     呼んで目覚めたときの一言（初対面の言い方。無ければ出さない）。
+ *   <hai_down:……>     戦闘で倒れたときの一言（P14）。戦闘ログの「〜は倒れた」のあとに「名前「一言」」で出す。
  * スキルのメモ欄：
  *   <hai_complete:5>    アクター 5 が完全体で覚える強技（完全体のほかでは覚えない）。
  *   <hai_user_state:193> 戦闘でこのスキルを使った者に、ステート 193 を付ける（檻破り）。
@@ -164,6 +165,12 @@
  * @type variable
  * @default 102
  *
+ * @param downFormat
+ * @text 倒れたときの一言の形
+ * @desc <hai_down> の一言を戦闘ログに出す形。%1 が名前、%2 が一言。
+ * @type string
+ * @default %1「%2」
+ *
  * @command summonMenu
  * @text 名の壁で呼ぶ
  * @desc 見つけた遺骸・形見のうち、まだ呼んでいない仲間を選んで呼ぶ。
@@ -208,6 +215,7 @@
   const completeSwitchStart = Number(params.completeSwitchStart ?? 0);
   const memoryVariableStart = Number(params.memoryVariableStart ?? 131);
   const countVariable = Number(params.countVariable ?? 102);
+  const downFormat = params.downFormat || "%1「%2」";
   const FRAGMENTS = 4;
 
   // ---------------------------------------------------------------------------
@@ -578,6 +586,29 @@
   });
 
   // ---------------------------------------------------------------------------
+  // 倒れたときの一言（アクターのメモ欄 <hai_down:…>。P14）
+  // ---------------------------------------------------------------------------
+  function downLineOf(actorId) {
+    const data = $dataActors[actorId];
+    const v = data && data.meta ? data.meta.hai_down : undefined;
+    return v === undefined || v === true ? "" : String(v).trim();
+  }
+
+  const _Window_BattleLog_displayAddedStates = Window_BattleLog.prototype.displayAddedStates;
+  Window_BattleLog.prototype.displayAddedStates = function(target) {
+    _Window_BattleLog_displayAddedStates.apply(this, arguments);
+    if (!target.isActor()) return;
+    const died = target.result().addedStateObjects().some(st => st.id === target.deathStateId());
+    const line = died ? downLineOf(target.actorId()) : "";
+    if (line) {
+      this.push("popBaseLine");
+      this.push("pushBaseLine");
+      this.push("addText", downFormat.format(target.name(), line));
+      this.push("waitForEffect");
+    }
+  };
+
+  // ---------------------------------------------------------------------------
   // 窓口
   // ---------------------------------------------------------------------------
   window.Hai = window.Hai || {};
@@ -601,6 +632,8 @@
     canSwap,
     /** 完全体で覚える強技のスキル（無ければ null）。 */
     completeSkill,
+    /** 戦闘で倒れたときの一言（<hai_down>。無ければ ""）。 */
+    downLine: actorId => downLineOf(Number(actorId)),
     /** 戦闘に出る人数。 */
     get maxBattleMembers() {
       return $gameParty ? $gameParty.maxBattleMembers() : maxBattle;
