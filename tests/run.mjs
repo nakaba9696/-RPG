@@ -2,8 +2,8 @@
 // 1 本でも落ちたら終了コード 1。
 //   node tests/run.mjs                 全部
 //   node tests/run.mjs t_smoke t_maps  名前（拡張子なし）で選ぶ
-//   node tests/run.mjs --shard 2/10    所要時間（tests/durations.json）で 10 に均して配った 2 番目だけ（CI の並列用。--shard=2/10 も可）
-//   node tests/run.mjs --plan 10       10 への配り分けと見込み時間を表示するだけ（テストは走らせない）
+//   node tests/run.mjs --shard 2/12    所要時間（tests/durations.json）で 12 に均して配った 2 番目だけ（CI の並列用。--shard=2/12 も可）
+//   node tests/run.mjs --plan 12       12 への配り分けと見込み時間を表示するだけ（テストは走らせない）
 //   node tests/run.mjs --no-browser    ブラウザなしのテスト（launchGame を呼ばないもの）だけ（文書だけの PR と main への push の CI 用）
 import { spawn } from "node:child_process";
 import fs from "node:fs";
@@ -58,10 +58,12 @@ const all = fs
 
 // 所要時間の表（テスト名 → CI での秒数）。CI のログの「OK（N 秒）」を写して手で直す。表に無いテストは 180 秒とみなす。
 const DEFAULT_SEC = 180;
-// CI のジョブで見込み（テストの本体の秒数）の外にかかる分の目安（checkout・npm ci・Chromium を入れる・テストごとの起動・機械の遅さ）。
-// T13 の実測：見込み 16 分 48 秒の配り分けで、実際は 18〜24 分（5〜7 分多い）。ジョブの上限（ci.yml の timeout-minutes）は 25 分。
-const SETUP_SEC = 7 * 60;
+// CI のジョブでテストの前にかかる分の目安（checkout・setup-node・npm ci・Chromium を入れる）。run 38350349645 の実測で 30〜40 秒。
+// 見込みと実際のずれの大半は準備ではなく、表が古いこと（テストが伸びたのに表を直していない）。T13 の 2 回目で、表より倍ほど遅いテストが十数本あった。
+const SETUP_SEC = 60;
+// ジョブの上限（ci.yml の timeout-minutes）と、見込みの上限（表が古くなる分とばらつきの余裕を残す）
 const JOB_LIMIT_SEC = 25 * 60;
+const PLAN_LIMIT_SEC = 15 * 60;
 function loadDurations() {
   const table = JSON.parse(fs.readFileSync(path.join(here, "durations.json"), "utf8"));
   for (const [k, v] of Object.entries(table)) {
@@ -98,9 +100,9 @@ function printPlan(plan, mark) {
     console.log(`${k + 1 === mark ? "→" : " "} ${k + 1}/${plan.shards.length}  見込み ${fmt(s.sec)}（準備込み ${fmt(s.sec + SETUP_SEC)}）  ${list}`);
   });
   const worst = Math.max(0, ...plan.shards.map(s => s.sec));
-  console.log(`準備の分の目安 ${fmt(SETUP_SEC)}（CI の実測で見込みより 5〜7 分多い）。最も重いシャードは準備込み ${fmt(worst + SETUP_SEC)}、ジョブの上限は ${fmt(JOB_LIMIT_SEC)}`);
-  if (worst + SETUP_SEC > JOB_LIMIT_SEC - 3 * 60) {
-    console.log(`  ※ 上限まで 3 分を切る。上限は延ばさず、シャードを増やす（tests/README.md）`);
+  console.log(`準備の分の目安 ${fmt(SETUP_SEC)}（実測 30〜40 秒）。最も重いシャードは見込み ${fmt(worst)}・準備込み ${fmt(worst + SETUP_SEC)}、ジョブの上限は ${fmt(JOB_LIMIT_SEC)}`);
+  if (worst > PLAN_LIMIT_SEC) {
+    console.log(`  ※ 見込みが ${fmt(PLAN_LIMIT_SEC)} を越える。上限は延ばさず、シャードを増やす（tests/README.md）`);
   }
 }
 
