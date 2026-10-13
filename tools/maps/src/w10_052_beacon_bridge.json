@@ -329,6 +329,133 @@
                 0,
                 0,
                 2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "グィドは、数え直した。指を折りながら、節を付けて。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "グィド"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "ひとつ、戸の外。ふたつ、扉の前"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "三つ目の所で、指だけを折った。声は出さなかった。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "グィド"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "よっつ、よっつ目が、見えん"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                8,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゼリナ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "数え歌で、山を数えるんか"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "グィド"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "三つ目は、じいさんが言うなと。なんでかは、わからんよ"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
                 "グィド"
               ]
             },
@@ -1309,7 +1436,7 @@
       "type": "raw",
       "x": 10,
       "y": 20,
-      "note": "<hai_enemy:602,green>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:602,green>\n<hai_enemy_hesitate>\n<hai_enemy_bell:104>",
       "pages": [
         {
           "image": {
@@ -1331,7 +1458,7 @@
       "type": "raw",
       "x": 42,
       "y": 8,
-      "note": "<hai_enemy:601,green>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:601,green>\n<hai_enemy_hesitate>\n<hai_enemy_bell:104>",
       "pages": [
         {
           "image": {
@@ -1353,7 +1480,7 @@
       "type": "raw",
       "x": 38,
       "y": 11,
-      "note": "<hai_enemy:603,yellow>",
+      "note": "<hai_enemy:603,yellow>\n<hai_enemy_bell:104>",
       "pages": [
         {
           "image": {

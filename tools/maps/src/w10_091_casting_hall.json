@@ -562,6 +562,24 @@
               ]
             },
             {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "\\N[1]"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "舌だ。頂の鐘の"
+              ]
+            },
+            {
               "code": 0,
               "indent": 0,
               "parameters": []
@@ -1347,6 +1365,61 @@
               ]
             },
             {
+              "code": 111,
+              "indent": 4,
+              "parameters": [
+                4,
+                11,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 5,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "トゥーラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 5,
+              "parameters": [
+                "……あたしを村から連れてきた兵の一人だ。歩き方で分かった"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 5,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "トゥーラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 5,
+              "parameters": [
+                "崩れちまったら、殴れねえな"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 5,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 4,
+              "parameters": []
+            },
+            {
               "code": 0,
               "indent": 4,
               "parameters": []
@@ -1445,6 +1518,50 @@
               "parameters": [
                 "text = 名無しは、誰かの名を名乗って去った（鋳物場の南西の小部屋）"
               ]
+            },
+            {
+              "code": 111,
+              "indent": 4,
+              "parameters": [
+                4,
+                11,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 5,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "トゥーラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 5,
+              "parameters": [
+                "あいつ、あたしを村から連れてきた兵の一人だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 5,
+              "parameters": [
+                "……行っちまった。殴りそこねた"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 5,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 4,
+              "parameters": []
             },
             {
               "code": 0,
@@ -1563,6 +1680,68 @@
               "parameters": [
                 "text = 名無しは、イルゼの名の前で座りこんだ（鋳物場の南西の小部屋）"
               ]
+            },
+            {
+              "code": 111,
+              "indent": 4,
+              "parameters": [
+                4,
+                11,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 5,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "トゥーラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 5,
+              "parameters": [
+                "兄貴。……あいつ、あたしを村から連れてきた兵の一人だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 5,
+              "parameters": [
+                "顔は布の下で見えねえけど、歩き方で分かる"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 5,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "トゥーラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 5,
+              "parameters": [
+                "殴らねえよ。座ってる奴は、殴らねえ"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 5,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 4,
+              "parameters": []
             },
             {
               "code": 0,
@@ -1713,6 +1892,61 @@
               ]
             },
             {
+              "code": 111,
+              "indent": 4,
+              "parameters": [
+                4,
+                11,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 5,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "トゥーラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 5,
+              "parameters": [
+                "……あたしを村から連れてきた兵の一人だ。歩き方で分かった"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 5,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "トゥーラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 5,
+              "parameters": [
+                "崩れちまったら、殴れねえな"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 5,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 4,
+              "parameters": []
+            },
+            {
               "code": 0,
               "indent": 4,
               "parameters": []
@@ -1811,6 +2045,50 @@
               "parameters": [
                 "text = 名無しは、誰かの名を名乗って去った（鋳物場の南西の小部屋）"
               ]
+            },
+            {
+              "code": 111,
+              "indent": 4,
+              "parameters": [
+                4,
+                11,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 5,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "トゥーラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 5,
+              "parameters": [
+                "あいつ、あたしを村から連れてきた兵の一人だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 5,
+              "parameters": [
+                "……行っちまった。殴りそこねた"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 5,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 4,
+              "parameters": []
             },
             {
               "code": 0,
@@ -2767,7 +3045,7 @@
       "type": "raw",
       "x": 10,
       "y": 19,
-      "note": "<hai_enemy:609,yellow>",
+      "note": "<hai_enemy:609,yellow>\n<hai_enemy_bell:104>",
       "pages": [
         {
           "image": {
@@ -2864,7 +3142,7 @@
       "type": "raw",
       "x": 26,
       "y": 27,
-      "note": "<hai_enemy:609,yellow>",
+      "note": "<hai_enemy:609,yellow>\n<hai_enemy_bell:104>",
       "pages": [
         {
           "image": {
@@ -2961,7 +3239,7 @@
       "type": "raw",
       "x": 30,
       "y": 16,
-      "note": "<hai_enemy:607,green>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:607,green>\n<hai_enemy_hesitate>\n<hai_enemy_bell:104>",
       "pages": [
         {
           "image": {
@@ -2983,7 +3261,7 @@
       "type": "raw",
       "x": 22,
       "y": 28,
-      "note": "<hai_enemy:608,green>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:608,green>\n<hai_enemy_hesitate>\n<hai_enemy_bell:104>",
       "pages": [
         {
           "image": {
@@ -3005,7 +3283,7 @@
       "type": "raw",
       "x": 44,
       "y": 14,
-      "note": "<hai_enemy:610,yellow>",
+      "note": "<hai_enemy:610,yellow>\n<hai_enemy_bell:104>",
       "pages": [
         {
           "image": {
@@ -3118,7 +3396,7 @@
       "type": "raw",
       "x": 39,
       "y": 18,
-      "note": "<hai_enemy:608,green>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:608,green>\n<hai_enemy_hesitate>\n<hai_enemy_bell:104>",
       "pages": [
         {
           "image": {
@@ -3140,7 +3418,7 @@
       "type": "raw",
       "x": 46,
       "y": 33,
-      "note": "<hai_enemy:611,red>\n<hai_enemy_chase:2>",
+      "note": "<hai_enemy:611,red>\n<hai_enemy_chase:2>\n<hai_enemy_bell:104>",
       "pages": [
         {
           "image": {

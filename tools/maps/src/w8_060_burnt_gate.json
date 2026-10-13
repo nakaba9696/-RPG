@@ -430,8 +430,52 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "裏に、取っ手が打ち付けてある。"
+                "表に、拳ほどの凹みが三つ、縦に並ぶ。"
               ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "裏に、取っ手。その脇に子どもの字で「こたえない」。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "盾、ですね。取っ手の革は新しいです"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 250,
@@ -526,12 +570,403 @@
     },
     {
       "name": "内から打ち付けた戸",
-      "type": "text",
+      "type": "raw",
       "x": 42,
       "y": 22,
-      "lines": [
-        "戸口に、内側から板が打ち付けてあった跡。",
-        "釘は外から抜かれていない。中から抜いてある。"
+      "note": "",
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "Hai.Thoughts.isRead(\"R2-01\")"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Knock",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 230,
+              "indent": 1,
+              "parameters": [
+                30
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Knock",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 230,
+              "indent": 1,
+              "parameters": [
+                30
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "name": "Knock",
+                  "volume": 90,
+                  "pitch": 100,
+                  "pan": 0
+                }
+              ]
+            },
+            {
+              "code": 230,
+              "indent": 1,
+              "parameters": [
+                40
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                12,
+                "$gameParty.hasItem($dataArmors[421], true)"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "戸口の枠に、戸板の盾を立てた。凹みが三つ、外を向く。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "戸口の枠に、板を打ち付けた跡だけがある。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "戸板の向こうに、足音は無い。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "焼けた村の子"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "おかあ、戸、こたえていい？"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 1,
+              "parameters": [
+                [
+                  "答える",
+                  "答えない"
+                ],
+                1,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 1,
+              "parameters": [
+                0,
+                "答える"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "\\N[1]"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "いい"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "凹みの所に、黒いものが溜まった。声の形だった。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 2,
+              "parameters": [
+                412,
+                412,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 1,
+              "parameters": [
+                1,
+                "答えない"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "音は、三度で止んだ。朝まで、二度目は来なかった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "戸口に、内側から板が打ち付けてあった跡。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "釘は外から抜かれていない。中から抜いてある。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 412,
+            "switch1Valid": true
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "戸板の向こうに、足音は無い。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 413,
+            "switch1Valid": true
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "戸口の板の跡。凹みは、三つのままだ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
       ]
     },
     {
@@ -565,8 +1000,10 @@
       "x": 31,
       "y": 26,
       "lines": [
-        "寝台が二つ並んでいる。小さい方の枕元に、木彫りの兎。",
-        "大きい方は、窓の下に寄せてある。"
+        "寝台が二つ並んでいる。",
+        "小さい方の枕元に、木彫りの兎。耳が片方、欠けている。",
+        "大きい方は、窓の下に寄せてある。",
+        "窓の桟は外れたままだ。"
       ]
     },
     {
@@ -710,6 +1147,50 @@
               "parameters": [
                 "鼻の利く者なら、何が埋まっているか分かりそうだ。"
               ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "ここの家の人、呼べますか。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "礼拝堂で、僕を呼んでくれたように"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
             },
             {
               "code": 0,
@@ -965,7 +1446,7 @@
               "code": 401,
               "indent": 1,
               "parameters": [
-                "ほな。灰の祈りは夕べにやる。粥の椀は、一つ多めに出しとく。"
+                "ほな。灰の祈りは夕べにやる。"
               ]
             },
             {
@@ -1004,6 +1485,61 @@
               ]
             },
             {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "鐘は、神の音です"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "ゲンサイには聞こえなかった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
               "code": 101,
               "indent": 1,
               "parameters": [
@@ -1018,7 +1554,25 @@
               "code": 401,
               "indent": 1,
               "parameters": [
-                "二百年前もそうやった。わしの経典には、そう書いてある。"
+                "二百年前もそうやった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "わしの経典には、そう書いてある"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゲンサイ"
               ]
             },
             {
@@ -1081,6 +1635,69 @@
           },
           "priorityType": 1,
           "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                2,
+                "B",
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "ルッツが、椀に粥を一つ多めに足した。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ルッツ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "一つ多めに出しとくんが、ここの決まりだし"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 1,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
             {
               "code": 111,
               "indent": 0,
@@ -1163,7 +1780,7 @@
               "code": 401,
               "indent": 3,
               "parameters": [
-                "……なんだよ、これ。"
+                "なんだよ、これ"
               ]
             },
             {
@@ -1199,14 +1816,39 @@
               "code": 401,
               "indent": 3,
               "parameters": [
-                "鍛冶の家。うちだし。下の娘、済。"
+                "鍛冶の家。うちだし。下の娘、済"
               ]
             },
             {
               "code": 401,
               "indent": 3,
               "parameters": [
-                "次の年も、鍛冶の家。済。司祭さまは、こういうの、言わなかったけど。"
+                "次の年も、鍛冶の家。済。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "司祭さまは、こういうの、言わなかったけど"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "ルッツは最後の頁で、止まった。"
               ]
             },
             {
@@ -1224,7 +1866,112 @@
               "code": 401,
               "indent": 3,
               "parameters": [
-                "……帰る。姉ちゃんの所に、帰る。"
+                "印、無し"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "……来なかった人が、いたのか"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 3,
+              "parameters": [
+                4,
+                6,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "ノラの足だけが、一歩、後ろに動いた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ルッツ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "帰る。姉ちゃんの所に、帰る"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "ルッツは杓子をゲンサイに渡して、"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "広場の方へ歩いていった。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ゲンサイ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "ほな"
               ]
             },
             {
@@ -2327,7 +3074,7 @@
       "type": "raw",
       "x": 10,
       "y": 25,
-      "note": "<hai_enemy:421,green>",
+      "note": "<hai_enemy:421,green>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -2349,7 +3096,7 @@
       "type": "raw",
       "x": 40,
       "y": 13,
-      "note": "<hai_enemy:421,green>",
+      "note": "<hai_enemy:421,green>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -2371,7 +3118,7 @@
       "type": "raw",
       "x": 31,
       "y": 20,
-      "note": "<hai_enemy:422,yellow>",
+      "note": "<hai_enemy:422,yellow>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -2468,7 +3215,7 @@
       "type": "raw",
       "x": 22,
       "y": 12,
-      "note": "<hai_enemy:423,yellow>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:423,yellow>\n<hai_enemy_hesitate>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -2549,7 +3296,7 @@
       "type": "raw",
       "x": 39,
       "y": 31,
-      "note": "<hai_enemy:424,yellow>\n<hai_enemy_chase:3>",
+      "note": "<hai_enemy:424,yellow>\n<hai_enemy_chase:3>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -2563,6 +3310,209 @@
           "trigger": 2,
           "moveType": 0,
           "moveFrequency": 3
+        }
+      ]
+    },
+    {
+      "name": "声だけの影（焼けた村の子）",
+      "type": "raw",
+      "x": 40,
+      "y": 23,
+      "note": "<hai_enemy:432,green>\n<hai_enemy_shade:おねえちゃん、三つしか叩かなかったよ。おかあ>\n<hai_enemy_once>\n<hai_enemy_bell:102>",
+      "pages": [
+        {
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 412,
+            "switch1Valid": true
+          },
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 2,
+          "moveType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "夜の戸の後（自動）",
+      "type": "raw",
+      "x": 0,
+      "y": 0,
+      "note": "",
+      "pages": [
+        {
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 412,
+            "switch1Valid": true
+          },
+          "priorityType": 0,
+          "trigger": 4,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "$gameSelfSwitches.value([60, 39, \"A\"])"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 1,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 412,
+            "switch1Valid": true,
+            "selfSwitchCh": "B",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "影は、長くはもたなかった。崩れるときに、声が落ちた。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_Thoughts",
+                "markRead",
+                "思念を既読にする",
+                {
+                  "id": "L2-01"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "id = L2-01"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "墓守は帳面の最後の頁に、炭で一行書いた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "届けた相手の欄は、空けた。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                413,
+                413,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 413,
+            "switch1Valid": true
+          },
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
         }
       ]
     },

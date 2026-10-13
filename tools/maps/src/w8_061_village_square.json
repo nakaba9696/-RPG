@@ -573,21 +573,110 @@
     },
     {
       "name": "思念 R2-05 槍を持ってきた若者",
-      "type": "text",
+      "type": "raw",
       "x": 26,
       "y": 20,
       "note": "<hai_thought:R2-05>",
-      "image": {
-        "characterName": "Damage2",
-        "characterIndex": 6,
-        "direction": 6,
-        "pattern": 1
-      },
-      "lines": [
-        "祠のくじを止めに来た。相場は、娘一人で銀三十。",
-        "祠守りに斬りかかった所で、後ろから腕を取られた。女の手だった。",
-        "くじで行く娘の母親だと。使徒は来ず、村はその年も残った。",
-        "槍は取り上げられた。銀三十は、もらっていない。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 6,
+            "direction": 6,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "祠のくじを止めに来た。相場は、娘一人で銀三十。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "祠守りに斬りかかった所で、後ろから腕を取られた。女の手だった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "くじで行く娘の母親だと。使徒は来ず、村はその年も残った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "槍は取り上げられた。銀三十は、もらっていない。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                6,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ノラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "あたしの母さん、何も言わなかった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "帳面を読み上げられたとき"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
       ]
     },
     {
@@ -2085,6 +2174,31 @@
           "walkAnime": false,
           "list": [
             {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "穂先は骨。柄の結び紐に、子どもの髪の房。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "柄の刻みは、狩りの数ではない。日の数だ。"
+              ]
+            },
+            {
               "code": 250,
               "indent": 0,
               "parameters": [
@@ -2168,7 +2282,7 @@
       "type": "raw",
       "x": 10,
       "y": 30,
-      "note": "<hai_enemy:421,green>",
+      "note": "<hai_enemy:421,green>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -2190,7 +2304,7 @@
       "type": "raw",
       "x": 25,
       "y": 29,
-      "note": "<hai_enemy:421,green>",
+      "note": "<hai_enemy:421,green>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -2212,7 +2326,7 @@
       "type": "raw",
       "x": 30,
       "y": 22,
-      "note": "<hai_enemy:422,yellow>",
+      "note": "<hai_enemy:422,yellow>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -2325,7 +2439,7 @@
       "type": "raw",
       "x": 60,
       "y": 25,
-      "note": "<hai_enemy:424,yellow>",
+      "note": "<hai_enemy:424,yellow>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -2347,7 +2461,7 @@
       "type": "raw",
       "x": 21,
       "y": 19,
-      "note": "<hai_enemy:423,yellow>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:423,yellow>\n<hai_enemy_hesitate>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -2436,7 +2550,7 @@
       "type": "raw",
       "x": 44,
       "y": 37,
-      "note": "<hai_enemy:423,yellow>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:423,yellow>\n<hai_enemy_hesitate>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -2458,7 +2572,7 @@
       "type": "raw",
       "x": 50,
       "y": 6,
-      "note": "<hai_enemy:425,red>\n<hai_enemy_chase:2>",
+      "note": "<hai_enemy:425,red>\n<hai_enemy_chase:2>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -2476,13 +2590,70 @@
       ]
     },
     {
-      "name": "W14 後日：弟を連れて帰る（戸板の盾）",
+      "name": "戸板（鍛冶小屋の戸口）",
       "type": "raw",
-      "x": 53,
-      "y": 20,
+      "x": 55,
+      "y": 19,
+      "note": "",
       "pages": [
         {
-          "priorityType": 0
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 402,
+            "switch1Valid": true
+          },
+          "image": {
+            "tileId": "B:180"
+          },
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鍛冶小屋の戸口に、戸板が一枚立ててある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "ルッツが、火の脇に置いたものだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "表の凹みが外を向いている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
         },
         {
           "conditions": {
@@ -2498,7 +2669,7 @@
               "code": 108,
               "indent": 0,
               "parameters": [
-                "W14：後日談の一行（場面表 7.3）"
+                "W14：朝の砦（場面表 7.2）"
               ]
             },
             {

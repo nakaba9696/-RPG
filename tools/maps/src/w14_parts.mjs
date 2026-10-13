@@ -407,7 +407,6 @@ const laterLook = (label, [x, y], cond, lines) => ({
   ],
 });
 const EPILOGUE = {
-  w8_061_village_square: [laterLook("弟を連れて帰る（戸板の盾）", [53, 20], { variableId: 161, variableValid: true, variableValue: 2 }, ["戸板の盾の裏に、新しい字が一行足されている。ルッツの字。中身は読めない。"])],
   w10_052_beacon_bridge: [laterLook("名を返す（グィドの家）", [10, 9], { switch2Id: 610, switch2Valid: true }, ["宛名の無い手紙に、宛名が書いてある。"])],
   w12_122_bell_tower: [laterLook("頂の道具・本物の写し（空の鐘架）", [19, 10], { switch2Id: SW.lucienStopped, switch2Valid: true }, ["ルシアンは、空の鐘架の前に座っている。"])],
   w12_111_wheat_village: [laterLook("頂の道具・本物の写し（麦の村）", [8, 9], { switch2Id: SW.lucienStopped, switch2Valid: true }, ["夕べの数のあとに、戸を開けておく家が出てきた。"])],
@@ -418,6 +417,13 @@ const EPILOGUE = {
   p13_018_watch: [laterLook("足場の木（見張り台）", [7, 5], { switch2Id: SW.sorenneAlive, switch2Valid: true }, ["ソレンヌが、足場の木を薪にして火を焚いている。"])],
 };
 // 021 礼拝堂（列の最後の席）：ブルーノの遺骸の跡と巡礼に、朝の砦のページ
+// 061 の戸板（W16 が置いた「戸板（鍛冶小屋の戸口）」）：弟を連れて帰る（変数 161 が 2 以上）
+const LATER_PAGES = {
+  w8_061_village_square: {
+    "戸板（鍛冶小屋の戸口）": { conditions: { switch1Id: SW.morning, switch1Valid: true, variableId: 161, variableValid: true, variableValue: 2 }, priorityType: 1,
+      list: [comment(MARK), ...say(["戸板の盾の裏に、新しい字が一行足されている。ルッツの字。中身は読めない。"]), END] },
+  },
+};
 const CHAPEL_PAGES = {
   "遺骸 ブルーノ": { conditions: { switch1Id: MORNING, switch1Valid: true }, priorityType: 1, list: [comment(MARK), ...say(["列の最後、大男の席だけが空いている。", "床に、灰が人の形に薄く残っている。", "手の甲のあった所に、小さな丸い跡。"]), END] },
   "夕べの会の巡礼": { conditions: { switch1Id: MORNING, switch1Valid: true }, priorityType: 1, list: [comment(MARK), ...say(["騎士さまの鐘を集めに来たんです。……一つ、減ってます", "七。長には、七つと言います。鋏は、もう要らないかも"], "巡礼"), END] },
@@ -425,7 +431,7 @@ const CHAPEL_PAGES = {
 /** その地図の設定（cfg）に、後日談の一行と朝の砦のページを足す（前に足した物は消してから。何度呼んでも同じ） */
 export function patchLater(name, cfg) {
   const events = EPILOGUE[name] || [];
-  const pages = name === "w7_021_old_chapel" ? CHAPEL_PAGES : {};
+  const pages = name === "w7_021_old_chapel" ? CHAPEL_PAGES : LATER_PAGES[name] || {};
   cfg.events = cfg.events.filter(e => !String(e.name).startsWith(LATER));
   const used = new Set(cfg.events.map(e => `${e.x},${e.y}`));
   for (const e of cfg.events) {

@@ -432,6 +432,50 @@
               ]
             },
             {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                7,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ディル"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "名の欄が空いてる。書き忘れか、書きたくなかったか。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "二百年ぶんで銀三枚なら、安い客だ"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
               "code": 123,
               "indent": 0,
               "parameters": [
@@ -557,7 +601,7 @@
       "type": "raw",
       "x": 12,
       "y": 9,
-      "note": "<hai_enemy:501,green><hai_enemy_chase:3><hai_enemy_hesitate>",
+      "note": "<hai_enemy:501,green><hai_enemy_chase:3><hai_enemy_hesitate><hai_enemy_bell:103>",
       "pages": [
         {
           "image": {

@@ -585,7 +585,7 @@
       "type": "raw",
       "x": 14,
       "y": 12,
-      "note": "<hai_enemy:601,green>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:601,green>\n<hai_enemy_hesitate>\n<hai_enemy_bell:104>",
       "pages": [
         {
           "image": {

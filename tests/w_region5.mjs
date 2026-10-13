@@ -230,6 +230,11 @@ await runTest(async () => {
     check(wood.includes("頂へ。三晩分") && (await count(ITEM.timber)) === 1 && (await vr(VAR.scaffold)) === 2, "足場の木を背負う（変数 176 = 2） " + JSON.stringify(wood));
     await game.shot("crypt-workshop");
     await go(VILLAGE, 17, 15, 8);
+    // W16（場面表 2-13）：ノラがいれば、村に入った最初の一回だけノラの一言（自動実行）
+    if (await game.eval(() => $gameParty.members().some(a => a.actorId() === 6))) {
+      const nora = (await talk([], false)).join("\n");
+      check(nora.includes("麦、立ってる！"), "麦の村に入ったときのノラの一言 " + JSON.stringify(nora));
+    }
     const sorenne = (await talk(["足場の木を渡す"])).join("\n");
     check(sorenne.includes("かたじけない") && (await sw(SW.timberDelivered)) && (await count(ITEM.timber)) === 0, "ソレンヌに足場の木を渡す（スイッチ 1055） " + JSON.stringify(sorenne));
     const errand2 = await game.eval(() => Hai.Notes.errand("scaffold"));

@@ -429,6 +429,24 @@
               ]
             },
             {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "中は暗い。角灯を掲げても、五歩先が見えない。"
+              ]
+            },
+            {
               "code": 0,
               "indent": 2,
               "parameters": []
@@ -794,6 +812,43 @@
               "parameters": [
                 "\\I[121]鐘の古い記録を手に入れた！"
               ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                4,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "頂の鐘"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 123,
@@ -1570,7 +1625,7 @@
       "type": "raw",
       "x": 24,
       "y": 38,
-      "note": "<hai_enemy:427,green>",
+      "note": "<hai_enemy:427,green>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -1592,7 +1647,7 @@
       "type": "raw",
       "x": 20,
       "y": 25,
-      "note": "<hai_enemy:428,green>",
+      "note": "<hai_enemy:428,green>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -1614,7 +1669,7 @@
       "type": "raw",
       "x": 30,
       "y": 6,
-      "note": "<hai_enemy:429,yellow>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:429,yellow>\n<hai_enemy_hesitate>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -1711,7 +1766,7 @@
       "type": "raw",
       "x": 8,
       "y": 25,
-      "note": "<hai_enemy:430,yellow>",
+      "note": "<hai_enemy:430,yellow>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -1792,7 +1847,7 @@
       "type": "raw",
       "x": 51,
       "y": 22,
-      "note": "<hai_enemy:430,yellow>",
+      "note": "<hai_enemy:430,yellow>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -1873,7 +1928,7 @@
       "type": "raw",
       "x": 40,
       "y": 17,
-      "note": "<hai_enemy:429,yellow>\n<hai_enemy_hesitate>",
+      "note": "<hai_enemy:429,yellow>\n<hai_enemy_hesitate>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -1895,7 +1950,7 @@
       "type": "raw",
       "x": 23,
       "y": 28,
-      "note": "<hai_enemy:431,red>\n<hai_enemy_chase:2>",
+      "note": "<hai_enemy:431,red>\n<hai_enemy_chase:2>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
@@ -1917,7 +1972,7 @@
       "type": "raw",
       "x": 48,
       "y": 10,
-      "note": "<hai_enemy:427,green>",
+      "note": "<hai_enemy:427,green>\n<hai_enemy_bell:102>",
       "pages": [
         {
           "image": {
