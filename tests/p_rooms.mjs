@@ -254,6 +254,16 @@ await runTest(async () => {
       return { shade: Hai.SymbolEnemy.isShade(ev), voice: Hai.SymbolEnemy.shadeVoice(ev), opacity: ev.opacity(), sprite: sprite.opacity, see: Hai.SymbolEnemy.canSeePlayer(ev) };
     }, shade.id);
     check(s0.shade && s0.voice === "写しを渡した" && s0.opacity === 96 && s0.sprite === 96 && !s0.see, "影の見た目・追わない " + JSON.stringify(s0));
+    // P17（R2 気になる 12）：<hai_enemy_shade_quiet> の影は、倒しても一行を出さない（戦闘のあとの命令に声の文章が無い）
+    const quiet = await game.eval(i => {
+      const ev = $gameMap.event(i);
+      const voiced = list => list.some(c => c.code === 401 && c.parameters[0] === "写しを渡した");
+      ev.event().meta.hai_enemy_shade_quiet = true;
+      const r = { quiet: Hai.SymbolEnemy.isShadeQuiet(ev), voice: Hai.SymbolEnemy.shadeVoice(ev), listed: voiced(ev.list()) };
+      delete ev.event().meta.hai_enemy_shade_quiet;
+      return { ...r, normal: voiced(ev.list()), quietAfter: Hai.SymbolEnemy.isShadeQuiet(ev) };
+    }, shade.id);
+    check(quiet.quiet && quiet.voice === "写しを渡した" && !quiet.listed && quiet.normal && !quiet.quietAfter, "<hai_enemy_shade_quiet> の影 " + JSON.stringify(quiet));
     // 近く（2 マス左。まっすぐ見える所）に立っても追ってこない
     await go(SHADE_MAP, shade.x - 2, shade.y, 6);
     await game.frames(120);
@@ -288,6 +298,30 @@ await runTest(async () => {
     await game.waitFor(() => !$gameMap.isEventRunning() && !$gameMessage.isBusy(), null, 30_000);
     const s2 = await game.eval(i => ({ defeated: Hai.SymbolEnemy.state($gameMap.event(i)).defeated, msgs: window.__msgs.slice() }), shade.id);
     check(s2.defeated && s2.msgs.includes("写しを渡した"), "影を倒したあとの声 " + JSON.stringify(s2));
+    // P17：プラグインコマンド「影の声を出す」で、崩れる文章のあとに一行を話し手の名つき（ふつうの窓・下）で出す。倒して消えた影からも読める
+    await game.eval(i => {
+      window.__msgs = [];
+      window.__voice = [];
+      const add = Game_Message.prototype.add;
+      Game_Message.prototype.add = function(text) {
+        window.__voice.push({ text, speaker: this.speakerName(), background: this.background(), position: this.positionType() });
+        return add.apply(this, arguments);
+      };
+      $gameMap._interpreter.setup([
+        { code: 101, indent: 0, parameters: ["", 0, 0, 2, ""] },
+        { code: 401, indent: 0, parameters: ["影は崩れた。"] },
+        { code: 357, indent: 0, parameters: ["Hai_SymbolEnemy", "shadeVoice", "影の声を出す", { eventId: String(i), speaker: "焼けた村の子" }] },
+        { code: 0, indent: 0, parameters: [] },
+      ], 0);
+    }, shade.id);
+    for (let i = 0; i < 20 && (await game.eval(() => $gameMap.isEventRunning() || $gameMessage.isBusy())); i++) {
+      await game.frames(15);
+      await game.press("Enter");
+    }
+    await game.waitFor(() => !$gameMap.isEventRunning() && !$gameMessage.isBusy(), null, 30_000);
+    const v = await game.eval(() => window.__voice.slice());
+    check(v.length === 2 && v[0].text === "影は崩れた。" && v[1].text === "写しを渡した" && v[1].speaker === "焼けた村の子" && v[1].background === 0 && v[1].position === 2,
+      "影の声を出す（崩れる → 声の順・名前つき） " + JSON.stringify(v));
 
     // ---- 9. 古いセーブ：スイッチ 125〜127 から開いた部屋を写す
     const old = await game.eval(() => {

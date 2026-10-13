@@ -90,8 +90,23 @@ await runTest(async () => {
     check(list.some(t => t.id === "R10" && t.x === R10.x && t.y === R10.y), "thoughts() に R10 の座標がない");
     check((await th("notes")).length === 0, "最初からメモがある");
 
-    // ---- R13（手がかりなし）を読むと既読になり、セルフスイッチ A が入る
+    // ---- P17（R2 困る 5）：調べた直後、文章の窓を閉じる前に割り込まれて終わったら既読にしない
     await go(R13.x, R13.y + 1, 8);
+    await game.press("Enter");
+    await game.waitFor(() => window.__game.ref("$gameMessage").isBusy());
+    await game.eval(() => window.__game.ref("$gameMap")._interpreter.terminate());
+    check(!(await th("isRead", R13.id)) && !(await selfSwitchA(R13.eventId)), "窓を閉じる前に終わった R13 が既読になった");
+    await game.waitFor(() => {
+      const s = window.__game.ref("SceneManager")._scene;
+      return s._messageWindow && s._messageWindow.pause;
+    });
+    await game.frames(12);
+    await game.press("Enter");
+    await game.waitFor(() => !window.__game.ref("$gameMessage").isBusy() && !window.__game.ref("$gameMap").isEventRunning());
+    await game.frames(3);
+    check(!(await th("isRead", R13.id)), "割り込まれたあと窓を閉じても R13 が既読になった");
+
+    // ---- R13（手がかりなし）を読むと既読になり、セルフスイッチ A が入る
     check(!(await th("isRead", R13.id)), "読む前に R13 が既読");
     let pages = await readAll("reading");
     check(pages.length === 1 && pages[0].includes("耳が獣だから"), `R13 の本文: ${JSON.stringify(pages)}`);
@@ -255,6 +270,21 @@ await runTest(async () => {
       return r;
     });
     check(oldFaint.count === 0 && !oldFaint.isFaint, `古いセーブの初期値 ${JSON.stringify(oldFaint)}`);
+
+    // ---- P17（R2 困る 4）：薄い思念のあとの仲間の行（コモンイベント 201 の後ろ）は名前と窓を残す（033 F02 のブルーノ）
+    await go(42, 40, 8, 33);
+    const f02 = await game.eval(() => {
+      const g = window.__game;
+      const ev = g.ref("$gameMap").events().find(e => /<hai_faint:F02>/.test(e.event().note));
+      const it = new Game_Interpreter();
+      it.setup(ev.list(), ev.eventId());
+      const list = it._list;
+      const at = list.findIndex(c => c.code === 117 && c.parameters[0] === 201);
+      const texts = list.map((c, i) => ({ i, c })).filter(o => o.c.code === 101);
+      return { at, before: texts.filter(o => o.i < at).map(o => o.c.parameters), after: texts.filter(o => o.i > at).map(o => o.c.parameters) };
+    });
+    check(f02.at > 0 && f02.before.length > 0 && f02.before.every(p => p[2] === 2 && p[3] === 1 && p[4] === ""), `F02 の本文が窓なしにならない ${JSON.stringify(f02)}`);
+    check(f02.after.length === 2 && f02.after.every(p => p[2] === 0 && p[3] === 2 && p[4] === "ブルーノ"), `F02 のあとのブルーノの行の名前・窓が消えた ${JSON.stringify(f02)}`);
 
     // ---- clearNotes（テスト用）
     await th("clearNotes");
