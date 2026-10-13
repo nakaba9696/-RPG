@@ -6,8 +6,8 @@ MZ の Web 実行（`index.html`）を、Playwright のヘッドレス Chromium 
 ```bash
 npm ci --ignore-scripts --prefix tests && node tests/run.mjs   # 全部（失敗が 1 本でもあれば終了コード 1）
 node tests/run.mjs t_smoke         # 名前で選ぶ（拡張子なし、いくつでも）
-node tests/run.mjs --shard 2/8     # 所要時間で 8 つに均して配った 2 番目だけ（CI は 8 シャードを並列に走らせる）
-node tests/run.mjs --plan 8        # 8 シャードへの配り分けと見込み時間を表示するだけ
+node tests/run.mjs --shard 2/10    # 所要時間で 10 に均して配った 2 番目だけ（CI は 10 シャードを並列に走らせる）
+node tests/run.mjs --plan 10       # 10 シャードへの配り分けと見込み時間を表示するだけ
 node tests/run.mjs --no-browser    # ブラウザなしのテスト（本文に launchGame( が無いもの）だけ
 node tests/t_maps.mjs              # 1 本だけを直接
 node tests/serve.mjs 8000          # 手元のブラウザで遊ぶ：http://127.0.0.1:8000/index.html （?hai_test を付けると window.__game が出る）
@@ -16,7 +16,10 @@ node tests/serve.mjs 8000          # 手元のブラウザで遊ぶ：http://127
 - CI では `node tests/node_modules/playwright/cli.js install --with-deps --only-shell chromium` で入れる（`npx` は使わない。headless shell だけ。`~/.cache/ms-playwright` は actions/cache で残す）。
 - シャードの配り分けは `tests/durations.json`（テスト名 → CI での秒数）で決まる。所要時間の大きい順に、いま最も軽いシャードへ配る（表が同じなら結果も同じ）。表に無いテストは 180 秒とみなす。
   テストを足したり重くしたりしたら、CI のログの「OK（N 秒）」を写して表を直す（CI のログの頭に配り分けと見込みが出る）。
-- CI の道（T8、`.github/workflows/ci.yml`）：まず `changes` ジョブが全部を走らせるかを決め、そのあと `quick`（ブラウザなしのテスト、`--no-browser`）と `test`（8 シャード、全部の道だけ）が並列に走る。
+- 見込みはテストの本体の秒数だけ。CI のジョブには、そのほかに準備（checkout・npm ci・Chromium を入れる・テストごとの Chromium の起動）と機械の遅さで **5〜7 分**ほど足される
+  （T13：見込み 16 分 48 秒の配り分けで、実際は 18〜24 分かかった）。`--plan` は「見込み＋準備の目安 7 分」も出す。ジョブの上限は 25 分（`timeout-minutes`）なので、
+  どのシャードも見込み **15 分以下**に保つ。越えたら上限を延ばさず、シャードを増やす（`ci.yml` の `matrix.shard` と `--shard i/n`、ジョブ名の `/n`、CLAUDE.md の「検証」の節）。
+- CI の道（T8、`.github/workflows/ci.yml`）：まず `changes` ジョブが全部を走らせるかを決め、そのあと `quick`（ブラウザなしのテスト、`--no-browser`）と `test`（10 シャード、全部の道だけ）が並列に走る。
   PR で変わったファイルが文書（`docs/` の下か `*.md`）だけなら、ブラウザのシャードは走らせない（判定は `tools/ci/changes.mjs`。
   `data/`・`js/`・`tests/`・`tools/`・`.github/`・`img/`・`audio/` などが 1 つでも混ざれば、`*.md` でも全部）。main への push はブラウザなしのテストだけ、手で走らせる（workflow_dispatch）と全部。
   ブラウザなしのテストを足すときは `launchGame(` を本文に書かない（書くとブラウザありに数えられ、速い道で走らない）。

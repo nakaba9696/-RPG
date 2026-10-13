@@ -2,8 +2,8 @@
 // 1 本でも落ちたら終了コード 1。
 //   node tests/run.mjs                 全部
 //   node tests/run.mjs t_smoke t_maps  名前（拡張子なし）で選ぶ
-//   node tests/run.mjs --shard 2/8     所要時間（tests/durations.json）で 8 つに均して配った 2 番目だけ（CI の並列用。--shard=2/8 も可）
-//   node tests/run.mjs --plan 8        8 つへの配り分けと見込み時間を表示するだけ（テストは走らせない）
+//   node tests/run.mjs --shard 2/10    所要時間（tests/durations.json）で 10 に均して配った 2 番目だけ（CI の並列用。--shard=2/10 も可）
+//   node tests/run.mjs --plan 10       10 への配り分けと見込み時間を表示するだけ（テストは走らせない）
 //   node tests/run.mjs --no-browser    ブラウザなしのテスト（launchGame を呼ばないもの）だけ（文書だけの PR と main への push の CI 用）
 import { spawn } from "node:child_process";
 import fs from "node:fs";
@@ -58,6 +58,10 @@ const all = fs
 
 // 所要時間の表（テスト名 → CI での秒数）。CI のログの「OK（N 秒）」を写して手で直す。表に無いテストは 180 秒とみなす。
 const DEFAULT_SEC = 180;
+// CI のジョブで見込み（テストの本体の秒数）の外にかかる分の目安（checkout・npm ci・Chromium を入れる・テストごとの起動・機械の遅さ）。
+// T13 の実測：見込み 16 分 48 秒の配り分けで、実際は 18〜24 分（5〜7 分多い）。ジョブの上限（ci.yml の timeout-minutes）は 25 分。
+const SETUP_SEC = 7 * 60;
+const JOB_LIMIT_SEC = 25 * 60;
 function loadDurations() {
   const table = JSON.parse(fs.readFileSync(path.join(here, "durations.json"), "utf8"));
   for (const [k, v] of Object.entries(table)) {
@@ -91,8 +95,13 @@ function printPlan(plan, mark) {
   console.log(`配り分け（${plan.shards.length} シャード、見込みは tests/durations.json。表に無いテストは ${DEFAULT_SEC} 秒）`);
   plan.shards.forEach((s, k) => {
     const list = s.files.map(f => `${f.replace(/\.mjs$/, "")} ${plan.sec(f)}`).join(", ") || "（なし）";
-    console.log(`${k + 1 === mark ? "→" : " "} ${k + 1}/${plan.shards.length}  見込み ${fmt(s.sec)}  ${list}`);
+    console.log(`${k + 1 === mark ? "→" : " "} ${k + 1}/${plan.shards.length}  見込み ${fmt(s.sec)}（準備込み ${fmt(s.sec + SETUP_SEC)}）  ${list}`);
   });
+  const worst = Math.max(0, ...plan.shards.map(s => s.sec));
+  console.log(`準備の分の目安 ${fmt(SETUP_SEC)}（CI の実測で見込みより 5〜7 分多い）。最も重いシャードは準備込み ${fmt(worst + SETUP_SEC)}、ジョブの上限は ${fmt(JOB_LIMIT_SEC)}`);
+  if (worst + SETUP_SEC > JOB_LIMIT_SEC - 3 * 60) {
+    console.log(`  ※ 上限まで 3 分を切る。上限は延ばさず、シャードを増やす（tests/README.md）`);
+  }
 }
 
 if (planN) {
