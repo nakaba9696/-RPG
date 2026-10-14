@@ -7,6 +7,7 @@
 //   node tests/run.mjs --no-browser    ブラウザなしのテスト（launchGame を呼ばないもの）だけ（文書だけの PR と main への push の CI 用）
 import { spawn } from "node:child_process";
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -56,8 +57,12 @@ const all = fs
   .filter(f => /^[a-z][a-z0-9]*_[A-Za-z0-9_-]+\.mjs$/.test(f))
   .sort();
 
-// 所要時間の表（テスト名 → CI での秒数）。CI のログの「OK（N 秒）」を写して手で直す。表に無いテストは 180 秒とみなす。
+// 所要時間の表（テスト名 → CI の速い機械での秒数）。CI のログの「OK（N 秒）」を写して手で直す。表に無いテストは 180 秒とみなす。
+// CI の機械（GitHub のランナー）は、同じテストでもジョブごとに 1.0〜2.3 倍の速さの差がある（T14、run 4 本 × 12 シャードの実測）。
+// 同じジョブの中ではどのテストも同じ倍率で遅いので、ゲームではなく機械の差。表は速い機械の秒にし、遅い機械はこの倍率で見込む。
+// ログの頭の「機械」の行の目安の計算が遅い（速い機械のおよそ倍）ジョブの秒は、半分にして写す（そのまま写しても見込みが重くなるだけ）。
 const DEFAULT_SEC = 180;
+const SLOW_FACTOR = 2.3;
 // CI のジョブでテストの前にかかる分の目安（checkout・setup-node・npm ci・Chromium を入れる）。run 38350349645 の実測で 30〜40 秒。
 // 見込みと実際のずれの大半は準備ではなく、表が古いこと（テストが伸びたのに表を直していない）。T13 の 2 回目で、表より倍ほど遅いテストが十数本あった。
 const SETUP_SEC = 60;
@@ -100,9 +105,14 @@ function printPlan(plan, mark) {
     console.log(`${k + 1 === mark ? "→" : " "} ${k + 1}/${plan.shards.length}  見込み ${fmt(s.sec)}（準備込み ${fmt(s.sec + SETUP_SEC)}）  ${list}`);
   });
   const worst = Math.max(0, ...plan.shards.map(s => s.sec));
-  console.log(`準備の分の目安 ${fmt(SETUP_SEC)}（実測 30〜40 秒）。最も重いシャードは見込み ${fmt(worst)}・準備込み ${fmt(worst + SETUP_SEC)}、ジョブの上限は ${fmt(JOB_LIMIT_SEC)}`);
+  const slow = worst * SLOW_FACTOR + SETUP_SEC;
+  console.log(`準備の分の目安 ${fmt(SETUP_SEC)}（実測 20〜45 秒）。最も重いシャードは見込み ${fmt(worst)}・準備込み ${fmt(worst + SETUP_SEC)}、` +
+    `遅い機械（×${SLOW_FACTOR}）なら準備込み ${fmt(slow)}、ジョブの上限は ${fmt(JOB_LIMIT_SEC)}`);
   if (worst > PLAN_LIMIT_SEC) {
     console.log(`  ※ 見込みが ${fmt(PLAN_LIMIT_SEC)} を越える。上限は延ばさず、シャードを増やす（tests/README.md）`);
+  }
+  if (slow > JOB_LIMIT_SEC) {
+    console.log(`  ※ 遅い機械に当たると ${fmt(JOB_LIMIT_SEC)} を越える。上限は延ばさず、シャードを増やす（tests/README.md）`);
   }
 }
 
@@ -113,6 +123,17 @@ if (planN) {
 
 // ブラウザなしのテスト：本文に launchGame( が無いもの（ブラウザを開くテストはすべて lib.mjs の launchGame を通る）
 const usesBrowser = f => fs.readFileSync(path.join(here, f), "utf8").includes("launchGame(");
+
+// 機械の速さの目安（CI の機械の当たり外れをログで見分ける。T14）。決まった計算にかかったミリ秒（小さいほど速い）
+function machineLine() {
+  const t0 = process.hrtime.bigint();
+  let x = 0;
+  for (let i = 1; i < 30_000_000; i++) x += Math.sqrt(i) % 7;
+  if (!(x > 0)) throw new Error("目安の計算が合わない");
+  const ms = Number(process.hrtime.bigint() - t0) / 1e6;
+  const cpus = os.cpus();
+  return `機械：${cpus[0] ? cpus[0].model.trim() : "?"} × ${cpus.length}、メモリ ${Math.round(os.totalmem() / 2 ** 30)} GB、目安の計算 ${Math.round(ms)} ms`;
+}
 
 let files = wanted.length ? all.filter(f => wanted.includes(f.replace(/\.mjs$/, ""))) : all;
 if (shard) {
@@ -145,6 +166,7 @@ function runOne(file) {
   });
 }
 
+console.log(machineLine());
 const t0 = Date.now();
 const failed = [];
 for (const file of files) {

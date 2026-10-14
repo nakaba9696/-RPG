@@ -114,11 +114,9 @@ await runTest(async () => {
       await game.waitScene("Scene_Battle");
       check((await battles()).at(-1) === troopId, `敵グループ ${troopId} と戦っていない ${JSON.stringify(await battles())}`);
       await game.call("setSpeed", 4);
-      await game.page.keyboard.down("Enter");
       try {
-        await game.waitFor(() => window.__game.scene() === "Scene_Map", null, 120_000);
+        await game.holdOkToMap();
       } finally {
-        await game.page.keyboard.up("Enter");
         await game.call("setSpeed", 1);
       }
       await game.waitScene("Scene_Map");
