@@ -186,7 +186,7 @@ await runTest(async () => {
     await game.shot("foundry-door");
     check(!(await step(8)), "霧の戸口を通り抜けた");
     const enter = (await talk(["霧の奥へ入る"], false)).join("\n");
-    check(enter.includes("戸を叩く音が三度"), "霧の戸口の文章 " + JSON.stringify(enter));
+    check(enter.includes("霧が詰まっている") && enter.includes("下りの石段"), "霧の戸口の文章（文6） " + JSON.stringify(enter));
     await arrive(EDGE, 47, 20);
     await game.shot("edge-east");
     const edge = await game.eval(() => ({
@@ -214,6 +214,8 @@ await runTest(async () => {
     check((await step(8)) && (await step(8)) && (await step(8)), "広間の北西の見えない通路を通れない " + JSON.stringify(await pos()));
     await go(EDGE, 25, 2, 8);
     await game.eval(() => Hai.Thoughts.markRead("R4-13")); // 鋳物場の檻の子を読んだ扱い（廊下に影が一つ出る）
+    // 文6（#273）：トゥーラの臨終（記憶 4）を読み、トゥーラを連れている扱い（廊下に「かえりは かるい」の影が出る）
+    await game.eval(() => { Hai.Companions.learnMemory(11, 4); $gameSwitches.setValue(144, true); });
     await step(8);
     await arrive(CORRIDOR, 25, 38, { quiet: false });
     console.log("  縄張りの縁：東の戸口だけ開く・角灯で暗がり 5・骨拾いの一言・門叩きの声（檻の子・下士官）・見えない通路 → 廊下", `（${Math.round((Date.now() - T0) / 1000)} 秒）`);
@@ -225,14 +227,23 @@ await runTest(async () => {
     check(shades["声だけの影（鋳物場 R4-13）"] === 0 && shades["声だけの影（鋳物場 R4-11）"] === -1, "読んだ思念（R4-13）の影だけが出る " + JSON.stringify(shades));
     const westShade = await game.eval(() => $gameMap.events().filter(e => e.event().name.startsWith("声だけの影（記録院")).every(e => e._pageIndex === -1));
     check(westShade, "縄張りでない地域の影が出ている");
-    await game.eval(() => { for (const e of $gameMap.events()) if (e.event().meta.hai_enemy && !e.event().name.includes("R4-13")) $gameSelfSwitches.setValue([$gameMap.mapId(), e.eventId(), "A"], true); });
+    const TULA_SHADE = "声だけの影（鋳物場 トゥーラの記憶 4）";
+    check((await pageIndex(TULA_SHADE)) === 0, "トゥーラの記憶 4 を読んでいるのに「かえりは かるい」の影が出ない");
+    await game.eval(t => { for (const e of $gameMap.events()) if (e.event().meta.hai_enemy && !e.event().name.includes("R4-13") && e.event().name !== t) $gameSelfSwitches.setValue([$gameMap.mapId(), e.eventId(), "A"], true); }, TULA_SHADE);
     await go(CORRIDOR, 5, 29, 8, { quiet: false });
     await game.call("step", 8);
     const left = (await winBattle(702)).join("\n");
     check(left.includes("いち、に、さん、ってかぞえてる"), "影を倒すと、読んだ思念の一行を残す（text.md 5.5 の c） " + JSON.stringify(left));
+    // 文6（#273）：「かえりは かるい」の影は、崩れる文 → 字 → トゥーラの一言の順（場面表 04 の 3.4。R2 の 7 章 04:242）
+    await go(CORRIDOR, 39, 8, 6, { quiet: false });
+    await game.call("step", 6);
+    const tula = await winBattle(702);
+    const at = s => tula.findIndex(p => p.includes(s));
+    check(at("影が崩れた。灰に、刃物で彫ったような字") >= 0 && at("影が崩れた。") < at("かえりは かるい") && at("かえりは かるい") < at("トゥーラ：……あたしの字だ"),
+      "「かえりは かるい」の影のあとの順（崩れる → 字 → トゥーラ） " + JSON.stringify(tula));
     await go(CORRIDOR, 36, 8, 4);
     await step(4);
-    check((await talk([], false)).join("").includes("何かが脈を打つ音") && (await sw(SW.knife3)), "彫り刀の音（C4）");
+    check((await talk([], false)).join("").includes("床ごと脈を打つ音") && (await sw(SW.knife3)), "彫り刀の音（C4）");
     await go(CORRIDOR, 25, 1, 8);
     await step(8);
     await arrive(MASS, 20, 28);

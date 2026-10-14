@@ -361,13 +361,18 @@ const ward = (name, [x, y]) => ({
   name: `結界（${name}）`, type: "raw", x, y, note: `<hai_warp:${name}>`,
   pages: [{ image: IMG.warp, priorityType: 1, stepAnime: true, walkAnime: false }],
 });
-// 声だけの影（P13 の <hai_enemy_shade>）。voice が無ければ声を残さない。cond（スイッチ）があれば、それが ON の間だけ出る
-const shade = (name, [x, y], { troop = TROOP.shade, rank = "green", voice = null, once = false, random = false, cond = null } = {}) => ({
+// 声だけの影（P13 の <hai_enemy_shade>）。voice が無ければ声を残さない。cond（スイッチ）があれば、それが ON の間だけ出る。
+//   selfCond（"D"）：スイッチの代わりに、影のセルフスイッチで出す（171 の旗の自動のイベントが立てる）
+//   quiet（文6）：倒しても一行を出さない（<hai_enemy_shade_quiet>）。一行は「影の崩れ」の自動のイベントが、崩れる文のあとに出す（P17 の shadeVoice）。
+//     戦闘の前に影のセルフスイッチ B を立てる（触れて戦った印。旗の束や検査がセルフスイッチ A だけを立てても、崩れる文は出ない）
+const shade = (name, [x, y], { troop = TROOP.shade, rank = "green", voice = null, once = false, random = false, cond = null, selfCond = null, quiet = false } = {}) => ({
   name, type: "raw", x, y,
-  note: `<hai_enemy:${troop},${rank}>` + (once ? "<hai_enemy_once>" : "") + (voice === null ? "<hai_enemy_shade>" : `<hai_enemy_shade:${voice}>`),
+  note: `<hai_enemy:${troop},${rank}>` + (once ? "<hai_enemy_once>" : "") + (voice === null ? "<hai_enemy_shade>" : `<hai_enemy_shade:${voice}>`) + (quiet ? "<hai_enemy_shade_quiet>" : ""),
   pages: [{
     ...(cond ? { conditions: { switch1Id: cond, switch1Valid: true } } : {}),
+    ...(selfCond ? { conditions: { selfSwitchCh: selfCond, selfSwitchValid: true } } : {}),
     image: IMG.shade, priorityType: 1, trigger: 2, moveType: random ? 1 : 0, moveFrequency: random ? 3 : 5, moveSpeed: 3,
+    ...(quiet ? { list: [selfOn("B"), END] } : {}),
   }],
 });
 // 一度だけ踏むと出る文（同じスイッチを持つ何マスかで一つ）
@@ -440,7 +445,7 @@ function events170() {
             cmd(402, [1, "やめる"]), end(1),
             cmd(404, []), END,
           ] },
-        { conditions: { switch1Id: r.bell, switch1Valid: true }, priorityType: 1, list: [...say(["霧が固い。押しても、向こうへは抜けられない。"]), END] },
+        { conditions: { switch1Id: r.bell, switch1Valid: true }, priorityType: 1, list: [...say(["霧が固い。手を当てると、向こうから同じ強さで押し返してくる。"]), END] },
       ],
     });
   }
@@ -491,9 +496,9 @@ function events170() {
     shade("声だけの影（広間 1）", [20, 22], { random: true }),
     shade("声だけの影（広間 2）", [30, 18], { random: true }),
     shade("声だけの影（北東の細い通り）", [44, 13], { troop: TROOP.thickShade, rank: "yellow" }),
-    text("引きずった跡", [22, 13], ["石の床に、何かを引きずった跡。", "跡は、北の細い口へ続いている。"]),
+    text("引きずった跡", [22, 13], ["石の床に、引きずった跡が二筋。踵の幅で並んでいる。", "跡は、北の細い口へ続いている。"]),
     text("爪の跡", [3, 22], ["床に、爪の跡が三本ずつ並んでいる。", "どれも、戸口の方を向いている。"]),
-    text("北西の小部屋の灯の皿", [8, 6], ["棚に、灯の皿が三つ。", "油は、どれも底まで減っている。"], { image: { tileId: "B:125" } }),
+    text("北西の小部屋の灯の皿", [8, 6], ["棚に、灯の皿が五つ。四つは底まで乾いている。", "五つめの皿にだけ、油が指一本ぶん。"], { image: { tileId: "B:125" } }),
     chestItem([4, 6], ITEM.elixir),
     chestGold([45, 6], 150),
     chestItem([44, 34], ITEM.elixir, 2, true),
@@ -544,6 +549,48 @@ const LEGACY = [
   { key: "east", flag: 620, sw: 1169, who: "名無し兵", line: "顔は覚えている。たぶん", at: [28, 32] },
 ];
 const E171 = { entry: [25, 39], exitN: [25, 0], arriveFromMass: [25, 1], ward: [28, 2] };
+// 文6（#273）：影の一行が同じ型で続かないように、倒したあとの出し方を影ごとに替える（R2 の 7 章 04:242・ROADMAP の文6）。
+//   置き場 0・2 は今のまま（倒すと窓なしで一行だけ漏れる。text.md 5.5 の c）。置き場 1・3 と言い残しは、崩れる文 → 声の順（P17 の shadeVoice）
+const COLLAPSE = {
+  1: ["影は膝をつき、膝から先が床に溶けた。", "口の形だけが、しばらく残って動いていた。"],
+  3: ["崩れた影は床に落ちず、北の口へ吸われていく。"],
+};
+const LEGACY_COLLAPSE = {
+  焼けた村の子: ["影がほどけた。ほどける前に、背の低い形になった。"],
+  名無し兵: ["影は片手を上げて、宙に一画だけ引いた。そこで手ごと散った。"],
+};
+// 鋳物場の側：トゥーラの臨終（091。記憶 4）の「かえりは かるい」が漏れる影と、トゥーラの一言（場面表 04 の 3.4。R2 の 7 章 04:242）
+const TULA_ACTOR = 11;
+const TULA_SHADE = { name: "声だけの影（鋳物場 トゥーラの記憶 4）", at: [40, 8], line: "かえりは かるい", collapse: ["影が崩れた。灰に、刃物で彫ったような字が残った。"] };
+// 足すイベントは床の汚れ（;）のマスに置く。散らし（scatter）は「.」のマスだけを数えるので、ここに置けばタイル層の散らしは変わらない
+const AFTER_AT = [25, 37];
+/**
+ * 影を倒したあと（影のセルフスイッチ A と B。C は出し終えた印）：崩れる文 → 影の一行（話し手の名つき）→ 足す行。影ごとに一度だけ。
+ * 影ごとにイベントを置かず、一つのイベントで見張る（並列で見て、自動実行で出す）。entries は [影の ID, 崩れる文, 話し手, 足す行（indent → 命令）]
+ */
+function afterShades(entries) {
+  const sv = (id, ch) => `$gameSelfSwitches.value([${LAIR_MAP.corridor}, ${id}, "${ch}"])`;
+  const due = id => `${sv(id, "A")} && ${sv(id, "B")} && !${sv(id, "C")}`;
+  return {
+    name: "影の崩れ（自動。崩れる文 → 声）", type: "raw", x: AFTER_AT[0], y: AFTER_AT[1],
+    pages: [
+      { priorityType: 0, trigger: 4,
+        list: [ifScript(`${JSON.stringify(entries.map(([id]) => id))}.some(i => ${due("i")})`), selfOn("B", 1), end(1), ENDIF(), END] },
+      { conditions: { selfSwitchCh: "B", selfSwitchValid: true }, priorityType: 0, trigger: 3,
+        list: [
+          ...entries.flatMap(([id, collapse, speaker, tail]) => [
+            ifScript(due(id)),
+            ...say(collapse, "", 1),
+            ...plugin("Hai_SymbolEnemy", "shadeVoice", "影の声を出す", { eventId: String(id), speaker }, 1),
+            ...tail(1),
+            ...script(`$gameSelfSwitches.setValue([${LAIR_MAP.corridor}, ${id}, "C"], true);`, 1),
+            end(1), ENDIF(),
+          ]),
+          cmd(123, ["B", 1]), END,
+        ] },
+    ],
+  };
+}
 function events171() {
   const ev = [
     exitTo("南の口（縄張りの縁へ）", E171.entry, [LAIR_MAP.edge, E170.arriveFromCorridor[0], E170.arriveFromCorridor[1], DOWN]),
@@ -561,19 +608,29 @@ function events171() {
           // W14（#234）：場面表 3.4。夜の戸で拾った言い残し（記録院の側＝焼けた村の子 413、鋳物場の側＝名無し兵 620）
           `const L = ${JSON.stringify(Object.fromEntries(LEGACY.map(l => [l.sw, [l.key, l.flag]])))};`,
           `for (const id in L) $gameSwitches.setValue(Number(id), L[id][0] === last && $gameSwitches.value(L[id][1]));`,
+          // 文6（#273）：鋳物場の側で、トゥーラの臨終（記憶 4）を読んでいれば「かえりは かるい」の影（影のセルフスイッチ D）
+          `$gameSelfSwitches.setValue([${LAIR_MAP.corridor}, TULA_SHADE_ID, "D"], last === "east" && Hai.Companions.memories(${TULA_ACTOR}).includes(4));`,
         ].join("\n")),
         cmd(214, []), END,
       ] }],
     },
   ];
-  // 声だけの影（その地域の思念の一行。読んだときだけ）
+  // 声だけの影（その地域の思念の一行。読んだときだけ）。置き場 1・3 は崩れる文のあとに声（文6）
+  const after = []; // [影の名, 崩れる文, 話し手, 足す行]
   for (const key of REGION_KEYS) {
     SLOTS171.forEach((cells, slot) => {
       const [id, line] = LOCAL[key].lines[slot];
-      ev.push(shade(`声だけの影（${REGIONS[key].label} ${id}）`, cells[REGION_KEYS.indexOf(key)], { troop: TROOP.thickShade, rank: "yellow", voice: line, once: true, cond: SHADE_SWITCH[`${key}:${slot}`] }));
+      const name = `声だけの影（${REGIONS[key].label} ${id}）`;
+      const quiet = !!COLLAPSE[slot];
+      ev.push(shade(name, cells[REGION_KEYS.indexOf(key)], { troop: TROOP.thickShade, rank: "yellow", voice: line, once: true, cond: SHADE_SWITCH[`${key}:${slot}`], quiet }));
+      if (quiet) after.push([name, COLLAPSE[slot], ""]);
     });
   }
-  for (const l of LEGACY) ev.push(shade(`声だけの影（言い残し ${l.who}）`, l.at, { troop: TROOP.thickShade, rank: "yellow", voice: l.line, once: true, cond: l.sw }));
+  for (const l of LEGACY) {
+    const name = `声だけの影（言い残し ${l.who}）`;
+    ev.push(shade(name, l.at, { troop: TROOP.thickShade, rank: "yellow", voice: l.line, once: true, cond: l.sw, quiet: true }));
+    after.push([name, LEGACY_COLLAPSE[l.who], l.who]);
+  }
   ev.push(
     shade("声だけの影（C2–C3 の西の口）", [5, 18], { troop: TROOP.thickShade, rank: "yellow" }),
     shade("声だけの影（C1）", [15, 32], { random: true }),
@@ -584,11 +641,24 @@ function events171() {
       ...say(["掻く音が近い。一画ずつ、間を置いて。"]),
       ifSwitch(FLAG_BRUNO, true), ...say(["あなた。刃の音です。石を、彫っています"], "ブルーノ", 1), end(1), ENDIF(), // W14：場面表 3.4
     ]),
-    ...strip("彫り刀の音（C4）", [[35, 7], [35, 8], [35, 9]], SW.knife3, say(["音が止んだ。北の方で、何かが脈を打つ音がする。"])),
-    text("戸板の列", [10, 31], ["壁ぎわに、戸板が何枚も立てかけてある。", "どれも内側に、爪の跡。"]),
+    ...strip("彫り刀の音（C4）", [[35, 7], [35, 8], [35, 9]], SW.knife3, say(["刃の音が止んだ。北の口の奥で、床ごと脈を打つ音がする。"])),
+    text("戸板の列", [10, 31], ["壁ぎわに、戸板が十一枚立てかけてある。", "どの戸も、閂は内から外してある。"]),
     chestItem([4, 32], ITEM.herb, 3),
     chestItem([45, 14], ITEM.antidote, 2),
   );
+  // 文6（#273）：ここから下は足したイベント（上のイベントの番号と座標は動かさない）
+  ev.push(shade(TULA_SHADE.name, TULA_SHADE.at, { troop: TROOP.thickShade, rank: "yellow", voice: TULA_SHADE.line, once: true, selfCond: "D", quiet: true }));
+  after.push([TULA_SHADE.name, TULA_SHADE.collapse, "", ind => [ifSwitch(FLAG_TURA, true, ind), ...say(["……あたしの字だ"], "トゥーラ", ind + 1), end(ind + 1), ENDIF(ind)]]);
+  // イベントの番号は並べた順（1 から。通行止めのイベントは build.mjs が後ろに置く）
+  const idOf = name => {
+    const i = ev.findIndex(e => e.name === name);
+    if (i < 0) throw new Error(`171 に「${name}」が無い`);
+    return i + 1;
+  };
+  ev.push(afterShades(after.map(([name, collapse, speaker, tail = () => []]) => [idOf(name), collapse, speaker, tail])));
+  // 旗の自動のイベントの式に、トゥーラの影の番号を入れる
+  const flags = ev.find(e => e.name === "影の声の旗（自動）").pages[0].list;
+  for (const c of flags) if (c.code === 355 || c.code === 655) c.parameters[0] = c.parameters[0].replace("TULA_SHADE_ID", String(idOf(TULA_SHADE.name)));
   return ev;
 }
 
@@ -629,7 +699,7 @@ function events172() {
   const massList = [
     ifSwitch(APOSTLE_SWITCH, false),
     ...say(["床から天井まで、灰色の塊がふくれている。", "表面に顔の形の凹みが浮いては沈み、聞いた声がいくつも混ざる。"], "", 1),
-    ...say(["手のひらに、取り込んできた思いが集まってくる。", "握れば、刃になる。体が、それを知っている。"], "", 1),
+    ...say(["手のひらに、取り込んできた思いが集まってくる。", "握れば、刃になる。"], "", 1),
     switchOn(APOSTLE_SWITCH, 1),
     se("Absorb1", 1, 80, 80),
     ...say(["\\C[6]思いの刃\\C[0]を使えるようになった。使うたびに、呑まれが溜まる。"], "", 1),
@@ -672,7 +742,7 @@ function events172() {
           ] },
         { conditions: { selfSwitchCh: "A", selfSwitchValid: true }, image: IMG.sparkle, priorityType: 1, stepAnime: true, walkAnime: false,
           list: [
-            ...say(["塊の残った所に、短い彫り刀が落ちている。"]),
+            ...say(["彫り刀を拾った。柄の革が、自分のではない指の形にへこんでいる。"]),
             se("Item3"), gainWeapon(WEAPON.carvingKnife),
             ...say(["\\I[96]刃の欠けた彫り刀を手に入れた！"]),
             selfOn("B"),
