@@ -186,7 +186,7 @@ await runTest(async () => {
     await game.shot("foundry-door");
     check(!(await step(8)), "霧の戸口を通り抜けた");
     const enter = (await talk(["霧の奥へ入る"], false)).join("\n");
-    check(enter.includes("霧が詰まっている") && enter.includes("段は下っている"), "霧の戸口の文章（文6） " + JSON.stringify(enter));
+    check(enter.includes("霧が詰まっている") && enter.includes("下りの石段"), "霧の戸口の文章（文6） " + JSON.stringify(enter));
     await arrive(EDGE, 47, 20);
     await game.shot("edge-east");
     const edge = await game.eval(() => ({
@@ -243,7 +243,7 @@ await runTest(async () => {
       "「かえりは かるい」の影のあとの順（崩れる → 字 → トゥーラ） " + JSON.stringify(tula));
     await go(CORRIDOR, 36, 8, 4);
     await step(4);
-    check((await talk([], false)).join("").includes("湿った音が脈を打っている") && (await sw(SW.knife3)), "彫り刀の音（C4）");
+    check((await talk([], false)).join("").includes("床ごと脈を打つ音") && (await sw(SW.knife3)), "彫り刀の音（C4）");
     await go(CORRIDOR, 25, 1, 8);
     await step(8);
     await arrive(MASS, 20, 28);
