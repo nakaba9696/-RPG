@@ -291,7 +291,7 @@ const chestEvent = (name, [x, y], gainList, gotText, red = false) => ({
     { conditions: { selfSwitchCh: "A", selfSwitchValid: true }, image: red ? IMG.redChestOpen : IMG.chestOpen, priorityType: 1, walkAnime: false },
   ],
 });
-const chestItem = (name, xy, id, n, icon) => chestEvent(name, xy, [gainItem(id, n)], `\\I[${icon}]${name}${n > 1 ? `×${n}` : ""}を手に入れた！`);
+const chestItem = (name, xy, id, n, icon) => chestEvent(name, xy, [gainItem(id, n)], `\\I[${icon}]${name}${n > 1 ? `×${n}` : ""}を手に入れた。`);
 const chestGold = (xy, n) => chestEvent("鉄くず", xy, [gainGold(n)], `鉄くずを ${n} 手に入れた。`);
 const pickup = (name, [x, y], gainList) => ({
   name: `拾い物（${name}）`, type: "raw", x, y,
@@ -300,7 +300,7 @@ const pickup = (name, [x, y], gainList) => ({
     { conditions: { selfSwitchCh: "A", selfSwitchValid: true }, priorityType: 0 },
   ],
 });
-const pickItem = (name, xy, id, n, icon) => pickup(name, xy, [gainItem(id, n), ...say([`\\I[${icon}]${name}${n > 1 ? `×${n}` : ""}を手に入れた！`])]);
+const pickItem = (name, xy, id, n, icon) => pickup(name, xy, [gainItem(id, n), ...say([`\\I[${icon}]${name}${n > 1 ? `×${n}` : ""}を手に入れた。`])]);
 const pickGold = (xy, n) => pickup("鉄くず", xy, [gainGold(n), ...say([`鉄くずを ${n} 手に入れた。`])]);
 const warp = (name, [x, y]) => ({
   name: `結界（${name}）`, type: "raw", x, y, note: `<hai_warp:${name}>`,
@@ -502,7 +502,7 @@ const hunterHead = {
 const storeEvents = [
   ...[13, 14, 15].map((y, i) => exit("西の口（炉の間へ）", [0, y], MAP.hall, 48, 16 + i, "left")),
   hunterHead,
-  chestEvent("骨の大剣", [20, 3], [gainWeapon(WEAPON.boneGreatsword)], "\\I[97]骨の大剣を手に入れた！", true),
+  chestEvent("骨の大剣", [20, 3], [gainWeapon(WEAPON.boneGreatsword)], "\\I[97]骨の大剣を手に入れた。", true),
   text("削り台", [22, 6], [
     "削り台の上に、骨が一本載っている。",
     "半分まで削ったところで、刃の跡が止まっている。",

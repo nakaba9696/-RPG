@@ -461,11 +461,67 @@
               ]
             },
             {
-              "code": 117,
+              "code": 111,
               "indent": 0,
+              "parameters": [
+                1,
+                138,
+                0,
+                3,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                8,
+                326
+              ]
+            },
+            {
+              "code": 117,
+              "indent": 2,
               "parameters": [
                 201
               ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 117,
+              "indent": 1,
+              "parameters": [
+                201
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
@@ -612,7 +668,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "\\I[179]秘薬を手に入れた！"
+                "\\I[179]秘薬を手に入れた。"
               ]
             },
             {
@@ -725,7 +781,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "\\I[197]砦の名札を手に入れた！"
+                "\\I[197]砦の名札を手に入れた。"
               ]
             },
             {

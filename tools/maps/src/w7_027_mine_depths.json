@@ -781,7 +781,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "\\I[209]鐘鉄の塊を手に入れた！"
+                "\\I[209]鐘鉄の塊を手に入れた。"
               ]
             },
             {
@@ -1001,7 +1001,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "\\I[176]薬草×2を手に入れた！"
+                "\\I[176]薬草×2を手に入れた。"
               ]
             },
             {
@@ -1097,7 +1097,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "\\I[179]秘薬を手に入れた！"
+                "\\I[179]秘薬を手に入れた。"
               ]
             },
             {
@@ -1196,6 +1196,24 @@
               ]
             },
             {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "西の岩壁の奥から、風が来る。"
+              ]
+            },
+            {
               "code": 0,
               "indent": 0,
               "parameters": []
@@ -1288,7 +1306,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "\\I[177]毒消し×2を手に入れた！"
+                "\\I[177]毒消し×2を手に入れた。"
               ]
             },
             {
@@ -1479,7 +1497,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "苦い根を手に入れた！"
+                "苦い根を手に入れた。"
               ]
             },
             {
@@ -1826,6 +1844,130 @@
                 0
               ]
             },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "灯なしのあと（自動）",
+      "type": "raw",
+      "x": 2,
+      "y": 1,
+      "note": "",
+      "pages": [
+        {
+          "priorityType": 0,
+          "list": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "actorId": 5,
+            "actorValid": true
+          },
+          "priorityType": 0,
+          "trigger": 4,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "$gameTroop.troop() && $gameTroop.troop().id === 329 && $gameTroop.isAllDead() && $gameMap.events().some(e => e.event().name.startsWith(\"灯なし\") && $gameSelfSwitches.value([$gameMap.mapId(), e.eventId(), \"A\"]))"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 1,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "actorId": 5,
+            "actorValid": true,
+            "selfSwitchCh": "B",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ブルーノ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "数えると、平気です。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "隊長が、そう言ってました"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "C",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "C",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "list": [
             {
               "code": 0,
               "indent": 0,
