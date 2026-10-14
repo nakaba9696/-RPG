@@ -101,7 +101,7 @@ await runTest(async () => {
       return moved;
     }
     /** イベントが終わるまで文章を読み進める（press で決定キーを押して始める）。選択肢は choices の順。店の画面は閉じる。 */
-    async function talk(choices = [], press = true) {
+    async function talk(choices = [], press = true, pageTimeout = undefined) {
       const queue = choices.slice();
       if (press) await game.press("Enter");
       await game.waitFor(() => $gameMap.isEventRunning() || $gameMessage.isBusy() || !(SceneManager._scene instanceof Scene_Map));
@@ -115,7 +115,7 @@ await runTest(async () => {
           const w = s._messageWindow;
           const c = w && w._choiceListWindow;
           return !$gameMap.isEventRunning() || (w && w.pause) || (c && c.active && c.isOpen());
-        });
+        }, null, pageTimeout);
         const st = await game.eval(() => {
           const s = SceneManager._scene;
           const w = s._messageWindow;
@@ -315,7 +315,8 @@ await runTest(async () => {
     // ===== 6. 019 夕べの数・東の眺め、033 房の列の端 =====
     await go(RAMPART, 41, 8, 6);
     await game.call("step", 6);
-    const count = await talk([], false);
+    // 夕べの数の頁は \. の待ちが 24 あり、一頁を出し切るのに手元で 17 秒かかる。遅い CI の機械では 1 頁の待ち（既定 30 秒）を越えるので、この会話だけ 1 頁 90 秒まで待つ
+    const count = await talk([], false, 90_000);
     check(has(count, "ブルーノ「いち、に、さん") && has(count, "さんじゅうい——") && has(count, "三十で終わりです") && has(count, "ブルーノ「灯です。塔の下に、二つ"), "夕べの数 " + JSON.stringify(count));
     // W19（R2 気になる 28）：数は全部かな
     const counting = count.filter(p => p.startsWith("ブルーノ「") && p.includes("、"));
