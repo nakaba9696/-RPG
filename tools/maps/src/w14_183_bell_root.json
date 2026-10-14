@@ -86,16 +86,8 @@
           "directionFix": true,
           "list": [
             {
-              "code": 111,
-              "indent": 0,
-              "parameters": [
-                8,
-                1152
-              ]
-            },
-            {
               "code": 101,
-              "indent": 1,
+              "indent": 0,
               "parameters": [
                 "",
                 0,
@@ -106,9 +98,61 @@
             },
             {
               "code": 401,
+              "indent": 0,
+              "parameters": [
+                "太い綱が巻き上げに掛かっている。綱は硬く、歯は錆びている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "歯が一つだけ、新しい。"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                142,
+                0
+              ]
+            },
+            {
+              "code": 101,
               "indent": 1,
               "parameters": [
-                "歯を直した。綱が、上まで通った。"
+                "",
+                0,
+                0,
+                2,
+                "アンセルモ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "お前さん。綱を直すと、上で吊れるようになる"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                8,
+                1152
               ]
             },
             {
@@ -124,62 +168,6 @@
               ]
             },
             {
-              "code": 121,
-              "indent": 1,
-              "parameters": [
-                1155,
-                1155,
-                0
-              ]
-            },
-            {
-              "code": 111,
-              "indent": 1,
-              "parameters": [
-                0,
-                142,
-                0
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 2,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                "アンセルモ"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 2,
-              "parameters": [
-                "お前さん。綱を直すと、上で吊れるようになる"
-              ]
-            },
-            {
-              "code": 0,
-              "indent": 2,
-              "parameters": []
-            },
-            {
-              "code": 412,
-              "indent": 1,
-              "parameters": []
-            },
-            {
-              "code": 0,
-              "indent": 1,
-              "parameters": []
-            },
-            {
-              "code": 411,
-              "indent": 0,
-              "parameters": []
-            },
-            {
               "code": 101,
               "indent": 1,
               "parameters": [
@@ -194,14 +182,23 @@
               "code": 401,
               "indent": 1,
               "parameters": [
-                "太い綱が巻き上げに掛かっている。綱は硬く、歯は錆びている。"
+                "石工の工具で、錆びた歯を外して磨いた。"
               ]
             },
             {
               "code": 401,
               "indent": 1,
               "parameters": [
-                "歯が一つだけ、新しい。"
+                "嵌め直すと、綱が上まで通った。"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                1155,
+                1155,
+                0
               ]
             },
             {
@@ -250,7 +247,14 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "歯を直した。綱が、上まで通った。"
+                "綱が、頂の方へ張っている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "磨いた歯のあいだに、新しい歯が一つ。"
               ]
             },
             {
@@ -334,7 +338,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "\\C[6]メモ：\\C[0]石工の工具を手に入れた！"
+                "\\I[143]石工の工具を手に入れた。"
               ]
             },
             {
