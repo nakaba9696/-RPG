@@ -142,8 +142,9 @@ put(skills, SKILL.chisel, enemySkill("鑿を打つ", {
   description: "鑿で打ちこむ。", animationId: 6, scope: 1, message1: "%1は、鑿を振り下ろした！",
   damage: { critical: true, elementId: -1, formula: "a.atk * 4 - b.def * 2", type: 1, variance: 20 },
 }), emptySkill);
+// 範囲は使う側から見た向き：2＝相手全体（プレイヤーの隊）。前は 8（足場の番の味方全体＝自身）で、隊に当たっていなかった（W23 #280）
 put(skills, SKILL.unstep, enemySkill("段を外す", {
-  description: "足もとの段を叩き、全員を打つ。", animationId: 2, scope: 8, message1: "%1は、槌で段を叩いた！",
+  description: "足もとの段を叩き、全員を打つ。", animationId: 2, scope: 2, message1: "%1は、槌で段を叩いた！",
   damage: { critical: false, elementId: -1, formula: "a.atk * 2 - b.def", type: 1, variance: 20 },
 }), emptySkill);
 put(skills, SKILL.masonBlow, enemySkill("槌を振る", {
@@ -204,6 +205,8 @@ put(enemies, ENEMY.mason, {
   traits: [...base, T.element(ELEMENT.light, 1.5)],
   actions: [act(1), act(SKILL.masonBlow, 4)], dropItems: drop(1, P_ITEM.herb, 4),
 }, emptyEnemy);
+// W23（#280）：段を外すの範囲を直したあと、W22 後の加入時の装備（Lv12・攻撃だけ）で測り、HP 9000・攻撃 70 のままで合った
+// （宿帳あり 16〜21 ターン、宿帳なしでも全滅せず 20〜23 ターン。R2 の「ぎりぎりで良い山」）
 put(enemies, ENEMY.scaffold, {
   name: "足場の番", battlerName: "Stoneknight", battlerHue: 0, params: [9000, 120, 70, 48, 40, 44, 26, 30], exp: 1200, gold: 600,
   traits: [...base, T.element(ELEMENT.light, 1.5), T.stateRate(1, 0), T.stateRate(STATE.oneNight, 1)],

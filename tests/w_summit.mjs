@@ -232,6 +232,19 @@ await runTest(async () => {
     await game.waitFor(() => window.__game.scene() === "Scene_Battle", null, 60_000);
     await waitInput();
     check(await game.eval(s => $gameTroop.members()[0].isStateAffected(s), STATE_ONE_NIGHT), "戦いの頭に「一晩のみ」が付いていない");
+    // W14 の帯の敵が使う、HP を削る技は相手側（範囲 1〜6）に当たる。範囲 7〜11 は使う側の味方（敵自身）に当たる（W23 #280。段を外すが足場の番自身に当たっていた）
+    const selfHits = await game.eval(() => {
+      const bad = [];
+      for (let id = 1151; id <= 1200 && id < $dataEnemies.length; id++) {
+        const e = $dataEnemies[id];
+        for (const a of (e && e.actions) || []) {
+          const s = $dataSkills[a.skillId];
+          if (s && [1, 5].includes(s.damage.type) && !(s.scope >= 1 && s.scope <= 6)) bad.push(`${e.name}→${s.name}（範囲 ${s.scope}）`);
+        }
+      }
+      return bad;
+    });
+    check(selfHits.length === 0, "敵の技が隊に当たらない範囲 " + selfHits.join("・"));
     await game.shot("scaffold-battle");
     const won = (await winBattle()).join("\n");
     check(won.includes("影は段の上で、灰になった。") && won.includes("段に、鑿が二十一本残った。") && !won.includes("降る灰は白い") && (await sw(SW.scaffold)), "足場の番を倒す（1154） " + JSON.stringify(won));
