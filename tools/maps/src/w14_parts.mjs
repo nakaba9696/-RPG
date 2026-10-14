@@ -64,6 +64,7 @@ export const FLAG = {
   bowlUp: 116, // 食卓:伏せた椀を起こしてある（W6）
   copiesErrand: 163, outsidersErrand: 166, // 頼みごと（P12）
   timber: 1055, // 頼みごと「足場の木」：ソレンヌに渡した（W12）
+  sorenneMet: 1058, // 麦の村:ソレンヌと話した（W12）
 };
 const ITEM_TWO_COPIES = 426; // 二通りの写し（W8）
 

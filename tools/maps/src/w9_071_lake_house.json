@@ -1170,6 +1170,13 @@
               "parameters": []
             }
           ]
+        },
+        {
+          "conditions": {
+            "switch1Id": 1152,
+            "switch1Valid": true
+          },
+          "priorityType": 0
         }
       ]
     },

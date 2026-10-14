@@ -2625,7 +2625,8 @@
       "note": "",
       "pages": [
         {
-          "priorityType": 0,
+          "priorityType": 1,
+          "through": true,
           "trigger": 0,
           "list": [
             {
@@ -2679,6 +2680,11 @@
               ]
             },
             {
+              "code": 221,
+              "indent": 2,
+              "parameters": []
+            },
+            {
               "code": 202,
               "indent": 2,
               "parameters": [
@@ -2690,38 +2696,21 @@
               ]
             },
             {
-              "code": 205,
+              "code": 201,
               "indent": 2,
               "parameters": [
-                -1,
-                {
-                  "list": [
-                    {
-                      "code": 16,
-                      "indent": null,
-                      "parameters": []
-                    },
-                    {
-                      "code": 0,
-                      "parameters": []
-                    }
-                  ],
-                  "repeat": false,
-                  "skippable": false,
-                  "wait": true
-                }
+                0,
+                70,
+                66,
+                18,
+                2,
+                0
               ]
             },
             {
-              "code": 505,
+              "code": 222,
               "indent": 2,
-              "parameters": [
-                {
-                  "code": 16,
-                  "indent": null,
-                  "parameters": []
-                }
-              ]
+              "parameters": []
             },
             {
               "code": 206,
@@ -2936,7 +2925,8 @@
       "note": "",
       "pages": [
         {
-          "priorityType": 0,
+          "priorityType": 1,
+          "through": true,
           "trigger": 0,
           "list": [
             {
@@ -2990,6 +2980,11 @@
               ]
             },
             {
+              "code": 221,
+              "indent": 2,
+              "parameters": []
+            },
+            {
               "code": 202,
               "indent": 2,
               "parameters": [
@@ -3001,38 +2996,21 @@
               ]
             },
             {
-              "code": 205,
+              "code": 201,
               "indent": 2,
               "parameters": [
-                -1,
-                {
-                  "list": [
-                    {
-                      "code": 16,
-                      "indent": null,
-                      "parameters": []
-                    },
-                    {
-                      "code": 0,
-                      "parameters": []
-                    }
-                  ],
-                  "repeat": false,
-                  "skippable": false,
-                  "wait": true
-                }
+                0,
+                70,
+                47,
+                43,
+                2,
+                0
               ]
             },
             {
-              "code": 505,
+              "code": 222,
               "indent": 2,
-              "parameters": [
-                {
-                  "code": 16,
-                  "indent": null,
-                  "parameters": []
-                }
-              ]
+              "parameters": []
             },
             {
               "code": 206,
@@ -3259,7 +3237,8 @@
       "note": "",
       "pages": [
         {
-          "priorityType": 0,
+          "priorityType": 1,
+          "through": true,
           "trigger": 0,
           "list": [
             {
@@ -3313,6 +3292,11 @@
               ]
             },
             {
+              "code": 221,
+              "indent": 2,
+              "parameters": []
+            },
+            {
               "code": 202,
               "indent": 2,
               "parameters": [
@@ -3324,38 +3308,21 @@
               ]
             },
             {
-              "code": 205,
+              "code": 201,
               "indent": 2,
               "parameters": [
-                -1,
-                {
-                  "list": [
-                    {
-                      "code": 19,
-                      "indent": null,
-                      "parameters": []
-                    },
-                    {
-                      "code": 0,
-                      "parameters": []
-                    }
-                  ],
-                  "repeat": false,
-                  "skippable": false,
-                  "wait": true
-                }
+                0,
+                70,
+                66,
+                46,
+                8,
+                0
               ]
             },
             {
-              "code": 505,
+              "code": 222,
               "indent": 2,
-              "parameters": [
-                {
-                  "code": 19,
-                  "indent": null,
-                  "parameters": []
-                }
-              ]
+              "parameters": []
             },
             {
               "code": 206,
