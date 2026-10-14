@@ -212,8 +212,9 @@ const drop = (kind, id, denominator) => [{ dataId: id, denominator, kind }, { da
 const noDrop = drop(0, 1, 1);
 const enemies = readData("Enemies.json");
 clearBand(enemies, emptyEnemy);
+// W27（#300）：緑なのに一体 3〜4 ターンかかった（R3 気になる 11）ので、Lv12 の四人で 1〜2 ターンの所に（HP 1500→500。黄の二体組は 3 ターン）
 put(enemies, ENEMY.mason, {
-  name: "石工の亡骸", battlerName: "Zombie", battlerHue: 0, params: [1500, 0, 62, 40, 20, 30, 24, 10], exp: 110, gold: 60,
+  name: "石工の亡骸", battlerName: "Zombie", battlerHue: 0, params: [500, 0, 62, 40, 20, 30, 24, 10], exp: 110, gold: 60,
   traits: [...base, T.element(ELEMENT.light, 1.5)],
   actions: [act(1), act(SKILL.masonBlow, 4)], dropItems: drop(1, P_ITEM.herb, 4),
 }, emptyEnemy);

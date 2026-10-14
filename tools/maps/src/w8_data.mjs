@@ -276,7 +276,7 @@ put(skills, SKILL.inkSpray, enemySkill("墨のしぶき", {
   effects: [{ code: 21, dataId: ST.silence, value1: 0.4, value2: 0 }],
 }), emptySkill);
 put(skills, SKILL.silentRead, enemySkill("黙読", {
-  description: "声を出さずに読み、聞く者の声を奪う。", animationId: 59, iconIndex: 121, hitType: 2, scope: 8, message1: "%1は唇だけを動かして読んだ……",
+  description: "声を出さずに読み、聞く者の声を奪う。", animationId: 59, iconIndex: 121, hitType: 2, scope: 2, message1: "%1は唇だけを動かして読んだ……",
   effects: [{ code: 21, dataId: ST.silence, value1: 0.3, value2: 0 }],
 }), emptySkill);
 put(skills, SKILL.copyHand, enemySkill("写し取る", {
@@ -284,16 +284,16 @@ put(skills, SKILL.copyHand, enemySkill("写し取る", {
   damage: phys("a.atk * 3 - b.def * 2"),
 }), emptySkill);
 put(skills, SKILL.shelfFall, enemySkill("書架崩し", {
-  description: "書架を倒しかける。", animationId: 6, iconIndex: 0, scope: 8, message1: "%1は書架を揺さぶった！",
+  description: "書架を倒しかける。", animationId: 6, iconIndex: 0, scope: 2, message1: "%1は書架を揺さぶった！",
   damage: phys("a.atk * 2 - b.def"),
 }), emptySkill);
 // 学者の技は魔法（沈黙で封じられる。沈黙 146 は技の種類 1・2 を封じる）
 put(skills, SKILL.trueName, enemySkill("真名の読み上げ", {
-  description: "読めない名を声に出す。聞いた者が裂ける。", animationId: 101, iconIndex: 79, stypeId: 1, hitType: 2, scope: 8,
+  description: "読めない名を声に出す。聞いた者が裂ける。", animationId: 101, iconIndex: 79, stypeId: 1, hitType: 2, scope: 2,
   message1: "%1は、読めない名を声に出した！", damage: magic("a.mat * 3 - b.mdf"),
 }), emptySkill);
 put(skills, SKILL.pageStorm, enemySkill("頁の嵐", {
-  description: "頁を撒き散らして惑わせる。", animationId: 59, iconIndex: 121, stypeId: 1, hitType: 2, scope: 8,
+  description: "頁を撒き散らして惑わせる。", animationId: 59, iconIndex: 121, stypeId: 1, hitType: 2, scope: 2,
   message1: "%1の周りで、頁が一斉にめくれた！", effects: [{ code: 21, dataId: ST.confuse, value1: 0.35, value2: 0 }],
 }), emptySkill);
 put(skills, SKILL.speakAloud, enemySkill("声に出す", {
@@ -358,8 +358,9 @@ put(enemies, ENEMY.shrineWarden, {
   note: ["<hai_boss>", "<hai_boss_name:生贄の祠の番>", `<hai_boss_switch:${SW.shrineBoss}>`, "<hai_actions_low:2,40>", "<hai_drop:none>"].join("\n"),
 }, emptyEnemy);
 // 真名を読んだ学者（083）：真名を読み解いて狂い、まだ読み続けている。弱み：封じた書架の「声に出すな」の札（沈黙がよく効く。技は魔法）
+// W27（#300）：真名の読み上げ・頁の嵐の範囲を隊に直し（自分に当たっていた）、W22 後の加入時の装備（Lv9・8・9）で 8〜13 ターン・HP 5 割残る所に（HP 2600→4400）
 put(enemies, ENEMY.scholar, {
-  name: "真名を読んだ学者", battlerName: "Sorcerer", battlerHue: 300, params: [2600, 400, 30, 28, 52, 40, 30, 30], exp: 420, gold: 320,
+  name: "真名を読んだ学者", battlerName: "Sorcerer", battlerHue: 300, params: [4400, 400, 30, 28, 52, 40, 30, 30], exp: 420, gold: 320,
   traits: [...base, T.stateRate(ST.silence, 3), T.stateRate(MZ_ST.silence, 3), T.element(ELEMENT.fire, 1.5), T.stateRate(1, 0)],
   actions: [act(SKILL.speakAloud, 6), act(SKILL.pageStorm, 4), onTurn(SKILL.trueName, 2, 3, 9), attack, stateIs(1, ST.silence, 9)],
   dropItems: noDrop,
