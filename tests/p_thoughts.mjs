@@ -1,4 +1,4 @@
-// P3 残留思念と自動メモ（js/plugins/Hai_Thoughts.js）の検査。見本のマップ Map904（tools/maps/src/p3_thoughts）で：
+// P3 残留思念と自動メモ（js/plugins/Hai_Thoughts.js）の検査（P17・P20：割り込まれたら既読にしない）。見本のマップ Map904（tools/maps/src/p3_thoughts）で：
 //   読むと既読になり、セルフスイッチ A が入り、unreadCount が減る／もう一度読むと「（読んだ）」が付く／
 //   手がかりがメモに入る（二度読んでも増えない。1 つの思念に 2 つ）／鍵なしで扉を調べるとメモに入り（二度でも 1 行）、
 //   鍵を持つと開いて通れる／ほかのマップからも unreadCount が読める／セーブ・ロード（ページの読み直しをはさむ）の後も
@@ -105,6 +105,37 @@ await runTest(async () => {
     await game.waitFor(() => !window.__game.ref("$gameMessage").isBusy() && !window.__game.ref("$gameMap").isEventRunning());
     await game.frames(3);
     check(!(await th("isRead", R13.id)), "割り込まれたあと窓を閉じても R13 が既読になった");
+
+    // ---- P20（R3 困る 3）：調べた直後に戦闘で割り込まれ、文が戦闘の画面で送られて閉じても既読にしない
+    const toMapIdle = () => game.waitFor(() => {
+      const g = window.__game;
+      return g.scene() === "Scene_Map" && !g.isBusy() && !g.ref("$gameMap").isEventRunning() && !g.ref("$gameMessage").isBusy();
+    });
+    await game.call("strengthenParty");
+    await game.press("Enter");
+    await game.waitFor(() => window.__game.ref("$gameMessage").isBusy());
+    await game.call("startBattle", 1, true, false);
+    await game.waitFor(() => window.__game.scene() === "Scene_Battle");
+    await game.call("setSpeed", 8);
+    await game.holdOkToMap();
+    await game.call("setSpeed", 2);
+    await toMapIdle();
+    await game.frames(3);
+    check(!(await th("isRead", R13.id)) && !(await selfSwitchA(R13.eventId)), "戦闘に割り込まれて戦闘の画面で窓が閉じた R13 が既読になった");
+    // 調べたのと同じ時に戦闘が始まったら、思念は始めない（戦闘のあとに勝手に流れて、押しっぱなしで既読にならない）
+    await game.eval(e => {
+      window.__game.ref("$gameMap").event(e).start();
+      window.__game.startBattle(1, true, false);
+    }, R13.eventId);
+    await game.waitFor(() => window.__game.scene() === "Scene_Battle");
+    await game.call("setSpeed", 8);
+    await game.holdOkToMap();
+    await game.call("setSpeed", 2);
+    await toMapIdle();
+    await game.frames(3);
+    check(!(await th("isRead", R13.id)) && !(await selfSwitchA(R13.eventId)), "戦闘と同じ時に調べた R13 が、戦闘のあとに流れて既読になった");
+    check(!(await game.eval(e => window.__game.ref("$gameMap").event(e).isStarting(), R13.eventId)), "戦闘のあとも R13 が始まる順を待っている");
+    await th("clearNotes"); // 戦利品の作り方のメモ（Hai_Craft）を消して、下の「メモは手がかりの分だけ」を数える
 
     // ---- R13（手がかりなし）を読むと既読になり、セルフスイッチ A が入る
     check(!(await th("isRead", R13.id)), "読む前に R13 が既読");

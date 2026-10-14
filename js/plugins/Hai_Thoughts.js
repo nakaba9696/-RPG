@@ -8,8 +8,9 @@
  *
  * イベントのメモ欄：
  *   <hai_thought:R04>        残留思念。ID は docs/world.md 4.6 の番号か任意の文字列。
- *                            読み終えたら既読にし、セルフスイッチ A を ON にする（文章の窓が一度閉じてから。
- *                            窓が出る前・閉じる前に割り込まれて終わったときは既読にしない）。
+ *                            読み終えたら既読にし、セルフスイッチ A を ON にする（文章の窓がマップの上で一度閉じてから。
+ *                            窓が出る前・閉じる前に割り込まれて終わったときや、戦闘に割り込まれて文が戦闘の
+ *                            画面で閉じたときは既読にしない。調べたのと同じ時に戦闘が始まったら、思念は始めない）。
  *                            既読の思念は、もう一度調べると本文の頭に「（読んだ）」が付く。
  *   <hai_faint:F01>          会話できない薄い思念（墓守の記憶のありか）。<hai_thought> の代わりに書く。
  *                            調べると画面が暗くなり、文章だけが窓なしで出る。見終えると既読・セルフスイッチ A、
@@ -506,14 +507,37 @@
     this._haiThought = haiInfo;
   };
 
-  // 文章（と選択肢）の窓が閉じるのを待ち終えたら、思念を「見た」にする
+  // 文章（と選択肢）の窓が閉じるのを待ち終えたら、思念を「見た」にする。
+  // 窓がマップの上で閉じたときだけ（戦闘に割り込まれ、文が戦闘の画面の窓で送られたときは見ていない。R3 困る 3）
+  const _Window_Message_terminateMessage = Window_Message.prototype.terminateMessage;
+  Window_Message.prototype.terminateMessage = function() {
+    const onMap = SceneManager._scene instanceof Scene_Map;
+    _Window_Message_terminateMessage.apply(this, arguments);
+    $gameMessage._haiClosedOnMap = onMap;
+  };
+
   const _Game_Interpreter_updateWaitMode = Game_Interpreter.prototype.updateWaitMode;
   Game_Interpreter.prototype.updateWaitMode = function() {
     const info = this._haiThought;
     const message = this._waitMode === "message";
     const waiting = _Game_Interpreter_updateWaitMode.apply(this, arguments);
-    if (message && !waiting && info && info.type === "thought") info.seen = true;
+    if (message && !waiting && info && info.type === "thought" && $gameMessage._haiClosedOnMap !== false) info.seen = true;
     return waiting;
+  };
+
+  // 戦闘が始まるとき、始まる順を待っている思念（敵がぶつかったのと同じ時に調べた）は始めない。
+  // 戦闘のあとに思念が勝手に流れ、決定の押しっぱなしで送られて既読になるのを防ぐ（R3 困る 3）。調べ直せば読める
+  const _BattleManager_setup = BattleManager.setup;
+  BattleManager.setup = function() {
+    _BattleManager_setup.apply(this, arguments);
+    if (!$gameMap || !(SceneManager._scene instanceof Scene_Map)) return;
+    const mapId = $gameMap.mapId();
+    for (const event of $gameMap.events()) {
+      if (event.isStarting() && thoughtIdOf(event, mapId) !== null) {
+        event.clearStartingFlag();
+        event.unlock();
+      }
+    }
   };
 
   function finish(interpreter, info) {

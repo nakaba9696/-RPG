@@ -87,9 +87,9 @@
  *
  * @param completeMessage
  * @text 完全体になったときの文章
- * @desc %1 仲間の名前、%2 強技の名前。改行は \n。
+ * @desc %1 仲間の名前、%2 強技の名前。改行は \n。まだ呼んでいない（パーティにいない）仲間は、呼んで目を開けたときに出す。
  * @type string
- * @default \C[6]%1の記憶がすべて戻った。%1は完全体になった！\C[0]\n強技「%2」を覚えた。
+ * @default \C[6]%1の記憶が、四つとも戻った。\C[0]\n%1は「%2」を思い出した。
  *
  * @param completeSe
  * @text 完全体になったときの効果音
@@ -201,7 +201,7 @@
   const memoryNote = params.memoryNote || "%1の記憶 %2/4「%3」";
   const memoryMessage = params.memoryMessage ?? "\\C[6]メモ：\\C[0]%1";
   const noteSe = params.noteSe ?? "Book1";
-  const completeMessage = params.completeMessage ?? "\\C[6]%1の記憶がすべて戻った。%1は完全体になった！\\C[0]\\n強技「%2」を覚えた。";
+  const completeMessage = params.completeMessage ?? "\\C[6]%1の記憶が、四つとも戻った。\\C[0]\\n%1は「%2」を思い出した。";
   const completeSe = params.completeSe ?? "Saint5";
   const summonPrompt = params.summonPrompt ?? "名の壁の足元の輪が、淡く光っている。誰を呼ぶ？";
   const summonNone = params.summonNone ?? "輪は暗いままだ。呼べる人の遺骸も形見も、まだ置いていない。";
@@ -227,6 +227,7 @@
     s.found = s.found || {};
     s.summoned = s.summoned || {};
     s.memories = s.memories || {};
+    s.told = s.told || {}; // 完全体の知らせを出した仲間
     return s;
   }
 
@@ -269,6 +270,7 @@
     if (!$dataActors[actorId]) return false;
     markFound(actorId);
     state().summoned[actorId] = true;
+    if (isComplete(actorId)) state().told[actorId] = true; // 目覚めの文のあとに知らせを出す（awakeCmds）
     setFlag(summonSwitchStart, actorId, true);
     syncVariables(actorId);
     $gameParty.addActor(actorId);
@@ -395,6 +397,14 @@
     return memoryNote.replace(/%1/g, actorName(actorId)).replace("%2", n).replace("%3", fragmentNames[n - 1] || "");
   }
 
+  /** 完全体の知らせ（効果音と文章）。 */
+  function completeCmds(actorId) {
+    if (!completeMessage) return [];
+    const skill = completeSkill(actorId);
+    const text = completeMessage.replace(/%1/g, actorName(actorId)).replace(/%2/g, skill ? skill.name : "");
+    return [...(completeSe ? [seCmd(completeSe)] : []), ...textCmds(splitLines(text))];
+  }
+
   /** 本文の後ろ（最後の code 0 の前）に足す命令。読み終えたときの処理は info に入れる。 */
   function extraFor(event) {
     const s = state();
@@ -414,12 +424,11 @@
         if (noteSe) extra.push(seCmd(noteSe));
         extra.push(...textCmds([memoryMessage.replace("%1", note)]));
       }
+      // 完全体の知らせは、連れている仲間のときだけ。まだ呼んでいない仲間は、呼んだときに出す（R3 気になる 5）
       const completes = memoryCount(memory.actorId) === FRAGMENTS - 1;
-      const skill = completeSkill(memory.actorId);
-      if (completes && completeMessage) {
-        if (completeSe) extra.push(seCmd(completeSe));
-        const text = completeMessage.replace(/%1/g, actorName(memory.actorId)).replace(/%2/g, skill ? skill.name : "");
-        extra.push(...textCmds(splitLines(text)));
+      if (completes && $gameParty._actors.includes(memory.actorId)) {
+        info.told = true;
+        extra.push(...completeCmds(memory.actorId));
       }
     }
     return info.remains || info.memory ? { info, extra } : null;
@@ -447,6 +456,7 @@
     if (info.remains) markFound(info.remains);
     if (info.memory) {
       const { actorId, n } = info.memory;
+      if (info.told) state().told[actorId] = true;
       if (learnMemory(actorId, n) && window.Hai.Thoughts) {
         Hai.Thoughts.addNote({
           id: `memory:${actorId},${n}`,
@@ -490,6 +500,8 @@
     if (wake && wake !== true) {
       out.push(...textCmds(splitLines(wake), [actor.faceName(), actor.faceIndex()], actor.name()));
     }
+    // 呼ぶ前に記憶が四つとも戻っていたら、ここで知らせる
+    if (isComplete(actorId) && !state().told[actorId]) out.push(...completeCmds(actorId));
     return out.map(c => ({ ...c, indent: c.indent + indent }));
   }
 
