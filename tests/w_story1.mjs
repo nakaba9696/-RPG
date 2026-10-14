@@ -2,7 +2,7 @@
 //   0. データ：旗の名前（115–118・314）、Enemies・Troops 336、ブルーノの <hai_down>、地域一の敵の <hai_enemy_bell:101>（030–032 と影は除く）、
 //      010 の新しいイベントが 42–52 にあること、消した文・足した文。
 //   1. 砦：食卓と伏せた椀（スイッチ 116 を起こす・伏せるで選び直せる）、崩れた壁の隙間（灯は無い）。
-//   2. マルゴ一度目（ヴォルフラムが砦へ来たあと、砦に入ると自動）：頼みごと「営倉の鐘を売る」の段 1。ヴォルフラム（炉の前）が先に盛る一椀（スイッチ 117）。
+//   2. マルゴ一度目（ヴォルフラムが砦へ来たあと、大広間に入ると始まる。外門の内では始まらない。W26 #294）：頼みごと「営倉の鐘を売る」の段 1。ヴォルフラム（炉の前）が先に盛る一椀（スイッチ 117）。
 //   3. 夜の戸（020 の木樵の小屋）：答える → スイッチ 314 → 声だけの影を倒す → 声の一行。言い残しは P14 の表（スイッチ 314 の行）。
 //   4. 営倉の鐘（036）：マルゴと取り引きする道（外す → 変数 165＝3 → 砦でマルゴが台に戻させる → 4。シャノは砦を出る）→
 //      ブルーノを連れて綱を引く（ブルーノの四行・スイッチ 310 は立たない・記録院の札があれば「同じ日だ」）。
@@ -184,7 +184,9 @@ await runTest(async () => {
     await go(KEEP, bowl.x + 1, bowl.y, 4);
     const up = await talk(["起こしておく"]);
     check(has(up, "同じ手だ。") && (await sw(SW.bowlUp)), "伏せた椀を起こす " + JSON.stringify(up));
-    await talk(["伏せておく"]);
+    // W26（#294。R3 気になる 4）：起こしてあるときは、起きている椀の文
+    const upright = await talk(["伏せる"]);
+    check(has(upright, "奥の席の椀は、起きている。") && !has(upright, "伏せた椀を起こす。"), "起こしてある椀の文 " + JSON.stringify(upright));
     check(!(await sw(SW.bowlUp)), "伏せた椀を伏せ直せない");
     await game.shot("table");
     const crack = ev("崩れた壁の隙間");
@@ -192,8 +194,11 @@ await runTest(async () => {
     check(has(await talk(), "灯は無い。"), "崩れた壁の隙間（鐘の前）");
 
     // ===== 2. マルゴ一度目・ヴォルフラムが先に盛る =====
+    // W26（#294。R3 困る 4）：マルゴは大広間に入ったときに始まる（外門の内 (25,3) では始まらない）
+    await go(KEEP, 25, 3, 2);
+    await setSw(SW.wolfram); // ヴォルフラムが砦へ来た → マルゴが大広間に入ってくる
+    check(!has(await autorun(), "マルゴ「鐘は？") && !(await sw(SW.margoOnce)), "マルゴ一度目が大広間の外（外門の内）で始まった");
     await go(KEEP, 25, 27, 8);
-    await setSw(SW.wolfram); // ヴォルフラムが砦へ来た → マルゴが自動で入ってくる
     const margo1 = await autorun();
     check(has(margo1, "マルゴ「鐘は？") && has(margo1, "鳴った鐘は、鉄に戻らない") && has(margo1, "シャノ「扉が開かないんだって。"), "マルゴ一度目 " + JSON.stringify(margo1));
     check((await sw(SW.margoOnce)) && (await vr(VAR.prisonBell)) === 1, "マルゴ一度目のあとの旗 115・変数 165");
@@ -292,6 +297,10 @@ await runTest(async () => {
     // ===== 5. 鐘のあとの砦：名乗り・マルゴ二度目・アデルの講義・梁の上のシャノ・アデルの席 =====
     await setSw(SW.adele);
     await setVar(VAR.bellIron, 1);
+    // W26（#294。R3 困る 4）：営倉の鉄扉を出た所 (25,37) では、マルゴ二度目もアデルの講義も始まらない
+    await go(KEEP, 25, 37, 2);
+    const corridor = await autorun();
+    check(!has(corridor, "マルゴ「鳴らしたね") && !has(corridor, "向かいの席の空気") && !(await sw(SW.margoTwice)), "マルゴ二度目・講義が大広間の外で始まった " + JSON.stringify(corridor));
     await go(KEEP, 25, 27, 8);
     const back = await autorun();
     check(!has(back, "僕は、ブルーノといいます"), "名乗りがくり返す " + JSON.stringify(back));
