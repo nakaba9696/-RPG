@@ -149,8 +149,8 @@
 ```bash
 npm ci --ignore-scripts --prefix tests && node tests/run.mjs   # 静的サーバー＋Playwright（ヘッドレス Chromium）でスモーク一式とデータの検査
 ```
-- CI は `node tests/run.mjs --shard i/12`（`tests/durations.json` の所要時間で 12 に均した i 番目）を 12 並列に走らせる。手元で CI の 1 シャードだけ再現するときも同じ引数で。配り分けは `node tests/run.mjs --plan 12` で見る（どのシャードも見込み 15 分以下に。準備は 1 分足らずで、ずれの大半は表が古いこと。ジョブの上限は 25 分）。
-- テストを足したり重くしたりしたら、CI のログの「OK（N 秒）」を `tests/durations.json` に写す（表に無いテストは 180 秒とみなす）。
+- CI は `node tests/run.mjs --shard i/12`（`tests/durations.json` の所要時間で 12 に均した i 番目）を 12 並列に走らせる。手元で CI の 1 シャードだけ再現するときも同じ引数で。配り分けは `node tests/run.mjs --plan 12` で見る（どのシャードも見込み 15 分以下、遅い機械（×2.3）に当たっても準備込みで 25 分の上限に収まるか。準備は 1 分足らず）。
+- テストを足したり重くしたりしたら、CI のログの「OK（N 秒）」を `tests/durations.json` に写す（表に無いテストは 180 秒とみなす）。表は CI の**速い機械**の秒。CI の機械はジョブごとに 1〜2.3 倍速さが違うので、ログの頭の「機械」の行の目安の計算が遅い（速い機械のおよそ倍）ジョブの秒は、半分にして写す（T14 #286）。
 - クラウドのセッションでは Chromium が `/opt/pw-browsers/chromium` にある（`PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers`）。`playwright install` は実行しない。
 - MZ は `file://` では動かない。テストは `tests/serve.mjs` の静的サーバーで `index.html?hai_test` を開く。
 - `pageerror` と console の error はゼロにする。
