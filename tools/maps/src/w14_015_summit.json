@@ -697,14 +697,14 @@
               "code": 401,
               "indent": 2,
               "parameters": [
-                "姿の薄い影。営倉で、記録院で、水底で、鋳物場で、"
+                "姿の薄い影。四つの鐘の間の外で、"
               ]
             },
             {
               "code": 401,
               "indent": 2,
               "parameters": [
-                "鐘のあとに東を向いて止まっていた者たち。"
+                "東を向いて止まっていた者たち。"
               ]
             },
             {
@@ -1201,7 +1201,7 @@
               "code": 401,
               "indent": 3,
               "parameters": [
-                "……いち、に、さん。すみません。待つのは、慣れてます"
+                "いち、に、さん。すみません。待つのは、慣れてます"
               ]
             },
             {
@@ -13432,8 +13432,16 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
+              "parameters": [
+                12,
+                "$gameSwitches.value(139) || $gameSwitches.value(140) || $gameSwitches.value(143) || $gameSwitches.value(144)"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
               "parameters": [
                 "",
                 0,
@@ -13444,17 +13452,64 @@
             },
             {
               "code": 401,
-              "indent": 0,
+              "indent": 1,
               "parameters": [
-                "足場に、火打ち石と、二冊の写しと、空の鞘と、背負子。"
+                "足場に、置いていった物が並んでいる。"
               ]
             },
             {
               "code": 401,
+              "indent": 1,
+              "parameters": [
+                "一つずつ拾った。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "一つずつ拾った。背負子は、軽かった。"
+                0,
+                144,
+                0
               ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "背負子は、軽かった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
