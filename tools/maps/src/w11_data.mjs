@@ -230,8 +230,9 @@ put(enemies, ENEMY.thickShade, {
 }, emptyEnemy);
 // 門叩きが抱えた思いの塊（172。ボス）。倒し方の芯は使徒の力（思いの刃）と、呑まれたときの仲間の呼びかけ（Hai_Apostle）
 // 数値は W21（#259）で、仲間が初めの装備のままの Lv11 の四人（R2 の遊び方）が 15〜20 ターン・全滅しない所に下げた（HP 7200→4500、攻撃 58→55、魔力 54→52）
+// W22（#279）で仲間の初めの装備を職業に合わせた（素手でなくなった）ので、同じ四人（獣人の二回行動も使う）が 15〜20 ターンになるよう HP を 4500→9000 に上げた
 put(enemies, ENEMY.mass, {
-  name: "思いの塊", battlerName: "Plasma", battlerHue: 300, params: [4500, 200, 55, 38, 52, 40, 24, 30], exp: 900, gold: 500,
+  name: "思いの塊", battlerName: "Plasma", battlerHue: 300, params: [9000, 200, 55, 38, 52, 40, 24, 30], exp: 900, gold: 500,
   traits: [...base, T.element(ELEMENT.light, 1.5), T.element(ELEMENT.dark, 0.3), T.stateRate(STATE.confuse, 0), T.stateRate(STATE.sleep, 0), T.stateRate(1, 0)],
   actions: [act(SKILL.swallow, 5), act(SKILL.layeredVoices, 4), onTurn(SKILL.layeredVoices, 3, 3, 8), hpBelow(SKILL.swallow, 0.5, 7)],
   dropItems: noDrop,
