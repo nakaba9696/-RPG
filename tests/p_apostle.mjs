@@ -191,11 +191,9 @@ await runTest(async () => {
     };
     const toMap = async () => {
       await game.call("setSpeed", FAST);
-      await game.page.keyboard.down("Enter");
       try {
-        await game.waitFor(() => window.__game.scene() === "Scene_Map", null, 120_000);
+        await game.holdOkToMap();
       } finally {
-        await game.page.keyboard.up("Enter");
         await game.call("setSpeed", 1);
       }
       await game.waitScene("Scene_Map");

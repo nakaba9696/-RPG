@@ -5,10 +5,10 @@
 //   4. 鍛冶場：鉄切り鋏を打つ（スイッチ 313）。一点ものの装備を魂で鍛え直すと能力が上がる。
 //   5. 見張り台：訪れたマップの地図が隅まで埋まる。転送の行き先が増える（訪れたマップだけ）。
 //   6. 頼みごと：筋の表の 8 本。key だけで名前・頼んだ人・変数が入る（足場の木は変数 176）。
-//   7. コモンイベント 201：1 つ目・4 つ目と、7 つ目から先で名前が戻っていない間（スイッチ 110 OFF）だけ一言。
+//   7. コモンイベント 201：1 つ目・4 つ目（墓守の帳面があれば「全部、同じ手だ」、無ければ在りかを問う。W24）と、7 つ目から先で名前が戻っていない間（スイッチ 110 OFF）だけ一言。
 //   8. 声だけの影（<hai_enemy_shade>）：姿が薄く、近くにいても追わない。触れると戦闘。勝つと一行の声を残す。
 //   9. 古いセーブ（_hai.facilities が無い）：スイッチ 125〜127 から開いた部屋を写す。
-import { launchGame, check, runTest } from "./lib.mjs";
+import { launchGame, check, runTest, TO_MAP } from "./lib.mjs";
 
 const KEEP = 10;
 // 010 の扉（tools/maps/src/w6_data.mjs の P.doors。どれも北の壁。下から上を向いて触れる）と、部屋（着く所・使う物）
@@ -202,7 +202,10 @@ await runTest(async () => {
     // ---- 7. コモンイベント 201（記憶が戻ったときの一言）。010 の F01（イベント 13）から呼んだことにする
     await go(KEEP, 25, 26, 2);
     const lines = await game.eval(() => {
-      const run = (faint, nameBack, selfA = false) => {
+      const hadLedger = $gameParty.numItems($dataItems[326]);
+      const run = (faint, nameBack, selfA = false, ledger = true) => {
+        $gameParty.loseItem($dataItems[326], 99);
+        if (ledger) $gameParty.gainItem($dataItems[326], 1);
         $gameVariables.setValue(138, faint);
         $gameSwitches.setValue(110, nameBack);
         $gameSelfSwitches.setValue([10, 13, "A"], selfA);
@@ -219,6 +222,11 @@ await runTest(async () => {
       out.name7 = run(6, true);
       out.name11 = run(10, true);
       out.read1 = run(0, false, true);
+      // W24（#281）：四つ目は墓守の帳面（326）を持っているときだけ「全部、同じ手だ」。持っていなければ在りかを問う一行
+      out.noLedger4 = run(3, false, false, false);
+      out.noLedger1 = run(0, false, false, false);
+      $gameParty.loseItem($dataItems[326], 99);
+      $gameParty.gainItem($dataItems[326], hadLedger);
       $gameSelfSwitches.setValue([10, 13, "A"], false);
       $gameSwitches.setValue(110, false);
       $gameVariables.setValue(138, 0);
@@ -229,6 +237,7 @@ await runTest(async () => {
       check(want(n) ? lines[n].includes(want(n)) : lines[n] === "", `${n} つ目の一言 ${JSON.stringify(lines[n])}`);
     }
     check(lines.name7 === "" && lines.name11 === "" && lines.read1 === "", "名前が戻ったあと・見た思念で一言が出た " + JSON.stringify(lines));
+    check(lines.noLedger4 === "墓守の帳面。どこに置いた" && lines.noLedger1.includes("葬式を出した"), "帳面が無いときの四つ目の一言 " + JSON.stringify(lines));
 
     // ---- 8. 声だけの影：P1 の試験場の赤（固定・一度きり）を影にする
     // マップを読み直しても影のままにする（場所移動のたびに $dataMap は読み直される）
@@ -284,12 +293,8 @@ await runTest(async () => {
     await game.call("step", 6);
     await game.waitScene("Scene_Battle");
     await game.call("setSpeed", 4);
-    await game.page.keyboard.down("Enter");
-    try {
-      await game.waitFor(() => window.__game.scene() === "Scene_Map" && window.__msgs.includes("写しを渡した"), null, 120_000);
-    } finally {
-      await game.page.keyboard.up("Enter");
-    }
+    // 決定キーは戦闘からマップへ戻る所で離す（TST-31）。勝ったあとの声はマップで出るのを待つ
+    await game.holdKey("Enter", TO_MAP, null, 120_000, () => window.__game.scene() === "Scene_Map" && window.__msgs.includes("写しを渡した"));
     await game.call("setSpeed", 1);
     for (let i = 0; i < 10 && (await game.eval(() => $gameMap.isEventRunning() || $gameMessage.isBusy())); i++) {
       await game.frames(15);

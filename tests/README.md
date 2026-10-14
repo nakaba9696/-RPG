@@ -14,8 +14,12 @@ node tests/serve.mjs 8000          # 手元のブラウザで遊ぶ：http://127
 ```
 - クラウドのセッションでは Chromium が `/opt/pw-browsers` にある（`PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers`）。`playwright install` はしない。
 - CI では `node tests/node_modules/playwright/cli.js install --with-deps --only-shell chromium` で入れる（`npx` は使わない。headless shell だけ。`~/.cache/ms-playwright` は actions/cache で残す）。
-- シャードの配り分けは `tests/durations.json`（テスト名 → CI での秒数）で決まる。所要時間の大きい順に、いま最も軽いシャードへ配る（表が同じなら結果も同じ）。表に無いテストは 180 秒とみなす。
+- シャードの配り分けは `tests/durations.json`（テスト名 → CI の**速い機械**での秒数）で決まる。所要時間の大きい順に、いま最も軽いシャードへ配る（表が同じなら結果も同じ）。表に無いテストは 180 秒とみなす。
   テストを足したり重くしたりしたら、CI のログの「OK（N 秒）」を写して表を直す（CI のログの頭に配り分けと見込みが出る）。
+- **CI の機械の速さはジョブごとに 1.0〜2.3 倍ちがう**（T14：run 4 本 × 12 シャードの実測。同じジョブの中ではどのテストも同じ倍率で遅く、同じ中身のテストが回によって倍になる）。
+  ゲームの重さではない（`tests/loadtime.mjs` で 10/13 の版と今の版を同じ機械で比べ、起動・マップの読み込み・旗の束・描画の差は 5% 以内）。
+  そこで表は速い機械の秒（数回の CI の最小）にし、`--plan` は遅い機械（×2.3、`SLOW_FACTOR`）でもジョブの上限 25 分に収まるかを見る。
+  ログの頭の「機械：… 目安の計算 N ms」と、各テストの「起動 N 秒（タイトルまで）」が機械の速さの目安（遅い機械はおよそ倍）。遅い機械のジョブの秒は半分にして写す（そのまま写すと見込みが重くなるだけで、危なくはない）。
 - 見込みはテストの本体の秒数だけ。ジョブにはそのほかに準備（checkout・setup-node・npm ci・Chromium を入れる）が足されるが、実測で **30〜40 秒**（`--plan` は目安 1 分で「準備込み」を出す）。
   見込みと実際が大きくずれるのは、たいてい**表が古い**とき（T13：表のままだと 10/10 は見込み 13 分 19 秒、実際は 23 分 32 秒。w_region3b が表 280 秒・実際 617 秒など、倍ほど遅いテストが十数本あった）。
   テストに場面や確かめる所を足したら、その PR の CI のログで所要を見て表を直す。ジョブの上限は 25 分（`timeout-minutes`）なので、表が古くなる分とばらつきの余裕を残して、
@@ -72,10 +76,26 @@ await runTest(async () => {
 | `game.waitScene(name)` / `game.waitIdle()` / `game.waitFor(fn, arg)` / `game.waitPlayerStopped()` | 待つ |
 | `game.frames(n)` | ゲームのフレームを n 回待つ |
 | `game.press(key)` | キーを数フレーム押して離す（`"Enter"`、`"Escape"`、`"ArrowUp"` …） |
+| `game.holdOkToMap(timeout)` | 決定キーを押しっぱなしにして戦闘を進め、**マップへ戻る所（次の場面がマップになったフレーム）でゲームの中から離し**、マップの場面まで待つ。戻ったあとのマップの文は送られずに残る（次の talk で読む） |
+| `game.holdKey(key, release, arg, timeout, until)` | 一般の形：`release`（ページの中の関数）が真になったフレームで離し、`until`（既定は `release`）まで待つ。`TO_MAP` は「マップへ戻る途中か、もうマップ」 |
+| `WAIT_TIMEOUT`・`SLOW_PAGE_TIMEOUT` | 待ちの既定の上限（30 秒）と、わざと遅く出す演出の頁を 1 頁待つ上限（90 秒）。後者はその会話の頁の待ちにだけ渡す |
 | `game.shot(label)` | スクリーンショット |
 | `game.reload()` | ページを読み直してタイトルまで待つ（セーブは IndexedDB に残る） |
 | `game.assertNoErrors()` | 集めたエラーがゼロか |
 | `check(cond, message)` | 確かめる |
+
+### 押しっぱなしと待ち（T14）
+- 決定キーを `page.keyboard.down` で押しっぱなしにして `waitFor(マップ)` で待ち、そのあと `keyboard.up` する形は使わない。
+  待ちの見回り（50 ミリ秒ごと）と keyup が届くまでの間に、早送り（`setSpeed`）で数十フレーム進み、戻ったあとのマップの文や次のイベントを先に送り切る。
+  次の「イベントが始まるのを待つ」が 30 秒で切れる（#261。遅い CI の機械でだけ出る）。`game.holdOkToMap()` か `game.holdKey()` を使う。
+- わざと遅く出す演出の頁（数を一つずつ数える・間を置く）は、その会話の頁の待ちにだけ `SLOW_PAGE_TIMEOUT` を渡す（例 `w_story1` の `talk([], false, SLOW_PAGE_TIMEOUT)`）。全体の上限（`WAIT_TIMEOUT`）は上げない。
+  会話を読む `talk` は各テストに形の違う写しがある（18 本）ので、`lib.mjs` には移さず、上限の値だけを共通にしている。
+- `waitFor`・`waitScene`・`waitIdle`・`holdKey` の待ちが 10 秒を越えると「遅い待ち N 秒（上限 M 秒、<テスト>.mjs:<行>）」をログに出す（結果は変えない）。
+  上限に近い待ちは、落ちる前に CI のログで見つけて、どの頁が遅いかを測る（TST-34）。
+
+## 読み込み時間を測る（`tests/loadtime.mjs`、T14）
+`node tests/loadtime.mjs [回数]` で、起動（タイトルまで）・ニューゲーム・場所移動 8 回・旗の束 4 つ・マップで 120 フレームの時間を測り、中央値を出す（テストではない。`run.mjs` は拾わない）。
+ゲームが重くなったのか機械が遅いのかを分けるときは、古い版を `git worktree add <場所> <コミット>` で出し、このファイルを写して同じ機械で両方を走らせて比べる。
 
 ## テスト用の窓口 `window.__game`（`js/plugins/Hai_TestHooks.js`）
 URL に `?hai_test` があるときだけ作られる（ふつうに遊ぶときと PC 版では何もしない）。

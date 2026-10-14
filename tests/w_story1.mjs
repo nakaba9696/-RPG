@@ -9,12 +9,12 @@
 //   5. 鐘のあとの砦：輪のあとの名乗り・マルゴ二度目（鉄切り鋏の店・スイッチ 118）・アデルの講義、梁の上のシャノ、アデルの席で鐘鉄を渡す。
 //   6. 019 の夕べの数（胸壁の東の端を踏む）と東の眺めの灯、033 の房の列の端（「……東を向いている」）。
 // W19（#263。R2 の直し）：
-//   0. 拾い物の表記（019–037 は「薬草×2を手に入れた。」の形）、021・027 の見えない通路の手がかりの一行、028 F03 の四つ目の一言は墓守の帳面があるときだけ。
+//   0. 拾い物の表記（019–037 は「薬草×2を手に入れた。」の形）、021・027 の見えない通路の手がかりの一行、四つ目の一言「全部、同じ手だ」は墓守の帳面があるときだけ（W24 でコモン 201 の側へ）。
 //   3. 夜の戸の影は「崩れる → 声（話し手の名つき）」の順。 4. 036 の札掛け（鳴らす前は「札は一枚。」）、変数 165＝4 では「鐘を外す」が出ない。
 //   4b. 027 で灯なしに勝ったあと、ブルーノ「数えると、平気です。」（一度きり）。 6. 夕べの数は全部かな、房の列の端は通ってきた影の文。
 import fs from "node:fs";
 import path from "node:path";
-import { launchGame, check, runTest, ROOT } from "./lib.mjs";
+import { launchGame, check, runTest, ROOT, SLOW_PAGE_TIMEOUT } from "./lib.mjs";
 
 const KEEP = 10, RAMPART = 19, FOREST = 20, DEPTHS = 27, CELLS = 33, BELL_ROOM = 36;
 const SW = { hearth: 112, shano: 172, margoOnce: 115, bowlUp: 116, served: 117, margoTwice: 118, bruno: 138, wolfram: 306, adele: 307, bellPrison: 101, bellFirst: 310, nightDoor: 314 };
@@ -61,10 +61,13 @@ await runTest(async () => {
   const textOf = (id, name) => JSON.stringify(readJson(mapFile(id)).events.find(e => e && e.name === name));
   check(textOf(21, "宝箱（薬草）").includes("東の林の奥から、煎じた薬の匂いがする。"), "021 の東の白い林の手がかり");
   check(textOf(27, "宝箱（鉄くず）").includes("西の岩壁の奥から、風が来る。"), "027 の坑道の門の手がかり");
-  // W19：028 F03 のコモン 201（四つ目の一言）は、四つ目なら墓守の帳面（326）を持っているときだけ（R2 気になる 16）
+  // W24（#281。W19 の R2 気になる 16 の根本）：四つ目の一言「墓守の帳面。全部、同じ手だ」は、墓守の帳面（326）を持っているときだけ。
+  // 分けるのはコモン 201 の側。028 F03 は数を見ずに 201 を一度だけ呼ぶ（二重に分けない）
   const f03 = readJson(mapFile(28)).events.find(e => e && e.name === "薄い思念 F03 坑夫の頭").pages[0].list;
-  const at = f03.findIndex(c => c.code === 111 && c.parameters[0] === 1 && c.parameters[1] === 138 && c.parameters[3] === 3);
-  check(at >= 0 && f03[at + 1].code === 111 && f03[at + 1].parameters[1] === 326 && f03[at + 2].code === 117 && f03.filter(c => c.code === 117).length === 2, "028 F03 の四つ目の一言の条件");
+  check(f03.filter(c => c.code === 117).length === 1 && !f03.some(c => c.code === 111 && c.parameters[0] === 1 && c.parameters[1] === 138), "028 F03 はコモン 201 をそのまま一度呼ぶ");
+  const ce201 = readJson("CommonEvents.json")[201].list;
+  const fourth = ce201.findIndex(c => c.code === 111 && c.parameters[0] === 1 && c.parameters[1] === 138 && c.parameters[3] === 3);
+  check(fourth >= 0 && ce201[fourth + 1].code === 111 && ce201[fourth + 1].parameters[0] === 8 && ce201[fourth + 1].parameters[1] === 326, "コモン 201 の四つ目は墓守の帳面で分ける");
 
   const game = await launchGame();
   try {
@@ -316,7 +319,7 @@ await runTest(async () => {
     await go(RAMPART, 41, 8, 6);
     await game.call("step", 6);
     // 夕べの数の頁は \. の待ちが 24 あり、一頁を出し切るのに手元で 17 秒かかる。遅い CI の機械では 1 頁の待ち（既定 30 秒）を越えるので、この会話だけ 1 頁 90 秒まで待つ
-    const count = await talk([], false, 90_000);
+    const count = await talk([], false, SLOW_PAGE_TIMEOUT);
     check(has(count, "ブルーノ「いち、に、さん") && has(count, "さんじゅうい——") && has(count, "三十で終わりです") && has(count, "ブルーノ「灯です。塔の下に、二つ"), "夕べの数 " + JSON.stringify(count));
     // W19（R2 気になる 28）：数は全部かな
     const counting = count.filter(p => p.startsWith("ブルーノ「") && p.includes("、"));

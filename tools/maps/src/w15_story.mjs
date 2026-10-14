@@ -316,15 +316,8 @@ const gate = load("w7_028_mine_gate");
   const call = list.findIndex(c => c.code === 117 || (c.code === 111 && c.parameters[0] === 1 && c.parameters[1] === VAR.faint));
   f03.pages[0].list = [
     ...list.slice(0, call),
-    // W19（#263。R2 気になる 16）：四つ目の一言「墓守の帳面。全部、同じ手だ」（コモン 201）は、墓守の帳面（022）を持っているときだけ。
-    // 四つ目でなければ今のまま呼ぶ（一言の中身はコモン 201 が数で分ける）
-    ifVar(VAR.faint, 3),
-    ifItem(ITEM.graveLedger, 1),
-    cmd(117, [201], 2),
-    ...ENDIF(1),
-    ...ELSE(),
-    cmd(117, [201], 1),
-    ...ENDIF(),
+    // 一言はコモン 201 がいつも出す。四つ目の「墓守の帳面。全部、同じ手だ」を帳面（022）のあるときだけにするのも 201 の側（W24 #281。W19 #263 の分岐は 201 へ移した）
+    cmd(117, [201]),
     ifBruno(),
     ifItem(ITEM.graveLedger, 1),
     ...say(["あなたの、帳面ですか"], "ブルーノ", 2),
