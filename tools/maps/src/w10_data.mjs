@@ -480,6 +480,7 @@ const chestEvent = (name, [x, y], gainList, gotText, red = false) => ({
   ],
 });
 // 入手の文は「薬草×2を手に入れた。」の形（W20 #264。R2 気になる 26。ROADMAP の決め）
+// \I[n] のアイコンは Items のアイコン番号に揃える（W25 #293。R3 気になる 9：薬草 176・毒消し 177・秘薬 179・苦い根 189・灰の苔 190）
 const chestItem = (name, xy, id, n, icon) => chestEvent(name, xy, [gainItem(id, n)], `\\I[${icon}]${name}${n > 1 ? `×${n}` : ""}を手に入れた。`);
 const chestGold = (xy, n) => chestEvent("鉄くず", xy, [gainGold(n)], `鉄くずを ${n} 手に入れた。`);
 const chestArmor = (name, xy, id, icon, red = false) => chestEvent(name, xy, [gainArmor(id)], `\\I[${icon}]${name}を手に入れた。`, red);
@@ -610,13 +611,13 @@ const ridgeEvents = [
   text("上段の岩の割れ目", [6, 11], ["岩の割れ目に、骨が一本挟まっている。", "ここまで上った誰かは、下りなかった。"]),
   hook,
   chestItem("薬草", [5, 20], ITEM.herb, 2, 176),
-  chestItem("秘薬", [24, 53], ITEM.elixir, 1, 176),
+  chestItem("秘薬", [24, 53], ITEM.elixir, 1, 179),
   chestGold([76, 40], 180),
-  chestItem("毒消し", [61, 3], ITEM.antidote, 2, 176),
+  chestItem("毒消し", [61, 3], ITEM.antidote, 2, 177),
   pickItem("砦の名札", [6, 40], ITEM.nameTag, 1, 197, ["骸の首に、木の名札が引っかかっている。", "表の名は、黒鉄の砦の兵のものだ。"]),
   pickGold([26, 31], 40),
-  pickItem("苦い根", [70, 55], ITEM.bitterRoot, 1, 176),
-  pickItem("灰の苔", [44, 12], ITEM.mossAsh, 1, 176),
+  pickItem("苦い根", [70, 55], ITEM.bitterRoot, 1, 189),
+  pickItem("灰の苔", [44, 12], ITEM.mossAsh, 1, 190),
   foe(TROOP.goats, "green", [30, 16]),
   foe(TROOP.goats, "green", [64, 27]),
   foe(TROOP.wolf, "green", [52, 30]),
@@ -909,14 +910,14 @@ const beaconEvents = [
   ]),
   text("吊り橋", [17, 14], ["板の吊り橋。綱は新しく、板は古い。", "誰かが綱だけを張り替えている。"]),
   rockBearer,
-  chestItem("秘薬", [36, 23], ITEM.elixir, 2, 176),
+  chestItem("秘薬", [36, 23], ITEM.elixir, 2, 179),
   thought("R4-08", "岩背負いを見ていた子", [40, 16], [
     "あの岩のやつ、背中の割れ目に霜がおりると、まるまってうごかないんだよ。",
     "だから、さむい朝に橋をわたるんだって。",
     "きょうは、あったかい。",
   ], "<hai_clue:岩背負いは、背の岩の割れ目に霜がおりると動かない（吊り橋の東のたもと）>"),
   pickGold([46, 5], 60),
-  pickItem("苦い根", [3, 24], ITEM.bitterRoot, 1, 176),
+  pickItem("苦い根", [3, 24], ITEM.bitterRoot, 1, 189),
   foe(TROOP.wolf, "green", [10, 20]),
   foe(TROOP.goats, "green", [42, 8]),
   foe(TROOP.nameless, "yellow", [38, 11], { dir: "right", n: 5 }),
@@ -1168,9 +1169,9 @@ const dockEvents = [
     "坑道から、樋で鐘鉄を落とした。頭が「売るな」と刻印を打った鉄だ。",
     "教会納めの印は、鋳物場で打つんだと。樋の下で、誰かが打っていた。",
   ]),
-  chestItem("毒消し", [34, 24], ITEM.antidote, 2, 176),
+  chestItem("毒消し", [34, 24], ITEM.antidote, 2, 177),
   chestGold([25, 7], 150),
-  chestItem("ハイポーション", [13, 28], 8, 2, 176),
+  chestItem("濃い煎じ薬", [13, 28], 8, 2, 176),
   pickGold([16, 21], 40),
   foe(TROOP.sootRats, "green", [14, 15]),
   foe(TROOP.sootRats, "green", [30, 20]),
@@ -1424,9 +1425,9 @@ const hallEvents = [
   chestEvent("番号の腕輪", [54, 27], [gainArmor(ARMOR.numberBand)], "\\I[146]番号の腕輪を手に入れた。", true),
   chestArmor("型師の前掛け", [30, 36], ARMOR.moldApron, 136),
   pickItem("砦の名札", [49, 2], ITEM.nameTag, 1, 197, ["門の前の窪みに、木の名札が一つ。紐は、子どもの手で結び直してある。"]),
-  chestItem("秘薬", [12, 3 + 5], ITEM.elixir, 1, 176),
+  chestItem("秘薬", [12, 3 + 5], ITEM.elixir, 1, 179),
   chestGold([39, 39], 200),
-  pickItem("灰の苔", [5, 39], ITEM.mossAsh, 1, 176),
+  pickItem("灰の苔", [5, 39], ITEM.mossAsh, 1, 190),
   thought("R4-13", "檻の子", [45, 6], [
     "姉ちゃんが、おりの戸を曲げた。手でだよ。ぼくのおりの戸も、曲げてくれた。",
     "まだ出るなって。先に道を見てくるって。",

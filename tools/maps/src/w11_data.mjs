@@ -356,7 +356,7 @@ const chest = (label, [x, y], gainList, gotText, red = false) => ({
     { conditions: { selfSwitchCh: "A", selfSwitchValid: true }, image: red ? IMG.redChestOpen : IMG.chestOpen, priorityType: 1, walkAnime: false },
   ],
 });
-const chestItem = (xy, id, n = 1, red = false) => chest(ITEM_NAME[id][0], xy, [gainItem(id, n)], `\\I[${ITEM_NAME[id][1]}]${ITEM_NAME[id][0]}${n > 1 ? `×${n}` : ""}を手に入れた！`, red);
+const chestItem = (xy, id, n = 1, red = false) => chest(ITEM_NAME[id][0], xy, [gainItem(id, n)], `\\I[${ITEM_NAME[id][1]}]${ITEM_NAME[id][0]}${n > 1 ? `×${n}` : ""}を手に入れた。`, red);
 const chestGold = (xy, n) => chest("鉄くず", xy, [gainGold(n)], `鉄くずを ${n} 手に入れた。`);
 const ward = (name, [x, y]) => ({
   name: `結界（${name}）`, type: "raw", x, y, note: `<hai_warp:${name}>`,
@@ -745,7 +745,7 @@ function events172() {
           list: [
             ...say(["彫り刀を拾った。柄の革が、自分のではない指の形にへこんでいる。"]),
             se("Item3"), gainWeapon(WEAPON.carvingKnife),
-            ...say(["\\I[96]刃の欠けた彫り刀を手に入れた！"]),
+            ...say(["\\I[96]刃の欠けた彫り刀を手に入れた。"]),
             selfOn("B"),
             END,
           ] },
