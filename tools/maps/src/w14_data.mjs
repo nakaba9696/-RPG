@@ -205,9 +205,10 @@ put(enemies, ENEMY.mason, {
   traits: [...base, T.element(ELEMENT.light, 1.5)],
   actions: [act(1), act(SKILL.masonBlow, 4)], dropItems: drop(1, P_ITEM.herb, 4),
 }, emptyEnemy);
-// HP・攻撃は W23（#280）で測って決めた：段を外すが隊に当たるようになった分、9000・120 から下げた（R2 の「Lv12 で 25 ターン前後、一人倒れて勝つ」に合わせる）
+// HP・攻撃は W23（#280）で測って決めた：段を外すが隊に当たるようになり、W22 で仲間が職業に合う装備で加わる形に合わせた
+// （Lv12・加入時の装備・攻撃だけで 16〜23 ターン、宿帳なしでも全滅しない。R2 の「ぎりぎりで良い山」）
 put(enemies, ENEMY.scaffold, {
-  name: "足場の番", battlerName: "Stoneknight", battlerHue: 0, params: [7000, 110, 70, 48, 40, 44, 26, 30], exp: 1200, gold: 600,
+  name: "足場の番", battlerName: "Stoneknight", battlerHue: 0, params: [9000, 110, 70, 48, 40, 44, 26, 30], exp: 1200, gold: 600,
   traits: [...base, T.element(ELEMENT.light, 1.5), T.stateRate(1, 0), T.stateRate(STATE.oneNight, 1)],
   actions: [act(SKILL.chisel, 5), act(SKILL.unstep, 3), onTurn(SKILL.unstep, 3, 3, 8), hpBelow(SKILL.chisel, 0.5, 7)],
   dropItems: noDrop,
