@@ -38,6 +38,19 @@ await runTest(async () => {
     check(ev(name).pages.every(p => p.trigger !== 3), `${name} が自動実行のまま（大広間の外でも出る）`);
   }
   check(ev("W18 大広間の見張り（並列。食卓の場面を始める）").pages[0].trigger === 4, "大広間の見張りが並列でない");
+  // W26（#294。R3 困る 4）：マルゴ（一度目・取り引き・二度目）とアデルの講義も、大広間の見張りが始める。順はマルゴ→講義
+  for (const name of ["マルゴ", "アデルの講義"]) check(ev(name).pages.every(p => p.trigger !== 3), `${name} が自動実行のまま（大広間の外でも出る）`);
+  const watchScript = ev("W18 大広間の見張り（並列。食卓の場面を始める）").pages[0].list.filter(c => c.code === 355 || c.code === 655).map(c => c.parameters[0]).join("\n");
+  const order = (watchScript.match(/\[([\d, ]+)\]\.map/) || [])[1];
+  check(order && order.replace(/ /g, "").startsWith(`${keep.events.findIndex(e => e && e.name === "マルゴ")},${keep.events.findIndex(e => e && e.name === "アデルの講義")},`), "大広間の見張りの並び " + order);
+  // W26（R3 気になる 3・4・12）：墓守の「鳴った」に名前の欄、起きている椀の文、結末のグィドの一言を 052 と同じにしない
+  const mir = ev("W14 ミルレーネが砦に来る（三つ目の鐘の夜。自動）").pages.flatMap(p => p.list);
+  const rang = mir.findIndex(c => c.code === 401 && c.parameters[0].includes("鳴った") && !c.parameters[0].includes("三つ"));
+  check(rang > 0 && mir[rang - 1].code === 101 && mir[rang - 1].parameters[4] === "\\N[1]", "ミルレーネが砦に来る：墓守の「鳴った」の名前の欄");
+  check(textOf(ev("伏せた椀")).includes("奥の席の椀は、起きている。"), "起こしてある椀の文が無い");
+  check(ev("伏せた椀").pages[1].list.filter(c => c.code === 401).every(c => !c.parameters[0].includes("伏せた椀を起こす")), "起こしてある椀のページに「伏せた椀を起こす」が残っている");
+  check(textOf(ev("ヴォルフラム（炉の前）")).includes("起きとるなら、起きたままにしとく"), "ヴォルフラムの起きている椀の一言が無い");
+  check(!textOf(ev("W14 結末の夜と朝（自動）")).includes("じいさんが言うなと"), "結末のグィドが 052 と同じ一言");
   // 職業名（持-6。番号は変えない）
   const classes = JSON.parse(fs.readFileSync(path.join(ROOT, "data", "Classes.json"), "utf8"));
   for (const [id, name] of [[1, "使徒狩り"], [2, "写字生"], [3, "司祭"], [4, "鐘の騎士"], [5, "獣人"], [7, "酒保"], [10, "墓守"]]) {
