@@ -30,7 +30,40 @@ export const CHROMIUM_ARGS = [
 
 // 遅い CI の runner でも落ちないように、待ちは長めに取る。
 const BOOT_TIMEOUT = 60_000;
-const WAIT_TIMEOUT = 30_000;
+/** 待ちの既定の上限（waitFor・waitScene など）。全体では上げない。 */
+export const WAIT_TIMEOUT = 30_000;
+/**
+ * わざと遅く出す演出の頁（数を一つずつ数える・間を置く）を 1 頁待つ上限（TST-34、#278）。
+ * その会話の頁の待ちにだけ渡す（例 waitFor(fn, null, SLOW_PAGE_TIMEOUT)、w_story1 の talk の第 3 引数）。全体の上限は上げない。
+ */
+export const SLOW_PAGE_TIMEOUT = 90_000;
+// 待ちがこの秒を越えたら、かかった秒と呼んだ所をログに出す（上限に近い待ちを CI のログで見つけるため。結果は変えない）
+const SLOW_WAIT_LOG_MS = 10_000;
+
+/** 呼んだ所（tests/<名前>.mjs:行）。lib.mjs の中の行は飛ばす。 */
+function caller() {
+  const lines = (new Error().stack || "").split("\n").slice(1);
+  const hit = lines.find(l => /\.mjs:\d+/.test(l) && !l.includes("/lib.mjs:"));
+  const m = hit && /([^/\\(\s]+\.mjs:\d+)/.exec(hit);
+  return m ? m[1] : "?";
+}
+
+/** page.waitForFunction を呼び、遅かった待ちをログに出す。 */
+async function timedWait(page, fn, arg, timeout, where) {
+  const t0 = Date.now();
+  await page.waitForFunction(fn, arg, { timeout, polling: 50 });
+  const ms = Date.now() - t0;
+  if (ms >= SLOW_WAIT_LOG_MS) console.log(`  遅い待ち ${(ms / 1000).toFixed(1)} 秒（上限 ${timeout / 1000} 秒、${where}）`);
+}
+
+/**
+ * キーを押したまま、cond（ページの中の関数）が真になったフレームで、ゲームの中から離す（TST-31、#261）。
+ * ゲームのフレームごとに Input を読む前に cond を見るので、早送り（setSpeed）中でも、真になったあとのフレームに押したままが残らない。
+ * Playwright の keyup を待ってから離すと、その間（早送りで数十フレーム）にマップの文を先に送ってしまう。
+ */
+const KEY_CODES = { Enter: 13, Escape: 27, Space: 32, " ": 32, Shift: 16, ArrowLeft: 37, ArrowUp: 38, ArrowRight: 39, ArrowDown: 40 };
+/** ページの中の条件：戦闘などからマップへ戻る途中（次の場面がマップ）か、もうマップ。 */
+export const TO_MAP = () => SceneManager._scene instanceof Scene_Map || SceneManager._nextScene instanceof Scene_Map;
 
 /** 失敗したら例外を投げる。 */
 export function check(cond, message) {
@@ -94,24 +127,64 @@ export async function launchGame(opts = {}) {
 
     /** 今のシーンが name になり、切り替え・フェードが終わるまで待つ。 */
     async waitScene(sceneName, timeout = WAIT_TIMEOUT) {
-      await page.waitForFunction(
-        n => window.__game && window.__game.scene() === n && !window.__game.isBusy(),
-        sceneName,
-        { timeout, polling: 50 },
-      );
+      await timedWait(page, n => window.__game && window.__game.scene() === n && !window.__game.isBusy(), sceneName, timeout, caller());
     },
 
     /** 条件（ページの中の関数）が真になるまで待つ。 */
     async waitFor(fn, arg, timeout = WAIT_TIMEOUT) {
-      await page.waitForFunction(fn, arg, { timeout, polling: 50 });
+      await timedWait(page, fn, arg, timeout, caller());
+    },
+
+    /**
+     * key を押したままにし、release（ページの中の関数。arg を渡す）が真になったフレームでゲームの中から離す。
+     * そのあと until（既定は release）が真になるまで待ってから、Playwright のキーも離す。
+     * 例：戦闘を決定キーの押しっぱなしで進め、マップへ戻る所で離す → game.holdKey("Enter", TO_MAP)。
+     * 戻ったあとのマップの文は、押しっぱなしで送られずに残る（次の talk で読む）。
+     */
+    async holdKey(key, release, arg = null, timeout = 120_000, until = release) {
+      const code = KEY_CODES[key];
+      if (!code) throw new Error(`holdKey: キー ${key} の番号が分からない（lib.mjs の KEY_CODES に足す）`);
+      const where = caller();
+      const already = await page.evaluate(([src, a, c]) => {
+        const h = (window.__haiHold = window.__haiHold || { list: [] });
+        if (!h.hooked) {
+          // フレームごとに、Input を読む前に条件を見て、真なら押したままの状態を消す（keyup が来るまで押されない）
+          const _updateInputData = SceneManager.updateInputData;
+          SceneManager.updateInputData = function() {
+            for (const e of h.list) {
+              if (!e.released && e.cond(e.arg)) {
+                e.released = true;
+                const name = Input.keyMapper[e.code];
+                if (name) Input._currentState[name] = false;
+              }
+            }
+            h.list = h.list.filter(e => !e.released);
+            _updateInputData.apply(this, arguments);
+          };
+          h.hooked = true;
+        }
+        const cond = new Function("return (" + src + ")")();
+        if (cond(a)) return true; // もう真なら押さない
+        h.list.push({ cond, arg: a, code: c, released: false });
+        return false;
+      }, [release.toString(), arg, code]);
+      if (!already) await page.keyboard.down(key);
+      try {
+        await timedWait(page, until, arg, timeout, where);
+      } finally {
+        if (!already) await page.keyboard.up(key);
+        await page.evaluate(() => { if (window.__haiHold) window.__haiHold.list = []; }).catch(() => {});
+      }
+    },
+
+    /** 決定キーを押しっぱなしにして戦闘を進め、マップへ戻る所で離し、マップの場面になるまで待つ（holdKey の短縮）。 */
+    async holdOkToMap(timeout = 120_000) {
+      await game.holdKey("Enter", TO_MAP, null, timeout, () => window.__game.scene() === "Scene_Map");
     },
 
     /** シーンの切り替え・移動が落ち着くまで待つ。 */
     async waitIdle(timeout = WAIT_TIMEOUT) {
-      await page.waitForFunction(() => window.__game && !window.__game.isBusy(), null, {
-        timeout,
-        polling: 50,
-      });
+      await timedWait(page, () => window.__game && !window.__game.isBusy(), null, timeout, caller());
     },
 
     /** プレイヤーの移動（歩いている途中）が終わるまで待つ。 */
@@ -199,8 +272,11 @@ export async function launchGame(opts = {}) {
   }
 
   try {
+    const t0 = Date.now();
     await page.goto(url);
     await waitBoot();
+    // 機械の速さの目安（中身の変わらない同じ処理なので、CI のジョブごとの当たり外れが分かる。T14）
+    console.log(`  起動 ${((Date.now() - t0) / 1000).toFixed(1)} 秒（タイトルまで）`);
   } catch (e) {
     await game.close();
     throw e;

@@ -14,7 +14,7 @@
 //   4b. 027 で灯なしに勝ったあと、ブルーノ「数えると、平気です。」（一度きり）。 6. 夕べの数は全部かな、房の列の端は通ってきた影の文。
 import fs from "node:fs";
 import path from "node:path";
-import { launchGame, check, runTest, ROOT } from "./lib.mjs";
+import { launchGame, check, runTest, ROOT, SLOW_PAGE_TIMEOUT } from "./lib.mjs";
 
 const KEEP = 10, RAMPART = 19, FOREST = 20, DEPTHS = 27, CELLS = 33, BELL_ROOM = 36;
 const SW = { hearth: 112, shano: 172, margoOnce: 115, bowlUp: 116, served: 117, margoTwice: 118, bruno: 138, wolfram: 306, adele: 307, bellPrison: 101, bellFirst: 310, nightDoor: 314 };
@@ -316,7 +316,7 @@ await runTest(async () => {
     await go(RAMPART, 41, 8, 6);
     await game.call("step", 6);
     // 夕べの数の頁は \. の待ちが 24 あり、一頁を出し切るのに手元で 17 秒かかる。遅い CI の機械では 1 頁の待ち（既定 30 秒）を越えるので、この会話だけ 1 頁 90 秒まで待つ
-    const count = await talk([], false, 90_000);
+    const count = await talk([], false, SLOW_PAGE_TIMEOUT);
     check(has(count, "ブルーノ「いち、に、さん") && has(count, "さんじゅうい——") && has(count, "三十で終わりです") && has(count, "ブルーノ「灯です。塔の下に、二つ"), "夕べの数 " + JSON.stringify(count));
     // W19（R2 気になる 28）：数は全部かな
     const counting = count.filter(p => p.startsWith("ブルーノ「") && p.includes("、"));

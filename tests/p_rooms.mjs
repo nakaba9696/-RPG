@@ -8,7 +8,7 @@
 //   7. コモンイベント 201：1 つ目・4 つ目と、7 つ目から先で名前が戻っていない間（スイッチ 110 OFF）だけ一言。
 //   8. 声だけの影（<hai_enemy_shade>）：姿が薄く、近くにいても追わない。触れると戦闘。勝つと一行の声を残す。
 //   9. 古いセーブ（_hai.facilities が無い）：スイッチ 125〜127 から開いた部屋を写す。
-import { launchGame, check, runTest } from "./lib.mjs";
+import { launchGame, check, runTest, TO_MAP } from "./lib.mjs";
 
 const KEEP = 10;
 // 010 の扉（tools/maps/src/w6_data.mjs の P.doors。どれも北の壁。下から上を向いて触れる）と、部屋（着く所・使う物）
@@ -284,12 +284,8 @@ await runTest(async () => {
     await game.call("step", 6);
     await game.waitScene("Scene_Battle");
     await game.call("setSpeed", 4);
-    await game.page.keyboard.down("Enter");
-    try {
-      await game.waitFor(() => window.__game.scene() === "Scene_Map" && window.__msgs.includes("写しを渡した"), null, 120_000);
-    } finally {
-      await game.page.keyboard.up("Enter");
-    }
+    // 決定キーは戦闘からマップへ戻る所で離す（TST-31）。勝ったあとの声はマップで出るのを待つ
+    await game.holdKey("Enter", TO_MAP, null, 120_000, () => window.__game.scene() === "Scene_Map" && window.__msgs.includes("写しを渡した"));
     await game.call("setSpeed", 1);
     for (let i = 0; i < 10 && (await game.eval(() => $gameMap.isEventRunning() || $gameMessage.isBusy())); i++) {
       await game.frames(15);

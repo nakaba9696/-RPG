@@ -205,11 +205,9 @@ await runTest(async () => {
     await game.call("startBattle", 1, true, false);
     await game.waitScene("Scene_Battle");
     await game.call("setSpeed", 4);
-    await game.page.keyboard.down("Enter");
     try {
-      await game.waitFor(() => window.__game.scene() === "Scene_Map", null, 120_000);
+      await game.holdOkToMap();
     } finally {
-      await game.page.keyboard.up("Enter");
       await game.call("setSpeed", 1);
     }
     await waitMapIdle();

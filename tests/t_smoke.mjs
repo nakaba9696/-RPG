@@ -45,11 +45,9 @@ await runTest(async () => {
     // 決定キーを押したままにする（MZ は押し続けると一定の間隔で決定を繰り返す）。
     // ヘッドレスの描画は遅いので、戦闘の間は 1 回の描画で 4 フレーム進める。
     await game.call("setSpeed", 4);
-    await game.page.keyboard.down("Enter");
     try {
-      await game.waitFor(() => window.__game.scene() === "Scene_Map", null, 120_000);
+      await game.holdOkToMap();
     } finally {
-      await game.page.keyboard.up("Enter");
       await game.call("setSpeed", 1);
     }
     await game.waitScene("Scene_Map");

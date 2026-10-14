@@ -134,11 +134,9 @@ await runTest(async () => {
       await game.eval(() => $gameTroop.members().forEach(e => e.setHp(1)));
       for (let i = 0; i < 4 && (await game.eval(() => SceneManager._scene instanceof Scene_Battle && !$gameTroop.isAllDead())); i++) await attackTurn();
       await game.call("setSpeed", FAST);
-      await game.page.keyboard.down("Enter");
       try {
-        await game.waitFor(() => window.__game.scene() === "Scene_Map", null, 120_000);
+        await game.holdOkToMap();
       } finally {
-        await game.page.keyboard.up("Enter");
         await game.call("setSpeed", MAP_SPEED);
       }
       return talk([], false);
@@ -184,8 +182,7 @@ await runTest(async () => {
         SceneManager._scene.changeInputWindow();
       });
     }
-    await game.page.keyboard.down("Enter");
-    try { await game.waitFor(() => window.__game.scene() === "Scene_Map", null, 120_000); } finally { await game.page.keyboard.up("Enter"); }
+    await game.holdOkToMap();
     await game.call("setSpeed", MAP_SPEED);
     await game.waitFor(id => $gameSwitches.value(id) || window.__game.scene() !== "Scene_Map", SW.endured, 30_000).catch(() => {});
     const endSt = await game.eval(id => ({ sw: $gameSwitches.value(id), scene: window.__game.scene(), map: $gameMap.mapId(), turn: $gameTroop.turnCount(), running: $gameMap.isEventRunning(), msg: $gameMessage.allText() }), SW.endured);
