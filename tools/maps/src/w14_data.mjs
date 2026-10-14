@@ -77,6 +77,7 @@ const SW_F11_SEEN = 1173; // 宿坊:F11 を見た（ブルーノの一言を思�
 // P の帯（使うだけ）：拾い物（P9）
 const P_ITEM = { herb: 196, antidote: 197, elixir: 198, bitterRoot: 199 };
 const P_ITEM_NAME = { 196: ["薬草", 176], 197: ["毒消し", 177], 198: ["秘薬", 179], 199: ["苦い根", 189] };
+export const REVIVE_ITEM = 1156; // 供え酒（W25 #293。倒れた者を起こす品。帯の空き 1156–1160 の頭）
 const FORT = { mapId: 19, gate: [41, 7] }; // 019 城壁の上：頂への門 (41,6) の一つ下
 
 // ---------------------------------------------------------------------------
@@ -90,6 +91,11 @@ const LORE = {
   "石工の工具": {
     desc: ["鐘楼の根の巻き上げを直す。", "歯が一つ、新しい。"],
     lore: [],
+  },
+  // W25（#293。R3 困る 2）：倒れた者を起こす品。地域一の宝箱（024・026）に置く
+  "供え酒": {
+    desc: ["倒れた者を起こし、HP を 4 分の 1 戻す。", "素焼きの杯に、蝋で封をした一杯の酒。"],
+    lore: ["砦では、死んだ者の墓に一杯ずつ供えた。", "倒れた者の口に含ませると、むせて起きる。", "杯の底に、供えた相手の名を爪で刻む。", "この杯の底は、一字目の途中で止まっている。"],
   },
 };
 for (const [name, { desc, lore }] of Object.entries(LORE)) {
@@ -126,6 +132,12 @@ const items = readData("Items.json");
 clearBand(items, emptyItem);
 put(items, ITEM.ledger, keyItem(...KEY_ITEM[ITEM.ledger]), emptyItem);
 put(items, ITEM.masonTools, keyItem(...KEY_ITEM[ITEM.masonTools]), emptyItem);
+// 供え酒（W25 #293）：戦闘不能を治し、最大 HP の 1/4 を戻す。欄は MZ の既定の 11 スティミュラントから写した。強い物なので 3 つまで（Hai_Items）
+put(items, REVIVE_ITEM, {
+  name: "供え酒", description: descOf("供え酒"), note: ["<hai_max:3>", loreOf("供え酒")].join("\n"), iconIndex: 226, animationId: 49,
+  damage: { critical: false, elementId: 0, formula: "b.mhp / 4", type: 3, variance: 20 },
+  effects: [{ code: 22, dataId: 1, value1: 1, value2: 0 }], occasion: 0, price: 500, scope: 9,
+}, emptyItem);
 writeTable("Items.json", items);
 
 // Skills（敵の技）
