@@ -168,7 +168,7 @@ await runTest(async () => {
     await game.call("transfer", KEEP, 25, 3, 2);
     const night = (await talk([], false)).join("\n");
     check(night.includes("ヴォルフラム：この椀は、触らん") && night.includes("飯が盛られた。湯気が立った。") && (await sw(SW.bowl)), "伏せた椀に飯が盛られる（1151） " + JSON.stringify(night).slice(0, 300));
-    check(night.includes("ミルレーネ：灯は、湖の子に頼んだの。七十三冊目の帳面も") && night.includes("「鳴った」") && (await sw(SW.mirlene)), "ミルレーネが砦に来る（1152） " + JSON.stringify(night).slice(0, 600));
+    check(night.includes("ミルレーネ：灯は、湖の子に頼んだの。七十三冊目の帳面も") && night.includes("\\N[1]：鳴った") && (await sw(SW.mirlene)), "ミルレーネが砦に来る（1152） " + JSON.stringify(night).slice(0, 600));
     check(night.includes("シャノ：湖の人、来たよ。灯、持ってない"), "シャノの一言（172）");
     check(night.includes("イスメネ：お返しします。まだ、です") && (await has(ITEM.twoCopies)) === 1 && (await sw(SW.ismene)), "出立：イスメネが写しを返す " + JSON.stringify(night).slice(-300));
     check(!(await game.eval(() => $gameMap.isEventRunning())), "砦の自動実行が終わらない");

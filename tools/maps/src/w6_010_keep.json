@@ -4398,7 +4398,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "伏せた椀を起こす。中は乾いている。"
+                "奥の席の椀は、起きている。中は乾いている。"
               ]
             },
             {
@@ -4420,11 +4420,11 @@
               "indent": 0,
               "parameters": [
                 [
-                  "伏せておく",
+                  "伏せる",
                   "起こしておく"
                 ],
                 -2,
-                0,
+                1,
                 2,
                 0
               ]
@@ -4434,7 +4434,7 @@
               "indent": 0,
               "parameters": [
                 0,
-                "伏せておく"
+                "伏せる"
               ]
             },
             {
@@ -4691,8 +4691,17 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
+              "parameters": [
+                0,
+                116,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
               "parameters": [
                 "",
                 0,
@@ -4703,17 +4712,62 @@
             },
             {
               "code": 401,
-              "indent": 0,
+              "indent": 1,
               "parameters": [
                 "奥のは触らんぞ。"
               ]
             },
             {
               "code": 401,
+              "indent": 1,
+              "parameters": [
+                "起きとるなら、起きたままにしとく"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
               "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "ヴォルフラム"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "奥のは触らんぞ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
               "parameters": [
                 "伏せた椀は、伏せた奴が起こす"
               ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 123,
@@ -4992,7 +5046,6 @@
             "pattern": 1
           },
           "priorityType": 1,
-          "trigger": 3,
           "list": [
             {
               "code": 101,
@@ -5337,7 +5390,6 @@
             "pattern": 1
           },
           "priorityType": 1,
-          "trigger": 3,
           "list": [
             {
               "code": 101,
@@ -5533,7 +5585,6 @@
             "pattern": 1
           },
           "priorityType": 1,
-          "trigger": 3,
           "list": [
             {
               "code": 101,
@@ -6221,7 +6272,6 @@
             "actorValid": true
           },
           "priorityType": 0,
-          "trigger": 3,
           "list": [
             {
               "code": 101,
@@ -8876,7 +8926,7 @@
               "code": 355,
               "indent": 0,
               "parameters": [
-                "// 大広間 (17..33,26..33) に入ったら、食卓の場面（59・60・61・66・67・68・69）のうち出せる最初のものを始める"
+                "// 大広間 (17..33,26..33) に入ったら、食卓の場面（47・51・59・60・61・66・67・68・69）のうち出せる最初のものを始める"
               ]
             },
             {
@@ -8897,7 +8947,7 @@
               "code": 655,
               "indent": 0,
               "parameters": [
-                "  const scene = [59, 60, 61, 66, 67, 68, 69].map(id => $gameMap.event(id)).find(e => e && e.page() && e.page().list.length > 1);"
+                "  const scene = [47, 51, 59, 60, 61, 66, 67, 68, 69].map(id => $gameMap.event(id)).find(e => e && e.page() && e.page().list.length > 1);"
               ]
             },
             {
@@ -9249,14 +9299,14 @@
                 0,
                 0,
                 2,
-                ""
+                "\\N[1]"
               ]
             },
             {
               "code": 401,
               "indent": 0,
               "parameters": [
-                "「鳴った」"
+                "鳴った"
               ]
             },
             {
@@ -9687,7 +9737,7 @@
               "code": 401,
               "indent": 2,
               "parameters": [
-                "ひとつ、戸の外。ふたつ、扉の前。三つ目は、じいさんが言うなと"
+                "ひとつ、戸の外。ふたつ、扉の前。三つ目は、今夜も言わん"
               ]
             },
             {

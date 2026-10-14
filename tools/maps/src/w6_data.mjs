@@ -701,11 +701,21 @@ const bowlList = [
   cmd(404, []),
   END,
 ];
+// 起こしてある（スイッチ 116）とき：起きている椀の文（W26 #294。R3 気になる 4）
+const bowlUpList = [
+  ...say(["奥の席の椀は、起きている。中は乾いている。", "椀の底に、小刀で彫った印。", "墓所の壁の字と、同じ手だ。"]),
+  cmd(102, [["伏せる", "起こしておく"], -2, 1, 2, 0]),
+  cmd(402, [0, "伏せる"]), cmd(121, [SW.bowlUp, SW.bowlUp, 1], 1), cmd(0, [], 1),
+  cmd(402, [1, "起こしておく"]), switchOn(SW.bowlUp, 1), cmd(0, [], 1),
+  cmd(403, []), cmd(0, [], 1),
+  cmd(404, []),
+  END,
+];
 const bowl = {
   name: "伏せた椀", type: "raw", x: P.bowl[0], y: P.bowl[1],
   pages: [
     { image: IMG.bowlDown, priorityType: 1, list: bowlList },
-    { conditions: { switch1Id: SW.bowlUp, switch1Valid: true }, image: IMG.bowlUp, priorityType: 1, list: bowlList },
+    { conditions: { switch1Id: SW.bowlUp, switch1Valid: true }, image: IMG.bowlUp, priorityType: 1, list: bowlUpList },
     // 1151 のページ（W14 の頼み。場面表 04 の 2.1：三つ目の鐘の夜から毎晩盛られる。スイッチ 1151 は W14 の帯で、読むだけ）
     { conditions: { switch1Id: 1151, switch1Valid: true }, image: IMG.bowlUp, priorityType: 1,
       list: [...say(["奥の席の椀に、飯が盛られている。", "椀の底の印は、飯の下で見えない。"]), END] },
@@ -727,7 +737,12 @@ const wolframFort = {
         ...say(["ヴォルフラムは椀を取り、鍋から一杯よそった。", "よそった椀を、食卓の空いた席に置いた。", "炉から数えて三つ目の、壁の側の席。"]),
         switchOn(SW.served),
         ...say(["先に盛る。誰のぶんかは知らん。", "家の決まりだ"], "ヴォルフラム"),
-        ...say(["奥のは触らんぞ。", "伏せた椀は、伏せた奴が起こす"], "ヴォルフラム"),
+        // 奥の椀を起こしてある（スイッチ 116）なら、伏せた椀とは言わない（W26 #294。R3 気になる 4）
+        ifOn(SW.bowlUp),
+        ...say(["奥のは触らんぞ。", "起きとるなら、起きたままにしとく"], "ヴォルフラム", 1),
+        cmd(0, [], 1), cmd(411, []),
+        ...say(["奥のは触らんぞ。", "伏せた椀は、伏せた奴が起こす"], "ヴォルフラム", 1),
+        ...ENDIF_BLOCK(),
         selfOn(),
         END,
       ],
@@ -808,14 +823,16 @@ const margoSecond = [
   switchOn(SW.margoTwice),
   END,
 ];
+// 場面のページは自動実行にせず、大広間の見張り（hallWatch）が、主人公が大広間に入ったときに始める（W26 #294。R3 困る 4）。
+// 前は自動実行で、外門の内 (25,3) や営倉の鉄扉 (25,37) を出た所で「戸口の席のシャノを見て」が出ていた。話しかけても始まる
 const margoPages = (image, lists) => [
   { priorityType: 0 },
-  { conditions: { switch1Id: SW.wolfram, switch1Valid: true }, image, priorityType: 1, ...(lists ? { trigger: 3, list: lists.first } : {}) },
+  { conditions: { switch1Id: SW.wolfram, switch1Valid: true }, image, priorityType: 1, ...(lists ? { list: lists.first } : {}) },
   { conditions: { switch1Id: SW.margoOnce, switch1Valid: true }, priorityType: 0 },
-  { conditions: { variableId: VAR.prisonBell, variableValid: true, variableValue: 3 }, image, priorityType: 1, ...(lists ? { trigger: 3, list: lists.trade } : {}) },
+  { conditions: { variableId: VAR.prisonBell, variableValid: true, variableValue: 3 }, image, priorityType: 1, ...(lists ? { list: lists.trade } : {}) },
   { conditions: { variableId: VAR.prisonBell, variableValid: true, variableValue: 4 }, priorityType: 0 },
   { conditions: { switch1Id: SW.bellPrison, switch1Valid: true }, priorityType: 0 },
-  { conditions: { switch1Id: SW.margoOnce, switch1Valid: true, switch2Id: SW.bellPrison, switch2Valid: true }, image, priorityType: 1, ...(lists ? { trigger: 3, list: lists.second } : {}) },
+  { conditions: { switch1Id: SW.margoOnce, switch1Valid: true, switch2Id: SW.bellPrison, switch2Valid: true }, image, priorityType: 1, ...(lists ? { list: lists.second } : {}) },
   { conditions: { switch1Id: SW.margoTwice, switch1Valid: true }, priorityType: 0 },
 ];
 const margo = { name: "マルゴ", type: "raw", x: P.margo[0], y: P.margo[1], pages: margoPages(IMG.margo, { first: margoFirst, trade: margoTrade, second: margoSecond }) };
@@ -851,13 +868,14 @@ const adeleSeat = {
   ],
 };
 
-// 十五 アデルの講義（アデルが砦にいて、営倉の鐘が鳴り、ブルーノがパーティにいるとき。砦に戻った最初に一度だけ）
+// 十五 アデルの講義（アデルが砦にいて、営倉の鐘が鳴り、ブルーノがパーティにいるとき。大広間に入った最初に一度だけ。
+//   自動実行にせず、大広間の見張りが始める。W26 #294。R3 困る 4）
 const adeleLecture = {
   name: "アデルの講義", type: "raw", x: 2, y: 39,
   pages: [
     { priorityType: 0 },
     {
-      conditions: { switch1Id: SW.adele, switch1Valid: true, switch2Id: SW.bellPrison, switch2Valid: true, actorId: BRUNO, actorValid: true }, priorityType: 0, trigger: 3,
+      conditions: { switch1Id: SW.adele, switch1Valid: true, switch2Id: SW.bellPrison, switch2Valid: true, actorId: BRUNO, actorValid: true }, priorityType: 0,
       list: [
         ...say(["アデルが、向かいの席の空気に向かって言った。"]),
         ...say(["いい？　鐘はね、巻くの。", "鳴らなくなっても、巻くの"], "アデル"),
@@ -929,8 +947,9 @@ const eveningCount = {
 // W18（#258。R2 困る 6）：大広間の見張り（並列）。主人公が大広間 (17..33,26..33) にいて、ほかのイベントが動いていないとき、
 // 食卓・梁の場面（ノラとディルの夜 59・60、W17 の 61・66–69）のうち出せる最初のものを始める。
 // 前は自動実行で、名の壁の輪で仲間を呼んだ直後に中庭や名の壁の前で出ていた。名の壁では名乗り（45・56・57・63・64）だけが出る
+// W26（#294。R3 困る 4）：マルゴ（47。一度目・取り引き・二度目）とアデルの講義（51）も、この並びの先頭に入れた。順はマルゴ→講義
 const HALL = { x: [17, 33], y: [26, 33] };
-const HALL_IDS = [59, 60, ...HALL_SCENE_IDS];
+const HALL_IDS = [47, 51, 59, 60, ...HALL_SCENE_IDS];
 const hallWatch = {
   id: 100, name: "W18 大広間の見張り（並列。食卓の場面を始める）", type: "raw", x: 49, y: 2,
   pages: [{
