@@ -293,8 +293,10 @@ clearBand(enemies, emptyEnemy);
 for (const [id, name, battlerName, battlerHue, params, exp, gold, traits, actions, dropItems] of ENEMIES) {
   put(enemies, id, { name, battlerName, battlerHue, params, exp, gold, traits: [...base, ...traits], actions, dropItems }, emptyEnemy);
 }
+// W27（#300）：R3 で 5 ターンだったので、W22 後の加入時の装備（Lv9・9・10・8 の四人・攻撃と灰火）で 8〜10 ターン・HP 5 割残る所に（HP 3000→4600、攻撃 50→56）。
+// 炎に弱いので、ディルのファイアⅡを使う隊は 4〜6 ターン（弱みの見返り）
 put(enemies, LORD, {
-  name: "沼主", battlerName: "Hydra", battlerHue: 100, params: [3000, 80, 50, 30, 24, 28, 24, 30], exp: 380, gold: 300,
+  name: "沼主", battlerName: "Hydra", battlerHue: 100, params: [4600, 80, 56, 30, 24, 28, 24, 30], exp: 380, gold: 300,
   traits: [...base, T.physRate(0.8), T.element(ELEMENT.fire, 2), T.element(ELEMENT.water, 0), T.stateRate(ST.poison, 0)],
   actions: [attack, act(SKILL.swallow, 5), onTurn(SKILL.mudWhirl, 3, 3, 9), hpBelow(SKILL.mudWhirl, 0.4, 6)],
   dropItems: noDrop,

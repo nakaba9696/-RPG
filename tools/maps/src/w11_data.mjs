@@ -275,9 +275,12 @@ const leak = slot => [
 troops[TROOP.mass].pages = [
   { ...page0, conditions: { ...page0.conditions, turnA: 2, turnB: 0, turnValid: true }, span: 1, list: leak(4) },
   { ...page0, conditions: { ...page0.conditions, turnA: 4, turnB: 0, turnValid: true }, span: 1, list: leak(5) },
+  // 裂け目の一行は、HP が半分を切ってから一度目と、そのあと 3 ターンおき（W27 #300。毎ターン窓で出ると、決定を押すだけの頁になる）。
+  // 出したターンは塊（Game_Enemy。戦闘ごとに作り直される）に持たせる
   { ...page0, conditions: { ...page0.conditions, enemyHp: 50, enemyIndex: 0, enemyValid: true }, span: 1,
     list: [
-      ifScript("$gameTroop.members()[0].isAlive()"),
+      ifScript("(e => e.isAlive() && (e._haiTear === undefined || $gameTroop.turnCount() - e._haiTear >= 3))($gameTroop.members()[0])"),
+      cmd(355, ["$gameTroop.members()[0]._haiTear = $gameTroop.turnCount();"], 1),
       ...say(["塊の表面が裂けた。奥で、刃が石を掻く音がする。"], "", 1),
       end(1), ENDIF(), END,
     ] },

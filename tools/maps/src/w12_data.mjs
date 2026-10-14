@@ -279,7 +279,7 @@ const SKILLS = [
     damage: phys("a.atk * 2 - b.def * 1.5") }],
   [SKILL.eastward, "東へ", { description: "祈りの文句。東から冷たい声が来る。", hitType: 2, animationId: 101, iconIndex: 71, scope: 2, message1: "%1は「東へ」と唱えた！",
     damage: { critical: false, elementId: ELEMENT.dark, formula: "a.mat * 2 - b.mdf", type: 1, variance: 20 } }],
-  [SKILL.evenCount, "夕べの数", { description: "夕べの数を数える。聞く者のまぶたが重くなる。", hitType: 0, animationId: 62, iconIndex: 70, scope: 8, message1: "%1は低い声で数を数えはじめた。",
+  [SKILL.evenCount, "夕べの数", { description: "夕べの数を数える。聞く者のまぶたが重くなる。", hitType: 0, animationId: 62, iconIndex: 70, scope: 2, message1: "%1は低い声で数を数えはじめた。",
     effects: [{ code: 21, dataId: STATE_SLEEP, value1: 0.35, value2: 0 }] }],
   [SKILL.cling, "すがる", { description: "手を伸ばしてすがりつく。動きが鈍る。", animationId: 1, iconIndex: 0, message1: "%1はすがりついた！",
     damage: phys("a.atk * 2 - b.def * 2"), effects: [{ code: 32, dataId: 6, value1: 3, value2: 0 }] }],
@@ -352,13 +352,15 @@ const enemies = readData("Enemies.json");
 clearBand(enemies, emptyEnemy);
 const ENEMIES = [
   // 関所の収税吏（112）。弱み：通行の札（戦いの頭に「通せ」）・配給札（勘定が狂う）
-  [ENEMY.taxman, { name: "関所の収税吏", battlerName: "Gatekeeper", battlerHue: 30, params: [2400, 40, 46, 34, 18, 26, 22, 30], exp: 340, gold: 260,
+  // W27（#300）：R3 で 4〜5 ターン・味方の HP 8〜9 割残ったので、W22 後の加入時の装備（Lv8 の三人・攻撃と灰火）で 9〜11 ターン・HP 6 割残る所に（HP 2400→4200、攻撃 46→82）
+  [ENEMY.taxman, { name: "関所の収税吏", battlerName: "Gatekeeper", battlerHue: 30, params: [4200, 40, 82, 34, 18, 26, 22, 30], exp: 340, gold: 260,
     traits: [...base, T.element(ELEMENT.thunder, 1.5)],
     actions: [attack, act(SKILL.handful, 5), onTurn(SKILL.levy, 3, 3, 6)],
     dropItems: noDrop,
     note: ["<hai_boss>", "<hai_boss_name:関所の収税吏>", `<hai_boss_switch:${SW.taxman}>`, "<hai_weak_hint:雷>", "<hai_actions_low:2,40>", "<hai_drop:none>"].join("\n") }],
   // 院長（122）。弱み：嘆願書の束（崩れる）、沈黙がよく効く
-  [ENEMY.abbot, { name: "院長", battlerName: "Sorcerer", battlerHue: 200, params: [2500, 300, 28, 30, 48, 40, 24, 30], exp: 380, gold: 280,
+  // W27（#300）：夕べの数の範囲を隊に直し（自分を眠らせていた）、同じ遊び方（Lv8・8・9）で 8〜12 ターン・HP 5 割残る所に（HP 2500→3800、魔力 48→70）
+  [ENEMY.abbot, { name: "院長", battlerName: "Sorcerer", battlerHue: 200, params: [3800, 300, 28, 30, 70, 40, 24, 30], exp: 380, gold: 280,
     traits: [...base, T.element(ELEMENT.light, 1.5), T.stateRate(STATE_SILENCE, 1.5)],
     actions: [attack, act(SKILL.eastward, 6), onTurn(SKILL.evenCount, 2, 4, 6)],
     dropItems: noDrop,
