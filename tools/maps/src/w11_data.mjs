@@ -561,25 +561,36 @@ const LEGACY_COLLAPSE = {
 };
 // 鋳物場の側：トゥーラの臨終（091。記憶 4）の「かえりは かるい」が漏れる影と、トゥーラの一言（場面表 04 の 3.4。R2 の 7 章 04:242）
 const TULA_ACTOR = 11;
-const TULA_SHADE = { name: "声だけの影（鋳物場 トゥーラの記憶 4）", at: [27, 8], line: "かえりは かるい", collapse: ["影が崩れた。灰に、刃物で彫ったような字が残った。"] };
-// 崩れる文 → 声の自動のイベントの置き場（南の間の床。触れても何も起きない）
-const AFTER_CELLS = [[21, 35], [22, 35], [23, 35], [24, 35], [26, 35], [27, 35], [28, 35], [29, 35], [21, 36]];
-/** 影を倒したあと（影のセルフスイッチ A と B）：崩れる文 → 影の一行（話し手の名つき）→ 足す行。一度だけ */
-const afterShade = (shadeName, shadeId, [x, y], collapse, speaker = "", tail = []) => ({
-  name: `影の崩れ（自動。${shadeName}）`, type: "raw", x, y,
-  pages: [
-    { priorityType: 0, trigger: 4,
-      list: [ifScript(`$gameSelfSwitches.value([${LAIR_MAP.corridor}, ${shadeId}, "A"]) && $gameSelfSwitches.value([${LAIR_MAP.corridor}, ${shadeId}, "B"])`), selfOn("B", 1), end(1), ENDIF(), END] },
-    { conditions: { selfSwitchCh: "B", selfSwitchValid: true }, priorityType: 0, trigger: 3,
-      list: [
-        ...say(collapse),
-        ...plugin("Hai_SymbolEnemy", "shadeVoice", "影の声を出す", { eventId: String(shadeId), speaker }),
-        ...tail,
-        selfOn("C"), END,
-      ] },
-    { conditions: { selfSwitchCh: "C", selfSwitchValid: true }, priorityType: 0 },
-  ],
-});
+const TULA_SHADE = { name: "声だけの影（鋳物場 トゥーラの記憶 4）", at: [40, 8], line: "かえりは かるい", collapse: ["影が崩れた。灰に、刃物で彫ったような字が残った。"] };
+// 足すイベントは床の汚れ（;）のマスに置く。散らし（scatter）は「.」のマスだけを数えるので、ここに置けばタイル層の散らしは変わらない
+const AFTER_AT = [25, 37];
+/**
+ * 影を倒したあと（影のセルフスイッチ A と B。C は出し終えた印）：崩れる文 → 影の一行（話し手の名つき）→ 足す行。影ごとに一度だけ。
+ * 影ごとにイベントを置かず、一つのイベントで見張る（並列で見て、自動実行で出す）。entries は [影の ID, 崩れる文, 話し手, 足す行（indent → 命令）]
+ */
+function afterShades(entries) {
+  const sv = (id, ch) => `$gameSelfSwitches.value([${LAIR_MAP.corridor}, ${id}, "${ch}"])`;
+  const due = id => `${sv(id, "A")} && ${sv(id, "B")} && !${sv(id, "C")}`;
+  return {
+    name: "影の崩れ（自動。崩れる文 → 声）", type: "raw", x: AFTER_AT[0], y: AFTER_AT[1],
+    pages: [
+      { priorityType: 0, trigger: 4,
+        list: [ifScript(`${JSON.stringify(entries.map(([id]) => id))}.some(i => ${due("i")})`), selfOn("B", 1), end(1), ENDIF(), END] },
+      { conditions: { selfSwitchCh: "B", selfSwitchValid: true }, priorityType: 0, trigger: 3,
+        list: [
+          ...entries.flatMap(([id, collapse, speaker, tail]) => [
+            ifScript(due(id)),
+            ...say(collapse, "", 1),
+            ...plugin("Hai_SymbolEnemy", "shadeVoice", "影の声を出す", { eventId: String(id), speaker }, 1),
+            ...tail(1),
+            ...script(`$gameSelfSwitches.setValue([${LAIR_MAP.corridor}, ${id}, "C"], true);`, 1),
+            end(1), ENDIF(),
+          ]),
+          cmd(123, ["B", 1]), END,
+        ] },
+    ],
+  };
+}
 function events171() {
   const ev = [
     exitTo("南の口（縄張りの縁へ）", E171.entry, [LAIR_MAP.edge, E170.arriveFromCorridor[0], E170.arriveFromCorridor[1], DOWN]),
@@ -637,15 +648,14 @@ function events171() {
   );
   // 文6（#273）：ここから下は足したイベント（上のイベントの番号と座標は動かさない）
   ev.push(shade(TULA_SHADE.name, TULA_SHADE.at, { troop: TROOP.thickShade, rank: "yellow", voice: TULA_SHADE.line, once: true, selfCond: "D", quiet: true }));
-  after.push([TULA_SHADE.name, TULA_SHADE.collapse, "", [ifSwitch(FLAG_TURA, true), ...say(["……あたしの字だ"], "トゥーラ", 1), end(1), ENDIF()]]);
+  after.push([TULA_SHADE.name, TULA_SHADE.collapse, "", ind => [ifSwitch(FLAG_TURA, true, ind), ...say(["……あたしの字だ"], "トゥーラ", ind + 1), end(ind + 1), ENDIF(ind)]]);
   // イベントの番号は並べた順（1 から。通行止めのイベントは build.mjs が後ろに置く）
   const idOf = name => {
     const i = ev.findIndex(e => e.name === name);
     if (i < 0) throw new Error(`171 に「${name}」が無い`);
     return i + 1;
   };
-  if (after.length > AFTER_CELLS.length) throw new Error("影の崩れの置き場が足りない");
-  after.forEach(([name, collapse, speaker, tail], i) => ev.push(afterShade(name, idOf(name), AFTER_CELLS[i], collapse, speaker, tail)));
+  ev.push(afterShades(after.map(([name, collapse, speaker, tail = () => []]) => [idOf(name), collapse, speaker, tail])));
   // 旗の自動のイベントの式に、トゥーラの影の番号を入れる
   const flags = ev.find(e => e.name === "影の声の旗（自動）").pages[0].list;
   for (const c of flags) if (c.code === 355 || c.code === 655) c.parameters[0] = c.parameters[0].replace("TULA_SHADE_ID", String(idOf(TULA_SHADE.name)));

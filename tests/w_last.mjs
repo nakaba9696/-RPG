@@ -235,7 +235,7 @@ await runTest(async () => {
     const left = (await winBattle(702)).join("\n");
     check(left.includes("いち、に、さん、ってかぞえてる"), "影を倒すと、読んだ思念の一行を残す（text.md 5.5 の c） " + JSON.stringify(left));
     // 文6（#273）：「かえりは かるい」の影は、崩れる文 → 字 → トゥーラの一言の順（場面表 04 の 3.4。R2 の 7 章 04:242）
-    await go(CORRIDOR, 26, 8, 6, { quiet: false });
+    await go(CORRIDOR, 39, 8, 6, { quiet: false });
     await game.call("step", 6);
     const tula = await winBattle(702);
     const at = s => tula.findIndex(p => p.includes(s));
