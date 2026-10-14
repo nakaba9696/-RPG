@@ -221,7 +221,13 @@ await runTest(async () => {
     check(await game.eval(() => Hai.Thoughts.notes("clue").some(n => n.text.includes("済の印が無い"))), "帳面の手がかりがメモに無い");
     await go(SHRINE, 17, 7, 8);
     const m2 = (await talk()).join("\n");
-    check(m2.includes("桟を蹴った") && m2.includes("完全体"), "ノラの記憶 2 で完全体にならない " + JSON.stringify(m2));
+    // 完全体の知らせ（Hai_Companions の completeMessage の値の 1 行目）は、その仲間を連れているときだけ出る（P20。呼んでいなければ呼んだときに出る）
+    const toldComplete = (text, id) => game.eval(([t, n]) => {
+      const head = PluginManager.parameters("Hai_Companions").completeMessage.split(/\\n|\n/)[0].replace(/%1/g, $gameActors.actor(n).name());
+      return { told: t.includes(head), inParty: $gameParty._actors.includes(n) };
+    }, [text, id]);
+    const m2told = await toldComplete(m2, NORA);
+    check(m2.includes("桟を蹴った") && m2told.told === m2told.inParty, "ノラの記憶 2 の完全体の知らせ " + JSON.stringify({ m2, ...m2told }));
     check(await game.eval(n => Hai.Companions.isComplete(n), NORA), "ノラが完全体にならない");
     await go(SHRINE, 9, 6, 8);
     await talk();
