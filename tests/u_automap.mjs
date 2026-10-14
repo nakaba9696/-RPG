@@ -14,6 +14,7 @@ const CHEST = { x: 10, y: 7 };
 const MOSS = { x: 11, y: 5 }; // 見えない通路の手前の苔
 const PASSAGE = { x: 12, y: 5 }; // 見えない通路（251）の入口
 const CHEST2 = { x: 24, y: 4 };
+const CHEST_ITEM = 7; // 二つの宝箱が渡す品（tools/maps/src/u1_automap.json）。入手の記録は品の今の名前で見る（W25 #293 で「煎じ薬」に改名）
 const DOOR = { x: 17, y: 11 };
 
 await runTest(async () => {
@@ -115,7 +116,9 @@ await runTest(async () => {
     await go(CHEST.x - 1, CHEST.y, 6);
     await readAll();
     let log = await itemLog();
-    check(log.length === 1 && log[0].text.includes("ポーション") && log[0].text.includes("オートマップの試験場"), `入手ログ ${JSON.stringify(log)}`);
+    const itemName = await game.eval(id => $dataItems[id].name, CHEST_ITEM);
+    check(itemName === "煎じ薬", `宝箱の品の名前 ${itemName}`);
+    check(log.length === 1 && log[0].text.includes(itemName) && log[0].text.includes("オートマップの試験場"), `入手ログ ${JSON.stringify(log)}`);
     check(log[0].kind === "item" && log[0].mapId === MAP, `入手ログの欄 ${JSON.stringify(log[0])}`);
 
     // ---- 見えない通路：隣に立つと壁として記録、通り抜けると隠し通路の色
@@ -204,7 +207,7 @@ await runTest(async () => {
     await game.press("ArrowRight");
     await game.frames(4);
     rows = await listData();
-    check(rows.length === 2 && rows[0].includes("×2") && rows[1].includes("ポーション"), `入手の一覧（新しい順） ${JSON.stringify(rows)}`);
+    check(rows.length === 2 && rows[0].includes("×2") && rows[1].includes(itemName), `入手の一覧（新しい順） ${JSON.stringify(rows)}`);
     await game.press("Enter");
     await game.frames(4);
     await game.shot("notes-item");
