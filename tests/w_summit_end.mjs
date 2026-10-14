@@ -2,7 +2,7 @@
 //   旗の束 bells4（四つ鳴った）から、綱を直し・足場の木を渡した道で 183 → 015 頂：着いた（ブルーノ「七人です」）→ 銘 → ルシアンを止める（道具と写しがそろった道。1156・ソレンヌが生きて残る 1166）
 //   → 舌を吊る（1157）→ 耐える戦い「夜の思い」（Troops 1152。8 ターン。1158）→ 綱：まだ・三十を一回ずつ（仲間が外れる）・もう一度、引く（夕べの数）
 //   → 010 の結末の夜（戸を開ける 1163）と朝（1159・1165）→ 中庭の子ども・後日談の一行（122）。
-// 前半（三つ目の鐘〜183）は w_summit.mjs。6 分以内。
+// 三十の数は Hai_BigCount で画面の上に大きく出る（文7）。前半（三つ目の鐘〜183）は w_summit.mjs。6 分以内。
 import { launchGame, check, runTest } from "./lib.mjs";
 import { checkAll } from "../tools/data/check.mjs";
 
@@ -162,6 +162,10 @@ await runTest(async () => {
     const ins = (await talk(["見ている", "手首を掴む"])).join("\n");
     check(ins.includes("「鳴る音に、その日の者を乗せよ」") && ins.includes("ルシアンは、こちらを見た。鑿は止めなかった。") && ins.includes("ソレンヌ：長。木は、下ろす"), "銘とルシアンを止める " + JSON.stringify(ins));
     check((await sw(SW.lucien)) && (await sw(SW.sorenneAlive)), "ルシアンを止めた（1156）・ソレンヌが生きている（1166）");
+    // 足場の柱の彫り直しの指図書（文7。text.md 6-01・6-02）
+    await go(SUMMIT, 16, 11, 8);
+    const order = (await talk()).join("\n");
+    check(order.includes("「一晩のみ。使徒は気づかぬ」") && order.includes("判は四つ。どれも同じ日。") && order.includes("古い鑿が一本"), "足場の柱の指図書 " + JSON.stringify(order));
     await go(SUMMIT, 20, 11, 8);
     const hang = (await talk()).join("\n");
     check(hang.includes("舌を吊った。綱を引いて、金具を上げた。") && hang.includes("「止まっていた」") && (await sw(SW.tongue)), "舌を吊る（1157） " + JSON.stringify(hang));
@@ -192,12 +196,38 @@ await runTest(async () => {
     console.log("  015：着いた・銘・ルシアンを止める（1156・1166）・舌を吊る（1157）・耐える戦い（1158）", `（${Math.round((Date.now() - T0) / 1000)} 秒）`);
 
     // ===== 8. 綱（まだ・三十・三十一）→ 010 の結末の夜と朝 =====
+    // 三十の数は文章の窓でなく、画面の上に大きく出る（Hai_BigCount。R2 7 章 04:815。文7）。出た数と、そのときの絵の位置を毎フレーム控える
+    await game.eval(() => {
+      window.__bigSeen = [];
+      const _update = Scene_Map.prototype.update;
+      Scene_Map.prototype.update = function() {
+        _update.apply(this, arguments);
+        const text = Hai.BigCount.text();
+        const seen = window.__bigSeen;
+        if (!text || Hai.BigCount.phase() !== "show" || (seen.length && seen[seen.length - 1].text === text)) return;
+        const sp = Hai.BigCount.sprite();
+        const w = this._messageWindow;
+        seen.push({
+          text, y: sp ? sp.y / Graphics.height : -1, x: sp ? sp.x / Graphics.width : -1, visible: !!(sp && sp.visible && sp.opacity > 0),
+          onTop: !!sp && this.children.indexOf(sp) > this.children.indexOf(this._windowLayer),
+          message: w && w.isOpen() ? { y: w.y / Graphics.height, text: $gameMessage.allText() } : null,
+        });
+      };
+    });
     await game.call("setSpeed", 6); // 決定キーの押しっぱなしが連打にならない速さまで上げる
-    const rope = (await talk(["まだ", "引く", ...Array(30).fill("引く"), "もう一度、引く", "開ける"], false, 600_000)).join("\n");
+    const ropePages = await talk(["まだ", "引く", ...Array(30).fill("引く"), "もう一度、引く", "開ける"], false, 600_000);
+    const rope = ropePages.join("\n");
+    const big = await game.eval(() => window.__bigSeen);
     await game.call("setSpeed", MAP_SPEED);
     check(rope.includes("ゼリナ：まだ、って顔しとるな。あんた、勘定が長いわ"), "まだ（一周目の仲間の一言） " + JSON.stringify(rope).slice(0, 300));
-    check(rope.includes("一。") && rope.includes("ブルーノ：鳴りました。隊長、鳴りました") && rope.includes("三十。") && rope.includes("ゼリナ：十四人、着いたか見てくる"), "三十を一回ずつ " + JSON.stringify(rope).slice(0, 1500));
-    check(rope.includes("相棒は、鐘の音の中へ入っていった。") && rope.includes("三十一。") && rope.includes("音は、山の向こうで消えた。"), "三十のあと・三十一（夕べの数） " + JSON.stringify(rope).slice(-2000, -1000));
+    check(rope.includes("ブルーノ：鳴りました。隊長、鳴りました") && rope.includes("ゼリナ：十四人、着いたか見てくる"), "三十を一回ずつ " + JSON.stringify(rope).slice(0, 1500));
+    const kan = await game.eval(() => Array.from({ length: 31 }, (_, i) => Hai.BigCount.kanji(i + 1) + "。"));
+    check(JSON.stringify(big.map(b => b.text)) === JSON.stringify(kan), "三十の数が一回ずつ大きく出る（一。〜三十。と三十一。） " + JSON.stringify(big.map(b => b.text)));
+    check(big.every(b => b.visible && b.onTop && b.y > 0 && b.y < 0.35 && Math.abs(b.x - 0.5) < 0.05), "数は画面の上の真ん中・文章の窓より手前 " + JSON.stringify(big.filter(b => !(b.visible && b.onTop && b.y > 0 && b.y < 0.35)).slice(0, 3)));
+    check(big.every(b => !b.message || b.message.y > b.y + 0.2), "数と文章の窓（下）が重ならない " + JSON.stringify(big.filter(b => b.message).slice(0, 3)));
+    check(!ropePages.some(p => /^[一二三四五六七八九十]+。$/.test(p)), "数を文章の窓（真ん中）で出していない " + JSON.stringify(ropePages.filter(p => /^[一二三四五六七八九十]+。$/.test(p))));
+    check(await game.eval(() => Hai.BigCount.text() === ""), "結末の砦では数が消えている");
+    check(rope.includes("相棒は、鐘の音の中へ入っていった。") && rope.includes("音は、山の向こうで消えた。"), "三十のあと・三十一（夕べの数） " + JSON.stringify(rope).slice(-2000, -1000));
     check(rope.includes("ソレンヌ：木は、下ろした。") && rope.includes("食卓が、いっせいに黙った。") && rope.includes("紐は、新しい。") && rope.includes("「ルカ！　爺ちゃんが、飯だって！」") && rope.includes("答えた。"),
       "結末の夜と朝 " + JSON.stringify(rope).slice(-1200));
     const ending = await game.eval(() => ({

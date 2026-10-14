@@ -1,7 +1,7 @@
 // W14（#234）後半：頂（015）の地図とイベント、耐える戦い「夜の思い」のバトルイベント。台本は docs/story/scenes/04-climax.md の 5 章。
 // w14_data.mjs が読む（地図・設定・データベースを書くのは w14_data.mjs）。文は場面表のまま写す（変えない）。
 //   P14（#230）の仕掛け（耐える／呼ぶの命令・灰を止める・結末を見た全体の旗）を呼ぶ所は、注釈（108）「P14：」で印を付けた。
-import { say, center, plugin, SW, VAR, ITEM, MAP, FLAG } from "./w14_parts.mjs";
+import { say, plugin, SW, VAR, ITEM, MAP, FLAG } from "./w14_parts.mjs";
 
 const cmd = (code, parameters, indent = 0) => ({ code, indent, parameters });
 const END = cmd(0, []);
@@ -92,6 +92,7 @@ export function draw015(Grid) {
 export const E015 = {
   entry: [20, 29], arrive: [20, 28], inscription: [18, 10], mouth: [20, 10], rope: [22, 10],
   lucien: [17, 12], sorenne: [24, 13], mirlene: [14, 13],
+  order: [16, 10], // 足場の柱（鐘楼の石組みの前。下 (16,11) から調べる）。彫り直しの指図書（文7。text.md 6-01・6-02）
   shades: [[11, 18], [14, 20], [17, 22], [20, 23], [23, 22], [26, 20], [29, 18], [9, 14], [31, 14], [20, 19]],
 };
 
@@ -120,6 +121,14 @@ const inscriptionLines = [
   ...say(["古い字。線が一筆で戻ってきて、読めない。", "一か所だけ、読める形がある。", "記録院の写しの、終わりの近くの一行と同じ形。", "「鳴る音に、その日の者を乗せよ」"]),
   ...say(["その上に、新しい字が彫りかけてある。教会の字。", "「鳴る所は、東の果て」", "果て、の次で、鑿が止まっている。"]),
   ...say(["「ここで、止まっている」"]),
+];
+
+// --- 彫り直しの指図書（文7。text.md 5.6 の 6-01・6-02、world.md 8.3。場面表に無い物。段 5「指図書の日付は札の日付と同じ日」を運ぶ）
+// 大事なものにはせず、足場の柱で読む文にした（Items は文7 の範囲の外）。鑿の一本は 182 の「鑿が二十一本」と並ぶ（宿帳の「石工、二十二」）。
+// 「舌の運び出しの札」（6-04）は置かない：「鋳物場へ。夜明けまでに」は 181 の橇の札と、この指図書の二か所で足りる（knowhow 5.1 の 7）
+const orderLines = [
+  ...say(["足場の柱に、古い鑿が一本打ちこんである。", "鑿が、紙の束を柱に留めている。鐘の教会の指図書。", "「一晩のみ。使徒は気づかぬ」", "「舌は鋳物場へ。夜明けまでに戻すこと」"]),
+  ...say(["判は四つ。どれも同じ日。", "余白に、金を出した家の印が一つ。王家の印に似ている。"]),
 ];
 
 // --- 5.3 ルシアンを止める ---
@@ -180,7 +189,8 @@ function mouthList() {
     ...say(["風が止んだ。", "斜面の下から、何かが上ってくる。"], "", 2),
     switchOn(SW.tongueHung, 2),
     wait(60, 2),
-    ...say(["姿の薄い影。営倉で、記録院で、水底で、鋳物場で、", "鐘のあとに東を向いて止まっていた者たち。"], "", 2),
+    // 文7：四つの場所の並べ（読点 4 つ）をやめ、鐘の間の外、で受ける
+    ...say(["姿の薄い影。四つの鐘の間の外で、", "東を向いて止まっていた者たち。"], "", 2),
     ...iff(i => ifSwitch(MATE.bruno.sw, true, i), i => say(["あなた。あれは"], MATE.bruno.name, i), 2),
     ...say(["「止まっていた」"], "", 2),
     ...say(["影が、ルカの方へ向いた。二百年ぶんの顔が、一斉に。"], "", 2),
@@ -200,13 +210,11 @@ function mouthList() {
 }
 
 // --- 5.6〜5.9 綱：引く／まだ・三十・三十一・頂の終わり ---
-const KANJI = ["", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二", "十三", "十四", "十五", "十六", "十七", "十八", "十九",
-  "二十", "二十一", "二十二", "二十三", "二十四", "二十五", "二十六", "二十七", "二十八", "二十九", "三十", "三十一"];
 // 「まだ」の一周目（加入順に一人ずつ）。二周目からは相づち
 const NOT_YET = [
   [MATE.zelina, "まだ、って顔しとるな。あんた、勘定が長いわ"],
   [MATE.beltran, "いいぜ。もう一本飲んでから、ってやつだ。飲めねえけどな"],
-  [MATE.bruno, "……いち、に、さん。すみません。待つのは、慣れてます"],
+  [MATE.bruno, "いち、に、さん。すみません。待つのは、慣れてます"], // 文7：綱の場面の「……」を二つまでに
   [MATE.nora, "早くしてよ！　ううん、まだでいい"],
   [MATE.dil, "読み終わるまで待てよ。あんたの顔を"],
   [MATE.anselmo, "お前さん。わしの歌、最後まで聞いたことないじゃろ"],
@@ -252,10 +260,19 @@ const PULL = {
   28: { legacy: [LEGACY.woodcutter, ["木樵の女房。薪は三束。戸の脇に置いてあった。"], ["懐の帳面の、届けた相手の欄に、字が一つ入った。"]] },
   29: { faint: ["F11", ["鐘守が、指で三十の形を作って見せた。三十で止めろ。"]] },
 };
-// 数だけをまとめて出す番（場面表の「四。　五。　六。」などの行。窓を一つにまとめた番は、二番目以降を窓に出さない）
-const JOINED = { 4: "四。　五。　六。", 8: "八。　九。", 11: "十一。　十二。", 17: "十七。　十八。" };
-const SKIP = new Set([5, 6, 9, 12, 18]);
-const FF = sw(SUMMIT_SW.fastForward);
+// 三十の数は文章の窓でなく、画面の上に大きく出す（P19 の Hai_BigCount。場面表 5.7 の［演出］・R2 7 章 04:815。文7）。
+// 一回引くごとに、その回の数（変数 1152）を出す。数は次の数と入れ替わるまで残り、文章の窓（下）と重ならない。
+const BIG = { number: "0", variableId: "0", text: "", duration: "0", fadeIn: "", fadeOut: "", wait: "true" };
+const bigShow = (args, indent = 0) => plugin("Hai_BigCount", "show", "大きな数を出す", { ...BIG, ...args }, indent);
+const bigHide = (indent = 0) => plugin("Hai_BigCount", "hide", "大きな数を消す", { fadeOut: "", wait: "true" }, indent);
+/** その回の数を出す。早送り（二周目）では現れる間を待たない */
+const showPull = (indent = 0) => [
+  ifSwitch(SUMMIT_SW.fastForward, false, indent),
+  ...bigShow({ variableId: String(VAR.pulls) }, indent + 1),
+  end(indent + 1), ELSE(indent),
+  ...bigShow({ variableId: String(VAR.pulls), fadeIn: "0", wait: "false" }, indent + 1),
+  end(indent + 1), ENDIF(indent),
+];
 function pullOnce(n) {
   const out = [];
   // 一回ごとに「引く」を押す（二周目は「早送り」を足す。早送りを選んだら、あとは押さずに数だけ進める）
@@ -269,7 +286,7 @@ function pullOnce(n) {
     end(1), ENDIF(0),
   );
   out.push(varAdd(VAR.pulls, 1), se("Bell3", 0, 95, 80), cmd(225, [3, 4, 12, false]));
-  if (!SKIP.has(n)) out.push(...center([JOINED[n] ?? `${KANJI[n]}。`]));
+  out.push(...showPull());
   if (n === 1) out.push(...iff(i => ifSwitch(SUMMIT_SW.fastForward, false, i), i => say(["鐘が鳴る。音が、灰の払われた空へ上がっていく。"], "", i)));
   const p = PULL[n];
   if (!p) return out;
@@ -306,6 +323,7 @@ function ropeList() {
   // 5.8 三十のあと
   out.push(
     wait(30),
+    ...bigHide(), // 三十を消してから 5.8 へ
     ...say(["綱のそばに、相棒が立っている。", "彫り刀は持っていない。手ぶらで、こちらを見ている。", "蝋で汚れた袖。指の節に、彫り傷。年寄りの、笑っている口。", "口は、動かなかった。"]),
     ...say(["相棒は、鐘の音の中へ入っていった。"]),
     switchOn(SUMMIT_SW.shadesGone),
@@ -320,8 +338,9 @@ function ropeList() {
     ...say(["待って。わたしの民は、三十一まで数えるの", "一緒に、引いてくれる？"], N.mirlene, 2),
     comment("ミルレーネが足場に上がり、綱に手を添える", 2),
     se("Bell3", 2, 95, 80), cmd(225, [3, 4, 12, false], 2),
-    ...center(["三十一。"], 2),
+    ...bigShow({ number: "31" }, 2),
     ...say(["鐘が鳴った。音は山の向こうへ落ちていった。", "消えて、しばらく、何も無かった。"], "", 2),
+    ...bigHide(2),
     wait(90, 2),
     se("Bell1", 2, 40, 150),
     wait(30, 2),
@@ -331,8 +350,10 @@ function ropeList() {
     end(2),
     ELSE(1),
     se("Bell3", 2, 95, 80), cmd(225, [3, 4, 12, false], 2),
-    ...center(["三十一。"], 2),
-    ...say(["音は、山の向こうで消えた。", "消えて、何も無かった。風だけが、灰を払っていた。"], "", 2),
+    ...bigShow({ number: "31" }, 2),
+    // 文7：二行目「風だけが、灰を払っていた」は締めの余韻なので消した（場面表 章末 3「一行で足りる」）
+    ...say(["音は、山の向こうで消えた。", "消えて、何も無かった。"], "", 2),
+    ...bigHide(2),
     end(2),
     ENDIF(1),
     end(1),
@@ -340,7 +361,9 @@ function ropeList() {
     ENDCHOICE(),
     // 5.9 頂の終わり
     wait(30),
-    ...say(["足場に、火打ち石と、二冊の写しと、空の鞘と、背負子。", "一つずつ拾った。背負子は、軽かった。"]),
+    // 文7：置いていった物の目録（読点 4 つ）は、去る番ごとにもう出ている。連れていなかった仲間の物まで並ばないよう、置いていった者がいるときだけ
+    ...iff(i => ifScript([MATE.nora, MATE.dil, MATE.beltran, MATE.tura].map(m => sw(m.sw)).join(" || "), i), i => say(["足場に、置いていった物が並んでいる。", "一つずつ拾った。"], "", i)),
+    ...iff(i => ifSwitch(MATE.tura.sw, true, i), i => say(["背負子は、軽かった。"], "", i)),
     ifSwitch(SW.sorenneAlive, true),
     ...say(["木は、下ろした。長は、わたしが連れて下りる。きみは、先に行け"], N.sorenne, 1),
     end(1), ENDIF(),
@@ -419,6 +442,8 @@ export function events015() {
         { conditions: { switch1Id: SUMMIT_SW.shadesGone, switch1Valid: true }, priorityType: 0 },
       ],
     })),
+    // 文7：足した物は群れのあと（ID 19。前からあるイベントの番号を動かさない）
+    { name: "足場の柱（彫り直しの指図書）", type: "raw", x: E015.order[0], y: E015.order[1], pages: [{ priorityType: 1, list: [...orderLines, END] }] },
   ];
 }
 

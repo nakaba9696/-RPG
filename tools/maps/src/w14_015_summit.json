@@ -697,14 +697,14 @@
               "code": 401,
               "indent": 2,
               "parameters": [
-                "姿の薄い影。営倉で、記録院で、水底で、鋳物場で、"
+                "姿の薄い影。四つの鐘の間の外で、"
               ]
             },
             {
               "code": 401,
               "indent": 2,
               "parameters": [
-                "鐘のあとに東を向いて止まっていた者たち。"
+                "東を向いて止まっていた者たち。"
               ]
             },
             {
@@ -1201,7 +1201,7 @@
               "code": 401,
               "indent": 3,
               "parameters": [
-                "……いち、に、さん。すみません。待つのは、慣れてます"
+                "いち、に、さん。すみません。待つのは、慣れてます"
               ]
             },
             {
@@ -1717,22 +1717,167 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "",
                 0,
-                2,
-                1,
-                ""
+                1177,
+                1
               ]
             },
             {
-              "code": 401,
-              "indent": 0,
+              "code": 357,
+              "indent": 1,
               "parameters": [
-                "一。"
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
@@ -1937,22 +2082,167 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "",
                 0,
-                2,
-                1,
-                ""
+                1177,
+                1
               ]
             },
             {
-              "code": 401,
-              "indent": 0,
+              "code": 357,
+              "indent": 1,
               "parameters": [
-                "二。"
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
@@ -2120,22 +2410,167 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "",
                 0,
-                2,
-                1,
-                ""
+                1177,
+                1
               ]
             },
             {
-              "code": 401,
-              "indent": 0,
+              "code": 357,
+              "indent": 1,
               "parameters": [
-                "三。"
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
@@ -2359,22 +2794,167 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "",
                 0,
-                2,
-                1,
-                ""
+                1177,
+                1
               ]
             },
             {
-              "code": 401,
-              "indent": 0,
+              "code": 357,
+              "indent": 1,
               "parameters": [
-                "四。　五。　六。"
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
@@ -2551,6 +3131,169 @@
               ]
             },
             {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                1177,
+                1
+              ]
+            },
+            {
               "code": 111,
               "indent": 1,
               "parameters": [
@@ -2716,6 +3459,169 @@
               ]
             },
             {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                1177,
+                1
+              ]
+            },
+            {
               "code": 111,
               "indent": 1,
               "parameters": [
@@ -2872,22 +3778,167 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "",
                 0,
-                2,
-                1,
-                ""
+                1177,
+                1
               ]
             },
             {
-              "code": 401,
-              "indent": 0,
+              "code": 357,
+              "indent": 1,
               "parameters": [
-                "七。"
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
@@ -3264,22 +4315,167 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "",
                 0,
-                2,
-                1,
-                ""
+                1177,
+                1
               ]
             },
             {
-              "code": 401,
-              "indent": 0,
+              "code": 357,
+              "indent": 1,
               "parameters": [
-                "八。　九。"
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
@@ -3456,6 +4652,169 @@
               ]
             },
             {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                1177,
+                1
+              ]
+            },
+            {
               "code": 111,
               "indent": 1,
               "parameters": [
@@ -3612,22 +4971,167 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "",
                 0,
-                2,
-                1,
-                ""
+                1177,
+                1
               ]
             },
             {
-              "code": 401,
-              "indent": 0,
+              "code": 357,
+              "indent": 1,
               "parameters": [
-                "十。"
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
@@ -3896,22 +5400,167 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "",
                 0,
-                2,
-                1,
-                ""
+                1177,
+                1
               ]
             },
             {
-              "code": 401,
-              "indent": 0,
+              "code": 357,
+              "indent": 1,
               "parameters": [
-                "十一。　十二。"
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
@@ -4088,6 +5737,169 @@
               ]
             },
             {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                1177,
+                1
+              ]
+            },
+            {
               "code": 111,
               "indent": 1,
               "parameters": [
@@ -4244,22 +6056,167 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "",
                 0,
-                2,
-                1,
-                ""
+                1177,
+                1
               ]
             },
             {
-              "code": 401,
-              "indent": 0,
+              "code": 357,
+              "indent": 1,
               "parameters": [
-                "十三。"
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
@@ -4528,22 +6485,167 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "",
                 0,
-                2,
-                1,
-                ""
+                1177,
+                1
               ]
             },
             {
-              "code": 401,
-              "indent": 0,
+              "code": 357,
+              "indent": 1,
               "parameters": [
-                "十四。"
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
@@ -4767,22 +6869,167 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "",
                 0,
-                2,
-                1,
-                ""
+                1177,
+                1
               ]
             },
             {
-              "code": 401,
-              "indent": 0,
+              "code": 357,
+              "indent": 1,
               "parameters": [
-                "十五。"
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
@@ -4950,22 +7197,167 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "",
                 0,
-                2,
-                1,
-                ""
+                1177,
+                1
               ]
             },
             {
-              "code": 401,
-              "indent": 0,
+              "code": 357,
+              "indent": 1,
               "parameters": [
-                "十六。"
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
@@ -5234,22 +7626,167 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "",
                 0,
-                2,
-                1,
-                ""
+                1177,
+                1
               ]
             },
             {
-              "code": 401,
-              "indent": 0,
+              "code": 357,
+              "indent": 1,
               "parameters": [
-                "十七。　十八。"
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
@@ -5426,6 +7963,169 @@
               ]
             },
             {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                1177,
+                1
+              ]
+            },
+            {
               "code": 111,
               "indent": 1,
               "parameters": [
@@ -5582,22 +8282,167 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "",
                 0,
-                2,
-                1,
-                ""
+                1177,
+                1
               ]
             },
             {
-              "code": 401,
-              "indent": 0,
+              "code": 357,
+              "indent": 1,
               "parameters": [
-                "十九。"
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
@@ -5866,22 +8711,167 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "",
                 0,
-                2,
-                1,
-                ""
+                1177,
+                1
               ]
             },
             {
-              "code": 401,
-              "indent": 0,
+              "code": 357,
+              "indent": 1,
               "parameters": [
-                "二十。"
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
@@ -6105,22 +9095,167 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "",
                 0,
-                2,
-                1,
-                ""
+                1177,
+                1
               ]
             },
             {
-              "code": 401,
-              "indent": 0,
+              "code": 357,
+              "indent": 1,
               "parameters": [
-                "二十一。"
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
@@ -6288,22 +9423,167 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "",
                 0,
-                2,
-                1,
-                ""
+                1177,
+                1
               ]
             },
             {
-              "code": 401,
-              "indent": 0,
+              "code": 357,
+              "indent": 1,
               "parameters": [
-                "二十二。"
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
@@ -6572,22 +9852,167 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "",
                 0,
-                2,
-                1,
-                ""
+                1177,
+                1
               ]
             },
             {
-              "code": 401,
-              "indent": 0,
+              "code": 357,
+              "indent": 1,
               "parameters": [
-                "二十三。"
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
@@ -6811,22 +10236,167 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "",
                 0,
-                2,
-                1,
-                ""
+                1177,
+                1
               ]
             },
             {
-              "code": 401,
-              "indent": 0,
+              "code": 357,
+              "indent": 1,
               "parameters": [
-                "二十四。"
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
@@ -6994,22 +10564,167 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "",
                 0,
-                2,
-                1,
-                ""
+                1177,
+                1
               ]
             },
             {
-              "code": 401,
-              "indent": 0,
+              "code": 357,
+              "indent": 1,
               "parameters": [
-                "二十五。"
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
@@ -7368,22 +11083,167 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "",
                 0,
-                2,
-                1,
-                ""
+                1177,
+                1
               ]
             },
             {
-              "code": 401,
-              "indent": 0,
+              "code": 357,
+              "indent": 1,
               "parameters": [
-                "二十六。"
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
@@ -7606,22 +11466,167 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "",
                 0,
-                2,
-                1,
-                ""
+                1177,
+                1
               ]
             },
             {
-              "code": 401,
-              "indent": 0,
+              "code": 357,
+              "indent": 1,
               "parameters": [
-                "二十七。"
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
@@ -7844,22 +11849,167 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "",
                 0,
-                2,
-                1,
-                ""
+                1177,
+                1
               ]
             },
             {
-              "code": 401,
-              "indent": 0,
+              "code": 357,
+              "indent": 1,
               "parameters": [
-                "二十八。"
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
@@ -8101,22 +12251,167 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "",
                 0,
-                2,
-                1,
-                ""
+                1177,
+                1
               ]
             },
             {
-              "code": 401,
-              "indent": 0,
+              "code": 357,
+              "indent": 1,
               "parameters": [
-                "二十九。"
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
@@ -8339,28 +12634,200 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "",
                 0,
-                2,
-                1,
-                ""
+                1177,
+                1
               ]
             },
             {
-              "code": 401,
-              "indent": 0,
+              "code": 357,
+              "indent": 1,
               "parameters": [
-                "三十。"
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = true"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "0",
+                  "variableId": "1152",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "0",
+                  "fadeOut": "",
+                  "wait": "false"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "number = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "variableId = 1152"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeIn = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "wait = false"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 230,
               "indent": 0,
               "parameters": [
                 30
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_BigCount",
+                "hide",
+                "大きな数を消す",
+                {
+                  "fadeOut": "",
+                  "wait": "true"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "wait = true"
               ]
             },
             {
@@ -8577,21 +13044,70 @@
               ]
             },
             {
-              "code": 101,
+              "code": 357,
               "indent": 2,
               "parameters": [
-                "",
-                0,
-                2,
-                1,
-                ""
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "31",
+                  "variableId": "0",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
             },
             {
-              "code": 401,
+              "code": 657,
               "indent": 2,
               "parameters": [
-                "三十一。"
+                "number = 31"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "variableId = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "wait = true"
               ]
             },
             {
@@ -8617,6 +13133,33 @@
               "indent": 2,
               "parameters": [
                 "消えて、しばらく、何も無かった。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 2,
+              "parameters": [
+                "Hai_BigCount",
+                "hide",
+                "大きな数を消す",
+                {
+                  "fadeOut": "",
+                  "wait": "true"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "wait = true"
               ]
             },
             {
@@ -8730,21 +13273,70 @@
               ]
             },
             {
-              "code": 101,
+              "code": 357,
               "indent": 2,
               "parameters": [
-                "",
-                0,
-                2,
-                1,
-                ""
+                "Hai_BigCount",
+                "show",
+                "大きな数を出す",
+                {
+                  "number": "31",
+                  "variableId": "0",
+                  "text": "",
+                  "duration": "0",
+                  "fadeIn": "",
+                  "fadeOut": "",
+                  "wait": "true"
+                }
               ]
             },
             {
-              "code": 401,
+              "code": 657,
               "indent": 2,
               "parameters": [
-                "三十一。"
+                "number = 31"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "variableId = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "text = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "duration = 0"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "fadeIn = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "wait = true"
               ]
             },
             {
@@ -8769,7 +13361,34 @@
               "code": 401,
               "indent": 2,
               "parameters": [
-                "消えて、何も無かった。風だけが、灰を払っていた。"
+                "消えて、何も無かった。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 2,
+              "parameters": [
+                "Hai_BigCount",
+                "hide",
+                "大きな数を消す",
+                {
+                  "fadeOut": "",
+                  "wait": "true"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "fadeOut = "
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "wait = true"
               ]
             },
             {
@@ -8813,8 +13432,16 @@
               ]
             },
             {
-              "code": 101,
+              "code": 111,
               "indent": 0,
+              "parameters": [
+                12,
+                "$gameSwitches.value(139) || $gameSwitches.value(140) || $gameSwitches.value(143) || $gameSwitches.value(144)"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
               "parameters": [
                 "",
                 0,
@@ -8825,17 +13452,64 @@
             },
             {
               "code": 401,
-              "indent": 0,
+              "indent": 1,
               "parameters": [
-                "足場に、火打ち石と、二冊の写しと、空の鞘と、背負子。"
+                "足場に、置いていった物が並んでいる。"
               ]
             },
             {
               "code": 401,
+              "indent": 1,
+              "parameters": [
+                "一つずつ拾った。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
               "indent": 0,
               "parameters": [
-                "一つずつ拾った。背負子は、軽かった。"
+                0,
+                144,
+                0
               ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "背負子は、軽かった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
             },
             {
               "code": 111,
@@ -9941,6 +14615,88 @@
             "switch1Valid": true
           },
           "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "足場の柱（彫り直しの指図書）",
+      "type": "raw",
+      "x": 16,
+      "y": 10,
+      "pages": [
+        {
+          "priorityType": 1,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "足場の柱に、古い鑿が一本打ちこんである。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鑿が、紙の束を柱に留めている。鐘の教会の指図書。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "「一晩のみ。使徒は気づかぬ」"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "「舌は鋳物場へ。夜明けまでに戻すこと」"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "判は四つ。どれも同じ日。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "余白に、金を出した家の印が一つ。王家の印に似ている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
         }
       ]
     }
