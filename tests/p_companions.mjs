@@ -261,6 +261,11 @@ await runTest(async () => {
 
     // ---- P20（R3 気になる 5）：まだ呼んでいない（パーティにいない）仲間の 4 つ目では、完全体の知らせを出さない
     const m4 = MEMORIES[3];
+    // 知らせの文は js/plugins.js の completeMessage の値から組み立てて、ページ全体で比べる
+    // （値を @default と同じ今の世界の一行に替えるのは持ち主。owner-fixes 持-9）
+    const completeText = await game.eval(() => PluginManager.parameters("Hai_Companions").completeMessage
+      .replace(/%1/g, "ブルーノ").replace(/%2/g, "行軍").split(/\\n|\n/).join("\n"));
+    check(completeText.includes("ブルーノの記憶") && completeText.includes("行軍"), "完全体の知らせの文が組み立てられない " + JSON.stringify(completeText));
     const order = await party();
     await game.eval(() => {
       $gameParty.removeActor(5);
@@ -270,16 +275,15 @@ await runTest(async () => {
     pages = await talk();
     check(pages[0].includes("礼拝堂の屋根が見える") && pages[1].includes("巻いてくれる人がいません"), "臨終の本文 " + JSON.stringify(pages));
     check(pages[2].includes("ブルーノの記憶 4/4「臨終」"), "臨終のメモの行 " + JSON.stringify(pages));
-    check(pages.length === 3, "呼んでいないブルーノの 4 つ目で知らせが出た " + JSON.stringify(pages));
+    check(pages.length === 3 && !pages.includes(completeText), "呼んでいないブルーノの 4 つ目で知らせが出た " + JSON.stringify(pages));
     check(await hc("isComplete", 5), "4 つで完全体にならない");
     check(await game.eval(id => $gameActors.actor(5).isLearnedSkill(id), VOW), "完全体で強技を覚えない");
     // 名の壁で呼ぶと、目覚めの文のあとに知らせが出る（一度だけ）
     await go(CIRCLE.x, CIRCLE.y + 1, 8);
     pages = await talk([0]);
-    // 知らせの文は js/plugins.js の completeMessage の値（今の世界の一行に替えるのは持ち主。@default は P20 で替えた）
-    const told = pages.findIndex(p => p.includes("ブルーノの記憶") && p.includes("行軍"));
+    const told = pages.indexOf(completeText);
     check(told > 0 && pages.findIndex(p => p.includes("ブルーノが目を開けた")) < told, "呼んだときの完全体の知らせ " + JSON.stringify(pages));
-    check(pages.filter(p => p.includes("行軍")).length === 1, "呼んだときの完全体の知らせが一度でない " + JSON.stringify(pages));
+    check(pages.filter(p => p === completeText).length === 1, "呼んだときの完全体の知らせが一度でない " + JSON.stringify(pages));
     await game.eval(o => {
       $gameParty._actors = o;
       $gamePlayer.refresh();
@@ -294,7 +298,7 @@ await runTest(async () => {
     await go(m4.x, m4.y + 1, 8);
     pages = await talk([], { 3: "complete" });
     check(pages[2].includes("ブルーノの記憶 4/4「臨終」"), "臨終のメモの行 " + JSON.stringify(pages));
-    check(pages[3].includes("ブルーノの記憶") && pages[3].includes("行軍"), "完全体の知らせ " + JSON.stringify(pages));
+    check(pages[3] === completeText, "完全体の知らせ " + JSON.stringify(pages));
     check(await hc("isComplete", 5), "4 つで完全体にならない");
     // 完全体はスイッチでなく変数 131（記憶:ブルーノ）が 4。完全体のスイッチは使わない（既定 0）ので 145〜150 は OFF のまま
     check((await variableIs(131, 4)) && !(await switchOn(145)), "完全体の変数 131 が 4 でない／スイッチ 145 が入った");
@@ -303,7 +307,7 @@ await runTest(async () => {
 
     // もう一度読んでもメモも知らせも増えない
     pages = await talk();
-    check(!pages.some(p => p.includes("行軍") || p.includes("メモ：")), "読み直しで知らせが出た " + JSON.stringify(pages));
+    check(!pages.some(p => p === completeText || p.includes("メモ：")), "読み直しで知らせが出た " + JSON.stringify(pages));
     check((await game.eval(() => Hai.Thoughts.notes("memory").length)) === 4, "読み直しでメモが増えた");
 
     // ---- 名前の欄（docs/world.md 3.1）：名前の変更（320）で主人公の名前が「ルカ」になる（仕組みは足さない）
