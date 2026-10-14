@@ -104,9 +104,10 @@ for (let id = BAND[0]; id <= BAND[1]; id++) items[id] = emptyItem(id);
 items[ORB] = {
   ...emptyItem(ORB),
   name: "叡智のオーブ",
-  // 説明（2 行目は来歴の一行）と来歴（メモ欄の <hai_lore>）。docs/lore.md 3 章から写した（W2b #112）
-  description: "淡く光る珠。牢獄の間の扉の台座にはまりそうだ。\n古い賢者の知恵が固まった珠。持ち主を何度も替えた。",
-  note: "<hai_lore>\n古い賢者たちの知恵が、珠の形に固まったものだという。\n巨人は洞の奥に、魚人は集会所の壁の中に、一つずつ隠した。\n教会は異端の村から取り上げて、祭壇に据えた。\n書院は禁書庫の一番奥にしまい、鍵を二つ掛けた。\n</hai_lore>",
+  // 今の世界ではどこにも置いていない（P11 で仕組みから外した）。前の世界の説明と来歴は W25（#293。R3 困る 1）が外し、
+  // 今の世界の言葉の短い説明だけにした（来歴なし）
+  description: "淡く光る、手のひらほどの珠。\n覗くと、向こう側が逆さに見える。",
+  note: "",
   iconIndex: 165, itypeId: 2, consumable: false, occasion: 3, scope: 0,
 };
 outputs.push({ file: dataPath("Items.json"), text: formatTable(items) });
