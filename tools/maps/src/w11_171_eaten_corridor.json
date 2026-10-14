@@ -204,6 +204,13 @@
               ]
             },
             {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "$gameSelfSwitches.setValue([171, 34, \"D\"], last === \"east\" && Hai.Companions.memories(11).includes(4));"
+              ]
+            },
+            {
               "code": 214,
               "indent": 0,
               "parameters": []
@@ -248,7 +255,7 @@
       "type": "raw",
       "x": 25,
       "y": 17,
-      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:二冊のうち一冊を、使いに渡したのは私です。急かされましたので。>",
+      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:二冊のうち一冊を、使いに渡したのは私です。急かされましたので。><hai_enemy_shade_quiet>",
       "pages": [
         {
           "conditions": {
@@ -265,7 +272,22 @@
           "trigger": 2,
           "moveType": 0,
           "moveFrequency": 5,
-          "moveSpeed": 3
+          "moveSpeed": 3,
+          "list": [
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
         }
       ]
     },
@@ -300,7 +322,7 @@
       "type": "raw",
       "x": 25,
       "y": 4,
-      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:朝は来なかった。札は、釘に掛かったままだ。>",
+      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:朝は来なかった。札は、釘に掛かったままだ。><hai_enemy_shade_quiet>",
       "pages": [
         {
           "conditions": {
@@ -317,7 +339,22 @@
           "trigger": 2,
           "moveType": 0,
           "moveFrequency": 5,
-          "moveSpeed": 3
+          "moveSpeed": 3,
+          "list": [
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
         }
       ]
     },
@@ -352,7 +389,7 @@
       "type": "raw",
       "x": 25,
       "y": 18,
-      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:扉にさわったら、中で、だれかがぼくの名前で泣いてた。>",
+      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:扉にさわったら、中で、だれかがぼくの名前で泣いてた。><hai_enemy_shade_quiet>",
       "pages": [
         {
           "conditions": {
@@ -369,7 +406,22 @@
           "trigger": 2,
           "moveType": 0,
           "moveFrequency": 5,
-          "moveSpeed": 3
+          "moveSpeed": 3,
+          "list": [
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
         }
       ]
     },
@@ -404,7 +456,7 @@
       "type": "raw",
       "x": 25,
       "y": 5,
-      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:水は、膝から胸まで来た。筆は、札掛けの下に浮いている。>",
+      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:水は、膝から胸まで来た。筆は、札掛けの下に浮いている。><hai_enemy_shade_quiet>",
       "pages": [
         {
           "conditions": {
@@ -421,7 +473,22 @@
           "trigger": 2,
           "moveType": 0,
           "moveFrequency": 5,
-          "moveSpeed": 3
+          "moveSpeed": 3,
+          "list": [
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
         }
       ]
     },
@@ -456,7 +523,7 @@
       "type": "raw",
       "x": 25,
       "y": 19,
-      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:一箱、泣いていた。それも数に入れた。>",
+      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:一箱、泣いていた。それも数に入れた。><hai_enemy_shade_quiet>",
       "pages": [
         {
           "conditions": {
@@ -473,7 +540,22 @@
           "trigger": 2,
           "moveType": 0,
           "moveFrequency": 5,
-          "moveSpeed": 3
+          "moveSpeed": 3,
+          "list": [
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
         }
       ]
     },
@@ -508,7 +590,7 @@
       "type": "raw",
       "x": 25,
       "y": 6,
-      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:札を拭いて、もう一度書こうとした。そこまでだ。>",
+      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:札を拭いて、もう一度書こうとした。そこまでだ。><hai_enemy_shade_quiet>",
       "pages": [
         {
           "conditions": {
@@ -525,7 +607,22 @@
           "trigger": 2,
           "moveType": 0,
           "moveFrequency": 5,
-          "moveSpeed": 3
+          "moveSpeed": 3,
+          "list": [
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
         }
       ]
     },
@@ -534,7 +631,7 @@
       "type": "raw",
       "x": 40,
       "y": 23,
-      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:おねえちゃん、三つしか叩かなかったよ。おかあ>",
+      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:おねえちゃん、三つしか叩かなかったよ。おかあ><hai_enemy_shade_quiet>",
       "pages": [
         {
           "conditions": {
@@ -551,7 +648,22 @@
           "trigger": 2,
           "moveType": 0,
           "moveFrequency": 5,
-          "moveSpeed": 3
+          "moveSpeed": 3,
+          "list": [
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
         }
       ]
     },
@@ -560,7 +672,7 @@
       "type": "raw",
       "x": 28,
       "y": 32,
-      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:顔は覚えている。たぶん>",
+      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:顔は覚えている。たぶん><hai_enemy_shade_quiet>",
       "pages": [
         {
           "conditions": {
@@ -577,7 +689,22 @@
           "trigger": 2,
           "moveType": 0,
           "moveFrequency": 5,
-          "moveSpeed": 3
+          "moveSpeed": 3,
+          "list": [
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
         }
       ]
     },
@@ -1101,7 +1228,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "音が止んだ。北の方で、何かが脈を打つ音がする。"
+                "刃の音が止んだ。北の口の奥で、湿った音が脈を打っている。"
               ]
             },
             {
@@ -1154,7 +1281,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "音が止んだ。北の方で、何かが脈を打つ音がする。"
+                "刃の音が止んだ。北の口の奥で、湿った音が脈を打っている。"
               ]
             },
             {
@@ -1207,7 +1334,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "音が止んだ。北の方で、何かが脈を打つ音がする。"
+                "刃の音が止んだ。北の口の奥で、湿った音が脈を打っている。"
               ]
             },
             {
@@ -1241,8 +1368,8 @@
       "x": 10,
       "y": 31,
       "lines": [
-        "壁ぎわに、戸板が何枚も立てかけてある。",
-        "どれも内側に、爪の跡。"
+        "壁ぎわに、戸板が十一枚立てかけてある。",
+        "どの戸も、閂は内から外してある。"
       ]
     },
     {
@@ -1416,6 +1543,1185 @@
           },
           "priorityType": 1,
           "walkAnime": false
+        }
+      ]
+    },
+    {
+      "name": "声だけの影（鋳物場 トゥーラの記憶 4）",
+      "type": "raw",
+      "x": 27,
+      "y": 8,
+      "note": "<hai_enemy:702,yellow><hai_enemy_once><hai_enemy_shade:かえりは かるい><hai_enemy_shade_quiet>",
+      "pages": [
+        {
+          "conditions": {
+            "selfSwitchCh": "D",
+            "selfSwitchValid": true
+          },
+          "image": {
+            "characterName": "Monster",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 2,
+          "moveType": 0,
+          "moveFrequency": 5,
+          "moveSpeed": 3,
+          "list": [
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "影の崩れ（自動。声だけの影（記録院 R2-18））",
+      "type": "raw",
+      "x": 21,
+      "y": 35,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 4,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "$gameSelfSwitches.value([171, 6, \"A\"]) && $gameSelfSwitches.value([171, 6, \"B\"])"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 1,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "B",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "影は膝をついて、そのまま灰になった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "灰の中で、口の形だけがしばらく動いていた。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_SymbolEnemy",
+                "shadeVoice",
+                "影の声を出す",
+                {
+                  "eventId": "6",
+                  "speaker": ""
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "eventId = 6"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "speaker = "
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "C",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "C",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "影の崩れ（自動。声だけの影（記録院 R2-25））",
+      "type": "raw",
+      "x": 22,
+      "y": 35,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 4,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "$gameSelfSwitches.value([171, 8, \"A\"]) && $gameSelfSwitches.value([171, 8, \"B\"])"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 1,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "B",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "影が崩れた。灰は床に落ちず、北の口へ吸われていく。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_SymbolEnemy",
+                "shadeVoice",
+                "影の声を出す",
+                {
+                  "eventId": "8",
+                  "speaker": ""
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "eventId = 8"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "speaker = "
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "C",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "C",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "影の崩れ（自動。声だけの影（水底 R3-20））",
+      "type": "raw",
+      "x": 23,
+      "y": 35,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 4,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "$gameSelfSwitches.value([171, 10, \"A\"]) && $gameSelfSwitches.value([171, 10, \"B\"])"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 1,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "B",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "影は膝をついて、そのまま灰になった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "灰の中で、口の形だけがしばらく動いていた。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_SymbolEnemy",
+                "shadeVoice",
+                "影の声を出す",
+                {
+                  "eventId": "10",
+                  "speaker": ""
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "eventId = 10"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "speaker = "
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "C",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "C",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "影の崩れ（自動。声だけの影（水底 R3-23））",
+      "type": "raw",
+      "x": 24,
+      "y": 35,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 4,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "$gameSelfSwitches.value([171, 12, \"A\"]) && $gameSelfSwitches.value([171, 12, \"B\"])"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 1,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "B",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "影が崩れた。灰は床に落ちず、北の口へ吸われていく。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_SymbolEnemy",
+                "shadeVoice",
+                "影の声を出す",
+                {
+                  "eventId": "12",
+                  "speaker": ""
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "eventId = 12"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "speaker = "
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "C",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "C",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "影の崩れ（自動。声だけの影（鋳物場 R4-11））",
+      "type": "raw",
+      "x": 26,
+      "y": 35,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 4,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "$gameSelfSwitches.value([171, 14, \"A\"]) && $gameSelfSwitches.value([171, 14, \"B\"])"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 1,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "B",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "影は膝をついて、そのまま灰になった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "灰の中で、口の形だけがしばらく動いていた。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_SymbolEnemy",
+                "shadeVoice",
+                "影の声を出す",
+                {
+                  "eventId": "14",
+                  "speaker": ""
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "eventId = 14"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "speaker = "
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "C",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "C",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "影の崩れ（自動。声だけの影（鋳物場 R4-18））",
+      "type": "raw",
+      "x": 27,
+      "y": 35,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 4,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "$gameSelfSwitches.value([171, 16, \"A\"]) && $gameSelfSwitches.value([171, 16, \"B\"])"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 1,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "B",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "影が崩れた。灰は床に落ちず、北の口へ吸われていく。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_SymbolEnemy",
+                "shadeVoice",
+                "影の声を出す",
+                {
+                  "eventId": "16",
+                  "speaker": ""
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "eventId = 16"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "speaker = "
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "C",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "C",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "影の崩れ（自動。声だけの影（言い残し 焼けた村の子））",
+      "type": "raw",
+      "x": 28,
+      "y": 35,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 4,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "$gameSelfSwitches.value([171, 17, \"A\"]) && $gameSelfSwitches.value([171, 17, \"B\"])"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 1,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "B",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "影がほどけた。ほどける前に、背の低い形になった。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_SymbolEnemy",
+                "shadeVoice",
+                "影の声を出す",
+                {
+                  "eventId": "17",
+                  "speaker": "焼けた村の子"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "eventId = 17"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "speaker = 焼けた村の子"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "C",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "C",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "影の崩れ（自動。声だけの影（言い残し 名無し兵））",
+      "type": "raw",
+      "x": 29,
+      "y": 35,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 4,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "$gameSelfSwitches.value([171, 18, \"A\"]) && $gameSelfSwitches.value([171, 18, \"B\"])"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 1,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "B",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "影が崩れた。灰の上に、指で書きかけた一画が残った。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_SymbolEnemy",
+                "shadeVoice",
+                "影の声を出す",
+                {
+                  "eventId": "18",
+                  "speaker": "名無し兵"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "eventId = 18"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "speaker = 名無し兵"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "C",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "C",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
+        }
+      ]
+    },
+    {
+      "name": "影の崩れ（自動。声だけの影（鋳物場 トゥーラの記憶 4））",
+      "type": "raw",
+      "x": 21,
+      "y": 36,
+      "pages": [
+        {
+          "priorityType": 0,
+          "trigger": 4,
+          "list": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "$gameSelfSwitches.value([171, 34, \"A\"]) && $gameSelfSwitches.value([171, 34, \"B\"])"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 1,
+              "parameters": [
+                "B",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "B",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0,
+          "trigger": 3,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "影が崩れた。灰に、刃物で彫ったような字が残った。"
+              ]
+            },
+            {
+              "code": 357,
+              "indent": 0,
+              "parameters": [
+                "Hai_SymbolEnemy",
+                "shadeVoice",
+                "影の声を出す",
+                {
+                  "eventId": "34",
+                  "speaker": ""
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "eventId = 34"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 0,
+              "parameters": [
+                "speaker = "
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                0,
+                144,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                "トゥーラ"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "……あたしの字だ"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "C",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ]
+        },
+        {
+          "conditions": {
+            "selfSwitchCh": "C",
+            "selfSwitchValid": true
+          },
+          "priorityType": 0
         }
       ]
     }
