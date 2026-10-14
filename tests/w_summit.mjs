@@ -213,7 +213,7 @@ await runTest(async () => {
     await arrive(LODGE, 25, 38);
     await go(LODGE, 25, 30, 8);
     const ledger = (await talk()).join("\n");
-    check(ledger.includes("「一晩のみ」") && ledger.includes("宿帳を手に入れた！") && (await has(ITEM.ledger)) === 1, "宿帳 " + JSON.stringify(ledger));
+    check(ledger.includes("「一晩のみ」") && ledger.includes("宿帳を手に入れた。") && !ledger.includes("メモ：") && (await has(ITEM.ledger)) === 1, "宿帳 " + JSON.stringify(ledger));
     const faint0 = await vr(VAR.faint);
     await go(LODGE, 9, 21, 8);
     const f11 = (await talk()).join("\n");
@@ -236,7 +236,7 @@ await runTest(async () => {
     check(await game.eval(s => $gameTroop.members()[0].isStateAffected(s), STATE_ONE_NIGHT), "戦いの頭に「一晩のみ」が付いていない");
     await game.shot("scaffold-battle");
     const won = (await winBattle()).join("\n");
-    check(won.includes("影は段の上で、灰になった。") && (await sw(SW.scaffold)), "足場の番を倒す（1154） " + JSON.stringify(won));
+    check(won.includes("影は段の上で、灰になった。") && won.includes("段に、鑿が二十一本残った。") && !won.includes("降る灰は白い") && (await sw(SW.scaffold)), "足場の番を倒す（1154） " + JSON.stringify(won));
     await go(SCAFFOLD, 13, 1, 8);
     await step(8);
     await arrive(ROOT, 20, 28);
@@ -244,12 +244,16 @@ await runTest(async () => {
 
     // ===== 6. 183 鐘楼の根 =====
     await go(ROOT, 20, 9, 8);
-    check((await talk()).join("").includes("歯が一つだけ、新しい。") && !(await sw(SW.rope)), "工具が無いと巻き上げは直せない");
+    const rusty = (await talk()).join("\n");
+    check(rusty.includes("歯は錆びている。") && rusty.includes("歯が一つだけ、新しい。") && !rusty.includes("綱が上まで通った") && !(await sw(SW.rope)), "工具が無いと巻き上げは直せない " + JSON.stringify(rusty));
     await go(ROOT, 23, 10, 8);
-    check((await talk()).join("").includes("石工の工具を手に入れた！") && (await has(ITEM.tools)) === 1, "石工の工具（Items 1152）");
+    const tools = (await talk()).join("\n");
+    check(tools.includes("石工の工具を手に入れた。") && !tools.includes("メモ：") && (await has(ITEM.tools)) === 1, "石工の工具（Items 1152） " + JSON.stringify(tools));
     await go(ROOT, 20, 9, 8);
     const fix = (await talk()).join("\n");
-    check(fix.includes("歯を直した。綱が、上まで通った。") && fix.includes("アンセルモ：お前さん。綱を直すと、上で吊れるようになる") && (await sw(SW.rope)), "綱を直す（1155） " + JSON.stringify(fix));
+    // 工具があっても、先に「歯は錆びている」の頁（場面表 4.7。R2 気になる 17）。アンセルモの一言は直す前
+    check(fix.indexOf("歯は錆びている。") >= 0 && fix.indexOf("アンセルモ：お前さん。綱を直すと、上で吊れるようになる") > fix.indexOf("歯は錆びている。")
+      && fix.indexOf("嵌め直すと、綱が上まで通った。") > fix.indexOf("アンセルモ：") && (await sw(SW.rope)), "綱を直す（1155） " + JSON.stringify(fix));
     await game.shot("bell-root");
     console.log("  183：石工の工具（Items 1152）・綱を直す（1155）", `（${Math.round((Date.now() - T0) / 1000)} 秒）`);
 

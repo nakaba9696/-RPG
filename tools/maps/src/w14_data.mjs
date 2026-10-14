@@ -6,6 +6,7 @@
 //   Items・Skills・States・Enemies・Troops の 1151–1200、System.json の switches・variables 1151–1200 の名前
 // ほかのレーンの地図に足す部品（三つの鐘の綱・010・019・054）は tools/maps/src/w14_parts.mjs（w6_data・w8_maps・w9_data・w10_data が読む）。
 // 文は場面表のまま写す（変えない）。場面表に無い調べた文・宝箱は置かない（宝箱の入手の文だけ）。
+// 文7（#274）：場面表に無かった文（二度目に調べた頁・ふさがった口・入手の一行）と R2 の直し（気になる 17・18・19・26）を書き直した。印は「文7」。
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -36,7 +37,8 @@ const comment = (text, indent = 0) => cmd(108, [text], indent);
 const transfer = (mapId, x, y, d, indent = 0) => cmd(201, [0, mapId, x, y, d, 0], indent);
 const gainItem = (id, n = 1, indent = 0) => cmd(126, [id, 0, 0, n], indent);
 const gainGold = (n, indent = 0) => cmd(125, [0, 0, n], indent);
-const memo = text => `\\C[6]メモ：\\C[0]${text}`;
+// 大事なものの入手。ほかの物と同じ「\I[n]〜を手に入れた。」の形（文7。R2 気になる 18。「メモ：」の形にしない）
+const got = id => `\\I[${KEY_ITEM[id][1]}]${KEY_ITEM[id][0]}を手に入れた。`;
 const bossBattle = (troopId, [mapId, x, y, d], indent = 0) => plugin("Hai_Boss", "bossBattle", "ボス戦",
   { troopId: String(troopId), escapeMapId: String(mapId), escapeX: String(x), escapeY: String(y), escapeDirection: String(d) }, indent);
 /** 仲間がいれば一言（加入のスイッチ） */
@@ -117,11 +119,13 @@ const emptyItem = id => ({
   description: "", effects: [], hitType: 0, iconIndex: 0, itypeId: 1, name: "", note: "", occasion: 0, price: 0, repeats: 1,
   scope: 0, speed: 0, successRate: 100, tpGain: 0,
 });
+// 大事なものの名前と絵（入手の文 got と同じ表を使う）
+const KEY_ITEM = { [ITEM.ledger]: ["宿帳", 121], [ITEM.masonTools]: ["石工の工具", 143] };
 const keyItem = (name, iconIndex) => ({ name, description: descOf(name), note: loreOf(name), iconIndex, itypeId: 2, consumable: false, occasion: 3 });
 const items = readData("Items.json");
 clearBand(items, emptyItem);
-put(items, ITEM.ledger, keyItem("宿帳", 121), emptyItem);
-put(items, ITEM.masonTools, keyItem("石工の工具", 143), emptyItem);
+put(items, ITEM.ledger, keyItem(...KEY_ITEM[ITEM.ledger]), emptyItem);
+put(items, ITEM.masonTools, keyItem(...KEY_ITEM[ITEM.masonTools]), emptyItem);
 writeTable("Items.json", items);
 
 // Skills（敵の技）
@@ -331,7 +335,7 @@ const chest = (label, [x, y], gainList, gotText, red = false) => ({
     { conditions: { selfSwitchCh: "A", selfSwitchValid: true }, image: red ? IMG.redChestOpen : IMG.chestOpen, priorityType: 1, walkAnime: false },
   ],
 });
-const chestItem = (xy, id, n = 1, red = false) => chest(P_ITEM_NAME[id][0], xy, [gainItem(id, n)], `\\I[${P_ITEM_NAME[id][1]}]${P_ITEM_NAME[id][0]}${n > 1 ? `×${n}` : ""}を手に入れた！`, red);
+const chestItem = (xy, id, n = 1, red = false) => chest(P_ITEM_NAME[id][0], xy, [gainItem(id, n)], `\\I[${P_ITEM_NAME[id][1]}]${P_ITEM_NAME[id][0]}${n > 1 ? `×${n}` : ""}を手に入れた。`, red); // 拾い物は「〜×2を手に入れた。」の形（文7。R2 気になる 26）
 const chestGold = (xy, n) => chest("鉄くず", xy, [gainGold(n)], `鉄くずを ${n} 手に入れた。`);
 const ward = (name, [x, y], lines = []) => ({
   name: `結界（${name}）`, type: "raw", x, y, note: `<hai_warp:${name}>`,
@@ -475,11 +479,11 @@ function events181() {
           ...say(["宿帳が、開いたまま置いてある。", "「石工、二十二。鐘守、三。王家の使い、一」", "最後の夜の頁は、一晩分しか無い。", "頁のあいだに、指図の写し。「一晩のみ」"]),
           ...say(["砦の鐘守の交代の欄。名の所に、印が一つ。", "五冊の帳面の、墓守の欄の印と同じ形だ。"]),
           se("Item3"), gainItem(ITEM.ledger),
-          ...say([memo("宿帳を手に入れた！")]),
+          ...say([got(ITEM.ledger)]),
           selfOn(),
           END,
         ] },
-        { conditions: { selfSwitchCh: "A", selfSwitchValid: true }, priorityType: 1, list: [...say(["台の上に、宿帳の置いてあった跡。"]), END] },
+        { conditions: { selfSwitchCh: "A", selfSwitchValid: true }, priorityType: 1, list: [...say(["帳場の台。宿帳の形に、埃が薄い。"]), END] },
       ],
     },
     // 薄い思念 F11 砦の鐘守（囲炉裏。最後に 201 を呼ぶ）。ブルーノの一言は 201 のあと
@@ -560,7 +564,8 @@ function events182() {
     ...bossBattle(TROOP.scaffold, SCAFFOLD_ESCAPE),
     ifScript("Hai.Boss.lastResult() === 0"),
     se("Collapse4", 1, 80, 80),
-    ...say(["影は段の上で、灰になった。灰は黒く、降る灰は白い。"], "", 1),
+    // 文7（R2 気になる 19）：180 の火床の「灰は黒く、降る灰は白い」と重ねない。宿帳の「石工、二十二」と並ぶ数で終える（一本は頂の足場に残っている）
+    ...say(["影は段の上で、灰になった。", "段に、鑿が二十一本残った。"], "", 1),
     end(1), ENDIF(),
     END,
   ];
@@ -576,7 +581,7 @@ function events182() {
     {
       name: "北の口（鐘楼の根へ）", type: "raw", x: E182.exitN[0], y: E182.exitN[1],
       pages: [
-        { priorityType: 1, list: [...say(["段の上を、影がふさいでいる。"]), END] },
+        { priorityType: 1, list: [...say(["石段の上に、影の背中。重なった肩で、段が見えない。"]), END] },
         { conditions: { switch1Id: SW.scaffoldBoss, switch1Valid: true }, priorityType: 0, trigger: 1, list: [se("Move1"), transfer(MAP.root, E183.entry[0], E183.entry[1] - 1, UP), END] },
       ],
     },
@@ -604,21 +609,20 @@ function events183() {
     {
       name: "綱の巻き上げ", type: "raw", x: E183.winch[0], y: E183.winch[1],
       pages: [
+        // 文7（R2 気になる 17）：工具があってもなくても、先に「歯は錆びている」の頁を出す。アンセルモの一言は直す前に（直したあとでは遅い）
         { image: IMG.rope, priorityType: 1, directionFix: true, list: [
+          ...say(["太い綱が巻き上げに掛かっている。綱は硬く、歯は錆びている。", "歯が一つだけ、新しい。"]),
+          ...[ifSwitch(FLAG.anselmo, true), ...say(["お前さん。綱を直すと、上で吊れるようになる"], "アンセルモ", 1), end(1), ENDIF()],
           ifItem(ITEM.masonTools),
-          ...say(["歯を直した。綱が、上まで通った。"], "", 1),
           se("Hammer", 1),
+          ...say(["石工の工具で、錆びた歯を外して磨いた。", "嵌め直すと、綱が上まで通った。"], "", 1),
           switchOn(SW.ropeFixed, 1),
-          ...[ifSwitch(FLAG.anselmo, true, 1), ...say(["お前さん。綱を直すと、上で吊れるようになる"], "アンセルモ", 2), end(2), ENDIF(1)],
-          end(1),
-          ELSE(),
-          ...say(["太い綱が巻き上げに掛かっている。綱は硬く、歯は錆びている。", "歯が一つだけ、新しい。"], "", 1),
           end(1),
           ENDIF(),
           END,
         ] },
         { conditions: { switch1Id: SW.ropeFixed, switch1Valid: true }, image: IMG.rope, priorityType: 1, directionFix: true,
-          list: [...say(["歯を直した。綱が、上まで通った。"]), END] },
+          list: [...say(["綱が、頂の方へ張っている。", "磨いた歯のあいだに、新しい歯が一つ。"]), END] },
       ],
     },
     // 石工の工具（巻き上げの脇で拾う）
@@ -628,7 +632,7 @@ function events183() {
         { image: IMG.sparkle, priorityType: 1, stepAnime: true, walkAnime: false, list: [
           ...say(["巻き上げの脇に、石工の工具。"]),
           se("Item3"), gainItem(ITEM.masonTools),
-          ...say([memo("石工の工具を手に入れた！")]),
+          ...say([got(ITEM.masonTools)]),
           selfOn(),
           END,
         ] },
