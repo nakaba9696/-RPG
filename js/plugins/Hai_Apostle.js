@@ -20,6 +20,7 @@
  * ■ 呼びかけ
  *   「呼びかけの言葉」に書いた仲間は、味方の誰かの呑まれが 0 より大きい間、
  *   コマンド「呼びかける」を使える。選ぶと呑まれのいちばん多い味方に呼びかけ、
+ *   （同じターンにほかの者がもう呼びかける味方は除く。呼びかける相手が残っていなければコマンドを出さない）
  *   呑まれが「呼びかけで減る量」だけ減り、呑まれのステートが外れる。
  *   戦闘ログには「ブルーノ「あなた！」」のように、仲間の呼び方で出る。
  *   言葉はプラグインコマンド「呼びかけの言葉を変える」で変えられる（セーブに入る）。
@@ -229,9 +230,28 @@
     return typeof w === "string" && w ? w : defaultWords[actorId] || "";
   }
 
-  /** 呼びかけを受ける味方（呑まれのいちばん多い、生きている者）。いなければ null。 */
+  /**
+   * このターンにもう呼びかけ（「呼ぶ」を含む）を受けることになっている味方。
+   * 入力の済んだ行動を見る（いま入力している行動は除く）。同じ者へ二人目が呼びかけて一手が無駄にならないように（R3 気になる 2）。
+   */
+  function calledThisTurn() {
+    const out = new Set();
+    if (!$gameParty.inBattle()) return out;
+    const inputting = BattleManager.inputtingAction();
+    for (const actor of $gameParty.battleMembers()) {
+      for (const action of actor._actions || []) {
+        if (action === inputting || !isCallSkill(action.item())) continue;
+        const target = $gameParty.members()[action._targetIndex];
+        if (target) out.add(target.actorId());
+      }
+    }
+    return out;
+  }
+
+  /** 呼びかけを受ける味方（呑まれのいちばん多い、生きている者。このターンにもう呼びかけを受ける者は除く）。いなければ null。 */
   function callTarget() {
-    const list = $gameParty.battleMembers().filter(a => a.isAlive() && engulfOf(a.actorId()) > 0);
+    const called = calledThisTurn();
+    const list = $gameParty.battleMembers().filter(a => a.isAlive() && engulfOf(a.actorId()) > 0 && !called.has(a.actorId()));
     return list.length ? list.reduce((best, a) => (engulfOf(a.actorId()) > engulfOf(best.actorId()) ? a : best)) : null;
   }
 

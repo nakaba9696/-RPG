@@ -283,7 +283,14 @@ await runTest(async () => {
     await game.shot("bell-room");
     await go(BELL_ROOM, 7, 14, 8);
     const m3 = (await talk()).join("\n");
-    check(m3.includes("確かめないことにした") && m3.includes("完全体"), "ディルの記憶 3 で完全体にならない " + JSON.stringify(m3));
+    // 完全体の知らせ（Hai_Companions の completeMessage の値の 1 行目）は、その仲間を連れているときだけ出る（P20。呼んでいなければ呼んだときに出る）
+    const toldComplete = (text, id) => game.eval(([t, n]) => {
+      const head = PluginManager.parameters("Hai_Companions").completeMessage.split(/\\n|\n/)[0].replace(/%1/g, $gameActors.actor(n).name());
+      return { told: t.includes(head), inParty: $gameParty._actors.includes(n) };
+    }, [text, id]);
+    const m3told = await toldComplete(m3, DIL);
+    check(m3.includes("確かめないことにした") && m3told.told === m3told.inParty, "ディルの記憶 3 の完全体の知らせ " + JSON.stringify({ m3, ...m3told }));
+    check(await game.eval(n => Hai.Companions.isComplete(n), DIL), "ディルが完全体にならない");
     // ほかの三つを鳴らした後の 4 つ目として鳴らす（4 つ目でスイッチ 105）
     await game.eval(v => { $gameVariables.setValue(v, 3); $gameSwitches.setValue(106, true); }, VAR.bellCount); // 3 つ目の場面（スイッチ 106。W11）は済んだ扱い
     await go(BELL_ROOM, 13, 8, 8);

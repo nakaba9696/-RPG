@@ -2,7 +2,7 @@
 //   遺骸を調べると found に入り、セルフスイッチ A と筋の旗（スイッチ 131）が入る／名の壁の輪で選ぶと暗転して目を開け、パーティに入る／
 //   呼べる人がいないときの文／7 人（アクター 5〜11）の旗（スイッチ 131〜144、変数 131〜137）／
 //   編成で並べ替え・入れ替え（主人公は控えに回せない）／戦闘に出るのは 4 人／檻破り（<hai_user_state>）で使った者が狙われる／
-//   記憶 4 つで完全体になり強技を覚え、メモに 4 行／強技は完全体のほかでは覚えない／名前の変更（320）で主人公の名前が変わる／
+//   記憶 4 つで完全体になり強技を覚え、メモに 4 行（呼んでいない仲間は知らせを出さず、呼んだときに出す。P20）／強技は完全体のほかでは覚えない／名前の変更（320）で主人公の名前が変わる／
 //   セーブ・ロード（読み直しをはさむ）で残る。呼ぶ選択肢・目覚め・編成の画面・完全体の知らせのスクリーンショットを撮る。
 import { launchGame, check, runTest } from "./lib.mjs";
 
@@ -259,15 +259,47 @@ await runTest(async () => {
     check(!(await game.eval(id => $gameActors.actor(5).isLearnedSkill(id), VOW)), "3 つで強技を覚えた");
     check(await variableIs(131, 3), "変数 131（記憶:ブルーノ）が 3 でない");
 
-    // ---- 4 つ目「臨終」で完全体
+    // ---- P20（R3 気になる 5）：まだ呼んでいない（パーティにいない）仲間の 4 つ目では、完全体の知らせを出さない
     const m4 = MEMORIES[3];
+    // 知らせの文は js/plugins.js の completeMessage の値から組み立てて、ページ全体で比べる
+    // （値を @default と同じ今の世界の一行に替えるのは持ち主。owner-fixes 持-9）
+    const completeText = await game.eval(() => PluginManager.parameters("Hai_Companions").completeMessage
+      .replace(/%1/g, "ブルーノ").replace(/%2/g, "行軍").split(/\\n|\n/).join("\n"));
+    check(completeText.includes("ブルーノの記憶") && completeText.includes("行軍"), "完全体の知らせの文が組み立てられない " + JSON.stringify(completeText));
+    const order = await party();
+    await game.eval(() => {
+      $gameParty.removeActor(5);
+      $gameSystem._hai.companions.summoned[5] = false;
+    });
     await go(m4.x, m4.y + 1, 8);
-    pages = await talk([], { 3: "complete" });
+    pages = await talk();
     check(pages[0].includes("礼拝堂の屋根が見える") && pages[1].includes("巻いてくれる人がいません"), "臨終の本文 " + JSON.stringify(pages));
     check(pages[2].includes("ブルーノの記憶 4/4「臨終」"), "臨終のメモの行 " + JSON.stringify(pages));
-    check(pages[3].includes("完全体") && pages[3].includes("行軍"), "完全体の知らせ " + JSON.stringify(pages));
+    check(pages.length === 3 && !pages.includes(completeText), "呼んでいないブルーノの 4 つ目で知らせが出た " + JSON.stringify(pages));
     check(await hc("isComplete", 5), "4 つで完全体にならない");
     check(await game.eval(id => $gameActors.actor(5).isLearnedSkill(id), VOW), "完全体で強技を覚えない");
+    // 名の壁で呼ぶと、目覚めの文のあとに知らせが出る（一度だけ）
+    await go(CIRCLE.x, CIRCLE.y + 1, 8);
+    pages = await talk([0]);
+    const told = pages.indexOf(completeText);
+    check(told > 0 && pages.findIndex(p => p.includes("ブルーノが目を開けた")) < told, "呼んだときの完全体の知らせ " + JSON.stringify(pages));
+    check(pages.filter(p => p === completeText).length === 1, "呼んだときの完全体の知らせが一度でない " + JSON.stringify(pages));
+    await game.eval(o => {
+      $gameParty._actors = o;
+      $gamePlayer.refresh();
+    }, order);
+
+    // ---- 連れている仲間の 4 つ目「臨終」では、読んだその場で知らせる（4 つ目を読む前に戻して読み直す）
+    await game.eval(([m, x, y]) => {
+      delete $gameSystem._hai.companions.memories[5][4];
+      delete $gameSystem._hai.companions.told[5];
+      $gameSelfSwitches.setValue([m, $gameMap.eventIdXy(x, y), "A"], false);
+    }, [MAP, m4.x, m4.y]);
+    await go(m4.x, m4.y + 1, 8);
+    pages = await talk([], { 3: "complete" });
+    check(pages[2].includes("ブルーノの記憶 4/4「臨終」"), "臨終のメモの行 " + JSON.stringify(pages));
+    check(pages[3] === completeText, "完全体の知らせ " + JSON.stringify(pages));
+    check(await hc("isComplete", 5), "4 つで完全体にならない");
     // 完全体はスイッチでなく変数 131（記憶:ブルーノ）が 4。完全体のスイッチは使わない（既定 0）ので 145〜150 は OFF のまま
     check((await variableIs(131, 4)) && !(await switchOn(145)), "完全体の変数 131 が 4 でない／スイッチ 145 が入った");
     let notes = await game.eval(() => Hai.Thoughts.notes("memory").map(n => n.text));
@@ -275,7 +307,7 @@ await runTest(async () => {
 
     // もう一度読んでもメモも知らせも増えない
     pages = await talk();
-    check(!pages.some(p => p.includes("完全体") || p.includes("メモ：")), "読み直しで知らせが出た " + JSON.stringify(pages));
+    check(!pages.some(p => p === completeText || p.includes("メモ：")), "読み直しで知らせが出た " + JSON.stringify(pages));
     check((await game.eval(() => Hai.Thoughts.notes("memory").length)) === 4, "読み直しでメモが増えた");
 
     // ---- 名前の欄（docs/world.md 3.1）：名前の変更（320）で主人公の名前が「ルカ」になる（仕組みは足さない）
