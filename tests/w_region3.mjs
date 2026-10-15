@@ -209,7 +209,7 @@ await runTest(async () => {
     check((await items("i", ITEM.arkList)) === 1, "方舟の乗船名簿が手に入らない");
     check((await look(LAKE, L.zelina3[0], L.zelina3[1] + 1, 8)).includes("二十六"), "ゼリナの記憶 3");
     check((await look(LAKE, L.r302[0], L.r302[1] + 1, 8)).includes("籠だけ受け取って"), "R3-02");
-    const stand = [L.dockBoat[0], L.dockBoat[1] - 1];
+    const stand = [L.dockBoat[0], L.dockBoat[1] - 2]; // W28：杭（舟の一つ北）は「通常」なので、板の道の隣のマスから調べる
     check((await look(LAKE, stand[0], stand[1], 2)).includes("漕ぐ物が無い"), "櫂が無いのに舟を出せる");
     check((await game.eval(() => Hai.Companions.memories(8))).join() === "2,3", "ゼリナの記憶 2・3 が数えられない");
     console.log("  舟小屋：ゼリナの記憶 2・3・乗船名簿・舟着きの杭（漕ぐ物が無い）");
@@ -257,6 +257,8 @@ await runTest(async () => {
     await talk(["自分で漕ぐ"]);
     await game.waitFor(() => $gamePlayer.isInBoat() && !$gamePlayer.isMoving() && !window.__game.isBusy());
     check(await game.eval(() => $gamePlayer.isInBoat() && $gameMap.boat().x === $gamePlayer.x), "舟に乗れない");
+    const onBoat = await pos();
+    check(onBoat.x === L.dockBoat[0] && onBoat.y === L.dockBoat[1], "自分で漕ぐと杭の脇の舟に乗らない " + JSON.stringify(onBoat));
     await game.shot("lake-boat");
     // 湖の上を漕ぐ（水だけを通って小島の岸の手前まで）。舟は小型船の通行で動く
     const path = await game.eval(([tx, ty]) => {
@@ -302,7 +304,7 @@ await runTest(async () => {
     // ===== 6. ミルレーネに伝える・舟着きの杭から向こう岸へ =====
     const told = await look(HOUSE, H.mirlene[0] + 1, H.mirlene[1], 4);
     check(told.includes("門が、開いたのね") && (await sw(SW.toldMirlene)), "ミルレーネに水門のことを伝える（スイッチ 514） " + JSON.stringify(told));
-    await go(LAKE, L.isleBoat[0], L.isleBoat[1] - 1, 8); // 舟の方を向くと舟に乗ってしまうので、背を向けて杭を調べる
+    await go(LAKE, L.isleBoat[0], L.isleBoat[1] - 2, 2); // W28：杭の先の一つ北から杭を調べる（舟は杭の先の向こう）
     await talk(["向こう岸へ漕ぐ"]);
     await arrive(LAKE, L.farBoat[0], L.farBoat[1] + 1);
     check((await look(LAKE, L.r304[0] - 1, L.r304[1], 6)).includes("十四"), "向こう岸の R3-04");

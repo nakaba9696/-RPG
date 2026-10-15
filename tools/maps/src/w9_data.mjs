@@ -55,7 +55,7 @@ export const SW = {
 };
 export const VAR = { songTask: 501 };
 // world.md 4.4 の旗（W6 の帯）と P の帯：使うだけ
-export const FLAG = { prisonBell: 101, bellWater: 103, bellsAll: 105, metMirlene: 107, bellCount: 101, outsidersErrand: 166, faint: 138 };
+export const FLAG = { prisonBell: 101, bellWater: 103, bellsAll: 105, metMirlene: 107, bellCount: 101, outsidersErrand: 166, faint: 138, mirleneFort: 1152 };
 const COMMON_MEMORY_LINE = 201; // W6：記憶が戻ったときの一言
 const ACTOR = { bruno: 5, dil: 7, zelina: 8, anselmo: 9 };
 
@@ -554,19 +554,23 @@ const BOAT = 0;
  * 「自分で漕ぐ」は boatAt に小型船を出し、そちらを向いて乗る（MZ の乗り物）。ほかの舟着きの名を選ぶと、そこまで漕いで着く（場所移動）。
  * docks：[{ label, stand: [x, y], boat: [x, y], face }]。自分は self（docks の添字）。
  */
+// W28（#302）：杭は「通常」の優先度で、板の道の隣のマスから調べる。すり抜けにして、舟から杭の先へ降りられるのはそのまま。
+// 「自分で漕ぐ」は、舟を杭の脇の水に着け、プレイヤーを杭の先へ移して舟の方を向かせてから乗せる（どこから調べても同じ形になる）。
 function dock(name, mapId, docks, self) {
   const me = docks[self];
-  const turn = { 2: 16, 4: 17, 6: 18, 8: 19 }[me.face];
-  const route = { list: [{ code: turn, indent: null, parameters: [] }, { code: 0, parameters: [] }], repeat: false, skippable: false, wait: true };
   const others = docks.filter((_, i) => i !== self);
   const options = ["自分で漕ぐ", ...others.map(o => `${o.label}へ漕ぐ`), "やめる"];
   return ev.raw(name, me.stand, [{
-    priorityType: 0, trigger: 0,
+    priorityType: 1, through: true, trigger: 0,
     list: [
       ifItem(ITEM.oar),
       ...say(["杭に小舟が一艘、舫ってある。"], "", 1),
       ...choice(options, options.length - 1, [
-        [cmd(202, [BOAT, 0, mapId, me.boat[0], me.boat[1]]), cmd(205, [-1, route]), cmd(505, [route.list[0]]), cmd(206, [])],
+        [cmd(221, []),
+          cmd(202, [BOAT, 0, mapId, me.boat[0], me.boat[1]]),
+          transferCmd(mapId, me.stand[0], me.stand[1], me.face),
+          cmd(222, []),
+          cmd(206, [])],
         ...others.map(o => [
           cmd(221, []), se("Water1", 0, 60), cmd(230, [30]),
           cmd(202, [BOAT, 0, mapId, o.boat[0], o.boat[1]]),
@@ -831,7 +835,11 @@ CONFIGS.push(config("w9_071_lake_house", HOUSE, "湖の家", "lake", [
   ev.transfer("南西の岸の道（淵へ）", H.exitSW2, [POOL, PO.arrive2[0], PO.arrive2[1], "down"]),
   ev.transfer("南東の板の道（沈んだ桟橋へ）", H.exitSE, [PIER, PI.arrive[0], PI.arrive[1], "down"]),
   ev.transfer("南東の板の道（沈んだ桟橋へ）", H.exitSE2, [PIER, PI.arrive[0], PI.arrive[1], "down"]),
-  ev.raw("ミルレーネ", H.mirlene, [{ image: { ...IMG.mirlene, direction: LEFT }, priorityType: 1, list: mirleneTalk }]),
+  // W28（#302）：砦に来たら（1152「ミルレーネが砦にいる」。以後は砦の炉の脇と頂。後日も）湖の家にはいない
+  ev.raw("ミルレーネ", H.mirlene, [
+    { image: { ...IMG.mirlene, direction: LEFT }, priorityType: 1, list: mirleneTalk },
+    { conditions: { switch1Id: FLAG.mirleneFort, switch1Valid: true }, priorityType: 0 },
+  ]),
   ev.text("湖の灯", H.lamp, ["柱の上の皿に、灯がともっている。油は足したばかり。", "芯は短く切りそろえてある。"]),
   ev.pickup("湖の灯の帳面", H.ledger, ["机の上に、厚い帳面が開いてある。一晩に一つずつ、点が打ってある。"], ["i", ITEM.lampLedger, 1], {
     image: { tileId: "E:177" },
