@@ -139,7 +139,8 @@ function install() {
       isHero: a => !!opts.hero && a.actorId() === Number(opts.hero.actor),
       canSkill: (a, id) => !!$dataSkills[id] && a.hasSkill(id) && a.canUse($dataSkills[id]),
       strongSkill: a => Number((opts.strong || {})[a.actorId()] || 0),
-      healLow() {
+      // perAlly：false にすると、同じ者に同じターンに何本でも使う（W27 #301 の台と同じ）
+      healLow({ perAlly = true } = {}) {
         const heal = opts.heal;
         if (!heal || !heal.item) return null;
         const item = $dataItems[heal.item];
@@ -147,7 +148,7 @@ function install() {
         const members = $gameParty.members();
         let best = -1;
         members.forEach((m, i) => {
-          if (m.isAlive() && m.hpRate() < Number(heal.rate) && !reserved.targets.includes(i)) {
+          if (m.isAlive() && m.hpRate() < Number(heal.rate) && !(perAlly && reserved.targets.includes(i))) {
             if (best < 0 || m.hpRate() < members[best].hpRate()) best = i;
           }
         });

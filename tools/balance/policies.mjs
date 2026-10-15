@@ -7,7 +7,8 @@
 //            h.opts                 測る条件（bosses.json の defaults と各行を重ねたもの）
 //            h.isHero(actor)        主人公（opts.hero.actor）か
 //            h.canSkill(actor, id)  その技を今使えるか（MP・SP・封じ。ゲームの canUse）
-//            h.healLow()            HP が opts.heal.rate 未満の味方がいて回復の品が残っていれば、その 1 手（品を 1 つ取り置く）。無ければ null
+//            h.healLow()            HP が opts.heal.rate 未満の味方がいて回復の品が残っていれば、いちばん低い者への 1 手（品を 1 つ取り置く）。無ければ null。
+//                                   同じターンに同じ者へは 1 本だけ（{ perAlly: false } で何本でも）
 //            h.strongSkill(actor)   opts.strong に書いたその者の強技の番号（無ければ 0）
 // 返す 1 手：{ attack: true } / { guard: true } / { skill: 番号 } / { item: 番号, target: 味方の並びの番号 }
 //   敵への狙いは書かなければ「生きている敵の先頭」。味方への狙いは target。
@@ -31,6 +32,28 @@ export const POLICIES = {
     label: "強技あり",
     decide(actor, slot, h) {
       const heal = h.healLow();
+      if (heal) return heal;
+      if (h.isHero(actor) && h.canSkill(actor, h.opts.hero.skill)) return { skill: h.opts.hero.skill };
+      const id = h.strongSkill(actor);
+      if (id && h.canSkill(actor, id)) return { skill: id };
+      return { attack: true };
+    },
+  },
+  // W27 #301 の使い捨ての台と同じ回復：35% 未満の者がいれば、どの手もまず煎じ薬（同じ者に何本でも）。
+  // 前の測りと比べるときだけ使う（W27 のターン数は、この道具の数より 1 多い。turnCount()+1 で数えていたため）。
+  w27: {
+    label: "攻撃と灰火（W27 の回復）",
+    decide(actor, slot, h) {
+      const heal = h.healLow({ perAlly: false });
+      if (heal) return heal;
+      if (h.isHero(actor) && h.canSkill(actor, h.opts.hero.skill)) return { skill: h.opts.hero.skill };
+      return { attack: true };
+    },
+  },
+  w27strong: {
+    label: "強技あり（W27 の回復）",
+    decide(actor, slot, h) {
+      const heal = h.healLow({ perAlly: false });
       if (heal) return heal;
       if (h.isHero(actor) && h.canSkill(actor, h.opts.hero.skill)) return { skill: h.opts.hero.skill };
       const id = h.strongSkill(actor);
