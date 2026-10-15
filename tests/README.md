@@ -40,6 +40,7 @@ node tests/serve.mjs 8000          # 手元のブラウザで遊ぶ：http://127
 | `t_smoke.mjs` | タイトル → ニューゲーム → 歩く（キー入力と窓口）→ 戦闘（決定キーで勝つ）→ セーブ → ページの読み直し → ロードで同じ場所・同じ経験値 | 50 秒 |
 | `t_bands.mjs` | W の帯 1001–1500（`tools/data/bands.json`）・`System.json` の名前の配列が 1500 番まであること（短いと検査が落ちる）・`tools/data/extend-system.mjs`・遊ぶ時間の換算（`tests/playtime.mjs`）。ブラウザなし | 1 秒 |
 | `t_checkpoints.mjs` | 旗の束（`__game.setup`）の 5 束と行き先のそれぞれで、入口に着き・歩けて・鐘・仲間・生き残りの数が束のとおりで、着くまでが 30 分以内 | 120 秒 |
+| `t_balance.mjs` | 戦いを測る道具（`tools/balance/`）が動くこと：035 牢番を 2 回測る・同じ種で同じ結果・わざと技の範囲を誤らせると拾う（GAM-45）。表の全部は CI に入れず手で `node tools/balance/run.mjs --all`（`tools/balance/README.md`） | 20 秒 |
 
 どのテストも `pageerror`・console の error・HTTP の 4xx/5xx がゼロであることを確かめる。
 
