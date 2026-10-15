@@ -5,7 +5,7 @@
   "displayName": "古い礼拝堂",
   "legend": "forest",
   "tilesetId": 12,
-  "note": "<hai_tone:0,0,17,102>\n<hai_fog:120>\n<hai_hidden_tiles:D:183,D:26>",
+  "note": "<hai_tone:0,0,17,102>\n<hai_fog:120>\n<hai_hidden_tiles:D:183,D:26>\n<hai_pale:53,27,7,9>",
   "bgm": {
     "name": "Field2",
     "volume": 65,

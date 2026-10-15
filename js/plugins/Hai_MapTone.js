@@ -35,8 +35,23 @@
  * 灰を止める（P14）：頂の三十のあと、プラグインコマンド「灰を止める」（stopAsh）で、どのマップの <hai_ash> も降らなくなる
  *   （$gameSystem に持つのでセーブに入る。「ash」で変えた強さも無視する）。パラメータ「灰が止むスイッチ」が ON の間も同じ。
  *
+ *   <hai_tiletone:-17,-34,-17,119>
+ *     地図のタイルだけの色調（赤, 緑, 青, グレー。値は <hai_tone> と同じ）。人物・イベントの絵には掛からない（V6）。
+ *     タイルセットのメモ欄に書くと、そのタイルセットのマップ全部に掛かる。マップのメモ欄に書くと、そのマップではそちらが優先。
+ *     画面の色調（<hai_tone>）はこの上からさらに掛かる。
+ *
+ *   <hai_pale:53,27,7,9>
+ *     白く見せる一角（x, y, 幅, 高さ。マス）。地図のタイルを白っぽく明るくする（「白い林」など。V6）。人物の絵には掛からない。
+ *     5 つ目に強さ（0〜255。省略で 150）。いくつも書くときは ; で区切る（<hai_pale:1,2,3,4;10,2,3,4,120>）。
+ *
  * 暗がりは、画面の 1/4 の大きさの絵（中心が透明な黒）を 1 回だけ描き、4 倍に拡大してプレイヤーに付いて動かす。
  * 毎フレームの描き直しはしない（半径・濃さ・画面の大きさが変わったときだけ描き直す）。
+ *
+ * 手がかりの灯り（V6）：暗がりのマップでは、調べられるイベント（決定ボタンで始まり、絵があり、<hai_enemy> の無いもの）が、
+ * 明るい輪の外でも淡く光って見える（イベントの絵を暗がりの上に薄く重ね、後ろに小さな光を置く）。
+ * 思念・薄い思念・記憶・遺骸（<hai_thought>・<hai_faint>・<hai_memory>・<hai_remains>）は青白く、ゆっくり明滅する。ほかは鈍い灯の色。
+ * 明るい輪の中では重ねない（元の絵がそのまま見える）。遠く（輪の外 glowRange マスより先）は見えない。
+ * イベントのメモ欄に <hai_glow> と書くと条件に合わなくても光り（絵の無いイベントは小さな光だけ）、<hai_noglow> と書くと光らない。
  *
  * @param darkOpacity
  * @text 暗がりの濃さ（既定）
@@ -53,6 +68,22 @@
  * @min 0
  * @max 100
  * @default 45
+ *
+ * @param glowOpacity
+ * @text 手がかりの灯りの濃さ
+ * @desc 暗がりの外で、調べられるイベントの絵を重ねる濃さ（0〜255）。0 で手がかりの灯りを出さない。
+ * @type number
+ * @min 0
+ * @max 255
+ * @default 150
+ *
+ * @param glowRange
+ * @text 手がかりの灯りの届く距離
+ * @desc 明るい輪の外、何マス先まで手がかりの灯りが見えるか。
+ * @type number
+ * @decimals 1
+ * @min 0
+ * @default 8
  *
  * @param lairAreas
  * @text 縄張りの地域
@@ -170,6 +201,10 @@
     .map(s => Number(s.trim()) || 0);
   const lairFog = Number(params.lairFog ?? 50);
   const ashStopSwitch = Number(params.ashStopSwitch ?? 1165);
+  // 手がかりの灯り（V6）
+  const glowOpacity = Number(params.glowOpacity ?? 150);
+  const glowRange = Number(params.glowRange ?? 8);
+  const PALE_DEFAULT = 150;
 
   /** 「名前:始め-終わり,…;…」→ { 名前: [[始め, 終わり], …] } */
   function parseAreas(text) {
@@ -197,6 +232,24 @@
     const [r, g, b, gray] = numbers(meta.hai_tone);
     const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, Number.isFinite(v) ? v : 0));
     return [clamp(r, -255, 255), clamp(g, -255, 255), clamp(b, -255, 255), clamp(gray, 0, 255)];
+  }
+
+  /** タイルだけの色調（マップのメモ欄が優先、無ければタイルセットのメモ欄）。無ければ null。 */
+  function parseTileTone(meta) {
+    if (!meta || typeof meta.hai_tiletone !== "string") return null;
+    return parseTone({ hai_tone: meta.hai_tiletone });
+  }
+
+  /** 白く見せる一角 [{ x, y, w, h, power }]（無ければ空）。 */
+  function parsePale(meta) {
+    if (!meta || typeof meta.hai_pale !== "string") return [];
+    const out = [];
+    for (const part of meta.hai_pale.split(";")) {
+      const [x, y, w, h, power] = numbers(part);
+      if (![x, y, w, h].every(Number.isFinite) || !(w > 0) || !(h > 0)) continue;
+      out.push({ x, y, w, h, power: Number.isFinite(power) ? Math.max(0, Math.min(255, power)) : PALE_DEFAULT });
+    }
+    return out;
   }
 
   function parseParallax(meta) {
@@ -280,9 +333,24 @@
     return !!state().ashStopped || (ashStopSwitch > 0 && !!$gameSwitches && $gameSwitches.value(ashStopSwitch));
   }
 
+  const THOUGHT_TAGS = ["hai_thought", "hai_faint", "hai_memory", "hai_remains"];
+  /** 手がかりの灯りを出すイベントか。思念のたぐいは "thought"、ほかの調べられる物は "thing"、出さなければ null。 */
+  function glowKind(ev) {
+    if (!ev || ev._erased || ev._pageIndex < 0 || ev.isTransparent()) return null;
+    const meta = ev.event().meta || {};
+    if (meta.hai_noglow) return null;
+    // 絵の無いイベント（壁の刻みなど）は <hai_glow> のときだけ、小さな光だけを出す
+    if (!meta.hai_glow && !ev.characterName() && !(ev.tileId() > 0)) return null;
+    const thought = THOUGHT_TAGS.some(t => meta[t] !== undefined);
+    if (!meta.hai_glow && (meta.hai_enemy !== undefined || ev._trigger !== 0)) return null;
+    return thought ? "thought" : "thing";
+  }
+
   window.Hai = window.Hai || {};
   Hai.MapTone = {
     parseTone,
+    parseTileTone,
+    parsePale,
     parseParallax,
     parseDark,
     parseFog,
@@ -315,6 +383,24 @@
       if (!(override > 0)) return null;
       return { radius: override, opacity: base ? base.opacity : darkOpacity };
     },
+    /** 今のマップのタイルだけの色調（マップのメモ欄、無ければタイルセットのメモ欄。無ければ null）。 */
+    tileTone() {
+      if (!$gameMap || !$dataMap) return null;
+      const tileset = $gameMap.tileset();
+      return parseTileTone($dataMap.meta) || parseTileTone(tileset && tileset.meta);
+    },
+    /** 今のマップの白く見せる一角 [{ x, y, w, h, power }]。 */
+    pale() {
+      return $dataMap ? parsePale($dataMap.meta) : [];
+    },
+    /** 今の手がかりの灯り [{ eventId, opacity, kind }]（暗がりの無いマップでは空）。 */
+    glows() {
+      const scene = SceneManager._scene;
+      const layer = scene && scene._spriteset && scene._spriteset._haiGlowLayer;
+      return layer ? layer.glows() : [];
+    },
+    /** そのイベントが手がかりの灯りを出すか（"thought"・"thing"、出さなければ null）。 */
+    glowKind,
     /** このプラグインが今掛けている色調（無ければ null）。 */
     appliedTone() {
       return state().applied ? state().applied.slice() : null;
@@ -328,7 +414,7 @@
     lairHere: () => !!lairHere(),
     /** 灰が止んだか（「灰を止める」のあとか、灰が止むスイッチが ON）。 */
     isAshStopped: () => isAshStopped(),
-    params: { darkOpacity, darkSoftness, lairAreas, lairTone, lairFog, ashStopSwitch },
+    params: { darkOpacity, darkSoftness, glowOpacity, glowRange, lairAreas, lairTone, lairFog, ashStopSwitch },
   };
 
   PluginManager.registerCommand(pluginName, "dark", args => {
@@ -597,8 +683,220 @@
   }
   Hai.MapTone.Sprite_HaiAsh = Sprite_HaiAsh;
 
+  // --- タイルだけの色調（V6） ---
+  /** 地図の下の層・上の層に ColorFilter を付け、<hai_tiletone> の色調を掛ける（人物は Tilemap の別の子なので掛からない）。 */
+  function updateTileTone(tilemap) {
+    const tone = Hai.MapTone.tileTone();
+    const key = tone ? tone.join(",") : "";
+    if (tilemap._haiTileToneKey === key) return;
+    tilemap._haiTileToneKey = key;
+    for (const layer of [tilemap._lowerLayer, tilemap._upperLayer]) {
+      if (!layer) continue;
+      if (!tone) {
+        layer.filters = null;
+        continue;
+      }
+      if (!layer._haiToneFilter) layer._haiToneFilter = new ColorFilter();
+      layer._haiToneFilter.setColorTone(tone);
+      layer.filters = [layer._haiToneFilter];
+      // タイルの層は大きさ（bounds）を持たないので、画面全体をフィルタの範囲にする（無いと何も描かれない）
+      layer.filterArea = new Rectangle(0, 0, Graphics.width, Graphics.height);
+    }
+  }
+
+  // --- 白く見せる一角（V6） ---
+  /** 一角を、縁をぼかした白で「スクリーン」に重ねる（暗い所ほど明るくなり、木の形は残る）。地図のタイルの上・人物の下。 */
+  class Sprite_HaiPale extends Sprite {
+    constructor(rect) {
+      super();
+      this._rect = rect;
+      this.z = 0.5; // 下の層のタイル（0）の上、人物（1〜）の下
+      this.blendMode = PIXI.BLEND_MODES.SCREEN;
+      this.draw();
+    }
+
+    draw() {
+      const tw = $gameMap.tileWidth();
+      const th = $gameMap.tileHeight();
+      const { w, h, power } = this._rect;
+      const pad = Math.round(tw / 2);
+      const bw = w * tw + pad * 2;
+      const bh = h * th + pad * 2;
+      const bitmap = new Bitmap(bw, bh);
+      const ctx = bitmap.context;
+      const v = Math.round(power);
+      // 縁を半マスずつぼかす（横と縦のぼかしを掛け合わせる）
+      const gx = ctx.createLinearGradient(0, 0, bw, 0);
+      const fx = pad / bw;
+      gx.addColorStop(0, "rgba(255,255,255,0)");
+      gx.addColorStop(fx * 2, "rgba(255,255,255,1)");
+      gx.addColorStop(1 - fx * 2, "rgba(255,255,255,1)");
+      gx.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.fillStyle = gx;
+      ctx.fillRect(0, 0, bw, bh);
+      ctx.globalCompositeOperation = "destination-in";
+      const gy = ctx.createLinearGradient(0, 0, 0, bh);
+      const fy = pad / bh;
+      gy.addColorStop(0, "rgba(0,0,0,0)");
+      gy.addColorStop(fy * 2, "rgba(0,0,0,1)");
+      gy.addColorStop(1 - fy * 2, "rgba(0,0,0,1)");
+      gy.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.fillStyle = gy;
+      ctx.fillRect(0, 0, bw, bh);
+      ctx.globalCompositeOperation = "source-in";
+      ctx.fillStyle = `rgb(${v},${v},${v})`;
+      ctx.fillRect(0, 0, bw, bh);
+      ctx.globalCompositeOperation = "source-over";
+      bitmap.baseTexture.update();
+      this.bitmap = bitmap;
+      this._pad = pad;
+    }
+
+    update() {
+      super.update();
+      const tw = $gameMap.tileWidth();
+      const th = $gameMap.tileHeight();
+      this.x = Math.round($gameMap.adjustX(this._rect.x) * tw) - this._pad;
+      this.y = Math.round($gameMap.adjustY(this._rect.y) * th) - this._pad;
+    }
+  }
+  Hai.MapTone.Sprite_HaiPale = Sprite_HaiPale;
+
+  // --- 手がかりの灯り（V6） ---
+  const GLOW_COLORS = { thought: [205, 220, 255], thing: [255, 214, 150] };
+  const glowBitmaps = {};
+  /** 小さな光（真ん中が明るい放射状のぼかし）。種類ごとに 1 回だけ描く。 */
+  function glowBitmap(kind) {
+    if (glowBitmaps[kind]) return glowBitmaps[kind];
+    const size = 96;
+    const bitmap = new Bitmap(size, size);
+    const ctx = bitmap.context;
+    const [r, g, b] = GLOW_COLORS[kind];
+    const grad = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+    grad.addColorStop(0, `rgba(${r},${g},${b},0.55)`);
+    grad.addColorStop(0.45, `rgba(${r},${g},${b},0.22)`);
+    grad.addColorStop(1, `rgba(${r},${g},${b},0)`);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, size, size);
+    bitmap.baseTexture.update();
+    glowBitmaps[kind] = bitmap;
+    return bitmap;
+  }
+
+  /** 暗がりの上に重ねるイベントの絵。濃さは手がかりの灯りの層が決める（_haiGlow は 0〜1）。 */
+  class Sprite_HaiGlowCharacter extends Sprite_Character {
+    updateOther() {
+      super.updateOther();
+      this.opacity = Math.round(this.opacity * (this._haiGlow || 0) * (glowOpacity / 255));
+    }
+  }
+
+  /** 暗がりの上の層。調べられるイベントごとに、小さな光と薄い絵を 1 組ずつ持つ。 */
+  class Sprite_HaiGlowLayer extends Sprite {
+    constructor() {
+      super();
+      this._entries = new Map(); // eventId → { halo, body, kind, factor }
+      this._time = 0;
+      this.visible = false;
+      // 暗がりと同じく色調の外の層なので、画面の色調を自分で掛ける（元の絵と同じ色に見せる）
+      this._toneFilter = new ColorFilter();
+      this.filters = [this._toneFilter];
+    }
+
+    update() {
+      const dark = glowOpacity > 0 ? Hai.MapTone.dark() : null;
+      this.visible = !!dark;
+      if (!dark) {
+        for (const e of this._entries.values()) e.factor = 0;
+        return;
+      }
+      this._time++;
+      this._toneFilter.setColorTone($gameScreen.tone());
+      const seen = new Set();
+      for (const ev of $gameMap.events()) {
+        const kind = glowKind(ev);
+        if (!kind) continue;
+        seen.add(ev.eventId());
+        let entry = this._entries.get(ev.eventId());
+        if (!entry || entry.kind !== kind || entry.body._character !== ev) {
+          if (entry) this.removeEntry(ev.eventId(), entry);
+          entry = this.addEntry(ev, kind);
+        }
+        entry.factor = this.factorOf(ev, dark.radius);
+      }
+      for (const [id, entry] of this._entries) if (!seen.has(id)) this.removeEntry(id, entry);
+      super.update(); // 子（イベントの絵）の update は factor を決めたあと
+      for (const entry of this._entries.values()) this.place(entry);
+    }
+
+    /** 明るい輪の外ほど 1、輪の中は 0、遠く（輪の外 glowRange マスより先）は 0。 */
+    factorOf(ev, radius) {
+      const d = Math.hypot($gamePlayer._realX - ev._realX, $gamePlayer._realY - ev._realY);
+      const inner = radius * (1 - darkSoftness / 200); // 輪のぼかしの半ばから重ね始める
+      const rise = Math.max(0.5, radius - inner);
+      const near = Math.max(0, Math.min(1, (d - inner) / rise));
+      const far = Math.max(0, Math.min(1, (radius + glowRange - d) / 2));
+      return near * far;
+    }
+
+    addEntry(ev, kind) {
+      const halo = new Sprite(glowBitmap(kind));
+      halo.anchor.set(0.5, 0.5);
+      const body = new Sprite_HaiGlowCharacter(ev);
+      this.addChild(halo);
+      this.addChild(body);
+      const entry = { halo, body, kind, factor: 0 };
+      this._entries.set(ev.eventId(), entry);
+      return entry;
+    }
+
+    removeEntry(id, entry) {
+      this.removeChild(entry.halo);
+      this.removeChild(entry.body);
+      entry.body.destroy();
+      entry.halo.destroy();
+      this._entries.delete(id);
+    }
+
+    place(entry) {
+      const ev = entry.body._character;
+      const th = $gameMap.tileHeight();
+      entry.body._haiGlow = entry.factor;
+      entry.halo.x = Math.round(ev.screenX());
+      entry.halo.y = Math.round(ev.screenY() - th / 2);
+      // 思念のたぐいはゆっくり明滅する（約 2.5 秒）
+      const pulse = entry.kind === "thought" ? 0.8 + 0.2 * Math.sin((this._time + ev.eventId() * 17) / 24) : 1;
+      entry.halo.opacity = Math.round(255 * entry.factor * pulse);
+      entry.halo.visible = entry.factor > 0;
+      entry.body.visible = entry.factor > 0 && entry.body.visible !== false;
+    }
+
+    /** テスト用：今の灯り [{ eventId, opacity, kind }]（見えているものだけ）。 */
+    glows() {
+      if (!this.visible) return [];
+      const out = [];
+      for (const [eventId, e] of this._entries) {
+        if (e.factor > 0) out.push({ eventId, kind: e.kind, opacity: Math.round(e.factor * glowOpacity) });
+      }
+      return out;
+    }
+  }
+  Hai.MapTone.Sprite_HaiGlowLayer = Sprite_HaiGlowLayer;
+
+  const _Spriteset_Map_createTilemap = Spriteset_Map.prototype.createTilemap;
+  Spriteset_Map.prototype.createTilemap = function() {
+    _Spriteset_Map_createTilemap.apply(this, arguments);
+    for (const rect of Hai.MapTone.pale()) this._tilemap.addChild(new Sprite_HaiPale(rect));
+  };
+
+  const _Spriteset_Map_updateTilemap = Spriteset_Map.prototype.updateTilemap;
+  Spriteset_Map.prototype.updateTilemap = function() {
+    _Spriteset_Map_updateTilemap.apply(this, arguments);
+    updateTileTone(this._tilemap);
+  };
+
   // 霧は地図の上（_baseSprite の中なので色調が掛かる）。灰と暗がりは天気の上、ピクチャ・タイマーの下（色調は掛からない）。
-  // 重なりの順：地図 → 霧 → 天気 → 灰 → 暗がり（灰は明るい輪の中でだけ見える）。
+  // 重なりの順：地図 → 霧 → 天気 → 灰 → 暗がり → 手がかりの灯り（灰は明るい輪の中でだけ見える）。
   const _Spriteset_Map_createLowerLayer = Spriteset_Map.prototype.createLowerLayer;
   Spriteset_Map.prototype.createLowerLayer = function() {
     _Spriteset_Map_createLowerLayer.apply(this, arguments);
@@ -608,5 +906,7 @@
     this.addChild(this._haiAshSprite);
     this._haiDarkSprite = new Sprite_HaiDark();
     this.addChild(this._haiDarkSprite);
+    this._haiGlowLayer = new Sprite_HaiGlowLayer();
+    this.addChild(this._haiGlowLayer);
   };
 })();
