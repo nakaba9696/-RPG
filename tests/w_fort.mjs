@@ -1,8 +1,8 @@
 // W6（#144）黒鉄の砦（docs/world.md 3.4・4 章、tools/maps/src/w6_*）の検査。目覚めから最初の数分を通しで動かす：
-//   ニューゲーム（目覚めの場面を見る）→ 墓所の床で目覚め、名前の欄が「墓守」→ 灰の足跡 → 最初の残留思念（K01）→
-//   墓所の壁の書き付け（目的のメモ）→ 薄い思念 F01 と記憶の一言 → 大広間の炉に火を入れる（全滅の戻り先・結界の選択肢）→
+//   ニューゲーム（目覚めの場面を見る）→ 黒い画面の導入（W29 #314）→ 墓所の床で目覚め、名前の欄が「墓守」→ 灰の足跡 → 最初の残留思念（K01）→
+//   墓所の壁の書き付け（目的のメモと、字の下の絵の最初の行き先。W29）→ 薄い思念 F01 と記憶の一言 → 大広間の炉に火を入れる（全滅の戻り先・結界の選択肢）→
 //   シャノが柱の陰から出てきて話す（倉が開く・生き残りの数・メモ 2 つ）→ 開いた倉の扉から倉（013）へ行って戻る →
-//   名の壁の輪 → 閉じた扉（崩れた扉・鉄扉）→ 城壁の上（019）の頂への門 → 外門への階段から霧の森（020）へ。
+//   名の壁の輪 → 閉じた扉（部屋の戸の一行・鉄扉）→ 城壁の上（019）の頂への門 → 外門への階段から霧の森（020）へ。
 // 置き場所はイベントの名前で引く（座標は tools/maps/src/w6_010_keep.txt。文字マップを直してもテストを直さなくてよいように）。
 import fs from "node:fs";
 import path from "node:path";
@@ -139,8 +139,14 @@ await runTest(async () => {
     check((await mapId()) === KEEP, `開始マップ ${await mapId()}`);
     const p0 = await pos();
     check(p0.x === START.x && p0.y === START.y, `開始位置 ${JSON.stringify(p0)}`);
-    const wake = await readMessages("wake");
-    check(wake.length === 1 && wake[0].includes("床の小さな鈴が、まだ揺れている。"), `目覚めの文 ${JSON.stringify(wake)}`);
+    // W29（#314）：目覚めの前に、黒い画面の導入が 3 頁（話し手なし・画面は暗いまま）。そのあと鈴の一行
+    check((await game.eval(() => window.__game.ref("$gameScreen").brightness())) === 0, "導入の間、画面が黒くない");
+    const wake = await readMessages("intro");
+    check(wake.length === 4, `導入と目覚めの頁の数 ${JSON.stringify(wake)}`);
+    check(wake[0].startsWith("東の山の向こうには、使徒がいる。") && has(wake.slice(0, 3), "鐘の鳴る所に、使徒は来ない。") && has(wake.slice(0, 3), "二百年ほど前のある夜、鐘が鳴りやんだ。")
+      && has(wake.slice(0, 3), "三つとも、一晩で終わった。") && has(wake.slice(0, 3), "人は、わずかしか残っていない。"), `導入の文 ${JSON.stringify(wake)}`);
+    check(wake.slice(0, 3).every(p => !p.includes("「")), "導入に話し手が付いている");
+    check(wake[3].includes("床の小さな鈴が、まだ揺れている。"), `目覚めの文 ${JSON.stringify(wake)}`);
     check(await switchOn(111), "目覚めのあとスイッチ 111（目覚めた）が ON でない");
     const actor = await game.eval(() => { const a = window.__game.ref("$gameActors").actor(1); return { name: a.name(), nick: a.nickname() }; });
     check(actor.name === "墓守" && actor.nick === "墓守", `名前の欄 ${JSON.stringify(actor)}`);
@@ -167,6 +173,9 @@ await runTest(async () => {
     check(has(writing, "「四つの鐘を鳴らして。\nそれから、山の頂の鐘楼へ」") && has(writing, "最後の一画が、途中で止まっている。"), `書き付け ${JSON.stringify(writing)}`);
     check(has(writing, "メモ："), "書き付けのメモの行が出ない");
     check(await hasNote("goal:bells"), "目的のメモが無い");
+    // W29（#314）：字の下の絵で最初の行き先（北の外門から霧の森へ）。メモにも一行
+    check(has(writing, "砦の門から、下へ一本の線。") && has(writing, "その向こうに、鐘が一つ。"), `書き付けの絵 ${JSON.stringify(writing)}`);
+    check((await hasNote("goal:first")) && has(writing, "まず北の外門の階段を下りて、霧の森へ"), "最初の行き先のメモが無い");
     check(await switchOn(171), "書き付けのあとスイッチ 171 が ON でない");
     const again = await investigate(w.x, w.y + 1, 8);
     check(!has(again, "メモ："), "二度目にもメモの行が出た");
@@ -228,10 +237,12 @@ await runTest(async () => {
     await arrive(KEEP);
     const back = await pos();
     check(back.x === store.x && back.y === store.y + 1, `倉から戻った所 ${JSON.stringify(back)}`);
-    // 閉じた部屋（稽古場）は崩れた扉
+    // 閉じた部屋（稽古場）は戸の前で止まって、部屋の物の様子を一行（W29 #314）。入れない
     const drill = ev("稽古場の扉");
     const shut = await investigate(drill.x, drill.y + 1, 8);
-    check(has(shut, "扉が崩れて、瓦礫で塞がっている。"), `閉じた稽古場の扉 ${JSON.stringify(shut)}`);
+    check(shut.length === 1 && has(shut, "木剣の棚につかえて開かない"), `閉じた稽古場の扉 ${JSON.stringify(shut)}`);
+    await step(8);
+    check((await mapId()) === KEEP, "閉じた稽古場の扉から入れた");
 
     // ---- 8. 名の壁と輪
     const kw = ev("名の壁（墓守の欄）");

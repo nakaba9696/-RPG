@@ -38,7 +38,7 @@
   "deco": {
     "Z": {
       "name": "胸壁の刻み（壁の亀裂）",
-      "z2": "D:35"
+      "z2": "D:195"
     },
     "f": {
       "name": "烽火の台（石のかまど）",
@@ -153,6 +153,13 @@
             "switch2Id": 1166,
             "switch2Valid": true
           },
+          "image": {
+            "characterName": "People4",
+            "characterIndex": 6,
+            "direction": 6,
+            "pattern": 1
+          },
+          "directionFix": true,
           "priorityType": 1,
           "list": [
             {

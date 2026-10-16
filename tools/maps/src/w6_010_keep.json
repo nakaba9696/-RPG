@@ -507,6 +507,102 @@
               ]
             },
             {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                2,
+                1,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "東の山の向こうには、使徒がいる。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "使徒は、人の言葉を話す化け物だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鐘の鳴る所に、使徒は来ない。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                2,
+                1,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "二百年ほど前のある夜、鐘が鳴りやんだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "その夜のうちに、使徒は山を越えてきた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "人の国は三つあった。三つとも、一晩で終わった。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                2,
+                1,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "今も鐘は鳴らず、東からは灰が降る。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "人は、わずかしか残っていない。"
+              ]
+            },
+            {
+              "code": 230,
+              "indent": 0,
+              "parameters": [
+                40
+              ]
+            },
+            {
               "code": 250,
               "indent": 0,
               "parameters": [
@@ -1854,6 +1950,38 @@
               ]
             },
             {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "字の下に、刃物で引いた絵がある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "砦の門から、下へ一本の線。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "線の先に、木が三本。その向こうに、鐘が一つ。"
+              ]
+            },
+            {
               "code": 111,
               "indent": 0,
               "parameters": [
@@ -1898,6 +2026,41 @@
               ]
             },
             {
+              "code": 357,
+              "indent": 1,
+              "parameters": [
+                "Hai_Thoughts",
+                "addNote",
+                "メモを足す",
+                {
+                  "text": "まず北の外門の階段を下りて、霧の森へ（墓所の壁の絵）",
+                  "id": "goal:first",
+                  "kind": "clue"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "メモの一行 = まず北の外門の階段を下りて、霧の森へ（墓所の壁の絵）"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "ID = goal:first"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 1,
+              "parameters": [
+                "種類 = clue"
+              ]
+            },
+            {
               "code": 101,
               "indent": 1,
               "parameters": [
@@ -1913,6 +2076,13 @@
               "indent": 1,
               "parameters": [
                 "\\C[6]メモ：\\C[0]四つの鐘を鳴らす。それから山の頂の鐘楼へ（墓所の壁）"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "\\C[6]メモ：\\C[0]まず北の外門の階段を下りて、霧の森へ（墓所の壁の絵）"
               ]
             },
             {
@@ -2052,6 +2222,38 @@
               ]
             },
             {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "字の下に、刃物で引いた絵がある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "砦の門から、下へ一本の線。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "線の先に、木が三本。その向こうに、鐘が一つ。"
+              ]
+            },
+            {
               "code": 111,
               "indent": 1,
               "parameters": [
@@ -2096,6 +2298,41 @@
               ]
             },
             {
+              "code": 357,
+              "indent": 2,
+              "parameters": [
+                "Hai_Thoughts",
+                "addNote",
+                "メモを足す",
+                {
+                  "text": "まず北の外門の階段を下りて、霧の森へ（墓所の壁の絵）",
+                  "id": "goal:first",
+                  "kind": "clue"
+                }
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "メモの一行 = まず北の外門の階段を下りて、霧の森へ（墓所の壁の絵）"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "ID = goal:first"
+              ]
+            },
+            {
+              "code": 657,
+              "indent": 2,
+              "parameters": [
+                "種類 = clue"
+              ]
+            },
+            {
               "code": 101,
               "indent": 2,
               "parameters": [
@@ -2111,6 +2348,13 @@
               "indent": 2,
               "parameters": [
                 "\\C[6]メモ：\\C[0]四つの鐘を鳴らす。それから山の頂の鐘楼へ（墓所の壁）"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "\\C[6]メモ：\\C[0]まず北の外門の階段を下りて、霧の森へ（墓所の壁の絵）"
               ]
             },
             {
@@ -3272,7 +3516,10 @@
       "lines": [
         "鐘を吊るす木の架。鐘は無い。",
         "切れた綱が、架の上から垂れている。"
-      ]
+      ],
+      "image": {
+        "tileId": "B:22"
+      }
     },
     {
       "name": "騎士長の命令書の束",
@@ -3527,22 +3774,21 @@
           "walkAnime": false,
           "list": [
             {
-              "code": 357,
+              "code": 101,
               "indent": 0,
               "parameters": [
-                "Hai_Facilities",
-                "door",
-                "崩れた扉",
-                {
-                  "door": "soul"
-                }
+                "",
+                0,
+                0,
+                2,
+                ""
               ]
             },
             {
-              "code": 657,
+              "code": 401,
               "indent": 0,
               "parameters": [
-                "どの部屋の扉か = soul"
+                "戸は、内側に倒れた木剣の棚につかえて開かない。"
               ]
             },
             {
@@ -3617,22 +3863,28 @@
           "walkAnime": false,
           "list": [
             {
-              "code": 357,
+              "code": 101,
               "indent": 0,
               "parameters": [
-                "Hai_Facilities",
-                "door",
-                "崩れた扉",
-                {
-                  "door": "lore"
-                }
+                "",
+                0,
+                0,
+                2,
+                ""
               ]
             },
             {
-              "code": 657,
+              "code": 401,
               "indent": 0,
               "parameters": [
-                "どの部屋の扉か = lore"
+                "戸は湿気でふくらみ、枠にはまって動かない。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "隙間から、濡れた紙の匂いがする。"
               ]
             },
             {
@@ -3707,22 +3959,28 @@
           "walkAnime": false,
           "list": [
             {
-              "code": 357,
+              "code": 101,
               "indent": 0,
               "parameters": [
-                "Hai_Facilities",
-                "door",
-                "崩れた扉",
-                {
-                  "door": "kitchen"
-                }
+                "",
+                0,
+                0,
+                2,
+                ""
               ]
             },
             {
-              "code": 657,
+              "code": 401,
               "indent": 0,
               "parameters": [
-                "どの部屋の扉か = kitchen"
+                "戸に、崩れた石が寄りかかっている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "隙間から、冷えたかまどの煤の匂いがする。"
               ]
             },
             {
@@ -3797,22 +4055,21 @@
           "walkAnime": false,
           "list": [
             {
-              "code": 357,
+              "code": 101,
               "indent": 0,
               "parameters": [
-                "Hai_Facilities",
-                "door",
-                "崩れた扉",
-                {
-                  "door": "gate"
-                }
+                "",
+                0,
+                0,
+                2,
+                ""
               ]
             },
             {
-              "code": 657,
+              "code": 401,
               "indent": 0,
               "parameters": [
-                "どの部屋の扉か = gate"
+                "戸に閂。隙間から、棚に下がった木の札が見える。"
               ]
             },
             {
@@ -3887,22 +4144,21 @@
           "walkAnime": false,
           "list": [
             {
-              "code": 357,
+              "code": 101,
               "indent": 0,
               "parameters": [
-                "Hai_Facilities",
-                "door",
-                "崩れた扉",
-                {
-                  "door": "infirmary"
-                }
+                "",
+                0,
+                0,
+                2,
+                ""
               ]
             },
             {
-              "code": 657,
+              "code": 401,
               "indent": 0,
               "parameters": [
-                "どの部屋の扉か = infirmary"
+                "戸に閂。隙間から、寝台が並んでいるのが見える。"
               ]
             },
             {
@@ -3977,22 +4233,28 @@
           "walkAnime": false,
           "list": [
             {
-              "code": 357,
+              "code": 101,
               "indent": 0,
               "parameters": [
-                "Hai_Facilities",
-                "door",
-                "崩れた扉",
-                {
-                  "door": "smithy"
-                }
+                "",
+                0,
+                0,
+                2,
+                ""
               ]
             },
             {
-              "code": 657,
+              "code": 401,
               "indent": 0,
               "parameters": [
-                "どの部屋の扉か = smithy"
+                "戸は錆びついて開かない。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "隙間から、火の消えた炉と金床が見える。"
               ]
             },
             {
@@ -4067,22 +4329,21 @@
           "walkAnime": false,
           "list": [
             {
-              "code": 357,
+              "code": 101,
               "indent": 0,
               "parameters": [
-                "Hai_Facilities",
-                "door",
-                "崩れた扉",
-                {
-                  "door": "watch"
-                }
+                "",
+                0,
+                0,
+                2,
+                ""
               ]
             },
             {
-              "code": 657,
+              "code": 401,
               "indent": 0,
               "parameters": [
-                "どの部屋の扉か = watch"
+                "戸に閂。上の段から、灰まじりの風が吹きこんでくる。"
               ]
             },
             {

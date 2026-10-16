@@ -406,11 +406,12 @@ export const ropeAt054 = {
 const MORNING = SW.morning;
 const LATER = "W14 後日";
 const MARK = "W14：朝の砦（場面表 7.2）";
-const laterLook = (label, [x, y], cond, lines) => ({
+// image：その一行の人や物の絵（W29 #314。絵が無いと、通れない見えない壁になる）
+const laterLook = (label, [x, y], cond, lines, image) => ({
   name: `${LATER}：${label}`, type: "raw", x, y,
   pages: [
     { priorityType: 0 },
-    { conditions: { switch1Id: MORNING, switch1Valid: true, ...cond }, priorityType: 1, list: [comment("W14：後日談の一行（場面表 7.3）"), ...say(lines), END] },
+    { conditions: { switch1Id: MORNING, switch1Valid: true, ...cond }, ...(image ? { image, directionFix: true } : {}), priorityType: 1, list: [comment("W14：後日談の一行（場面表 7.3）"), ...say(lines), END] },
   ],
 });
 const EPILOGUE = {
@@ -422,7 +423,9 @@ const EPILOGUE = {
   w9_071_lake_house: [laterLook("外に残された者（灯の帳面）", [26, 10], { switch2Id: 512, switch2Valid: true }, ["灯の帳面の点の横に、開いた門の絵。"])],
   // 名簿を見せた＝スイッチ 510（閂を外した）。変数 501 は 3 が「見せなかった」なので、ページの条件（≧）では見ない（W20 #264）
   w9_102_gate_front: [laterLook("扉の外の歌（大扉）", [20, 26], { switch2Id: 510, switch2Valid: true }, ["大扉が、夕べの間だけ開く。"])],
-  p13_018_watch: [laterLook("足場の木（見張り台）", [7, 5], { switch2Id: SW.sorenneAlive, switch2Valid: true }, ["ソレンヌが、足場の木を薪にして火を焚いている。"])],
+  // ソレンヌの絵（W12・W14 と同じ）。烽火の台 (8,5) の方を向く
+  p13_018_watch: [laterLook("足場の木（見張り台）", [7, 5], { switch2Id: SW.sorenneAlive, switch2Valid: true }, ["ソレンヌが、足場の木を薪にして火を焚いている。"],
+    { characterName: "People4", characterIndex: 6, direction: RIGHT, pattern: 1 })],
 };
 // 021 礼拝堂（列の最後の席）：ブルーノの遺骸の跡と巡礼に、朝の砦のページ
 // 061 の戸板（W16 が置いた「戸板（鍛冶小屋の戸口）」）：弟を連れて帰る（変数 161 が 2 以上）
