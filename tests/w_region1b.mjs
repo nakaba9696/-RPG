@@ -90,12 +90,13 @@ await runTest(async () => {
             choice: !!(w && w._choiceListWindow.active && w._choiceListWindow.isOpen()),
             number: !!(w && w._numberInputWindow.active && w._numberInputWindow.isOpen()),
             text: $gameMessage.allText(),
+            dim: Hai.Thoughts.messageDimmed(), // P21：既読の思念の文として暗く出ているか
             choices: $gameMessage.choices(),
           };
         });
         if (!st.running) break;
         if (st.choice) {
-          pages.push(st.text + "［" + st.choices.join("／") + "］");
+          pages.push((st.dim ? "〔暗〕" : "") + st.text + "［" + st.choices.join("／") + "］");
           const q = queue.shift() ?? 0;
           const i = typeof q === "string" ? st.choices.indexOf(q) : q;
           check(i >= 0 && i < st.choices.length, `選択肢「${q}」が無い ${JSON.stringify(st.choices)}`);
@@ -104,12 +105,12 @@ await runTest(async () => {
           await game.press("Enter");
         } else if (st.number) {
           const n = nums.shift() ?? 0;
-          pages.push(st.text + `［${n}］`);
+          pages.push((st.dim ? "〔暗〕" : "") + st.text + `［${n}］`);
           await game.eval(v => { const w = SceneManager._scene._messageWindow._numberInputWindow; w._number = v; w.refresh(); }, n);
           await game.frames(2);
           await game.press("Enter");
         } else {
-          pages.push(st.text);
+          pages.push((st.dim ? "〔暗〕" : "") + st.text);
           await game.frames(12);
           await game.press("Enter");
         }
@@ -220,7 +221,9 @@ await runTest(async () => {
     check(f03.includes("女が立つまで") && f03.includes("覚えている"), "F03 と記憶が戻る一言 " + JSON.stringify(f03));
     check(await game.eval(() => Hai.Thoughts.faintCount() === 1 && $gameVariables.value(138) === 1), "F03 で戻った記憶が 1 にならない");
     const again = (await talk()).join("\n");
-    check(!again.includes("覚えている") && again.includes("（読んだ）"), "読み直しで一言がまた出る " + JSON.stringify(again));
+    // P21：読み直しは印でなく文を暗くして見せる（暗く出た頁は talk が頭に〔暗〕を付ける）。初めのときは暗くない
+    check(!f03.includes("〔暗〕") && !again.includes("（読んだ）") && again.startsWith("〔暗〕"), "読み直しの F03 が暗くない・初めてが暗い " + JSON.stringify([f03, again]));
+    check(!again.includes("覚えている"), "読み直しで一言がまた出る " + JSON.stringify(again));
     console.log("  坑道の門：F03（初めてだけ一言）");
 
     // ===== 6. 牢番 =====

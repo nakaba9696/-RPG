@@ -11,7 +11,8 @@
  *                            読み終えたら既読にし、セルフスイッチ A を ON にする（文章の窓がマップの上で一度閉じてから。
  *                            窓が出る前・閉じる前に割り込まれて終わったときや、戦闘に割り込まれて文が戦闘の
  *                            画面で閉じたときは既読にしない。調べたのと同じ時に戦闘が始まったら、思念は始めない）。
- *                            既読の思念は、もう一度調べると本文の頭に「（読んだ）」が付く。
+ *                            既読の思念は、もう一度調べると本文を薄く暗く出す（パラメータ「既読の見せ方」。
+ *                            暗くするのは list の頭の地の文の並びだけ。あとの分岐の仲間の行・メモの行・ほかの文章は元の明るさ）。
  *   <hai_faint:F01>          会話できない薄い思念（墓守の記憶のありか）。<hai_thought> の代わりに書く。
  *                            調べると画面が暗くなり、文章だけが窓なしで出る。見終えると既読・セルフスイッチ A、
  *                            初めて見たときだけ「戻った記憶の数」を 1 増やす（変数にも写す）。
@@ -39,9 +40,45 @@
  *   そのイベントの中のコモンイベント「数の一言」の呼び出しを、初めて見たときだけ固有の一言に差し替える。
  * 詳しくは docs/plugins/Hai_Thoughts.md。
  *
+ * @param readStyle
+ * @text 既読の見せ方
+ * @desc 既読の思念をもう一度調べたときの見せ方。dim：文を薄く暗く出す。mark：頭に「既読の印」を付ける。both：両方。
+ * @type select
+ * @option 文を暗くする
+ * @value dim
+ * @option 印を付ける
+ * @value mark
+ * @option 両方
+ * @value both
+ * @default dim
+ *
+ * @param readDim
+ * @text 暗くする方法
+ * @desc gray：地の文の色を灰色にする（黒い縁取りが残って読みやすい。色の付いた語はそのまま）。fade：文を縁取りごと半透明で描く。
+ * @type select
+ * @option 半透明
+ * @value fade
+ * @option 灰色
+ * @value gray
+ * @default gray
+ *
+ * @param readDimOpacity
+ * @text 半透明の濃さ
+ * @desc 「暗くする方法」が fade のとき、文を描く不透明度（0〜255。255 で元のまま）。
+ * @type number
+ * @min 0
+ * @max 255
+ * @default 128
+ *
+ * @param readDimColor
+ * @text 灰色の文字色
+ * @desc 「暗くする方法」が gray のとき、地の文に使う文字色の番号（\C[n] の n）。
+ * @type number
+ * @default 8
+ *
  * @param readMark
- * @text 既読の思念の頭に付ける文字
- * @desc 既読の思念を調べたとき、本文の 1 行目の頭に付ける。空にすると付けない。
+ * @text 既読の印
+ * @desc 「既読の見せ方」が mark・both のとき、既読の思念の本文の 1 行目の頭に付ける。空にすると付けない。
  * @type string
  * @default \C[8]（読んだ）\C[0]
  *
@@ -190,7 +227,11 @@
   "use strict";
   const pluginName = "Hai_Thoughts";
   const params = PluginManager.parameters(pluginName);
-  const readMark = params.readMark ?? "\\C[8]（読んだ）\\C[0]";
+  const readStyle = ["dim", "mark", "both"].includes(params.readStyle) ? params.readStyle : "dim";
+  const readMark = readStyle === "dim" ? "" : params.readMark ?? "\\C[8]（読んだ）\\C[0]";
+  const readDim = readStyle === "mark" ? "" : params.readDim === "fade" ? "fade" : "gray";
+  const readDimOpacity = Math.max(0, Math.min(255, Number(params.readDimOpacity === undefined || params.readDimOpacity === "" ? 128 : params.readDimOpacity)));
+  const readDimColor = Number(params.readDimColor === undefined || params.readDimColor === "" ? 8 : params.readDimColor);
   const clueMessage = params.clueMessage ?? "\\C[6]メモ：\\C[0]%1";
   const noteSe = params.noteSe ?? "Book1";
   const lockedMessage = params.lockedMessage ?? "鍵がかかっている。";
@@ -379,9 +420,26 @@
   const seCmd = name => cmd(250, [{ name, volume: 90, pitch: 100, pan: 0 }]);
   const textCmds = lines => [cmd(101, ["", 0, 0, 2, ""]), ...lines.map(l => cmd(401, [l]))];
 
-  /** 思念の list を写して、既読の印と、メモに書いた行を足す。 */
-  function thoughtList(list, reread, newNotes) {
+  // 思念の本文の頭の並びで、暗くした文のあいだに挟まってよい演出（ウェイト・音・画面の色調とフラッシュ・揺れ）
+  const DIM_THROUGH = [230, 223, 224, 225, 241, 242, 243, 244, 245, 246, 249, 250, 251];
+
+  /**
+   * 既読の思念の本文の文章（101）に暗くする印 _haiDim を付けた写しにする。本文は list の頭の地の文の並び
+   * （indent 0 の 101/401 と演出）だけ。最初の分岐・コモンイベント（仲間の行）・場面の命令で止める。
+   */
+  function dimList(list) {
     const out = list.slice();
+    for (let i = 0; i < out.length; i++) {
+      const c = out[i];
+      if (c.indent !== 0 || !(c.code === 101 || c.code === 401 || DIM_THROUGH.includes(c.code))) break;
+      if (c.code === 101) out[i] = { ...c, _haiDim: true };
+    }
+    return out;
+  }
+
+  /** 思念の list を写して、既読の印（暗くする・頭の文字）と、メモに書いた行を足す。 */
+  function thoughtList(list, reread, newNotes) {
+    let out = reread && readDim ? dimList(list) : list.slice();
     if (reread && readMark) {
       const i = out.findIndex(c => c.code === 401);
       if (i >= 0) out[i] = cmd(401, [readMark + out[i].parameters[0]], out[i].indent);
@@ -420,7 +478,7 @@
     let after = false;
     const plain = list.map(c => {
       if (c.code === 117 && c.parameters[0] === faintLineEvent) after = true;
-      return c.code === 101 && !after ? cmd(101, ["", 0, 2, 1, ""], c.indent) : c;
+      return c.code === 101 && !after ? { ...cmd(101, ["", 0, 2, 1, ""], c.indent), ...(c._haiDim ? { _haiDim: true } : {}) } : c;
     });
     // 固有の一言はコモンイベントと同じ窓（下・名前あり）で出すので、窓なしにしたあとで差し替える
     const out = line && faintLineEvent > 0 ? plain.flatMap(c => lineFor(c, line)) : plain;
@@ -505,6 +563,49 @@
     }
     _Game_Interpreter_setup.call(this, list, eventId);
     this._haiThought = haiInfo;
+  };
+
+  // ---------------------------------------------------------------------------
+  // 既読の思念の文を暗くする（印 _haiDim の付いた 101 の文章だけ。$gameMessage.clear で外れる）
+  // ---------------------------------------------------------------------------
+  const _Game_Interpreter_command101 = Game_Interpreter.prototype.command101;
+  Game_Interpreter.prototype.command101 = function() {
+    const c = this.currentCommand();
+    const started = _Game_Interpreter_command101.apply(this, arguments);
+    if (started && c && c._haiDim) $gameMessage._haiDim = true;
+    return started;
+  };
+
+  const _Game_Message_clear = Game_Message.prototype.clear;
+  Game_Message.prototype.clear = function() {
+    _Game_Message_clear.apply(this, arguments);
+    this._haiDim = false;
+  };
+
+  // ページの頭で決める（名前の欄は別の窓なので元のまま）。暗くしたあとの文章では元に戻す
+  const _Window_Message_newPage = Window_Message.prototype.newPage;
+  Window_Message.prototype.newPage = function() {
+    this._haiDim = !!readDim && !!$gameMessage._haiDim;
+    _Window_Message_newPage.apply(this, arguments);
+    if (this._haiDim && readDim === "fade") {
+      this.contents.paintOpacity = readDimOpacity;
+      this._haiFaded = true;
+    } else if (this._haiFaded) {
+      this.contents.paintOpacity = 255;
+      this._haiFaded = false;
+    }
+  };
+
+  const _Window_Message_resetTextColor = Window_Message.prototype.resetTextColor;
+  Window_Message.prototype.resetTextColor = function() {
+    _Window_Message_resetTextColor.apply(this, arguments);
+    if (this._haiDim && readDim === "gray") this.changeTextColor(ColorManager.textColor(readDimColor));
+  };
+
+  const _Window_Message_processColorChange = Window_Message.prototype.processColorChange;
+  Window_Message.prototype.processColorChange = function(colorIndex) {
+    const gray = this._haiDim && readDim === "gray" && Number(colorIndex) === 0;
+    _Window_Message_processColorChange.call(this, gray ? readDimColor : colorIndex);
   };
 
   // 文章（と選択肢）の窓が閉じるのを待ち終えたら、思念を「見た」にする。
@@ -654,6 +755,13 @@
     legacyTable: () => legacyRows.map(r => ({ ...r, heard: $gameSwitches.value(r.switchId) })),
     /** 薄い思念のあとの固有の一言（無ければ ""）。 */
     faintLine: id => faintLines[String(id)] || "",
+    /** 今の文章の窓が、既読の思念の文として暗く出ているか（マップ・戦闘の画面の文章の窓）。 */
+    messageDimmed() {
+      const w = SceneManager._scene && SceneManager._scene._messageWindow;
+      return !!(w && w._haiDim && $gameMessage.hasText());
+    },
+    /** 既読の見せ方（"dim" | "mark" | "both"）と暗くする方法（"fade" | "gray" | ""）。 */
+    readStyle: () => ({ style: readStyle, dim: readDim }),
     /** そのマップの思念の一覧 [{ id, x, y, read, faint? }]。訪れていないマップは []。 */
     thoughts(mapId) {
       return thoughtsOf(mapId === undefined ? $gameMap.mapId() : Number(mapId));
