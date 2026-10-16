@@ -34,6 +34,7 @@
   "v_tilesets2": 1,
   "w_boss_weight": 1,
   "w_fort": 135,
+  "w_fort_walls": 1,
   "w_items": 1,
   "w_last": 195,
   "w_novel34": 226,

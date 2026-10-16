@@ -380,7 +380,7 @@
       "name": "親鐘の肌（銘）",
       "type": "raw",
       "x": 18,
-      "y": 10,
+      "y": 9,
       "pages": [
         {
           "priorityType": 1,
@@ -496,7 +496,7 @@
       "name": "親鐘の口（舌を吊る）",
       "type": "raw",
       "x": 20,
-      "y": 10,
+      "y": 9,
       "pages": [
         {
           "priorityType": 1,
@@ -14625,6 +14625,9 @@
       "y": 10,
       "pages": [
         {
+          "image": {
+            "tileId": "B:89"
+          },
           "priorityType": 1,
           "list": [
             {

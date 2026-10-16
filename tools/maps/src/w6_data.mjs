@@ -67,6 +67,7 @@ const IMG = {
   bowlDown: { tileId: "E:62" }, // 伏せた椀（裏の絵は持ち主。今は表と同じ椀）
   bowlUp: { tileId: "E:62" },
   bowlServed: { tileId: "E:62" }, // 先に盛る一椀（湯気の立つ椀の絵は持ち主）
+  brazier: { characterName: "!Other2", characterIndex: 7, direction: UP, pattern: 1 }, // 火の落ちた火籠（薪だけ。W29 #314）
 };
 
 // ---------------------------------------------------------------------------
@@ -155,6 +156,14 @@ const RAMPART = { mapId: 19, x: 2, y: 8 }; // 城壁の上（019）の西の端�
 // イベントの ID は events の並び順（1 から）。シャノ（柱の陰）は移動ルートで ID を使うので先頭に置く
 const SHANO_HIDE_ID = 2;
 
+// W29（#314。持ち主の遊び 2026-10-16）：目覚めの前の導入。黒い画面に文章だけ（話し手なし・背景は透明・画面の真ん中）。
+//   住人なら誰でも知っていること〔知〕だけ（docs/world.md 3.4 の頭）。knowhow.md 2.7 で一行ずつ点検した
+const INTRO = [
+  ["東の山の向こうには、使徒がいる。", "使徒は、人の言葉を話す化け物だ。", "鐘の鳴る所に、使徒は来ない。"],
+  ["二百年ほど前のある夜、鐘が鳴りやんだ。", "その夜のうちに、使徒は山を越えてきた。", "人の国は三つあった。三つとも、一晩で終わった。"],
+  ["今も鐘は鳴らず、東からは灰が降る。", "人は、わずかしか残っていない。"],
+];
+const introPage = lines => [cmd(101, ["", 0, 2, 1, ""]), ...lines.map(l => cmd(401, [l]))];
 const opening = {
   name: "目覚めの場面",
   type: "raw",
@@ -169,6 +178,8 @@ const opening = {
         cmd(320, [1, "墓守"]),
         cmd(324, [1, "墓守"]),
         cmd(230, [60]),
+        ...INTRO.flatMap(introPage),
+        cmd(230, [40]),
         // 戸を三度叩く音（一つ目と二つ目の間を長く、三つ目を短く。W15 #231）
         se("Knock", 0, 90, 100),
         cmd(230, [70]),
@@ -355,6 +366,8 @@ const lampsByBells = make => [
   END,
 ];
 
+const FIRST_WAY = ["字の下に、刃物で引いた絵がある。", "砦の門から、下へ一本の線。", "線の先に、木が三本。その向こうに、鐘が一つ。"];
+const FIRST_NOTE = "まず北の外門の階段を下りて、霧の森へ（墓所の壁の絵）";
 const writing = {
   name: "墓所の壁の書き付け",
   type: "raw",
@@ -364,9 +377,12 @@ const writing = {
     {
       list: [
         ...say(["壁に、刃物で刻んだ字がある。", "「四つの鐘を鳴らして。", "それから、山の頂の鐘楼へ」", "最後の一画が、途中で止まっている。"]),
+        // W29（#314。持ち主の遊び「最初どこにいけばいいかわかりにくい」）：字の下の絵で、最初の行き先（北の外門から霧の森へ）
+        ...say(FIRST_WAY),
         cmd(111, [0, SW.writing, 1]),
         ...addNote("goal:bells", "四つの鐘を鳴らす。それから山の頂の鐘楼へ（墓所の壁）", 1),
-        ...say([memo("四つの鐘を鳴らす。それから山の頂の鐘楼へ（墓所の壁）")], "", 1),
+        ...addNote("goal:first", FIRST_NOTE, 1),
+        ...say([memo("四つの鐘を鳴らす。それから山の頂の鐘楼へ（墓所の壁）"), memo(FIRST_NOTE)], "", 1),
         switchOn(SW.writing, 1),
         cmd(0, [], 1),
         cmd(412, []),
@@ -610,14 +626,16 @@ function w16ArchiveEvents() {
 }
 
 // 部屋の扉（Hai_Facilities）：1 ページ目は崩れた扉、2 ページ目（部屋のスイッチ）は開いた扉で、触れると部屋へ
+// W29（#314。持ち主の遊び「今後ワープが解放されるなら、その部屋は今は入れないようにして」）：
+//   開くまでは戸の前で止まり、その部屋の物の様子を一行（closed）。開いたら（部屋のスイッチ 121–127）触れると入る
 const ROOMS = {
-  soul: { mapId: 11, name: "稽古場" },
-  kitchen: { mapId: 12, name: "食堂" },
-  gate: { mapId: 13, name: "倉" },
-  lore: { mapId: 14, name: "書庫" },
-  infirmary: { mapId: 16, name: "療養所" }, // P13（#189）
-  smithy: { mapId: 17, name: "鍛冶場" },
-  watch: { mapId: 18, name: "見張り台" },
+  soul: { mapId: 11, name: "稽古場", closed: ["戸は、内側に倒れた木剣の棚につかえて開かない。"] },
+  kitchen: { mapId: 12, name: "食堂", closed: ["戸に、崩れた石が寄りかかっている。", "隙間から、冷えたかまどの煤の匂いがする。"] },
+  gate: { mapId: 13, name: "倉", closed: ["戸に閂。隙間から、棚に下がった木の札が見える。"] },
+  lore: { mapId: 14, name: "書庫", closed: ["戸は湿気でふくらみ、枠にはまって動かない。", "隙間から、濡れた紙の匂いがする。"] },
+  infirmary: { mapId: 16, name: "療養所", closed: ["戸に閂。隙間から、寝台が並んでいるのが見える。"] }, // P13（#189）
+  smithy: { mapId: 17, name: "鍛冶場", closed: ["戸は錆びついて開かない。", "隙間から、火の消えた炉と金床が見える。"] },
+  watch: { mapId: 18, name: "見張り台", closed: ["戸に閂。上の段から、灰まじりの風が吹きこんでくる。"] },
 };
 const roomDoor = (key, [x, y] = P.doors[key]) => {
   const room = ROOMS[key];
@@ -627,7 +645,7 @@ const roomDoor = (key, [x, y] = P.doors[key]) => {
     x,
     y,
     pages: [
-      { image: IMG.doorShut, priorityType: 1, walkAnime: false, list: [...plugin("Hai_Facilities", "door", "崩れた扉", { door: key }, 0, { door: "どの部屋の扉か" }), END] },
+      { image: IMG.doorShut, priorityType: 1, walkAnime: false, list: [...say(room.closed), END] },
       {
         conditions: { switch1Id: SW.facility[key], switch1Valid: true },
         image: IMG.doorOpen,
@@ -1049,7 +1067,8 @@ const keepEvents = [
   ]),
   ring,
   // 大広間
-  text("空の鐘架", [22, 27], ["鐘を吊るす木の架。鐘は無い。", "切れた綱が、架の上から垂れている。"]),
+  // W29（#314）：見えない壁だった（絵が無く通れない）。架の脚は槍立て（.deco.txt の !）、真ん中に切れた綱の端の絵
+  text("空の鐘架", [22, 27], ["鐘を吊るす木の架。鐘は無い。", "切れた綱が、架の上から垂れている。"], { image: { tileId: "B:22" } }),
   // 詰め所
   text("騎士長の命令書の束", [10, 31], [
     ["紐でくくった命令書の束。封蝋の色が三つある。", "教会の白「頂に足場を組む。石工を回せ。」", "王の青「兵の半数、西の村へ戻せ。」", "帝国の黒「古言兵の一隊、砦を通す。糧を出せ。」"],
@@ -1327,7 +1346,8 @@ const ROOM_CONFIGS = {
       exitTo("gate"),
       useRoom("gate", "札の下がった棚", [8, 3]),
       text("絵の札", [6, 3], ["棚ごとに、木の札が下がっている。", "字ではなく、鍋や靴や縄の絵が、炭で描いてある。"]),
-      text("むしろ", [14, 7], ["積んだ木箱のそばに、むしろが一枚。", "乾いた藁の匂い。床から一番遠い隅だ。"]),
+      // W29（#314）：床に敷いた物なので優先度「下」（見えない壁だった）。むしろの上に立って調べる
+      text("むしろ", [14, 7], ["積んだ木箱のそばに、むしろが一枚。", "乾いた藁の匂い。床から一番遠い隅だ。"], { priorityType: 0 }),
     ],
   }),
   w6_014_archive: roomBase("lore", "書庫", {
@@ -1420,13 +1440,14 @@ const rampartConfig = {
     },
     {
       name: "東の眺め", type: "raw", x: 43, y: 8,
+      // W29（#314）：見えない壁だった（絵が無く通れない）。胸壁の東の端の、火の落ちた見張りの火籠の絵（どのページも）
       pages: [
         { priorityType: 1, list: [...say(["東に、山の頂。塔の影が雲を突いている。", "灰は、そちらから降ってくる。"]), END] },
         // 鳴らした鐘の数＋一の灯（W15 #231。010 の崩れた壁の隙間と同じ）
         { conditions: { variableId: VAR.bells, variableValid: true, variableValue: 1 }, priorityType: 1,
           list: lampsByBells(n => say(["東に、山の頂。塔の影が雲を突いている。", `影の下に、灯が${n}。`, "灰は、そちらから降ってくる。"], "", 1)) },
         { ...W14.eastViewPage, priorityType: 1 }, // W14：四つ目のあと、シャノが砦にいるとき（場面表 4.2）。W15 の灯のページより強い
-      ],
+      ].map(p => ({ ...p, image: IMG.brazier, directionFix: true })),
     },
     eveningCount,
     thought("K05", "城壁の見張り", [24, 8], ["見張り、異常なし。灰、いつもより多し。", "頂の鐘、今夜も聞こえず。報告は朝にまとめる。"]),
