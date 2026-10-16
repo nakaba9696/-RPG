@@ -1,5 +1,6 @@
 // P3 残留思念と自動メモ（js/plugins/Hai_Thoughts.js）の検査（P17・P20：割り込まれたら既読にしない）。見本のマップ Map904（tools/maps/src/p3_thoughts）で：
-//   読むと既読になり、セルフスイッチ A が入り、unreadCount が減る／もう一度読むと「（読んだ）」が付く／
+//   読むと既読になり、セルフスイッチ A が入り、unreadCount が減る／もう一度読むと本文が薄く暗く出る（P21。印は付かない。
+//   あとのメモの行・次の文章は元の明るさ。文章の窓に描いた字のいちばん明るい点で測る）／
 //   手がかりがメモに入る（二度読んでも増えない。1 つの思念に 2 つ）／鍵なしで扉を調べるとメモに入り（二度でも 1 行）、
 //   鍵を持つと開いて通れる／ほかのマップからも unreadCount が読める／セーブ・ロード（ページの読み直しをはさむ）の後も
 //   既読とメモが残る。読んでいる画面と既読の表示のスクリーンショットを撮る。
@@ -42,10 +43,26 @@ await runTest(async () => {
   const selfSwitchA = eventId => game.eval(([m, e]) => window.__game.ref("$gameSelfSwitches").value([m, e, "A"]), [MAP, eventId]);
 
   /**
+   * 今の文章の窓の見え方。dim：既読の思念として暗く出ているか（窓口）。bright：窓に描いた字のいちばん明るい点
+   * （不透明度×明るさ、0〜255。白い字なら 255 近く、暗くした字は 200 以下。灰色 \C[8] は 192、半透明 128 は 128）。
+   */
+  const look = () => game.eval(() => {
+    const b = SceneManager._scene._messageWindow.contents;
+    const d = b.context.getImageData(0, 0, b.width, b.height).data;
+    let bright = 0;
+    for (let i = 0; i < d.length; i += 4) bright = Math.max(bright, (d[i + 3] * (d[i] + d[i + 1] + d[i + 2])) / 3 / 255);
+    return { dim: Hai.Thoughts.messageDimmed(), bright: Math.round(bright) };
+  });
+  let looks = []; // readAll が読んだページごとの見え方
+  const isDim = l => l.dim && l.bright <= 200;
+  const isBright = l => !l.dim && l.bright >= 230;
+
+  /**
    * 決定キーで調べ、出た文章をすべて読んで閉じる（ページごとに、書き終わってから決定）。各ページの中身を返す。
-   * shotLabel を渡すと、最初のページを書き終えたところでスクリーンショットを撮る。
+   * ページごとの見え方は looks に入れる。shotLabel を渡すと、最初のページを書き終えたところでスクリーンショットを撮る。
    */
   async function readAll(shotLabel) {
+    looks = [];
     await game.press("Enter");
     await game.waitFor(() => window.__game.ref("$gameMessage").isBusy());
     const pages = [];
@@ -57,6 +74,7 @@ await runTest(async () => {
       if (!(await messageBusy())) break;
       const text = await messageText();
       pages.push(text);
+      looks.push(await look());
       if (shotLabel && pages.length === 1) await game.shot(shotLabel);
       await game.frames(12); // ▼が出てから 10 フレームは決定を受け付けない（Window_Message.startPause）
       await game.press("Enter");
@@ -141,15 +159,17 @@ await runTest(async () => {
     check(!(await th("isRead", R13.id)), "読む前に R13 が既読");
     let pages = await readAll("reading");
     check(pages.length === 1 && pages[0].includes("耳が獣だから"), `R13 の本文: ${JSON.stringify(pages)}`);
-    check(!pages[0].includes("（読んだ）"), "初めて読んだのに（読んだ）が付いた");
+    check(!pages[0].includes("（読んだ）") && isBright(looks[0]), `初めて読んだのに暗い・印が付いた ${JSON.stringify(looks)}`);
+    check(JSON.stringify(await th("readStyle")) === JSON.stringify({ style: "dim", dim: "gray" }), `既定の見せ方 ${JSON.stringify(await th("readStyle"))}`);
     check(await th("isRead", R13.id), "読んだ R13 が既読にならない");
     check(await selfSwitchA(R13.eventId), "読んだ R13 のセルフスイッチ A が OFF");
     check((await th("notes")).length === 0, "手がかりのない思念でメモが増えた");
     check((await th("unreadCount", MAP)) === 2, `unreadCount 1 つ読んだ後 ${await th("unreadCount", MAP)}`);
 
-    // ---- もう一度調べると「（読んだ）」が頭に付く。数は変わらない
+    // ---- もう一度調べると本文が薄く暗く出る（P21。「（読んだ）」の印は付けない）。数は変わらない
     pages = await readAll("reread");
-    check(pages[0].includes("（読んだ）") && pages[0].includes("耳が獣だから"), `R13 を二度目: ${JSON.stringify(pages)}`);
+    check(!pages[0].includes("（読んだ）") && pages[0].includes("耳が獣だから"), `R13 を二度目: ${JSON.stringify(pages)}`);
+    check(looks.length === 1 && isDim(looks[0]), `二度目の R13 が暗くない ${JSON.stringify(looks)}`);
     check((await th("unreadCount", MAP)) === 2, "二度読んで unreadCount が変わった");
 
     // ---- ほかのマップにいても、訪れたマップの unreadCount を読める
@@ -164,6 +184,7 @@ await runTest(async () => {
     check(pages.length === 3, `R10 のページ数 ${pages.length}: ${JSON.stringify(pages)}`);
     check(pages[0].includes("四、一、三") && pages[1].includes("寝床の下の壁"), "R10 の本文");
     check(pages[2].includes("メモ：") && pages[2].includes("4・1・3") && pages[2].includes("寝床の下の壁が柔らかい"), `メモの行: ${pages[2]}`);
+    check(looks.length === 3 && looks.every(isBright), `初めての R10 が暗い ${JSON.stringify(looks)}`);
     let notes = await th("notes");
     check(notes.length === 2, `R10 を読んだ後のメモの数 ${notes.length}`);
     check(notes[0].id === "clue:R10" && notes[1].id === "clue:R10#2", `メモの ID ${notes.map(n => n.id)}`);
@@ -171,8 +192,15 @@ await runTest(async () => {
     check(notes.every(n => n.kind === "clue" && n.mapId === MAP && n.x === R10.x && n.y === R10.y && typeof n.time === "number"), `メモの欄 ${JSON.stringify(notes[0])}`);
     // 二度読んでも増えない。メモの行も出ない
     pages = await readAll();
-    check(pages.length === 2 && pages[0].includes("（読んだ）") && !pages.join("").includes("メモ："), `R10 を二度目: ${JSON.stringify(pages)}`);
+    check(pages.length === 2 && !pages.join("").includes("（読んだ）") && !pages.join("").includes("メモ："), `R10 を二度目: ${JSON.stringify(pages)}`);
+    check(looks.length === 2 && looks.every(isDim), `二度目の R10 の 2 ページが暗くない ${JSON.stringify(looks)}`);
     check((await th("notes")).length === 2, "二度読んでメモが増えた");
+    // 既読の思念のあとに出るメモの行は元の明るさ（メモを 1 つ消して、もう一度足させる）
+    await th("removeNote", "clue:R10#2");
+    pages = await readAll();
+    check(pages.length === 3 && pages[2].includes("寝床の下の壁が柔らかい") && !pages[2].includes("4・1・3"), `メモを消して R10 を三度目: ${JSON.stringify(pages)}`);
+    check(isDim(looks[0]) && isDim(looks[1]) && isBright(looks[2]), `既読の思念のあとのメモの行が元の明るさでない ${JSON.stringify(looks)}`);
+    check((await th("notes")).map(n => n.id).join() === "clue:R10,clue:R10#2", `メモを足し直した順 ${JSON.stringify(await th("notes"))}`);
     check((await th("unreadCount", MAP)) === 1, "R10 を読んだ後の unreadCount");
 
     // ---- 施錠扉：鍵なしで調べると「鍵がかかっている。」とメモ（kind: door）。二度でも 1 行。通れない
@@ -180,6 +208,7 @@ await runTest(async () => {
     check(!(await game.call("canPass", LOCKED.x - 1, LOCKED.y, 6)), "鍵の扉を通れた");
     pages = await readAll("locked");
     check(pages.length === 1 && pages[0].includes("鍵がかかっている。"), `鍵の扉: ${JSON.stringify(pages)}`);
+    check(isBright(looks[0]), `既読の思念の次の文章（鍵の扉）が元の明るさでない ${JSON.stringify(looks)}`);
     check(pages[0].includes("試験場の鍵が要る扉（残留思念の試験場 10,8）"), `扉のメモの行: ${pages[0]}`);
     let doors = await th("notes", "door");
     check(doors.length === 1 && doors[0].text === "試験場の鍵が要る扉（残留思念の試験場 10,8）" && doors[0].x === LOCKED.x && doors[0].y === LOCKED.y, `扉のメモ ${JSON.stringify(doors)}`);
@@ -238,7 +267,7 @@ await runTest(async () => {
     check(JSON.stringify(after) === JSON.stringify(notes), `ロード後のメモ ${JSON.stringify(after)}`);
     await go(R10.x, R10.y + 1, 8);
     pages = await readAll();
-    check(pages[0].includes("（読んだ）") && !pages.join("").includes("メモ："), "ロード後に読み直した R10");
+    check(!pages.join("").includes("（読んだ）") && looks.every(isDim) && !pages.join("").includes("メモ："), `ロード後に読み直した R10 ${JSON.stringify(looks)}`);
     check((await th("notes")).length === notes.length, "ロード後に読み直してメモが増えた");
     await go(LOCKED.x - 1, LOCKED.y, 6);
     check(await step(6), "ロード後に開けた扉を通れない");
@@ -264,6 +293,8 @@ await runTest(async () => {
       return { tone: g.ref("$gameScreen").tone().slice(), background: m.background(), position: m.positionType(), face: m.faceName(), speaker: m.speakerName(), text: m.allText() };
     });
     await game.shot("faint");
+    const faintLook = await look();
+    check(isBright(faintLook), `初めての薄い思念が暗い ${JSON.stringify(faintLook)}`);
     check(scene.tone[3] >= 150 && scene.tone[0] <= -90, `薄い思念で画面が暗くならない ${JSON.stringify(scene.tone)}`);
     check(scene.background === 2 && scene.position === 1 && scene.face === "" && scene.speaker === "", `薄い思念の窓 ${JSON.stringify(scene)}`);
     check(scene.text.includes("耳を寄せている"), `薄い思念の本文 ${JSON.stringify(scene)}`);
@@ -275,7 +306,7 @@ await runTest(async () => {
     check((await th("isRead", "F01")) && (await th("isFaint", "F01")), "F01 が既読・見た扱いにならない");
     check((await th("faintCount")) === 1 && (await faintVar()) === 1, `戻った記憶の数 ${await th("faintCount")} / 変数 138 ${await faintVar()}`);
     pages = await readAll();
-    check(pages[0].includes("（読んだ）") && (await th("faintCount")) === 1, `読み直しで記憶の数が増えた ${JSON.stringify(pages)}`);
+    check(!pages[0].includes("（読んだ）") && isDim(looks[0]) && (await th("faintCount")) === 1, `読み直した薄い思念が暗くない・記憶の数が増えた ${JSON.stringify(pages)} ${JSON.stringify(looks)}`);
     // 「イベント処理の中断」で終わっても、暗いまま残らない
     await go(FAINT.g.x, FAINT.g.y + 1, 8, FAINT.map);
     await game.press("Enter");
@@ -316,6 +347,25 @@ await runTest(async () => {
     });
     check(f02.at > 0 && f02.before.length > 0 && f02.before.every(p => p[2] === 2 && p[3] === 1 && p[4] === ""), `F02 の本文が窓なしにならない ${JSON.stringify(f02)}`);
     check(f02.after.length === 2 && f02.after.every(p => p[2] === 0 && p[3] === 2 && p[4] === "ブルーノ"), `F02 のあとのブルーノの行の名前・窓が消えた ${JSON.stringify(f02)}`);
+    // P21：既読のとき暗くするのは本文（コモンイベントの前）だけ。あとのブルーノの行は暗くしない
+    const f02dim = await game.eval(() => {
+      const ev = $gameMap.events().find(e => /<hai_faint:F02>/.test(e.event().note));
+      const dims = () => {
+        const it = new Game_Interpreter();
+        it.setup(ev.list(), ev.eventId());
+        const at = it._list.findIndex(c => c.code === 117 && c.parameters[0] === 201);
+        const texts = it._list.map((c, i) => ({ i, c })).filter(o => o.c.code === 101);
+        return { before: texts.filter(o => o.i < at).map(o => !!o.c._haiDim), after: texts.filter(o => o.i > at).map(o => !!o.c._haiDim) };
+      };
+      const unread = dims();
+      Hai.Thoughts.markRead("F02");
+      const read = dims();
+      delete $gameSystem._hai.thoughts.read.F02;
+      return { unread, read, source: ev.list().some(c => c._haiDim) };
+    });
+    check(f02dim.unread.before.every(d => !d) && f02dim.unread.after.every(d => !d), `読んでいない F02 に暗くする印 ${JSON.stringify(f02dim)}`);
+    check(f02dim.read.before.length > 0 && f02dim.read.before.every(d => d) && f02dim.read.after.every(d => !d), `既読の F02 の暗くする所 ${JSON.stringify(f02dim)}`);
+    check(!f02dim.source, "暗くする印がマップのデータそのものに付いた");
 
     // ---- clearNotes（テスト用）
     await th("clearNotes");

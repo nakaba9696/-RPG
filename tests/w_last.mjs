@@ -65,6 +65,7 @@ await runTest(async () => {
             pause: !!(w && w.pause),
             choice: !!(w && w._choiceListWindow && w._choiceListWindow.active && w._choiceListWindow.isOpen()),
             text: $gameMessage.allText(),
+            dim: Hai.Thoughts.messageDimmed(), // P21：既読の思念の文として暗く出ているか
             speaker: $gameMessage.speakerName(),
             choices: $gameMessage.choices(),
           };
@@ -73,7 +74,7 @@ await runTest(async () => {
         if (!st.running) { idle++; await game.frames(1); continue; }
         idle = 0;
         if (st.choice) {
-          pages.push((st.speaker ? st.speaker + "：" : "") + st.text + "［" + st.choices.join("／") + "］");
+          pages.push((st.dim ? "〔暗〕" : "") + (st.speaker ? st.speaker + "：" : "") + st.text + "［" + st.choices.join("／") + "］");
           const q = queue.shift() ?? 0;
           const i = typeof q === "string" ? st.choices.indexOf(q) : q;
           check(i >= 0 && i < st.choices.length, `選択肢「${q}」が無い ${JSON.stringify(st.choices)}`);
@@ -82,7 +83,7 @@ await runTest(async () => {
           await game.press("Enter");
           await game.frames(4);
         } else if (st.pause) {
-          pages.push((st.speaker ? st.speaker + "：" : "") + st.text);
+          pages.push((st.dim ? "〔暗〕" : "") + (st.speaker ? st.speaker + "：" : "") + st.text);
           await game.frames(6);
           await game.press("Enter");
           for (let i = 0; i < 30; i++) {
@@ -157,7 +158,8 @@ await runTest(async () => {
     await game.eval(() => Hai.Thoughts.markRead("R3-23")); // 鐘番の思念を先に読んだ扱い（W20 #264。R2 困る 5）
     await go(WATER_BELL, 13, 8, 8);
     const scene = (await talk(["綱を引く"])).join("\n");
-    check(scene.includes("水は、膝から胸まで来た") && !scene.includes("（読んだ）"), "3 つ目の場面の途中の鐘番の思念に「（読んだ）」が付く " + JSON.stringify(scene).slice(0, 600));
+    // P21：既読の印は文を暗くする形（暗く出た頁は talk が頭に〔暗〕を付ける）。場面の中の鐘番の思念も場面も暗くしない
+    check(scene.includes("水は、膝から胸まで来た") && !scene.includes("（読んだ）") && !scene.includes("〔暗〕"), "3 つ目の場面の途中の鐘番の思念が既読の見せ方になる " + JSON.stringify(scene).slice(0, 600));
     check(scene.includes("輪が幾重にも") && scene.includes("喰わない。代わりに、自分のものを一つ渡す。") && scene.includes("……喰わないために、預けたのか"),
       "水底の鐘を 3 つ目に鳴らすと、鐘番の思念のあとに 3 つ目の場面 " + JSON.stringify(scene).slice(0, 600));
     check(scene.includes("鋳物場の方角だ"), "まだ鳴っていない鋳物場の方角から戸を叩く音 " + JSON.stringify(scene).slice(-300));
