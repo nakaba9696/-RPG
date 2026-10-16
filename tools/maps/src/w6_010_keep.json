@@ -7464,6 +7464,34 @@
               "parameters": []
             },
             {
+              "code": 411,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "誰が帰ってくるのかと、聞いた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
               "code": 412,
               "indent": 1,
               "parameters": []
