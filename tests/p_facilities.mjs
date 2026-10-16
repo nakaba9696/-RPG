@@ -127,12 +127,13 @@ await runTest(async () => {
     const api = await game.eval(() => Object.keys(Hai.Facilities));
     check(!api.some(k => /orb|insert|next/i.test(k)), "窓口に叡智のオーブの名残りがある " + JSON.stringify(api));
 
-    // ---- 1. 閉じた部屋：Map010 の稽古場の扉は「瓦礫で塞がっている」だけ。叡智のオーブを持っていても開かない
+    // ---- 1. 閉じた部屋：Map010 の稽古場の扉は、部屋の物の様子の一行だけ（W29 #314）。叡智のオーブを持っていても開かない
     await gainOrbs(1);
     await go(10, HALL_DOOR.soul.x, HALL_DOOR.soul.y + 1, 8);
     let pages = await talk([], { 0: "door-closed" });
-    check(pages.length === 1 && pages[0].includes("扉が崩れて、瓦礫で塞がっている。"), "閉じた崩れた扉 " + JSON.stringify(pages));
+    check(pages.length === 1 && pages[0].includes("戸は、内側に倒れた木剣の棚につかえて開かない。"), "閉じた稽古場の扉 " + JSON.stringify(pages));
     check(!pages.sawChoice && (await orbs()) === 1 && (await F("opened")).length === 0, "崩れた扉で選択肢が出た・オーブが減った・開いた");
+    check((await game.call("mapId")) === 10, "閉じた稽古場の扉で部屋へ入れた");
     await game.eval(id => $gameParty.loseItem($dataItems[id], 1), ORB);
     // 古いマップの「台座」（pedestal）も同じに動く
     pages = await game.eval(() => {

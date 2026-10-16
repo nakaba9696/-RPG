@@ -1,5 +1,5 @@
 // P13（#189）砦の新しい 3 部屋・頼みごと 8 本・記憶が戻るたびの一言・声だけの影の検査。
-//   1. 最初は 7 部屋とも閉じている。Map010 の療養所の扉は「瓦礫で塞がっている」だけ。
+//   1. 最初は 7 部屋とも閉じている。Map010 の療養所の扉は部屋の物の様子の一行だけ（W29）。
 //   2. open で開く（スイッチ 125〜127）。010 の扉から 016・017・018 へ入れて、出口で扉の前へ戻る。019 の見張り台の扉からも 018 へ。
 //   3. 療養所：状態異常が治る。開いている間、消耗品の所持上限が 1 つ増える。
 //   4. 鍛冶場：鉄切り鋏を打つ（スイッチ 313）。一点ものの装備を魂で鍛え直すと能力が上がる。
@@ -113,7 +113,7 @@ await runTest(async () => {
     check((await game.eval(() => Hai.Facilities.KEYS.slice(4).map(k => Hai.Facilities.nameOf(k)).join())) === "療養所,鍛冶場,見張り台", "部屋の名前");
     await go(KEEP, ROOMS.infirmary.door.x, ROOMS.infirmary.door.y + 1, 8);
     let pages = await talk();
-    check(pages.length === 1 && pages[0].includes("瓦礫で塞がっている"), "閉じた療養所の扉 " + JSON.stringify(pages));
+    check(pages.length === 1 && pages[0].includes("戸に閂。隙間から、寝台が並んでいるのが見える。"), "閉じた療養所の扉（W29 #314：部屋の一行） " + JSON.stringify(pages));
     check((await game.call("mapId")) === KEEP, "閉じた扉で部屋へ入れた");
 
     // ---- 2・3. 療養所
