@@ -623,7 +623,7 @@
       "note": "",
       "pages": [
         {
-          "priorityType": 0,
+          "priorityType": 1,
           "list": [
             {
               "code": 111,
@@ -948,14 +948,17 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "B:180"
+          }
         },
         {
           "conditions": {
             "switch1Id": 412,
             "switch1Valid": true
           },
-          "priorityType": 0,
+          "priorityType": 1,
           "list": [
             {
               "code": 101,
@@ -980,14 +983,17 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "B:180"
+          }
         },
         {
           "conditions": {
             "switch1Id": 413,
             "switch1Valid": true
           },
-          "priorityType": 0,
+          "priorityType": 1,
           "list": [
             {
               "code": 101,
@@ -1012,7 +1018,10 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "B:180"
+          }
         }
       ]
     },
