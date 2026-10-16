@@ -519,20 +519,61 @@
     },
     {
       "name": "思念 R2-14 熱の下がらない男",
-      "type": "text",
+      "type": "raw",
       "x": 16,
       "y": 7,
       "note": "<hai_thought:R2-14>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 1,
-        "direction": 4,
-        "pattern": 1
-      },
-      "lines": [
-        "ここで寝てた。熱が下がったら、帰っていいと言われた。",
-        "帰る村は焼けたと、通りがかりの者に聞いた。",
-        "下がらないふりをした。婆さまは何も言わずに、薬を倍にした。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 1,
+            "direction": 4,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "ここで寝てた。熱が下がったら、帰っていいと言われた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "帰る村は焼けたと、通りがかりの者に聞いた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "下がらないふりをした。婆さまは何も言わずに、薬を倍にした。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -841,7 +882,8 @@
       "y": 6,
       "lines": [
         "小石が積んである。数えると、帳面の印の無い名と同じ数。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "寝台",

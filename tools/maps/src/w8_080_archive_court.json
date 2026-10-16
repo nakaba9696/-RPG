@@ -1119,38 +1119,120 @@
     },
     {
       "name": "思念 R2-15 前の書庫番",
-      "type": "text",
+      "type": "raw",
       "x": 8,
       "y": 10,
       "note": "<hai_thought:R2-15>",
-      "image": {
-        "characterName": "Damage2",
-        "characterIndex": 3,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "古言の棚の目録は、私が作りました。棚は三つ。目録は一枚です。",
-        "題だけを書きました。中の音は写しませんでした。写した者が前に二人、欠けましたので。",
-        "書架は年ごとに重くなりました。目録は、一枚のままです。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "古言の棚の目録は、私が作りました。棚は三つ。目録は一枚です。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "題だけを書きました。中の音は写しませんでした。写した者が前に二人、欠けましたので。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "書架は年ごとに重くなりました。目録は、一枚のままです。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "思念 R2-16 教会の使い",
-      "type": "text",
+      "type": "raw",
       "x": 29,
       "y": 23,
       "note": "<hai_thought:R2-16>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 3,
-        "direction": 8,
-        "pattern": 1
-      },
-      "lines": [
-        "教会の使いだ。銘の写しを受け取りに来た。",
-        "三日待てと言われた。二日目に、催促の手紙を書いた。",
-        "急がせた方が早く出来る。そう教わっていた。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 3,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "教会の使いだ。銘の写しを受け取りに来た。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "三日待てと言われた。二日目に、催促の手紙を書いた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "急がせた方が早く出来る。そう教わっていた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -1519,20 +1601,61 @@
     },
     {
       "name": "思念 R2-17 扉を閉めた写字生",
-      "type": "text",
+      "type": "raw",
       "x": 35,
       "y": 22,
       "note": "<hai_thought:R2-17>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 0,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "この部屋の扉は、古言で閉める。開けられる者は、院に三人。",
-        "三人とも、写しの仕事で手が離せなかった。",
-        "だから、ここに入れた物は、誰も出していない。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "この部屋の扉は、古言で閉める。開けられる者は、院に三人。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "三人とも、写しの仕事で手が離せなかった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "だから、ここに入れた物は、誰も出していない。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -1543,7 +1666,7 @@
       "note": "",
       "pages": [
         {
-          "priorityType": 1,
+          "priorityType": 0,
           "list": [
             {
               "code": 101,
@@ -1576,7 +1699,7 @@
             "variableValid": true,
             "variableValue": 1
           },
-          "priorityType": 1,
+          "priorityType": 0,
           "list": [
             {
               "code": 101,
@@ -1656,7 +1779,8 @@
       "y": 5,
       "lines": [
         "札に「声に出して読むこと、これを禁ず」。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "宝箱（灰の苔）",

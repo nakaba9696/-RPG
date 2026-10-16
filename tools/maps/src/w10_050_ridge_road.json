@@ -66,6 +66,15 @@
         null,
         "A2:23"
       ]
+    },
+    "=": {
+      "name": "巨人の石段（上り。通れる。W30 で外の石段の絵に）",
+      "as": ":",
+      "tiles": [
+        null,
+        null,
+        "A5:67"
+      ]
     }
   },
   "deco": {
@@ -299,74 +308,238 @@
     },
     {
       "name": "思念 R4-01 影を払った兵",
-      "type": "text",
+      "type": "raw",
       "x": 12,
       "y": 44,
       "note": "<hai_thought:R4-01>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "今日は影を払った。影は要らない。歩くのに、影は使わない。",
-        "きのう払ったのは夕飯の味。その前は、妹の顔。要らない物から払う決まりだ。",
-        "名はまだ要る。糧をもらうとき、名簿と突き合わせる。",
-        "隣の奴に聞いた。おまえの名は何だ、と。隣の奴も、知らなかった。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "今日は影を払った。影は要らない。歩くのに、影は使わない。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "きのう払ったのは夕飯の味。その前は、妹の顔。要らない物から払う決まりだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "名はまだ要る。糧をもらうとき、名簿と突き合わせる。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "隣の奴に聞いた。おまえの名は何だ、と。隣の奴も、知らなかった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "思念 R4-02 子鐘の塔の番",
-      "type": "text",
+      "type": "raw",
       "x": 50,
       "y": 9,
       "note": "<hai_thought:R4-02>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "塔の小鐘は、頂が鳴ったら鳴らす。頂が鳴らない夜は、鳴らさない。",
-        "三晩、鳴らしていない。",
-        "四晩目の油を、今、注いだ。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "塔の小鐘は、頂が鳴ったら鳴らす。頂が鳴らない夜は、鳴らさない。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "三晩、鳴らしていない。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "四晩目の油を、今、注いだ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "思念 R4-03 東門へ荷を運んだ男",
-      "type": "text",
+      "type": "raw",
       "x": 63,
       "y": 50,
       "note": "<hai_thought:R4-03><hai_clue:城壁の東門は、外から閂を外す（境山の古道の南の下り道）>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "砦の東門は、内からは開かない。外から閂を外す決まりだ。",
-        "決まりを作った奴は、外で夜を明かしたことが無いんだろう。",
-        "荷は門の前に置いた。叩いても、誰も出てこなかった。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "砦の東門は、内からは開かない。外から閂を外す決まりだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "決まりを作った奴は、外で夜を明かしたことが無いんだろう。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "荷は門の前に置いた。叩いても、誰も出てこなかった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "思念 R4-04 名簿を見た兵",
-      "type": "text",
+      "type": "raw",
       "x": 75,
       "y": 23,
       "note": "<hai_thought:R4-04>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "古言は、一つ唱えるごとに一つ払う。隊長は「安い」と言った。",
-        "隊長の名簿の欄は、三月前から番号だ。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "古言は、一つ唱えるごとに一つ払う。隊長は「安い」と言った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "隊長の名簿の欄は、三月前から番号だ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -448,21 +621,68 @@
     },
     {
       "name": "記憶 ブルーノ 3",
-      "type": "text",
+      "type": "raw",
       "x": 8,
       "y": 5,
       "note": "<hai_memory:5,3>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 4,
-        "pattern": 1
-      },
-      "lines": [
-        "行軍の札。隊の名の下に、騎士の名が十二。頁をめくるごとに、人数の欄が一つ減ります。",
-        "一人倒れるたび、その人の籠手の鐘を布で巻きました。いち、に、さん。",
-        "巻いて、名に線を引いて、また歩きました。",
-        "十一本目の線を引いたのは、僕です。十二本目は、誰も引いていません。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 4,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "行軍の札。隊の名の下に、騎士の名が十二。頁をめくるごとに、人数の欄が一つ減ります。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "一人倒れるたび、その人の籠手の鐘を布で巻きました。いち、に、さん。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "巻いて、名に線を引いて、また歩きました。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "十一本目の線を引いたのは、僕です。十二本目は、誰も引いていません。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -733,7 +953,10 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "B:19"
+          }
         },
         {
           "conditions": {

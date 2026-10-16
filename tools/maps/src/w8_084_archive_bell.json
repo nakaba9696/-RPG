@@ -1325,7 +1325,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         },
         {
           "image": {
@@ -2316,7 +2317,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         }
       ]
     },
@@ -2582,7 +2584,8 @@
       "y": 14,
       "lines": [
         "控えの床の真ん中だけ、灰が積もっていない。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "霧の戸口（門叩きの縄張りへ。W11） 1",

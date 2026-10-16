@@ -651,20 +651,61 @@
     },
     {
       "name": "思念 R2-24 読むのをやめた学者",
-      "type": "text",
+      "type": "raw",
       "x": 7,
       "y": 11,
       "note": "<hai_thought:R2-24>",
-      "image": {
-        "characterName": "Damage2",
-        "characterIndex": 3,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "私は途中で読むのをやめた。三字目で。",
-        "隣の男は、やめなかった。",
-        "やめた私も、ここから出られなかった。頁は、まだ手の中だ。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "私は途中で読むのをやめた。三字目で。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "隣の男は、やめなかった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "やめた私も、ここから出られなかった。頁は、まだ手の中だ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -675,7 +716,10 @@
       "lines": [
         "頁の山。どの頁にも、同じ一字が大きく書いてある。",
         "読もうとすると、目が滑る。"
-      ]
+      ],
+      "image": {
+        "tileId": "E:80"
+      }
     }
   ]
 }

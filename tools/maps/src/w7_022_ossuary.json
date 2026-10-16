@@ -317,7 +317,10 @@
       "lines": [
         "木の名札が、骨と一緒に棚に並んでいる。",
         "札の紐には、隊ごとに色の違う糸。鐘の騎士の札は灰色の糸。"
-      ]
+      ],
+      "image": {
+        "tileId": "C:205"
+      }
     },
     {
       "name": "記憶 ブルーノ 1",
@@ -813,20 +816,61 @@
     },
     {
       "name": "思念 R1-14 納骨所の骨守り",
-      "type": "text",
+      "type": "raw",
       "x": 22,
       "y": 9,
       "note": "<hai_thought:R1-14>",
-      "image": {
-        "characterName": "Damage2",
-        "characterIndex": 4,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "棺には名札を付ける。名札の無い骨は、棚のいちばん下。",
-        "砦の墓守さまは、名札の無い骨にも名前を言い当てた。",
-        "どこで聞いてくるのかと尋ねたら、棚の掃除を言いつけられた。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "棺には名札を付ける。名札の無い骨は、棚のいちばん下。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "砦の墓守さまは、名札の無い骨にも名前を言い当てた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "どこで聞いてくるのかと尋ねたら、棚の掃除を言いつけられた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -837,7 +881,10 @@
       "lines": [
         "棺の蓋に、名前が彫ってある。",
         "一つだけ、名前の代わりに鐘の絵。"
-      ]
+      ],
+      "image": {
+        "tileId": "C:86"
+      }
     },
     {
       "name": "房の影（緑）",

@@ -516,20 +516,61 @@
     },
     {
       "name": "思念 R2-21 封じた学者",
-      "type": "text",
+      "type": "raw",
       "x": 21,
       "y": 25,
       "note": "<hai_thought:R2-21><hai_clue:真名の間の学者は、声を出させなければ読めないらしい（封じた書架）>",
-      "image": {
-        "characterName": "Damage2",
-        "characterIndex": 3,
-        "direction": 8,
-        "pattern": 1
-      },
-      "lines": [
-        "書架を封じたのは私だ。奥の男を、ここから出さないために。",
-        "あれは声に出すと読む。出させなければ、ただの男だ。",
-        "札を三枚書いた。釘は二本しか無かった。一枚は、机の上だ。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 3,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "書架を封じたのは私だ。奥の男を、ここから出さないために。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "あれは声に出すと読む。出させなければ、ただの男だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "札を三枚書いた。釘は二本しか無かった。一枚は、机の上だ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -625,7 +666,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         },
         {
           "conditions": {
@@ -999,20 +1041,61 @@
     },
     {
       "name": "思念 R2-22 読んだ学者",
-      "type": "text",
+      "type": "raw",
       "x": 30,
       "y": 19,
       "note": "<hai_thought:R2-22>",
-      "image": {
-        "characterName": "Damage2",
-        "characterIndex": 3,
-        "direction": 6,
-        "pattern": 1
-      },
-      "lines": [
-        "読めた。口が勝手に動く。止めるには、声を出すな、と札を書く。",
-        "書いた。札の字が、私の字ではない。",
-        "隣の机の男の字だ。隣の男は、昨日からいない。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 3,
+            "direction": 6,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "読めた。口が勝手に動く。止めるには、声を出すな、と札を書く。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "書いた。札の字が、私の字ではない。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "隣の机の男の字だ。隣の男は、昨日からいない。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -1199,20 +1282,61 @@
     },
     {
       "name": "思念 R2-23 古い帳面を運んだ下働き",
-      "type": "text",
+      "type": "raw",
       "x": 9,
       "y": 14,
       "note": "<hai_thought:R2-23>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 1,
-        "direction": 8,
-        "pattern": 1
-      },
-      "lines": [
-        "古い帳面は、ここから砦の下の納骨所へ移せと言われた。",
-        "棺の部屋の壁の裏に、通り道がある。",
-        "帳面のほうが、棺より大事なんだと。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "古い帳面は、ここから砦の下の納骨所へ移せと言われた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "棺の部屋の壁の裏に、通り道がある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "帳面のほうが、棺より大事なんだと。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {

@@ -892,38 +892,120 @@
     },
     {
       "name": "思念 R1-15 使徒狩りの傭兵",
-      "type": "text",
+      "type": "raw",
       "x": 44,
       "y": 12,
       "note": "<hai_thought:R1-15>",
-      "image": {
-        "characterName": "Damage2",
-        "characterIndex": 6,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "教会の騎士より、俺たちの方が長く境に立った。",
-        "連れを狩って、骨を持ち帰って、剣にする。それで飯を食った。",
-        "骨の剣を買いに来たのは、その騎士たちだ。顔を隠してな。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "教会の騎士より、俺たちの方が長く境に立った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "連れを狩って、骨を持ち帰って、剣にする。それで飯を食った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "骨の剣を買いに来たのは、その騎士たちだ。顔を隠してな。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "思念 R1-18 鍛冶場の弟子",
-      "type": "text",
+      "type": "raw",
       "x": 48,
       "y": 7,
       "note": "<hai_thought:R1-18>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 4,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "骨は、いくら熱しても赤くならない。",
-        "打つと、鐘みたいに鳴る。親方は耳に布を詰めて打っていた。",
-        "親方は、最後の一本を打ち終えて、布を外さなかった。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "骨は、いくら熱しても赤くならない。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "打つと、鐘みたいに鳴る。親方は耳に布を詰めて打っていた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "親方は、最後の一本を打ち終えて、布を外さなかった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -1538,7 +1620,8 @@
       "lines": [
         "壁の鉄の筋が、新しい傷で掘りかけてある。",
         "傷は不揃いで、力任せだ。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "錆びた鉄格子",
@@ -1822,38 +1905,120 @@
     },
     {
       "name": "思念 R1-16 昇降機を待った坑夫",
-      "type": "text",
+      "type": "raw",
       "x": 33,
       "y": 39,
       "note": "<hai_thought:R1-16>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 0,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "下に隠れれば夜が明ける。頭はそう言った。",
-        "鐘番が角灯を下げて先に下りた。籠は六人まで。",
-        "三回目の籠を待ってる。鎖が、まだ上がってこない。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "下に隠れれば夜が明ける。頭はそう言った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鐘番が角灯を下げて先に下りた。籠は六人まで。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "三回目の籠を待ってる。鎖が、まだ上がってこない。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "思念 R1-17 掘り場の女",
-      "type": "text",
+      "type": "raw",
       "x": 12,
       "y": 41,
       "note": "<hai_thought:R1-17>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "亭主は使徒狩りに鉄を売った。教会には売らなかった。",
-        "教会の値段は、使徒狩りの半分だったから。",
-        "それで坑道の鐘を外された。鐘の無い坑道に、夜が来た。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "亭主は使徒狩りに鉄を売った。教会には売らなかった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "教会の値段は、使徒狩りの半分だったから。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "それで坑道の鐘を外された。鐘の無い坑道に、夜が来た。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -3030,7 +3195,7 @@
             "variableValid": true,
             "variableValue": 1
           },
-          "priorityType": 1,
+          "priorityType": 0,
           "list": [
             {
               "code": 108,

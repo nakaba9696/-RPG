@@ -827,56 +827,179 @@
     },
     {
       "name": "思念 R1-20 長屋の隣の女",
-      "type": "text",
+      "type": "raw",
       "x": 7,
       "y": 20,
       "note": "<hai_thought:R1-20>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "隣の娘は、弟たちの飯を作ってから坑に下りる。",
-        "父親より先に下りて、後に上がる。坑夫の誰より早い。",
-        "帝国の人が、食べ物の出る仕事があるって言いに来た。娘だけが話を聞いてた。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "隣の娘は、弟たちの飯を作ってから坑に下りる。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "父親より先に下りて、後に上がる。坑夫の誰より早い。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "帝国の人が、食べ物の出る仕事があるって言いに来た。娘だけが話を聞いてた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "思念 R1-19 坑道の鐘番",
-      "type": "text",
+      "type": "raw",
       "x": 43,
       "y": 9,
       "note": "<hai_thought:R1-19>",
-      "image": {
-        "characterName": "Damage2",
-        "characterIndex": 7,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "角灯は、詰め所に戻してきた。",
-        "下で灯をつけたら、上の連中が下りてくる。籠は六人までだ。",
-        "暗いまま待てば、誰も下りてこない。それでいい。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 7,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "角灯は、詰め所に戻してきた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "下で灯をつけたら、上の連中が下りてくる。籠は六人までだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "暗いまま待てば、誰も下りてこない。それでいい。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "思念 R1-21 掘り抜きの坑夫",
-      "type": "text",
+      "type": "raw",
       "x": 47,
       "y": 34,
       "note": "<hai_thought:R1-21>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 0,
-        "direction": 6,
-        "pattern": 1
-      },
-      "lines": [
-        "営倉の下まで掘れば、砦の中だ。中なら鐘が鳴る。",
-        "向こうからも掘る音がした。あっちは、出ようとしてたんだろう。",
-        "穴がつながった晩、どっちが先に通ったのかは、知らない。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 0,
+            "direction": 6,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "営倉の下まで掘れば、砦の中だ。中なら鐘が鳴る。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "向こうからも掘る音がした。あっちは、出ようとしてたんだろう。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "穴がつながった晩、どっちが先に通ったのかは、知らない。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -1346,7 +1469,8 @@
       "y": 17,
       "lines": [
         "壁に、籠の数を数えた刻み。三本目の刻みが、途中で止まっている。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "拾い物（鉄くず）",

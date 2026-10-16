@@ -42,12 +42,12 @@
       ]
     },
     "/": {
-      "name": "坂の石段（段 1 の側面に刻んだ階段）",
+      "name": "坂の石段（段 1 の側面に刻んだ階段。W30 で外の石段の絵に）",
       "as": ".",
       "tiles": [
         null,
         null,
-        "B:1"
+        "A5:67"
       ]
     },
     "b": {
@@ -790,26 +790,68 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         }
       ]
     },
     {
       "name": "思念 R4-07 烽火を上げなかった番",
-      "type": "text",
+      "type": "raw",
       "x": 5,
       "y": 7,
       "note": "<hai_thought:R4-07>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "頂の鐘が黙ったら、烽火を上げて砦に知らせる。それが番の仕事だ。",
-        "黙った夜、油を取りに下りていた。樽を二つ、背負って戻った。",
-        "砦の灯が、一つも無かった。油は、二樽とも台の脇に置いた。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "頂の鐘が黙ったら、烽火を上げて砦に知らせる。それが番の仕事だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "黙った夜、油を取りに下りていた。樽を二つ、背負って戻った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "砦の灯が、一つも無かった。油は、二樽とも台の脇に置いた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -902,21 +944,68 @@
     },
     {
       "name": "記憶 ベルトラン 3",
-      "type": "text",
+      "type": "raw",
       "x": 33,
       "y": 13,
       "note": "<hai_memory:10,3>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 4,
-        "pattern": 1
-      },
-      "lines": [
-        "橋のたもとで、狩りの最後の一匹を仕留めた。",
-        "仕留めてから、顔の布をめくった。子どもの顔だった。",
-        "連れってのはそういうもんだと、聞いてはいた。聞いてるのと、めくるのは違うな。",
-        "布は元に戻しておいた。それぐらいしか、やることが無かった。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 4,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "橋のたもとで、狩りの最後の一匹を仕留めた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "仕留めてから、顔の布をめくった。子どもの顔だった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "連れってのはそういうもんだと、聞いてはいた。聞いてるのと、めくるのは違うな。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "布は元に戻しておいた。それぐらいしか、やることが無かった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -927,7 +1016,8 @@
       "lines": [
         "板の吊り橋。綱は新しく、板は古い。",
         "誰かが綱だけを張り替えている。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "岩背負い",
@@ -1254,20 +1344,61 @@
     },
     {
       "name": "思念 R4-08 岩背負いを見ていた子",
-      "type": "text",
+      "type": "raw",
       "x": 40,
       "y": 16,
       "note": "<hai_thought:R4-08><hai_clue:岩背負いは、背の岩の割れ目に霜がおりると動かない（吊り橋の東のたもと）>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "あの岩のやつ、背中の割れ目に霜がおりると、まるまってうごかないんだよ。",
-        "だから、さむい朝に橋をわたるんだって。",
-        "きょうは、あったかい。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "あの岩のやつ、背中の割れ目に霜がおりると、まるまってうごかないんだよ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "だから、さむい朝に橋をわたるんだって。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "きょうは、あったかい。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {

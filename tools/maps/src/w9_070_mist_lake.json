@@ -418,21 +418,68 @@
     },
     {
       "name": "思念 R3-01 札を刷った兵",
-      "type": "text",
+      "type": "raw",
       "x": 30,
       "y": 8,
       "note": "<hai_thought:R3-01>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "方舟の札は四十枚。俺が刷った。舟に乗るのは十四人、と聞いた。",
-        "数が合わんと言ったら、酒保の姐さんは「乗せてから数える」と。",
-        "配るのは姐さんが自分でやった。俺は札に数を書いただけだ。",
-        "余りの札は、酒保に戻ってこなかった。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "方舟の札は四十枚。俺が刷った。舟に乗るのは十四人、と聞いた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "数が合わんと言ったら、酒保の姐さんは「乗せてから数える」と。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "配るのは姐さんが自分でやった。俺は札に数を書いただけだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "余りの札は、酒保に戻ってこなかった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -442,7 +489,8 @@
       "y": 5,
       "lines": [
         "梁から網が下がったまま。目に、乾いた葦の切れ端が絡まっている。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "宝箱（薬草）",
@@ -539,7 +587,8 @@
       "y": 19,
       "lines": [
         "杭の間に網が張ったまま。結び目は、どれも新しく結び直してある。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "倒れた舟",
@@ -549,7 +598,8 @@
       "lines": [
         "底の抜けた舟が、腹を上にして転がっている。",
         "底板の穴は、内側から斧で割った跡。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "名の無い墓",
@@ -558,25 +608,73 @@
       "y": 19,
       "lines": [
         "墓が四つ。墓標の代わりに、折れた櫂が一本ずつ立ててある。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "思念 R3-03 霧で舟を出した漁師",
-      "type": "text",
+      "type": "raw",
       "x": 10,
       "y": 26,
       "note": "<hai_thought:R3-03><hai_clue:霧の奥で鈴が鳴る。目をつぶって三十を数える。追うな（霧の湖の漁師）>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "霧が出たら舟を出すな。じいさまの代からの決まりだ。",
-        "霧の中で鈴が鳴ったら、目をつぶって三十を数えろ。追うな。",
-        "おれは数えた。十二で、娘の声がした。",
-        "櫂は、まだ握っとる。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "霧が出たら舟を出すな。じいさまの代からの決まりだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "霧の中で鈴が鳴ったら、目をつぶって三十を数えろ。追うな。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "おれは数えた。十二で、娘の声がした。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "櫂は、まだ握っとる。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -587,7 +685,8 @@
       "lines": [
         "石の祠の中に、灯皿が三つ。どれも油の跡だけ残っている。",
         "皿の縁に、点が刻んである。数えると、十ずつ束ねてある。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "宝箱（霊水）",
@@ -2174,21 +2273,68 @@
     },
     {
       "name": "記憶 ゼリナ 2",
-      "type": "text",
+      "type": "raw",
       "x": 69,
       "y": 5,
       "note": "<hai_memory:8,2>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "砦の酒保は、うち一人で回しとった。つけの取り立ても、うちや。",
-        "銀貨は壺に。三年で壺が三つ。舟が一艘。網元は半値にしてくれた。",
-        "「方舟」て名は、兵隊が勝手に付けた。うちは舟、としか呼ばへんかった。",
-        "壺は、まだ一つ余っとる。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "砦の酒保は、うち一人で回しとった。つけの取り立ても、うちや。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "銀貨は壺に。三年で壺が三つ。舟が一艘。網元は半値にしてくれた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "「方舟」て名は、兵隊が勝手に付けた。うちは舟、としか呼ばへんかった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "壺は、まだ一つ余っとる。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -2471,21 +2617,68 @@
     },
     {
       "name": "記憶 ゼリナ 3",
-      "type": "text",
+      "type": "raw",
       "x": 65,
       "y": 13,
       "note": "<hai_memory:8,3>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "舟は十四人で、もう縁まで沈んどった。大人が一人乗ったら、真ん中で沈む。",
-        "うちが袖を引いて、降ろした。母親も、爺さんも。籠だけ受け取って。",
-        "降ろした顔は全部覚えとる。数えたら、二十六。",
-        "札の余りと、同じ数や。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "舟は十四人で、もう縁まで沈んどった。大人が一人乗ったら、真ん中で沈む。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "うちが袖を引いて、降ろした。母親も、爺さんも。籠だけ受け取って。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "降ろした顔は全部覚えとる。数えたら、二十六。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "札の余りと、同じ数や。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -2613,7 +2806,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         }
       ]
     },
@@ -3531,21 +3725,68 @@
     },
     {
       "name": "思念 R3-04 舟を漕いだ兵",
-      "type": "text",
+      "type": "raw",
       "x": 72,
       "y": 51,
       "note": "<hai_thought:R3-04>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "子どもを十四、向こう岸に下ろした。数えて、数え直して、十四。",
-        "東へ歩け、と言った。森の外を回れば、人の村に出る。",
-        "舟を戻して大人を乗せるつもりで、櫂を取った。霧が来た。",
-        "杭に、十四と刻んだ。それから、舟を出していない。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "子どもを十四、向こう岸に下ろした。数えて、数え直して、十四。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "東へ歩け、と言った。森の外を回れば、人の村に出る。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "舟を戻して大人を乗せるつもりで、櫂を取った。霧が来た。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "杭に、十四と刻んだ。それから、舟を出していない。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -3652,7 +3893,10 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "C:115"
+          }
         }
       ]
     },
@@ -3664,7 +3908,8 @@
       "lines": [
         "石を組んだ焚き火の跡。周りの土に、小さな足跡がいくつも。",
         "足跡は、東の葦の切れ目へ向かっている。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "宝箱（霊水）",

@@ -777,7 +777,8 @@
           "moveSpeed": 3,
           "trigger": 2,
           "moveFrequency": 3,
-          "moveType": 1
+          "moveType": 1,
+          "directionFix": true
         }
       ]
     },
@@ -829,7 +830,14 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "characterName": "People3",
+            "characterIndex": 7,
+            "direction": 8,
+            "pattern": 1
+          },
+          "directionFix": true
         }
       ]
     }

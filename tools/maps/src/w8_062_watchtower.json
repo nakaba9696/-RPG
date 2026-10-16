@@ -390,7 +390,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         },
         {
           "conditions": {
@@ -494,26 +495,68 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         }
       ]
     },
     {
       "name": "思念 R2-10 夜番の年寄り",
-      "type": "text",
+      "type": "raw",
       "x": 6,
       "y": 11,
       "note": "<hai_thought:R2-10>",
-      "image": {
-        "characterName": "Damage2",
-        "characterIndex": 0,
-        "direction": 6,
-        "pattern": 1
-      },
-      "lines": [
-        "見張り台の火は、村へ戻る者の目印だ。そういう決まりだった。",
-        "戻る者がいなくなって、誰も上げなくなった。薪だけは、十年分積んである。",
-        "あの晩、誰かが上げた。わしは寝床で、見なかったことにした。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 0,
+            "direction": 6,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "見張り台の火は、村へ戻る者の目印だ。そういう決まりだった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "戻る者がいなくなって、誰も上げなくなった。薪だけは、十年分積んである。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "あの晩、誰かが上げた。わしは寝床で、見なかったことにした。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -684,7 +727,8 @@
       "lines": [
         "柵の向こうに、灰をかぶった谷。",
         "谷の先の山の上に、塔の影が一つ。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "屋根の梁（鉤綱で上る）",
@@ -822,7 +866,10 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "D:125"
+          }
         },
         {
           "conditions": {
@@ -854,7 +901,10 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "D:125"
+          }
         }
       ]
     },

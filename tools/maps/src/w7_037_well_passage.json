@@ -463,20 +463,61 @@
     },
     {
       "name": "思念 R1-30 井戸を掘った工兵",
-      "type": "text",
+      "type": "raw",
       "x": 6,
       "y": 10,
       "note": "<hai_thought:R1-30>",
-      "image": {
-        "characterName": "Damage2",
-        "characterIndex": 0,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "砦の井戸は、営倉の下を通して水道まで掘った。",
-        "水が涸れたとき、下から汲めるように。人が通れる幅にしたのは、俺の勝手だ。",
-        "格子は水道の側から閉める。上から逃げる奴が出ないように、と言われた。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "砦の井戸は、営倉の下を通して水道まで掘った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "水が涸れたとき、下から汲めるように。人が通れる幅にしたのは、俺の勝手だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "格子は水道の側から閉める。上から逃げる奴が出ないように、と言われた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {

@@ -848,21 +848,68 @@
     },
     {
       "name": "思念 R4-17 研究者",
-      "type": "text",
+      "type": "raw",
       "x": 7,
       "y": 13,
       "note": "<hai_thought:R4-17>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "被験は志願の者に限る。それが決まりだ。娘も、志願の紙を出した。",
-        "紙は机の引き出しにある。名の欄、年の欄、血の欄。字は、整っている。",
-        "整った字だ。娘の字は、まだ丸い。",
-        "窓は、今日も塞いだ。板を一枚足した。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "被験は志願の者に限る。それが決まりだ。娘も、志願の紙を出した。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "紙は机の引き出しにある。名の欄、年の欄、血の欄。字は、整っている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "整った字だ。娘の字は、まだ丸い。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "窓は、今日も塞いだ。板を一枚足した。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {

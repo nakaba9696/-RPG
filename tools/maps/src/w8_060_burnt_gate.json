@@ -551,21 +551,68 @@
     },
     {
       "name": "思念 R2-01 戸を開けなかった母親",
-      "type": "text",
+      "type": "raw",
       "x": 38,
       "y": 26,
       "note": "<hai_thought:R2-01>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 5,
-        "direction": 4,
-        "pattern": 1
-      },
-      "lines": [
-        "戸を三度、叩かれた。去年の秋に祠へ行った娘の声だった。",
-        "朝まで、戸に背中をつけて座ってた。",
-        "叩く音は、三度で止んだ。夜明けの前だった。",
-        "戸板の裏に、下の子が何か書いてる。読んでいない。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 5,
+            "direction": 4,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "戸を三度、叩かれた。去年の秋に祠へ行った娘の声だった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "朝まで、戸に背中をつけて座ってた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "叩く音は、三度で止んだ。夜明けの前だった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "戸板の裏に、下の子が何か書いてる。読んでいない。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -901,7 +948,10 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "B:180"
+          }
         },
         {
           "conditions": {
@@ -933,7 +983,10 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "B:180"
+          }
         },
         {
           "conditions": {
@@ -965,7 +1018,10 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "B:180"
+          }
         }
       ]
     },
@@ -1004,7 +1060,10 @@
         "小さい方の枕元に、木彫りの兎。耳が片方、欠けている。",
         "大きい方は、窓の下に寄せてある。",
         "窓の桟は外れたままだ。"
-      ]
+      ],
+      "image": {
+        "tileId": "E:181"
+      }
     },
     {
       "name": "畑の盛り土（ノラ）",
@@ -1248,20 +1307,61 @@
     },
     {
       "name": "思念 R2-02 畑の番の子ども",
-      "type": "text",
+      "type": "raw",
       "x": 17,
       "y": 26,
       "note": "<hai_thought:R2-02>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 6,
-        "direction": 8,
-        "pattern": 1
-      },
-      "lines": [
-        "くじはね、先の黒いのを引いたら、祠へ行くの。",
-        "あたし白いの引いたよ。白いのは畑の番。",
-        "案山子の腕の黒い棒、あたしが結んだの。鳥がね、来なくなった。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 6,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "くじはね、先の黒いのを引いたら、祠へ行くの。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "あたし白いの引いたよ。白いのは畑の番。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "案山子の腕の黒い棒、あたしが結んだの。鳥がね、来なくなった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -1382,19 +1482,54 @@
     },
     {
       "name": "思念 R2-03 配給を待った男",
-      "type": "text",
+      "type": "raw",
       "x": 34,
       "y": 9,
       "note": "<hai_thought:R2-03>",
-      "image": {
-        "characterName": "Damage2",
-        "characterIndex": 0,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "王国の麦が来なくなった年に、祠の帳面が始まった。",
-        "麦の列に並んだ家の数と、帳面の名の数。どちらも、二十六。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "王国の麦が来なくなった年に、祠の帳面が始まった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "麦の列に並んだ家の数と、帳面の名の数。どちらも、二十六。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -2618,20 +2753,61 @@
     },
     {
       "name": "思念 R2-04 くじを削った男",
-      "type": "text",
+      "type": "raw",
       "x": 6,
       "y": 14,
       "note": "<hai_thought:R2-04>",
-      "image": {
-        "characterName": "Damage2",
-        "characterIndex": 4,
-        "direction": 6,
-        "pattern": 1
-      },
-      "lines": [
-        "祠の帳面に、わしの名は無い。くじの棒を削る役だったからな。",
-        "白い棒を十一本と、先を黒く塗る棒を一本。毎年、一本だけ。",
-        "削り屑は、かまどで燃やした。黒い棒の屑だけ、別に捨てた。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 4,
+            "direction": 6,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "祠の帳面に、わしの名は無い。くじの棒を削る役だったからな。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "白い棒を十一本と、先を黒く塗る棒を一本。毎年、一本だけ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "削り屑は、かまどで燃やした。黒い棒の屑だけ、別に捨てた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -2641,7 +2817,10 @@
       "y": 6,
       "lines": [
         "杭に灰色の布が巻いてある。布の端に、新しい結び目が三つ。"
-      ]
+      ],
+      "image": {
+        "tileId": "C:115"
+      }
     },
     {
       "name": "灰に埋もれた荷車",
@@ -3557,7 +3736,7 @@
             "switch1Id": 1165,
             "switch1Valid": true
           },
-          "priorityType": 1,
+          "priorityType": 0,
           "list": [
             {
               "code": 108,

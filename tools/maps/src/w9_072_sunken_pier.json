@@ -184,7 +184,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         },
         {
           "conditions": {
@@ -329,24 +330,68 @@
       "y": 13,
       "lines": [
         "杭に残った舫い綱。切り口は、まっすぐだ。"
-      ]
+      ],
+      "image": {
+        "tileId": "C:115"
+      }
     },
     {
       "name": "思念 R3-07 酒保の手伝いの兵",
-      "type": "text",
+      "type": "raw",
       "x": 16,
       "y": 7,
       "note": "<hai_thought:R3-07><hai_clue:酒保のつけ帳は、舟小屋の奥の壁の中（沈んだ桟橋）>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "舟が出たあと、姐さんは桟橋に座って動かなかった。",
-        "砦に戻ろうと言ったら、つけの帳面を投げてよこした。「あんたが取り立てや」と。",
-        "帳面は舟小屋の奥、壁の中に隠した。表紙の字は、姐さんのだ。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "舟が出たあと、姐さんは桟橋に座って動かなかった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "砦に戻ろうと言ったら、つけの帳面を投げてよこした。「あんたが取り立てや」と。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "帳面は舟小屋の奥、壁の中に隠した。表紙の字は、姐さんのだ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -356,7 +401,10 @@
       "y": 5,
       "lines": [
         "樽の中に、塩漬けの魚の骨。蓋に「酒保　湖の家より」。"
-      ]
+      ],
+      "image": {
+        "tileId": "B:141"
+      }
     },
     {
       "name": "拾い物（酒保のつけ帳）",
@@ -594,7 +642,10 @@
       "y": 10,
       "lines": [
         "小さな勘定台。釘に、空の銭袋が下がっている。"
-      ]
+      ],
+      "image": {
+        "tileId": "E:149"
+      }
     },
     {
       "name": "沼蛭（緑）",

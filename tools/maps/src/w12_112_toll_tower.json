@@ -496,7 +496,7 @@
       "y": 26,
       "pages": [
         {
-          "priorityType": 1,
+          "priorityType": 0,
           "list": [
             {
               "code": 101,
@@ -608,26 +608,70 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "E:200"
+          }
         }
       ]
     },
     {
       "name": "思念 R5-02 関所を越えた巡礼",
-      "type": "text",
+      "type": "raw",
       "x": 30,
       "y": 8,
       "note": "<hai_thought:R5-02>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "関所を裏から越えて、修道院へ上った。札は持っていなかった。",
-        "崖の小道の梁に、小鐘を一つ掛けてきた。預かった鐘だ。上りには重すぎた。",
-        "返す先は、鐘の札に書いておいた。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "関所を裏から越えて、修道院へ上った。札は持っていなかった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "崖の小道の梁に、小鐘を一つ掛けてきた。預かった鐘だ。上りには重すぎた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "返す先は、鐘の札に書いておいた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -1038,7 +1082,8 @@
           "moveSpeed": 3,
           "trigger": 2,
           "moveFrequency": 3,
-          "moveType": 1
+          "moveType": 1,
+          "directionFix": true
         }
       ]
     },
@@ -1060,7 +1105,8 @@
           "moveSpeed": 3,
           "trigger": 2,
           "moveFrequency": 3,
-          "moveType": 1
+          "moveType": 1,
+          "directionFix": true
         }
       ]
     }

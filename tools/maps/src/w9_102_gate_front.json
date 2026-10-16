@@ -1286,7 +1286,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         },
         {
           "conditions": {
@@ -1304,7 +1305,8 @@
       "y": 26,
       "lines": [
         "扉の継ぎ目に、爪の跡。低い所の跡ほど、新しい。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "記憶 アンセルモ 3",
@@ -1437,7 +1439,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         }
       ]
     },
@@ -1586,7 +1589,8 @@
       "lines": [
         "壁に、黒鉄の砦の騎士団の印を刻んだ盾が一枚。",
         "裏に、列の警護の当番が十二人。名は、九つまで消してある。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "宝箱（霊水）",
@@ -1784,37 +1788,113 @@
     },
     {
       "name": "思念 R3-18 弔いを手伝った男",
-      "type": "text",
+      "type": "raw",
       "x": 3,
       "y": 17,
       "note": "<hai_thought:R3-18>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "司祭のおっさんの歌は、うまいのか下手なのか分からなかった。",
-        "聞いた者は、みんな泣いた。泣かせるのがうまい、が正しいな。",
-        "おれの名は、名簿の七十いくつめだ。字が崩れだすあたりだ。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "司祭のおっさんの歌は、うまいのか下手なのか分からなかった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "聞いた者は、みんな泣いた。泣かせるのがうまい、が正しいな。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "おれの名は、名簿の七十いくつめだ。字が崩れだすあたりだ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "思念 R3-19 札を孫に持たせた年寄り",
-      "type": "text",
+      "type": "raw",
       "x": 12,
       "y": 10,
       "note": "<hai_thought:R3-19>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "札を持っとる子から順だと。わしの札は、朝に孫に持たせた。",
-        "戸の内で、孫が泣いとる。泣くな。戸は、もう叩かん。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "札を持っとる子から順だと。わしの札は、朝に孫に持たせた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "戸の内で、孫が泣いとる。泣くな。戸は、もう叩かん。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -2043,44 +2123,127 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         }
       ]
     },
     {
       "name": "思念 R3-21 番を見ていた女",
-      "type": "text",
+      "type": "raw",
       "x": 8,
       "y": 21,
       "note": "<hai_thought:R3-21><hai_clue:扉の番は、雷の晩に扉の陰へ下がった。鉄の鳴る音を嫌う（閉じた扉の前）>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "番の鎧は、水を吸って光っていた。",
-        "雷の晩、番は扉の陰に引っこんで、朝まで動かなかった。鉄の鳴る音を嫌う。",
-        "あいつも、扉の内には入れてもらえなかった。札は、持っていたのに。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "番の鎧は、水を吸って光っていた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "雷の晩、番は扉の陰に引っこんで、朝まで動かなかった。鉄の鳴る音を嫌う。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "あいつも、扉の内には入れてもらえなかった。札は、持っていたのに。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "思念 R3-22 読み上げを聞いた男",
-      "type": "text",
+      "type": "raw",
       "x": 35,
       "y": 23,
       "note": "<hai_thought:R3-22><hai_clue:扉の番は、王の布告の削られた所で読み上げが止まる（閉じた扉の前）>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "番は、布告を読み上げるのが役目だった。日に三度、同じ文を。",
-        "削られた下の半分を、番は覚えていない。読み上げるたびに、そこで止まる。",
-        "止まっている間は、槍の先が下がっている。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "番は、布告を読み上げるのが役目だった。日に三度、同じ文を。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "削られた下の半分を、番は覚えていない。読み上げるたびに、そこで止まる。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "止まっている間は、槍の先が下がっている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -2390,7 +2553,7 @@
             "switch2Id": 510,
             "switch2Valid": true
           },
-          "priorityType": 1,
+          "priorityType": 0,
           "list": [
             {
               "code": 108,

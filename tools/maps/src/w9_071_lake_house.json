@@ -1312,7 +1312,10 @@
       "y": 10,
       "lines": [
         "寝台は使った跡が少ない。枕元の板に、閉じた門の絵が彫ってある。"
-      ]
+      ],
+      "image": {
+        "tileId": "E:150"
+      }
     },
     {
       "name": "崩れた勘定台",
@@ -1321,25 +1324,75 @@
       "y": 7,
       "lines": [
         "崩れた勘定台。天板に、銀貨を数えた刻みが並んでいる。"
-      ]
+      ],
+      "image": {
+        "tileId": "E:149"
+      }
     },
     {
       "name": "記憶 ゼリナ 1",
-      "type": "text",
+      "type": "raw",
       "x": 6,
       "y": 8,
       "note": "<hai_memory:8,1>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "うちの家は、この湖で商いをしとった。網と塩と、ちょっとの酒。",
-        "十五で初めて一人で船荷を仕入れた。開けたら、中身は全部ただの石や。",
-        "笑われたわ。その晩、勘定台の天板に、損した額を爪で刻んだ。",
-        "それから勘定は、誰にも任せへん。刻みは、まだ天板にある。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "うちの家は、この湖で商いをしとった。網と塩と、ちょっとの酒。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "十五で初めて一人で船荷を仕入れた。開けたら、中身は全部ただの石や。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "笑われたわ。その晩、勘定台の天板に、損した額を爪で刻んだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "それから勘定は、誰にも任せへん。刻みは、まだ天板にある。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -1432,21 +1485,68 @@
     },
     {
       "name": "思念 R3-05 舟を譲った網元",
-      "type": "text",
+      "type": "raw",
       "x": 38,
       "y": 7,
       "note": "<hai_thought:R3-05>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "舟は一艘、半値で譲った。酒保の娘は、値切らなかった。",
-        "二艘目はわしが組むはずだった。頼んだ木は二十本。届いたのは六本。",
-        "六本では底しか張れん。娘は、底板だけでも乗せる、と言った。",
-        "木は六本とも、小屋の梁に上げたままだ。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "舟は一艘、半値で譲った。酒保の娘は、値切らなかった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "二艘目はわしが組むはずだった。頼んだ木は二十本。届いたのは六本。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "六本では底しか張れん。娘は、底板だけでも乗せる、と言った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "木は六本とも、小屋の梁に上げたままだ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -1555,23 +1655,61 @@
       "y": 24,
       "lines": [
         "床に、刈った葦の束が積んである。半分は黒く焦げている。"
-      ]
+      ],
+      "image": {
+        "tileId": "B:248"
+      }
     },
     {
       "name": "思念 R3-06 葦刈りの女",
-      "type": "text",
+      "type": "raw",
       "x": 6,
       "y": 25,
       "note": "<hai_thought:R3-06><hai_clue:淵の主は、焦げた葦の刈り跡に上がってこない。刈ったらすぐ火を入れる（湖の家の葦刈り）>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "刈った葦には、その日のうちに火を入れる。焦げた跡には、主は上がってこん。",
-        "去年は火が足りなかった。刈り跡の手前で、弟の鎌だけ拾った。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "刈った葦には、その日のうちに火を入れる。焦げた跡には、主は上がってこん。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "去年は火が足りなかった。刈り跡の手前で、弟の鎌だけ拾った。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -1581,7 +1719,8 @@
       "y": 33,
       "lines": [
         "葦の刈り跡。切り口が黒く焦げている。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "木箱",
@@ -1590,7 +1729,10 @@
       "y": 24,
       "lines": [
         "木箱の中に、乾いた灯芯が束で。数えると、三百を超える。"
-      ]
+      ],
+      "image": {
+        "tileId": "B:181"
+      }
     },
     {
       "name": "宝箱（灯守の肩掛け）",
@@ -1889,7 +2031,7 @@
             "switch2Id": 512,
             "switch2Valid": true
           },
-          "priorityType": 1,
+          "priorityType": 0,
           "list": [
             {
               "code": 108,

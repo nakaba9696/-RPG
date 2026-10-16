@@ -707,21 +707,68 @@
     },
     {
       "name": "思念 R2-18 写字室の同輩",
-      "type": "text",
+      "type": "raw",
       "x": 9,
       "y": 11,
       "note": "<hai_thought:R2-18><hai_clue:封じた書架の錠は 4・2・9（記録院の写字室）>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 0,
-        "direction": 8,
-        "pattern": 1
-      },
-      "lines": [
-        "二冊のうち一冊を、使いに渡したのは私です。急かされましたので。",
-        "机の上に置いてあった方を渡しました。ディルは、その夜も写していました。",
-        "どちらを渡したか、覚えていません。渡した日の数は、覚えています。",
-        "封じた書架の錠は、その数です。四、二、九。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "二冊のうち一冊を、使いに渡したのは私です。急かされましたので。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "机の上に置いてあった方を渡しました。ディルは、その夜も写していました。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "どちらを渡したか、覚えていません。渡した日の数は、覚えています。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "封じた書架の錠は、その数です。四、二、九。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -883,38 +930,120 @@
     },
     {
       "name": "思念 R2-19 鐘の記録を写した老学者",
-      "type": "text",
+      "type": "raw",
       "x": 49,
       "y": 11,
       "note": "<hai_thought:R2-19>",
-      "image": {
-        "characterName": "Damage2",
-        "characterIndex": 4,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "鋳造の記を写した。歌い手の名を書く欄で、筆が止まった。",
-        "森の人は、名を書くなと言った。歌が別の物になるからと。",
-        "欄は空けた。訳の欄も、三度書いて三度消した。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鋳造の記を写した。歌い手の名を書く欄で、筆が止まった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "森の人は、名を書くなと言った。歌が別の物になるからと。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "欄は空けた。訳の欄も、三度書いて三度消した。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "思念 R2-20 迷った見習い",
-      "type": "text",
+      "type": "raw",
       "x": 33,
       "y": 23,
       "note": "<hai_thought:R2-20>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 1,
-        "direction": 6,
-        "pattern": 1
-      },
-      "lines": [
-        "書架の並びは、目録の順だと聞いた。目録は燃えた。",
-        "だから壁に手をついて歩けと、先輩が言った。",
-        "先輩も、手をついて歩いてた。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 1,
+            "direction": 6,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "書架の並びは、目録の順だと聞いた。目録は燃えた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "だから壁に手をついて歩けと、先輩が言った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "先輩も、手をついて歩いてた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -924,7 +1053,10 @@
       "y": 24,
       "lines": [
         "書架の半分が焦げている。焦げた所の本だけ、題が削ってある。"
-      ]
+      ],
+      "image": {
+        "tileId": "D:175"
+      }
     },
     {
       "name": "南の間の掲示",
@@ -934,7 +1066,8 @@
       "lines": [
         "掲示に「奥の書架、封鎖。院長の許しなき者、入るべからず」。",
         "院長の名の所が、空いている。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "赤い宝箱（封蝋の指輪）",

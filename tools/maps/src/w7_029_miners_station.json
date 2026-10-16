@@ -416,7 +416,8 @@
       "y": 5,
       "lines": [
         "角灯の隣の釘。鍵が掛かっていた跡の、錆の輪。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "記憶 ベルトラン 2",
@@ -438,20 +439,61 @@
     },
     {
       "name": "思念 R1-23 詰め所の夜番",
-      "type": "text",
+      "type": "raw",
       "x": 14,
       "y": 11,
       "note": "<hai_thought:R1-23>",
-      "image": {
-        "characterName": "Damage2",
-        "characterIndex": 6,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "傭兵どもが詰め所を借りに来た。鐘番は貸さなかった。",
-        "骨の匂いがすると、坑の鐘が鳴りやまないんだと。",
-        "その晩、傭兵は外で寝た。次の晩は、鐘番が外で寝た。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "傭兵どもが詰め所を借りに来た。鐘番は貸さなかった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "骨の匂いがすると、坑の鐘が鳴りやまないんだと。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "その晩、傭兵は外で寝た。次の晩は、鐘番が外で寝た。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -571,7 +613,10 @@
       "lines": [
         "机の上に、欠けた椀が六つ。",
         "どの椀にも、乾いた粥が半分。"
-      ]
+      ],
+      "image": {
+        "tileId": "B:243"
+      }
     }
   ]
 }

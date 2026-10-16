@@ -14,6 +14,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { readData, formatTable, dataPath, extendTable } from "../../data/io.mjs";
 import { SRC_DIR } from "../build.mjs";
+import { fixW30 } from "./w30_parts.mjs"; // W30（#315）：見えない壁と、話すと姿が変わる人の直し
 import { withThirdScene, lairDoorEvents } from "./w11_parts.mjs"; // W11（#191）：鐘番の思念の 2 ページ目と霧の戸口
 import { ringAfter, ropeAt054, patchLater } from "./w14_parts.mjs"; // W14（#234）：鐘の綱の鳴ったあとの一行
 import { aside, ACTOR as W17_ACTOR, W17_SW, W17_SWITCH_NAMES, NAMELESS_SHADE, nightDoorStart, nightDoorEnd } from "./w17_parts.mjs"; // W17（#233）：原作の反映
@@ -1725,7 +1726,7 @@ for (const [name, cfg] of Object.entries(CONFIGS)) {
     cfg.stamps = cfg.stamps.filter(st => all.includes(st.at));
     if (!cfg.stamps.length) delete cfg.stamps;
   }
-  outputs.push({ file: srcPath(name), text: sourceText(patchLater(name, cfg)) }); // W14：後日談の一行（場面表 7.3）
+  outputs.push({ file: srcPath(name), text: sourceText(fixW30(name, patchLater(name, cfg))) }); // W14：後日談の一行（場面表 7.3）
 }
 
 // ---------------------------------------------------------------------------

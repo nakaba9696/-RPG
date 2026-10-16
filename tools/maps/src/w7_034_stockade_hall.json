@@ -1051,20 +1051,61 @@
     },
     {
       "name": "思念 R1-27 控えの牢番の手下",
-      "type": "text",
+      "type": "raw",
       "x": 12,
       "y": 24,
       "note": "<hai_thought:R1-27>",
-      "image": {
-        "characterName": "Damage2",
-        "characterIndex": 1,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "牢番は灯を嫌った。詰め所の中は、いつも真っ暗だ。",
-        "房の中の顔を見ると、出してやりたくなるんだと。",
-        "だから見ない。見ないで、数だけ数える。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "牢番は灯を嫌った。詰め所の中は、いつも真っ暗だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "房の中の顔を見ると、出してやりたくなるんだと。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "だから見ない。見ないで、数だけ数える。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {

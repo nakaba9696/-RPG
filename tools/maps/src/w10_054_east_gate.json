@@ -463,25 +463,61 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         }
       ]
     },
     {
       "name": "思念 R4-10 門の前で待った者",
-      "type": "text",
+      "type": "raw",
       "x": 28,
       "y": 12,
       "note": "<hai_thought:R4-10>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "叩いても開かない。外から閂を外せばいいと、後で知った。",
-        "知ったときには、もう中に用は無かった。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "叩いても開かない。外から閂を外せばいいと、後で知った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "知ったときには、もう中に用は無かった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -491,7 +527,8 @@
       "y": 6,
       "lines": [
         "見上げるほどの城壁。積んだ石の継ぎ目に、灰が詰まっている。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "宝箱（気付け薬）",

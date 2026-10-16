@@ -79,7 +79,7 @@
       "y": 8,
       "pages": [
         {
-          "priorityType": 1,
+          "priorityType": 0,
           "list": [
             {
               "code": 111,
@@ -406,7 +406,7 @@
       "y": 8,
       "pages": [
         {
-          "priorityType": 1,
+          "priorityType": 0,
           "list": [
             {
               "code": 101,

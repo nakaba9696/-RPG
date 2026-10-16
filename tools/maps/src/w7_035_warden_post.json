@@ -832,20 +832,61 @@
     },
     {
       "name": "思念 R1-28 鍵を数えさせられた囚人",
-      "type": "text",
+      "type": "raw",
       "x": 4,
       "y": 9,
       "note": "<hai_thought:R1-28>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 3,
-        "direction": 6,
-        "pattern": 1
-      },
-      "lines": [
-        "牢番は、夕べごとに鍵を数える。わたしに数えさせることもある。",
-        "十二。数え終えると、牢番はほっとした顔をする。",
-        "輪には十三本かけられる。それは、言わなかった。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 3,
+            "direction": 6,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "牢番は、夕べごとに鍵を数える。わたしに数えさせることもある。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "十二。数え終えると、牢番はほっとした顔をする。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "輪には十三本かけられる。それは、言わなかった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {

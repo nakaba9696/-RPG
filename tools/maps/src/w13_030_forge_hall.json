@@ -699,20 +699,61 @@
     },
     {
       "name": "思念 K-01 狩人の頭の弟子",
-      "type": "text",
+      "type": "raw",
       "x": 38,
       "y": 18,
       "note": "<hai_thought:K-01>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 4,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "頭は削り台から離れなかった。飯も、台の端で食った。",
-        "「次の骨を」と言われるたびに、骨置き場から一本担いできた。",
-        "十九本目を台に載せた晩、荷紐を切って、上の坑道へ出た。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "頭は削り台から離れなかった。飯も、台の端で食った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "「次の骨を」と言われるたびに、骨置き場から一本担いできた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "十九本目を台に載せた晩、荷紐を切って、上の坑道へ出た。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {

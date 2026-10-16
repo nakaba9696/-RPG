@@ -32,6 +32,7 @@
   "v_regions": 145,
   "v_sound": 23,
   "v_tilesets2": 1,
+  "w_blockers": 1,
   "w_boss_weight": 1,
   "w_fort": 135,
   "w_fort_walls": 1,
