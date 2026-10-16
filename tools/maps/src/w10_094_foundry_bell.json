@@ -1767,7 +1767,7 @@
       "y": 4,
       "pages": [
         {
-          "priorityType": 0,
+          "priorityType": 1,
           "list": [
             {
               "code": 101,
@@ -1845,7 +1845,10 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "B:178"
+          }
         }
       ]
     },

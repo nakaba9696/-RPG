@@ -798,7 +798,7 @@
             "switch2Id": 1156,
             "switch2Valid": true
           },
-          "priorityType": 0,
+          "priorityType": 1,
           "list": [
             {
               "code": 108,
@@ -830,7 +830,14 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "characterName": "People3",
+            "characterIndex": 7,
+            "direction": 8,
+            "pattern": 1
+          },
+          "directionFix": true
         }
       ]
     }

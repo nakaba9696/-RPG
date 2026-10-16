@@ -1560,9 +1560,9 @@
       "pages": [
         {
           "image": {
-            "tileId": 0
+            "tileId": "D:83"
           },
-          "priorityType": 0,
+          "priorityType": 1,
           "list": [
             {
               "code": 101,
@@ -1773,7 +1773,7 @@
             "selfSwitchCh": "A",
             "selfSwitchValid": true
           },
-          "priorityType": 0,
+          "priorityType": 1,
           "list": [
             {
               "code": 101,
@@ -1798,7 +1798,10 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "D:83"
+          }
         }
       ]
     },

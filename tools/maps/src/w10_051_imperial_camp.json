@@ -1582,7 +1582,7 @@
       "y": 12,
       "pages": [
         {
-          "priorityType": 0,
+          "priorityType": 1,
           "list": [
             {
               "code": 101,
@@ -1607,14 +1607,17 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "E:109"
+          }
         },
         {
           "conditions": {
             "itemId": 603,
             "itemValid": true
           },
-          "priorityType": 0,
+          "priorityType": 1,
           "list": [
             {
               "code": 111,
@@ -1987,7 +1990,10 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "E:109"
+          }
         }
       ]
     },

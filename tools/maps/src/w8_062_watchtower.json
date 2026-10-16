@@ -738,7 +738,7 @@
       "note": "",
       "pages": [
         {
-          "priorityType": 0,
+          "priorityType": 1,
           "list": [
             {
               "code": 111,
@@ -866,14 +866,17 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "D:125"
+          }
         },
         {
           "conditions": {
             "selfSwitchCh": "A",
             "selfSwitchValid": true
           },
-          "priorityType": 0,
+          "priorityType": 1,
           "list": [
             {
               "code": 101,
@@ -898,7 +901,10 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "D:125"
+          }
         }
       ]
     },
