@@ -881,24 +881,66 @@
       "lines": [
         "骨を積んだ塔。積み方に、決まりがあるらしい。",
         "段ごとに、骨の太さが揃えてある。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "思念 R4-09 骨を買いに来た帝国の使い",
-      "type": "text",
+      "type": "raw",
       "x": 6,
       "y": 8,
       "note": "<hai_thought:R4-09>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "使いの役だ。骨を十二本、受け取って帰る。それだけ。",
-        "化け物が丁寧に頭を下げるので、こちらも下げた。",
-        "帰ってから、上官に叱られた。下げた数まで、帳面につけてあったそうだ。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "使いの役だ。骨を十二本、受け取って帰る。それだけ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "化け物が丁寧に頭を下げるので、こちらも下げた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "帰ってから、上官に叱られた。下げた数まで、帳面につけてあったそうだ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {

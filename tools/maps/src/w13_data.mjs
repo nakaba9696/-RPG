@@ -14,6 +14,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { readData, formatTable, dataPath, extendTable } from "../../data/io.mjs";
 import { SRC_DIR } from "../build.mjs";
+import { fixW30 } from "./w30_parts.mjs"; // W30（#315）：見えない壁と、話すと姿が変わる人の直し
 
 const check = process.argv.includes("--check");
 const outputs = []; // [{ file, text }]
@@ -634,7 +635,7 @@ for (const [name, cfg] of Object.entries(CONFIGS)) {
     cfg.stamps = cfg.stamps.filter(st => all.includes(st.at));
     if (!cfg.stamps.length) delete cfg.stamps;
   }
-  outputs.push({ file: srcPath(name), text: sourceText(cfg) });
+  outputs.push({ file: srcPath(name), text: sourceText(fixW30(name, cfg)) });
 }
 
 // ---------------------------------------------------------------------------

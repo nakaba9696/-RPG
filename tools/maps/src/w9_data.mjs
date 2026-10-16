@@ -20,6 +20,7 @@ import { POINTS, MAPS, drawAll } from "./w9_maps.mjs";
 import { withThirdScene, lairDoorEvents } from "./w11_parts.mjs"; // W11（#191）：鐘番の思念の 2 ページ目と霧の戸口
 import { ringAfter, patchLater } from "./w14_parts.mjs"; // W14（#234）：鐘の綱の鳴ったあとの一行
 import { aside, withBell, W17_SW, W17_SWITCH_NAMES, nightDoorStart, nightDoorEnd } from "./w17_parts.mjs"; // W17（#233）：原作の反映（仲間の一言・夜の戸・数え歌）
+import { fixW30 } from "./w30_parts.mjs"; // W30（#315）：見えない壁と、話すと姿が変わる人の直し
 
 drawAll();
 const check = process.argv.includes("--check");
@@ -1481,7 +1482,7 @@ for (const { file, cfg } of CONFIGS) {
     seen.set(k, e.name);
   }
 }
-for (const { file, cfg } of CONFIGS) outputs.push({ file: path.join(SRC_DIR, file + ".json"), text: JSON.stringify(patchLater(file, cfg), null, 2) + "\n" }); // W14：後日談の一行（場面表 7.3）
+for (const { file, cfg } of CONFIGS) outputs.push({ file: path.join(SRC_DIR, file + ".json"), text: JSON.stringify(fixW30(file, patchLater(file, cfg)), null, 2) + "\n" }); // W14：後日談の一行（場面表 7.3）
 
 const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 if (isMain) {

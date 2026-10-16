@@ -263,7 +263,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         }
       ]
     },
@@ -738,20 +739,61 @@
     },
     {
       "name": "思念 R4-16 鋳物師",
-      "type": "text",
+      "type": "raw",
       "x": 18,
       "y": 12,
       "note": "<hai_thought:R4-16>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "銘を彫り直すなら、型から作り直すのが筋だ。そう言った。",
-        "教会の人は、舌だけ持って来させる、と言った。型には触るな、と。",
-        "舌は来た。寸法を取った。親鐘の舌だ。型は、ここに五つある。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "銘を彫り直すなら、型から作り直すのが筋だ。そう言った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "教会の人は、舌だけ持って来させる、と言った。型には触るな、と。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "舌は来た。寸法を取った。親鐘の舌だ。型は、ここに五つある。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -761,7 +803,10 @@
       "y": 5,
       "lines": [
         "割った型の破片の山。破片の内側に、溶けた鉄の筋が残る。"
-      ]
+      ],
+      "image": {
+        "tileId": "E:151"
+      }
     }
   ]
 }

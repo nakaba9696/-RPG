@@ -123,21 +123,68 @@
     },
     {
       "name": "記憶 トゥーラ 2",
-      "type": "text",
+      "type": "raw",
       "x": 7,
       "y": 27,
       "note": "<hai_memory:11,2>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 4,
-        "pattern": 1
-      },
-      "lines": [
-        "帝国の兵が村に来た。食べ物が出る仕事がある、ってさ。",
-        "弟と妹の分まで出るのか、って聞いた。出る、って言った。",
-        "だから来た。ここの名簿に、あたしの名前、自分で書いたんだぞ。",
-        "書いた字、まだ下手だろ。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 4,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "帝国の兵が村に来た。食べ物が出る仕事がある、ってさ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "弟と妹の分まで出るのか、って聞いた。出る、って言った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "だから来た。ここの名簿に、あたしの名前、自分で書いたんだぞ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "書いた字、まだ下手だろ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -248,7 +295,8 @@
         "帳場の壁に、名簿が釘で留めてある。",
         "上の方は大人の字。下の方は、子どもの字が増えていく。",
         "名の横に、どれも番号が書き足してある。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "線路の終わり",
@@ -258,7 +306,8 @@
       "lines": [
         "線路は東の口で曲がり、型の間へ続いている。",
         "車止めに、荷車が一台、鎖でつないである。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "積み場の木箱",
@@ -267,7 +316,10 @@
       "y": 5,
       "lines": [
         "木箱の焼き印は「研究所」。中身は空で、藁だけが残っている。"
-      ]
+      ],
+      "image": {
+        "tileId": "B:220"
+      }
     },
     {
       "name": "思念 R4-11 荷を下ろした男",
@@ -393,25 +445,61 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         }
       ]
     },
     {
       "name": "思念 R4-12 鐘鉄を運んだ坑夫",
-      "type": "text",
+      "type": "raw",
       "x": 30,
       "y": 24,
       "note": "<hai_thought:R4-12>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "坑道から、樋で鐘鉄を落とした。頭が「売るな」と刻印を打った鉄だ。",
-        "教会納めの印は、鋳物場で打つんだと。樋の下で、誰かが打っていた。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "坑道から、樋で鐘鉄を落とした。頭が「売るな」と刻印を打った鉄だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "教会納めの印は、鋳物場で打つんだと。樋の下で、誰かが打っていた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {

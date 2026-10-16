@@ -428,7 +428,14 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "characterName": "Evil",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 1
+          },
+          "directionFix": true
         },
         {
           "conditions": {

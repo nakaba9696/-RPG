@@ -584,7 +584,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         },
         {
           "conditions": {
@@ -2959,55 +2960,172 @@
     },
     {
       "name": "思念 R4-13 檻の子",
-      "type": "text",
+      "type": "raw",
       "x": 45,
       "y": 6,
       "note": "<hai_thought:R4-13>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "姉ちゃんが、おりの戸を曲げた。手でだよ。ぼくのおりの戸も、曲げてくれた。",
-        "まだ出るなって。先に道を見てくるって。",
-        "ぼくは、いち、に、さん、ってかぞえてる。姉ちゃんが行ってから、ずっと。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "姉ちゃんが、おりの戸を曲げた。手でだよ。ぼくのおりの戸も、曲げてくれた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "まだ出るなって。先に道を見てくるって。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "ぼくは、いち、に、さん、ってかぞえてる。姉ちゃんが行ってから、ずっと。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "思念 R4-14 型師",
-      "type": "text",
+      "type": "raw",
       "x": 8,
       "y": 25,
       "note": "<hai_thought:R4-14>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "鐘の型は、壊して出す。同じ型では、二度と鋳られない。",
-        "舌だけは、鋳直せと言われた。教会の札を持った男が、夜明けまでにと。",
-        "炉に火を入れる前に、研究所の連中が来て、炉を三つ持っていった。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鐘の型は、壊して出す。同じ型では、二度と鋳られない。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "舌だけは、鋳直せと言われた。教会の札を持った男が、夜明けまでにと。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "炉に火を入れる前に、研究所の連中が来て、炉を三つ持っていった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "思念 R4-15 廃水の番",
-      "type": "text",
+      "type": "raw",
       "x": 48,
       "y": 32,
       "note": "<hai_thought:R4-15>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "汚れた水は管で下へ流す。下は砦の地下の水路だと聞いた。",
-        "流れていく物の中に、ときどき、小さな靴が混ざる。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "汚れた水は管で下へ流す。下は砦の地下の水路だと聞いた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "流れていく物の中に、ときどき、小さな靴が混ざる。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -3017,7 +3135,8 @@
       "y": 15,
       "lines": [
         "三つ並んだ炉の跡。火床の鉄は持ち去られ、煉瓦だけが残る。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "檻",
@@ -3028,7 +3147,10 @@
         "鉄の格子の檻。戸に、札が掛かっている。",
         "名の欄に「三十一」。その下に「経過、良」。",
         "床に、小さな手の跡が並んでいる。格子の高い所には無い。"
-      ]
+      ],
+      "image": {
+        "tileId": "B:244"
+      }
     },
     {
       "name": "型の並び",
@@ -3038,7 +3160,8 @@
       "lines": [
         "型から出した鎧が三領、壁に並ぶ。",
         "胸の所に、鐘の形の浮き彫り。三領とも、同じ所が欠けている。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "失敗作（黄・往復）",

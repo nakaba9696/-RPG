@@ -232,7 +232,10 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "B:64"
+          }
         }
       ]
     },

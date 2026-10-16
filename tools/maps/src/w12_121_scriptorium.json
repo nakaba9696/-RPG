@@ -969,19 +969,54 @@
     },
     {
       "name": "思念 R5-04 修道院の炊事番",
-      "type": "text",
+      "type": "raw",
       "x": 33,
       "y": 22,
       "note": "<hai_thought:R5-04>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "会議の年の冬は、客が多かった。椀を十二、足した。",
-        "足した椀のうち、一つだけ縁に金の線が入っていた。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "会議の年の冬は、客が多かった。椀を十二、足した。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "足した椀のうち、一つだけ縁に金の線が入っていた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -1146,7 +1181,10 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "B:185"
+          }
         }
       ]
     }

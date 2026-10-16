@@ -527,26 +527,68 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         }
       ]
     },
     {
       "name": "思念 R1-22 門を閉めた坑夫",
-      "type": "text",
+      "type": "raw",
       "x": 16,
       "y": 9,
       "note": "<hai_thought:R1-22>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 0,
-        "direction": 8,
-        "pattern": 1
-      },
-      "lines": [
-        "崩れたのは門の向こうだ。向こうに十四人いた。",
-        "掘れば三日。掘らなければ、こっちの坑道は持つ。",
-        "頭が門を閉めろと言った。閉めたのは、俺の手だ。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "崩れたのは門の向こうだ。向こうに十四人いた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "掘れば三日。掘らなければ、こっちの坑道は持つ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "頭が門を閉めろと言った。閉めたのは、俺の手だ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {

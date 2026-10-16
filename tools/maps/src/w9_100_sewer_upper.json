@@ -277,21 +277,68 @@
     },
     {
       "name": "記憶 アンセルモ 1",
-      "type": "text",
+      "type": "raw",
       "x": 21,
       "y": 5,
       "note": "<hai_memory:9,1>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "わしの喉は、聖歌隊でいちばんと言われた。酒の量も、いちばんじゃった。",
-        "祭の朝、聖歌の三番で、しゃっくりが出た。「主よ、ひっく、憐れみを」。",
-        "その日のうちに追い出された。司教さまの顔は、祭壇の蝋より白かったのう。",
-        "ここで一人、三番だけ歌い直した。蝋は四本、使い切った。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "わしの喉は、聖歌隊でいちばんと言われた。酒の量も、いちばんじゃった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "祭の朝、聖歌の三番で、しゃっくりが出た。「主よ、ひっく、憐れみを」。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "その日のうちに追い出された。司教さまの顔は、祭壇の蝋より白かったのう。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "ここで一人、三番だけ歌い直した。蝋は四本、使い切った。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -449,40 +496,134 @@
     },
     {
       "name": "思念 R3-12 札を分けた母",
-      "type": "text",
+      "type": "raw",
       "x": 30,
       "y": 4,
       "note": "<hai_thought:R3-12>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "札は三枚。うちは四人。",
-        "いちばん下の子を、隣の家の札に入れてもらった。名前は、その家の子の名に変えて。",
-        "あの子は内で、その家の名で呼ばれている。それでいい。",
-        "三枚の札に、あたしの名は無い。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "札は三枚。うちは四人。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "いちばん下の子を、隣の家の札に入れてもらった。名前は、その家の子の名に変えて。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "あの子は内で、その家の名で呼ばれている。それでいい。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "三枚の札に、あたしの名は無い。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "思念 R3-13 水番",
-      "type": "text",
+      "type": "raw",
       "x": 38,
       "y": 29,
       "note": "<hai_thought:R3-13><hai_clue:水門の上流の弁と下流の弁を両方回すと、池の水が落ちる（地下水道の水番）>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "水門は二つで一つだ。上流の弁と下流の弁、両方回して、池の水が落ちる。",
-        "片方だけでは、水は唸るだけだ。",
-        "相棒は、扉が閉まる日に内へ入った。俺は上流の弁の前で、相棒の分を待った。",
-        "弁は、まだ半分しか回っていない。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "水門は二つで一つだ。上流の弁と下流の弁、両方回して、池の水が落ちる。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "片方だけでは、水は唸るだけだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "相棒は、扉が閉まる日に内へ入った。俺は上流の弁の前で、相棒の分を待った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "弁は、まだ半分しか回っていない。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -1024,7 +1165,8 @@
       "y": 27,
       "lines": [
         "洞の壁に、水の跡の線が何本も。いちばん上の線は、天井に近い。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "沈んだ戸口 1",
@@ -1264,7 +1406,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         }
       ]
     },

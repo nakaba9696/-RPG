@@ -1016,7 +1016,10 @@
       "lines": [
         "石の柱の上の灯。煤を払った跡が新しい。",
         "柱の根元に、灯した夜を数える刻み。四つで一束。"
-      ]
+      ],
+      "image": {
+        "tileId": "B:106"
+      }
     },
     {
       "name": "大扉の内側",
@@ -1601,7 +1604,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         }
       ]
     },
@@ -1824,36 +1828,106 @@
     },
     {
       "name": "思念 R3-24 閂を掛けた工兵",
-      "type": "text",
+      "type": "raw",
       "x": 9,
       "y": 5,
       "note": "<hai_thought:R3-24>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "格子の閂は、こちら側に掛けた。上から逃げてくる者を止めろ、と言われた。",
-        "上は砦の営倉だ。下りてくる者を止めろ、とは言われていない。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "格子の閂は、こちら側に掛けた。上から逃げてくる者を止めろ、と言われた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "上は砦の営倉だ。下りてくる者を止めろ、とは言われていない。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "思念 R3-25 内で生まれた子",
-      "type": "text",
+      "type": "raw",
       "x": 31,
       "y": 28,
       "note": "<hai_thought:R3-25>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "おとうが、扉の音には答えるなって。三回たたくのは、門叩きだって。",
-        "でも、四回たたく音もあった。おとうは、三回までしか数えてなかった。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "おとうが、扉の音には答えるなって。三回たたくのは、門叩きだって。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "でも、四回たたく音もあった。おとうは、三回までしか数えてなかった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {

@@ -42,12 +42,12 @@
       ]
     },
     "/": {
-      "name": "坂の石段（段 1 の側面に刻んだ階段）",
+      "name": "坂の石段（段 1 の側面に刻んだ階段。W30 で外の石段の絵に）",
       "as": ".",
       "tiles": [
         null,
         null,
-        "B:1"
+        "A5:67"
       ]
     },
     "b": {
@@ -341,7 +341,10 @@
       "lines": [
         "扉の脇の札「地下壕。鍵は番の者が持つ」。",
         "札の下に、別の手で「番の者、帰らず」。"
-      ]
+      ],
+      "image": {
+        "tileId": "B:137"
+      }
     },
     {
       "name": "結界（帝国の陣跡）",
@@ -1074,7 +1077,10 @@
       "lines": [
         "荷車の札は「後発」。荷は綱と油と、乾いた麦。",
         "麦の袋は、一つも開けていない。"
-      ]
+      ],
+      "image": {
+        "tileId": "B:181"
+      }
     },
     {
       "name": "宝箱（帝国の小盾）",
@@ -1433,39 +1439,127 @@
     },
     {
       "name": "思念 R4-05 後発の輜重兵",
-      "type": "text",
+      "type": "raw",
       "x": 40,
       "y": 21,
       "note": "<hai_thought:R4-05>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "後発の隊は、先発の隊の三日後に着く決まりだった。",
-        "着いたら、先発の隊は名簿ごと無かった。",
-        "名簿が無いと、誰を待てばいいのか分からない。それで、まだ待っている。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "後発の隊は、先発の隊の三日後に着く決まりだった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "着いたら、先発の隊は名簿ごと無かった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "名簿が無いと、誰を待てばいいのか分からない。それで、まだ待っている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "思念 R4-06 陣の下士官",
-      "type": "text",
+      "type": "raw",
       "x": 16,
       "y": 15,
       "note": "<hai_thought:R4-06>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "砦を通せ、と言った。帝国の判の付いた紙を、三枚見せた。",
-        "騎士長は半日、渋った。半日たって、門が開いた。",
-        "糧も出た。麦が二袋、干し肉、油が一樽。",
-        "受け取りの帳面に、隊の名を書いた。半日のことは、書く欄が無かった。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "砦を通せ、と言った。帝国の判の付いた紙を、三枚見せた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "騎士長は半日、渋った。半日たって、門が開いた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "糧も出た。麦が二袋、干し肉、油が一樽。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "受け取りの帳面に、隊の名を書いた。半日のことは、書く欄が無かった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -1476,7 +1570,10 @@
       "lines": [
         "高台の攻城弩。弦は切れている。",
         "向きは西。砦の方だ。"
-      ]
+      ],
+      "image": {
+        "tileId": "B:150"
+      }
     },
     {
       "name": "天幕",
@@ -1485,7 +1582,7 @@
       "y": 12,
       "pages": [
         {
-          "priorityType": 1,
+          "priorityType": 0,
           "list": [
             {
               "code": 101,
@@ -1517,7 +1614,7 @@
             "itemId": 603,
             "itemValid": true
           },
-          "priorityType": 1,
+          "priorityType": 0,
           "list": [
             {
               "code": 111,
@@ -1902,7 +1999,8 @@
       "lines": [
         "敷石に、帝国の印が刻んである。",
         "一つおきに、印の上から別の印が彫り重ねてある。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "名無し（黄・往復）",

@@ -706,19 +706,54 @@
     },
     {
       "name": "思念 K-06 骨置き場の番",
-      "type": "text",
+      "type": "raw",
       "x": 33,
       "y": 22,
       "note": "<hai_thought:K-06>",
-      "image": {
-        "characterName": "Damage2",
-        "characterIndex": 6,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "骨は長さで並べる。腕より長いのは頭の台へ。短いのは短剣に回す。",
-        "長いのは、あと三本。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "骨は長さで並べる。腕より長いのは頭の台へ。短いのは短剣に回す。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "長いのは、あと三本。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {

@@ -786,56 +786,179 @@
     },
     {
       "name": "思念 R1-11 門を叩いた男",
-      "type": "text",
+      "type": "raw",
       "x": 34,
       "y": 7,
       "note": "<hai_thought:R1-11>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 1,
-        "direction": 8,
-        "pattern": 1
-      },
-      "lines": [
-        "開けてくれ、と叫んだ。中で歌が聞こえていた。",
-        "歌は一度も止まらなかった。返事の代わりに歌ってるんだと思った。",
-        "三日叩いて、やめた。あれは返事じゃなかった。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "開けてくれ、と叫んだ。中で歌が聞こえていた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "歌は一度も止まらなかった。返事の代わりに歌ってるんだと思った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "三日叩いて、やめた。あれは返事じゃなかった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "思念 R1-12 布を結んだ旅人",
-      "type": "text",
+      "type": "raw",
       "x": 8,
       "y": 6,
       "note": "<hai_thought:R1-12><hai_clue:白い布をたどれば、霧の奥から森の入口へ戻れるらしい（霧の奥の北東）>",
-      "image": {
-        "characterName": "Damage2",
-        "characterIndex": 1,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "迷ったら戻れるように、枝に布を結んでいく。",
-        "戻りの布は白、先へ行く布は赤。",
-        "赤い布は、もう残っていない。白い布は、北東の木まで続いている。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "迷ったら戻れるように、枝に布を結んでいく。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "戻りの布は白、先へ行く布は赤。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "赤い布は、もう残っていない。白い布は、北東の木まで続いている。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "思念 R1-13 迷い人を見送った母親",
-      "type": "text",
+      "type": "raw",
       "x": 33,
       "y": 21,
       "note": "<hai_thought:R1-13>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "あの子は、わたしの声で呼ばれて、霧の中へ行った。",
-        "わたしは、ここにいたのに。",
-        "だから、呼ばれても返事をしない。あの子の声でも、しない。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "あの子は、わたしの声で呼ばれて、霧の中へ行った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "わたしは、ここにいたのに。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "だから、呼ばれても返事をしない。あの子の声でも、しない。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {

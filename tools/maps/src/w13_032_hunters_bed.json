@@ -354,19 +354,54 @@
     },
     {
       "name": "思念 K-07 頭の隣で寝た狩人",
-      "type": "text",
+      "type": "raw",
       "x": 8,
       "y": 10,
       "note": "<hai_thought:K-07>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 4,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "頭は寝床でも柄を握って寝た。指を外してやるのが、俺の夜の番だった。",
-        "五本外して横に置くと、朝には四本で握り直している。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "頭は寝床でも柄を握って寝た。指を外してやるのが、俺の夜の番だった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "五本外して横に置くと、朝には四本で握り直している。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {

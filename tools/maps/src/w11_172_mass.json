@@ -1062,7 +1062,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         },
         {
           "conditions": {
@@ -1105,7 +1106,14 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "directionFix": true
         },
         {
           "conditions": {
@@ -1156,7 +1164,8 @@
       "lines": [
         "壁ぎわに、灰色の殻が積もっている。",
         "触ると、まだ湿っている。"
-      ]
+      ],
+      "priorityType": 0
     }
   ]
 }

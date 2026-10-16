@@ -441,20 +441,61 @@
     },
     {
       "name": "思念 R1-24 答えなかった信徒",
-      "type": "text",
+      "type": "raw",
       "x": 16,
       "y": 4,
       "note": "<hai_thought:R1-24>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 3,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "夜、房の戸を三度叩かれた。母の声だった。入れておくれ、と。",
-        "経典には、答えよ、と書いてある。答えた戸から、苦しみは終わると。",
-        "答えなかった。母は、灰の信徒ではなかったから。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "夜、房の戸を三度叩かれた。母の声だった。入れておくれ、と。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "経典には、答えよ、と書いてある。答えた戸から、苦しみは終わると。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "答えなかった。母は、灰の信徒ではなかったから。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -585,7 +626,8 @@
       "lines": [
         "九番の房。寝藁も椀も無い。",
         "戸の錠は、内側から見て、傷一つ無い。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "九番の房の壁の刻み",
@@ -595,7 +637,8 @@
       "lines": [
         "壁に、日を数えた刻みが並んでいる。",
         "刻みは廊下の側から、房の中へ向けて付けてある。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "六番の房の椀",
@@ -604,7 +647,8 @@
       "y": 5,
       "lines": [
         "椀が二つ。片方には、粥を入れた跡が無い。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "騎士長の触れ書き",
@@ -621,20 +665,61 @@
     },
     {
       "name": "思念 R1-25 営倉の兵",
-      "type": "text",
+      "type": "raw",
       "x": 52,
       "y": 16,
       "note": "<hai_thought:R1-25>",
-      "image": {
-        "characterName": "Damage2",
-        "characterIndex": 0,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "牢番が、夜番を一人減らした。油が足りないからと。",
-        "減らされたのは俺だ。俺は食堂で寝ていた。",
-        "鍵の束は、牢番が腰に下げて寝た。それだけは確かだ。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "牢番が、夜番を一人減らした。油が足りないからと。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "減らされたのは俺だ。俺は食堂で寝ていた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鍵の束は、牢番が腰に下げて寝た。それだけは確かだ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -767,7 +852,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         }
       ]
     },
@@ -1385,20 +1471,61 @@
     },
     {
       "name": "思念 R1-26 牢番",
-      "type": "text",
+      "type": "raw",
       "x": 8,
       "y": 28,
       "note": "<hai_thought:R1-26>",
-      "image": {
-        "characterName": "Damage2",
-        "characterIndex": 7,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "点呼。九。鍵、十二。欠けなし。",
-        "点呼。九。鍵、十二。欠けなし。",
-        "点呼。……九。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 7,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "点呼。九。鍵、十二。欠けなし。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "点呼。九。鍵、十二。欠けなし。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "点呼。……九。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {

@@ -556,7 +556,10 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "C:208"
+          }
         }
       ]
     },
@@ -1296,7 +1299,8 @@
           "moveSpeed": 3,
           "trigger": 2,
           "moveFrequency": 3,
-          "moveType": 1
+          "moveType": 1,
+          "directionFix": true
         }
       ]
     },
@@ -1318,7 +1322,8 @@
           "moveSpeed": 3,
           "trigger": 2,
           "moveFrequency": 3,
-          "moveType": 1
+          "moveType": 1,
+          "directionFix": true
         }
       ]
     },

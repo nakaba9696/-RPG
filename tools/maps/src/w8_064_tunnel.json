@@ -622,21 +622,68 @@
     },
     {
       "name": "思念 R2-13 荷車引き",
-      "type": "text",
+      "type": "raw",
       "x": 13,
       "y": 5,
       "note": "<hai_thought:R2-13>",
-      "image": {
-        "characterName": "Damage2",
-        "characterIndex": 1,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "祠の分の荷を、この道で営倉へ運んだ。袋は八つ、と言われた。",
-        "荷台で、一つだけ重さが違った。中は、見なかった。",
-        "営倉の兵は、七つを倉に入れた。一つは、房の方へ。",
-        "帰りの荷台には、空の袋が七つ。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 1,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "祠の分の荷を、この道で営倉へ運んだ。袋は八つ、と言われた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "荷台で、一つだけ重さが違った。中は、見なかった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "営倉の兵は、七つを倉に入れた。一つは、房の方へ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "帰りの荷台には、空の袋が七つ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -647,7 +694,8 @@
       "lines": [
         "木箱に荷札。「麦　祠より　営倉へ　八」。",
         "八の横に、別の手で「うち一、九番」。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "轍",
@@ -656,7 +704,8 @@
       "y": 8,
       "lines": [
         "床石に、荷車の轍が深く刻まれている。東へ続く。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "拾い物（油の壺）",

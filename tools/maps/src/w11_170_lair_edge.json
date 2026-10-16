@@ -254,7 +254,14 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "directionFix": true
         }
       ]
     },
@@ -405,7 +412,14 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "directionFix": true
         }
       ]
     },
@@ -556,7 +570,14 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 4,
+            "direction": 2,
+            "pattern": 1
+          },
+          "directionFix": true
         }
       ]
     },
@@ -724,7 +745,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         },
         {
           "conditions": {
@@ -2322,7 +2344,8 @@
       "lines": [
         "石の床に、引きずった跡が二筋。踵の幅で並んでいる。",
         "跡は、北の細い口へ続いている。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "爪の跡",
@@ -2332,7 +2355,8 @@
       "lines": [
         "床に、爪の跡が三本ずつ並んでいる。",
         "どれも、戸口の方を向いている。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "北西の小部屋の灯の皿",
@@ -2615,7 +2639,8 @@
       "lines": [
         "灰の上に、裸足の足跡が一つだけ。",
         "足跡は東の壁の前で、途切れている。"
-      ]
+      ],
+      "priorityType": 0
     }
   ]
 }

@@ -763,7 +763,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         },
         {
           "image": {
@@ -1754,7 +1755,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         }
       ]
     },
@@ -1765,7 +1767,7 @@
       "y": 4,
       "pages": [
         {
-          "priorityType": 1,
+          "priorityType": 0,
           "list": [
             {
               "code": 101,
@@ -2667,7 +2669,8 @@
       "lines": [
         "床の煤に、足跡が無い。",
         "風も無いのに、煤が一方へ流れた跡がある。鐘の間の方へ。"
-      ]
+      ],
+      "priorityType": 0
     }
   ]
 }

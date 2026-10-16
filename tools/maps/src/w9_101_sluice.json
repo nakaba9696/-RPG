@@ -1053,59 +1053,200 @@
     },
     {
       "name": "記憶 アンセルモ 2",
-      "type": "text",
+      "type": "raw",
       "x": 29,
       "y": 5,
       "note": "<hai_memory:9,2>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "王国の司祭として、地下へ下る列の世話を言いつけられた。わしが、じゃ。",
-        "年寄りの手を引き、子どもを肩に乗せ、水の上の板を渡す。三日、歌いながらの。",
-        "歌うと列が速う進む。へたと言われたが、速う進んだ。",
-        "酒は一滴も飲まんかった。最初の日のほかはな。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "王国の司祭として、地下へ下る列の世話を言いつけられた。わしが、じゃ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "年寄りの手を引き、子どもを肩に乗せ、水の上の板を渡す。三日、歌いながらの。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "歌うと列が速う進む。へたと言われたが、速う進んだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "酒は一滴も飲まんかった。最初の日のほかはな。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "思念 R3-15 札の無い子",
-      "type": "text",
+      "type": "raw",
       "x": 12,
       "y": 4,
       "note": "<hai_thought:R3-15>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "列のまえのほうで、司祭さまが歌ってた。へたくそって、みんな笑ってた。",
-        "おれ、札がなかったから、列の横を走ってついてった。",
-        "水の上の板のとこで、兵隊さんに槍を横にされた。",
-        "司祭さまが、おれの方を見て、歌をまちがえた。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "列のまえのほうで、司祭さまが歌ってた。へたくそって、みんな笑ってた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "おれ、札がなかったから、列の横を走ってついてった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "水の上の板のとこで、兵隊さんに槍を横にされた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "司祭さまが、おれの方を見て、歌をまちがえた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "思念 R3-16 管の口の番",
-      "type": "text",
+      "type": "raw",
       "x": 55,
       "y": 25,
       "note": "<hai_thought:R3-16>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "東の管から来る水は、いつも鉄の味がした。山の根の鋳物場の湯だと、水番が言った。",
-        "管の中は、人がかがんで通れる。通って逃げた者が一人。戻らなかった。",
-        "戻らなかったから、通れたんだろう。",
-        "格子の閂は、こちら側だ。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "東の管から来る水は、いつも鉄の味がした。山の根の鋳物場の湯だと、水番が言った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "管の中は、人がかがんで通れる。通って逃げた者が一人。戻らなかった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "戻らなかったから、通れたんだろう。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "格子の閂は、こちら側だ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -1522,7 +1663,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         }
       ]
     },

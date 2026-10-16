@@ -53,6 +53,15 @@
         null,
         "A2:2"
       ]
+    },
+    "/": {
+      "name": "坂の石段（高台の側面の行に書く。W30 で外の石段の絵に）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "A5:65"
+      ]
     }
   },
   "stamps": [
@@ -816,7 +825,10 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "B:131"
+          }
         },
         {
           "conditions": {
@@ -862,7 +874,10 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "B:131"
+          }
         },
         {
           "conditions": {
@@ -901,7 +916,10 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "B:131"
+          }
         }
       ]
     },
@@ -1308,7 +1326,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         }
       ]
     },
@@ -1379,7 +1398,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         }
       ]
     },
@@ -2054,7 +2074,8 @@
           "moveSpeed": 3,
           "trigger": 2,
           "moveFrequency": 3,
-          "moveType": 1
+          "moveType": 1,
+          "directionFix": true
         }
       ]
     },
@@ -2076,7 +2097,8 @@
           "moveSpeed": 3,
           "trigger": 2,
           "moveFrequency": 3,
-          "moveType": 1
+          "moveType": 1,
+          "directionFix": true
         }
       ]
     },
@@ -2218,7 +2240,7 @@
       "y": 22,
       "pages": [
         {
-          "priorityType": 1,
+          "priorityType": 0,
           "list": [
             {
               "code": 111,
@@ -2473,5 +2495,15 @@
         }
       ]
     }
-  ]
+  ],
+  "deco": {
+    "[": {
+      "name": "石段の左端（W30）",
+      "z2": "A5:64"
+    },
+    "]": {
+      "name": "石段の右端（W30）",
+      "z2": "A5:66"
+    }
+  }
 }

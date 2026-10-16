@@ -1093,38 +1093,120 @@
     },
     {
       "name": "思念 R2-11 代わりに来た娘",
-      "type": "text",
+      "type": "raw",
       "x": 8,
       "y": 12,
       "note": "<hai_thought:R2-11>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 6,
-        "direction": 8,
-        "pattern": 1
-      },
-      "lines": [
-        "おねえちゃんの代わりだって。",
-        "何の代わりなのか、だれも言わない。",
-        "祠のおじさんは、ずっと帳面を見てた。あたしの名前は、まだ書いてなかった。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 6,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "おねえちゃんの代わりだって。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "何の代わりなのか、だれも言わない。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "祠のおじさんは、ずっと帳面を見てた。あたしの名前は、まだ書いてなかった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "思念 R2-12 祠守り",
-      "type": "text",
+      "type": "raw",
       "x": 19,
       "y": 12,
       "note": "<hai_thought:R2-12>",
-      "image": {
-        "characterName": "Damage2",
-        "characterIndex": 3,
-        "direction": 4,
-        "pattern": 1
-      },
-      "lines": [
-        "一人出せば、村が残る。帳面の名は、その勘定だ。",
-        "勘定は、わしが付けた。名を書くのも、読み上げるのも、わしだ。",
-        "わしの娘の名は、帳面に無い。棒を配るのは、わしの役だった。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 3,
+            "direction": 4,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "一人出せば、村が残る。帳面の名は、その勘定だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "勘定は、わしが付けた。名を書くのも、読み上げるのも、わしだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "わしの娘の名は、帳面に無い。棒を配るのは、わしの役だった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -1134,7 +1216,8 @@
       "y": 4,
       "lines": [
         "奥の戸の脇に、閂の受け金が打ってある。外側にだけ。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "宝箱（霊水）",
@@ -1391,7 +1474,10 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "B:83"
+          }
         }
       ]
     }

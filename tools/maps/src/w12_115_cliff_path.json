@@ -86,6 +86,15 @@
         null,
         "B:18"
       ]
+    },
+    "/": {
+      "name": "坂の石段（高台の側面の行に書く。W30 で外の石段の絵に）",
+      "as": ".",
+      "tiles": [
+        null,
+        null,
+        "A5:67"
+      ]
     }
   },
   "scatter": [
@@ -404,19 +413,54 @@
     },
     {
       "name": "思念 R5-03 崖を下りた巡礼",
-      "type": "text",
+      "type": "raw",
       "x": 5,
       "y": 7,
       "note": "<hai_thought:R5-03>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "縄は四十尋。森の西の崖まで、一尋だけ足りない。",
-        "足りない一尋は、跳んだ。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "縄は四十尋。森の西の崖まで、一尋だけ足りない。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "足りない一尋は、跳んだ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {

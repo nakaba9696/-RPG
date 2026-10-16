@@ -529,107 +529,310 @@
     },
     {
       "name": "鐘の騎士の亡骸 1",
-      "type": "text",
+      "type": "raw",
       "x": 28,
       "y": 29,
-      "image": {
-        "characterName": "Damage3",
-        "characterIndex": 0,
-        "direction": 8,
-        "pattern": 1
-      },
-      "lines": [
-        "鎧の亡骸が膝をついている。手の甲の鐘は、布で巻いて結んである。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage3",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鎧の亡骸が膝をついている。手の甲の鐘は、布で巻いて結んである。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "鐘の騎士の亡骸 2",
-      "type": "text",
+      "type": "raw",
       "x": 32,
       "y": 29,
-      "image": {
-        "characterName": "Damage3",
-        "characterIndex": 1,
-        "direction": 8,
-        "pattern": 1
-      },
-      "lines": [
-        "兜の中に、乾いた花が詰めてある。鐘は布で巻いてある。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage3",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "兜の中に、乾いた花が詰めてある。鐘は布で巻いてある。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "鐘の騎士の亡骸 3",
-      "type": "text",
+      "type": "raw",
       "x": 28,
       "y": 31,
-      "image": {
-        "characterName": "Damage3",
-        "characterIndex": 2,
-        "direction": 8,
-        "pattern": 1
-      },
-      "lines": [
-        "盾の裏に、子どもの字で名前が書いてある。鐘は布で巻いてある。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage3",
+            "characterIndex": 2,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "盾の裏に、子どもの字で名前が書いてある。鐘は布で巻いてある。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "鐘の騎士の亡骸 4",
-      "type": "text",
+      "type": "raw",
       "x": 32,
       "y": 31,
-      "image": {
-        "characterName": "Damage3",
-        "characterIndex": 3,
-        "direction": 8,
-        "pattern": 1
-      },
-      "lines": [
-        "槍を抱いたまま座っている。鐘は布で巻いてある。巻き方が、ほかより丁寧だ。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage3",
+            "characterIndex": 3,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "槍を抱いたまま座っている。鐘は布で巻いてある。巻き方が、ほかより丁寧だ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "鐘の騎士の亡骸 5",
-      "type": "text",
+      "type": "raw",
       "x": 28,
       "y": 33,
-      "image": {
-        "characterName": "Damage3",
-        "characterIndex": 0,
-        "direction": 8,
-        "pattern": 1
-      },
-      "lines": [
-        "背を向けて倒れている。鐘は布で巻いてある。結び目が三つ。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage3",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "背を向けて倒れている。鐘は布で巻いてある。結び目が三つ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "鐘の騎士の亡骸 6",
-      "type": "text",
+      "type": "raw",
       "x": 32,
       "y": 33,
-      "image": {
-        "characterName": "Damage3",
-        "characterIndex": 1,
-        "direction": 8,
-        "pattern": 1
-      },
-      "lines": [
-        "鎧の胸に、矢の跡が六つ。鐘は布で巻いてある。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage3",
+            "characterIndex": 1,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鎧の胸に、矢の跡が六つ。鐘は布で巻いてある。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "鐘の騎士の亡骸 7",
-      "type": "text",
+      "type": "raw",
       "x": 28,
       "y": 35,
-      "image": {
-        "characterName": "Damage3",
-        "characterIndex": 2,
-        "direction": 8,
-        "pattern": 1
-      },
-      "lines": [
-        "小柄な騎士。鐘を巻いた布は、外套の裾を裂いたもの。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage3",
+            "characterIndex": 2,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "小柄な騎士。鐘を巻いた布は、外套の裾を裂いたもの。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -743,7 +946,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         },
         {
           "conditions": {
@@ -764,7 +968,7 @@
             "switch1Id": 1165,
             "switch1Valid": true
           },
-          "priorityType": 1,
+          "priorityType": 0,
           "list": [
             {
               "code": 108,
@@ -816,20 +1020,61 @@
     },
     {
       "name": "思念 R1-06 騎士団の従者",
-      "type": "text",
+      "type": "raw",
       "x": 33,
       "y": 35,
       "note": "<hai_thought:R1-06>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 3,
-        "direction": 8,
-        "pattern": 1
-      },
-      "lines": [
-        "命令書には「夕べに戻るに及ばず」とあった。",
-        "隊長はそれを読み上げなかった。夕べには戻る、とだけ言った。",
-        "だから戻る。隊長の言った夕べを、今日で四十二、数えた。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 3,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "命令書には「夕べに戻るに及ばず」とあった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "隊長はそれを読み上げなかった。夕べには戻る、とだけ言った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "だから戻る。隊長の言った夕べを、今日で四十二、数えた。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -1286,7 +1531,13 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "characterName": "People2",
+            "characterIndex": 4,
+            "direction": 6,
+            "pattern": 1
+          }
         }
       ]
     },
@@ -1311,7 +1562,7 @@
           "image": {
             "tileId": 0
           },
-          "priorityType": 1,
+          "priorityType": 0,
           "list": [
             {
               "code": 101,
@@ -1522,7 +1773,7 @@
             "selfSwitchCh": "A",
             "selfSwitchValid": true
           },
-          "priorityType": 1,
+          "priorityType": 0,
           "list": [
             {
               "code": 101,
@@ -1656,38 +1907,120 @@
     },
     {
       "name": "思念 R1-07 礼拝堂の堂守",
-      "type": "text",
+      "type": "raw",
       "x": 36,
       "y": 15,
       "note": "<hai_thought:R1-07>",
-      "image": {
-        "characterName": "Damage2",
-        "characterIndex": 3,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "司教さまの使いが来て、祈祷書の最後の頁を綴じ替えていった。",
-        "古い頁は燃やせと言われた。燃やした。",
-        "何が書いてあったかは、読まなかった。読めば、燃やせなかった。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 3,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "司教さまの使いが来て、祈祷書の最後の頁を綴じ替えていった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "古い頁は燃やせと言われた。燃やした。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "何が書いてあったかは、読まなかった。読めば、燃やせなかった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "思念 R1-08 像の前の子ども",
-      "type": "text",
+      "type": "raw",
       "x": 27,
       "y": 15,
       "note": "<hai_thought:R1-08><hai_clue:鐘を抱く女の像の台は、夕べの数で開くらしい（古い礼拝堂）>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 6,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "像のおばさんの鐘、ほんとは鳴るんだって。",
-        "夕べの数をちゃんと数えたら、台が開くって。",
-        "ぼく、二十九までしか知らない。その次、なんだっけ。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 6,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "像のおばさんの鐘、ほんとは鳴るんだって。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "夕べの数をちゃんと数えたら、台が開くって。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "ぼく、二十九までしか知らない。その次、なんだっけ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -2575,20 +2908,61 @@
     },
     {
       "name": "思念 R1-10 霧に入った木樵",
-      "type": "text",
+      "type": "raw",
       "x": 31,
       "y": 7,
       "note": "<hai_thought:R1-10><hai_clue:霧は鐘の音で引くらしい（古い礼拝堂の北）>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 2,
-        "direction": 8,
-        "pattern": 1
-      },
-      "lines": [
-        "霧の中から、笛の音が聞こえた。羊飼いの笛だ。",
-        "この森に、羊なんかいたか。",
-        "鐘の音がすると、笛はやむ。だから、塔の鐘番と仲が良かった。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 2,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "霧の中から、笛の音が聞こえた。羊飼いの笛だ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "この森に、羊なんかいたか。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鐘の音がすると、笛はやむ。だから、塔の鐘番と仲が良かった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -2720,24 +3094,68 @@
       "lines": [
         "小さな墓が三つ。どれにも同じ日付。",
         "名の代わりに、鐘の絵が彫ってある。"
-      ]
+      ],
+      "image": {
+        "tileId": "B:142"
+      }
     },
     {
       "name": "思念 R1-09 祠の番",
-      "type": "text",
+      "type": "raw",
       "x": 47,
       "y": 7,
       "note": "<hai_thought:R1-09>",
-      "image": {
-        "characterName": "Damage2",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "歌で門を閉じる。人の子は、もう入れない。決めたのは長老たち。",
-        "わたしは祠の閂を掛けて、頭巾を置いていく。",
-        "閂の鍵は持っていかない。だれかが、外から開けるかもしれないから。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "歌で門を閉じる。人の子は、もう入れない。決めたのは長老たち。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "わたしは祠の閂を掛けて、頭巾を置いていく。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "閂の鍵は持っていかない。だれかが、外から開けるかもしれないから。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -3297,7 +3715,8 @@
       "lines": [
         "灰に半分埋まった、大きな鍋。",
         "まだ新しい。縁に、炊き出しの印が打ってある。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "鐘鳴りの亡骸（黄・輪）",

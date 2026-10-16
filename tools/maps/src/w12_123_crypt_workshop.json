@@ -214,7 +214,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         }
       ]
     },
@@ -225,7 +226,7 @@
       "y": 7,
       "pages": [
         {
-          "priorityType": 1,
+          "priorityType": 0,
           "list": [
             {
               "code": 101,
@@ -293,7 +294,10 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "B:112"
+          }
         }
       ]
     },
@@ -310,25 +314,75 @@
         [
           "上る段の図は細かい。下りる段の図は、どこにも無い。"
         ]
-      ]
+      ],
+      "image": {
+        "tileId": "B:114"
+      }
     },
     {
       "name": "思念 R5-06 石工の頭",
-      "type": "text",
+      "type": "raw",
       "x": 34,
       "y": 20,
       "note": "<hai_thought:R5-06>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "一晩のみ、と言われた。図を引くのは俺の仕事だから、図には三晩分と書いた。",
-        "木は三晩分、運ぶ。言われた数より多く運んで、怒られた石工はいない。",
-        "誰にも言わなかった。言えば、一晩の図を引き直せと言われる。",
-        "頂へは二十二人で上る。木を担ぐ順は、もう決めてある。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "一晩のみ、と言われた。図を引くのは俺の仕事だから、図には三晩分と書いた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "木は三晩分、運ぶ。言われた数より多く運んで、怒られた石工はいない。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "誰にも言わなかった。言えば、一晩の図を引き直せと言われる。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "頂へは二十二人で上る。木を担ぐ順は、もう決めてある。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -677,7 +731,10 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "D:125"
+          }
         },
         {
           "conditions": {
@@ -709,7 +766,10 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "D:125"
+          }
         },
         {
           "conditions": {
@@ -741,7 +801,10 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "tileId": "D:125"
+          }
         }
       ]
     },
@@ -752,7 +815,7 @@
       "y": 35,
       "pages": [
         {
-          "priorityType": 1,
+          "priorityType": 0,
           "list": [
             {
               "code": 101,
@@ -1146,7 +1209,8 @@
           "moveSpeed": 3,
           "trigger": 2,
           "moveFrequency": 3,
-          "moveType": 1
+          "moveType": 1,
+          "directionFix": true
         }
       ]
     },
@@ -1168,7 +1232,8 @@
           "moveSpeed": 3,
           "trigger": 2,
           "moveFrequency": 3,
-          "moveType": 1
+          "moveType": 1,
+          "directionFix": true
         }
       ]
     },

@@ -33,12 +33,12 @@
       }
     },
     "/": {
-      "name": "坂の石段（高台の側面に刻んだ階段。側面の行に書く）",
+      "name": "坂の石段（高台の側面に刻んだ階段。側面の行に書く。W30 で外の石段の絵に）",
       "as": ".",
       "tiles": [
         null,
         null,
-        "B:1"
+        "A5:65"
       ]
     },
     "Y": {
@@ -289,6 +289,14 @@
     "W": {
       "name": "ツタ（通れない）",
       "z2": "B:20"
+    },
+    "[": {
+      "name": "石段の左端（W30）",
+      "z2": "A5:64"
+    },
+    "]": {
+      "name": "石段の右端（W30）",
+      "z2": "A5:66"
     }
   },
   "stamps": [
@@ -505,16 +513,94 @@
     },
     {
       "name": "思念 R1-01 戸に答えなかった木樵",
-      "type": "text",
+      "type": "raw",
       "x": 39,
       "y": 37,
       "note": "<hai_thought:R1-01>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 2,
-        "direction": 2,
-        "pattern": 1
-      },
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "夜、戸を三度叩かれた。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "女房の声で、入れておくれ、と。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "女房は昼に、この手で埋めた。"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "答えなかった。朝になると、"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "戸の前に女房の靴が揃えてあった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "左右が逆だった。あいつは、いつもそう脱いだ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
+      ],
       "lines": [
         [
           "夜、戸を三度叩かれた。",
@@ -536,7 +622,10 @@
       "lines": [
         "荷車が横倒しになっている。積み荷は無い。",
         "轍は北へ続き、途中で消えている。"
-      ]
+      ],
+      "image": {
+        "tileId": "E:122"
+      }
     },
     {
       "name": "見張り塔の石組み",
@@ -660,37 +749,119 @@
     },
     {
       "name": "思念 R1-02 塔の鐘番",
-      "type": "text",
+      "type": "raw",
       "x": 10,
       "y": 35,
       "note": "<hai_thought:R1-02>",
-      "image": {
-        "characterName": "Damage2",
-        "characterIndex": 0,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "塔の鐘は七つ。夕べごとに一つずつ外して、東へ行く騎士に渡した。",
-        "鳴らしながら行け、と教会の人は言った。",
-        "今朝で六つ目。騎士はまだ誰も戻らない。",
-        "最後の一つは渡さない。七つ目の鉤は、空けない。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 0,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "塔の鐘は七つ。夕べごとに一つずつ外して、東へ行く騎士に渡した。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鳴らしながら行け、と教会の人は言った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "今朝で六つ目。騎士はまだ誰も戻らない。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "最後の一つは渡さない。七つ目の鉤は、空けない。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
       "name": "鎧の亡骸",
-      "type": "text",
+      "type": "raw",
       "x": 14,
       "y": 36,
-      "image": {
-        "characterName": "Damage3",
-        "characterIndex": 4,
-        "direction": 4,
-        "pattern": 1
-      },
-      "lines": [
-        "鎧の亡骸が、木にもたれて座っている。",
-        "手の甲の小さな鐘は、布で巻いて結んである。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage3",
+            "characterIndex": 4,
+            "direction": 4,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鎧の亡骸が、木にもたれて座っている。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "手の甲の小さな鐘は、布で巻いて結んである。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -733,7 +904,8 @@
       "lines": [
         "水面に灰が浮いている。",
         "底に、丸い金物が沈んでいる。手は届かない。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "宝箱（気付け薬）",
@@ -833,21 +1005,68 @@
     },
     {
       "name": "思念 R1-03 墓を掘った村の女",
-      "type": "text",
+      "type": "raw",
       "x": 54,
       "y": 40,
       "note": "<hai_thought:R1-03>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "騎士さまたちは鐘を鳴らして東へ行った。",
-        "帰ってきたのは鐘の音だけ。それも夕べごとに遠くなって、",
-        "七日目に聞こえなくなった。",
-        "墓には何も入れていない。名前を書く板が、足りなかったから。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "騎士さまたちは鐘を鳴らして東へ行った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "帰ってきたのは鐘の音だけ。それも夕べごとに遠くなって、"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "七日目に聞こえなくなった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "墓には何も入れていない。名前を書く板が、足りなかったから。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -861,7 +1080,7 @@
           "image": {
             "tileId": 0
           },
-          "priorityType": 1,
+          "priorityType": 0,
           "list": [
             {
               "code": 111,
@@ -1324,21 +1543,68 @@
     },
     {
       "name": "思念 R1-04 高台の見張り（帝国の出）",
-      "type": "text",
+      "type": "raw",
       "x": 16,
       "y": 6,
       "note": "<hai_thought:R1-04>",
-      "image": {
-        "characterName": "Damage2",
-        "characterIndex": 2,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "境の見張りは三つの国の兵の寄り合いだ。自分はグラーデンの出。",
-        "教会の騎士が鐘を鳴らして東へ行くのを、ここから見た。",
-        "鐘を鳴らして境を越えるのは、喧嘩を売りに行くのと同じだ。",
-        "隊長はそう言って、報告には書かなかった。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 2,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "境の見張りは三つの国の兵の寄り合いだ。自分はグラーデンの出。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "教会の騎士が鐘を鳴らして東へ行くのを、ここから見た。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "鐘を鳴らして境を越えるのは、喧嘩を売りに行くのと同じだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "隊長はそう言って、報告には書かなかった。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -1445,7 +1711,8 @@
       "lines": [
         "見張りの小屋の跡。東の空が、木の切れ目から見える。",
         "雲の上に、塔の影が一つ。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "拾い物（鉄くず）",
@@ -1747,20 +2014,61 @@
     },
     {
       "name": "思念 R1-05 霧を見ていた子ども",
-      "type": "text",
+      "type": "raw",
       "x": 52,
       "y": 12,
       "note": "<hai_thought:R1-05>",
-      "image": {
-        "characterName": "Damage1",
-        "characterIndex": 7,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "霧の中に、羊みたいなのがいっぱいいるんだよ。",
-        "ぼくの名前で呼ぶから、行っちゃだめって、母さんが言った。",
-        "でも母さんの声でも呼ぶんだよ。どっちが母さん？"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage1",
+            "characterIndex": 7,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "霧の中に、羊みたいなのがいっぱいいるんだよ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "ぼくの名前で呼ぶから、行っちゃだめって、母さんが言った。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "でも母さんの声でも呼ぶんだよ。どっちが母さん？"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -2048,7 +2356,8 @@
       "lines": [
         "灰の吹きだまり。踏むと、靴の跡が二つ重なった。",
         "一つは小さな裸足。北へ向かっている。"
-      ]
+      ],
+      "priorityType": 0
     },
     {
       "name": "灰犬（緑・群れ）",

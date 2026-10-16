@@ -720,7 +720,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         }
       ]
     },
@@ -839,7 +840,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         }
       ]
     },
@@ -1022,7 +1024,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         }
       ]
     },
@@ -1033,7 +1036,10 @@
       "y": 13,
       "lines": [
         "平たい石に、点が刻んである。十ずつ束ねて、七つ。"
-      ]
+      ],
+      "image": {
+        "tileId": "B:159"
+      }
     },
     {
       "name": "踏み分け",

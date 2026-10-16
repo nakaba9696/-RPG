@@ -1603,20 +1603,61 @@
     },
     {
       "name": "思念 R1-29 営倉の鐘番",
-      "type": "text",
+      "type": "raw",
       "x": 9,
       "y": 9,
       "note": "<hai_thought:R1-29>",
-      "image": {
-        "characterName": "Damage2",
-        "characterIndex": 5,
-        "direction": 8,
-        "pattern": 1
-      },
-      "lines": [
-        "夕べ、三十。頂の鐘は、鳴らなかった。",
-        "頂が鳴らないときは、こちらも三十で止める。決まりだ。",
-        "三十一を数えかけて、やめた。札に書きかけたのは、それだけだ。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "Damage2",
+            "characterIndex": 5,
+            "direction": 8,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "夕べ、三十。頂の鐘は、鳴らなかった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "頂が鳴らないときは、こちらも三十で止める。決まりだ。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "三十一を数えかけて、やめた。札に書きかけたのは、それだけだ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     }
   ]
