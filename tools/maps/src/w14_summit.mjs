@@ -90,7 +90,8 @@ export function draw015(Grid) {
   return { g, d };
 }
 export const E015 = {
-  entry: [20, 29], arrive: [20, 28], inscription: [18, 10], mouth: [20, 10], rope: [22, 10],
+  // W29（#314）：銘と口は鐘楼の石組みの面（y 9）に置く。前は石組みの前の床 (18,10)・(20,10) で、絵の無い見えない壁だった。下 (x,10) から調べる
+  entry: [20, 29], arrive: [20, 28], inscription: [18, 9], mouth: [20, 9], rope: [22, 10],
   lucien: [17, 12], sorenne: [24, 13], mirlene: [14, 13],
   order: [16, 10], // 足場の柱（鐘楼の石組みの前。下 (16,11) から調べる）。彫り直しの指図書（文7。text.md 6-01・6-02）
   shades: [[11, 18], [14, 20], [17, 22], [20, 23], [23, 22], [26, 20], [29, 18], [9, 14], [31, 14], [20, 19]],
@@ -443,7 +444,8 @@ export function events015() {
       ],
     })),
     // 文7：足した物は群れのあと（ID 19。前からあるイベントの番号を動かさない）
-    { name: "足場の柱（彫り直しの指図書）", type: "raw", x: E015.order[0], y: E015.order[1], pages: [{ priorityType: 1, list: [...orderLines, END] }] },
+    // W29（#314）：絵の無い見えない壁だったので、木の柱（橋げたの柱の絵）を置く
+    { name: "足場の柱（彫り直しの指図書）", type: "raw", x: E015.order[0], y: E015.order[1], pages: [{ image: { tileId: "B:89" }, priorityType: 1, list: [...orderLines, END] }] },
   ];
 }
 

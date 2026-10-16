@@ -156,7 +156,7 @@ await runTest(async () => {
     await arrive(SUMMIT, 20, 28);
     check(summit.includes("親鐘。舌が無く、口は暗い。周りに、木の足場。") && summit.includes("ルシアン：あなたの連れは、何人です") && summit.includes("ブルーノ：……七人です"), "頂に着いた " + JSON.stringify(summit));
     await game.shot("summit");
-    await go(SUMMIT, 18, 11, 8);
+    await go(SUMMIT, 18, 10, 8); // 親鐘の肌は鐘楼の石組みの面 (18,9)（W29 #314）
     const ins = (await talk(["見ている", "手首を掴む"])).join("\n");
     check(ins.includes("「鳴る音に、その日の者を乗せよ」") && ins.includes("ルシアンは、こちらを見た。鑿は止めなかった。") && ins.includes("ソレンヌ：長。木は、下ろす"), "銘とルシアンを止める " + JSON.stringify(ins));
     check((await sw(SW.lucien)) && (await sw(SW.sorenneAlive)), "ルシアンを止めた（1156）・ソレンヌが生きている（1166）");
@@ -164,7 +164,7 @@ await runTest(async () => {
     await go(SUMMIT, 16, 11, 8);
     const order = (await talk()).join("\n");
     check(order.includes("「一晩のみ。使徒は気づかぬ」") && order.includes("判は四つ。どれも同じ日。") && order.includes("古い鑿が一本"), "足場の柱の指図書 " + JSON.stringify(order));
-    await go(SUMMIT, 20, 11, 8);
+    await go(SUMMIT, 20, 10, 8); // 親鐘の口は鐘楼の石組みの面 (20,9)（W29 #314）
     const hang = (await talk()).join("\n");
     check(hang.includes("舌を吊った。綱を引いて、金具を上げた。") && hang.includes("「止まっていた」") && (await sw(SW.tongue)), "舌を吊る（1157） " + JSON.stringify(hang));
     await game.waitFor(() => window.__game.scene() === "Scene_Battle", null, 60_000);

@@ -110,22 +110,21 @@
           "walkAnime": false,
           "list": [
             {
-              "code": 357,
+              "code": 101,
               "indent": 0,
               "parameters": [
-                "Hai_Facilities",
-                "door",
-                "崩れた扉",
-                {
-                  "door": "watch"
-                }
+                "",
+                0,
+                0,
+                2,
+                ""
               ]
             },
             {
-              "code": 657,
+              "code": 401,
               "indent": 0,
               "parameters": [
-                "どの部屋の扉か = watch"
+                "戸に閂。上の段から、灰まじりの風が吹きこんでくる。"
               ]
             },
             {
@@ -600,7 +599,14 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 7,
+            "direction": 8,
+            "pattern": 1
+          },
+          "directionFix": true
         },
         {
           "conditions": {
@@ -827,7 +833,14 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 7,
+            "direction": 8,
+            "pattern": 1
+          },
+          "directionFix": true
         },
         {
           "conditions": {
@@ -920,7 +933,14 @@
               "parameters": []
             }
           ],
-          "priorityType": 1
+          "priorityType": 1,
+          "image": {
+            "characterName": "!Other2",
+            "characterIndex": 7,
+            "direction": 8,
+            "pattern": 1
+          },
+          "directionFix": true
         }
       ]
     },
