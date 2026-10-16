@@ -16,6 +16,7 @@ import { readData, formatTable, dataPath, extendTable } from "../../data/io.mjs"
 import { SRC_DIR } from "../build.mjs";
 import * as W14 from "./w14_parts.mjs"; // 終盤（W14 #234）：010 の三つ目の鐘の夜・出立（イベント ID 71–）、019 の頂への門・東の眺め
 import { fortTableEvents, FORT_SWITCH_NAMES, HALL_SCENE_IDS } from "./w17_parts.mjs"; // W17（#233）：砦の食卓の場面（イベント ID 61–70・スイッチ 180–185）
+import { fixW30 } from "./w30_parts.mjs"; // W30（#315）：話すと姿が変わる思念の火に向き固定
 
 const check = process.argv.includes("--check");
 const outputs = []; // [{ file, text }]
@@ -1213,7 +1214,7 @@ const keepConfig = {
   ],
   events: keepEvents,
 };
-outputs.push({ file: srcPath("w6_010_keep"), text: sourceText(keepConfig) });
+outputs.push({ file: srcPath("w6_010_keep"), text: sourceText(fixW30("w6_010_keep", keepConfig)) });
 
 // ---------------------------------------------------------------------------
 // 011–014 の部屋（17×13。南の出口 (8,12) → 010 の扉の前）
@@ -1454,9 +1455,9 @@ const rampartConfig = {
     chest("城壁の宝箱", [42, 9], 7, 1, "煎じ薬"),
   ],
 };
-outputs.push({ file: srcPath("w6_019_rampart"), text: sourceText(rampartConfig) });
+outputs.push({ file: srcPath("w6_019_rampart"), text: sourceText(fixW30("w6_019_rampart", rampartConfig)) });
 
-for (const [name, cfg] of Object.entries(ROOM_CONFIGS)) outputs.push({ file: srcPath(name), text: sourceText(cfg) });
+for (const [name, cfg] of Object.entries(ROOM_CONFIGS)) outputs.push({ file: srcPath(name), text: sourceText(fixW30(name, cfg)) });
 
 // ---------------------------------------------------------------------------
 // System.json：旗の名前と開始位置

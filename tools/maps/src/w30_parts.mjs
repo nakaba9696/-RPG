@@ -1,6 +1,7 @@
 // W30（#315）持ち主の遊びの直し（020 以降。docs/reviews/2026-10-16-owner.md の 5・6）：地図の設定（cfg）を書き出す前に直す部品。
 //   各地図の生成スクリプト（w8_maps・w9_data・w10_data・w11_data・w12_data・w13_data・w14_data・w15_story）が、
-//   書き出す直前（W14 の patchLater のあと）に fixW30(name, cfg) を呼ぶ。何度呼んでも同じ結果。010–019（W29）と試験場は触らない。
+//   書き出す直前（W14 の patchLater のあと）に fixW30(name, cfg) を呼ぶ。何度呼んでも同じ結果。試験場は触らない。
+//   010–019（砦。w6_data が呼ぶ）は 2 の向き固定だけ（1 は W29 #316 が直した）。
 //
 // 1. 見えない壁（指摘 6「なにもないのに通れない場所が多い」）
 //    絵が無く・優先度「通常」・すり抜けでなく・決定で始まり・文が出るページ（tests/w_blockers.mjs が数える）を、下の BLOCKERS の表のとおりに直す。
@@ -250,8 +251,9 @@ function fixPage(page, fix, first) {
 /** 地図の設定 cfg を直す（name は設定のファイル名。エラーの文に使う）。cfg を返す */
 export function fixW30(name, cfg) {
   const mapId = cfg.mapId;
-  if (!(mapId >= 20 && mapId < 900)) return cfg; // 010–019 は W29（#314）
-  const table = BLOCKERS[mapId] || {};
+  if (!(mapId >= 10 && mapId < 900)) return cfg; // 試験場は触らない
+  // 010–019 の砦は、向き固定（2）だけ（見えない壁は W29 #316 が直した。配り役の了承で 2 を広げた）
+  const table = mapId >= 20 ? BLOCKERS[mapId] || {} : {};
   const found = new Set();
   cfg.events = cfg.events.map(spec => {
     const fix = table[spec.name];

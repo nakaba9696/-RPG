@@ -1,5 +1,5 @@
-// W30（#315）持ち主の遊びの直しの検査（ブラウザなし。docs/reviews/2026-10-16-owner.md の 5・6・7）。製品のマップの 020–899 を見る
-// （010–019 の砦は W29 #316 の tests/w_fort_walls.mjs が見る）。
+// W30（#315）持ち主の遊びの直しの検査（ブラウザなし。docs/reviews/2026-10-16-owner.md の 5・6・7）。製品のマップを見る：
+//   1 と 3 は 020–899（010–019 の砦の見えない壁は W29 #316 の tests/w_fort_walls.mjs が見る）、2 は 010–899。
 //   1. 見えない壁（指摘 6「なにもないのに通れない場所が多い」）：次の全部に当たるイベントのページ
 //        画像なし（タイルもキャラの絵も無い）× 優先度「通常」× すり抜けでない × 決定で始まる × 文が出る（101）
 //        × そのマスのタイルが通れる（タイルセットの通行で、どこかの向きへ動ける床）
@@ -62,23 +62,24 @@ function census(maps, tilesets) {
   const res = { walls: [], turns: [], stairs: [] };
   for (const [id, map] of maps) {
     const add = (kind, list, fmt) => { for (const w of list) res[kind].push(`${pad(id)} ${fmt(w)}`); };
-    add("walls", invisibleWalls(map, tilesets), w => `ev${w.id} ${w.name} (${w.x},${w.y}) p${w.page}`);
+    if (id >= 20) add("walls", invisibleWalls(map, tilesets), w => `ev${w.id} ${w.name} (${w.x},${w.y}) p${w.page}`);
     add("turns", turningPages(map), w => `ev${w.id} ${w.name} (${w.x},${w.y}) p${w.page} ${w.sheet}`);
-    add("stairs", outdoorStairs(map, tilesets), w => `(${w.x},${w.y}) z${w.z}`);
+    if (id >= 20) add("stairs", outdoorStairs(map, tilesets), w => `(${w.x},${w.y}) z${w.z}`);
   }
   return res;
 }
 
 await runTest(async () => {
   const tilesets = readData("Tilesets.json");
-  const ids = readData("MapInfos.json").filter(m => m && m.id >= 20 && m.id < 900).map(m => m.id);
+  const ids = readData("MapInfos.json").filter(m => m && m.id >= 10 && m.id < 900).map(m => m.id);
   const maps = new Map(ids.map(id => [id, readData(`Map${pad(id)}.json`)]));
   const label = { walls: "見えない壁", turns: "話すと姿が変わるページ", stairs: "外の屋内の階段の絵" };
 
   const res = census(maps, tilesets);
   for (const kind of Object.keys(label)) {
     const found = res[kind];
-    console.log(`  ${label[kind]}：020–899 の ${maps.size} 枚で ${found.length} 件`);
+    const range = kind === "turns" ? "010–899" : "020–899";
+    console.log(`  ${label[kind]}：${range} で ${found.length} 件`);
     check(found.length === 0, `${label[kind]}が ${found.length} 件:\n  ${found.join("\n  ")}`);
   }
 

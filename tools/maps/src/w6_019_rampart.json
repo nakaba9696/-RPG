@@ -1270,19 +1270,54 @@
     },
     {
       "name": "思念 K05 城壁の見張り",
-      "type": "text",
+      "type": "raw",
       "x": 24,
       "y": 8,
       "note": "<hai_thought:K05>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "見張り、異常なし。灰、いつもより多し。",
-        "頂の鐘、今夜も聞こえず。報告は朝にまとめる。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "見張り、異常なし。灰、いつもより多し。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "頂の鐘、今夜も聞こえず。報告は朝にまとめる。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {

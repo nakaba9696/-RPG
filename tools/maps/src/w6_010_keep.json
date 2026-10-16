@@ -2579,19 +2579,54 @@
     },
     {
       "name": "思念 K01 婚礼の歌を覚えたい父親",
-      "type": "text",
+      "type": "raw",
       "x": 11,
       "y": 21,
       "note": "<hai_thought:K01>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "娘の婚礼の歌を、まだ半分しか覚えていない。",
-        "墓守さん、続きを聞いといてくれ。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "娘の婚礼の歌を、まだ半分しか覚えていない。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "墓守さん、続きを聞いといてくれ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -2686,7 +2721,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         }
       ]
     },
@@ -2757,7 +2793,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         }
       ]
     },
@@ -3216,21 +3253,68 @@
     },
     {
       "name": "思念 K04 水汲みの女",
-      "type": "text",
+      "type": "raw",
       "x": 28,
       "y": 19,
       "note": "<hai_thought:K04>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "水を汲んでおいてって言われたの。桶に三杯。",
-        "二杯目のとき、門の方で、",
-        "誰かが「入れておくれ」って。",
-        "三杯目、まだ汲んでない。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "水を汲んでおいてって言われたの。桶に三杯。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "二杯目のとき、門の方で、"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "誰かが「入れておくれ」って。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "三杯目、まだ汲んでない。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -3541,20 +3625,61 @@
     },
     {
       "name": "思念 K02 灯の当番",
-      "type": "text",
+      "type": "raw",
       "x": 4,
       "y": 32,
       "note": "<hai_thought:K02>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "報告。灯の油、残り二樽。",
-        "触れのとおり倍に灯せば、もって五日。",
-        "五日目の当番は自分だ。数え直しても、五日だ。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "報告。灯の油、残り二樽。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "触れのとおり倍に灯せば、もって五日。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "五日目の当番は自分だ。数え直しても、五日だ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -3646,19 +3771,54 @@
     },
     {
       "name": "思念 K03 残った兵",
-      "type": "text",
+      "type": "raw",
       "x": 46,
       "y": 32,
       "note": "<hai_thought:K03>",
-      "image": {
-        "characterName": "!Flame",
-        "characterIndex": 5,
-        "direction": 2,
-        "pattern": 1
-      },
-      "lines": [
-        "王国の兵だった。西へ戻る列に、自分の名は無かった。",
-        "残った。残された、とは書かないでくれ。"
+      "pages": [
+        {
+          "image": {
+            "characterName": "!Flame",
+            "characterIndex": 5,
+            "direction": 2,
+            "pattern": 1
+          },
+          "priorityType": 1,
+          "trigger": 0,
+          "list": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "",
+                0,
+                0,
+                2,
+                ""
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "王国の兵だった。西へ戻る列に、自分の名は無かった。"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "残った。残された、とは書かないでくれ。"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "directionFix": true
+        }
       ]
     },
     {
@@ -7476,7 +7636,8 @@
               "indent": 0,
               "parameters": []
             }
-          ]
+          ],
+          "directionFix": true
         }
       ]
     },
