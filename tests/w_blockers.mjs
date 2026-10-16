@@ -1,18 +1,16 @@
-// W30（#315）持ち主の遊びの直しの検査（ブラウザなし。docs/reviews/2026-10-16-owner.md の 5・6・7）。製品のマップ（010–899）を見る。
+// W30（#315）持ち主の遊びの直しの検査（ブラウザなし。docs/reviews/2026-10-16-owner.md の 5・6・7）。製品のマップの 020–899 を見る
+// （010–019 の砦は W29 #316 の tests/w_fort_walls.mjs が見る）。
 //   1. 見えない壁（指摘 6「なにもないのに通れない場所が多い」）：次の全部に当たるイベントのページ
 //        画像なし（タイルもキャラの絵も無い）× 優先度「通常」× すり抜けでない × 決定で始まる × 文が出る（101）
 //        × そのマスのタイルが通れる（タイルセットの通行で、どこかの向きへ動ける床）
 //   2. 話すと姿が変わる人（指摘 5）：向きの行ごとに絵の違う素材（Damage1–3・!Flame）で、向き固定なし・決定か接触で始まるページ。
 //      話しかけると振り向いて、素材の別の行（別の人・別の火）の絵になる
 //   3. 道端の階段（指摘 7）：外のタイルセット（上層の 1 枚目が Outside_B）の上層に、屋内の上り階段の絵（Outside_B の 1・2・9・10）
-//   020 以降は 0。010–019（W29 #314）の分は、W29 が入るまで今の件数を上限にする（W29 が入ったら 0 にする）。
+//   どれも 0 件。
 //   直し方は tools/maps/src/w30_parts.mjs。わざと戻したデータで落ちることも確かめる。
 import { check, runTest } from "./lib.mjs";
 import { readData } from "../tools/data/io.mjs";
 import { makeMapModel } from "../tools/data/reach.mjs";
-
-/** W29 が直すまでの 010–019 の件数の上限（W30 の時点の件数）。W29 が入ったら 0 にする。 */
-const W29_LIMIT = { walls: 8, turns: 10, stairs: 0 };
 
 const isTextPage = p => p.list.some(c => c.code === 101);
 const noImage = p => !(p.image.tileId > 0) && !p.image.characterName;
@@ -59,16 +57,11 @@ function outdoorStairs(map, tilesets) {
 
 const pad = n => String(n).padStart(3, "0");
 
-/** 全部の製品マップを数える：{ walls, turns, stairs }（それぞれ { fort: 010–019 の件数, later: 020 以降の行 }） */
+/** マップを数える：{ walls, turns, stairs }（それぞれ当たった所の行） */
 function census(maps, tilesets) {
-  const res = { walls: { fort: 0, later: [] }, turns: { fort: 0, later: [] }, stairs: { fort: 0, later: [] } };
+  const res = { walls: [], turns: [], stairs: [] };
   for (const [id, map] of maps) {
-    const add = (kind, list, fmt) => {
-      for (const w of list) {
-        if (id < 20) res[kind].fort++;
-        else res[kind].later.push(`${pad(id)} ${fmt(w)}`);
-      }
-    };
+    const add = (kind, list, fmt) => { for (const w of list) res[kind].push(`${pad(id)} ${fmt(w)}`); };
     add("walls", invisibleWalls(map, tilesets), w => `ev${w.id} ${w.name} (${w.x},${w.y}) p${w.page}`);
     add("turns", turningPages(map), w => `ev${w.id} ${w.name} (${w.x},${w.y}) p${w.page} ${w.sheet}`);
     add("stairs", outdoorStairs(map, tilesets), w => `(${w.x},${w.y}) z${w.z}`);
@@ -78,16 +71,15 @@ function census(maps, tilesets) {
 
 await runTest(async () => {
   const tilesets = readData("Tilesets.json");
-  const ids = readData("MapInfos.json").filter(m => m && m.id >= 10 && m.id < 900).map(m => m.id);
+  const ids = readData("MapInfos.json").filter(m => m && m.id >= 20 && m.id < 900).map(m => m.id);
   const maps = new Map(ids.map(id => [id, readData(`Map${pad(id)}.json`)]));
   const label = { walls: "見えない壁", turns: "話すと姿が変わるページ", stairs: "外の屋内の階段の絵" };
 
   const res = census(maps, tilesets);
   for (const kind of Object.keys(label)) {
-    const { fort, later } = res[kind];
-    console.log(`  ${label[kind]}：010–019 ${fort} 件（上限 ${W29_LIMIT[kind]}）、020 以降 ${later.length} 件`);
-    check(later.length === 0, `020 以降に${label[kind]}が ${later.length} 件:\n  ${later.join("\n  ")}`);
-    check(fort <= W29_LIMIT[kind], `010–019 の${label[kind]}が ${fort} 件（上限 ${W29_LIMIT[kind]}）`);
+    const found = res[kind];
+    console.log(`  ${label[kind]}：020–899 の ${maps.size} 枚で ${found.length} 件`);
+    check(found.length === 0, `${label[kind]}が ${found.length} 件:\n  ${found.join("\n  ")}`);
   }
 
   // わざと戻す：020 の「倒れた荷車」を画像なしに、「鎧の亡骸」の向き固定を外し、坂の石段を屋内の階段の絵に
@@ -101,7 +93,7 @@ await runTest(async () => {
   named("鎧の亡骸").pages[0].directionFix = false;
   forest.data[(2 * forest.height + 17) * forest.width + 12] = 1;
   const back = census(new Map([[20, forest]]), tilesets);
-  check(back.walls.later.some(l => l.includes("倒れた荷車")), "画像なしに戻した「倒れた荷車」を見えない壁として数えない");
-  check(back.turns.later.some(l => l.includes("鎧の亡骸")), "向き固定を外した「鎧の亡骸」を数えない");
-  check(back.stairs.later.some(l => l.includes("(12,17)")), "(12,17) に戻した屋内の階段の絵を数えない");
+  check(back.walls.some(l => l.includes("倒れた荷車")), "画像なしに戻した「倒れた荷車」を見えない壁として数えない");
+  check(back.turns.some(l => l.includes("鎧の亡骸")), "向き固定を外した「鎧の亡骸」を数えない");
+  check(back.stairs.some(l => l.includes("(12,17)")), "(12,17) に戻した屋内の階段の絵を数えない");
 });
