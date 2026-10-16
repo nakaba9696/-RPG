@@ -616,7 +616,7 @@ function drawSluice() {
     desk: [26, 5], anselmo2: [29, 5], tower: [29, 25],
     r313: [12, 4], r314: [55, 25], r315: [5, 36], r316: [40, 7],
     swChest: [13, 31], hiddenChest: [8, 43], hint: [8, 40], secretRoom: [32, 0], secretChest: [33, 0],
-    neChest: [55, 3], warp: [10, 13], pickup1: [36, 31], pickup2: [48, 17],
+    neChest: [55, 3], warp: [10, 13], pickup1: [36, 31], pickup2: [51, 18], // W31：(48,17) は水門の壁の中で届かなかった（宝箱にして検査に掛かった）。部屋の西の端へ（置き物の散らしが変わらないマス）
   };
   dress(g, d, { seed: 1019, points: P });
   POINTS.sluice = P;
