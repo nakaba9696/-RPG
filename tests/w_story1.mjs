@@ -200,7 +200,7 @@ await runTest(async () => {
     check(!has(await autorun(), "マルゴ「鐘は？") && !(await sw(SW.margoOnce)), "マルゴ一度目が大広間の外（外門の内）で始まった");
     await go(KEEP, 25, 27, 8);
     const margo1 = await autorun();
-    check(has(margo1, "マルゴ「鐘は？") && has(margo1, "鳴った鐘は、鉄に戻らない") && has(margo1, "シャノ「扉が開かないんだって。"), "マルゴ一度目 " + JSON.stringify(margo1));
+    check(has(margo1, "マルゴ「鐘は？") && has(margo1, "鳴らした鐘は、あたしは買わない") && has(margo1, "シャノ「扉が開かないんだって。"), "マルゴ一度目 " + JSON.stringify(margo1));
     check((await sw(SW.margoOnce)) && (await vr(VAR.prisonBell)) === 1, "マルゴ一度目のあとの旗 115・変数 165");
     check((await errand("prisonBell")).stage === 1, "頼みごと「営倉の鐘を売る」の段 1");
     check((await pageOf("マルゴ")) === 2, "マルゴが帰らない（ページ " + (await pageOf("マルゴ")) + "）");
@@ -267,7 +267,7 @@ await runTest(async () => {
     check(has(await talk(), "台座の脇の床に下ろしてある。"), "外したあとの綱");
     await go(KEEP, 25, 27, 8);
     const trade = await autorun();
-    check(has(trade, "鉄は、鳴らしてから売る方が高い") && has(trade, "鐘が鳴ったら戻る"), "マルゴ（取り引き） " + JSON.stringify(trade));
+    check(has(trade, "あの重さじゃ、うちの者には担いで運べない") && has(trade, "鐘は台に戻させた。") && has(trade, "鐘が鳴ったら戻る"), "マルゴ（取り引き） " + JSON.stringify(trade));
     check((await vr(VAR.prisonBell)) === 4 && (await pageOf("シャノ（食卓）")) === 2, "取り引きのあと（変数 165・シャノがいない）");
     // ブルーノを呼び、記録院の札を持って鳴らす
     await game.eval(id => { Hai.Companions.summon(5); $gameParty.gainItem($dataItems[id], 1); }, ITEM.archiveTag);
@@ -278,7 +278,7 @@ await runTest(async () => {
     const ring = await talk(["綱を引く"]);
     // W19（P16 #256 の気づき）：取り引きのあと（変数 165＝4）は「鐘を外す」を出さない
     check(ring.some(p => p.endsWith("［綱を引く／やめる］")) && !has(ring, "鐘を外す"), "変数 165＝4 の選択肢 " + JSON.stringify(ring));
-    check(has(ring, "ブルーノ「これが、営倉の鐘ですか。") && has(ring, "鐘が鳴る。") && has(ring, "鳴らなかった。") && has(ring, "同じ日だ"), "ブルーノと鳴らす " + JSON.stringify(ring));
+    check(has(ring, "ブルーノ「これが、営倉の鐘ですか。") && has(ring, "鐘が鳴る。") && has(ring, "鳴らなかった。") && has(ring, "記録院の札と、並べた。") && has(ring, "同じ日だ"), "ブルーノと鳴らす " + JSON.stringify(ring));
     check((await sw(SW.bellPrison)) && !(await sw(SW.bellFirst)) && (await vr(VAR.prisonBell)) === 2, "鳴らしたあと（101・310 は立たない・変数 165＝2）");
     await game.shot("bell-with-bruno");
     await go(BELL_ROOM, 18, 5, 8);
