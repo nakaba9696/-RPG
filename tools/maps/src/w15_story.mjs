@@ -19,6 +19,7 @@ import { fileURLToPath } from "node:url";
 import { SRC_DIR } from "../build.mjs";
 import { patchLater } from "./w14_parts.mjs"; // W14（#234）：朝の砦のページと後日談の一行（021・026）
 import { fixW30 } from "./w30_parts.mjs"; // W30（#315）：見えない壁と、話すと姿が変わる人の直し
+import { fixW31 } from "./w31_parts.mjs"; // W31（#326）：黒い丸の拾い物を宝箱に
 
 const check = process.argv.includes("--check");
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
@@ -475,7 +476,7 @@ for (const name of ["w7_020_mist_forest", "w7_021_old_chapel", "w7_022_ossuary",
 // 朝の砦（W14 #234）：021 の巡礼・ブルーノの遺骸のページと 026 の後日談の一行は w14_parts.mjs の patchLater が足す。
 // 上で巡礼を丸ごと置き換えたので、ここで足し直す（w14_data.mjs と同じ。どちらを先に走らせても同じ結果。P15 #250）
 // ===========================================================================
-for (const [name, { cfg }] of configs) fixW30(name, patchLater(name, cfg));
+for (const [name, { cfg }] of configs) fixW31(name, fixW30(name, patchLater(name, cfg)));
 
 // ---------------------------------------------------------------------------
 let stale = 0;

@@ -12,6 +12,7 @@ import { fileURLToPath } from "node:url";
 import { readData, formatTable, dataPath, extendTable } from "../../data/io.mjs";
 import { SRC_DIR } from "../build.mjs";
 import { fixW30 } from "./w30_parts.mjs"; // W30（#315）：見えない壁と、話すと姿が変わる人の直し
+import { fixW31 } from "./w31_parts.mjs"; // W31（#326）：黒い丸の拾い物を宝箱に
 import { say, plugin, byLastRegion, REGIONS, REGION_KEYS, LAIR_MAP, FLAG } from "./w11_parts.mjs";
 
 const check = process.argv.includes("--check");
@@ -846,7 +847,7 @@ for (const [name, mapId, mapName, displayName, draw, makeEvents, about] of MAPS)
   // 置き物は床か壁の上だけ（床の置き物は通れない物が多いので、通り道の 1 マス幅には置かない）
   outputs.push({ file: srcPath(name, ".txt"), text: g.text() });
   outputs.push({ file: srcPath(name, ".deco.txt"), text: d.text() });
-  outputs.push({ file: srcPath(name), text: sourceText(fixW30(name, configOf(mapId, mapName, displayName, about, events, { scatter: [{ on: ".", z: 1, tiles: ["A2:15"], rate: 0.06, seed: mapId * 10 + 1 }, { on: ".", tiles: ["B:32", "B:33"], rate: 0.05, seed: mapId * 10 + 2 }] }))) });
+  outputs.push({ file: srcPath(name), text: sourceText(fixW31(name, fixW30(name, configOf(mapId, mapName, displayName, about, events, { scatter: [{ on: ".", z: 1, tiles: ["A2:15"], rate: 0.06, seed: mapId * 10 + 1 }, { on: ".", tiles: ["B:32", "B:33"], rate: 0.05, seed: mapId * 10 + 2 }] })))) });
 }
 
 // System.json（スイッチ・変数 701–800 の名前）

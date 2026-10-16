@@ -13,6 +13,7 @@ import { fileURLToPath } from "node:url";
 import { readData, formatTable, dataPath, extendTable } from "../../data/io.mjs";
 import { SRC_DIR } from "../build.mjs";
 import { fixW30 } from "./w30_parts.mjs"; // W30（#315）：見えない壁と、話すと姿が変わる人の直し
+import { fixW31 } from "./w31_parts.mjs"; // W31（#326）：黒い丸の拾い物を宝箱に
 import { say, plugin, SW, VAR, ITEM, MAP, FLAG, ROPE_054, ROPE_180, ROPE_180_ARRIVE, SLOPE_ARRIVE, patchLater } from "./w14_parts.mjs";
 import { draw015, events015, nightTroopPages, SUMMIT_SWITCH_NAMES, E015 } from "./w14_summit.mjs";
 
@@ -713,17 +714,17 @@ for (const [name, mapId, mapName, displayName, draw, makeEvents, about] of MAPS)
   const floor = ",.";
   outputs.push({ file: srcPath(name, ".txt"), text: g.text() });
   outputs.push({ file: srcPath(name, ".deco.txt"), text: d.text() });
-  outputs.push({ file: srcPath(name), text: sourceText(fixW30(name, configOf(mapId, mapName, displayName, about, events, {
+  outputs.push({ file: srcPath(name), text: sourceText(fixW31(name, fixW30(name, configOf(mapId, mapName, displayName, about, events, {
     deco: DECO_BY_LEGEND[look0.legend],
     scatter: [{ on: floor, z: 1, tiles: ["A2:15"], rate: 0.05, seed: mapId * 10 + 1 }],
-  }))) });
+  })))) });
 }
 
 // 朝の砦から（場面表 7.2・7.3）：W7 の地図の設定は手で書いた物なので、ここで足す（ほかのレーンの地図は、その生成スクリプトが W14.patchLater を呼ぶ）
 for (const name of ["w7_021_old_chapel", "w7_026_iron_mine"]) {
   const cfg = JSON.parse(fs.readFileSync(srcPath(name), "utf8"));
   patchLater(name, cfg);
-  fixW30(name, cfg);
+  fixW31(name, fixW30(name, cfg));
   outputs.push({ file: srcPath(name), text: sourceText(cfg) });
 }
 

@@ -1508,13 +1508,13 @@
       "pages": [
         {
           "image": {
-            "characterName": "!Other1",
-            "characterIndex": 1,
+            "characterName": "!Chest",
+            "characterIndex": 0,
             "direction": 2,
-            "pattern": 1
+            "pattern": 0
           },
           "priorityType": 1,
-          "stepAnime": true,
+          "stepAnime": false,
           "walkAnime": false,
           "list": [
             {
@@ -1522,7 +1522,7 @@
               "indent": 0,
               "parameters": [
                 {
-                  "name": "Item1",
+                  "name": "Chest1",
                   "volume": 90,
                   "pitch": 100,
                   "pan": 0
@@ -1577,7 +1577,15 @@
             "selfSwitchCh": "A",
             "selfSwitchValid": true
           },
-          "priorityType": 0
+          "priorityType": 1,
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "stepAnime": false,
+          "walkAnime": false
         }
       ]
     },
@@ -1590,13 +1598,13 @@
       "pages": [
         {
           "image": {
-            "characterName": "!Other1",
-            "characterIndex": 1,
+            "characterName": "!Chest",
+            "characterIndex": 0,
             "direction": 2,
-            "pattern": 1
+            "pattern": 0
           },
           "priorityType": 1,
-          "stepAnime": true,
+          "stepAnime": false,
           "walkAnime": false,
           "list": [
             {
@@ -1604,7 +1612,7 @@
               "indent": 0,
               "parameters": [
                 {
-                  "name": "Item1",
+                  "name": "Chest1",
                   "volume": 90,
                   "pitch": 100,
                   "pan": 0
@@ -1659,7 +1667,15 @@
             "selfSwitchCh": "A",
             "selfSwitchValid": true
           },
-          "priorityType": 0
+          "priorityType": 1,
+          "image": {
+            "characterName": "!Chest",
+            "characterIndex": 0,
+            "direction": 8,
+            "pattern": 0
+          },
+          "stepAnime": false,
+          "walkAnime": false
         }
       ]
     },
