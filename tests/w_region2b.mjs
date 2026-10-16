@@ -145,7 +145,7 @@ await runTest(async () => {
     check((await talk()).join("").includes("読める者なら"), "ディルがいないのに古言の碑の扉が開いた");
     await game.eval(a => $gameParty.addActor(a), DIL);
     const rune = (await talk()).join("\n");
-    check(rune.includes("訳すと") && (await sw(SW.runeDoor)), "ディルで古言の碑の扉が開かない（スイッチ 410） " + JSON.stringify(rune));
+    check(rune.includes("訳を口に出したら") && (await sw(SW.runeDoor)), "ディルで古言の碑の扉が開かない（スイッチ 410） " + JSON.stringify(rune));
     check(await step(6), "開いた古言の碑の扉を通れない");
     await game.eval(a => $gameParty.removeActor(a), DIL);
     await go(COURT, 19, 1, 8);
