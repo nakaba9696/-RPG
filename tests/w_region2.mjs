@@ -151,13 +151,13 @@ await runTest(async () => {
     const shadeId = await game.eval(() => $gameMap.events().find(e => e.event().name === "声だけの影（焼けた村の子）").eventId());
     await game.eval(id => $gameSelfSwitches.setValue([60, id, "A"], false), shadeId); // calm() が倒した扱いにした影を戻す
     const door = (await talk(["答える"])).join("\n");
-    check(door.includes("おかあ、戸、こたえていい？") && door.includes("声の形だった") && !door.includes("崩れる") && (await sw(SW.nightDoorAnswered)), "夜の戸で答える（スイッチ 412） " + JSON.stringify(door));
+    check(door.includes("おかあ、戸、こたえていい？") && door.includes("子どもの背丈の影になった") && !door.includes("崩れる") && (await sw(SW.nightDoorAnswered)), "夜の戸で答える（スイッチ 412） " + JSON.stringify(door));
     check(await game.eval(id => Hai.SymbolEnemy.isShadeQuiet($gameMap.event(id)), shadeId), "夜の戸の影に <hai_enemy_shade_quiet> が無い");
     spoken.length = 0;
     await game.eval(id => $gameSelfSwitches.setValue([60, id, "A"], true), shadeId); // 影を倒したことにする
     await game.waitFor(() => $gameMap.isEventRunning());
     await talk([], false);
-    const iFall = spoken.findIndex(([, t]) => t.includes("崩れるときに、声が落ちた"));
+    const iFall = spoken.findIndex(([, t]) => t.includes("崩れるときに、子どもの声が一言だけ聞こえた"));
     const iVoice = spoken.findIndex(([n, t]) => n === "焼けた村の子" && t.includes("おねえちゃん、三つしか叩かなかったよ。おかあ"));
     const iLedger = spoken.findIndex(([, t]) => t.includes("届けた相手の欄は、空けた"));
     check(iFall >= 0 && iVoice > iFall && iLedger > iVoice && (await sw(SW.nightDoorLegacy)) && (await game.eval(() => Hai.Thoughts.isRead("L2-01"))),

@@ -662,7 +662,7 @@ const nightDoorToll = {
       choice(["答える", "答えない"], 1, 1),
       when(0, "答える", 1),
       ...say(["ここにいる"], ME, 2),
-      ...say(["板に、黒いものが溜まった。声の形。"], "", 2),
+      ...say(["板の前に、黒いものが溜まった。女の背丈の影になった。"], "", 2),
       switchOn(SW.nightDoorAnswered, 2),
       end(2),
       when(1, "答えない", 1),
@@ -804,7 +804,7 @@ const villageEvents = [
   look("麦の倉", [36, 26], ["麦の倉。戸の板に、麦の穂の形の焼き印が押してある。", "印の下に『会へ　秋の分』の札。"]),
   look("井戸", [21, 16], ["井戸の綱は新しい。桶の縁に、指で切った鐘の形の印。"]),
   npc("麦打ちの女", [28, 28], IMG.thresher, [{ list: [
-    ...talk("麦打ちの女", [["鐘の火が見えたよ。砦の方。夜の間、ずっと。", "あたしらは麦を打つ。会に出す分が先。うちの分は、そのあと。"]]), END,
+    ...talk("麦打ちの女", [["砦の方に、火が見えたよ。夜の間、ずっと。", "あたしらは麦を打つ。会に出す分が先。うちの分は、そのあと。"]]), END,
   ] }]),
   npc("村の年寄り", [40, 17], IMG.elder, [{ list: [
     ...talk("村の年寄り", [["わしの爺さまの爺さまは、関所で麦を一握り取られた。", "それで、ここに畑を開いた。一握り分の畑だと、爺さまは笑うとった。"],
@@ -971,7 +971,7 @@ const cliffEvents = [
   ...[22, 23, 24].map(x => exit("北の口（崖の上の見晴らしへ）", [x, 0], AT.viewSouth(x - 10), UP)),
   keyPickup("崖の小道の小鐘", [35, 4], ["崖に打った梁に、鉤が一つ。手のひらほどの鐘が吊ってある。", "鐘に札。『返す先』。その先は、雨で滲んで読めない。"],
     [gainArmor(ARMOR.cliffBell), ...say(["\\I[205]崖の小道の小鐘を手に入れた。"])], { tileId: "C:121" },
-    [ifActor(ACTOR.bruno), ...say(["見張り塔の鐘と、同じ形です。中の数は、四つ少ない"], "ブルーノ", 1), end(1), ENDIF()]), // W16（場面表 2-16）
+    [ifActor(ACTOR.bruno), ...say(["見張り塔の鐘と、同じ形です。内側の夕べの数は、見張り塔のより四つ少ない"], "ブルーノ", 1), end(1), ENDIF()]), // W16（場面表 2-16）
   chestEvent("巡礼の杖", [16, 7], [gainWeapon(WEAPON.pilgrimStaff)], "\\I[101]巡礼の杖を手に入れた。", true),
   thought("R5-03", "崖を下りた巡礼", [5, 7], [
     "縄は四十尋。森の西の崖まで、一尋だけ足りない。",
@@ -1105,10 +1105,10 @@ const cloisterEvents = [
     ...say(["鐘架の梁はきれいなままだ。鉤を打った跡が一つも無い。"]),
     // W16（場面表 2-17・3-29）
     ifActor(ACTOR.bruno), ...say(["鐘守の修道院、ですよね。ここ"], "ブルーノ", 1), end(1), ENDIF(),
-    ifSelf("A", false), ...say(["鐘架だけだ。鐘は、四つにしか無い"], ME, 1), selfOn("A", 1), end(1), ENDIF(),
+    ifSelf("A", false), ...say(["鐘架だけだ。ここに鐘が吊られたことは無い"], ME, 1), selfOn("A", 1), end(1), ENDIF(),
     ifSwitch(SW.compared), ifActor(ACTOR.dil, 1), ifSwitch(SW_W16_FORT.dilThird, false, 2),
     ...say(["ディルが鐘架の下で、梁を見ていた。"], "", 3),
-    ...say(["三通りか", "俺が写したのは、二つだ"], "ディル", 3),
+    ...say(["写しは、三通りあったのか", "俺が写したのは、二つだ"], "ディル", 3),
     switchOn(SW_W16_FORT.dilThird, 3),
     end(3), ENDIF(2), end(2), ENDIF(1), end(1), ENDIF(),
     END,
@@ -1185,7 +1185,7 @@ const teo = npc("写本係テオ", [9, 18], IMG.teo, [
   { conditions: { selfSwitchCh: "A", selfSwitchValid: true },
     list: [
       ifSwitch(SW.timberBurned),
-      ...talk("テオ", [["工房の木が、燃えたそうですね。", "写しは、しばらく閉じておきます。写しておきます、とは言えないので。"]], 1),
+      ...talk("テオ", [["工房の木が、燃えたそうですね。", "今日は、写しの帳面を閉じておきます。燃えたことは、写したくないので。"]], 1),
       end(1),
       ELSE(),
       ifItem(W8_ITEM.twoCopies, 1),
