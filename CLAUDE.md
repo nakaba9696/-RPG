@@ -4,7 +4,7 @@
 - 読むべきもの：[VISION.md](VISION.md)（何を作るか）、[docs/ROADMAP.md](docs/ROADMAP.md)（レーン・ID の帯・約束）、
   [docs/mz-data.md](docs/mz-data.md)（`data/*.json` の形・タイル ID・オートタイル）、[docs/world.md](docs/world.md)（世界設定「最後の鐘」。D10 で作り直した）、[docs/mapdesign.md](docs/mapdesign.md)（マップの作り方）。前の世界の設計は控えとして [docs/old/](docs/old/)（world.md・world2.md・lore.md・rewrite.md）。
 - 文を書く前に読むもの：[docs/knowhow.md](docs/knowhow.md)（創作・文章・キャラの決まり）。プレイヤーに見える文は knowhow.md の「避ける癖」を守る。
-- 文の構成（何を・どの順で・誰の口から出すか）は [docs/text.md](docs/text.md)（D12）。日記・手紙・帳面・碑文・思念・来歴・ボスの言葉・生き残りの会話を書く前に、真相の段の表と地域ごとの割り当てを読む。
+- **謎の作り方は廃止**（持ち主の決定 2026-10-17）。真相をかけらで配る・匂わせる文は書かない。文を書く前に [docs/knowhow.md](docs/knowhow.md) 2.8 を読む。[docs/text.md](docs/text.md) の段の表と割り当ては使わない（使うのは 0.3 人物の札だけ）。
 - 設定の段階の印〔知〕〔噂〕〔進〕〔秘〕を守る（world.md の各項目。禁止語は world.md 10 章、口調は 11 章）。既存の文の直しの表は前の世界の [docs/old/rewrite.md](docs/old/rewrite.md)（新しい世界の表は W が作り直したあとに作る）。
 - 持ち主は PR を取り込む前に MZ のエディタを閉じる（開いたままだと、エディタの保存で JSON が上書きされる。knowhow.md 7 章）。
 - ゲームの手本は Fanastasis だが、固有名詞・台詞・素材は使わない。すべて自作する（絵と音は MZ 同梱の素材と自作のもの）。
