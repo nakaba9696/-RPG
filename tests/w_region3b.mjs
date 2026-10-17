@@ -313,7 +313,7 @@ await runTest(async () => {
     await look(FORT, 29, 20, 8, ["綱を下りる"]);
     await arrive(WELL, WL.arriveRope[0], WL.arriveRope[1]);
     const f09 = await look(WELL, WL.faint[0], WL.faint[1] + 1, 8);
-    check(f09.includes("一から数えはじめる") && (await game.eval(() => Hai.Thoughts.isFaint("F09"))), "薄い思念 F09 " + JSON.stringify(f09));
+    check(f09.includes("墓守は袖をまくって、また綱を引いた。") && !f09.includes("一から数えはじめる") && (await game.eval(() => Hai.Thoughts.isFaint("F09"))), "薄い思念 F09 " + JSON.stringify(f09));
     await look(WELL, WL.grate[0], WL.grate[1] + 1, 8, ["閂を外す"]);
     check(await sw(SW.grate), "格子の閂（スイッチ 509）");
     await talk(["格子を上る"]);
