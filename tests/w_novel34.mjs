@@ -127,7 +127,7 @@ await runTest(async () => {
     // ===== 1. 070：触れ書きのあとのディルの一言（隊にいるとき、一度だけ）=====
     await join(ACTOR.dil);
     const notice = await look(LAKE, L.notice[0], L.notice[1] + 1, 8);
-    check(notice.includes("その母を") && notice.includes("ディル：四十人分の札で、十四人しか乗れない舟か") && !notice.includes("記録院なら、刷った方が首だな"), "触れ書きのあとのディル " + JSON.stringify(notice));
+    check(notice.includes("その母を") && notice.includes("ディル「四十人分の札で、十四人しか乗れない舟か") && !notice.includes("記録院なら、刷った方が首だな"), "触れ書きのあとのディル " + JSON.stringify(notice));
     const notice2 = await look(LAKE, L.notice[0], L.notice[1] + 1, 8);
     check(!notice2.includes("十四人しか乗れない"), "ディルの一言が二度出る");
     await leave(ACTOR.dil);
@@ -223,7 +223,7 @@ await runTest(async () => {
     await setSw(SW.wolfram);
     await game.call("transfer", FORT, 21, 28, 2);
     const bowl = await talk([], false);
-    check(bowl.includes("最初の一椀を、炉から三つ目の壁の側の席に置いた。") && bowl.includes("ゼリナ：うちの分は、要らんで") && !bowl.includes("うちは、飲ませる側や") && (await sw(SW.zelinaBowl)), "ゼリナの椀 " + JSON.stringify(bowl));
+    check(bowl.includes("最初の一椀を、炉から三つ目の壁の側の席に置いた。") && bowl.includes("ゼリナ「うちの分は、要らんで") && !bowl.includes("うちは、飲ませる側や") && (await sw(SW.zelinaBowl)), "ゼリナの椀 " + JSON.stringify(bowl));
     const fort = await game.eval(() => $dataMap.events.slice(61, 71).map(e => e && e.name));
     check(fort.every(n => n && n.startsWith("W17 ")), "010 の ID 61–70 " + JSON.stringify(fort));
     await setSw(JOINED.tula);
