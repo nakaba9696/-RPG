@@ -208,7 +208,7 @@ await runTest(async () => {
     await look(LAKE, L.ledgerArk[0], L.ledgerArk[1] + 1, 8);
     check((await items("i", ITEM.arkList)) === 1, "方舟の乗船名簿が手に入らない");
     check((await look(LAKE, L.zelina3[0], L.zelina3[1] + 1, 8)).includes("二十六"), "ゼリナの記憶 3");
-    check((await look(LAKE, L.r302[0], L.r302[1] + 1, 8)).includes("籠だけ受け取って"), "R3-02");
+    check((await look(LAKE, L.r302[0], L.r302[1] + 1, 8)).includes("娘の靴を入れた籠"), "R3-02");
     const stand = [L.dockBoat[0], L.dockBoat[1] - 2]; // W28：杭（舟の一つ北）は「通常」なので、板の道の隣のマスから調べる
     check((await look(LAKE, stand[0], stand[1], 2)).includes("漕ぐ物が無い"), "櫂が無いのに舟を出せる");
     check((await game.eval(() => Hai.Companions.memories(8))).join() === "2,3", "ゼリナの記憶 2・3 が数えられない");

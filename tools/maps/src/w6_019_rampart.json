@@ -1060,14 +1060,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "指が、動いた。"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "ブルーノと同じ速さで、折れていく。"
+                "墓守も、ブルーノと同じ速さで指を折った。"
               ]
             },
             {
@@ -1086,92 +1079,6 @@
               "indent": 0,
               "parameters": [
                 "にじゅうはち、にじゅうく、さんじゅう"
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 0,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                ""
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "ブルーノの指が、止まった。"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "墓守の指は、止まらなかった。"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "もう一本、折れた。"
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 0,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                "\\N[1]"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "さんじゅうい——"
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 0,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                "ブルーノ"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "三十で終わりです"
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 0,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                "ブルーノ"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "……どこで習ったんです"
               ]
             },
             {

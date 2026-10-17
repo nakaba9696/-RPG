@@ -1536,61 +1536,8 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "札掛けの釘は四本。"
+                "壁の札掛け。鐘番の当番の札を掛けておく所だ。"
               ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "札の掛かっていた跡が、四つとも同じ色に焼けている。"
-              ]
-            },
-            {
-              "code": 111,
-              "indent": 0,
-              "parameters": [
-                8,
-                323
-              ]
-            },
-            {
-              "code": 0,
-              "indent": 1,
-              "parameters": []
-            },
-            {
-              "code": 411,
-              "indent": 0,
-              "parameters": []
-            },
-            {
-              "code": 101,
-              "indent": 1,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                ""
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 1,
-              "parameters": [
-                "札は一枚。"
-              ]
-            },
-            {
-              "code": 0,
-              "indent": 1,
-              "parameters": []
-            },
-            {
-              "code": 412,
-              "indent": 0,
-              "parameters": []
             },
             {
               "code": 0,
@@ -1641,13 +1588,6 @@
               "indent": 0,
               "parameters": [
                 "頂が鳴らないときは、こちらも三十で止める。決まりだ。"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "三十一を数えかけて、やめた。札に書きかけたのは、それだけだ。"
               ]
             },
             {

@@ -84,10 +84,8 @@ export function ringAfter(indent = 1) {
     ...when(i => ifVar(FLAG.bells, 3, 0, i), i => [
       ...when(j => ifSwitch(FLAG.bruno, true, j), j => [
         ...say(["あなた。……三十です"], N.bruno, j),
-        ...say(["墓守の指が、もう一本、動いた。"], "", j),
       ], i),
     ], indent),
-    ...when(i => ifVar(FLAG.bells, 4, 0, i), i => say(["指が、もう一本、動いた。"], "", i), indent),
   ];
 }
 
@@ -175,7 +173,7 @@ const ismeneSendoff = {
       list: [
         comment("W14：場面表 4.1。写しを夕べの会に渡した道・燃やした道では出ない（変数 163 が 2 のときだけ）"),
         ...when(i => ifVar(FLAG.copiesErrand, 2, 0, i), i => [
-          ...say(["お返しします。まだ、です"], N.ismene, i),
+          ...say(["お返しします"], N.ismene, i),
           se("Item3", i), cmd(126, [ITEM_TWO_COPIES, 0, 0, 1], i),
           ...say(["二通りの写しを受け取った。灰色と、茶色。"], "", i),
         ]),
@@ -326,7 +324,7 @@ export const writingNightPage = (firstPageList) => ({
   list: [
     comment("W14：場面表 2.4。三つ目の鐘のあと、名前が戻る（スイッチ 110）までの夜"),
     ifSwitch(110, false),
-    ...say(["四つの鐘を鳴らして。それから、山の頂の鐘楼へ。", "最後の一画は、止まったままだ。", "指を折る。三十で、指は全部開いた。", "もう一本、動いた。"], "", 1),
+    ...say(["四つの鐘を鳴らして。それから、山の頂の鐘楼へ。", "最後の一画は、止まったままだ。"], "", 1),
     end(1),
     ELSE(0),
     ...firstPageList.filter(c => c.code !== 0 || c.indent > 0).map(c => ({ ...c, indent: c.indent + 1 })),

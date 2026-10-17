@@ -151,11 +151,13 @@ await runTest(async () => {
     await game.call("setSpeed", MAP_SPEED);
     await go(WATER_BELL, 13, 8, 8);
     const third = (await talk(["綱を引く"])).join("\n");
-    check(third.includes("ブルーノ：あなた。……三十です") && third.includes("墓守の指が、もう一本、動いた。"), "三つ目の鐘のあとのブルーノの一言 " + JSON.stringify(third).slice(0, 400));
-    check(third.includes("数える。二十八、二十九、三十。") && third.includes("三十一人目は、まだ来ない。目を閉じた。") && !third.includes("最後の一人に渡し終えて"),
-      "三つ目の場面の差し替えた行 " + JSON.stringify(third).slice(0, 800));
-    check(third.includes("……喰わないために、預けたのか") && (await sw(SW.scene3)), "三つ目の場面の一言とスイッチ 106");
-    console.log("  三つ目の鐘：ブルーノ「三十です」・場面の二行の差し替え", `（${Math.round((Date.now() - T0) / 1000)} 秒）`);
+    check(third.includes("ブルーノ：あなた。……三十です") && !third.includes("もう一本、動いた。"), "三つ目の鐘のあとのブルーノの一言 " + JSON.stringify(third).slice(0, 400));
+    // W32（#331）：3 つ目の場面は一覧 docs/reviews/2026-10-17-text-fixes.md の C の文
+    check(third.includes("思い出した。二百年前、鐘が黙った夜のことだ。") && third.includes("自分は、死んだ人の思いを取りこむ使徒だった。人の姿で、砦の墓守をしていた。") && third.includes("相棒の司祭が、墓所の壁に書き付けを彫りはじめた。その音を聞きながら、眠った。") &&
+      !third.includes("三十一人目は、まだ来ない。") && !third.includes("数える。二十八、二十九、三十。") && !third.includes("最後の一人に渡し終えて"),
+      "三つ目の場面の文 " + JSON.stringify(third).slice(0, 800));
+    check(!third.includes("……喰わないために、預けたのか") && (await sw(SW.scene3)), "三つ目の場面のスイッチ 106");
+    console.log("  三つ目の鐘：ブルーノ「三十です」・場面の文", `（${Math.round((Date.now() - T0) / 1000)} 秒）`);
 
     // ===== 2. 砦 010（四つ鳴った）：椀に飯・ミルレーネ・イスメネ・墓所の壁 =====
     const r4 = await game.call("setup", "bells4", { level: 20 });
@@ -170,13 +172,13 @@ await runTest(async () => {
     check(night.includes("ヴォルフラム：この椀は、触らん") && night.includes("飯が盛られた。湯気が立った。") && (await sw(SW.bowl)), "伏せた椀に飯が盛られる（1151） " + JSON.stringify(night).slice(0, 300));
     check(night.includes("ミルレーネ：灯は、湖の子に頼んだの。七十三冊目の帳面も") && night.includes("\\N[1]：鳴った") && (await sw(SW.mirlene)), "ミルレーネが砦に来る（1152） " + JSON.stringify(night).slice(0, 600));
     check(night.includes("シャノ：湖の人、来たよ。灯、持ってない"), "シャノの一言（172）");
-    check(night.includes("イスメネ：お返しします。まだ、です") && (await has(ITEM.twoCopies)) === 1 && (await sw(SW.ismene)), "出立：イスメネが写しを返す " + JSON.stringify(night).slice(-300));
+    check(night.includes("イスメネ：お返しします") && !night.includes("お返しします。まだ") && (await has(ITEM.twoCopies)) === 1 && (await sw(SW.ismene)), "出立：イスメネが写しを返す " + JSON.stringify(night).slice(-300));
     check(!(await game.eval(() => $gameMap.isEventRunning())), "砦の自動実行が終わらない");
     await go(KEEP, 22, 27, 8);
     check((await talk()).join("").includes("四つ目は、ここで待つわ"), "炉の脇の石のミルレーネ");
     await go(KEEP, 7, 14, 8);
     const wall = (await talk()).join("\n");
-    check(wall.includes("指を折る。三十で、指は全部開いた。"), "三つ目の鐘の夜の墓所の壁（名前が戻る前） " + JSON.stringify(wall));
+    check(wall.includes("最後の一画は、止まったままだ。") && !wall.includes("指を折る。三十で、指は全部開いた。") && !wall.includes("もう一本、動いた。"), "三つ目の鐘の夜の墓所の壁（名前が戻る前） " + JSON.stringify(wall));
     await game.shot("keep-night");
     console.log("  砦：椀に飯（1151）・ミルレーネ（1152）・イスメネの写し・墓所の壁の夜", `（${Math.round((Date.now() - T0) / 1000)} 秒）`);
 
@@ -215,7 +217,7 @@ await runTest(async () => {
     const faint0 = await vr(VAR.faint);
     await go(LODGE, 9, 21, 8);
     const f11 = (await talk()).join("\n");
-    check(f11.includes("墓守の指は、三十一まで動いた。") && f11.includes("ブルーノ：城壁のときも、三十一でした。") && f11.includes("「習っていない」"), "薄い思念 F11 " + JSON.stringify(f11));
+    check(f11.includes("三十で、二人の指が止まった。") && !f11.includes("三十一まで動いた") && !f11.includes("城壁のときも、三十一でした。") && !f11.includes("「習っていない」"), "薄い思念 F11 " + JSON.stringify(f11));
     check((await vr(VAR.faint)) === faint0 + 1 && (await game.eval(() => Hai.Thoughts.isFaint("F11"))), "F11 で戻った記憶が 1 増える");
     await go(LODGE, 39, 21, 8);
     check((await talk()).join("").includes("トゥーラ：これで運ぶはずだったのか。"), "氷室の橇とトゥーラ");
@@ -256,7 +258,7 @@ await runTest(async () => {
     // ===== 6. 183 鐘楼の根 =====
     await go(ROOT, 20, 9, 8);
     const rusty = (await talk()).join("\n");
-    check(rusty.includes("歯は錆びている。") && rusty.includes("歯が一つだけ、新しい。") && !rusty.includes("綱が上まで通った") && !(await sw(SW.rope)), "工具が無いと巻き上げは直せない " + JSON.stringify(rusty));
+    check(rusty.includes("歯は錆びている。") && !rusty.includes("歯が一つだけ、新しい。") && !rusty.includes("綱が上まで通った") && !(await sw(SW.rope)), "工具が無いと巻き上げは直せない " + JSON.stringify(rusty));
     await go(ROOT, 23, 10, 8);
     const tools = (await talk()).join("\n");
     check(tools.includes("石工の工具を手に入れた。") && !tools.includes("メモ：") && (await has(ITEM.tools)) === 1, "石工の工具（Items 1152） " + JSON.stringify(tools));

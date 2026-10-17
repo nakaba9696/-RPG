@@ -1349,50 +1349,6 @@
               ]
             },
             {
-              "code": 111,
-              "indent": 1,
-              "parameters": [
-                4,
-                8,
-                0
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 2,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                "ゼリナ"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 2,
-              "parameters": [
-                "鉄の匂い。鋳物場て、鐘を鋳る所やろ。"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 2,
-              "parameters": [
-                "うちの壺の銀も、溶かしたら鐘になるんか"
-              ]
-            },
-            {
-              "code": 0,
-              "indent": 2,
-              "parameters": []
-            },
-            {
-              "code": 412,
-              "indent": 1,
-              "parameters": []
-            },
-            {
               "code": 0,
               "indent": 1,
               "parameters": []
@@ -1576,87 +1532,6 @@
               "parameters": [
                 "三十まで数えて、槍を横にした。槍の向こうに、まだ二百はいた。"
               ]
-            },
-            {
-              "code": 111,
-              "indent": 0,
-              "parameters": [
-                2,
-                "A",
-                1
-              ]
-            },
-            {
-              "code": 111,
-              "indent": 1,
-              "parameters": [
-                12,
-                "Hai.Thoughts.isRead(\"R3-14\")"
-              ]
-            },
-            {
-              "code": 111,
-              "indent": 2,
-              "parameters": [
-                4,
-                8,
-                0
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 3,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                "ゼリナ"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 3,
-              "parameters": [
-                "千枚と聞いて、千四百並んだんやろ。"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 3,
-              "parameters": [
-                "……うちと同じや。数えてから、乗せたらよかった"
-              ]
-            },
-            {
-              "code": 0,
-              "indent": 3,
-              "parameters": []
-            },
-            {
-              "code": 412,
-              "indent": 2,
-              "parameters": []
-            },
-            {
-              "code": 0,
-              "indent": 2,
-              "parameters": []
-            },
-            {
-              "code": 412,
-              "indent": 1,
-              "parameters": []
-            },
-            {
-              "code": 0,
-              "indent": 1,
-              "parameters": []
-            },
-            {
-              "code": 412,
-              "indent": 0,
-              "parameters": []
             },
             {
               "code": 0,

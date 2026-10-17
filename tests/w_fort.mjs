@@ -289,7 +289,7 @@ await runTest(async () => {
     check(await switchOn(1151), "椀に飯が盛られたあとスイッチ 1151 が ON でない");
     // ゼリナの夢（場面表 04 の 2.2。7 章 04:130）：1151 のあと一度だけ。以後は差し替えの一言
     const dream = await investigate(zelina.x, zelina.y - 1, 2);
-    check(has(dream, "舟の金、まだ足りへん夢を見た") && has(dream, "なんで足りへんのやろな"), `ゼリナの夢 ${JSON.stringify(dream)}`);
+    check(has(dream, "舟の金、まだ足りへん夢を見た") && has(dream, "起きたら、十四人分の椀が並んどった。") && !has(dream, "なんで足りへんのやろな"), `ゼリナの夢 ${JSON.stringify(dream)}`);
     const z2 = await investigate(zelina.x, zelina.y - 1, 2);
     check(has(z2, "奥の椀にも、盛ってあるな") && !has(z2, "夢を見た") && !has(z2, "伏せたまま"), `夢のあとのゼリナ ${JSON.stringify(z2)}`);
 

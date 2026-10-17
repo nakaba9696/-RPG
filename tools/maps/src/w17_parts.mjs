@@ -136,7 +136,7 @@ export function fortTableEvents(seats) {
         ...say(["知らん！"], "ヴォルフラム"),
         ...say(["……うちの前に置きよった"], "ゼリナ"),
         ...say(["椀を指で向こうへ押した。椀は動かなかった。"]),
-        ...say(["うちの分は、要らんで。うちは、飲ませる側や"], "ゼリナ"),
+        ...say(["うちの分は、要らんで"], "ゼリナ"),
         swOn(W17_SW.zelinaBowl),
       ]),
       done(W17_SW.zelinaBowl),
@@ -156,7 +156,7 @@ export function fortTableEvents(seats) {
       // 一度目はゼリナの夢（場面表 04 の 2.2。セルフスイッチ B）、以後は差し替えの一言（W18 #258。R2 困る 9・7 章 04:130）
       { conditions: onSw(JOINED.zelina, FLAG.bowlFilled), image: IMG.zelina, priorityType: 1, list: [
         ifSelf("B", false),
-        ...say(["舟の金、まだ足りへん夢を見た", "起きたら、十四人分の椀が並んどった。", "……勘定は合うとる。なんで足りへんのやろな"], "ゼリナ", 1),
+        ...say(["舟の金、まだ足りへん夢を見た", "起きたら、十四人分の椀が並んどった。"], "ゼリナ", 1),
         selfOn("B", 1), close(1),
         cmd(411, []),
         ...say(["奥の椀にも、盛ってあるな"], "ゼリナ", 1), close(1),
