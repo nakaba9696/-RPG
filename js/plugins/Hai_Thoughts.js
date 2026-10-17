@@ -147,7 +147,7 @@
  * @text 薄い思念のあとの一言
  * @desc 思念 ID:一言 を ; で区切る。その思念のあとのコモンイベント「数の一言」を、この一言（名前は主人公）に差し替える。
  * @type string
- * @default F09:……一つ多い
+ * @default 
  *
  * @param faintLineEvent
  * @text 数の一言のコモンイベント
@@ -259,7 +259,7 @@
     .map(row => ({ switchId: Number(row.switchId || 0), speaker: String(row.speaker || ""), text: String(row.text || "") }))
     .filter(row => row.switchId > 0 && row.text);
   const faintLines = {};
-  for (const pair of String(params.faintLines ?? "F09:……一つ多い").split(";")) {
+  for (const pair of String(params.faintLines ?? "").split(";")) {
     const i = pair.indexOf(":");
     if (i > 0 && pair.slice(i + 1).trim()) faintLines[pair.slice(0, i).trim()] = pair.slice(i + 1).trim();
   }

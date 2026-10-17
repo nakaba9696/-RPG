@@ -204,7 +204,7 @@ const survivorsAtTable = () => {
       ...say(["外の火、落とさねえ。帰ってくるのがいる"], "アンネリーゼ", i),
       ...when(j => ifSwitch(121, true, j), j => [...say(["誰が"], "アデル", j), ...say(["知らねえ。うちは昔から、そうしてる"], "アンネリーゼ", j)], i),
     ], 1),
-    ...when(i => ifSwitch(124, true, i), i => say(["記録します。本日、写しの続き、届きました", "届けた人の名は、知りません。まだ"], N.ismene, i), 1),
+    ...when(i => ifSwitch(124, true, i), i => say(["記録します。本日、写しの続き、届きました", "届けた人の名は、知りません"], N.ismene, i), 1),
     ...when(i => ifSwitch(125, true, i), i => say(["行ったか"], "ピピネル", i), 1),
     end(1),
     ELSE(0),
