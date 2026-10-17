@@ -10,7 +10,7 @@
 //   6. 019 の夕べの数（胸壁の東の端を踏む）と東の眺めの灯、033 の房の列の端（「……東を向いている」）。
 // W19（#263。R2 の直し）：
 //   0. 拾い物の表記（019–037 は「薬草×2を手に入れた。」の形）、021・027 の見えない通路の手がかりの一行、四つ目の一言「全部、同じ手だ」は墓守の帳面があるときだけ（W24 でコモン 201 の側へ）。
-//   3. 夜の戸の影は「崩れる → 声（話し手の名つき）」の順。 4. 036 の札掛け（鳴らす前は「札は一枚。」）、変数 165＝4 では「鐘を外す」が出ない。
+//   3. 夜の戸の影は「崩れる → 声（話し手の名つき）」の順。 4. 036 の札掛け（一行だけ。W32）、変数 165＝4 では「鐘を外す」が出ない。
 //   4b. 027 で灯なしに勝ったあと、ブルーノ「数えると、平気です。」（一度きり）。 6. 夕べの数は全部かな、房の列の端は通ってきた影の文。
 import fs from "node:fs";
 import path from "node:path";
@@ -47,7 +47,7 @@ await runTest(async () => {
   check(JSON.stringify(ids) === JSON.stringify([42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52]), "010 の W15 のイベント ID " + JSON.stringify(ids));
   const mine = allText(readJson(mapFile(26)));
   check(!mine.includes("麦が三月") && !mine.includes("子どもと年寄りからは") && !mine.includes("……誰が入れたの"), "026 の消した文が残っている");
-  check(mine.includes("いち、に、さん、し") && mine.includes("今の人、僕の隊の鐘の印を、槍に"), "026 のブルーノの行");
+  check(mine.includes("いち、に、さん、し") && !mine.includes("今の人、僕の隊の鐘の印を、槍に") && !mine.includes("いえ。なんでもないです"), "026 のブルーノの行（アデルのあとの二行は W32 で消した）");
   const chapel = allText(readJson(mapFile(21)));
   check(chapel.includes("\"十一、十二、十三。\"") && chapel.includes("舌は布で巻いて結んである。"), "021 の巡礼の二ページ目と籠手の文");
   check(allText(readJson(mapFile(12))).includes("底に、煤で大きく「わし」。"), "012 の大鍋の二行");
@@ -207,7 +207,7 @@ await runTest(async () => {
     const wolf = ev("ヴォルフラム（炉の前）");
     await go(KEEP, wolf.x, wolf.y + 1, 8);
     const serve = await talk();
-    check(has(serve, "でかい爺さんが来た") && has(serve, "炉から数えて三つ目の、壁の側の席。") && has(serve, "伏せた奴が起こす"), "ヴォルフラム（炉の前） " + JSON.stringify(serve));
+    check(has(serve, "でかい爺さんが来た") && has(serve, "炉から数えて三つ目の、壁の側の席。") && has(serve, "奥のは触らんぞ。") && !has(serve, "伏せた奴が起こす"), "ヴォルフラム（炉の前） " + JSON.stringify(serve));
     check(await sw(SW.served), "先に盛る一椀（スイッチ 117）");
     check(has(await talk(), "座れ！　食え！"), "ヴォルフラムの二ページ目");
     const bowl2 = ev("先に盛る一椀");
@@ -258,9 +258,10 @@ await runTest(async () => {
     check(has(await talk(), "薪を積んであった形だ。"), "答えたあとの土間の文");
 
     // ===== 4. 営倉の鐘：マルゴと取り引きする道 → ブルーノと鳴らす =====
-    // W19（R2 気になる 11）：鳴らす前の札掛けは「札は一枚。」（084 と同じ）
+    // W32（#331）：札掛けは、鳴らす前もあとも「壁の札掛け。鐘番の当番の札を掛けておく所だ。」の一行だけ（084・094・104 と同じ）
     await go(BELL_ROOM, 18, 5, 8);
-    check(has(await talk(), "札は一枚。"), "鳴らす前の札掛け");
+    const hook0 = await talk();
+    check(has(hook0, "壁の札掛け。鐘番の当番の札を掛けておく所だ。") && !has(hook0, "札は一枚。"), "鳴らす前の札掛け " + JSON.stringify(hook0));
     await go(BELL_ROOM, 13, 8, 8);
     const unhook = await talk(["鐘を外す（マルゴに売る）"]);
     check(has(unhook, "腕が痺れるほど重い。") && (await vr(VAR.prisonBell)) === 3 && !(await sw(SW.bellPrison)), "鐘を外す " + JSON.stringify(unhook));
@@ -283,7 +284,7 @@ await runTest(async () => {
     await game.shot("bell-with-bruno");
     await go(BELL_ROOM, 18, 5, 8);
     const hook = await talk();
-    check(has(hook, "四つとも同じ色に焼けている。") && !has(hook, "札は一枚。"), "鳴らしたあとの札掛け " + JSON.stringify(hook));
+    check(has(hook, "壁の札掛け。鐘番の当番の札を掛けておく所だ。") && !has(hook, "四つとも同じ色に焼けている。") && !has(hook, "札は一枚。"), "鳴らしたあとの札掛け " + JSON.stringify(hook));
 
     // ===== 4b. 027 で灯なしに勝ったあとのブルーノ（W19。R2 7 章 01:157）=====
     await go(DEPTHS, 24, 3, 2); // 着くと calm() で敵を全部倒した扱いにするが、灯なしと戦っていないので出ない
@@ -329,7 +330,8 @@ await runTest(async () => {
     await game.call("step", 6);
     // 夕べの数の頁は \. の待ちが 24 あり、一頁を出し切るのに手元で 17 秒かかる。遅い CI の機械では 1 頁の待ち（既定 30 秒）を越えるので、この会話だけ 1 頁 90 秒まで待つ
     const count = await talk([], false, SLOW_PAGE_TIMEOUT);
-    check(has(count, "ブルーノ「いち、に、さん") && has(count, "さんじゅうい——") && has(count, "三十で終わりです") && has(count, "ブルーノ「灯です。塔の下に、二つ"), "夕べの数 " + JSON.stringify(count));
+    // W32（#331）：墓守は三十を越えて数えない（「さんじゅうい——」「三十で終わりです」「……どこで習ったんです」を消した）
+    check(has(count, "ブルーノ「いち、に、さん") && has(count, "墓守も、ブルーノと同じ速さで指を折った。") && has(count, "ブルーノ「にじゅうはち、にじゅうく、さんじゅう") && !has(count, "さんじゅうい——") && !has(count, "三十で終わりです") && !has(count, "どこで習ったんです") && has(count, "折れた指を、開いた。") && has(count, "ブルーノ「灯です。塔の下に、二つ"), "夕べの数 " + JSON.stringify(count));
     // W19（R2 気になる 28）：数は全部かな
     const counting = count.filter(p => p.startsWith("ブルーノ「") && p.includes("、"));
     check(counting.some(p => p.includes("にじゅうしち")) && !counting.some(p => /[一二三四五六七八九十]、/.test(p)), "夕べの数のかな " + JSON.stringify(counting));

@@ -814,7 +814,7 @@
   ];
   // 最後にイスメネの記録の一行（三通り目を見ていれば「どれが」。3-29 の返すときの行）
   const ISMENE = "\\C[16]イスメネ\\C[0]";
-  const NOT_WRITTEN = { two: "　どちらが本物かは、書きません。分からないので。まだ", three: "　どれが本物かは、書きません。分からないので。まだ" };
+  const NOT_WRITTEN = { two: "　どちらが本物かは、書きません。分からないので。", three: "　どれが本物かは、書きません。分からないので。" };
   const switchOn = id => id > 0 && $gameSwitches.value(id);
   function copiesLines() {
     const two = switchOn(P.copiesSwitch);

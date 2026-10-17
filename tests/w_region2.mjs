@@ -202,7 +202,7 @@ await runTest(async () => {
     check((await sw(SW.noraFound)) && (await game.eval(n => Hai.Companions.memories(n), NORA)).includes(4), "ノラの遺骸（スイッチ 132）と記憶 4");
     await go(TOWER, 16, 12, 8);
     const f06 = (await talk()).join("\n");
-    check(f06.includes("勝った") && f06.includes("覚えている"), "伝令の子の薄い思念 F06 と記憶が戻る一言 " + JSON.stringify(f06));
+    check(f06.includes("ぼくを勝たせてくれた") && f06.includes("覚えている"), "伝令の子の薄い思念 F06 と記憶が戻る一言 " + JSON.stringify(f06));
     check(await game.eval(() => Hai.Thoughts.isFaint("F06") && Hai.Thoughts.faintCount() === 1), "F06 が戻った記憶に数えられない");
     await go(TOWER, 19, 9, 8);
     check((await talk()).join("").includes("綱を掛ければ"), "鉤綱が無いのに梁に上れた");

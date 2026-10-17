@@ -516,8 +516,7 @@ function events181() {
     {
       name: "薄い思念 F11 砦の鐘守（囲炉裏）", type: "raw", x: E181.hearth[0], y: E181.hearth[1], note: "<hai_faint:F11>",
       pages: [{ image: IMG.faint, priorityType: 1, list: [
-        ...say(["囲炉裏の向かいに、墓守が座っている。", "明日は頂の鐘守の交代だ。指の形を合わせる。", "ひとつ、ふたつ。墓守の指は速い。", "三十で、わたしの指は止まる。"]),
-        ...say(["墓守の指は、三十一まで動いた。", "「三十で止めろ」", "墓守は笑って、指を戻した。", "戻したが、もう一本、まだ動いていた。"]),
+        ...say(["囲炉裏の向かいに、墓守が座っている。", "明日は頂の鐘守の交代だ。指の形を合わせる。", "ひとつ、ふたつ。墓守の指は速い。", "三十で、二人の指が止まった。"]),
         cmd(117, [201]),
         switchOn(SW_F11_SEEN),
         END,
@@ -529,10 +528,7 @@ function events181() {
       pages: [
         { priorityType: 0 },
         { conditions: { switch1Id: SW_F11_SEEN, switch1Valid: true }, priorityType: 0, trigger: 3, list: [
-          ifSwitch(FLAG.bruno, true),
-          ...say(["城壁のときも、三十一でした。……どこで習ったんです"], "ブルーノ", 1),
-          ...say(["「習っていない」"], "", 1),
-          end(1), ENDIF(),
+          // W32（#331）：ブルーノの一言を消した（イベントの形は前のまま）
           selfOn(),
           END,
         ] },
@@ -637,7 +633,7 @@ function events183() {
       pages: [
         // 文7（R2 気になる 17）：工具があってもなくても、先に「歯は錆びている」の頁を出す。アンセルモの一言は直す前に（直したあとでは遅い）
         { image: IMG.rope, priorityType: 1, directionFix: true, list: [
-          ...say(["太い綱が巻き上げに掛かっている。綱は硬く、歯は錆びている。", "歯が一つだけ、新しい。"]),
+          ...say(["太い綱が巻き上げに掛かっている。綱は硬く、歯は錆びている。"]),
           ...[ifSwitch(FLAG.anselmo, true), ...say(["お前さん。綱を直すと、上で吊れるようになる"], "アンセルモ", 1), end(1), ENDIF()],
           ifItem(ITEM.masonTools),
           se("Hammer", 1),
@@ -648,7 +644,7 @@ function events183() {
           END,
         ] },
         { conditions: { switch1Id: SW.ropeFixed, switch1Valid: true }, image: IMG.rope, priorityType: 1, directionFix: true,
-          list: [...say(["綱が、頂の方へ張っている。", "磨いた歯のあいだに、新しい歯が一つ。"]), END] },
+          list: [...say(["綱が、頂の方へ張っている。"]), END] },
       ],
     },
     // 石工の工具（巻き上げの脇で拾う）
@@ -665,7 +661,7 @@ function events183() {
         { conditions: { selfSwitchCh: "A", selfSwitchValid: true }, priorityType: 0 },
       ],
     },
-    look("隊の最後の野営の跡", E183.camp, ["隊の最後の野営の跡。火は焚いていない。", "石に「一晩」と刻んである。刻みの下に、別の手で「三」。"]),
+    look("隊の最後の野営の跡", E183.camp, ["隊の最後の野営の跡。火は焚いていない。", "石に「一晩」と刻んである。"]),
     ward("鐘楼の根", E183.ward, ["床の石の輪が、光っている。"]),
     {
       name: "頂への石段", type: "raw", x: E183.stairs[0], y: E183.stairs[1],

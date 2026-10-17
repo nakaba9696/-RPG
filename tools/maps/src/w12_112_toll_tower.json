@@ -517,57 +517,6 @@
               ]
             },
             {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "十三段目の石が抜けて、そこだけ土が見える。"
-              ]
-            },
-            {
-              "code": 111,
-              "indent": 0,
-              "parameters": [
-                4,
-                5,
-                0
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 1,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                ""
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 1,
-              "parameters": [
-                "ブルーノが十三段目を跳び越えようとして、"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 1,
-              "parameters": [
-                "やめて、またいだ。"
-              ]
-            },
-            {
-              "code": 0,
-              "indent": 1,
-              "parameters": []
-            },
-            {
-              "code": 412,
-              "indent": 0,
-              "parameters": []
-            },
-            {
               "code": 0,
               "indent": 0,
               "parameters": []

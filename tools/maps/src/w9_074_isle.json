@@ -956,70 +956,6 @@
               "parameters": []
             },
             {
-              "code": 111,
-              "indent": 0,
-              "parameters": [
-                4,
-                8,
-                0
-              ]
-            },
-            {
-              "code": 111,
-              "indent": 1,
-              "parameters": [
-                2,
-                "B",
-                1
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 2,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                "ゼリナ"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 2,
-              "parameters": [
-                "……乗せる方も降ろす方も、数えるんやな"
-              ]
-            },
-            {
-              "code": 123,
-              "indent": 2,
-              "parameters": [
-                "B",
-                0
-              ]
-            },
-            {
-              "code": 0,
-              "indent": 2,
-              "parameters": []
-            },
-            {
-              "code": 412,
-              "indent": 1,
-              "parameters": []
-            },
-            {
-              "code": 0,
-              "indent": 1,
-              "parameters": []
-            },
-            {
-              "code": 412,
-              "indent": 0,
-              "parameters": []
-            },
-            {
               "code": 0,
               "indent": 0,
               "parameters": []
@@ -1035,7 +971,7 @@
       "x": 17,
       "y": 13,
       "lines": [
-        "平たい石に、点が刻んである。十ずつ束ねて、七つ。"
+        "平たい石。苔が厚い。"
       ],
       "image": {
         "tileId": "B:159"

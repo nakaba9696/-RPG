@@ -272,12 +272,14 @@ await runTest(async () => {
     await arrive(BELL, B4.arriveS[0], B4.arriveS[1]);
     await game.shot("bell-deep");
     await game.eval(id => { $gameVariables.setValue(id, 3); $gameSwitches.setValue(106, true); }, VAR.bellCount); // 3 つ目の場面（スイッチ 106。W11）は済んだ扱い
-    // W20（#264。R2 気になる 11）：札を得る前の札掛けは「札は一枚。」（084 と同じ）。得たあとは出ない
-    check((await look(BELL, B4.board[0], B4.board[1] + 1, 8)).includes("札は一枚。"), "札を得る前の札掛けに「札は一枚。」が無い");
+    // W32（#331）：札掛けは、札を得る前もあとも「壁の札掛け。鐘番の当番の札を掛けておく所だ。」の一行だけ（036・084・094 と同じ）
+    const board0 = await look(BELL, B4.board[0], B4.board[1] + 1, 8);
+    check(board0.includes("壁の札掛け。鐘番の当番の札を掛けておく所だ。") && !board0.includes("札は一枚。") && !board0.includes("釘は四本"), "札を得る前の札掛け " + JSON.stringify(board0));
     const ring = await look(BELL, B4.rope[0], B4.rope[1] + 1, 8, ["綱を引く"]);
     const bell = await game.eval(([a, b, c, t]) => ({ rung: $gameSwitches.value(a), count: $gameVariables.value(b), all: $gameSwitches.value(c), tag: $gameParty.numItems($dataItems[t]) }), [SW.bellWater, VAR.bellCount, SW.bellsAll, ITEM.dutyTag]);
     check(ring.includes("輪が幾重にも") && bell.rung && bell.count === 4 && bell.all && bell.tag === 1, "水底の鐘（スイッチ 103・変数 101・4 つ目でスイッチ 105・当番の札） " + JSON.stringify(bell));
-    check(!(await look(BELL, B4.board[0], B4.board[1] + 1, 8)).includes("札は一枚。"), "札を得たあとも札掛けに「札は一枚。」が出る");
+    const board1 = await look(BELL, B4.board[0], B4.board[1] + 1, 8);
+    check(board1.includes("壁の札掛け。鐘番の当番の札を掛けておく所だ。") && !board1.includes("札は一枚。"), "札を得たあとの札掛け " + JSON.stringify(board1));
     const note = await game.eval(id => $dataMap.events.find(e => e && e.name === "水底の鐘の綱").pages[0].list.some(c => c.code === 108 && c.parameters[0].startsWith("W11")), 0);
     check(note, "鐘の綱に W11 への注釈が無い");
     console.log("  扉の番（布告で迷う・スイッチ 504・衛兵の兜）→ 水底の鐘（スイッチ 103・変数 101 = 4・スイッチ 105・当番の札）");
@@ -311,7 +313,7 @@ await runTest(async () => {
     await look(FORT, 29, 20, 8, ["綱を下りる"]);
     await arrive(WELL, WL.arriveRope[0], WL.arriveRope[1]);
     const f09 = await look(WELL, WL.faint[0], WL.faint[1] + 1, 8);
-    check(f09.includes("一から数えはじめる") && (await game.eval(() => Hai.Thoughts.isFaint("F09"))), "薄い思念 F09 " + JSON.stringify(f09));
+    check(f09.includes("墓守は袖をまくって、また綱を引いた。") && !f09.includes("一から数えはじめる") && (await game.eval(() => Hai.Thoughts.isFaint("F09"))), "薄い思念 F09 " + JSON.stringify(f09));
     await look(WELL, WL.grate[0], WL.grate[1] + 1, 8, ["閂を外す"]);
     check(await sw(SW.grate), "格子の閂（スイッチ 509）");
     await talk(["格子を上る"]);

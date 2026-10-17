@@ -184,7 +184,7 @@ function mouthList() {
     end(1),
     ELSE(0),
     ifScript(`$gameParty.hasItem($dataItems[${ITEM_TONGUE}]) && ${sw(SW.ropeFixed)}`, 1),
-    ...iff(i => ifSwitch(MATE.tura.sw, true, i), i => say(["兄貴。これ、重いぞ。", "背負ってるあいだは軽いんだよ。渡すと重い"], MATE.tura.name, i), 2),
+    ...iff(i => ifSwitch(MATE.tura.sw, true, i), i => say(["兄貴。これ、重いぞ。"], MATE.tura.name, i), 2),
     ...say(["舌を吊った。綱を引いて、金具を上げた。", "舌が鐘の口の中で一度揺れて、鐘の肌に触れた。", "音は、しなかった。"], "", 2),
     cmd(242, [2], 2), cmd(246, [2], 2), wait(40, 2),
     ...say(["風が止んだ。", "斜面の下から、何かが上ってくる。"], "", 2),

@@ -315,46 +315,7 @@
               "code": 401,
               "indent": 0,
               "parameters": [
-                "三十で、わたしの指は止まる。"
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 0,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                ""
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "墓守の指は、三十一まで動いた。"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "「三十で止めろ」"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "墓守は笑って、指を戻した。"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "戻したが、もう一本、まだ動いていた。"
+                "三十で、二人の指が止まった。"
               ]
             },
             {
@@ -400,61 +361,6 @@
           "priorityType": 0,
           "trigger": 3,
           "list": [
-            {
-              "code": 111,
-              "indent": 0,
-              "parameters": [
-                0,
-                138,
-                0
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 1,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                "ブルーノ"
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 1,
-              "parameters": [
-                "城壁のときも、三十一でした。……どこで習ったんです"
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 1,
-              "parameters": [
-                "",
-                0,
-                0,
-                2,
-                ""
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 1,
-              "parameters": [
-                "「習っていない」"
-              ]
-            },
-            {
-              "code": 0,
-              "indent": 1,
-              "parameters": []
-            },
-            {
-              "code": 412,
-              "indent": 0,
-              "parameters": []
-            },
             {
               "code": 123,
               "indent": 0,

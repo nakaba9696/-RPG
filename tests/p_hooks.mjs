@@ -5,7 +5,7 @@
 //   2. 灰を止める（Hai_MapTone）：「灰を止める」で <hai_ash> も「ash」で変えた強さも降らない。1165 ON でも降らない。
 //   3. 言い残し（Hai_Thoughts の表）：スイッチが ON の行だけが legacies() と書庫の「言い残し」に出る（表の順）。
 //      1165 ON で書庫の「読んだ思念」が「送った人」になる。
-//   4. F09 のあとの一言（Map105 の F09）：コモンイベント 201 の代わりに「……一つ多い」（初めて見たときだけ）。
+//   4. F09 のあとの一言（Map105 の F09）：既定では固有の一言を出さない（W32 で「……一つ多い」を外した）。F09 もコモンイベント 201 を呼ぶ。
 //   5. 耐える／呼ぶ（Hai_Apostle、Troops 183 の <hai_endure:5>）：主人公の命令は「耐える」「呼ぶ」だけ。
 //      「呼ぶ」で隊の仲間が順に主人公を呼び、呑まれが減る。ブルーノが倒れると「……数えてください」（<hai_down>）。
 //   6. 結末を見た（Hai_Comfort）：スイッチ 1159 で立ち、ページを読み直しても残る。
@@ -191,14 +191,15 @@ await runTest(async () => {
       }
       return log();
     };
+    // W32（#331。配り役の決め）：F09 のあとの固有の一言「……一つ多い」は既定から外した。F09 もほかの薄い思念と同じくコモンイベント 201 を呼ぶ
     let msgs = await readFaint();
-    check(msgs.msgs.includes("……一つ多い") && msgs.speakers[msgs.msgs.indexOf("……一つ多い")] === "\\N[1]",
-      "F09 のあとに「……一つ多い」が出ない " + JSON.stringify(msgs.msgs));
-    const ce201 = await game.eval(() => $dataCommonEvents[201].list.filter(c => c.code === 401).map(c => c.parameters[0]));
-    check(!msgs.msgs.some(m => ce201.includes(m)), "F09 のあとにコモンイベント 201 の一言が出る " + JSON.stringify(msgs.msgs));
+    check(!msgs.msgs.includes("……一つ多い"), "F09 のあとに「……一つ多い」が出る " + JSON.stringify(msgs.msgs));
+    check(msgs.msgs.some(m => m.includes("井戸番の女が、もう一杯、と言う。墓守は袖をまくって、また綱を引いた。")), "F09 の本文が出ない " + JSON.stringify(msgs.msgs));
+    const f09List = await game.eval(i => $gameMap.event(i).list().map(c => [c.code, c.parameters[0]]), f09);
+    check(f09List.some(([code, id]) => code === 117 && id === 201), "F09 がコモンイベント 201 を呼ばない " + JSON.stringify(f09List));
     msgs = await readFaint();
-    check(!msgs.msgs.includes("……一つ多い"), "二度目にも「……一つ多い」が出る");
-    check(await game.eval(() => Hai.Thoughts.faintLine("F09") === "……一つ多い" && Hai.Thoughts.faintLine("F01") === ""), "faintLine の窓口");
+    check(!msgs.msgs.includes("……一つ多い"), "二度目に「……一つ多い」が出る");
+    check(await game.eval(() => Hai.Thoughts.faintLine("F09") === "" && Hai.Thoughts.faintLine("F01") === ""), "faintLine の窓口（既定は空）");
 
     // ===== 5. 耐える／呼ぶ・倒れたときの一言 =====
     await game.eval(() => {

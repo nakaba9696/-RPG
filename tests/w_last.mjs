@@ -160,7 +160,7 @@ await runTest(async () => {
     const scene = (await talk(["綱を引く"])).join("\n");
     // P21：既読の印は文を暗くする形（暗く出た頁は talk が頭に〔暗〕を付ける）。場面の中の鐘番の思念も場面も暗くしない
     check(scene.includes("水は、膝から胸まで来た") && !scene.includes("（読んだ）") && !scene.includes("〔暗〕"), "3 つ目の場面の途中の鐘番の思念が既読の見せ方になる " + JSON.stringify(scene).slice(0, 600));
-    check(scene.includes("輪が幾重にも") && scene.includes("喰わない。代わりに、自分のものを一つ渡す。") && scene.includes("……喰わないために、預けたのか"),
+    check(scene.includes("輪が幾重にも") && scene.includes("だから、自分の記憶を一つずつ、死んでいく人たちに預けた。") && !scene.includes("……喰わないために、預けたのか"),
       "水底の鐘を 3 つ目に鳴らすと、鐘番の思念のあとに 3 つ目の場面 " + JSON.stringify(scene).slice(0, 600));
     check(scene.includes("鋳物場の方角だ"), "まだ鳴っていない鋳物場の方角から戸を叩く音 " + JSON.stringify(scene).slice(-300));
     const after3 = await game.eval(() => ({
@@ -206,8 +206,8 @@ await runTest(async () => {
     await step(4);
     const voice = (await talk([], false)).join("\n");
     // W14（#234）：場面表 3.3 に差し替えた（名前なし・声ごとに窓・最後に相棒の声）
-    check(voice.includes("戸を開けておくれ。中で、待っている。") && voice.includes("同胞よ。拾ったものは、喰うものだ。") && voice.includes("お前の分も残しておいた") &&
-      voice.includes("……三十一。お前は、いつも一つ多い。") && !voice.includes("の声："), "門叩きの声（地域の死者の声と相棒の声。場面表 3.3） " + JSON.stringify(voice));
+    check(voice.includes("戸を開けておくれ。中で、待っている。") && voice.includes("同胞よ。お前も、死んだ者の思いを取りこむ側だろう。喰えばいい。") && voice.includes("お前の分も残しておいた") &&
+      voice.includes("お前の名は、わしが持っている。") && !voice.includes("三十一") && !voice.includes("の声："), "門叩きの声（地域の死者の声と相棒の声。場面表 3.3） " + JSON.stringify(voice));
     check(await sw(SW.voice), "門叩きの声のスイッチ 708");
     // 北の細い口の影は、広間の北西の見えない通路で避けられる
     await go(EDGE, 18, 12, 8);

@@ -332,12 +332,12 @@ await runTest(async () => {
       return { lines, over, fits: lines.length * w.lineHeight() <= w.innerHeight };
     }, on);
     const two = await copies([true, false]);
-    check(two.lines.join("/") === "\\C[16]灰色の写し\\C[0]/　灰色の方の、終わりの近くに、一行。/　「鳴る音に、その日の者を乗せよ」/\\C[16]茶色の写し\\C[0]/　茶色の方には、無い行。/\\C[16]イスメネ\\C[0]/　どちらが本物かは、書きません。分からないので。まだ",
+    check(two.lines.join("/") === "\\C[16]灰色の写し\\C[0]/　灰色の方の、終わりの近くに、一行。/　「鳴る音に、その日の者を乗せよ」/\\C[16]茶色の写し\\C[0]/　茶色の方には、無い行。/\\C[16]イスメネ\\C[0]/　どちらが本物かは、書きません。分からないので。",
       "灰色・茶色の二冊 " + JSON.stringify(two.lines));
     check(two.over.length === 0 && two.fits, "写しの読み比べが窓からはみ出す " + JSON.stringify(two));
     await game.shot("lore-copies");
     const three = await copies([true, true]);
-    check(three.lines.slice(5, 8).join("/") === "\\C[16]三通り目\\C[0]/　テオの紙。/　「どこに置いたかは、写しておきませんでした」" && three.lines[9] === "　どれが本物かは、書きません。分からないので。まだ" && three.lines.length === 10,
+    check(three.lines.slice(5, 8).join("/") === "\\C[16]三通り目\\C[0]/　テオの紙。/　「どこに置いたかは、写しておきませんでした」" && three.lines[9] === "　どれが本物かは、書きません。分からないので。" && three.lines.length === 10,
       "三通り目を足す " + JSON.stringify(three.lines));
     check(three.over.length === 0 && three.fits, "三通り目が窓からはみ出す " + JSON.stringify(three));
     await game.shot("lore-copies-third");

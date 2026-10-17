@@ -195,7 +195,7 @@ await runTest(async () => {
     check(await step(2), "崖の縁の石段を下りられない");
     check(await step(2), "石段の下の段 0 へ出られない " + JSON.stringify(await pos()));
     await go(RIDGE, 12, 45, 8);
-    check((await talk()).join("").includes("隣の奴に聞いた"), "R4-01 の本文");
+    check((await talk()).join("").includes("隣の奴に名前を聞いた"), "R4-01 の本文");
     await go(RIDGE, 6, 41, 8);
     await talk();
     check((await items("i", ITEM.nameTag)) === 1, "戦場の跡で砦の名札が拾えない");
@@ -327,9 +327,10 @@ await runTest(async () => {
     // ===== 8. 鋳物場の鐘 094（4 つ目の鐘にする）=====
     await game.shot("bell-room");
     await game.eval(id => { $gameVariables.setValue(id, 3); $gameSwitches.setValue(106, true); }, VAR.bells); // 3 つ目の場面（スイッチ 106。W11）は済んだ扱い
-    // W20（#264。R2 気になる 11）：札を得る前の札掛けは「札は一枚。」（084 と同じ）。得たあとは出ない
+    // W32（#331）：札掛けは、札を得る前もあとも「壁の札掛け。鐘番の当番の札を掛けておく所だ。」の一行だけ（036・084・104 と同じ）
     await go(BELL, 18, 5, 8);
-    check((await talk()).join("").includes("札は一枚。"), "札を得る前の札掛けに「札は一枚。」が無い");
+    const board0 = (await talk()).join("");
+    check(board0.includes("壁の札掛け。鐘番の当番の札を掛けておく所だ。") && !board0.includes("札は一枚。"), "札を得る前の札掛け " + JSON.stringify(board0));
     await go(BELL, 13, 8, 8);
     const ring = (await talk(["綱を引く"])).join("\n");
     check(ring.includes("鐘が鳴る"), "鐘を鳴らす場面 " + JSON.stringify(ring));
@@ -337,7 +338,8 @@ await runTest(async () => {
     check(bell.rung && bell.count === 4 && bell.all && bell.tag === 1, "鋳物場の鐘（スイッチ 104・変数 101・4 つでスイッチ 105・当番の札） " + JSON.stringify(bell));
     check((await talk()).join("").includes("小さく震えて"), "鳴らした後の鐘の文章");
     await go(BELL, 18, 5, 8);
-    check(!(await talk()).join("").includes("札は一枚。"), "札を得たあとも札掛けに「札は一枚。」が出る");
+    const board1 = (await talk()).join("");
+    check(board1.includes("壁の札掛け。鐘番の当番の札を掛けておく所だ。") && !board1.includes("札は一枚。"), "札を得たあとの札掛け " + JSON.stringify(board1));
     await go(BELL, 16, 8, 8);
     await talk();
     check((await items("a", ARMOR.fork)) === 1, "調律師の音叉");
